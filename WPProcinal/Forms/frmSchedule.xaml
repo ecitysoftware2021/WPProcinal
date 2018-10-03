@@ -1,0 +1,206 @@
+﻿<Window x:Class="WPProcinal.Forms.frmSchedule"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPProcinal.Forms"
+        mc:Ignorable="d"
+        Background="#f5f5dc"
+        WindowStyle="None"
+        WindowState="Maximized"
+        Loaded="Window_Loaded"
+        Height="2064.095" Width="1250.599">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush x:Name="imgBg"
+                ImageSource="../Images/home-bg-seleccion-horario-3.jpg" 
+                        Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="570" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
+            <Border BorderBrush="White" BorderThickness="3">
+                <Border.OpacityMask>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5, 1">
+                        <GradientStop Offset="0.0" Color="White"/>
+                        <GradientStop Offset="1.0" Color="Transparent"/>
+                    </LinearGradientBrush>
+                </Border.OpacityMask>
+                <Image x:Name="imgBackground" 
+                        Stretch="UniformToFill"/>
+            </Border>
+
+            <Image Source="../Images/atras.png" 
+                   Margin="1,-27,982,451"
+                   PreviewMouseDown="Image_PreviewMouseDown"/>
+
+            <Image Source="../Images/logo-header.png" 
+                   Stretch="None" 
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center" />
+            <Label x:Name="TxtTitle"
+                       FontSize="50"
+                       Content="TÍTULO"                   
+                       FontWeight="Bold"
+                       Foreground="Red"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Center" 
+                        Margin="0,0,0,138"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <ListView x:Name="lvSchedule"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Margin="0,0,0,0"
+                ItemsSource="{Binding}"
+                SelectionChanged="LvSchedule_SelectionChanged">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2"
+                                HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel  Orientation="Vertical" 
+                            VerticalAlignment="Stretch" 
+                            HorizontalAlignment="Stretch">
+                            <Grid Width="450"
+                            Height="400"
+                            Margin="0,0,0,0">
+                                <Grid.Background>
+                                    <ImageBrush 
+                                        ImageSource="..\Images\cuadro-contenido.png"/>
+                                </Grid.Background>
+
+                                <TextBlock x:Name="txtTitle"
+                                Text="{Binding Title}"
+                                FontSize="{Binding FontS}"
+                                Margin="0,40,0,0"
+                                FontWeight="Bold"
+                                Width="400" TextAlignment="Center"
+                                TextWrapping="WrapWithOverflow"
+                                Foreground="Red"
+                                HorizontalAlignment="Center" />
+
+                                <Label x:Name="lblLanguage"
+                                Content="{Binding Language}"
+                                FontSize="30"
+                                HorizontalAlignment="Center"
+                                Margin="0,125,0,0"
+                                FontWeight="Bold"
+                                Foreground="DarkBlue"/>
+                                
+                                <Label x:Name="Gener"
+                                FontSize="30"
+                                HorizontalAlignment="Left"
+                                Margin="110,160,0,0"
+                                Content="Género:" Foreground="Silver" FontWeight="Bold"/>
+                                <Label x:Name="lblGener"
+                                Content="{Binding Gener}"
+                                FontSize="25"
+                                Margin="240,165,0,0" 
+                                Foreground="Silver" FontWeight="Bold"/>
+                                
+                                <Label x:Name="Duration"
+                                FontSize="20"
+                                HorizontalAlignment="Left"
+                                Margin="120,200,0,0"
+                                Content="Duración: " Foreground="Silver"/>
+                                <Label x:Name="lblDuration"
+                                Content="{Binding Duration}"
+                                FontSize="20"
+                                Margin="210,200,0,0" Foreground="Silver"/>
+                                
+                                <Image Source="..\Images\ContentGray.png"
+                                Stretch="Fill"
+                                HorizontalAlignment="Left"
+                                Margin="130,240,0,120" Height="35" Width="80"/>
+                                <Label x:Name="lblRoom"
+                                Content="{Binding Room}"
+                                FontSize="15"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Left"
+                                Margin="143,245,0,0" Foreground="White"/>
+                                
+                                <Image
+                                Source="..\Images\ContentGray.png"
+                                Stretch="Fill"
+                                HorizontalAlignment="Left"
+                                Margin="235,240,0,120" Height="35" Width="80"/>
+                                <Label x:Name="lblCategory"
+                                Content="{Binding Category}"
+                                FontSize="15"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Left"
+                                Margin="248,245,0,0" Foreground="White"/>
+                                
+                                <Image
+                                Source="..\Images\ContentBlue.png"
+                                Stretch="Fill"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="40,290,0,49" Height="51" Width="178"/>
+                                <Label x:Name="lblDate"
+                                Content="{Binding Date}"
+                                Foreground="White"
+                                FontSize="25"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="60,240,0,0"/>
+                                
+                                <Image Source="..\Images\ContentGreen.png"
+                                Stretch="Fill"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="223,290,0,49" Height="51" Width="178"/>
+                                <Label x:Name="lblHour"
+                                Foreground="White"
+                                Content="{Binding Hour}"
+                                FontSize="30"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="250,235,0,0"/>
+                                
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <Image
+                Grid.Column="0"
+                HorizontalAlignment="Right" Name="btnPrev" 
+                Source="..\Images\anterior.png"
+                VerticalAlignment="Bottom" 
+                Margin="0,0,10,0"
+            Height="161" Width="200"
+                PreviewMouseDown="btnPrev_Click"/>
+
+
+        <Image  Grid.Column="1"
+                Source="..\Images\siguiente.png"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                Name="btnNext" 
+                VerticalAlignment="Bottom"
+                PreviewMouseDown="btnNext_Click"
+                Height="161" Width="200" Grid.RowSpan="1"/>
+
+
+        <TextBlock Height="20" Visibility="Hidden" Margin="5,0,528,63" Name="tbCurrentPage" 
+                   VerticalAlignment="Bottom"  Grid.Column="1"  />
+        <TextBlock Height="22" HorizontalAlignment="Right" Margin="0,0,502,61" Name="textBlock3" 
+                   VerticalAlignment="Bottom " Visibility="Hidden" Width="20" FontWeight="Bold" Text="/" Grid.Column="1"/>
+        <TextBlock Height="20" HorizontalAlignment="Right" Visibility="Hidden" Margin="0,0,480,63" Name="tbTotalPage" 
+                   VerticalAlignment="Bottom" Width="28" Grid.Column="1" />
+    </Grid>
+</Window>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBProcinalModelStoreContainer" CdmEntityContainer="DBProcinalEntities">
+    <EntitySetMapping Name="TblDipMaps">
+      <EntityTypeMapping TypeName="DBProcinalModel.TblDipMap">
+        <MappingFragment StoreEntitySet="TblDipMap">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+          <ScalarProperty Name="HourFunction" ColumnName="HourFunction" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Gener" ColumnName="Gener" />
+          <ScalarProperty Name="Language" ColumnName="Language" />
+          <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+          <ScalarProperty Name="IsCard" ColumnName="IsCard" />
+          <ScalarProperty Name="Secuence" ColumnName="Secuence" />
+          <ScalarProperty Name="Group" ColumnName="Group" />
+          <ScalarProperty Name="PointOfSale" ColumnName="PointOfSale" />
+          <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Letter" ColumnName="Letter" />
+          <ScalarProperty Name="HourFormat" ColumnName="HourFormat" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="DateFormat" ColumnName="DateFormat" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+          <ScalarProperty Name="CinemaId" ColumnName="CinemaId" />
+          <ScalarProperty Name="DipMapId" ColumnName="DipMapId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblTypeSeats">
+      <EntityTypeMapping TypeName="DBProcinalModel.TblTypeSeat">
+        <MappingFragment StoreEntitySet="TblTypeSeat">
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="DipMapId" ColumnName="DipMapId" />
+          <ScalarProperty Name="NumSecuencia" ColumnName="NumSecuencia" />
+          <ScalarProperty Name="IsPay" ColumnName="IsPay" />
+          <ScalarProperty Name="IsReserved" ColumnName="IsReserved" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="CodTarifa" ColumnName="CodTarifa" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Letter" ColumnName="Letter" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TblTypeSeat1" ColumnName="TblTypeSeat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblPays">
+      <EntityTypeMapping TypeName="DBProcinalModel.TblPay">
+        <MappingFragment StoreEntitySet="TblPay">
+          <ScalarProperty Name="IsPay" ColumnName="IsPay" />
+          <ScalarProperty Name="DipMapId" ColumnName="DipMapId" />
+          <ScalarProperty Name="TblPayId" ColumnName="TblPayId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,52 @@
+﻿<Window x:Class="WPProcinal.Forms.FrmLoading"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPProcinal.Forms"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        gif:ImageBehavior.AnimateInDesignMode="True"
+        mc:Ignorable="d"
+        Title="FrmLoading" 
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"                
+        Height="200" 
+        Width="400"
+        Background="Transparent"        
+        AllowsTransparency="True"
+        ShowInTaskbar="False">
+    <Border 
+        Background="#fff"
+            BorderBrush="#2A2A2A" 
+            BorderThickness="3,3,3,3"
+            CornerRadius="20,20,20,20">
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="../Images/logo-header.png"/>
+            </Grid.Background>
+            <TextBlock
+                HorizontalAlignment="Center"
+                Text="Prueba"
+                VerticalAlignment="Center"
+                TextAlignment="Justify"
+                TextWrapping="Wrap"
+                Margin="0,80,0,0"
+                Foreground="#000"
+                FontSize="15"
+                Name="LblMessage"
+                ></TextBlock>
+            <Image gif:ImageBehavior.AnimatedSource="../Images/loadingbar.gif" 
+                   gif:ImageBehavior.AnimateInDesignMode="True"
+                   gif:ImageBehavior.AutoStart="True" 
+                   
+                    x:Name="GifLoadder" 
+                    Margin="0,130,0,0" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Width="186" 
+                    Height="24"                               
+                    />
+        </Grid>
+    </Border>
+</Window>

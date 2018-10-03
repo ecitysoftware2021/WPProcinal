@@ -1,0 +1,6 @@
+D:\WPProcinal\CEntidades\bin\Debug\CEntidades.dll
+D:\WPProcinal\CEntidades\bin\Debug\CEntidades.pdb
+D:\WPProcinal\CEntidades\obj\Debug\CEntidades.csprojResolveAssemblyReference.cache
+D:\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj.CoreCompileInputs.cache
+D:\WPProcinal\CEntidades\obj\Debug\CEntidades.dll
+D:\WPProcinal\CEntidades\obj\Debug\CEntidades.pdb

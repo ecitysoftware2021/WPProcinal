@@ -1,0 +1,307 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using WPProcinal.Classes;
+using WPProcinal.Models;
+
+namespace WPProcinal.Forms
+{
+    public partial class frmMovies : Window
+    {
+        #region Reference
+        List<ImageSource> movie_posters_list = new List<ImageSource>();
+        List<String> movie_names = new List<String>();
+        CollectionViewSource view = new CollectionViewSource();        
+        int currentPageIndex = 0;
+        int itemPerPage = 6;
+        int totalPage = 0;
+        string Cinema = string.Empty;
+        #endregion
+
+        #region LoadMethods
+        public frmMovies()
+        {
+
+            InitializeComponent();
+            var frmLoading = new FrmLoading("¡Cargando peliculas!");
+            frmLoading.Show();
+            try
+            {
+                Utilities.Movies.Clear();
+                Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
+                lblCinema1.Text = Dictionaries.Cinemas[Utilities.CinemaId];
+
+                this.Dispatcher.Invoke(new ThreadStart(() =>
+                {
+                    DownloadData(Utilities.Peliculas);
+                    CreatePages();
+                    frmLoading.Close();
+                }));    
+                Utilities.DoEvents();
+            }
+            catch (Exception ex)
+            {
+                Utilities.ShowModal(ex.Message);
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void DownloadData(Peliculas data)
+        {
+            if (data != null)
+            {
+                foreach (var pelicula in data.Pelicula)
+                {
+                    foreach (var Cinema in pelicula.Cinemas.Cinema)
+                    {
+                        if (Cinema.Id == Utilities.CinemaId)
+                        {
+                            Utilities.Movies.Add(pelicula);
+                            LoadMovies(pelicula);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void LoadMovies(Pelicula pelicula)
+        {
+            string ImagePath = string.Concat(Utilities.UrlImages, pelicula.Id, ".jpg");
+            string TagPath = string.Empty;
+
+            //if (Utilities.IfExistUrl(ImagePath))
+            //{
+            TagPath = LoadImagePath(pelicula);
+
+            Utilities.LstMovies.Add(new MoviesViewModel
+            {
+                ImageData = Utilities.LoadImage(ImagePath, true),
+                Tag = pelicula.Id,
+                Id = pelicula.Id,
+                ImageTag = Utilities.LoadImage(TagPath, false),
+            });
+            //}
+        }
+
+        private static string LoadImagePath(Pelicula pelicula)
+        {
+            string Path = GenerateTag(pelicula);
+            string TagPath = string.Concat("../Images/Tags/cartel-", Path, ".png");
+
+            return TagPath;
+        }
+
+        private static string GenerateTag(Pelicula pelicula)
+        {
+            string Path = string.Empty;
+            string[] Name = pelicula.Nombre.Split(' ');
+
+            if (Name[0].Contains("2D"))
+            {
+                if (Name[1].Contains("BS"))
+                {
+                    Path = "blackstar";
+                }
+                else if (Name[1].Contains("CA"))
+                {
+                    Path = "cinearte";
+                }
+                else if (Name[1].Contains("SK"))
+                {
+                    Path = "starkids";
+                }
+                else if (Name[1].Contains("SN"))
+                {
+                    Path = "supernova";
+                }
+                else if (Name[1].Contains("VIB"))
+                {
+                    Path = "2d-vibra";
+                }
+                else
+                {
+                    Path = "2d";
+                }
+            }
+            else if (Name[0].Contains("3D"))
+            {
+                if (Name[1].Contains("4DX"))
+                {
+                    Path = "4dx";
+                }
+                else if (Name[1].Contains("BS"))
+                {
+                    Path = "blackstar";
+                }
+                else if (Name[1].Contains("SN"))
+                {
+                    Path = "supernova";
+                }
+                else if (Name[1].Contains("VIB"))
+                {
+                    Path = "3d-vibra";
+                }
+                else
+                {
+                    Path = "3d";
+                }
+            }
+
+            return Path;
+        }
+
+        #endregion
+
+        #region Methods
+
+
+        private void CreatePages()
+        {
+            int itemcount = Utilities.Movies.Count;
+
+            // Calculate the total pages
+            totalPage = itemcount / itemPerPage;
+            if (itemcount % itemPerPage != 0)
+            {
+                totalPage += 1;
+            }
+
+            if (totalPage == 1)
+            {
+                btnNext.Visibility = Visibility.Hidden;
+                btnPrev.Visibility = Visibility.Hidden;
+            }
+
+            //this.Dispatcher.Invoke(() =>
+            //{
+            Thread.Sleep(1000);
+            view.Source = Utilities.LstMovies;
+            view.Filter += new FilterEventHandler(View_Filter);
+            lvMovies.DataContext = view;
+            ShowCurrentPageIndex();
+            tbTotalPage.Text = totalPage.ToString();
+            
+            GifLoadder.Visibility = Visibility.Hidden;
+            ValidateImage();
+            //});
+
+        }
+
+        private void ShowCurrentPageIndex()
+        {
+            ValidateImage();
+            this.tbCurrentPage.Text = (currentPageIndex + 1).ToString();
+        }
+
+        private void View_Filter(object sender, FilterEventArgs e)
+        {
+            int index = Utilities.LstMovies.IndexOf((MoviesViewModel)e.Item);
+            if (index >= itemPerPage * currentPageIndex && index < itemPerPage * (currentPageIndex + 1))
+            {
+                e.Accepted = true;
+            }
+            else
+            {
+
+                e.Accepted = false;
+            }
+        }
+        #endregion
+
+        #region Buttons-Events
+
+        private void ValidateImage()
+        {
+            if (currentPageIndex == 0)
+            {
+                btnPrev.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                btnPrev.Visibility = Visibility.Visible;
+            }
+
+            if (currentPageIndex == totalPage -1)
+            {
+                btnNext.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                btnNext.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void btnPrev_Click(object sender, RoutedEventArgs e)
+        {
+            // Display previous page
+            if (currentPageIndex > 0)
+            {
+                currentPageIndex--;
+                view.View.Refresh();
+            }
+
+            ShowCurrentPageIndex();
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            // Display next page
+            if (currentPageIndex < totalPage - 1)
+            {
+                currentPageIndex++;
+                view.View.Refresh();
+            }
+            ShowCurrentPageIndex();
+        }
+
+        private void Movie_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Grid grid = (Grid)sender;
+            var movie = Utilities.Movies.Where(m => m.Id == grid.Tag.ToString()).FirstOrDefault();
+            string ImagePath = string.Concat(Utilities.UrlImages, movie.Id, ".jpg");
+            Utilities.ImageSelected = Utilities.LoadImage(ImagePath, true);
+            Utilities.MovieFormat = GenerateTag(movie);
+
+            //if (ControlPantalla.EstadoBaul && ControlPantalla.EstadoBilletes && ControlPantalla.EstadoMonedas)
+            //{
+            frmSchedule frmSchedule = new frmSchedule(movie);
+            frmSchedule.Show();
+            Close();
+            //}
+            //else
+            //{
+
+            //    frmModal _modal = new frmModal(string.Concat(
+            //        "En estos momentos no se pueden realizar transacciones.",
+            //        Environment.NewLine,
+            //        "Por favor intente más tarde."));
+            //    _modal.ShowDialog();
+
+            //    frmCinema _frmCinema = new frmCinema();
+            //    _frmCinema.Show();
+            //    Close();
+            //}
+        }
+
+        private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            frmCinema frmCinema = new frmCinema();
+            frmCinema.Show();
+            Close();
+        }
+        #endregion
+    }
+}

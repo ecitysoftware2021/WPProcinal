@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBProcinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TblDipMap">
+          <Key>
+            <PropertyRef Name="DipMapId" />
+          </Key>
+          <Property Name="DipMapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CinemaId" Type="int" />
+          <Property Name="RoomId" Type="int" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateFormat" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hour" Type="int" />
+          <Property Name="HourFormat" Type="int" />
+          <Property Name="Letter" Type="nchar" MaxLength="10" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="MovieId" Type="int" />
+          <Property Name="PointOfSale" Type="int" />
+          <Property Name="Group" Type="int" />
+          <Property Name="Secuence" Type="int" />
+          <Property Name="IsCard" Type="nchar" MaxLength="10" />
+          <Property Name="MovieName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Language" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gener" Type="nvarchar" MaxLength="50" />
+          <Property Name="Duration" Type="nvarchar" MaxLength="50" />
+          <Property Name="Day" Type="nvarchar" MaxLength="50" />
+          <Property Name="HourFunction" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoomName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="TblPay">
+          <Key>
+            <PropertyRef Name="TblPayId" />
+          </Key>
+          <Property Name="TblPayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DipMapId" Type="int" />
+          <Property Name="IsPay" Type="bit" />
+        </EntityType>
+        <EntityType Name="TblTypeSeat">
+          <Key>
+            <PropertyRef Name="TblTypeSeat" />
+          </Key>
+          <Property Name="TblTypeSeat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Letter" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodTarifa" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="money" />
+          <Property Name="IsReserved" Type="bit" />
+          <Property Name="IsPay" Type="bit" />
+          <Property Name="NumSecuencia" Type="nvarchar" MaxLength="50" />
+          <Property Name="DipMapId" Type="int" />
+          <Property Name="TransactionId" Type="int" />
+        </EntityType>
+        <EntityContainer Name="DBProcinalModelStoreContainer">
+          <EntitySet Name="TblDipMap" EntityType="Self.TblDipMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblPay" EntityType="Self.TblPay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblTypeSeat" EntityType="Self.TblTypeSeat" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBProcinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBProcinalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TblDipMaps" EntityType="DBProcinalModel.TblDipMap" />
+          <EntitySet Name="TblTypeSeats" EntityType="DBProcinalModel.TblTypeSeat" />
+          <EntitySet Name="TblPays" EntityType="DBProcinalModel.TblPay" />
+        </EntityContainer>
+        <EntityType Name="TblDipMap">
+          <Key>
+            <PropertyRef Name="DipMapId" />
+          </Key>
+          <Property Name="DipMapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CinemaId" Type="Int32" />
+          <Property Name="RoomId" Type="Int32" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateFormat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hour" Type="Int32" />
+          <Property Name="HourFormat" Type="Int32" />
+          <Property Name="Letter" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MovieId" Type="Int32" />
+          <Property Name="PointOfSale" Type="Int32" />
+          <Property Name="Group" Type="Int32" />
+          <Property Name="Secuence" Type="Int32" />
+          <Property Name="IsCard" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="MovieName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gener" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HourFunction" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TblTypeSeat">
+          <Key>
+            <PropertyRef Name="TblTypeSeat1" />
+          </Key>
+          <Property Name="TblTypeSeat1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Letter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodTarifa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsReserved" Type="Boolean" />
+          <Property Name="IsPay" Type="Boolean" />
+          <Property Name="NumSecuencia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DipMapId" Type="Int32" />
+          <Property Name="TransactionId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TblPay">
+          <Key>
+            <PropertyRef Name="TblPayId" />
+          </Key>
+          <Property Name="TblPayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DipMapId" Type="Int32" />
+          <Property Name="IsPay" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBProcinalModelStoreContainer" CdmEntityContainer="DBProcinalEntities">
+          <EntitySetMapping Name="TblDipMaps">
+            <EntityTypeMapping TypeName="DBProcinalModel.TblDipMap">
+              <MappingFragment StoreEntitySet="TblDipMap">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+                <ScalarProperty Name="HourFunction" ColumnName="HourFunction" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Gener" ColumnName="Gener" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="IsCard" ColumnName="IsCard" />
+                <ScalarProperty Name="Secuence" ColumnName="Secuence" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="PointOfSale" ColumnName="PointOfSale" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Letter" ColumnName="Letter" />
+                <ScalarProperty Name="HourFormat" ColumnName="HourFormat" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="DateFormat" ColumnName="DateFormat" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="CinemaId" ColumnName="CinemaId" />
+                <ScalarProperty Name="DipMapId" ColumnName="DipMapId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblTypeSeats">
+            <EntityTypeMapping TypeName="DBProcinalModel.TblTypeSeat">
+              <MappingFragment StoreEntitySet="TblTypeSeat">
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="DipMapId" ColumnName="DipMapId" />
+                <ScalarProperty Name="NumSecuencia" ColumnName="NumSecuencia" />
+                <ScalarProperty Name="IsPay" ColumnName="IsPay" />
+                <ScalarProperty Name="IsReserved" ColumnName="IsReserved" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CodTarifa" ColumnName="CodTarifa" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Letter" ColumnName="Letter" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TblTypeSeat1" ColumnName="TblTypeSeat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblPays">
+            <EntityTypeMapping TypeName="DBProcinalModel.TblPay">
+              <MappingFragment StoreEntitySet="TblPay">
+                <ScalarProperty Name="IsPay" ColumnName="IsPay" />
+                <ScalarProperty Name="DipMapId" ColumnName="DipMapId" />
+                <ScalarProperty Name="TblPayId" ColumnName="TblPayId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBProcinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DBProcinalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TblDipMaps" EntityType="DBProcinalModel.TblDipMap" />
+    <EntitySet Name="TblTypeSeats" EntityType="DBProcinalModel.TblTypeSeat" />
+    <EntitySet Name="TblPays" EntityType="DBProcinalModel.TblPay" />
+  </EntityContainer>
+  <EntityType Name="TblDipMap">
+    <Key>
+      <PropertyRef Name="DipMapId" />
+    </Key>
+    <Property Name="DipMapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CinemaId" Type="Int32" />
+    <Property Name="RoomId" Type="Int32" />
+    <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateFormat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Hour" Type="Int32" />
+    <Property Name="HourFormat" Type="Int32" />
+    <Property Name="Letter" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MovieId" Type="Int32" />
+    <Property Name="PointOfSale" Type="Int32" />
+    <Property Name="Group" Type="Int32" />
+    <Property Name="Secuence" Type="Int32" />
+    <Property Name="IsCard" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="MovieName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gener" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HourFunction" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TblTypeSeat">
+    <Key>
+      <PropertyRef Name="TblTypeSeat1" />
+    </Key>
+    <Property Name="TblTypeSeat1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Letter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CodTarifa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IsReserved" Type="Boolean" />
+    <Property Name="IsPay" Type="Boolean" />
+    <Property Name="NumSecuencia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DipMapId" Type="Int32" />
+    <Property Name="TransactionId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TblPay">
+    <Key>
+      <PropertyRef Name="TblPayId" />
+    </Key>
+    <Property Name="TblPayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DipMapId" Type="Int32" />
+    <Property Name="IsPay" Type="Boolean" />
+  </EntityType>
+</Schema>

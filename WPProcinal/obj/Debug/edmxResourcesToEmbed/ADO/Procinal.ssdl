@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBProcinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TblDipMap">
+    <Key>
+      <PropertyRef Name="DipMapId" />
+    </Key>
+    <Property Name="DipMapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CinemaId" Type="int" />
+    <Property Name="RoomId" Type="int" />
+    <Property Name="Date" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateFormat" Type="nvarchar" MaxLength="50" />
+    <Property Name="Hour" Type="int" />
+    <Property Name="HourFormat" Type="int" />
+    <Property Name="Letter" Type="nchar" MaxLength="10" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" />
+    <Property Name="MovieId" Type="int" />
+    <Property Name="PointOfSale" Type="int" />
+    <Property Name="Group" Type="int" />
+    <Property Name="Secuence" Type="int" />
+    <Property Name="IsCard" Type="nchar" MaxLength="10" />
+    <Property Name="MovieName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Language" Type="nvarchar" MaxLength="50" />
+    <Property Name="Gener" Type="nvarchar" MaxLength="50" />
+    <Property Name="Duration" Type="nvarchar" MaxLength="50" />
+    <Property Name="Day" Type="nvarchar" MaxLength="50" />
+    <Property Name="HourFunction" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoomName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Category" Type="nvarchar" MaxLength="50" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="TblPay">
+    <Key>
+      <PropertyRef Name="TblPayId" />
+    </Key>
+    <Property Name="TblPayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DipMapId" Type="int" />
+    <Property Name="IsPay" Type="bit" />
+  </EntityType>
+  <EntityType Name="TblTypeSeat">
+    <Key>
+      <PropertyRef Name="TblTypeSeat" />
+    </Key>
+    <Property Name="TblTypeSeat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Letter" Type="nvarchar" MaxLength="50" />
+    <Property Name="Number" Type="nvarchar" MaxLength="50" />
+    <Property Name="CodTarifa" Type="nvarchar" MaxLength="50" />
+    <Property Name="Price" Type="money" />
+    <Property Name="IsReserved" Type="bit" />
+    <Property Name="IsPay" Type="bit" />
+    <Property Name="NumSecuencia" Type="nvarchar" MaxLength="50" />
+    <Property Name="DipMapId" Type="int" />
+    <Property Name="TransactionId" Type="int" />
+  </EntityType>
+  <EntityContainer Name="DBProcinalModelStoreContainer">
+    <EntitySet Name="TblDipMap" EntityType="Self.TblDipMap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblPay" EntityType="Self.TblPay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblTypeSeat" EntityType="Self.TblTypeSeat" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

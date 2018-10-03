@@ -1,0 +1,32 @@
+﻿<Window x:Class="WPProcinal.Forms.frmCinema"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+        xmlns:local="clr-namespace:WPProcinal.Forms"
+        mc:Ignorable="d"
+        Background="#fff"
+        WindowStyle="None"
+        WindowState="Maximized"
+        Height="2064.095" 
+        Width="1250.599"
+        WindowStartupLocation="CenterScreen">
+    <Grid PreviewMouseDown="BtnConsult_MouseDown">
+        <Grid.Background>
+            <ImageBrush ImageSource="..\Images\fondo-mayorcav3.jpg" 
+                        Stretch="UniformToFill"/>
+        </Grid.Background>
+        <TextBlock 
+            HorizontalAlignment="Center"
+            Margin="0,0,0,100" 
+            TextWrapping="Wrap" 
+            Text="MAYORCA"
+            Name="LblCinema"
+            FontSize="120"
+            Foreground="#FFF"     
+            TextAlignment="Center"
+            VerticalAlignment="Center" 
+            FontWeight="Bold"/>
+
+    </Grid>
+</Window>

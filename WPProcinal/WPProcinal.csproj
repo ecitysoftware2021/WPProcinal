@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{98EA6DEF-15FB-47DA-9818-838FC62BDD26}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WPProcinal</RootNamespace>
+    <AssemblyName>WPProcinal</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ITLlib">
+      <HintPath>..\..\ITLlib.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPad.BilleteroV2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\H81\Documents\PayPad.BilleteroV2.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.15.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.16\lib\net\WpfAnimatedGif.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="ADO\Procinal.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Procinal.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADO\Procinal.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Procinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADO\Procinal.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Procinal.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ADO\TblDipMap.cs">
+      <DependentUpon>Procinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADO\TblPay.cs">
+      <DependentUpon>Procinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADO\TblTypeSeat.cs">
+      <DependentUpon>Procinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\ActivatePayments.cs" />
+    <Compile Include="Classes\CLSListaDenominacionValor.cs" />
+    <Compile Include="Classes\ControlPantalla.cs" />
+    <Compile Include="Classes\DBProcinalController.cs" />
+    <Compile Include="Classes\HelperEmails.cs" />
+    <Compile Include="Classes\LogError.cs" />
+    <Compile Include="Classes\PayViewModel.cs" />
+    <Compile Include="Classes\Response.cs" />
+    <Compile Include="Classes\TypeSeat.cs" />
+    <Compile Include="Connected Services\WCFDesAssing\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WCFPayPad\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WCFPcrest\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WCFPcrfil2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WCFPcrint\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WCFPcrmap\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WCFReembolso\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WCFReserva\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WCFSecuencia\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\WCFTarifas\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCancelPay.xaml.cs">
+      <DependentUpon>frmCancelPay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmLoading.xaml.cs">
+      <DependentUpon>FrmLoading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmModal.xaml.cs">
+      <DependentUpon>frmModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Schedule.cs" />
+    <Compile Include="Forms\frmModalCancel.xaml.cs">
+      <DependentUpon>frmModalCancel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPay.xaml.cs">
+      <DependentUpon>frmPay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Data.cs" />
+    <Compile Include="Models\DesAsignarReserva.cs" />
+    <Compile Include="Models\DipMap.cs" />
+    <Compile Include="Models\EstadoFila.cs" />
+    <Compile Include="Models\EstadoSala.cs" />
+    <Compile Include="Models\MapaSala.cs" />
+    <Compile Include="Models\Plantilla.cs" />
+    <Compile Include="Models\Reembolso.cs" />
+    <Compile Include="Models\Reserva.cs" />
+    <Compile Include="Models\Room.cs" />
+    <Compile Include="Models\Seat.cs" />
+    <Compile Include="Models\SeatDisable.cs" />
+    <Compile Include="Models\SecuenciaVenta.cs" />
+    <Compile Include="Models\TransaccionCompra.cs" />
+    <Compile Include="Service\ApiServices.cs" />
+    <Compile Include="Service\CLSWCFPayPad.cs" />
+    <Compile Include="Service\WCFServices.cs" />
+    <Page Include="Forms\frmCancelPay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmCinema.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmConfirmationModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FrmLoading.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmModalCancel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmMovies.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmPay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmSeat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function.cs" />
+    <Compile Include="Classes\MoviesViewModel.cs" />
+    <Compile Include="Classes\Dictionaries.cs" />
+    <Compile Include="Classes\SelectViewModel.cs" />
+    <Compile Include="Classes\Utilities.cs" />
+    <Compile Include="Forms\frmCinema.xaml.cs">
+      <DependentUpon>frmCinema.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmConfirmationModal.xaml.cs">
+      <DependentUpon>frmConfirmationModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmMovies.xaml.cs">
+      <DependentUpon>frmMovies.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSchedule.xaml.cs">
+      <DependentUpon>frmSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSeat.xaml.cs">
+      <DependentUpon>frmSeat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\CinemaMovies.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Movies.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EntityDeploy Include="ADO\Procinal.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Procinal.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ADO\Procinal.edmx.diagram">
+      <DependentUpon>Procinal.edmx</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFDesAssing\service.wsdl" />
+    <None Include="Connected Services\WCFPayPad\ServicePayPad1.wsdl" />
+    <None Include="Connected Services\WCFPayPad\ServicePayPad6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WCFPayPad\ServicePayPad61.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WCFPayPad\ServicePayPad62.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WCFPayPad\ServicePayPad63.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WCFPayPad\ServicePayPad64.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WCFPayPad\ServicePayPad65.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WCFPayPad\WPProcinal.WCFPayPad.CLSDataControlScreen.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFPayPad\WPProcinal.WCFPayPad.Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFPayPad\WPProcinal.WCFPayPad.sp_DatosTransaccionCM_Result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFPcrest\Service.wsdl" />
+    <None Include="Connected Services\WCFPcrfil2\service.wsdl" />
+    <None Include="Connected Services\WCFPcrint\service.wsdl" />
+    <None Include="Connected Services\WCFPcrmap\service.wsdl" />
+    <None Include="Connected Services\WCFReembolso\service.wsdl" />
+    <None Include="Connected Services\WCFReserva\service.wsdl" />
+    <None Include="Connected Services\WCFSecuencia\service.wsdl" />
+    <None Include="Connected Services\WCFTarifas\service.wsdl" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
+    <None Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\consultar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\siguiente.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\home - Copy.jpg" />
+    <Resource Include="Images\home-bg-seleccion-horario-3.jpg" />
+    <Resource Include="Images\home.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\home-bg.jpg" />
+    <Resource Include="Images\indicador-sillas.png" />
+    <Resource Include="Images\Selector copy.png" />
+    <Resource Include="Images\silla-disponible.png" />
+    <Resource Include="Images\silla-no-disponible.png" />
+    <Resource Include="Images\silla-selecionada.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo-header.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Background\movie3.jpg" />
+    <Resource Include="Images\Background\movie2.jpg" />
+    <Resource Include="Images\Background\movie4.jpg" />
+    <Resource Include="Images\Background\movie5.jpg" />
+    <Resource Include="Images\Background\movie6.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cuadro-contenido.png" />
+    <Resource Include="Images\homebg-seleccion-sillas.jpg" />
+    <Resource Include="Images\cancelar.png" />
+    <Resource Include="Images\Disponible.png" />
+    <Resource Include="Images\continuar.png" />
+    <Resource Include="Images\estados.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\info-pelicula.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Selector copy-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Background\movie1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\home-bg-peliculas2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\home-bg2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ContentBlue.png" />
+    <Resource Include="Images\ContentGray.png" />
+    <Resource Include="Images\ContentGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\deposite-pago-red.png" />
+    <Resource Include="Images\espere-cambio-red.png" />
+    <Resource Include="Images\espere-recibo-red.png" />
+    <Resource Include="Images\home-bg-seleccion-horario-2.jpg" />
+    <Resource Include="Images\leyendo-bill-red.png" />
+    <Resource Include="Images\pay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cancelar-pago-red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CEntidades\CEntidades.csproj">
+      <Project>{bb4249cc-e2fd-4ffb-822d-23d764200580}</Project>
+      <Name>CEntidades</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\salir2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\atras.png" />
+    <Resource Include="Images\cancelar-pago.png" />
+    <Resource Include="Images\espere-cambio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ingresar dinero.png" />
+    <Resource Include="Images\ingresar-dinero.png" />
+    <Resource Include="Images\retire-billete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\left.png" />
+    <Resource Include="Images\right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\WCFDesAssing\" />
+    <WCFMetadataStorage Include="Connected Services\WCFPayPad\" />
+    <WCFMetadataStorage Include="Connected Services\WCFPcrest\" />
+    <WCFMetadataStorage Include="Connected Services\WCFPcrfil2\" />
+    <WCFMetadataStorage Include="Connected Services\WCFPcrint\" />
+    <WCFMetadataStorage Include="Connected Services\WCFPcrmap\" />
+    <WCFMetadataStorage Include="Connected Services\WCFReembolso\" />
+    <WCFMetadataStorage Include="Connected Services\WCFReserva\" />
+    <WCFMetadataStorage Include="Connected Services\WCFSecuencia\" />
+    <WCFMetadataStorage Include="Connected Services\WCFTarifas\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPcrmap\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPcrmap\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPcrmap\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPcrfil2\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPcrfil2\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPcrfil2\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPcrest\Service.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPcrest\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPcrest\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPcrest\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFTarifas\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFTarifas\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFTarifas\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFReserva\service.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFReserva\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFReserva\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFReserva\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFSecuencia\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFSecuencia\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFSecuencia\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFDesAssing\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFDesAssing\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFDesAssing\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPayPad\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPayPad\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WCFPayPad\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ADO\Procinal.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Procinal.Context.cs</LastGenOutput>
+      <DependentUpon>Procinal.edmx</DependentUpon>
+    </Content>
+    <Content Include="ADO\Procinal.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Procinal.edmx</DependentUpon>
+      <LastGenOutput>Procinal.cs</LastGenOutput>
+    </Content>
+    <Resource Include="Images\b-contando-billetes.gif" />
+    <Resource Include="Images\b-espere-cambio.gif" />
+    <Resource Include="Images\b-espere-recibo.gif" />
+    <Resource Include="Images\b-ingrese-billete.gif" />
+    <Resource Include="Images\b-leyendo-billete.gif" />
+    <Resource Include="Images\loadingbar.gif" />
+    <Resource Include="Images\fondo-mayorcav3.jpg" />
+    <Resource Include="Images\vibrosoundv2.png" />
+    <Resource Include="Images\discapacitadosv2.png" />
+    <Resource Include="Images\NoDisponiblev2.png" />
+    <Resource Include="Images\preferencialv2.png" />
+    <Resource Include="Images\puffv2.png" />
+    <Resource Include="Images\seleccionadav2.png" />
+    <Resource Include="Images\disponiblev2.png" />
+    <Resource Include="Images\silla-preferencialv2.png" />
+    <Resource Include="Images\silla-puffv2.png" />
+    <Resource Include="Images\silla-discapacitadosv2.png" />
+    <Resource Include="Images\silla-selecionadav2.png" />
+    <Resource Include="Images\silla-no-disponiblev2.png" />
+    <Resource Include="Images\silla-disponiblev2.png" />
+    <Resource Include="Images\discapacitados.png" />
+    <Resource Include="Images\NoDisponible.png" />
+    <Resource Include="Images\preferencial.png" />
+    <Resource Include="Images\puff.png" />
+    <Resource Include="Images\seleccionada.png" />
+    <Resource Include="Images\vibrosound.png" />
+    <Resource Include="Images\Tags\cartel-4dx.png" />
+    <Resource Include="Images\Tags\cartel-blackstar.png" />
+    <Resource Include="Images\Tags\cartel-cinearte.png" />
+    <Resource Include="Images\Tags\cartel-starkids.png" />
+    <Resource Include="Images\Tags\cartel-supernova.png" />
+    <Resource Include="Images\Tags\cartel-2d-vibra.png" />
+    <Resource Include="Images\Tags\cartel-3d-vibra.png" />
+    <Resource Include="Images\silla-discapacitados.png" />
+    <Resource Include="Images\silla-preferencial.png" />
+    <Resource Include="Images\silla-puff.png" />
+    <Resource Include="Images\silla-vibrasound.png" />
+    <Resource Include="Images\anterior.png" />
+    <Resource Include="Images\cargando.gif" />
+    <Resource Include="Images\leyendo-billete.png" />
+    <Resource Include="Images\fondo-mayorcaV2.jpg" />
+    <Resource Include="Images\confirmar.png" />
+    <Resource Include="Images\espere-su-cambio.png" />
+    <Resource Include="Images\Tags\cartel-2d.png" />
+    <Resource Include="Images\Tags\cartel-3d.png" />
+    <Resource Include="Images\loadder.gif" />
+    <None Include="Connected Services\WCFPcrint\configuration91.svcinfo" />
+    <None Include="Connected Services\WCFPcrint\configuration.svcinfo" />
+    <None Include="Connected Services\WCFPcrint\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\WCFReembolso\configuration91.svcinfo" />
+    <None Include="Connected Services\WCFReembolso\configuration.svcinfo" />
+    <None Include="Connected Services\WCFReembolso\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\WCFPayPad\ServicePayPad1.disco" />
+    <Content Include="DataBases\DBProcinal.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBases\DBProcinal_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>DBProcinal.mdf</DependentUpon>
+    </Content>
+    <Resource Include="Images\fondo-mayorca.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
