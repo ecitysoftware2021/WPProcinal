@@ -4,3 +4,9 @@ D:\WPProcinal\CEntidades\obj\Debug\CEntidades.csprojResolveAssemblyReference.cac
 D:\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj.CoreCompileInputs.cache
 D:\WPProcinal\CEntidades\obj\Debug\CEntidades.dll
 D:\WPProcinal\CEntidades\obj\Debug\CEntidades.pdb
+D:\GitHub\WPProcinal\CEntidades\bin\Debug\CEntidades.dll
+D:\GitHub\WPProcinal\CEntidades\bin\Debug\CEntidades.pdb
+D:\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csprojAssemblyReference.cache
+D:\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj.CoreCompileInputs.cache
+D:\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.dll
+D:\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.pdb
