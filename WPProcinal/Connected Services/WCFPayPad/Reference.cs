@@ -38,6 +38,9 @@ namespace WPProcinal.WCFPayPad {
         private int IDTramiteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PersonaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ReferenciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -114,6 +117,19 @@ namespace WPProcinal.WCFPayPad {
                 if ((this.IDTramiteField.Equals(value) != true)) {
                     this.IDTramiteField = value;
                     this.RaisePropertyChanged("IDTramite");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PersonaID {
+            get {
+                return this.PersonaIDField;
+            }
+            set {
+                if ((this.PersonaIDField.Equals(value) != true)) {
+                    this.PersonaIDField = value;
+                    this.RaisePropertyChanged("PersonaID");
                 }
             }
         }
@@ -308,6 +324,67 @@ namespace WPProcinal.WCFPayPad {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Devolviendo = 1,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ClSMinDenomination", Namespace="http://schemas.datacontract.org/2004/07/WCFPayPad.Clases")]
+    [System.SerializableAttribute()]
+    public partial class ClSMinDenomination : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int QuantityField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Quantity {
+            get {
+                return this.QuantityField;
+            }
+            set {
+                if ((this.QuantityField.Equals(value) != true)) {
+                    this.QuantityField = value;
+                    this.RaisePropertyChanged("Quantity");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -607,67 +684,6 @@ namespace WPProcinal.WCFPayPad {
                 if ((object.ReferenceEquals(this.PhoneField, value) != true)) {
                     this.PhoneField = value;
                     this.RaisePropertyChanged("Phone");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ClSMinDenomination", Namespace="http://schemas.datacontract.org/2004/07/WCFPayPad.Clases")]
-    [System.SerializableAttribute()]
-    public partial class ClSMinDenomination : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescriptionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int QuantityField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Description {
-            get {
-                return this.DescriptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
-                    this.DescriptionField = value;
-                    this.RaisePropertyChanged("Description");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Quantity {
-            get {
-                return this.QuantityField;
-            }
-            set {
-                if ((this.QuantityField.Equals(value) != true)) {
-                    this.QuantityField = value;
-                    this.RaisePropertyChanged("Quantity");
                 }
             }
         }
@@ -1353,16 +1369,29 @@ namespace WPProcinal.WCFPayPad {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.TblDipMap))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.TblSeat[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.TblSeat))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.Tbl_TransaccionPaices))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.PagadorGeneral))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.Tbl_Transaccion[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.Tbl_Transaccion))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.tbl_DatosCotrafa[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.tbl_DatosCotrafa))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.ClSMinDenomination[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.ClSMinDenomination))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.CLSDataControlScreen))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.InfoProcinal))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.QuantityDenom[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.QuantityDenom))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.DanoneData))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.DanoneDenomination[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.DanoneDenomination))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.TransactionByClientData[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.TransactionByClientData))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.CLSTransaction))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.CLSDatosTransaction))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.CLSEstadoEstadoAuditoria))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.CLSEstadoEstadoTransaction))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.CLSEstadoEstadoDetalle))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.CLSTransactionDispenser))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.CLSDataControlScreen))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.ClSMinDenomination[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.ClSMinDenomination))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WPProcinal.WCFPayPad.InfoProcinal))]
     public partial class Response : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -1422,6 +1451,1262 @@ namespace WPProcinal.WCFPayPad {
                 if ((object.ReferenceEquals(this.ResultField, value) != true)) {
                     this.ResultField = value;
                     this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Tbl_TransaccionPaices", Namespace="http://schemas.datacontract.org/2004/07/WCFPayPad.EntityModels")]
+    [System.SerializableAttribute()]
+    public partial class Tbl_TransaccionPaices : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> DevolucionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FechaFinalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FechaInicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IDCorresponsalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IDEstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IDTramiteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDTransaccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> PersonaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ReferenciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> RuteIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TotalDevueltoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TotalIngresadoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> Devolucion {
+            get {
+                return this.DevolucionField;
+            }
+            set {
+                if ((this.DevolucionField.Equals(value) != true)) {
+                    this.DevolucionField = value;
+                    this.RaisePropertyChanged("Devolucion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FechaFinal {
+            get {
+                return this.FechaFinalField;
+            }
+            set {
+                if ((this.FechaFinalField.Equals(value) != true)) {
+                    this.FechaFinalField = value;
+                    this.RaisePropertyChanged("FechaFinal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FechaInicio {
+            get {
+                return this.FechaInicioField;
+            }
+            set {
+                if ((this.FechaInicioField.Equals(value) != true)) {
+                    this.FechaInicioField = value;
+                    this.RaisePropertyChanged("FechaInicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> IDCorresponsal {
+            get {
+                return this.IDCorresponsalField;
+            }
+            set {
+                if ((this.IDCorresponsalField.Equals(value) != true)) {
+                    this.IDCorresponsalField = value;
+                    this.RaisePropertyChanged("IDCorresponsal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> IDEstado {
+            get {
+                return this.IDEstadoField;
+            }
+            set {
+                if ((this.IDEstadoField.Equals(value) != true)) {
+                    this.IDEstadoField = value;
+                    this.RaisePropertyChanged("IDEstado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> IDTramite {
+            get {
+                return this.IDTramiteField;
+            }
+            set {
+                if ((this.IDTramiteField.Equals(value) != true)) {
+                    this.IDTramiteField = value;
+                    this.RaisePropertyChanged("IDTramite");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IDTransaccion {
+            get {
+                return this.IDTransaccionField;
+            }
+            set {
+                if ((this.IDTransaccionField.Equals(value) != true)) {
+                    this.IDTransaccionField = value;
+                    this.RaisePropertyChanged("IDTransaccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> PersonaID {
+            get {
+                return this.PersonaIDField;
+            }
+            set {
+                if ((this.PersonaIDField.Equals(value) != true)) {
+                    this.PersonaIDField = value;
+                    this.RaisePropertyChanged("PersonaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Referencia {
+            get {
+                return this.ReferenciaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ReferenciaField, value) != true)) {
+                    this.ReferenciaField = value;
+                    this.RaisePropertyChanged("Referencia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> RuteID {
+            get {
+                return this.RuteIDField;
+            }
+            set {
+                if ((this.RuteIDField.Equals(value) != true)) {
+                    this.RuteIDField = value;
+                    this.RaisePropertyChanged("RuteID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Total {
+            get {
+                return this.TotalField;
+            }
+            set {
+                if ((this.TotalField.Equals(value) != true)) {
+                    this.TotalField = value;
+                    this.RaisePropertyChanged("Total");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> TotalDevuelto {
+            get {
+                return this.TotalDevueltoField;
+            }
+            set {
+                if ((this.TotalDevueltoField.Equals(value) != true)) {
+                    this.TotalDevueltoField = value;
+                    this.RaisePropertyChanged("TotalDevuelto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> TotalIngresado {
+            get {
+                return this.TotalIngresadoField;
+            }
+            set {
+                if ((this.TotalIngresadoField.Equals(value) != true)) {
+                    this.TotalIngresadoField = value;
+                    this.RaisePropertyChanged("TotalIngresado");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PagadorGeneral", Namespace="http://schemas.datacontract.org/2004/07/WCFPayPad.EntityModels")]
+    [System.SerializableAttribute()]
+    public partial class PagadorGeneral : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CedulaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CorreoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WPProcinal.WCFPayPad.Tbl_Transaccion[] Tbl_TransaccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelefonoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Cedula {
+            get {
+                return this.CedulaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CedulaField, value) != true)) {
+                    this.CedulaField = value;
+                    this.RaisePropertyChanged("Cedula");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Correo {
+            get {
+                return this.CorreoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CorreoField, value) != true)) {
+                    this.CorreoField = value;
+                    this.RaisePropertyChanged("Correo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WPProcinal.WCFPayPad.Tbl_Transaccion[] Tbl_Transaccion {
+            get {
+                return this.Tbl_TransaccionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Tbl_TransaccionField, value) != true)) {
+                    this.Tbl_TransaccionField = value;
+                    this.RaisePropertyChanged("Tbl_Transaccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Telefono {
+            get {
+                return this.TelefonoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelefonoField, value) != true)) {
+                    this.TelefonoField = value;
+                    this.RaisePropertyChanged("Telefono");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Tbl_Transaccion", Namespace="http://schemas.datacontract.org/2004/07/WCFPayPad.EntityModels")]
+    [System.SerializableAttribute()]
+    public partial class Tbl_Transaccion : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CedulaPagadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> DevolucionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FechaFinalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FechaInicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IDCorresponsalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IDEstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IDTipoTransaccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IDTramiteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDTransaccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WPProcinal.WCFPayPad.PagadorGeneral PagadorGeneralField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> PersonaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ReferenciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TotalDevueltoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TotalIngresadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> idTransaccionClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WPProcinal.WCFPayPad.tbl_DatosCotrafa[] tbl_DatosCotrafaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CedulaPagador {
+            get {
+                return this.CedulaPagadorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CedulaPagadorField, value) != true)) {
+                    this.CedulaPagadorField = value;
+                    this.RaisePropertyChanged("CedulaPagador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> Devolucion {
+            get {
+                return this.DevolucionField;
+            }
+            set {
+                if ((this.DevolucionField.Equals(value) != true)) {
+                    this.DevolucionField = value;
+                    this.RaisePropertyChanged("Devolucion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FechaFinal {
+            get {
+                return this.FechaFinalField;
+            }
+            set {
+                if ((this.FechaFinalField.Equals(value) != true)) {
+                    this.FechaFinalField = value;
+                    this.RaisePropertyChanged("FechaFinal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FechaInicio {
+            get {
+                return this.FechaInicioField;
+            }
+            set {
+                if ((this.FechaInicioField.Equals(value) != true)) {
+                    this.FechaInicioField = value;
+                    this.RaisePropertyChanged("FechaInicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> IDCorresponsal {
+            get {
+                return this.IDCorresponsalField;
+            }
+            set {
+                if ((this.IDCorresponsalField.Equals(value) != true)) {
+                    this.IDCorresponsalField = value;
+                    this.RaisePropertyChanged("IDCorresponsal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> IDEstado {
+            get {
+                return this.IDEstadoField;
+            }
+            set {
+                if ((this.IDEstadoField.Equals(value) != true)) {
+                    this.IDEstadoField = value;
+                    this.RaisePropertyChanged("IDEstado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> IDTipoTransaccion {
+            get {
+                return this.IDTipoTransaccionField;
+            }
+            set {
+                if ((this.IDTipoTransaccionField.Equals(value) != true)) {
+                    this.IDTipoTransaccionField = value;
+                    this.RaisePropertyChanged("IDTipoTransaccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> IDTramite {
+            get {
+                return this.IDTramiteField;
+            }
+            set {
+                if ((this.IDTramiteField.Equals(value) != true)) {
+                    this.IDTramiteField = value;
+                    this.RaisePropertyChanged("IDTramite");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IDTransaccion {
+            get {
+                return this.IDTransaccionField;
+            }
+            set {
+                if ((this.IDTransaccionField.Equals(value) != true)) {
+                    this.IDTransaccionField = value;
+                    this.RaisePropertyChanged("IDTransaccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WPProcinal.WCFPayPad.PagadorGeneral PagadorGeneral {
+            get {
+                return this.PagadorGeneralField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PagadorGeneralField, value) != true)) {
+                    this.PagadorGeneralField = value;
+                    this.RaisePropertyChanged("PagadorGeneral");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> PersonaID {
+            get {
+                return this.PersonaIDField;
+            }
+            set {
+                if ((this.PersonaIDField.Equals(value) != true)) {
+                    this.PersonaIDField = value;
+                    this.RaisePropertyChanged("PersonaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Referencia {
+            get {
+                return this.ReferenciaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ReferenciaField, value) != true)) {
+                    this.ReferenciaField = value;
+                    this.RaisePropertyChanged("Referencia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Total {
+            get {
+                return this.TotalField;
+            }
+            set {
+                if ((this.TotalField.Equals(value) != true)) {
+                    this.TotalField = value;
+                    this.RaisePropertyChanged("Total");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> TotalDevuelto {
+            get {
+                return this.TotalDevueltoField;
+            }
+            set {
+                if ((this.TotalDevueltoField.Equals(value) != true)) {
+                    this.TotalDevueltoField = value;
+                    this.RaisePropertyChanged("TotalDevuelto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> TotalIngresado {
+            get {
+                return this.TotalIngresadoField;
+            }
+            set {
+                if ((this.TotalIngresadoField.Equals(value) != true)) {
+                    this.TotalIngresadoField = value;
+                    this.RaisePropertyChanged("TotalIngresado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> idTransaccionCliente {
+            get {
+                return this.idTransaccionClienteField;
+            }
+            set {
+                if ((this.idTransaccionClienteField.Equals(value) != true)) {
+                    this.idTransaccionClienteField = value;
+                    this.RaisePropertyChanged("idTransaccionCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WPProcinal.WCFPayPad.tbl_DatosCotrafa[] tbl_DatosCotrafa {
+            get {
+                return this.tbl_DatosCotrafaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.tbl_DatosCotrafaField, value) != true)) {
+                    this.tbl_DatosCotrafaField = value;
+                    this.RaisePropertyChanged("tbl_DatosCotrafa");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="tbl_DatosCotrafa", Namespace="http://schemas.datacontract.org/2004/07/WCFPayPad.EntityModels")]
+    [System.SerializableAttribute()]
+    public partial class tbl_DatosCotrafa : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CedulaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ContratoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaCuotaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDCotrafaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IDTransaccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WPProcinal.WCFPayPad.Tbl_Transaccion Tbl_TransaccionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Cedula {
+            get {
+                return this.CedulaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CedulaField, value) != true)) {
+                    this.CedulaField = value;
+                    this.RaisePropertyChanged("Cedula");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Contrato {
+            get {
+                return this.ContratoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ContratoField, value) != true)) {
+                    this.ContratoField = value;
+                    this.RaisePropertyChanged("Contrato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaCuota {
+            get {
+                return this.FechaCuotaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaCuotaField, value) != true)) {
+                    this.FechaCuotaField = value;
+                    this.RaisePropertyChanged("FechaCuota");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IDCotrafa {
+            get {
+                return this.IDCotrafaField;
+            }
+            set {
+                if ((this.IDCotrafaField.Equals(value) != true)) {
+                    this.IDCotrafaField = value;
+                    this.RaisePropertyChanged("IDCotrafa");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> IDTransaccion {
+            get {
+                return this.IDTransaccionField;
+            }
+            set {
+                if ((this.IDTransaccionField.Equals(value) != true)) {
+                    this.IDTransaccionField = value;
+                    this.RaisePropertyChanged("IDTransaccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WPProcinal.WCFPayPad.Tbl_Transaccion Tbl_Transaccion {
+            get {
+                return this.Tbl_TransaccionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Tbl_TransaccionField, value) != true)) {
+                    this.Tbl_TransaccionField = value;
+                    this.RaisePropertyChanged("Tbl_Transaccion");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="QuantityDenom", Namespace="http://schemas.datacontract.org/2004/07/WCFPayPad.Clases")]
+    [System.SerializableAttribute()]
+    public partial class QuantityDenom : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DenominationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int QuantityField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Denomination {
+            get {
+                return this.DenominationField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DenominationField, value) != true)) {
+                    this.DenominationField = value;
+                    this.RaisePropertyChanged("Denomination");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Quantity {
+            get {
+                return this.QuantityField;
+            }
+            set {
+                if ((this.QuantityField.Equals(value) != true)) {
+                    this.QuantityField = value;
+                    this.RaisePropertyChanged("Quantity");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DanoneData", Namespace="http://schemas.datacontract.org/2004/07/WCFPayPad.Clases")]
+    [System.SerializableAttribute()]
+    public partial class DanoneData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal AmountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal BillAmountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BodyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal CoinAmountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WPProcinal.WCFPayPad.DanoneDenomination[] DenominationValueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdPayPadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MailFromField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OperatorCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OperatorRouteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Amount {
+            get {
+                return this.AmountField;
+            }
+            set {
+                if ((this.AmountField.Equals(value) != true)) {
+                    this.AmountField = value;
+                    this.RaisePropertyChanged("Amount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal BillAmount {
+            get {
+                return this.BillAmountField;
+            }
+            set {
+                if ((this.BillAmountField.Equals(value) != true)) {
+                    this.BillAmountField = value;
+                    this.RaisePropertyChanged("BillAmount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Body {
+            get {
+                return this.BodyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BodyField, value) != true)) {
+                    this.BodyField = value;
+                    this.RaisePropertyChanged("Body");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal CoinAmount {
+            get {
+                return this.CoinAmountField;
+            }
+            set {
+                if ((this.CoinAmountField.Equals(value) != true)) {
+                    this.CoinAmountField = value;
+                    this.RaisePropertyChanged("CoinAmount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WPProcinal.WCFPayPad.DanoneDenomination[] DenominationValue {
+            get {
+                return this.DenominationValueField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DenominationValueField, value) != true)) {
+                    this.DenominationValueField = value;
+                    this.RaisePropertyChanged("DenominationValue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdPayPad {
+            get {
+                return this.IdPayPadField;
+            }
+            set {
+                if ((this.IdPayPadField.Equals(value) != true)) {
+                    this.IdPayPadField = value;
+                    this.RaisePropertyChanged("IdPayPad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MailFrom {
+            get {
+                return this.MailFromField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MailFromField, value) != true)) {
+                    this.MailFromField = value;
+                    this.RaisePropertyChanged("MailFrom");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OperatorCode {
+            get {
+                return this.OperatorCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OperatorCodeField, value) != true)) {
+                    this.OperatorCodeField = value;
+                    this.RaisePropertyChanged("OperatorCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OperatorRoute {
+            get {
+                return this.OperatorRouteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OperatorRouteField, value) != true)) {
+                    this.OperatorRouteField = value;
+                    this.RaisePropertyChanged("OperatorRoute");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Subject {
+            get {
+                return this.SubjectField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectField, value) != true)) {
+                    this.SubjectField = value;
+                    this.RaisePropertyChanged("Subject");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DanoneDenomination", Namespace="http://schemas.datacontract.org/2004/07/WCFPayPad.Clases")]
+    [System.SerializableAttribute()]
+    public partial class DanoneDenomination : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal AmountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int QuantityField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Amount {
+            get {
+                return this.AmountField;
+            }
+            set {
+                if ((this.AmountField.Equals(value) != true)) {
+                    this.AmountField = value;
+                    this.RaisePropertyChanged("Amount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Quantity {
+            get {
+                return this.QuantityField;
+            }
+            set {
+                if ((this.QuantityField.Equals(value) != true)) {
+                    this.QuantityField = value;
+                    this.RaisePropertyChanged("Quantity");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TransactionByClientData", Namespace="http://schemas.datacontract.org/2004/07/WCFPayPad.Clases")]
+    [System.SerializableAttribute()]
+    public partial class TransactionByClientData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDtransaccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ReferenciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal ValorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal ValorDevueltoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal ValorIngresadoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime Fecha {
+            get {
+                return this.FechaField;
+            }
+            set {
+                if ((this.FechaField.Equals(value) != true)) {
+                    this.FechaField = value;
+                    this.RaisePropertyChanged("Fecha");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IDtransaccion {
+            get {
+                return this.IDtransaccionField;
+            }
+            set {
+                if ((this.IDtransaccionField.Equals(value) != true)) {
+                    this.IDtransaccionField = value;
+                    this.RaisePropertyChanged("IDtransaccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Referencia {
+            get {
+                return this.ReferenciaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ReferenciaField, value) != true)) {
+                    this.ReferenciaField = value;
+                    this.RaisePropertyChanged("Referencia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Valor {
+            get {
+                return this.ValorField;
+            }
+            set {
+                if ((this.ValorField.Equals(value) != true)) {
+                    this.ValorField = value;
+                    this.RaisePropertyChanged("Valor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal ValorDevuelto {
+            get {
+                return this.ValorDevueltoField;
+            }
+            set {
+                if ((this.ValorDevueltoField.Equals(value) != true)) {
+                    this.ValorDevueltoField = value;
+                    this.RaisePropertyChanged("ValorDevuelto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal ValorIngresado {
+            get {
+                return this.ValorIngresadoField;
+            }
+            set {
+                if ((this.ValorIngresadoField.Equals(value) != true)) {
+                    this.ValorIngresadoField = value;
+                    this.RaisePropertyChanged("ValorIngresado");
                 }
             }
         }
@@ -1518,6 +2803,12 @@ namespace WPProcinal.WCFPayPad {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/InsertarControlDispenser", ReplyAction="http://tempuri.org/IServicePayPad/InsertarControlDispenserResponse")]
         System.Threading.Tasks.Task<System.Data.DataSet> InsertarControlDispenserAsync(int idDenominacion, int idCorresponsal, int operacion, int cantidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/OperationControlDispenser", ReplyAction="http://tempuri.org/IServicePayPad/OperationControlDispenserResponse")]
+        WPProcinal.WCFPayPad.ClSMinDenomination[] OperationControlDispenser(int idDenominacion, int idCorresponsal, int operacion, int cantidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/OperationControlDispenser", ReplyAction="http://tempuri.org/IServicePayPad/OperationControlDispenserResponse")]
+        System.Threading.Tasks.Task<WPProcinal.WCFPayPad.ClSMinDenomination[]> OperationControlDispenserAsync(int idDenominacion, int idCorresponsal, int operacion, int cantidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/ActualizacionArqueo", ReplyAction="http://tempuri.org/IServicePayPad/ActualizacionArqueoResponse")]
         void ActualizacionArqueo();
         
@@ -1601,6 +2892,54 @@ namespace WPProcinal.WCFPayPad {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/GetDataReceiptProcinal", ReplyAction="http://tempuri.org/IServicePayPad/GetDataReceiptProcinalResponse")]
         System.Threading.Tasks.Task<string> GetDataReceiptProcinalAsync(int correspondentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/GetBaul", ReplyAction="http://tempuri.org/IServicePayPad/GetBaulResponse")]
+        WPProcinal.WCFPayPad.QuantityDenom[] GetBaul(int correspondentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/GetBaul", ReplyAction="http://tempuri.org/IServicePayPad/GetBaulResponse")]
+        System.Threading.Tasks.Task<WPProcinal.WCFPayPad.QuantityDenom[]> GetBaulAsync(int correspondentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/SendMailDanone", ReplyAction="http://tempuri.org/IServicePayPad/SendMailDanoneResponse")]
+        void SendMailDanone(WPProcinal.WCFPayPad.DanoneData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/SendMailDanone", ReplyAction="http://tempuri.org/IServicePayPad/SendMailDanoneResponse")]
+        System.Threading.Tasks.Task SendMailDanoneAsync(WPProcinal.WCFPayPad.DanoneData data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/InsertarTransaccionPaises", ReplyAction="http://tempuri.org/IServicePayPad/InsertarTransaccionPaisesResponse")]
+        int InsertarTransaccionPaises(WPProcinal.WCFPayPad.Tbl_TransaccionPaices paises);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/InsertarTransaccionPaises", ReplyAction="http://tempuri.org/IServicePayPad/InsertarTransaccionPaisesResponse")]
+        System.Threading.Tasks.Task<int> InsertarTransaccionPaisesAsync(WPProcinal.WCFPayPad.Tbl_TransaccionPaices paises);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/ActualizarTransaccionPaises", ReplyAction="http://tempuri.org/IServicePayPad/ActualizarTransaccionPaisesResponse")]
+        void ActualizarTransaccionPaises(int idCorresponsal, int idTransaccion, decimal valor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/ActualizarTransaccionPaises", ReplyAction="http://tempuri.org/IServicePayPad/ActualizarTransaccionPaisesResponse")]
+        System.Threading.Tasks.Task ActualizarTransaccionPaisesAsync(int idCorresponsal, int idTransaccion, decimal valor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/FinalizarTransaccionPaises", ReplyAction="http://tempuri.org/IServicePayPad/FinalizarTransaccionPaisesResponse")]
+        void FinalizarTransaccionPaises(int idCorresponsal, int idTransaccion, int idEstado, decimal valorDevuelto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/FinalizarTransaccionPaises", ReplyAction="http://tempuri.org/IServicePayPad/FinalizarTransaccionPaisesResponse")]
+        System.Threading.Tasks.Task FinalizarTransaccionPaisesAsync(int idCorresponsal, int idTransaccion, int idEstado, decimal valorDevuelto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/GetTop5TransactionsByClient", ReplyAction="http://tempuri.org/IServicePayPad/GetTop5TransactionsByClientResponse")]
+        WPProcinal.WCFPayPad.TransactionByClientData[] GetTop5TransactionsByClient(int idCorresponsal, string llave);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/GetTop5TransactionsByClient", ReplyAction="http://tempuri.org/IServicePayPad/GetTop5TransactionsByClientResponse")]
+        System.Threading.Tasks.Task<WPProcinal.WCFPayPad.TransactionByClientData[]> GetTop5TransactionsByClientAsync(int idCorresponsal, string llave);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/UpdateTransactionByID", ReplyAction="http://tempuri.org/IServicePayPad/UpdateTransactionByIDResponse")]
+        void UpdateTransactionByID(int correspondentID, int transactionID, int newState, string Key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/UpdateTransactionByID", ReplyAction="http://tempuri.org/IServicePayPad/UpdateTransactionByIDResponse")]
+        System.Threading.Tasks.Task UpdateTransactionByIDAsync(int correspondentID, int transactionID, int newState, string Key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/InsertarPagador", ReplyAction="http://tempuri.org/IServicePayPad/InsertarPagadorResponse")]
+        string InsertarPagador(WPProcinal.WCFPayPad.PagadorGeneral pagador);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicePayPad/InsertarPagador", ReplyAction="http://tempuri.org/IServicePayPad/InsertarPagadorResponse")]
+        System.Threading.Tasks.Task<string> InsertarPagadorAsync(WPProcinal.WCFPayPad.PagadorGeneral pagador);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1734,6 +3073,14 @@ namespace WPProcinal.WCFPayPad {
             return base.Channel.InsertarControlDispenserAsync(idDenominacion, idCorresponsal, operacion, cantidad);
         }
         
+        public WPProcinal.WCFPayPad.ClSMinDenomination[] OperationControlDispenser(int idDenominacion, int idCorresponsal, int operacion, int cantidad) {
+            return base.Channel.OperationControlDispenser(idDenominacion, idCorresponsal, operacion, cantidad);
+        }
+        
+        public System.Threading.Tasks.Task<WPProcinal.WCFPayPad.ClSMinDenomination[]> OperationControlDispenserAsync(int idDenominacion, int idCorresponsal, int operacion, int cantidad) {
+            return base.Channel.OperationControlDispenserAsync(idDenominacion, idCorresponsal, operacion, cantidad);
+        }
+        
         public void ActualizacionArqueo() {
             base.Channel.ActualizacionArqueo();
         }
@@ -1844,6 +3191,70 @@ namespace WPProcinal.WCFPayPad {
         
         public System.Threading.Tasks.Task<string> GetDataReceiptProcinalAsync(int correspondentId) {
             return base.Channel.GetDataReceiptProcinalAsync(correspondentId);
+        }
+        
+        public WPProcinal.WCFPayPad.QuantityDenom[] GetBaul(int correspondentId) {
+            return base.Channel.GetBaul(correspondentId);
+        }
+        
+        public System.Threading.Tasks.Task<WPProcinal.WCFPayPad.QuantityDenom[]> GetBaulAsync(int correspondentId) {
+            return base.Channel.GetBaulAsync(correspondentId);
+        }
+        
+        public void SendMailDanone(WPProcinal.WCFPayPad.DanoneData data) {
+            base.Channel.SendMailDanone(data);
+        }
+        
+        public System.Threading.Tasks.Task SendMailDanoneAsync(WPProcinal.WCFPayPad.DanoneData data) {
+            return base.Channel.SendMailDanoneAsync(data);
+        }
+        
+        public int InsertarTransaccionPaises(WPProcinal.WCFPayPad.Tbl_TransaccionPaices paises) {
+            return base.Channel.InsertarTransaccionPaises(paises);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsertarTransaccionPaisesAsync(WPProcinal.WCFPayPad.Tbl_TransaccionPaices paises) {
+            return base.Channel.InsertarTransaccionPaisesAsync(paises);
+        }
+        
+        public void ActualizarTransaccionPaises(int idCorresponsal, int idTransaccion, decimal valor) {
+            base.Channel.ActualizarTransaccionPaises(idCorresponsal, idTransaccion, valor);
+        }
+        
+        public System.Threading.Tasks.Task ActualizarTransaccionPaisesAsync(int idCorresponsal, int idTransaccion, decimal valor) {
+            return base.Channel.ActualizarTransaccionPaisesAsync(idCorresponsal, idTransaccion, valor);
+        }
+        
+        public void FinalizarTransaccionPaises(int idCorresponsal, int idTransaccion, int idEstado, decimal valorDevuelto) {
+            base.Channel.FinalizarTransaccionPaises(idCorresponsal, idTransaccion, idEstado, valorDevuelto);
+        }
+        
+        public System.Threading.Tasks.Task FinalizarTransaccionPaisesAsync(int idCorresponsal, int idTransaccion, int idEstado, decimal valorDevuelto) {
+            return base.Channel.FinalizarTransaccionPaisesAsync(idCorresponsal, idTransaccion, idEstado, valorDevuelto);
+        }
+        
+        public WPProcinal.WCFPayPad.TransactionByClientData[] GetTop5TransactionsByClient(int idCorresponsal, string llave) {
+            return base.Channel.GetTop5TransactionsByClient(idCorresponsal, llave);
+        }
+        
+        public System.Threading.Tasks.Task<WPProcinal.WCFPayPad.TransactionByClientData[]> GetTop5TransactionsByClientAsync(int idCorresponsal, string llave) {
+            return base.Channel.GetTop5TransactionsByClientAsync(idCorresponsal, llave);
+        }
+        
+        public void UpdateTransactionByID(int correspondentID, int transactionID, int newState, string Key) {
+            base.Channel.UpdateTransactionByID(correspondentID, transactionID, newState, Key);
+        }
+        
+        public System.Threading.Tasks.Task UpdateTransactionByIDAsync(int correspondentID, int transactionID, int newState, string Key) {
+            return base.Channel.UpdateTransactionByIDAsync(correspondentID, transactionID, newState, Key);
+        }
+        
+        public string InsertarPagador(WPProcinal.WCFPayPad.PagadorGeneral pagador) {
+            return base.Channel.InsertarPagador(pagador);
+        }
+        
+        public System.Threading.Tasks.Task<string> InsertarPagadorAsync(WPProcinal.WCFPayPad.PagadorGeneral pagador) {
+            return base.Channel.InsertarPagadorAsync(pagador);
         }
     }
 }

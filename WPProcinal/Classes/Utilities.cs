@@ -21,6 +21,7 @@ using WPProcinal.ADO;
 using WPProcinal.Forms;
 using WPProcinal.Models;
 using WPProcinal.Service;
+using static WPProcinal.Models.ApiLocal.Uptake;
 
 namespace WPProcinal.Classes
 {
@@ -150,10 +151,62 @@ namespace WPProcinal.Classes
 
         public static Receipt Receipt = new Receipt();
 
+
+        public static ControlPeripherals control;
+        public static string TOKEN { get; set; }
+        public static int Session { get; set; }
+        public static int IDTransactionDB { get; set; }
+        public static int CorrespondentId = int.Parse(GetConfiguration("IDCorresponsal"));
+        public static decimal PayVal { get; set; }
+        public static decimal EnterTotal;
+        public static long ValueDelivery { get; set; }
+        public static decimal DispenserVal { get; set; }
+
+        public Utilities(int i)
+        {
+            try
+            {
+                control = new ControlPeripherals();
+                control.StopAceptance();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        public Utilities()
+        {
+        }
+
         public enum ETipoAlerta
         {
             BaulLLeno = 0,
             BilleteroVacio = 1,
+        }
+
+        /// <summary>
+        /// Se usa para ocultar o mostrar la modal de carga
+        /// </summary>
+        /// <param name="window">objeto de la clase FrmLoading  </param>
+        /// <param name="state">para saber si se oculta o se muestra true:muestra, false: oculta</param>
+        public static void Loading(Window window, bool state, Window w)
+        {
+            try
+            {
+                if (state)
+                {
+                    window.Show();
+                    w.IsEnabled = false;
+                }
+                else
+                {
+                    window.Hide();
+                    w.IsEnabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         public static string CapitalizeFirstLetter(string value)
@@ -244,18 +297,78 @@ namespace WPProcinal.Classes
             var receipt = JsonConvert.DeserializeObject<Receipt>(result.ToString());
         }
 
+        public static decimal RoundValue(decimal valor)
+        {
+            decimal RoundTo = 100;
+            decimal Amount = valor;
+            decimal ExcessAmount = Amount % RoundTo;
+            decimal a = 0;
+            if (ExcessAmount < (RoundTo / 2))
+            {
+                Amount -= ExcessAmount;
+                Amount = Amount + RoundTo;
+                a = Amount - RoundTo;
+            }
+            else
+            {
+                Amount += (RoundTo - ExcessAmount);
+                a = Amount - RoundTo;
+            }
+
+            valor = a;
+
+            return valor;
+        }
+
+        /// <summary>
+        /// Método que me redirecciona a la ventana de inicio
+        /// </summary>
         public static void GoToInicial()
         {
-            Process pc = new Process();
-            Process pn = new Process();
-            ProcessStartInfo si = new ProcessStartInfo();
-            string path = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-            string apppath = Path.Combine(path, "WPProcinal.exe");
-            si.FileName = apppath;
-            pn.StartInfo = si;
-            pn.Start();
-            pc = Process.GetCurrentProcess();
-            pc.Kill();
+            try
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    MainWindow main = new MainWindow();
+                    main.Show();
+                    CloseWindows(main.Title);
+                }));
+                GC.Collect();
+            }
+            catch (Exception ex)
+            {
+                RestartApp();
+            }
+        }
+
+        public static void CloseWindows(string Title)
+        {
+            foreach (Window w in Application.Current.Windows)
+            {
+                if (w.IsLoaded && w.Title != Title)
+                {
+                    w.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Método usado para regresar a la pantalla principal
+        /// </summary>
+        public static void RestartApp()
+        {
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                Process pc = new Process();
+                Process pn = new Process();
+                ProcessStartInfo si = new ProcessStartInfo();
+                si.FileName = Path.Combine(Directory.GetCurrentDirectory(), "WPProinal.exe");
+                pn.StartInfo = si;
+                pn.Start();
+                pc = Process.GetCurrentProcess();
+                pc.Kill();
+            }));
+            GC.Collect();
         }
 
         public static void DoEvents()
@@ -272,30 +385,6 @@ namespace WPProcinal.Classes
             {3,"Jueves"},
             {4,"Viernes"},
         };
-
-        public enum EDenominacion
-        {
-            [Description("100")]
-            Cien = 1,
-            [Description("200")]
-            Doscientos = 2,
-            [Description("500")]
-            Quinientos = 3,
-            [Description("1000")]
-            Mil = 4,
-            [Description("2000,00")]
-            BDosMil = 5,
-            [Description("5000,00")]
-            BCincoMil = 6,
-            [Description("10000,00")]
-            BDiezMil = 7,
-            [Description("20000,00")]
-            BVeinteMil = 8,
-            [Description("50000,00")]
-            BCincuentaMil = 9,
-            [Description("1000,00")]
-            BMil = 10
-        }
 
         public static string GetConfiguration(string key)
         {
@@ -369,29 +458,6 @@ namespace WPProcinal.Classes
             return file;
         }
 
-        public static int GetDescriptionEnum(string value)
-        {
-            int idTypeEnum = 0;
-            try
-            {
-                Type enumType = typeof(EDenominacion);
-                var values = enumType.GetEnumValues();
-                foreach (EDenominacion item in values)
-                {
-                    MemberInfo info = enumType.GetMember(item.ToString()).First();
-                    var description = info.GetCustomAttribute<DescriptionAttribute>();
-                    if (value == description.Description.Replace(",00", ""))
-                    {
-                        EDenominacion enumm = (EDenominacion)Enum.Parse(typeof(EDenominacion), item.ToString());
-                        idTypeEnum = (int)enumm;
-                        break;
-                    }
-                }
-            }
-            catch { }
-            return idTypeEnum;
-        }
-
         public static void ShowModal(string message)
         {
             frmModal frmModal = new frmModal(message);
@@ -432,6 +498,132 @@ namespace WPProcinal.Classes
             objPrint.Estado = "Cancelado";
             objPrint.ImprimirComprobanteCancelar();
         }
+
+        public static void SaveLogDispenser(LogDispenser log)
+        {
+            try
+            {
+                LogService logService = new LogService
+                {
+                    NamePath = "C:\\LogDispenser",
+                    FileName = string.Concat("Log", DateTime.Now.ToString("yyyyMMdd"), ".json")
+                };
+
+                logService.CreateLogs(log);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        public static void SaveLogTransactions(LogErrorGeneral log, string path)
+        {
+            try
+            {
+                LogService logService = new LogService
+                {
+                    NamePath = path,
+                    FileName = string.Concat("Log", DateTime.Now.ToString("yyyyMMdd"), ".json")
+                };
+
+                logService.CreateLogsTransactions(log);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        /// <summary>
+        /// Método encargado de crear la transacciòn en bd y retornar el id de esta misma   
+        /// </summary>
+        /// TODO:CAMBIAR COMENTARIO
+        /// <param name="Amount">Cantdiad a pagaar o retirar</param>
+        public async Task<bool> CreateTransaction(decimal Amount, string name)
+        {
+            try
+            {
+                ApiLocal api = new ApiLocal();
+
+                Transaction Transaction = new Transaction
+                {
+                    TOTAL_AMOUNT = Amount,
+                    DATE_BEGIN = DateTime.Now,
+                    DESCRIPTION = "Se inició la transacción para: " + name,
+                    TYPE_TRANSACTION_ID = 1,
+                    STATE_TRANSACTION_ID = 1,
+                    PAYER_ID = 477
+                };
+
+                var response = await api.GetResponse(new RequestApi
+                {
+                    Data = Transaction
+                }, "SaveTransaction");
+
+
+                if (response != null)
+                {
+                    if (response.CodeError == 200)
+                    {
+                        IDTransactionDB = Convert.ToInt32(response.Data);
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Mètodo para actualizar la transacción en base de datos por el estado que coorresponda
+        /// </summary>
+        /// <param name="Enter">Valor ingresado. Sólo aplica para pago</param>
+        /// <param name="state">Estaado por el cual se actualizará</param>
+        /// <param name="Return">Valor a devolver, por defecto es 0 ya que hay transacciones donde no hay que devolver</param>
+        /// <returns>Retorna un verdadero o un falso dependiendo el resultado del update</returns>
+        public async Task<bool> UpdateTransaction(decimal Enter, int state, decimal Return = 0)
+        {
+            try
+            {
+                ApiLocal api = new ApiLocal();
+
+                Transaction Transaction = new Transaction
+                {
+                    STATE_TRANSACTION_ID = state,
+                    DATE_END = DateTime.Now,
+                    INCOME_AMOUNT = Enter,
+                    RETURN_AMOUNT = Return,
+                    TRANSACTION_ID = IDTransactionDB
+                };
+
+                var response = await api.GetResponse(new RequestApi
+                {
+                    Data = Transaction
+                }, "UpdateTransaction");
+
+                if (response != null)
+                {
+                    if (response.CodeError == 200)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 
     public class CLSDatos

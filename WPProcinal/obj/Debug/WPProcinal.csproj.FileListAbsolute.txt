@@ -175,7 +175,6 @@ D:\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.SqlServer.dll
 D:\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignColors.dll
 D:\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.dll
 D:\GitHub\WPProcinal\WPProcinal\bin\Debug\Newtonsoft.Json.dll
-D:\GitHub\WPProcinal\WPProcinal\bin\Debug\PayPad.BilleteroV2.dll
 D:\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.dll
 D:\GitHub\WPProcinal\WPProcinal\bin\Debug\CEntidades.pdb
 D:\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.xml
@@ -220,3 +219,7 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CoreCompileInputs.ca
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
+D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs
+D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.baml
+D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.g.cs
+D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.baml

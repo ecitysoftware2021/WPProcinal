@@ -1,5 +1,6 @@
-﻿D:\GitHub\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 FD:\GitHub\WPProcinal\WPProcinal\App.xaml;;
+FD:\GitHub\WPProcinal\WPProcinal\Forms\frmConfigurate.xaml;;
 FD:\GitHub\WPProcinal\WPProcinal\Forms\frmCancelPay.xaml;;
 FD:\GitHub\WPProcinal\WPProcinal\Forms\frmCinema.xaml;;
 FD:\GitHub\WPProcinal\WPProcinal\Forms\frmConfirmationModal.xaml;;
@@ -11,4 +12,5 @@ FD:\GitHub\WPProcinal\WPProcinal\Forms\frmPay.xaml;;
 FD:\GitHub\WPProcinal\WPProcinal\Forms\frmSchedule.xaml;;
 FD:\GitHub\WPProcinal\WPProcinal\Forms\frmSeat.xaml;;
 FD:\GitHub\WPProcinal\WPProcinal\MainWindow.xaml;;
+FD:\GitHub\WPProcinal\WPProcinal\Forms\frmPayCine.xaml;;
 

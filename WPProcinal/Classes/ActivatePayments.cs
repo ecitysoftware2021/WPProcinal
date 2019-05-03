@@ -440,12 +440,12 @@ namespace WPProcinal.Classes
         private void VerificarValorIngresadoAlBaul()
         {
             var bil = objPropiedades.ValorAlmacenado;
-            var idTypeEnum = Utilities.GetDescriptionEnum(bil);
+            //var idTypeEnum = Utilities.GetDescriptionEnum(bil);
             if (Ingresar.ObjPropiedades.Mensaje.Contains("bodega"))
             {
                 ListaDenominacionValor.Add(new CLSListaDenominacionValor
                 {
-                    IDDenominacion = idTypeEnum,
+                    //IDDenominacion = idTypeEnum,
                     EnBaul = true
                 });
             }
@@ -453,7 +453,7 @@ namespace WPProcinal.Classes
             {
                 ListaDenominacionValor.Add(new CLSListaDenominacionValor
                 {
-                    IDDenominacion = idTypeEnum,
+                    //IDDenominacion = idTypeEnum,
                     EnBaul = false
                 });
             }

@@ -133,11 +133,15 @@
     <Compile Include="Classes\ActivatePayments.cs" />
     <Compile Include="Classes\CLSListaDenominacionValor.cs" />
     <Compile Include="Classes\ControlPantalla.cs" />
+    <Compile Include="Classes\ControlPeripherals.cs" />
     <Compile Include="Classes\DBProcinalController.cs" />
     <Compile Include="Classes\HelperEmails.cs" />
+    <Compile Include="Classes\Log.cs" />
     <Compile Include="Classes\LogError.cs" />
+    <Compile Include="Classes\PaymentViewModel.cs" />
     <Compile Include="Classes\PayViewModel.cs" />
     <Compile Include="Classes\Response.cs" />
+    <Compile Include="Classes\Transaction.cs" />
     <Compile Include="Classes\TypeSeat.cs" />
     <Compile Include="Connected Services\WCFDesAssing\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -189,6 +193,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmConfigurate.xaml.cs">
+      <DependentUpon>frmConfigurate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmCancelPay.xaml.cs">
       <DependentUpon>frmCancelPay.xaml</DependentUpon>
     </Compile>
@@ -205,6 +212,13 @@
     <Compile Include="Forms\frmPay.xaml.cs">
       <DependentUpon>frmPay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmPayCine.xaml.cs">
+      <DependentUpon>frmPayCine.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApiLocal\DataPaypad.cs" />
+    <Compile Include="Models\ApiLocal\RequestAuth.cs" />
+    <Compile Include="Models\ApiLocal\ResponseAuth.cs" />
+    <Compile Include="Models\ApiLocal\Uptake.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\DesAsignarReserva.cs" />
     <Compile Include="Models\DipMap.cs" />
@@ -219,9 +233,14 @@
     <Compile Include="Models\SeatDisable.cs" />
     <Compile Include="Models\SecuenciaVenta.cs" />
     <Compile Include="Models\TransaccionCompra.cs" />
+    <Compile Include="Service\ApiLocal.cs" />
     <Compile Include="Service\ApiServices.cs" />
     <Compile Include="Service\CLSWCFPayPad.cs" />
     <Compile Include="Service\WCFServices.cs" />
+    <Page Include="Forms\frmConfigurate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\frmCancelPay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -251,6 +270,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\frmPay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmPayCine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -324,32 +347,41 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
     </None>
     <None Include="Connected Services\WCFDesAssing\service.wsdl" />
-    <None Include="Connected Services\WCFPayPad\ServicePayPad1.wsdl" />
-    <None Include="Connected Services\WCFPayPad\ServicePayPad6.xsd">
+    <None Include="Connected Services\WCFPayPad\ServicePayPad.wsdl" />
+    <None Include="Connected Services\WCFPayPad\ServicePayPad.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\WCFPayPad\ServicePayPad61.xsd">
+    <None Include="Connected Services\WCFPayPad\ServicePayPad1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\WCFPayPad\ServicePayPad62.xsd">
+    <None Include="Connected Services\WCFPayPad\ServicePayPad2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\WCFPayPad\ServicePayPad63.xsd">
+    <None Include="Connected Services\WCFPayPad\ServicePayPad3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\WCFPayPad\ServicePayPad64.xsd">
+    <None Include="Connected Services\WCFPayPad\ServicePayPad4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\WCFPayPad\ServicePayPad65.xsd">
+    <None Include="Connected Services\WCFPayPad\ServicePayPad5.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\WCFPayPad\WPProcinal.WCFPayPad.CLSDataControlScreen.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFPayPad\WPProcinal.WCFPayPad.ClSMinDenomination.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFPayPad\WPProcinal.WCFPayPad.QuantityDenom.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\WCFPayPad\WPProcinal.WCFPayPad.Response.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\WCFPayPad\WPProcinal.WCFPayPad.sp_DatosTransaccionCM_Result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFPayPad\WPProcinal.WCFPayPad.TransactionByClientData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\WCFPcrest\Service.wsdl" />
@@ -656,7 +688,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Connected Services\WCFPayPad\ServicePayPad1.disco" />
+    <None Include="Connected Services\WCFPayPad\ServicePayPad.disco" />
     <Content Include="DataBases\DBProcinal.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

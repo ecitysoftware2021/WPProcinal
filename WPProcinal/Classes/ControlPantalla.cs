@@ -103,24 +103,24 @@ namespace WPProcinal.Classes
                 {
                     var t = Task.Run(() =>
                     {
-                        int denomination = Utilities.GetDescriptionEnum(item.Denominacion);
-                        WCFPayPadWS.InsertarControlDispenser(denomination, IdCorrespo, 2, int.Parse(item.Cantidad));
+                    //    int denomination = Utilities.GetDescriptionEnum(item.Denominacion);
+                    //    WCFPayPadWS.InsertarControlDispenser(denomination, IdCorrespo, 2, int.Parse(item.Cantidad));
                     });
 
-                    if (item.Denominacion != "1000" && item.Denominacion != "50000")
-                    {
-                        var billete = ClSMinDenominations
-                                        .Where(c => c.Description == item.Denominacion)
-                                        .FirstOrDefault();
-                        if (billete != null)
-                        {
-                            if (int.Parse(item.Cantidad) < billete.Quantity)
-                            {
-                                EstadoBilletes = false;
-                                message.Append($"{string.Format("{0:C}", decimal.Parse(item.Denominacion))} actualmente hay {item.Cantidad} billetes, ");
-                            }
-                        }
-                    }
+                    //if (item.Denominacion != "1000" && item.Denominacion != "50000")
+                    //{
+                    //    var billete = ClSMinDenominations
+                    //                    .Where(c => c.Description == item.Denominacion)
+                    //                    .FirstOrDefault();
+                    //    if (billete != null)
+                    //    {
+                    //        if (int.Parse(item.Cantidad) < billete.Quantity)
+                    //        {
+                    //            EstadoBilletes = false;
+                    //            message.Append($"{string.Format("{0:C}", decimal.Parse(item.Denominacion))} actualmente hay {item.Cantidad} billetes, ");
+                    //        }
+                    //    }
+                    //}
                 }
                 
                 messageEmail = string.Format(mensajeBilletes, message.ToString(), Sucursal);

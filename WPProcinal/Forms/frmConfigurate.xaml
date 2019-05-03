@@ -1,0 +1,60 @@
+﻿<Window x:Class="WPProcinal.Forms.frmConfigurate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPProcinal.Forms"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        mc:Ignorable="d"
+        Title="ConfigurateWindow" WindowStyle="None"
+        WindowState="Maximized"
+        Height="2064.095"
+        Width="1250.599"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/home-bg-seleccion-horario-2.jpg"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300" />
+            <RowDefinition Height="350" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Text="CONFIGURACIÓN DEL DISPOSITIVO"
+                       FontFamily="Arial"
+                       FontSize="60"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,0"
+                       FontWeight="Bold"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Text="Espera mientras se configura el dispositivo para iniciar"
+                       FontFamily="Arial"
+                       FontSize="45"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Margin="172,200,171,0"
+                       FontWeight="Bold"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       Width="900" Grid.ColumnSpan="2"/>
+            <Image gif:ImageBehavior.AnimatedSource="/Images/loadder.gif" 
+                   gif:ImageBehavior.AnimateInDesignMode="True"
+                   gif:ImageBehavior.AutoStart="True" 
+                    x:Name="GifLoad2" 
+                    Stretch="Fill"
+                    Margin="0,0,0,150" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Width="300" 
+                    Visibility="Visible"
+                    Height="300" 
+                    Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</Window>
