@@ -31,14 +31,14 @@ namespace WPProcinal.Forms
         private bool payState;
 
         #region LoadMethods
-        public frmPayCine(decimal value)
+        public frmPayCine()
         {
             InitializeComponent();
 
             try
             {
                 api = new ApiLocal();
-                Utilities.PayVal = Utilities.RoundValue(value);
+                Utilities.PayVal = Utilities.RoundValue(Utilities.ValorPagar);
                 OrganizeValues();
                 frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();

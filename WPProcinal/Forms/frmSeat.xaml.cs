@@ -572,8 +572,12 @@ namespace WPProcinal.Forms
         private void ShowPay()
         {
             frmPay _frmPay = new frmPay(SelectedTypeSeats, dipMapCurrent);
-            _frmPay.Show();
-            Hide();
+            //_frmPay.Show();
+            //Hide();
+
+            frmPayCine pay = new frmPayCine();
+            pay.Show();
+            this.Close();
         }
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
