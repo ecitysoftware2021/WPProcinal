@@ -544,19 +544,31 @@ namespace WPProcinal.Classes
             {
                 ApiLocal api = new ApiLocal();
 
-                Transaction Transaction = new Transaction
+                Transaction transaction = new Transaction
                 {
                     TOTAL_AMOUNT = Amount,
                     DATE_BEGIN = DateTime.Now,
                     DESCRIPTION = "Se inició la transacción para: " + name,
-                    TYPE_TRANSACTION_ID = 1,
+                    TYPE_TRANSACTION_ID = 14,
                     STATE_TRANSACTION_ID = 1,
                     PAYER_ID = 477
                 };
 
+                var details = new TRANSACTION_DESCRIPTION
+                {
+                    AMOUNT = Utilities.PayVal,
+                    TRANSACTION_ID = transaction.TRANSACTION_ID,
+                    REFERENCE = "0",
+                    OBSERVATION = "hola david",
+                    TRANSACTION_DESCRIPTION_ID = 0,
+                    STATE = true
+                };
+
+                transaction.TRANSACTION_DESCRIPTION.Add(details);
+
                 var response = await api.GetResponse(new RequestApi
                 {
-                    Data = Transaction
+                    Data = transaction
                 }, "SaveTransaction");
 
 

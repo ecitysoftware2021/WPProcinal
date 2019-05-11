@@ -19,5 +19,16 @@ namespace WPProcinal.Classes
         public string DESCRIPTION { get; set; }
         public int PAYER_ID { get; set; }
         public int STATE_TRANSACTION_ID { get; set; }
+        public List<TRANSACTION_DESCRIPTION> TRANSACTION_DESCRIPTION = new List<TRANSACTION_DESCRIPTION>();
+    }
+
+    public class TRANSACTION_DESCRIPTION
+    {
+        public int TRANSACTION_ID { get; set; }
+        public int TRANSACTION_DESCRIPTION_ID { get; set; }
+        public string REFERENCE { get; set; }
+        public Nullable<decimal> AMOUNT { get; set; }
+        public string OBSERVATION { get; set; }
+        public Nullable<bool> STATE { get; set; }
     }
 }
