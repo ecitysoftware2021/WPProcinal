@@ -27,6 +27,8 @@ namespace WPProcinal.Forms
 
         bool _ErrorTransaction = true;
 
+        Utilities utilities = new Utilities();
+
         public frmSeat(DipMap dipMap)
         {
             InitializeComponent();
@@ -569,15 +571,28 @@ namespace WPProcinal.Forms
                                     dipMap.Secuence);
         }
 
-        private void ShowPay()
+        private async void ShowPay()
         {
             //frmPay _frmPay = new frmPay(SelectedTypeSeats, dipMapCurrent);
             //_frmPay.Show();
             //Hide();
 
-            frmPayCine pay = new frmPayCine();
-            pay.Show();
-            this.Close();
+            var response = await utilities.CreateTransaction(Utilities.PayVal, "Cine");
+
+            if (!response)
+            {
+                await Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Utilities.ShowModal("No se pudo crear la transacción...");
+                });
+                GC.Collect();
+            }
+            else
+            {
+                frmPayCine pay = new frmPayCine();
+                pay.Show();
+                this.Close();
+            }
         }
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
