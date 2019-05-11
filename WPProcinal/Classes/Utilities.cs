@@ -538,7 +538,7 @@ namespace WPProcinal.Classes
         /// </summary>
         /// TODO:CAMBIAR COMENTARIO
         /// <param name="Amount">Cantdiad a pagaar o retirar</param>
-        public async Task<bool> CreateTransaction(decimal Amount, string name)
+        public async Task<bool> CreateTransaction(string name, DipMap movie)
         {
             try
             {
@@ -546,7 +546,7 @@ namespace WPProcinal.Classes
 
                 Transaction transaction = new Transaction
                 {
-                    TOTAL_AMOUNT = Amount,
+                    TOTAL_AMOUNT = ValorPagar,
                     DATE_BEGIN = DateTime.Now,
                     DESCRIPTION = "Se inició la transacción para: " + name,
                     TYPE_TRANSACTION_ID = 14,
@@ -556,10 +556,10 @@ namespace WPProcinal.Classes
 
                 var details = new TRANSACTION_DESCRIPTION
                 {
-                    AMOUNT = Utilities.PayVal,
+                    AMOUNT = ValorPagar,
                     TRANSACTION_ID = transaction.TRANSACTION_ID,
                     REFERENCE = "0",
-                    OBSERVATION = "hola david",
+                    OBSERVATION = movie.MovieName,
                     TRANSACTION_DESCRIPTION_ID = 0,
                     STATE = true
                 };

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CEntidades;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPProcinal.Classes;
+using WPProcinal.Models;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms
@@ -28,10 +31,12 @@ namespace WPProcinal.Forms
         private LogErrorGeneral logError;
         private int count;
         private bool stateUpdate;
+        private int countError = 0;
         private bool payState;
+        Utilities objUtil = new Utilities();
 
         #region LoadMethods
-        public frmPayCine()
+        public frmPayCine(List<TypeSeat> Seats, DipMap dipMap)
         {
             InitializeComponent();
 
@@ -42,6 +47,9 @@ namespace WPProcinal.Forms
                 OrganizeValues();
                 frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();
+                Utilities.TypeSeats = Seats;
+                Utilities.DipMapCurrent = dipMap;
+                Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.PayVal);
 
                 logError = new LogErrorGeneral
                 {
@@ -77,8 +85,14 @@ namespace WPProcinal.Forms
                 {
                     if (payState)
                     {
-                        ActivateWallet();
+                        //ActivateWallet();
+                        Buytickets();
                     }
+                });
+
+                Task.Run(() =>
+                {
+                    GetReceipt();
                 });
             }
             catch (Exception ex)
@@ -167,7 +181,7 @@ namespace WPProcinal.Forms
                     }
                     else
                     {
-                        SavePay();
+                        Buytickets();
                     }
                 };
 
@@ -197,7 +211,7 @@ namespace WPProcinal.Forms
                     Utilities.ValueDelivery = (long)totalOut;
                     if (state)
                     {
-                        SavePay();
+                        Buytickets();
                     }
                     else
                     {
@@ -297,12 +311,10 @@ namespace WPProcinal.Forms
             }
         }
 
-        private async void SavePay()
+        private async void SavePay(bool task)
         {
             try
             {
-
-                var task = true;
 
                 if (!task)
                 {
@@ -330,7 +342,17 @@ namespace WPProcinal.Forms
                 {
                     ApproveTrans();
 
-                    MessageBox.Show("good");
+                    objUtil.ImprimirComprobante("Aprobada", Utilities.Receipt, Utilities.TypeSeats, Utilities.DipMapCurrent);
+
+                    await Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        frmModal _frmModal = new frmModal(string.Concat("!Muchas gracias por utilizar nuestro servicio.",
+                        Environment.NewLine,
+                        "Su transacción ha finalizado correctamente!"));
+                        _frmModal.ShowDialog();
+                        Utilities.GoToInicial();
+                    });
+                    GC.Collect();
                 }
             }
             catch (Exception ex)
@@ -355,6 +377,64 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+            }
+        }
+
+        private void GetReceipt()
+        {
+            var response = WCFServices.GetReceiptProcinal(ControlPantalla.IdCorrespo);
+            if (response.IsSuccess)
+            {
+                Utilities.Receipt = JsonConvert.DeserializeObject<Receipt>(response.Result.ToString());
+            }
+        }
+
+        private void Buytickets()
+        {
+            Response responseGlobal = new Response(); 
+            if (countError < 3)
+            {
+                var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
+                responseGlobal = response;
+                if (!response.IsSuccess)
+                {
+                    Utilities.SaveLogError(new LogError
+                    {
+                        Message = response.Message,
+                        Method = "WCFServices.PostComprar"
+                    });
+
+                    countError++;
+                    Buytickets();
+                }
+
+                var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
+                if (transaccionCompra.Respuesta == "Fallida")
+                {
+                    Utilities.SaveLogError(new LogError
+                    {
+                        Message = transaccionCompra.Respuesta,
+                        Method = "WCFServices.PostComprar.Fallida"
+                    });
+                    countError++;
+                    Buytickets();
+                }
+                else
+                {
+                    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                    if (!response.IsSuccess)
+                    {
+                        Utilities.SaveLogError(new LogError
+                        {
+                            Message = responseDB.Message,
+                            Method = "DBProcinalController.EditPaySeat"
+                        });
+                    }
+                }
+            }
+            else
+            {
+                SavePay(responseGlobal.IsSuccess);
             }
         }
         #endregion

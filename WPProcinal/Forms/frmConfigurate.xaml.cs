@@ -53,43 +53,43 @@ namespace WPProcinal.Forms
                 if (state)
                 {
                     var response = await api.GetResponse(new Uptake.RequestApi(), "InitPaypad");
-                    if (response.CodeError == 200)
-                    {
-                        DataPaypad data = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
+                    //if (response.CodeError == 200)
+                    //{
+                    //    DataPaypad data = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
 
-                        if (data.State)
-                        {
-                            if (data.StateAceptance && data.StateDispenser)
-                            {
-                                Utilities.control.callbackError = error =>
-                                {
-                                    GetToken();
-                                };
-                                Utilities.control.callbackToken = isSucces =>
-                                {
-                                    Dispatcher.BeginInvoke((Action)delegate
-                                    {
-                                        frmCinema inicio = new frmCinema();
-                                        inicio.Show();
-                                        Close();
-                                    });
-                                };
-                                Utilities.control.Start();
-                            }
-                            else
-                            {
-                                ShowModalError("No están disponibles los billeteros");
-                            }
-                        }
-                        else
-                        {
-                            ShowModalError("No se pudo verificar el estado de los periféricos");
-                        }
-                    }
-                    else
+                    //    if (data.State)
+                    //    {
+                    //        if (data.StateAceptance && data.StateDispenser)
+                    //        {
+                    //            Utilities.control.callbackError = error =>
+                    //            {
+                    //                GetToken();
+                    //            };
+                    //            Utilities.control.callbackToken = isSucces =>
+                    //            {
+                    Dispatcher.BeginInvoke((Action)delegate
                     {
-                        ShowModalError("No se pudo iniciar el cajero");
-                    }
+                        frmCinema inicio = new frmCinema();
+                        inicio.Show();
+                        Close();
+                    });
+                    //            };
+                    //            Utilities.control.Start();
+                    //        }
+                    //        else
+                    //        {
+                    //            ShowModalError("No están disponibles los billeteros");
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        ShowModalError("No se pudo verificar el estado de los periféricos");
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    ShowModalError("No se pudo iniciar el cajero");
+                    //}
                 }
                 else
                 {

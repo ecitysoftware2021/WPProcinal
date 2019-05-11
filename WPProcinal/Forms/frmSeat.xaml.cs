@@ -475,7 +475,7 @@ namespace WPProcinal.Forms
             }
 
             SaveDataBaseLocal();
-            GenerateTransactions();
+           // GenerateTransactions();
             if (_ErrorTransaction)
             {
                 frmLoadding.Close();
@@ -573,11 +573,7 @@ namespace WPProcinal.Forms
 
         private async void ShowPay()
         {
-            //frmPay _frmPay = new frmPay(SelectedTypeSeats, dipMapCurrent);
-            //_frmPay.Show();
-            //Hide();
-
-            var response = await utilities.CreateTransaction(Utilities.PayVal, "Cine");
+            var response = await utilities.CreateTransaction("Cine", dipMapCurrent);
 
             if (!response)
             {
@@ -589,7 +585,7 @@ namespace WPProcinal.Forms
             }
             else
             {
-                frmPayCine pay = new frmPayCine();
+                frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
                 pay.Show();
                 this.Close();
             }
