@@ -12,10 +12,11 @@
         Width="1250.599"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <ImageBrush ImageSource="/Images/home-bg-seleccion-horario-2.jpg" />
-    </Window.Background>
+    
     <Grid Name="PaymentGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="200" />
             <RowDefinition Height="400" />
@@ -25,7 +26,7 @@
 
         <Label Content="VALOR A PAGAR" 
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="#606060"
+                   Foreground="White"
                    Margin="0,0,0,0" 
                    FontSize="50"
                    FontWeight="Bold"
@@ -34,7 +35,7 @@
                    Grid.Row="2" />
         <Label Content="$ 0.00"
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="#606060"
+                   Foreground="White"
                    Name="lblValorPagar" 
                    Margin="0,100,0,0" 
                    FontSize="50"       
@@ -45,7 +46,7 @@
                    Grid.Row="2"/>
         <Label Content="Valor Ingresado" 
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="#606060"
+                   Foreground="White"
                    Margin="200,0,0,200" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
@@ -54,7 +55,7 @@
         <TextBlock Text="{Binding ValorIngresado, StringFormat={}{0:C0}}" 
                    Name="lblValorIngresado" 
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="#606060"
+                   Foreground="White"
                    Margin="700,0,0,190" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
@@ -63,7 +64,7 @@
                    Grid.Row="2"/>
         <Label Content="Valor Faltante" 
                FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                Foreground="#606060"
+                Foreground="White"
                 Margin="200,0,0,0" 
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
@@ -72,7 +73,7 @@
         <TextBlock Text="{Binding ValorFaltante, StringFormat={}{0:C0}}"
                    Name="lblFaltante"
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="#606060"
+                   Foreground="White"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
                    Margin="700,10,0,0" 
@@ -80,7 +81,7 @@
                    Grid.Row="2"/>
         <Label Content="Valor Restante" 
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="#606060"
+                   Foreground="White"
                    Margin="200,200,0,0" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
@@ -89,7 +90,7 @@
         <TextBlock Text="{Binding ValorSobrante, StringFormat={}{0:C0}}" 
                    Name="lblSobrante" 
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="#606060"
+                   Foreground="White"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
                    Margin="700,190,0,0"

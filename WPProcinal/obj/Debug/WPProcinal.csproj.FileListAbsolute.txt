@@ -194,7 +194,6 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPay.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmSeat.g.cs
-D:\GitHub\WPProcinal\WPProcinal\obj\Debug\MainWindow.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\App.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_Content.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
@@ -211,7 +210,6 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPay.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmSeat.baml
-D:\GitHub\WPProcinal\WPProcinal\obj\Debug\MainWindow.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.g.resources
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.Properties.Resources.resources
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.GenerateResource.cache

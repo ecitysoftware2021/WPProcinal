@@ -16,7 +16,7 @@ namespace WPProcinal.Forms
         {
             InitializeComponent();
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
-            LblCinema.Text = Dictionaries.Cinemas[Utilities.CinemaId];
+            //LblCinema.Text = Dictionaries.Cinemas[Utilities.CinemaId];
 
             var t = Task.Run(() =>
             {

@@ -571,7 +571,7 @@ namespace WPProcinal.Forms
 
         private void ShowPay()
         {
-            frmPay _frmPay = new frmPay(SelectedTypeSeats, dipMapCurrent);
+            //frmPay _frmPay = new frmPay(SelectedTypeSeats, dipMapCurrent);
             //_frmPay.Show();
             //Hide();
 

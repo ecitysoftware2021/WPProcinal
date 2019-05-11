@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:local="clr-namespace:WPProcinal.Forms"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
         Background="#fff"
         WindowStyle="None"
@@ -13,20 +14,20 @@
         WindowStartupLocation="CenterScreen">
     <Grid PreviewMouseDown="BtnConsult_MouseDown">
         <Grid.Background>
-            <ImageBrush ImageSource="..\Images\fondo-mayorcav3.jpg" 
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-inicio.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
-        <TextBlock 
-            HorizontalAlignment="Center"
-            Margin="0,0,0,100" 
-            TextWrapping="Wrap" 
-            Text="MAYORCA"
-            Name="LblCinema"
-            FontSize="120"
-            Foreground="#FFF"     
-            TextAlignment="Center"
-            VerticalAlignment="Center" 
-            FontWeight="Bold"/>
-
+        <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/procinal01.gif" 
+                   gif:ImageBehavior.AnimateInDesignMode="True"
+                   gif:ImageBehavior.AutoStart="True" 
+                    x:Name="GifLoad2" 
+                    Stretch="Fill"
+                    Margin="0,350,0,0" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Width="300" 
+                    Visibility="Visible"
+                    Height="300" 
+                    Grid.Column="1"/>
     </Grid>
 </Window>

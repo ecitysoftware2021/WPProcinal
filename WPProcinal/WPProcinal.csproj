@@ -285,10 +285,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -312,10 +308,6 @@
     </Compile>
     <Compile Include="Forms\frmSeat.xaml.cs">
       <DependentUpon>frmSeat.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -630,6 +622,29 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-pay.jpg" />
+    <Resource Include="Images\NewDesing\Backgrounds\pantalla.png" />
+    <Resource Include="Images\NewDesing\Seats\s-bloqueada.png" />
+    <Resource Include="Images\NewDesing\Seats\s-disponible.png" />
+    <Resource Include="Images\NewDesing\Seats\s-ocupada.png" />
+    <Resource Include="Images\NewDesing\Seats\s-puff.png" />
+    <Resource Include="Images\NewDesing\Seats\s-ruedas.png" />
+    <Resource Include="Images\NewDesing\Seats\s-seleccionada.png" />
+    <Resource Include="Images\NewDesing\Buttons\b-atras.png" />
+    <Resource Include="Images\NewDesing\Buttons\b-Cartelera.png" />
+    <Resource Include="Images\NewDesing\Buttons\b-efectivo.png" />
+    <Resource Include="Images\NewDesing\Buttons\b-pagar.png" />
+    <Resource Include="Images\NewDesing\Buttons\b-Preventa.png" />
+    <Resource Include="Images\NewDesing\Buttons\b-tarjeta.png" />
+    <Resource Include="Images\NewDesing\Buttons\descado-carteleras.png" />
+    <Resource Include="Images\NewDesing\Buttons\descado-estrenos.png" />
+    <Resource Include="Images\NewDesing\Buttons\descado-pre-ventas.png" />
+    <Resource Include="Images\NewDesing\Gif\procinal01.gif" />
+    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-cartelera.jpg" />
+    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-final.jpg" />
+    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-general.jpg" />
+    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-inicio.jpg" />
+    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-pelicula.jpg" />
     <Resource Include="Images\b-contando-billetes.gif" />
     <Resource Include="Images\b-espere-cambio.gif" />
     <Resource Include="Images\b-espere-recibo.gif" />

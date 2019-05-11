@@ -13,7 +13,7 @@
     <Grid>
         <Grid.Background>
             <ImageBrush x:Name="imgBg"
-                ImageSource="../Images/home-bg-seleccion-horario-3.jpg" 
+                ImageSource="/Images/NewDesing/backgrounds/p-fondo-general.jpg" 
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>

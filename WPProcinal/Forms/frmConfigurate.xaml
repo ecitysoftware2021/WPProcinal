@@ -14,7 +14,7 @@
         Loaded="Window_Loaded">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/home-bg-seleccion-horario-2.jpg"/>
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-inicio.jpg"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="300" />
@@ -22,23 +22,20 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Text="CONFIGURACIÓN DEL DISPOSITIVO"
                        FontFamily="Arial"
                        FontSize="60"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
-                       Margin="0,0,0,0"
+                       Margin="0,0,0,400"
                        FontWeight="Bold"/>
-        </Grid>
-
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Text="Espera mientras se configura el dispositivo para iniciar"
                        FontFamily="Arial"
                        FontSize="45"
-                       VerticalAlignment="Top"
+                       VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
-                       Margin="172,200,171,0"
+                       Margin="0,0,0,200"
                        FontWeight="Bold"
                        TextWrapping="Wrap"
                        TextAlignment="Center"

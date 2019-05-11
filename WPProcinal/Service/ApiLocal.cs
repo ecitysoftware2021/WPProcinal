@@ -122,7 +122,7 @@ namespace WPProcinal.Service
             try
             {
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string[] text = System.IO.File.ReadAllLines(string.Format(@"{0}\keys.txt", path));
+                string[] text = System.IO.File.ReadAllLines(string.Format(@"{0}\keys11.txt", path));
                 if (text.Length > 0)
                 {
                     string[] line1 = text[0].Split(';');

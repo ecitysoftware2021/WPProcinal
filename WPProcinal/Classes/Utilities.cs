@@ -329,7 +329,7 @@ namespace WPProcinal.Classes
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
-                    MainWindow main = new MainWindow();
+                    frmCinema main = new frmCinema();
                     main.Show();
                     CloseWindows(main.Title);
                 }));

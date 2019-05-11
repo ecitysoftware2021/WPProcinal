@@ -13,7 +13,7 @@
         Height="2064.095" Width="1250.599">
     <Grid Name="GridSeat">
         <Grid.Background>
-            <ImageBrush ImageSource="../Images/homebg-seleccion-sillas.jpg" 
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-general.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
@@ -38,8 +38,10 @@
                         Stretch="UniformToFill"/>
             </Border>
 
-            <Image Source="../Images/atras.png" 
-                   Margin="1,-27,982,451"
+            <Image Source="../Images/NewDesing/buttons/b-atras.png" 
+                   Margin="20,100,0,0"
+                   Height="100"
+                   HorizontalAlignment="Left"
                    PreviewMouseDown="Image_PreviewMouseDown"/>
 
             <Image Source="../Images/info-pelicula.png" 
@@ -162,8 +164,17 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Center" 
                        Margin="550,370,0,0"/>
-        </Grid>
 
+        </Grid>
+        <Grid Grid.Row="2" 
+              Grid.ColumnSpan="2"
+              Width="1030" Margin="-120,-190,-100,-150">
+            <Image HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Source="../Images/NewDesing/Backgrounds/pantalla.png"
+                   
+                   />
+        </Grid>
         <Grid HorizontalAlignment="Center" 
                Height="102"                
                Grid.Row="3" 
