@@ -17,10 +17,10 @@ namespace WPProcinal.WCFSecuencia {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/secven", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Xml.XmlNode secven(int tea_ext_l, int pun_ext_l);
+        System.Xml.XmlNode secven(int tea_ext_l, double pun_ext_l);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/secven", ReplyAction="*")]
-        System.Threading.Tasks.Task<System.Xml.XmlNode> secvenAsync(int tea_ext_l, int pun_ext_l);
+        System.Threading.Tasks.Task<System.Xml.XmlNode> secvenAsync(int tea_ext_l, double pun_ext_l);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -50,11 +50,11 @@ namespace WPProcinal.WCFSecuencia {
                 base(binding, remoteAddress) {
         }
         
-        public System.Xml.XmlNode secven(int tea_ext_l, int pun_ext_l) {
+        public System.Xml.XmlNode secven(int tea_ext_l, double pun_ext_l) {
             return base.Channel.secven(tea_ext_l, pun_ext_l);
         }
         
-        public System.Threading.Tasks.Task<System.Xml.XmlNode> secvenAsync(int tea_ext_l, int pun_ext_l) {
+        public System.Threading.Tasks.Task<System.Xml.XmlNode> secvenAsync(int tea_ext_l, double pun_ext_l) {
             return base.Channel.secvenAsync(tea_ext_l, pun_ext_l);
         }
     }

@@ -239,7 +239,7 @@ namespace WPProcinal.Service
         {
             try
             {
-                WCFPcrint.compraSoapClient serviceSoapClient = new WCFPcrint.compraSoapClient();
+                WCFPcrint.ServiceSoapClient serviceSoapClient = new WCFPcrint.ServiceSoapClient();
                 var data = serviceSoapClient.comint(
                     teatro: dipMap.CinemaId.Value,
                     secuencia: dipMap.Secuence.Value,
@@ -277,7 +277,7 @@ namespace WPProcinal.Service
         {
             try
             {
-                WCFPcrint.compraSoapClient serviceSoapClient = new WCFPcrint.compraSoapClient();
+                WCFPcrint.ServiceSoapClient serviceSoapClient = new WCFPcrint.ServiceSoapClient();
                 var data = serviceSoapClient.comint(
                     teatro: dipMap.CinemaId,
                     secuencia: dipMap.Secuence,

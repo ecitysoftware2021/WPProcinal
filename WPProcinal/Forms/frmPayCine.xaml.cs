@@ -85,8 +85,8 @@ namespace WPProcinal.Forms
                 {
                     if (payState)
                     {
-                        //ActivateWallet();
-                        Buytickets();
+                        ActivateWallet();
+                        //Buytickets();
                     }
                 });
 

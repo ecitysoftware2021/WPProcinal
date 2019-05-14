@@ -22,7 +22,7 @@
     <MetadataSource Address="http://190.248.130.234/scoreservices/pcrint1/service.asmx?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="9b22a3a0-5fdf-4f38-b6a1-2358b5f929af" SourceId="1" SourceUrl="http://190.248.130.234/scoreservices/pcrint1/service.asmx?wsdl" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="7c36a787-cbd2-440d-8c98-260d1995ef75" SourceId="1" SourceUrl="http://190.248.130.234/scoreservices/pcrint1/service.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

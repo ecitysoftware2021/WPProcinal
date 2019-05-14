@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="v97ddU3NBhwL6wfc36QxPZCmyJc=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="nFIeo5QSFU/fKyNZGnzcpokJrtQ=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="ServiceSoap5">
       <properties>
@@ -348,7 +348,7 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="ServiceSoap121" contract="WCFSecuencia.ServiceSoap" bindingType="customBinding" address="http://190.248.130.234/scoreservices/pcrsec/service.asmx" bindingConfiguration="ServiceSoap125">
+    <endpoint name="ServiceSoap125" contract="WCFSecuencia.ServiceSoap" bindingType="customBinding" address="http://190.248.130.234/scoreservices/pcrsec/service.asmx" bindingConfiguration="ServiceSoap125">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>http://190.248.130.234/scoreservices/pcrsec/service.asmx</serializedValue>
@@ -423,7 +423,7 @@
           <serializedValue>False</serializedValue>
         </property>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>ServiceSoap121</serializedValue>
+          <serializedValue>ServiceSoap125</serializedValue>
         </property>
         <property path="/kind" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
