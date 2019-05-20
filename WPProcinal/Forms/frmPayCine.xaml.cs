@@ -33,6 +33,7 @@ namespace WPProcinal.Forms
         private bool stateUpdate;
         private int countError = 0;
         private bool payState;
+        Response responseGlobal = new Response();
         Utilities objUtil = new Utilities();
 
         #region LoadMethods
@@ -85,8 +86,9 @@ namespace WPProcinal.Forms
                 {
                     if (payState)
                     {
-                        ActivateWallet();
+                        //ActivateWallet();
                         //Buytickets();
+                        //SavePay(true);
                     }
                 });
 
@@ -140,7 +142,7 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    Utilities.GoToInicial();
+                    Utilities.GoToInicial(this);
                 }
             }
             catch (Exception ex)
@@ -315,7 +317,6 @@ namespace WPProcinal.Forms
         {
             try
             {
-
                 if (!task)
                 {
                     await Dispatcher.BeginInvoke((Action)delegate
@@ -340,7 +341,7 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    ApproveTrans();
+                   // ApproveTrans();
 
                     objUtil.ImprimirComprobante("Aprobada", Utilities.Receipt, Utilities.TypeSeats, Utilities.DipMapCurrent);
 
@@ -350,7 +351,7 @@ namespace WPProcinal.Forms
                         Environment.NewLine,
                         "Su transacción ha finalizado correctamente!"));
                         _frmModal.ShowDialog();
-                        Utilities.GoToInicial();
+                        Utilities.GoToInicial(this);
                     });
                     GC.Collect();
                 }
@@ -373,7 +374,7 @@ namespace WPProcinal.Forms
                 });
                 GC.Collect();
 
-                Utilities.GoToInicial();
+                Utilities.GoToInicial(this);
             }
             catch (Exception ex)
             {
@@ -391,7 +392,7 @@ namespace WPProcinal.Forms
 
         private void Buytickets()
         {
-            Response responseGlobal = new Response(); 
+
             if (countError < 3)
             {
                 var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
@@ -432,10 +433,7 @@ namespace WPProcinal.Forms
                     }
                 }
             }
-            else
-            {
-                SavePay(responseGlobal.IsSuccess);
-            }
+            SavePay(responseGlobal.IsSuccess);
         }
         #endregion
     }

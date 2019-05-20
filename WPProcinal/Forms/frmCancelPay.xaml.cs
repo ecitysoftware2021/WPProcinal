@@ -41,7 +41,7 @@ namespace WPProcinal.Forms
             ActivatePayments activatePayments = new ActivatePayments();
             await activatePayments.Devolver();
             Print();
-            Utilities.GoToInicial();
+            //Utilities.GoToInicial();
         }
 
         private void Print()

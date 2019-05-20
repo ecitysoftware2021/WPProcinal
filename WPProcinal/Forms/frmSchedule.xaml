@@ -37,8 +37,11 @@
                         Stretch="UniformToFill"/>
             </Border>
 
-            <Image Source="../Images/atras.png" 
-                   Margin="1,-27,982,451"
+            <Image Source="../Images/NewDesing/buttons/b-atras.png" 
+                   Margin="20,0,0,-20"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   Height="110"
                    PreviewMouseDown="Image_PreviewMouseDown"/>
 
             <Image Source="../Images/logo-header.png" 

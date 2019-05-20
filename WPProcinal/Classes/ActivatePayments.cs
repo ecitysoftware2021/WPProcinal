@@ -382,7 +382,7 @@ namespace WPProcinal.Classes
 
                             Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
                             Utilities.ShowModal(objPropiedades.Mensaje);
-                            Utilities.GoToInicial();
+                            //Utilities.GoToInicial(this);
                         }
                     }
                 }
@@ -556,7 +556,7 @@ namespace WPProcinal.Classes
                 Environment.NewLine,
                 "Su transacción ha finalizado correctamente!"));
                 _frmModal.ShowDialog();
-                Utilities.GoToInicial();
+                //Utilities.GoToInicial();
 
 
             }));
@@ -756,7 +756,7 @@ namespace WPProcinal.Classes
                     if (objUtil.ValorIngresado == 0)
                     {
                         Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                        Utilities.GoToInicial();
+                        //Utilities.GoToInicial();
                     }
                     else
                     {

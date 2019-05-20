@@ -32,8 +32,7 @@ namespace WPProcinal.Forms
         public frmSeat(DipMap dipMap)
         {
             InitializeComponent();
-            var frmLoading = new FrmLoading("¡Cargando la sala!");
-            frmLoading.Show();
+         
 
             dipMapCurrent = dipMap;
             imgBackground.Source = Utilities.ImageSelected;
@@ -47,13 +46,7 @@ namespace WPProcinal.Forms
             TxtSubTitle.Text = dipMap.Language;
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
             HideImages();
-            this.Dispatcher.Invoke(() =>
-            {
-                LoadSeats();
-                frmLoading.Close();
-            });
-
-            Utilities.DoEvents();
+       
         }
 
         private void HideImages()
@@ -100,6 +93,8 @@ namespace WPProcinal.Forms
             var response = WCFServices.GetDipMap(dipMapCurrent);
             if (!response.IsSuccess)
             {
+                
+
                 Utilities.SaveLogError(new LogError
                 {
                     Message = response.Message,
@@ -110,92 +105,97 @@ namespace WPProcinal.Forms
                 frmModal _frmModal = new frmModal("El servicio no esta disponible.");
                 _frmModal.ShowDialog();
 
-                CloseApplication(this);
+                //CloseApplication(this);
+                Utilities.GoToInicial(this);
             }
-
-            var responseV2 = WCFServices.GetStateRoom(dipMapCurrent);
-            if (!response.IsSuccess)
+            else
             {
-                Utilities.SaveLogError(new LogError
+                var responseV2 = WCFServices.GetStateRoom(dipMapCurrent);
+                if (!response.IsSuccess)
                 {
-                    Message = response.Message,
-                    Method = "WCFServices.GetStateRoom",
-
-                });
-                frmModal _frmModal = new frmModal("El servicio no esta disponible.");
-                _frmModal.ShowDialog();
-                CloseApplication(this);
-            }
-
-            var mapaSala = WCFServices.DeserealizeXML<MapaSala>(response.Result.ToString());
-            var estadoSala = WCFServices.DeserealizeXML<EstadoSala>(responseV2.Result.ToString());
-
-
-
-            List<SeatTmp> states = new List<SeatTmp>();
-            foreach (var fila in estadoSala.FILA)
-            {
-                var split = fila.Num_Col.Split('-');
-                int i = 0;
-                foreach (var item in split)
-                {
-                    if (!string.IsNullOrEmpty(item) && item != " ")
+                    Utilities.SaveLogError(new LogError
                     {
-                        states.Add(new SeatTmp
+                        Message = response.Message,
+                        Method = "WCFServices.GetStateRoom",
+
+                    });
+                    frmModal _frmModal = new frmModal("El servicio no esta disponible.");
+                    _frmModal.ShowDialog();
+
+                    //CloseApplication(this);
+                    Utilities.GoToInicial(this);
+                }
+                else
+                {
+                    var mapaSala = WCFServices.DeserealizeXML<MapaSala>(response.Result.ToString());
+                    var estadoSala = WCFServices.DeserealizeXML<EstadoSala>(responseV2.Result.ToString());
+
+                    List<SeatTmp> states = new List<SeatTmp>();
+                    foreach (var fila in estadoSala.FILA)
+                    {
+                        var split = fila.Num_Col.Split('-');
+                        int i = 0;
+                        foreach (var item in split)
                         {
-                            Name = item,
-                            State = fila.Des_Fila[i + 1].ToString(),
-                            Type = fila.Des_Fila[i].ToString(),
-                        });
-                        i += 2;
+                            if (!string.IsNullOrEmpty(item) && item != " ")
+                            {
+                                states.Add(new SeatTmp
+                                {
+                                    Name = item,
+                                    State = fila.Des_Fila[i + 1].ToString(),
+                                    Type = fila.Des_Fila[i].ToString(),
+                                });
+                                i += 2;
+                            }
+                        }
                     }
+
+                    var FTSplit = mapaSala.FT.Split(',');
+                    int positionX = FTSplit.Distinct().Count() - 1;
+                    var FTDistinc = FTSplit.Distinct().ToList();
+                    var CTSplit = mapaSala.CT.Split(',');
+                    int positionY = CTSplit.Distinct().Count() - 1;
+                    var CTDistinc = CTSplit.Distinct();
+                    var FRSplit = mapaSala.FR.Split(',');
+                    var FRDistinc = FRSplit.Distinct();
+                    var CRSplit = mapaSala.CR.Split(',');
+                    var CRDistinc = CRSplit.Distinct();
+                    var TSSplit = mapaSala.TS.Split(',');
+                    var TSDistinc = TSSplit.Distinct();
+                    int count = 0;
+
+                    List<TypeSeat> typeSeats = new List<TypeSeat>();
+                    List<SeatTmp> seatTmps = new List<SeatTmp>();
+                    foreach (var item in FTSplit)
+                    {
+                        if (!string.IsNullOrEmpty(item))
+                        {
+                            typeSeats.Add(new TypeSeat
+                            {
+                                Letter = item,
+                                Name = string.Format("{0}{1}", item, CTSplit[count]),
+                                Number = CTSplit[count]
+                            });
+
+                            seatTmps.Add(new SeatTmp
+                            {
+                                Name = string.Format("{0}{1}", item, CRSplit[count]),
+                                Type = TSSplit[count],
+                            });
+                        }
+
+                        count++;
+                    }
+
+                    OrganizePositionOfSeats(states, positionX, FTDistinc, positionY, typeSeats, seatTmps);
                 }
             }
-
-            var FTSplit = mapaSala.FT.Split(',');
-            int positionX = FTSplit.Distinct().Count() - 1;
-            var FTDistinc = FTSplit.Distinct().ToList();
-            var CTSplit = mapaSala.CT.Split(',');
-            int positionY = CTSplit.Distinct().Count() - 1;
-            var CTDistinc = CTSplit.Distinct();
-            var FRSplit = mapaSala.FR.Split(',');
-            var FRDistinc = FRSplit.Distinct();
-            var CRSplit = mapaSala.CR.Split(',');
-            var CRDistinc = CRSplit.Distinct();
-            var TSSplit = mapaSala.TS.Split(',');
-            var TSDistinc = TSSplit.Distinct();
-            int count = 0;
-
-            List<TypeSeat> typeSeats = new List<TypeSeat>();
-            List<SeatTmp> seatTmps = new List<SeatTmp>();
-            foreach (var item in FTSplit)
-            {
-                if (!string.IsNullOrEmpty(item))
-                {
-                    typeSeats.Add(new TypeSeat
-                    {
-                        Letter = item,
-                        Name = string.Format("{0}{1}", item, CTSplit[count]),
-                        Number = CTSplit[count]
-                    });
-
-                    seatTmps.Add(new SeatTmp
-                    {
-                        Name = string.Format("{0}{1}", item, CRSplit[count]),
-                        Type = TSSplit[count],
-                    });
-                }
-
-                count++;
-            }
-
-            OrganizePositionOfSeats(states, positionX, FTDistinc, positionY, typeSeats, seatTmps);
         }
 
         private void CloseApplication(Window form)
         {
             form.Close();
-            Utilities.GoToInicial();
+            Utilities.GoToInicial(this);
         }
 
 
@@ -523,7 +523,7 @@ namespace WPProcinal.Forms
 
                 Utilities.CancelAssing(SelectedTypeSeats, dipMapCurrent);
                 Utilities.ShowModal("Servicio no disponible");
-                Utilities.GoToInicial();
+                Utilities.GoToInicial(this);
                 return 0;
             }
         }
@@ -605,7 +605,24 @@ namespace WPProcinal.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    var frmLoading = new FrmLoading("¡Cargando la sala!");
+                    frmLoading.Show();
+                    LoadSeats();
+                    frmLoading.Close();
+                });
 
+
+                Utilities.DoEvents();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

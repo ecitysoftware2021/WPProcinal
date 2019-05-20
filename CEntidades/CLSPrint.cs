@@ -77,7 +77,7 @@ namespace CEntidades
 
             Graphics g = e.Graphics;
             string RutaIMG = GetConfiguration("LogoComprobante");
-            g.DrawImage(Image.FromFile(RutaIMG), 30, 0);            
+            g.DrawImage(Image.FromFile(RutaIMG), 30, 0);
             g.DrawString(Cinema, fBody, sb, 120, SPACE);
             g.DrawString("Colombia de Cines S.A", fBody, sb, 10, SPACE + 25);
             g.DrawString("NIT:", fBody, sb, 10, SPACE + 40);

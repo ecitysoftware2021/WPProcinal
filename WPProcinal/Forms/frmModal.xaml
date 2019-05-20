@@ -78,7 +78,7 @@
                        Name="BtnEnd"
                        Source="../Images/salir2.png" 
                        
-                       PreviewMouseDown="BtnEnd_MouseDown"
+                       TouchDown="BtnEnd_TouchDown"
                        VerticalAlignment="Center" 
                        Width="188" 
                            Height="77" 

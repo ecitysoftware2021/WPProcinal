@@ -374,7 +374,7 @@ namespace WPProcinal.Classes
             }
             else if (response[1] == "FATAL")
             {
-                Utilities.GoToInicial();
+                Utilities.RestartApp();
             }
         }
 

@@ -323,7 +323,7 @@ namespace WPProcinal.Classes
         /// <summary>
         /// Método que me redirecciona a la ventana de inicio
         /// </summary>
-        public static void GoToInicial()
+        public static void GoToInicial(Window window)
         {
             try
             {
@@ -331,7 +331,7 @@ namespace WPProcinal.Classes
                 {
                     frmCinema main = new frmCinema();
                     main.Show();
-                    CloseWindows(main.Title);
+                    window.Close();
                 }));
                 GC.Collect();
             }
@@ -466,21 +466,26 @@ namespace WPProcinal.Classes
 
         public void ImprimirComprobante(string Estado, Receipt receipt, List<TypeSeat> Seats, DipMap dipMap)
         {
-
-            foreach (var seat in Seats)
+            try
             {
-                objPrint.Cinema = GetConfiguration("NameCinema");
-                objPrint.Movie = dipMap.MovieName;
-                objPrint.Time = dipMap.HourFunction;
-                objPrint.Room = dipMap.RoomName;
-                objPrint.Date = dipMap.Day; //Fecha
-                objPrint.Seat = seat.Name;
-                objPrint.FechaPago = DateTime.Now;
-                objPrint.Valor = seat.Price;
-                objPrint.Tramite = "Boleto de Cine";
-                objPrint.Category = dipMap.Category;
-                objPrint.Recibo = receipt;
-                objPrint.ImprimirComprobante();
+                foreach (var seat in Seats)
+                {
+                    objPrint.Cinema = GetConfiguration("NameCinema");
+                    objPrint.Movie = dipMap.MovieName;
+                    objPrint.Time = dipMap.HourFunction;
+                    objPrint.Room = dipMap.RoomName;
+                    objPrint.Date = dipMap.Day; //Fecha
+                    objPrint.Seat = seat.Name;
+                    objPrint.FechaPago = DateTime.Now;
+                    objPrint.Valor = seat.Price;
+                    objPrint.Tramite = "Boleto de Cine";
+                    objPrint.Category = dipMap.Category;
+                    objPrint.Recibo = receipt;
+                    objPrint.ImprimirComprobante();
+                }
+            }
+            catch (Exception ex)
+            {
             }
         }
 
