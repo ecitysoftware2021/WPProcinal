@@ -39,8 +39,9 @@
             </Border>
 
             <Image Source="../Images/NewDesing/buttons/b-atras.png" 
-                   Margin="20,100,0,0"
-                   Height="100"
+                   Margin="20,0,0,0"
+                   Height="120"
+                   VerticalAlignment="Bottom"
                    HorizontalAlignment="Left"
                    PreviewMouseDown="Image_PreviewMouseDown"/>
 

@@ -614,13 +614,20 @@
   <ItemGroup>
     <Content Include="ADO\Procinal.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Procinal.Context.cs</LastGenOutput>
       <DependentUpon>Procinal.edmx</DependentUpon>
+      <LastGenOutput>Procinal.Context.cs</LastGenOutput>
     </Content>
     <Content Include="ADO\Procinal.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBProcinal.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBProcinal_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>DBProcinal.mdf</DependentUpon>
     </Content>
     <Resource Include="Images\NewDesing\Backgrounds\p-fondo-pay.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\pantalla.png" />
@@ -716,7 +723,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -728,6 +735,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -86,7 +86,7 @@ namespace WPProcinal.Forms
                 {
                     if (payState)
                     {
-                        //ActivateWallet();
+                        ActivateWallet();
                         //Buytickets();
                         //SavePay(true);
                     }
@@ -179,7 +179,8 @@ namespace WPProcinal.Forms
                     Utilities.EnterTotal = enterTotal;
                     if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                     {
-                        ReturnMoney(PaymentViewModel.ValorSobrante, true);
+                        Buytickets();
+                        //ReturnMoney(PaymentViewModel.ValorSobrante, true);
                     }
                     else
                     {
@@ -330,7 +331,7 @@ namespace WPProcinal.Forms
 
                     Task.Run(() =>
                     {
-                        utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante).Wait();
+                        //utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante).Wait();
 
                         logError.Description = "\nNo Se cancelo una transaccion";
                         logError.State = "Cancelada";
@@ -392,9 +393,10 @@ namespace WPProcinal.Forms
 
         private void Buytickets()
         {
-
-            if (countError < 3)
-            {
+            //TODO: descomentar
+            //if (countError < 3)
+            //{
+            bool payState = true;
                 var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
                 responseGlobal = response;
                 if (!response.IsSuccess)
@@ -406,19 +408,20 @@ namespace WPProcinal.Forms
                     });
 
                     countError++;
-                    Buytickets();
+                    //Buytickets();
                 }
 
                 var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
                 if (transaccionCompra.Respuesta == "Fallida")
                 {
+                payState = false;
                     Utilities.SaveLogError(new LogError
                     {
                         Message = transaccionCompra.Respuesta,
                         Method = "WCFServices.PostComprar.Fallida"
                     });
                     countError++;
-                    Buytickets();
+                    //Buytickets();
                 }
                 else
                 {
@@ -432,8 +435,8 @@ namespace WPProcinal.Forms
                         });
                     }
                 }
-            }
-            SavePay(responseGlobal.IsSuccess);
+            //}
+            SavePay(payState);
         }
         #endregion
     }

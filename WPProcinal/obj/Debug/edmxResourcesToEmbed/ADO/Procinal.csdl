@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DBProcinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityContainer Name="DBProcinalEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="TblDipMaps" EntityType="DBProcinalModel.TblDipMap" />
-    <EntitySet Name="TblTypeSeats" EntityType="DBProcinalModel.TblTypeSeat" />
-    <EntitySet Name="TblPays" EntityType="DBProcinalModel.TblPay" />
-  </EntityContainer>
   <EntityType Name="TblDipMap">
     <Key>
       <PropertyRef Name="DipMapId" />
@@ -33,6 +28,14 @@
     <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Active" Type="Boolean" />
   </EntityType>
+  <EntityType Name="TblPay">
+    <Key>
+      <PropertyRef Name="TblPayId" />
+    </Key>
+    <Property Name="TblPayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DipMapId" Type="Int32" />
+    <Property Name="IsPay" Type="Boolean" />
+  </EntityType>
   <EntityType Name="TblTypeSeat">
     <Key>
       <PropertyRef Name="TblTypeSeat1" />
@@ -50,12 +53,9 @@
     <Property Name="DipMapId" Type="Int32" />
     <Property Name="TransactionId" Type="Int32" />
   </EntityType>
-  <EntityType Name="TblPay">
-    <Key>
-      <PropertyRef Name="TblPayId" />
-    </Key>
-    <Property Name="TblPayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="DipMapId" Type="Int32" />
-    <Property Name="IsPay" Type="Boolean" />
-  </EntityType>
+  <EntityContainer Name="DBProcinalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TblDipMaps" EntityType="Self.TblDipMap" />
+    <EntitySet Name="TblPays" EntityType="Self.TblPay" />
+    <EntitySet Name="TblTypeSeats" EntityType="Self.TblTypeSeat" />
+  </EntityContainer>
 </Schema>

@@ -61,20 +61,20 @@ namespace WPProcinal.Forms
                         {
                             if (data.StateAceptance && data.StateDispenser)
                             {
-                                //Utilities.control.callbackError = error =>
-                                //{
-                                //    GetToken();
-                                //};
-                                //Utilities.control.callbackToken = isSucces =>
-                                //{
-                                Dispatcher.BeginInvoke((Action)delegate
+                                Utilities.control.callbackError = error =>
                                 {
-                                    frmCinema inicio = new frmCinema();
-                                    inicio.Show();
-                                    Close();
-                                });
-                                //};
-                                //Utilities.control.Start();
+                                    GetToken();
+                                };
+                                Utilities.control.callbackToken = isSucces =>
+                                {
+                                    Dispatcher.BeginInvoke((Action)delegate
+                                    {
+                                        frmCinema inicio = new frmCinema();
+                                        inicio.Show();
+                                        Close();
+                                    });
+                                };
+                                Utilities.control.Start();
                             }
                             else
                             {

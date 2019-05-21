@@ -15,6 +15,12 @@ namespace WPProcinal.Classes
         {
             try
             {
+
+                if (db == null)
+                {
+                    db = new DBProcinalEntities();
+                }
+
                 var tblDipMap = new TblDipMap
                 {
                     Active = true,
