@@ -34,10 +34,12 @@ namespace WPProcinal.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Task.Run(() =>
-            {
-                GetToken();
-            });
+            //Task.Run(() =>
+            //{
+            //    GetToken();
+            //});
+            frmModal frmModal = new frmModal("aaaaaa");
+            frmModal.ShowDialog();
         }
 
         /// <summary>

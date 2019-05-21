@@ -9,13 +9,14 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
         Title="Confirmación" 
         Height="774.325"
         Width="761.433">
     <Border Background="#FFF" 
             BorderBrush="#2A2A2A" 
-            BorderThickness="3,3,3,3"
-            CornerRadius="20,20,20,20">
+            BorderThickness="3,3,3,3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -27,7 +28,7 @@
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <!--Titulo-->
-            <Border Background="#fff" 
+            <Border  
                     BorderBrush="#2A2A2A" 
                     Grid.ColumnSpan="2"
                     BorderThickness="3,3,3,.5"
