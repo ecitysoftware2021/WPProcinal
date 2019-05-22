@@ -13,7 +13,6 @@
     <Grid>
         <Grid.Background>
             <ImageBrush x:Name="imgBg"
-                ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg" 
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>

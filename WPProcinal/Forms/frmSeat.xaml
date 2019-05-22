@@ -13,7 +13,7 @@
         Height="2064.095" Width="1250.599">
     <Grid Name="GridSeat">
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-general.jpg"
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
@@ -39,10 +39,10 @@
             </Border>
 
             <Image Source="../Images/NewDesing/buttons/b-atras.png" 
-                   Margin="20,0,0,0"
-                   Height="120"
-                   VerticalAlignment="Bottom"
+                   Margin="50,150,0,0"
+                   VerticalAlignment="Center"
                    HorizontalAlignment="Left"
+                   Height="130"
                    PreviewMouseDown="Image_PreviewMouseDown"/>
 
             <Image Source="../Images/info-pelicula.png" 
