@@ -38,9 +38,9 @@ namespace WPProcinal.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            imgBackground.Source = Utilities.ImageSelected;
+            imgBackground.ImageSource = Utilities.ImageSelected;
             MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
-            TxtTitle.Content = MovieName;
+            TxtTitle.Text = MovieName;
             
             if (Movie.Data.TituloOriginal.Length <= 15)
             {
