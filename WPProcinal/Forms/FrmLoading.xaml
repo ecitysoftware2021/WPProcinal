@@ -17,13 +17,14 @@
         AllowsTransparency="True"
         ShowInTaskbar="False">
     <Border 
-        Background="#fff"
-            BorderBrush="#2A2A2A" 
+            BorderBrush="Black" 
             BorderThickness="3,3,3,3"
-            CornerRadius="20,20,20,20">
+            CornerRadius="5,5,5,5">
         <Grid>
             <Grid.Background>
-                <ImageBrush ImageSource="../Images/logo-header.png"/>
+                <ImageBrush x:Name="imgBackground"
+                        ImageSource="../Images/NewDesing/backgrounds/fondo-modal.jpg" 
+                        Stretch="UniformToFill"/>
             </Grid.Background>
             <TextBlock
                 HorizontalAlignment="Center"
@@ -31,9 +32,9 @@
                 VerticalAlignment="Center"
                 TextAlignment="Justify"
                 TextWrapping="Wrap"
-                Margin="0,80,0,0"
-                Foreground="#000"
-                FontSize="15"
+                Margin="0,100,0,0"
+                Foreground="White"
+                FontSize="14"
                 Name="LblMessage"
                 ></TextBlock>
             <Image gif:ImageBehavior.AnimatedSource="../Images/loadingbar.gif" 
@@ -41,7 +42,7 @@
                    gif:ImageBehavior.AutoStart="True" 
                    
                     x:Name="GifLoadder" 
-                    Margin="0,130,0,0" 
+                    Margin="0,150,0,0" 
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Center" 
                     Width="186" 

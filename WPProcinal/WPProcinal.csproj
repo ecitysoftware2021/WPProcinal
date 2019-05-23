@@ -629,6 +629,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>DBProcinal.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\backButton.png" />
+    <Resource Include="Images\NewDesing\Backgrounds\fondoModal.jpg" />
+    <Resource Include="Images\NewDesing\Backgrounds\fondo-modal.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\p-fondo-pay.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\pantalla.png" />
     <Resource Include="Images\NewDesing\Seats\s-bloqueada.png" />

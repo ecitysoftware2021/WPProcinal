@@ -15,79 +15,66 @@
         Topmost="True"
         Height="450" 
         Width="600">
-    <Border Background="#fff" 
-            BorderBrush="#fff" 
-            BorderThickness="2,2,2,2"
-            CornerRadius="30,30,30,30">
+    <Border 
+            BorderBrush="Black" 
+            BorderThickness="3,3,3,3"
+            CornerRadius="20,20,20,20">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/NewDesing/Backgrounds/fondoModal.jpg"
+                        Stretch="Fill"/>
+        </Border.Background>
         <Grid Margin="-2,-2,2,2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="0*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="177" />
+                <RowDefinition Height="100" />
                 <RowDefinition />
-                <RowDefinition Height="81" />
+                <RowDefinition Height="120" />
             </Grid.RowDefinitions>
             <Border
-                BorderBrush="#2A2A2A" 
-                BorderThickness="3,3,3,0"
-                CornerRadius="30,30,0,0"
+                
                 Grid.Row="0"
-                    Margin="0,0,-4,0">
+                    Margin="0,0,-5,-5" Grid.ColumnSpan="2">
                 <Grid Grid.Row="0">
-                    <Grid.Background>
-                        <ImageBrush ImageSource="../Images/logo-header.png" 
-                        Stretch="Uniform"/>
-                    </Grid.Background>
-                    <TextBlock TextWrapping="Wrap" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Bottom" 
-                           Text="Mensaje de Sistema de Información" 
-                           Foreground="red" 
-                           FontSize="20" Margin="138,0,139,31"/>
+
                 </Grid>
             </Border>
 
-            <Border Background="#2A2A2A" 
+            <Border Background="Transparent" 
                     Grid.Row="1"
-                    BorderBrush="#2A2A2A" 
-                    BorderThickness="4,0,4,0" Margin="0,4,-4,-4">
+                     Margin="0,4,-4,76" Grid.ColumnSpan="2" Grid.RowSpan="2">
                 <Grid Grid.Row="1" >
-                    <Grid.Background>
-                        <ImageBrush ImageSource="../Images/home-bg-seleccion-horario-3.jpg" 
-                        Stretch="UniformToFill"/>
-                    </Grid.Background>
-                    <TextBlock HorizontalAlignment="Center"
-                           Margin="20,10,0,0" 
+
+                    <TextBlock x:Name="LblMessage" 
+                           HorizontalAlignment="Center"
+                           Margin="20,50,0,0" 
                            Grid.Row="1" 
-                           TextWrapping="Wrap" 
-                               TextAlignment="Justify"
-                           x:Name="LblMessage" 
-                           FontSize="25" 
-                           VerticalAlignment="Stretch"/>
+                           FontSize="35" 
+                           TextWrapping="WrapWithOverflow"
+                           VerticalAlignment="Center"
+                           FontWeight="Normal" 
+                           Foreground="white" 
+                    />
                 </Grid>
             </Border>
-
-            <Border Background="#2A2A2A" 
+            <Border Background="Transparent" 
                     Grid.Row="2"
-                    BorderBrush="#2A2A2A" 
-                    BorderThickness="4,2,2,2"
-                    CornerRadius="0,0,30,30" Margin="0,4,-4,-4">
-
-                <Image HorizontalAlignment="Center" 
+                    
+                    CornerRadius="0,0,30,30" Margin="0,4,-4,-4" Grid.ColumnSpan="2">
+                <Grid>
+                    <Image HorizontalAlignment="Center"
                        Name="BtnEnd"
-                       Source="../Images/salir2.png" 
-                       
+                       VerticalAlignment="Center"
+                       Width="230"
+                       Margin="0,0,0,0"
+                       Stretch="Uniform"
+                       Source="../Images/salir2.png"
                        TouchDown="BtnEnd_TouchDown"
-                       VerticalAlignment="Center" 
-                       Width="188" 
-                           Height="77" 
-                           Margin="216,2,190,-2" />
-
+                       />
+                </Grid>
             </Border>
-
-
         </Grid>
     </Border>
-
 </Window>

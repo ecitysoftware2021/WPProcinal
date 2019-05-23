@@ -35,13 +35,14 @@ namespace WPProcinal.Forms
          
 
             dipMapCurrent = dipMap;
-            imgBackground.Source = Utilities.ImageSelected;
+            //imgBackground.Source = Utilities.ImageSelected;
             TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
             TxtDay.Text = dipMap.Day;
-            TxtDuration.Text = string.Format("Duración: {0}", dipMap.Duration);
-            TxtGenero.Text = string.Format("Género: {0}", dipMap.Gener);
+
+            //TxtDuration.Text = string.Format("Duración: {0}", dipMap.Duration);
+            //TxtGenero.Text = string.Format("Género: {0}", dipMap.Gener);
             TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
-            TxtCategory.Text = string.Format("Censura: {0}", dipMap.Category);
+            //TxtCategory.Text = string.Format("Censura: {0}", dipMap.Category);
             TxtHour.Text = dipMap.HourFunction;
             TxtSubTitle.Text = dipMap.Language;
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
@@ -356,10 +357,11 @@ namespace WPProcinal.Forms
         {
             if (SelectedTypeSeats.Count == 0)
             {
+                this.Opacity = 0.3;
                 Utilities.ShowModal("Debe seleccionar almenos un puesto");
+                this.Opacity = 1;
                 return;
             }
-
 
             var response = WCFServices.GetPrices(dipMapCurrent);
             if (!response.IsSuccess)
@@ -404,6 +406,7 @@ namespace WPProcinal.Forms
                 selectedTypeSeat.CodTarifa = tarifa.Codigo;
             }
 
+            this.Opacity = 0.3;
             frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
             _frmConfirmationModal.ShowDialog();
             if (_frmConfirmationModal.DialogResult.HasValue &&
@@ -416,6 +419,7 @@ namespace WPProcinal.Forms
 
                 SecuenceAndReserve();
             }
+            this.Opacity = 1;
         }
 
         private void ReloadWindow()
@@ -579,7 +583,9 @@ namespace WPProcinal.Forms
             {
                 await Dispatcher.BeginInvoke((Action)delegate
                 {
+                    this.Opacity = 0.3;
                     Utilities.ShowModal("No se pudo crear la transacción...");
+                    this.Opacity = 1;
                 });
                 GC.Collect();
             }

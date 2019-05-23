@@ -13,6 +13,7 @@
     <Grid>
         <Grid.Background>
             <ImageBrush x:Name="imgBg"
+                        ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
@@ -36,7 +37,6 @@
                 Margin="0,120,80,0">
                 <Border.Background>
                     <ImageBrush x:Name="imgBackground"
-                        ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg" 
                         Stretch="UniformToFill"/>
                 </Border.Background>
                 <!--<Image Name="imgBackground"
@@ -55,14 +55,24 @@
 
             <TextBlock x:Name="TxtTitle"
                        FontSize="50"
-                       Text="TÍTULOooooooooooooooooooo"                   
+                       Text="TÍTULO"                   
                        FontWeight="Bold"
                        Width="500"
+                       TextAlignment="Left"
                        TextWrapping="Wrap"
                        Foreground="Gray"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center" 
-                       Margin="0,50,150,0"/>
+                       HorizontalAlignment="Left" 
+                       Margin="190,50,0,0"/>
+            <TextBlock x:Name="TxtDay"
+                       FontSize="40"
+                       Text="24 Sábado"
+                       FontWeight="Bold"
+                       Foreground="Red"
+                       TextAlignment="Center"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left" 
+                       Margin="200,380,0,0"/>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
@@ -191,19 +201,19 @@
                 HorizontalAlignment="Right" Name="btnPrev" 
                 Source="..\Images\anterior.png"
                 VerticalAlignment="Bottom" 
-                Margin="0,0,10,0"
-            Height="161" Width="200"
+                Margin="0,0,-10,0"
+                Width="180"
                 PreviewMouseDown="btnPrev_Click"/>
 
 
         <Image  Grid.Column="1"
                 Source="..\Images\siguiente.png"
-                Margin="10,0,0,0"
+                Margin="-10,0,0,0"
                 HorizontalAlignment="Left"
                 Name="btnNext" 
                 VerticalAlignment="Bottom"
                 PreviewMouseDown="btnNext_Click"
-                Height="161" Width="200" Grid.RowSpan="1"/>
+                 Width="180" Grid.RowSpan="1"/>
 
 
         <TextBlock Height="20" Visibility="Hidden" Margin="5,0,528,63" Name="tbCurrentPage" 

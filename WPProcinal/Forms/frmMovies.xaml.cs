@@ -45,7 +45,7 @@ namespace WPProcinal.Forms
                     DownloadData(Utilities.Peliculas);
                     CreatePages();
                     frmLoading.Close();
-                }));    
+                }));
                 Utilities.DoEvents();
             }
             catch (Exception ex)
@@ -56,7 +56,6 @@ namespace WPProcinal.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
         }
 
         private void DownloadData(Peliculas data)

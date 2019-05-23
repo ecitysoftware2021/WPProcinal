@@ -14,8 +14,8 @@
         Title="Confirmación" 
         Height="774.325"
         Width="761.433">
-    <Border Background="#FFF" 
-            BorderBrush="#2A2A2A" 
+    <Border
+            Background="White"
             BorderThickness="3,3,3,3">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -32,7 +32,7 @@
                     BorderBrush="#2A2A2A" 
                     Grid.ColumnSpan="2"
                     BorderThickness="3,3,3,.5"
-                    CornerRadius="20,20,0,0">
+                    CornerRadius="0,0,0,0">
                 <Grid>
                     <Grid.Background>
                         <ImageBrush ImageSource="../Images/logo-header.png"
@@ -49,9 +49,6 @@
                     BorderBrush="#2A2A2A" 
                     BorderThickness="3,0,3,0">
                 <Grid Grid.ColumnSpan="2" Grid.Row="1">
-                    <Grid.Background>
-                        <ImageBrush ImageSource="../Images/home-bg-seleccion-horario-3.jpg" Stretch="UniformToFill"></ImageBrush>
-                    </Grid.Background>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -152,7 +149,7 @@
                     Grid.Row="2"
                     BorderBrush="#2A2A2A" 
                     BorderThickness="3,3,3,3"
-                    CornerRadius="0,0,20,20">
+                    CornerRadius="0,0,0,0">
                 <Grid>
                     <Image x:Name="BtnYes"                        
                            Margin="0,0,100,0"

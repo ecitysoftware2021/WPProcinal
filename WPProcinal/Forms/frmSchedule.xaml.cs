@@ -41,7 +41,11 @@ namespace WPProcinal.Forms
             imgBackground.ImageSource = Utilities.ImageSelected;
             MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
             TxtTitle.Text = MovieName;
-            
+
+            DateTime fechaActual = DateTime.Today;
+
+            TxtDay.Text = string.Format("{0} {1}, {2}",fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
+
             if (Movie.Data.TituloOriginal.Length <= 15)
             {
                 FontS = 55;
