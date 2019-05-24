@@ -629,6 +629,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>DBProcinal.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\NewDesing\Others\v-inserte-villete.png" />
     <Resource Include="Images\backButton.png" />
     <Resource Include="Images\NewDesing\Backgrounds\fondoModal.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\fondo-modal.jpg" />

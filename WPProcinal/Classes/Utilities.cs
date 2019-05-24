@@ -549,6 +549,8 @@ namespace WPProcinal.Classes
             {
                 ApiLocal api = new ApiLocal();
 
+                return true;
+
                 Transaction transaction = new Transaction
                 {
                     TOTAL_AMOUNT = ValorPagar,

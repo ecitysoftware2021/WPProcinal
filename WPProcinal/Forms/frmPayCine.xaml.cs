@@ -52,6 +52,12 @@ namespace WPProcinal.Forms
                 Utilities.DipMapCurrent = dipMap;
                 Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.PayVal);
 
+                TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
+                TxtDay.Text = dipMap.Day;
+                TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
+                TxtHour.Text = dipMap.HourFunction;
+                TxtSubTitle.Text = dipMap.Language;
+
                 logError = new LogErrorGeneral
                 {
                     Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
@@ -86,7 +92,7 @@ namespace WPProcinal.Forms
                 {
                     if (payState)
                     {
-                        ActivateWallet();
+                        //ActivateWallet();
                         //Buytickets();
                         //SavePay(true);
                     }
@@ -235,24 +241,6 @@ namespace WPProcinal.Forms
         }
 
         /// <summary>
-        /// Método encargado de dar el estado inicial de todas las imagenes/botones de la vista
-        /// </summary>
-        private void VisibilityImage()
-        {
-            try
-            {
-                PaymentViewModel.ImgCancel = Visibility.Visible;
-                PaymentViewModel.ImgIngreseBillete = Visibility.Visible;
-                PaymentViewModel.ImgEspereCambio = Visibility.Hidden;
-                PaymentViewModel.ImgLeyendoBillete = Visibility.Hidden;
-                PaymentViewModel.ImgRecibo = Visibility.Hidden;
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
-        /// <summary>
         /// Método encargado de organizar todos los valores de la transacción en la vista
         /// </summary>
         private void OrganizeValues()
@@ -268,7 +256,6 @@ namespace WPProcinal.Forms
                     ValorIngresado = 0
                 };
 
-                VisibilityImage();
                 this.DataContext = PaymentViewModel;
             }
             catch (Exception ex)

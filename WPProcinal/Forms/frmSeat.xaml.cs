@@ -38,7 +38,6 @@ namespace WPProcinal.Forms
             //imgBackground.Source = Utilities.ImageSelected;
             TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
             TxtDay.Text = dipMap.Day;
-
             //TxtDuration.Text = string.Format("Duración: {0}", dipMap.Duration);
             //TxtGenero.Text = string.Format("Género: {0}", dipMap.Gener);
             TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());

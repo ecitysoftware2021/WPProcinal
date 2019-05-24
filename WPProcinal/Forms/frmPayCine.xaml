@@ -15,128 +15,175 @@
     
     <Grid Name="PaymentGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"/>
+            <ImageBrush x:Name="imgBg"
+                        ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
+                        Stretch="UniformToFill"/>
         </Grid.Background>
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="200" />
-            <RowDefinition Height="400" />
+            <RowDefinition Height="570" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="500"/>
         </Grid.RowDefinitions>
+        <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
+            <TextBlock 
+                x:Name="TxtTitle"
+                FontSize="50"
+                Text="TÍTULO TÍTULO TÍTULO TÍTULO aaaaqaaaaa"
+                TextWrapping="Wrap"
+                FontWeight="Bold"
+                Width="600"
+                Foreground="Gray"
+                TextAlignment="Left"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                Margin="190,50,0,0" >
+            </TextBlock>
+            <TextBlock
+                x:Name="TxtSubTitle"
+                FontSize="30"
+                Text="2D HABLADA EN ESPAÑOLw"
+                FontWeight="Bold"                
+                TextAlignment="Center"
+                TextWrapping="Wrap"
+                Foreground="Gray"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right" 
+                Width="300"
+                Margin="0,140,50,0">
+            </TextBlock>
+            <TextBlock x:Name="TxtFormat"
+                       FontSize="40"
+                       Text="2h 24min"
+                       FontWeight="Bold"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       Foreground="Red"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right" 
+                       Margin="0,250,50,0"
+                       />
+            <TextBlock x:Name="TxtDay"
+                       FontSize="40"
+                       Text="24 Sábado"
+                       FontWeight="Bold"
+                       Foreground="Red"
+                       TextAlignment="Center"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left" 
+                        Margin="200,380,0,0"/>
+            <Image HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Source="../Images/backButton.png"
+                   Width="150"
+                   Height="55"
+                   Margin="660,263,0,0"/>
+            <TextBlock x:Name="TxtHour"
+                       FontSize="25"
+                       Text="4:30 PM"
+                       FontWeight="Bold"
+                       Foreground="#FFF"
+                       Width="150"
+                       TextAlignment="Center"                       
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center" 
+                       Margin="660,265,0,0"/>
 
-        <Label Content="VALOR A PAGAR" 
-                   FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="White"
-                   Margin="0,0,0,0" 
-                   FontSize="50"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Top" 
-                   Grid.Row="2" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <Border
+                BorderThickness="3,3,3,3"
+                CornerRadius="100,100,100,100"
+                Width="900"
+                Height="1100"
+                HorizontalAlignment="Center"
+                Margin="0,0,0,250">
+                <Border.Background>
+                    <ImageBrush x:Name="imgBackground"
+                                ImageSource="/Images/NewDesing/Others/v-inserte-villete.png"
+                                Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+        </Grid>
         <Label Content="$ 0.00"
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="White"
+                   Foreground="Gray"
                    Name="lblValorPagar" 
-                   Margin="0,100,0,0" 
+                   Margin="0,70,0,0" 
+               FontWeight="Bold"
                    FontSize="50"       
                    Visibility="Visible"
                    HorizontalAlignment="Center" 
-                   VerticalAlignment="Top" 
+                   VerticalAlignment="Center" 
                    HorizontalContentAlignment="Center" 
                    Grid.Row="2"/>
         <Label Content="Valor Ingresado" 
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="White"
-                   Margin="200,0,0,200" 
+                      Foreground="Gray"
+               FontWeight="Bold"
+                   Margin="200,300,0,0" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
-                   FontSize="60"
+                   FontSize="50"
                    Grid.Row="2"/>
         <TextBlock Text="{Binding ValorIngresado, StringFormat={}{0:C0}}" 
                    Name="lblValorIngresado" 
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="White"
-                   Margin="700,0,0,190" 
+                      Foreground="Gray"
+               FontWeight="Bold"
+                   Margin="700,300,0,0" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
-                   FontSize="50" 
+                   FontSize="40" 
                    Height="56" 
                    Grid.Row="2"/>
         <Label Content="Valor Faltante" 
                FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                Foreground="White"
-                Margin="200,0,0,0" 
+                   Foreground="Gray"
+               FontWeight="Bold"
+                Margin="200,0,0,400" 
                 HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                FontSize="60"
+                VerticalAlignment="Bottom"
+                FontSize="50"
                 Grid.Row="2"/>
         <TextBlock Text="{Binding ValorFaltante, StringFormat={}{0:C0}}"
                    Name="lblFaltante"
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="White"
+                      Foreground="Gray"
+               FontWeight="Bold"
                    HorizontalAlignment="Left"
-                   VerticalAlignment="Center"
-                   Margin="700,10,0,0" 
-                   FontSize="50" 
+                   VerticalAlignment="Bottom"
+                   Margin="700,0,0,400" 
+                   FontSize="40" 
                    Grid.Row="2"/>
         <Label Content="Valor Restante" 
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="White"
-                   Margin="200,200,0,0" 
+                   Foreground="Gray"
+               FontWeight="Bold"
+                   Margin="200,0,0,300" 
                    HorizontalAlignment="Left"
-                   VerticalAlignment="Center"
-                   FontSize="60" 
+                   VerticalAlignment="Bottom"
+                   FontSize="50" 
                    Grid.Row="2"/>
         <TextBlock Text="{Binding ValorSobrante, StringFormat={}{0:C0}}" 
                    Name="lblSobrante" 
                    FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="White"
+                      Foreground="Gray"
+               FontWeight="Bold"
                    HorizontalAlignment="Left"
-                   VerticalAlignment="Center"
-                   Margin="700,190,0,0"
-                   FontSize="50" 
+                   VerticalAlignment="Bottom"
+                   Margin="700,0,0,300"
+                   FontSize="40" 
                    Grid.Row="2"/>
         <Image Name="btnCancelar"
                    HorizontalAlignment="Left"
-                   VerticalAlignment="Top" 
-                   Margin="100,0,0,0" 
+                   VerticalAlignment="Bottom" 
+                   Margin="100,0,0,50" 
                    Width="400"  
                    Source="/Images/cancelar-pago.png"
                    Grid.Row="3"
-                   Visibility="{Binding ImgCancel}"
                    PreviewStylusDown="btnCancelar_PreviewStylusDown"/>
-        <Image Visibility="{Binding ImgLeyendoBillete}" 
-               Source="../Images/b-leyendo-billete.gif" 
-               Name="imgLeyendoBillete"                
-               Margin="0,0,100,0" 
-               Width="400" 
-               HorizontalAlignment="Right" 
-               Grid.Row="3"                
-               VerticalAlignment="Top"/>
-        <Image x:Name="btnCancelar_Copy"               
-                Visibility="{Binding ImgIngreseBillete}"                
-                Source="../Images/b-ingrese-billete.gif"
-                Margin="0,0,100,0" 
-               Width="400" 
-               HorizontalAlignment="Right" 
-               Grid.Row="3"                
-               VerticalAlignment="Top"/>
-        <Image x:Name="btnChange"               
-                Visibility="{Binding ImgEspereCambio}"                
-                Source="../Images/b-espere-cambio.gif"
-                Margin="0,0,100,0" 
-               Width="400" 
-               HorizontalAlignment="Right" 
-               Grid.Row="3"                
-               VerticalAlignment="Top"/>
-        <Image Visibility="{Binding ImgRecibo}"
-               Source="../Images/b-espere-recibo.gif" 
-                   Name="imgEspereRecibo" 
-                   Height="71" 
-                   Margin="0,100,50,0" 
-                   Width="241"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Right" 
-                   Grid.Row="2"/>
     </Grid>
 </Window>

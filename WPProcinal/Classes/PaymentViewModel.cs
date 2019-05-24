@@ -23,16 +23,6 @@ namespace WPProcinal.Classes
 
         private decimal _valorSobrante;
 
-        private Visibility _imgCancel;
-
-        private Visibility _imgRecibo;
-
-        private Visibility _imgIngreseBillete;
-
-        private Visibility _imgLeyendoBillete;
-
-        private Visibility _ImgEspereCambio;
-
         private string _imageChange;
 
         private string _imageReading;
@@ -106,75 +96,6 @@ namespace WPProcinal.Classes
                     _imageEnterMoney = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImageEnterMoney)));
                 }
-            }
-        }
-
-        public Visibility ImgCancel
-        {
-            get { return _imgCancel; }
-            set
-            {
-                if (_imgCancel != value)
-                {
-                    _imgCancel = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImgCancel)));
-                }
-            }
-        }
-
-        public Visibility ImgRecibo
-        {
-            get { return _imgRecibo; }
-            set
-            {
-                if (_imgRecibo != value)
-                {
-                    _imgRecibo = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImgRecibo)));
-                }
-
-            }
-        }
-
-        public Visibility ImgEspereCambio
-        {
-            get { return _ImgEspereCambio; }
-            set
-            {
-                if (_ImgEspereCambio != value)
-                {
-                    _ImgEspereCambio = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImgEspereCambio)));
-                }
-
-            }
-        }
-
-        public Visibility ImgIngreseBillete
-        {
-            get { return _imgIngreseBillete; }
-            set
-            {
-                if (_imgIngreseBillete != value)
-                {
-                    _imgIngreseBillete = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImgIngreseBillete)));
-                }
-
-            }
-        }
-
-        public Visibility ImgLeyendoBillete
-        {
-            get { return _imgLeyendoBillete; }
-            set
-            {
-                if (_imgLeyendoBillete != value)
-                {
-                    _imgLeyendoBillete = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImgLeyendoBillete)));
-                }
-
             }
         }
 
