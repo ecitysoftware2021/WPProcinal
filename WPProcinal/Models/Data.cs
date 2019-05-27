@@ -75,6 +75,7 @@ namespace WPProcinal.Models
         public string Horario { get; set; }        
         public string Reservas { get; set; }        
         public int Militar { get; set; }
+        public string TipoZona { get; set; }
     }
 
     [XmlRoot(ElementName="GeneralDia")]

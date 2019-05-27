@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPProcinal.Models;
 
 namespace WPProcinal.Classes
 {
@@ -19,9 +20,13 @@ namespace WPProcinal.Classes
         public string Category { get; set; }
         public string Date { get; set; }
         public string Hour { get; set; }
+        public List<HoraTMP> Hours { get; set; }
         public string UnivDate { get; set; }
         public int MilitarHour { get; set; }
         public int MovieId { get; set; }
         public string TypeZona { get; set; }
+        public string TipoSala { get; set; }
+        public string Formato { get; set; }
+
     }
 }

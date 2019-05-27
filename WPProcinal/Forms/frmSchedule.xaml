@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPProcinal.Forms"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Background="#f5f5dc"
         WindowStyle="None"
@@ -39,12 +40,6 @@
                     <ImageBrush x:Name="imgBackground"
                         Stretch="UniformToFill"/>
                 </Border.Background>
-                <!--<Image Name="imgBackground"
-                   Source="../Images/NewDesing/buttons/b-atras.png" 
-                   Margin="0,130,100,0"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Right"
-                  />-->
             </Border>
             <Image Source="../Images/NewDesing/buttons/b-atras.png" 
                    Margin="50,150,0,0"
@@ -80,8 +75,7 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"
                 Margin="0,0,0,0"
-                ItemsSource="{Binding}"
-                SelectionChanged="LvSchedule_SelectionChanged">
+                ItemsSource="{Binding}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="2"
@@ -93,15 +87,18 @@
                         <StackPanel  Orientation="Vertical" 
                             VerticalAlignment="Stretch" 
                             HorizontalAlignment="Stretch">
-                            <Grid Width="450"
-                            Height="400"
+                            <Grid 
                             Margin="0,0,0,0">
-                                <Grid.Background>
-                                    <ImageBrush 
-                                        ImageSource="..\Images\cuadro-contenido.png"/>
-                                </Grid.Background>
-
-                                <TextBlock x:Name="txtTitle"
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <!--<TextBlock x:Name="txtTitle"
                                 Text="{Binding Title}"
                                 FontSize="{Binding FontS}"
                                 Margin="0,40,0,0"
@@ -188,15 +185,73 @@
                                 FontSize="30"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Margin="250,235,0,0"/>
-                                
+                                Margin="250,235,0,0"/>-->
+
+                                <Image Width="500"
+                                       Grid.Column="0"
+                                       Grid.Row="0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Source="{Binding TipoSala}"/>
+                                <TextBlock
+                                    Text="{Binding Formato}"
+                                    FontSize="30"
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="Bold"/>
+                                <TextBlock
+                                    Text="{Binding Language}"
+                                    FontSize="30"
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    HorizontalAlignment="Left"
+                                    FontWeight="Bold"/>
+
+                                <ListView x:Name="lvHours"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                                          Grid.Row="1"
+                Margin="0,0,0,0"
+                ItemsSource="{Binding Hours}"
+                SelectionChanged="LvSchedule_SelectionChanged">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="2"
+                                HorizontalAlignment="Center"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel  Orientation="Vertical" 
+                            VerticalAlignment="Stretch" 
+                            HorizontalAlignment="Stretch">
+                                                <Grid
+                            Margin="30">
+                                                    <md:Card
+                                                        Width="100"
+                                                        Height="100">
+                                                        <TextBlock Text="{Binding Horario}"
+                                                               FontSize="20"
+                                                               FontWeight="Bold"/>
+                                                    </md:Card>
+                                                    
+
+
+
+
+                                                </Grid>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        <Image
+        <!--<Image
                 Grid.Column="0"
                 HorizontalAlignment="Right" Name="btnPrev" 
                 Source="..\Images\anterior.png"
@@ -213,14 +268,14 @@
                 Name="btnNext" 
                 VerticalAlignment="Bottom"
                 PreviewMouseDown="btnNext_Click"
-                 Width="180" Grid.RowSpan="1"/>
+                 Width="180" Grid.RowSpan="1"/>-->
 
 
-        <TextBlock Height="20" Visibility="Hidden" Margin="5,0,528,63" Name="tbCurrentPage" 
+        <!--<TextBlock Height="20" Visibility="Hidden" Margin="5,0,528,63" Name="tbCurrentPage" 
                    VerticalAlignment="Bottom"  Grid.Column="1"  />
         <TextBlock Height="22" HorizontalAlignment="Right" Margin="0,0,502,61" Name="textBlock3" 
                    VerticalAlignment="Bottom " Visibility="Hidden" Width="20" FontWeight="Bold" Text="/" Grid.Column="1"/>
         <TextBlock Height="20" HorizontalAlignment="Right" Visibility="Hidden" Margin="0,0,480,63" Name="tbTotalPage" 
-                   VerticalAlignment="Bottom" Width="28" Grid.Column="1" />
+                   VerticalAlignment="Bottom" Width="28" Grid.Column="1" />-->
     </Grid>
 </Window>

@@ -68,31 +68,35 @@ namespace WPProcinal.Forms
                     {
                         if (Cinema.Id == Utilities.CinemaId)
                         {
-                            Utilities.Movies.Add(pelicula);
-                            LoadMovies(pelicula);
+                            //TODO: el originl va sin la condicion, esta es la nueva version 
+                            var peliculaExistente = Utilities.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
+                            if (peliculaExistente==0)
+                            {
+                                Utilities.Movies.Add(pelicula);
+                                LoadMovies(pelicula);
+                            }
+                            
                         }
                     }
                 }
             }
         }
-
+        //TODO:  para cargar los tipos de sala debe descomentar todo lo de este metodo
         public void LoadMovies(Pelicula pelicula)
         {
             string ImagePath = string.Concat(Utilities.UrlImages, pelicula.Id, ".jpg");
             string TagPath = string.Empty;
-
-            //if (Utilities.IfExistUrl(ImagePath))
-            //{
-            TagPath = LoadImagePath(pelicula);
+            
+            //TagPath = LoadImagePath(pelicula);
 
             Utilities.LstMovies.Add(new MoviesViewModel
             {
                 ImageData = Utilities.LoadImage(ImagePath, true),
                 Tag = pelicula.Id,
                 Id = pelicula.Id,
-                ImageTag = Utilities.LoadImage(TagPath, false),
+                //ImageTag = Utilities.LoadImage(TagPath, false),
             });
-            //}
+            
         }
 
         private static string LoadImagePath(Pelicula pelicula)

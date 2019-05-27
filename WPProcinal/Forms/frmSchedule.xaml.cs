@@ -44,7 +44,7 @@ namespace WPProcinal.Forms
 
             DateTime fechaActual = DateTime.Today;
 
-            TxtDay.Text = string.Format("{0} {1}, {2}",fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
+            TxtDay.Text = string.Format("{0} {1}, {2}", fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
 
             if (Movie.Data.TituloOriginal.Length <= 15)
             {
@@ -63,116 +63,163 @@ namespace WPProcinal.Forms
         //Método para generar funciones para las películas
         public void GenerateFunctions()
         {
-            int i = 0;
-            //Se arma una lista con los datos de sólo el cinema donde se encuentra la máquina
-            var Cinema = Movie.Cinemas.Cinema.Where(f => f.Id == Utilities.CinemaId).FirstOrDefault();
-            int Hour = DateTime.Now.Hour;   
-            //Se recorre cada sala del Cinema
-            foreach (var room in Cinema.Salas.Sala)
+            try
             {
-                //Se arma una lista con las fechas de cada función y luego se recorre
-                var functions = room.Fecha.ToList();
-                foreach (var function in functions)
+                int i = 0;
+                //Se arma una lista con los datos de sólo el cinema donde se encuentra la máquina
+                var Cinema = Movie.Cinemas.Cinema.Where(f => f.Id == Utilities.CinemaId).FirstOrDefault();
+                int Hour = DateTime.Now.Hour;
+                //Se recorre cada sala del Cinema
+                foreach (var room in Cinema.Salas.Sala)
                 {
-                    /*Se obtiene la fecha de la función  y luego se valida para no mostrar
-                    funciones con fechas menores a la actual*/
-                    var datetime = GetDateCorrectly(function.Univ);
-                    if (datetime >= DateTime.Today)
+                    //Se arma una lista con las fechas de cada función y luego se recorre
+                    var functions = room.Fecha.ToList();
+                    foreach (var function in functions)
                     {
-
-                        var schedules = function.Hora.OrderBy(h => h.Militar).ToList();
-                        List<HoraTMP> horatmps = new List<HoraTMP>();
-                        foreach (var item in schedules)
+                        /*Se obtiene la fecha de la función  y luego se valida para no mostrar
+                        funciones con fechas menores a la actual*/
+                        var datetime = GetDateCorrectly(function.Univ);
+                        //TODO:fechas mayores a hoy, version anterior
+                        //if (datetime >= DateTime.Today)
+                        if (datetime == DateTime.Today)
                         {
-                            horatmps.Add(new HoraTMP
-                            {
-                                Horario = item.Horario,
-                                IdFuncion = item.IdFuncion,
-                                Militar = int.Parse(item.Militar),
-                                Reservas = item.Reservas,
-                            });
-                        }
 
-                        int count = 0;
-                        foreach (var schedule in horatmps.OrderBy(t=>t.Militar).ToList())
-                        {
-                            int hourcurrent = int.Parse(schedule.Militar.ToString().Substring(0, 2));
-                            bool flag = true;
-                            if (datetime == DateTime.Today && hourcurrent < Hour)
+                            var schedules = function.Hora.OrderBy(h => h.Militar).ToList();
+                            List<HoraTMP> horatmps = new List<HoraTMP>();
+                            int count = 0;
+                            foreach (var item in schedules)
                             {
-                                flag = false;
-                            }
-                            
-                            if (flag)
-                            {
-                                string[] days = function.Dia.Split(' ');
-                                int MilitarHour = Convert.ToInt16(schedule.Militar);
-                                lstGrid.Add(new Schedule
+                                if (int.Parse(item.Militar) > int.Parse(DateTime.Now.ToString("HHmm")))
                                 {
-                                    Id = schedule.IdFuncion,
-                                    Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
-                                    FontS = FontS,
-                                    Language = string.Concat(Movie.Data.Formato, "-", Movie.Data.Idioma),
-                                    Gener = Movie.Data.Genero,
-                                    Duration = string.Concat(Movie.Data.Duracion, " minutos"),
-                                    Category = Movie.Data.Censura,
-                                    Date = string.Concat(days[1], " ", days[2], " ", days[3]),
-                                    Room = string.Concat("Sala ", room.NumeroSala),
-                                    Hour = schedule.Horario,
-                                    RoomId = Convert.ToInt16(room.NumeroSala),
-                                    UnivDate = function.Univ,
-                                    MilitarHour = MilitarHour,
-                                    MovieId = Convert.ToInt16(Movie.Id),
-                                    TypeZona = function.TipoZona[count],
-                                });
-                                i++;
+                                    horatmps.Add(new HoraTMP
+                                    {
+                                        Horario = item.Horario,
+                                        IdFuncion = item.IdFuncion,
+                                        Militar = int.Parse(item.Militar),
+                                        Reservas = item.Reservas,
+                                        TipoZona = function.TipoZona[count]
+                                    });
+                                }
+                                count++;
                             }
 
-                            count++;
+
+                            //foreach (var schedule in horatmps.OrderBy(t=>t.Militar).ToList())
+                            //{
+                            //    int hourcurrent = int.Parse(schedule.Militar.ToString().Substring(0, 2));
+                            //    bool flag = true;
+                            //    if (datetime == DateTime.Today && hourcurrent < Hour)
+                            //    {
+                            //        flag = false;
+                            //    }
+
+                            //    if (flag)
+                            //    {
+
+
+                            string ruta = GenerateTags(room.TipoSala);
+
+                            string[] days = function.Dia.Split(' ');
+                            //int MilitarHour = Convert.ToInt16(schedule.Militar);
+                            lstGrid.Add(new Schedule
+                            {
+                                //Id = schedule.IdFuncion,
+                                Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
+                                FontS = FontS,
+                                Language = string.Concat(Movie.Data.Idioma),
+                                Gener = Movie.Data.Genero,
+                                //Duration = string.Concat(Movie.Data.Duracion, " minutos"),
+                                Category = Movie.Data.Censura,
+                                //Date = string.Concat(days[1], " ", days[2], " ", days[3]),
+                                Room = string.Concat("Sala ", room.NumeroSala),
+                                //Hour = schedule.Horario,
+                                Hours = horatmps,
+                                TipoSala = ruta,
+                                RoomId = Convert.ToInt16(room.NumeroSala),
+                                UnivDate = function.Univ,
+                                //MilitarHour = MilitarHour,
+                                MovieId = Convert.ToInt16(Movie.Id),
+                                //TypeZona = function.TipoZona[count],
+                                Formato = Movie.Data.Formato
+                            });
+                            //i++;
+                            //}
+
+                            //}
                         }
                     }
                 }
+                if (lstGrid.Count > 0)
+                {
+                    CreatePages(i);
+                }
+                else
+                {
+                    Utilities.ShowModal("Lo sentimos, no hay funciones para esta película");
+                    return;
+                }
             }
-            if (lstGrid.Count > 0)
+            catch (Exception ex)
             {
-                CreatePages(i);
-            }
-            else
-            {
-                Utilities.ShowModal("Lo sentimos, no hay funciones para esta película");
-                return;
+
+                throw;
             }
         }
 
+        private string GenerateTags(string name)
+        {
+            string Path = string.Empty;
+            switch (name)
+            {
+                case "4DX":
+                    return "/Images/Tags/cartel-4dx.png";
+                case "2D":
+                    return "/Images/Tags/cartel-2d.png";
+                case "Vibrasound":
+                    return "/Images/Tags/cartel-vibra.png";
+                case "Supernova":
+                    return "/Images/Tags/cartel-supernova.png";
+                case "Star Kids":
+                    return "/Images/Tags/cartel-starkids.png";
+                case "Cine Arte":
+                    return "/Images/Tags/cartel-cinearte.png";
+                case "Black Star":
+                    return "/Images/Tags/cartel-blackstar.png";
+                default:
+                    return string.Empty;
+            }
+        }
+
+
         private void CreatePages(int i)
         {
-            int itemcount = i;
-            //Calcular el total de páginas que tendrá la vista
-            totalPage = itemcount / itemPerPage;
-            if (itemcount % itemPerPage != 0)
-            {
-                totalPage += 1;
-            }
+            //int itemcount = i;
+            ////Calcular el total de páginas que tendrá la vista
+            //totalPage = itemcount / itemPerPage;
+            //if (itemcount % itemPerPage != 0)
+            //{
+            //    totalPage += 1;
+            //}
 
-            //Cuando sólo haya una página se ocultaran los botónes de Next y Prev
-            if (totalPage == 1)
-            {
-                btnNext.Visibility = Visibility.Hidden;
-                btnPrev.Visibility = Visibility.Hidden;
-            }
+            ////Cuando sólo haya una página se ocultaran los botónes de Next y Prev
+            //if (totalPage == 1)
+            //{
+            //    btnNext.Visibility = Visibility.Hidden;
+            //    btnPrev.Visibility = Visibility.Hidden;
+            //}
 
-            view.Source = lstGrid;
-            view.Filter += new FilterEventHandler(View_Filter);
-            lvSchedule.DataContext = view;
-            ShowCurrentPageIndex();
-            tbTotalPage.Text = totalPage.ToString();
-            ValidateImage();
+            //view.Source = lstGrid;
+            //view.Filter += new FilterEventHandler(View_Filter);
+            lvSchedule.DataContext = lstGrid;
+            //ShowCurrentPageIndex();
+            //tbTotalPage.Text = totalPage.ToString();
+            //ValidateImage();
         }
 
         private void ShowCurrentPageIndex()
         {
             ValidateImage();
-            tbCurrentPage.Text = (currentPageIndex + 1).ToString();
+            //tbCurrentPage.Text = (currentPageIndex + 1).ToString();
         }
 
         private void View_Filter(object sender, FilterEventArgs e)
@@ -265,23 +312,23 @@ namespace WPProcinal.Forms
 
         private void ValidateImage()
         {
-            if (currentPageIndex == 0)
-            {
-                btnPrev.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                btnPrev.Visibility = Visibility.Visible;
-            }
+            //if (currentPageIndex == 0)
+            //{
+            //    btnPrev.Visibility = Visibility.Hidden;
+            //}
+            //else
+            //{
+            //    btnPrev.Visibility = Visibility.Visible;
+            //}
 
-            if (currentPageIndex == totalPage - 1)
-            {
-                btnNext.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                btnNext.Visibility = Visibility.Visible;
-            }
+            //if (currentPageIndex == totalPage - 1)
+            //{
+            //    btnNext.Visibility = Visibility.Hidden;
+            //}
+            //else
+            //{
+            //    btnNext.Visibility = Visibility.Visible;
+            //}
         }
 
         private void btnPrev_Click(object sender, RoutedEventArgs e)
