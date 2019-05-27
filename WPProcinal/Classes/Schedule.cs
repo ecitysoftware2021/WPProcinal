@@ -27,6 +27,5 @@ namespace WPProcinal.Classes
         public string TypeZona { get; set; }
         public string TipoSala { get; set; }
         public string Formato { get; set; }
-
     }
 }

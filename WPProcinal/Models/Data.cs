@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using WPProcinal.Classes;
 
 namespace WPProcinal.Models
 {
@@ -76,6 +77,7 @@ namespace WPProcinal.Models
         public string Reservas { get; set; }        
         public int Militar { get; set; }
         public string TipoZona { get; set; }
+        public Schedule DatosPelicula { get; set; }
     }
 
     [XmlRoot(ElementName="GeneralDia")]

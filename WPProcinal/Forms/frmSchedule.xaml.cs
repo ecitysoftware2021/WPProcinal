@@ -109,19 +109,6 @@ namespace WPProcinal.Forms
                                     }
 
 
-                                    //foreach (var schedule in horatmps.OrderBy(t=>t.Militar).ToList())
-                                    //{
-                                    //    int hourcurrent = int.Parse(schedule.Militar.ToString().Substring(0, 2));
-                                    //    bool flag = true;
-                                    //    if (datetime == DateTime.Today && hourcurrent < Hour)
-                                    //    {
-                                    //        flag = false;
-                                    //    }
-
-                                    //    if (flag)
-                                    //    {
-
-
                                     string ruta = GenerateTags(room.TipoSala);
 
                                     string[] days = function.Dia.Split(' ');
@@ -133,9 +120,9 @@ namespace WPProcinal.Forms
                                         FontS = FontS,
                                         Language = string.Concat(Movie.Data.Idioma),
                                         Gener = Movie.Data.Genero,
-                                        //Duration = string.Concat(Movie.Data.Duracion, " minutos"),
+                                        Duration = string.Concat(Movie.Data.Duracion, " minutos"),
                                         Category = Movie.Data.Censura,
-                                        //Date = string.Concat(days[1], " ", days[2], " ", days[3]),
+                                        Date = string.Concat(days[1], " ", days[2], " ", days[3]),
                                         Room = string.Concat("Sala ", room.NumeroSala),
                                         //Hour = schedule.Horario,
                                         Hours = horatmps,
@@ -147,10 +134,29 @@ namespace WPProcinal.Forms
                                         //TypeZona = function.TipoZona[count],
                                         Formato = peli.Data.Formato
                                     });
-                                    //i++;
-                                    //}
-
-                                    //}
+                                    foreach (var newHoras in horatmps)
+                                    {
+                                        newHoras.DatosPelicula = new Schedule
+                                        {
+                                            Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
+                                            FontS = FontS,
+                                            Language = string.Concat(Movie.Data.Idioma),
+                                            Gener = Movie.Data.Genero,
+                                            Duration = string.Concat(Movie.Data.Duracion, " minutos"),
+                                            Category = Movie.Data.Censura,
+                                            Date = string.Concat(days[1], " ", days[2], " ", days[3]),
+                                            Room = string.Concat("Sala ", room.NumeroSala),
+                                            //Hour = schedule.Horario,
+                                            //Hours = horatmps,
+                                            TipoSala = ruta,
+                                            RoomId = Convert.ToInt16(room.NumeroSala),
+                                            UnivDate = function.Univ,
+                                            //MilitarHour = MilitarHour,
+                                            MovieId = Convert.ToInt16(Movie.Id),
+                                            //TypeZona = function.TipoZona[count],
+                                            Formato = peli.Data.Formato
+                                        };
+                                    }
                                 }
                             }
                         }
@@ -268,7 +274,7 @@ namespace WPProcinal.Forms
         private DipMap SetProperties(Schedule schedule)
         {
             int Hour = Convert.ToInt32(schedule.MilitarHour.ToString().Substring(0, 2));
-            string DateFormat = InvertDate(schedule.UnivDate);
+            //string DateFormat = InvertDate(schedule.UnivDate);
             DipMap map = new DipMap
             {
                 MovieName = schedule.Title,
@@ -280,11 +286,11 @@ namespace WPProcinal.Forms
                 Category = schedule.Category,
                 Day = schedule.Date,
                 Date = schedule.UnivDate,
-                DateFormat = DateFormat,
+                //DateFormat = DateFormat,
                 CinemaId = cinemaId,
                 RoomId = schedule.RoomId,
                 Hour = Hour,
-                HourFormat = schedule.MilitarHour,
+                //HourFormat = schedule.MilitarHour,
                 MovieId = schedule.MovieId,
                 Letter = "A",
                 IsCard = "S",
@@ -302,7 +308,28 @@ namespace WPProcinal.Forms
         #region ButtonsEvents
         private void LvSchedule_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Schedule schedule = (Schedule)lvSchedule.SelectedItem;
+            var selectedSchedule = (HoraTMP)(sender as ListView).Items.CurrentItem;
+            Schedule schedule = new Schedule
+            {
+                Category= selectedSchedule.DatosPelicula.Category,
+                Date= selectedSchedule.DatosPelicula.Date,
+                Duration= selectedSchedule.DatosPelicula.Duration,
+                FontS=0,
+                Formato= selectedSchedule.DatosPelicula.Formato,
+                Gener= selectedSchedule.DatosPelicula.Gener,
+                Hour= selectedSchedule.Horario,
+                Id= selectedSchedule.DatosPelicula.Id,
+                Language= selectedSchedule.DatosPelicula.Language,
+                MilitarHour= selectedSchedule.Militar,
+                MovieId= selectedSchedule.DatosPelicula.MovieId,
+                Room= selectedSchedule.DatosPelicula.Room,
+                RoomId= selectedSchedule.DatosPelicula.RoomId,
+                //TipoSala=,
+                Title= selectedSchedule.DatosPelicula.Title,
+                TypeZona= selectedSchedule.TipoZona,
+                UnivDate=selectedSchedule.DatosPelicula.UnivDate
+            };
+            //Schedule schedule = (Schedule)lvSchedule.SelectedItem;
             DipMap dipmap = SetProperties(schedule);
 
 
