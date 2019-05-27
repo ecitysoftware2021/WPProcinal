@@ -67,88 +67,96 @@ namespace WPProcinal.Forms
             {
                 int i = 0;
                 //Se arma una lista con los datos de sólo el cinema donde se encuentra la máquina
-                var Cinema = Movie.Cinemas.Cinema.Where(f => f.Id == Utilities.CinemaId).FirstOrDefault();
+                //var Cinema = Movie.Cinemas.Cinema.Where(f => f.Id == Utilities.CinemaId).FirstOrDefault();
                 int Hour = DateTime.Now.Hour;
-                //Se recorre cada sala del Cinema
-                foreach (var room in Cinema.Salas.Sala)
+
+                foreach (var peli in Utilities.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
                 {
-                    //Se arma una lista con las fechas de cada función y luego se recorre
-                    var functions = room.Fecha.ToList();
-                    foreach (var function in functions)
+                    foreach (var Cinema in peli.Cinemas.Cinema.Where(cine => cine.Id == Utilities.CinemaId))
                     {
-                        /*Se obtiene la fecha de la función  y luego se valida para no mostrar
-                        funciones con fechas menores a la actual*/
-                        var datetime = GetDateCorrectly(function.Univ);
-                        //TODO:fechas mayores a hoy, version anterior
-                        //if (datetime >= DateTime.Today)
-                        if (datetime == DateTime.Today)
+                        //Se recorre cada sala del Cinema
+                        foreach (var room in Cinema.Salas.Sala)
                         {
-
-                            var schedules = function.Hora.OrderBy(h => h.Militar).ToList();
-                            List<HoraTMP> horatmps = new List<HoraTMP>();
-                            int count = 0;
-                            foreach (var item in schedules)
+                            //Se arma una lista con las fechas de cada función y luego se recorre
+                            var functions = room.Fecha.ToList();
+                            foreach (var function in functions)
                             {
-                                if (int.Parse(item.Militar) > int.Parse(DateTime.Now.ToString("HHmm")))
+                                /*Se obtiene la fecha de la función  y luego se valida para no mostrar
+                                funciones con fechas menores a la actual*/
+                                var datetime = GetDateCorrectly(function.Univ);
+                                //TODO:fechas mayores a hoy, version anterior
+                                //if (datetime >= DateTime.Today)
+                                if (datetime == DateTime.Today)
                                 {
-                                    horatmps.Add(new HoraTMP
+
+                                    var schedules = function.Hora.OrderBy(h => h.Militar).ToList();
+                                    List<HoraTMP> horatmps = new List<HoraTMP>();
+                                    int count = 0;
+                                    foreach (var item in schedules)
                                     {
-                                        Horario = item.Horario,
-                                        IdFuncion = item.IdFuncion,
-                                        Militar = int.Parse(item.Militar),
-                                        Reservas = item.Reservas,
-                                        TipoZona = function.TipoZona[count]
+                                        if (int.Parse(item.Militar) > int.Parse(DateTime.Now.ToString("HHmm")))
+                                        {
+                                            horatmps.Add(new HoraTMP
+                                            {
+                                                Horario = item.Horario,
+                                                IdFuncion = item.IdFuncion,
+                                                Militar = int.Parse(item.Militar),
+                                                Reservas = item.Reservas,
+                                                TipoZona = function.TipoZona[count]
+                                            });
+                                        }
+                                        count++;
+                                    }
+
+
+                                    //foreach (var schedule in horatmps.OrderBy(t=>t.Militar).ToList())
+                                    //{
+                                    //    int hourcurrent = int.Parse(schedule.Militar.ToString().Substring(0, 2));
+                                    //    bool flag = true;
+                                    //    if (datetime == DateTime.Today && hourcurrent < Hour)
+                                    //    {
+                                    //        flag = false;
+                                    //    }
+
+                                    //    if (flag)
+                                    //    {
+
+
+                                    string ruta = GenerateTags(room.TipoSala);
+
+                                    string[] days = function.Dia.Split(' ');
+                                    //int MilitarHour = Convert.ToInt16(schedule.Militar);
+                                    lstGrid.Add(new Schedule
+                                    {
+                                        //Id = schedule.IdFuncion,
+                                        Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
+                                        FontS = FontS,
+                                        Language = string.Concat(Movie.Data.Idioma),
+                                        Gener = Movie.Data.Genero,
+                                        //Duration = string.Concat(Movie.Data.Duracion, " minutos"),
+                                        Category = Movie.Data.Censura,
+                                        //Date = string.Concat(days[1], " ", days[2], " ", days[3]),
+                                        Room = string.Concat("Sala ", room.NumeroSala),
+                                        //Hour = schedule.Horario,
+                                        Hours = horatmps,
+                                        TipoSala = ruta,
+                                        RoomId = Convert.ToInt16(room.NumeroSala),
+                                        UnivDate = function.Univ,
+                                        //MilitarHour = MilitarHour,
+                                        MovieId = Convert.ToInt16(Movie.Id),
+                                        //TypeZona = function.TipoZona[count],
+                                        Formato = peli.Data.Formato
                                     });
+                                    //i++;
+                                    //}
+
+                                    //}
                                 }
-                                count++;
                             }
-
-
-                            //foreach (var schedule in horatmps.OrderBy(t=>t.Militar).ToList())
-                            //{
-                            //    int hourcurrent = int.Parse(schedule.Militar.ToString().Substring(0, 2));
-                            //    bool flag = true;
-                            //    if (datetime == DateTime.Today && hourcurrent < Hour)
-                            //    {
-                            //        flag = false;
-                            //    }
-
-                            //    if (flag)
-                            //    {
-
-
-                            string ruta = GenerateTags(room.TipoSala);
-
-                            string[] days = function.Dia.Split(' ');
-                            //int MilitarHour = Convert.ToInt16(schedule.Militar);
-                            lstGrid.Add(new Schedule
-                            {
-                                //Id = schedule.IdFuncion,
-                                Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
-                                FontS = FontS,
-                                Language = string.Concat(Movie.Data.Idioma),
-                                Gener = Movie.Data.Genero,
-                                //Duration = string.Concat(Movie.Data.Duracion, " minutos"),
-                                Category = Movie.Data.Censura,
-                                //Date = string.Concat(days[1], " ", days[2], " ", days[3]),
-                                Room = string.Concat("Sala ", room.NumeroSala),
-                                //Hour = schedule.Horario,
-                                Hours = horatmps,
-                                TipoSala = ruta,
-                                RoomId = Convert.ToInt16(room.NumeroSala),
-                                UnivDate = function.Univ,
-                                //MilitarHour = MilitarHour,
-                                MovieId = Convert.ToInt16(Movie.Id),
-                                //TypeZona = function.TipoZona[count],
-                                Formato = Movie.Data.Formato
-                            });
-                            //i++;
-                            //}
-
-                            //}
                         }
                     }
                 }
+
                 if (lstGrid.Count > 0)
                 {
                     CreatePages(i);

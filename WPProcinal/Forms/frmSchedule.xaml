@@ -76,17 +76,9 @@
                 VerticalAlignment="Center"
                 Margin="0,0,0,0"
                 ItemsSource="{Binding}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="2"
-                                HorizontalAlignment="Center"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel  Orientation="Vertical" 
-                            VerticalAlignment="Stretch" 
-                            HorizontalAlignment="Stretch">
+                        <StackPanel  Orientation="Vertical" >
                             <Grid 
                             Margin="0,0,0,0">
                                 <Grid.RowDefinitions>
@@ -98,96 +90,8 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <!--<TextBlock x:Name="txtTitle"
-                                Text="{Binding Title}"
-                                FontSize="{Binding FontS}"
-                                Margin="0,40,0,0"
-                                FontWeight="Bold"
-                                Width="400" TextAlignment="Center"
-                                TextWrapping="WrapWithOverflow"
-                                Foreground="Red"
-                                HorizontalAlignment="Center" />
-
-                                <Label x:Name="lblLanguage"
-                                Content="{Binding Language}"
-                                FontSize="30"
-                                HorizontalAlignment="Center"
-                                Margin="0,125,0,0"
-                                FontWeight="Bold"
-                                Foreground="DarkBlue"/>
-                                
-                                <Label x:Name="Gener"
-                                FontSize="30"
-                                HorizontalAlignment="Left"
-                                Margin="110,160,0,0"
-                                Content="Género:" Foreground="Silver" FontWeight="Bold"/>
-                                <Label x:Name="lblGener"
-                                Content="{Binding Gener}"
-                                FontSize="25"
-                                Margin="240,165,0,0" 
-                                Foreground="Silver" FontWeight="Bold"/>
-                                
-                                <Label x:Name="Duration"
-                                FontSize="20"
-                                HorizontalAlignment="Left"
-                                Margin="120,200,0,0"
-                                Content="Duración: " Foreground="Silver"/>
-                                <Label x:Name="lblDuration"
-                                Content="{Binding Duration}"
-                                FontSize="20"
-                                Margin="210,200,0,0" Foreground="Silver"/>
-                                
-                                <Image Source="..\Images\ContentGray.png"
-                                Stretch="Fill"
-                                HorizontalAlignment="Left"
-                                Margin="130,240,0,120" Height="35" Width="80"/>
-                                <Label x:Name="lblRoom"
-                                Content="{Binding Room}"
-                                FontSize="15"
-                                FontWeight="Bold"
-                                HorizontalAlignment="Left"
-                                Margin="143,245,0,0" Foreground="White"/>
-                                
-                                <Image
-                                Source="..\Images\ContentGray.png"
-                                Stretch="Fill"
-                                HorizontalAlignment="Left"
-                                Margin="235,240,0,120" Height="35" Width="80"/>
-                                <Label x:Name="lblCategory"
-                                Content="{Binding Category}"
-                                FontSize="15"
-                                FontWeight="Bold"
-                                HorizontalAlignment="Left"
-                                Margin="248,245,0,0" Foreground="White"/>
-                                
-                                <Image
-                                Source="..\Images\ContentBlue.png"
-                                Stretch="Fill"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Margin="40,290,0,49" Height="51" Width="178"/>
-                                <Label x:Name="lblDate"
-                                Content="{Binding Date}"
-                                Foreground="White"
-                                FontSize="25"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Margin="60,240,0,0"/>
-                                
-                                <Image Source="..\Images\ContentGreen.png"
-                                Stretch="Fill"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Margin="223,290,0,49" Height="51" Width="178"/>
-                                <Label x:Name="lblHour"
-                                Foreground="White"
-                                Content="{Binding Hour}"
-                                FontSize="30"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Margin="250,235,0,0"/>-->
-
-                                <Image Width="500"
+                               
+                                <Image Width="50"
                                        Grid.Column="0"
                                        Grid.Row="0"
                                        HorizontalAlignment="Left"
@@ -195,51 +99,52 @@
                                        Source="{Binding TipoSala}"/>
                                 <TextBlock
                                     Text="{Binding Formato}"
-                                    FontSize="30"
+                                    FontSize="40"
+                                    Foreground="White"
                                     Grid.Column="0"
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     FontWeight="Bold"/>
                                 <TextBlock
                                     Text="{Binding Language}"
-                                    FontSize="30"
-                                    Grid.Column="1"
+                                    FontSize="40"
+                                    Foreground="White"
+                                    Grid.Column="0"
                                     Grid.Row="0"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Right"
                                     FontWeight="Bold"/>
 
                                 <ListView x:Name="lvHours"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center"
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center"
                                           Grid.Row="1"
-                Margin="0,0,0,0"
-                ItemsSource="{Binding Hours}"
-                SelectionChanged="LvSchedule_SelectionChanged">
+                                        Margin="0,0,0,0"
+                                        ItemsSource="{Binding Hours}"
+                                        SelectionChanged="LvSchedule_SelectionChanged">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <UniformGrid Columns="2"
-                                HorizontalAlignment="Center"/>
+                                            <UniformGrid Columns="3"
+                                             HorizontalAlignment="Center"/>
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel  Orientation="Vertical" 
-                            VerticalAlignment="Stretch" 
-                            HorizontalAlignment="Stretch">
+                                            <StackPanel  Orientation="Horizontal" 
+                                                VerticalAlignment="Stretch" 
+                                                HorizontalAlignment="Stretch">
                                                 <Grid
-                            Margin="30">
+                                                    Margin="10">
                                                     <md:Card
                                                         Width="100"
-                                                        Height="100">
+                                                        Height="50">
                                                         <TextBlock Text="{Binding Horario}"
                                                                FontSize="20"
-                                                               FontWeight="Bold"/>
+                                                               FontWeight="Bold"
+                                                                   
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center"
+                                                                   TextAlignment="Center"/>
                                                     </md:Card>
-                                                    
-
-
-
-
                                                 </Grid>
                                             </StackPanel>
                                         </DataTemplate>
