@@ -280,3 +280,5 @@ C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DBProcinal.mdf
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DBProcinal_log.ldf
+D:\GitHub\WPProcinal\WPProcinal\bin\Debug\DBProcinal.mdf
+D:\GitHub\WPProcinal\WPProcinal\bin\Debug\DBProcinal_log.ldf
