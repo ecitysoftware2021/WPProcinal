@@ -68,13 +68,21 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left" 
                        Margin="200,380,0,0"/>
+            <TextBlock
+                                    Text="Selecciona la función "
+                                    FontSize="50"
+                                    Foreground="White"
+                                    Margin="-430,490,0,0"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="Bold"/>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <ListView x:Name="lvSchedule"
                 HorizontalAlignment="Center" 
+                      Width="850"
                 VerticalAlignment="Center"
-                Margin="0,0,0,0"
+                Margin="-150,0,0,0"
                 ItemsSource="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -91,11 +99,12 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                
-                                <Image Width="50"
+                                <Image Width="90"
                                        Grid.Column="0"
                                        Grid.Row="0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
+                                       Margin="0,0,0,0"
                                        Source="{Binding TipoSala}"/>
                                 <TextBlock
                                     Text="{Binding Formato}"
@@ -103,6 +112,7 @@
                                     Foreground="White"
                                     Grid.Column="0"
                                     Grid.Row="0"
+                                    Margin="-400,0,0,0"
                                     HorizontalAlignment="Center"
                                     FontWeight="Bold"/>
                                 <TextBlock
@@ -111,6 +121,7 @@
                                     Foreground="White"
                                     Grid.Column="0"
                                     Grid.Row="0"
+                                    Margin="-10,0,350,0"
                                     HorizontalAlignment="Right"
                                     FontWeight="Bold"/>
 
@@ -123,7 +134,7 @@
                                         SelectionChanged="LvSchedule_SelectionChanged">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <UniformGrid Columns="3"
+                                            <UniformGrid Columns="6"
                                              HorizontalAlignment="Center"/>
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
