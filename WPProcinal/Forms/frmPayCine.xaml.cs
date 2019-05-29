@@ -115,7 +115,7 @@ namespace WPProcinal.Forms
                 this.Opacity = 0.3;
                 Utilities.Loading(frmLoading, true, this);
 
-                Utilities.control.StopAceptance();
+                //Utilities.control.StopAceptance();
 
                 Task.Run(() =>
                 {
@@ -148,7 +148,7 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    Utilities.GoToInicial(this);
+                    Cancelled();
                 }
             }
             catch (Exception ex)
@@ -353,6 +353,8 @@ namespace WPProcinal.Forms
         {
             try
             {
+                Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+
                 Dispatcher.Invoke(() =>
                 {
                     PaymentGrid.Opacity = 0.3;
