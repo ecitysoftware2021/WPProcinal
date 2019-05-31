@@ -541,15 +541,12 @@ namespace WPProcinal.Classes
         /// <summary>
         /// Método encargado de crear la transacciòn en bd y retornar el id de esta misma   
         /// </summary>
-        /// TODO:CAMBIAR COMENTARIO
         /// <param name="Amount">Cantdiad a pagaar o retirar</param>
         public async Task<bool> CreateTransaction(string name, DipMap movie)
         {
             try
             {
                 ApiLocal api = new ApiLocal();
-
-                return true;
 
                 Transaction transaction = new Transaction
                 {
