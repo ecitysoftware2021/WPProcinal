@@ -72,6 +72,7 @@
                        Stretch="Uniform"
                        Source="../Images/salir2.png"
                        TouchDown="BtnEnd_TouchDown"
+                           PreviewMouseDown="BtnEnd_PreviewMouseDown"
                        />
                 </Grid>
             </Border>

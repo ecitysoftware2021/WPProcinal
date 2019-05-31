@@ -18,5 +18,10 @@ namespace WPProcinal.Forms
         {
             DialogResult = true;
         }
+
+        private void BtnEnd_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

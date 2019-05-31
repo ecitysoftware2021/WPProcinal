@@ -1,4 +1,5 @@
 ﻿using CEntidades;
+using Grabador.Transaccion;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,8 @@ namespace WPProcinal.Classes
             get { return _Date; }
             set { _Date = value; }
         }
+
+
 
         public static List<Pelicula> Movies = new List<Pelicula>();
 
@@ -325,6 +328,22 @@ namespace WPProcinal.Classes
         /// </summary>
         public static void GoToInicial(Window window)
         {
+            Task.Run(() =>
+            {
+                try
+                {
+                    CLSGrabador grabador = new CLSGrabador();
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                    {
+                        grabador.FinalizarGrabacion();
+                    }));
+
+                }
+                catch (Exception)
+                {
+                    //TODO: guardar en log
+                }
+            });
             try
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
@@ -403,12 +422,12 @@ namespace WPProcinal.Classes
         }
 
         public static bool IfExistFileXML()
-        {            
+        {
             if (!Directory.Exists(NamePath))
             {
                 Directory.CreateDirectory(NamePath);
             }
-            
+
             if (!File.Exists(NameFile))
             {
                 return false;
@@ -418,7 +437,7 @@ namespace WPProcinal.Classes
         }
 
         public static void SaveFileXML(string content)
-        {            
+        {
             if (!File.Exists(NameFile))
             {
                 var file = File.CreateText(NameFile);
@@ -430,7 +449,7 @@ namespace WPProcinal.Classes
                 sw.WriteLine(content);
             }
         }
-        
+
         public static void SaveLogError(LogError logError)
         {
             if (!Directory.Exists(NamePathLog))

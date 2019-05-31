@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VideoRecorder</name>
+    </assembly>
+    <members>
+        <member name="T:VideoRecorder.App">
+            <summary>
+            Interaction logic for App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:VideoRecorder.MainWindow">
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindow.ActivarCamara">
+            <summary>
+            metodo para activar para que inicie la grabacion
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindow.Grabar">
+            <summary>
+            metodo que dispara el grabador
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.GetVideoDevices">
+            <summary>
+            metodo para buscar las camaras disponibles
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.StartCamera">
+            <summary>
+            metodo que inicia la camara
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.video_NewFrame(System.Object,AForge.Video.NewFrameEventArgs)">
+            <summary>
+            Evento que graba el video, aqui el video se va escribiendo en fracciones
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="eventArgs"></param>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.StopCamera">
+            <summary>
+            metodo para detener la camara
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.StopRecording">
+            <summary>
+            Metodo que detiene la grabacion del video y llama al metodo que lo procesa
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.ProcesarVideo">
+            <summary>
+            Metodo para convertir el video en array de bytes para posteriormente
+            guardarlo, ya sea mediante ftp o por otro metodo
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.EnviarVideoPorFTP(System.String)">
+            <summary>
+            Metodo para cargar los videos al servidor mediante ftp, toma como parámetro la ruta donde esta
+            guardado el video
+            </summary>
+            <param name="rutaArchivo"></param>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.GuardarVideo(System.String,System.Byte[])">
+            <summary>
+            metodo para guardar el video mediante archivo de json
+            </summary>
+            <param name="nombre"></param>
+            <param name="video"></param>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.Serializar(VideoRecorder.CLSUtil)">
+            <summary>
+            metodo para serializar el video
+            </summary>
+            <param name="util"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.CerrarAplicacion">
+            <summary>
+            metodo para finalizar la aplicacion
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.StartRecording">
+            <summary>
+            metodo para iniciar la grabacion
+            </summary>
+        </member>
+        <member name="M:VideoRecorder.MainWindowViewModel.ActualizarReloj(System.Windows.Controls.Label,System.Timers.Timer)">
+            <summary>
+            timer para finalizar la grabacion
+            </summary>
+            <param name="label"></param>
+            <param name="timer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VideoRecorder.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:VideoRecorder.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:VideoRecorder.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -154,6 +154,7 @@
                     <Image x:Name="BtnYes"                        
                            Margin="0,0,100,0"
                        PreviewStylusDown="BtnYes_PreviewStylusDown"
+                           PreviewMouseDown="BtnYes_PreviewMouseDown"
                        Width="200"
                        HorizontalAlignment="Right"
                        Height="83"

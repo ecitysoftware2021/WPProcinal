@@ -1,10 +1,12 @@
 ﻿using CEntidades;
+using Grabador.Transaccion;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -25,6 +27,8 @@ namespace WPProcinal.Forms
         List<TypeSeat> SelectedTypeSeats = new List<TypeSeat>();
         DipMap dipMapCurrent = new DipMap();
 
+        CLSGrabador grabador = new CLSGrabador();
+
         bool _ErrorTransaction = true;
 
         Utilities utilities = new Utilities();
@@ -32,7 +36,7 @@ namespace WPProcinal.Forms
         public frmSeat(DipMap dipMap)
         {
             InitializeComponent();
-         
+
 
             dipMapCurrent = dipMap;
             //imgBackground.Source = Utilities.ImageSelected;
@@ -46,7 +50,7 @@ namespace WPProcinal.Forms
             TxtSubTitle.Text = dipMap.Language;
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
             HideImages();
-       
+
         }
 
         private void HideImages()
@@ -93,7 +97,7 @@ namespace WPProcinal.Forms
             var response = WCFServices.GetDipMap(dipMapCurrent);
             if (!response.IsSuccess)
             {
-                
+
 
                 Utilities.SaveLogError(new LogError
                 {
@@ -257,7 +261,7 @@ namespace WPProcinal.Forms
                             {
                                 image.PreviewStylusDown += new StylusDownEventHandler((s, eh) =>
                                                                                                 SelectSeats(s, eh, item));
-                                //image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
+                                image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
                             }
 
 
@@ -312,7 +316,7 @@ namespace WPProcinal.Forms
             string icon = "silla-disponiblev2";
             if (ckeck == "R")
             {
-                icon = "silla-selecionadav2";                
+                icon = "silla-selecionadav2";
             }
             else if (ckeck == "B")
             {
@@ -431,7 +435,7 @@ namespace WPProcinal.Forms
         private void SecuenceAndReserve()
         {
             var frmLoadding = new FrmLoading("¡Reservando los puestos seleccionados!");
-            frmLoadding.Show();            
+            frmLoadding.Show();
             var responseSec = WCFServices.GetSecuence(dipMapCurrent);
             if (!responseSec.IsSuccess)
             {
@@ -478,7 +482,7 @@ namespace WPProcinal.Forms
             }
 
             SaveDataBaseLocal();
-           // GenerateTransactions();
+            // GenerateTransactions();
             if (_ErrorTransaction)
             {
                 frmLoadding.Close();
@@ -507,7 +511,7 @@ namespace WPProcinal.Forms
                     IDTramite = Utilities.TramiteId,
                     Referencia = reference,
                     Total = monto,
-                    
+
                 };
 
                 var transactionId = objWCFPayPad.InsertarTransaccion(objTransaction);
@@ -590,6 +594,17 @@ namespace WPProcinal.Forms
             }
             else
             {
+                try
+                {
+                    Task.Run(() =>
+                            {
+                                grabador.Grabar(Utilities.IDTransactionDB);
+                            });
+                }
+                catch (Exception)
+                {
+                    //TODO: guardar en log
+                }
                 frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
                 pay.Show();
                 this.Close();
@@ -625,8 +640,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-
-                throw;
+                //TODO: guardar en log
             }
         }
     }
