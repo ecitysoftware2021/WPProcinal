@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -35,7 +36,9 @@ namespace WPProcinal.Classes
             set { _Date = value; }
         }
 
-
+        public static string Duration = GetConfiguration("Duration");
+        public static TimeSpan time;
+        public static DispatcherTimer timer;
 
         public static List<Pelicula> Movies = new List<Pelicula>();
 
@@ -154,6 +157,32 @@ namespace WPProcinal.Classes
 
         public static Receipt Receipt = new Receipt();
 
+        public static void Timer(TextBlock textblock, Window window)
+        {
+            time = TimeSpan.Parse(Duration);
+            timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Tick += (a, b) =>
+            {
+                time = time.Subtract(new TimeSpan(0, 0, 1));
+                textblock.Text = (time.Seconds < 10) ? string.Format("0{0}:0{1}", time.Minutes, time.Seconds) : string.Format("0{0}:{1}", time.Minutes, time.Seconds);
+
+                if (time.Minutes == 0 && time.Seconds == 0)
+                {
+                    timer.Stop();
+                    GoToInicial(window);
+                }
+                Debug.WriteLine(time.Seconds);
+            };
+
+            timer.Start();
+        }
+
+        public static void ResetTimer()
+        {
+            time = TimeSpan.Parse(Duration);
+            timer.Stop();
+        }
 
         public static ControlPeripherals control;
         public static string TOKEN { get; set; }

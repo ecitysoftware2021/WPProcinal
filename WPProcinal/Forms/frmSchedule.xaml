@@ -10,7 +10,8 @@
         WindowStyle="None"
         WindowState="Maximized"
         Loaded="Window_Loaded"
-        Height="2064.095" Width="1250.599">
+        Height="2064.095" Width="1250.599"
+        PreviewStylusDown="Window_PreviewStylusDown">
     <Grid>
         <Grid.Background>
             <ImageBrush x:Name="imgBg"
@@ -27,7 +28,12 @@
         </Grid.RowDefinitions>
 
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
-            
+            <TextBlock x:Name="tbTimer"
+                       FontSize="35"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
+            />
             <Border
                 BorderBrush="White" 
                 BorderThickness="3,3,3,3"

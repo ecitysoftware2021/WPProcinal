@@ -202,7 +202,7 @@ namespace WPProcinal.Forms
             Utilities.GoToInicial(this);
         }
 
-
+       
         private void OrganizePositionOfSeats(List<SeatTmp> states,
             int positionX, List<string> FTDistinc,
             int positionY, List<TypeSeat>
@@ -354,7 +354,6 @@ namespace WPProcinal.Forms
         {
             SendData();
         }
-
 
         private void SendData()
         {
@@ -605,6 +604,8 @@ namespace WPProcinal.Forms
                 {
                     //TODO: guardar en log
                 }
+
+                Utilities.ResetTimer();
                 frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
                 pay.Show();
                 this.Close();
@@ -627,6 +628,8 @@ namespace WPProcinal.Forms
         {
             try
             {
+                Utilities.Timer(tbTimer, this);
+
                 this.Dispatcher.Invoke(() =>
                 {
                     var frmLoading = new FrmLoading("¡Cargando la sala!");
@@ -643,5 +646,8 @@ namespace WPProcinal.Forms
                 //TODO: guardar en log
             }
         }
+
+        private void Window_PreviewStylusDown(object sender, StylusDownEventArgs e) => Utilities.time = TimeSpan.Parse(Utilities.Duration);
+
     }
 }

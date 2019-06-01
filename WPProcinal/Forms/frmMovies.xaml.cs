@@ -56,7 +56,10 @@ namespace WPProcinal.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Utilities.Timer(tbTimer,this);
         }
+
+        private void Window_PreviewStylusDown(object sender, StylusDownEventArgs e) => Utilities.time = TimeSpan.Parse(Utilities.Duration);
 
         private void DownloadData(Peliculas data)
         {
@@ -280,6 +283,7 @@ namespace WPProcinal.Forms
 
             //if (ControlPantalla.EstadoBaul && ControlPantalla.EstadoBilletes && ControlPantalla.EstadoMonedas)
             //{
+            Utilities.ResetTimer();
             frmSchedule frmSchedule = new frmSchedule(movie);
             frmSchedule.Show();
             Close();

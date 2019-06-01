@@ -10,7 +10,9 @@
         WindowStyle="None"
         WindowState="Maximized"
         Loaded="Window_Loaded"
-       Height="2064.095" Width="1250.599">
+        Height="2064.095" Width="1250.599"
+        PreviewStylusDown="Window_PreviewStylusDown"
+        >
     <Grid>
         <Grid x:Name="TVGrid">
             <Grid.Background>
@@ -25,6 +27,12 @@
 
 
             <Grid Grid.Row="0">
+                <TextBlock x:Name="tbTimer"
+                       FontSize="35"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
+            />
                 <Image Source="../Images/NewDesing/buttons/b-atras.png" 
                        Height="110"
                        HorizontalAlignment="Left"

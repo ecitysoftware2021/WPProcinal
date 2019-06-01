@@ -38,6 +38,8 @@ namespace WPProcinal.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Utilities.Timer(tbTimer, this);
+
             imgBackground.ImageSource = Utilities.ImageSelected;
             MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
             TxtTitle.Text = MovieName;
@@ -57,6 +59,10 @@ namespace WPProcinal.Forms
 
             GenerateFunctions();
         }
+
+        private void Window_PreviewStylusDown(object sender, StylusDownEventArgs e) => Utilities.time = TimeSpan.Parse(Utilities.Duration);
+
+
         #endregion
 
         #region Methods
@@ -183,6 +189,7 @@ namespace WPProcinal.Forms
                 else
                 {
                     Utilities.ShowModal("Lo sentimos, no hay funciones para esta película");
+                    Utilities.GoToInicial(this);
                     return;
                 }
             }
@@ -345,7 +352,7 @@ namespace WPProcinal.Forms
             //Schedule schedule = (Schedule)lvSchedule.SelectedItem;
             DipMap dipmap = SetProperties(schedule);
 
-
+            Utilities.ResetTimer();
             frmSeat frmSeat = new frmSeat(dipmap);
             frmSeat.Show();
             Close();

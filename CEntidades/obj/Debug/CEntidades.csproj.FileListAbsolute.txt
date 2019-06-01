@@ -22,3 +22,9 @@ C:\Users\David Cordoba\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidad
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj.CoreCompileInputs.cache
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.dll
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.pdb
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\CEntidades\bin\Debug\CEntidades.dll
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\CEntidades\bin\Debug\CEntidades.pdb
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csprojAssemblyReference.cache
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj.CoreCompileInputs.cache
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.dll
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.pdb

@@ -27,6 +27,12 @@
             <RowDefinition Height="400" />
         </Grid.RowDefinitions>
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
+            <TextBlock x:Name="tbTimer"
+                       FontSize="35"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
+            />
             <Image Source="../Images/NewDesing/buttons/b-atras.png" 
                    Margin="50,150,0,0"
                    VerticalAlignment="Center"
@@ -191,7 +197,7 @@
                VerticalAlignment="Top" 
                />
         <Image HorizontalAlignment="Center" 
-               Height="114"                
+               Height="150"                
                Grid.Row="3" 
                Grid.Column="1"
                Name="Pay"
@@ -200,7 +206,7 @@
                MouseDown="Pay_MouseDown"
                Source="../Images/pay.png"
                VerticalAlignment="Top"
-               Width="344"/>
+               />
         <!--<Image gif:ImageBehavior.AnimatedSource="../Images/cargando.gif" 
             x:Name="GifLoadder" 
                Margin="0,0,0,0" 
