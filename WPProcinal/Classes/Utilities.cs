@@ -250,7 +250,11 @@ namespace WPProcinal.Classes
 
         public Utilities()
         {
-            transactionManager = new TEFTransactionManager();
+            try
+            {
+                transactionManager = new TEFTransactionManager();
+            }
+            catch { }
         }
 
         public enum ETipoAlerta

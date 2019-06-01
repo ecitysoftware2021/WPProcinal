@@ -605,8 +605,6 @@ namespace WPProcinal.Forms
                     //TODO: guardar en log
                 }
 
-              
-                this.Close();
                 if (Utilities.MedioPago == 1)
                 {
                     frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);

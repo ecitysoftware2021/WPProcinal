@@ -421,3 +421,9 @@ D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.baml
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.g.cs
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.g.cs
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.g.cs
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.baml
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.baml
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.baml
