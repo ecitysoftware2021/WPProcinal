@@ -261,7 +261,7 @@ namespace WPProcinal.Forms
                             {
                                 image.PreviewStylusDown += new StylusDownEventHandler((s, eh) =>
                                                                                                 SelectSeats(s, eh, item));
-                                image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
+                                //image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
                             }
 
 
