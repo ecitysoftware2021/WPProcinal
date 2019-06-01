@@ -147,7 +147,7 @@
                        HorizontalAlignment="Right"
                        Height="200"
                        Source="/Images/NewDesing/Buttons/b-efectivo.png"/>
-                    <Image x:Name="BtnCard"                        
+                    <Image x:Name="BtnCard"   Visibility="Hidden"                     
                            Margin="100,-106,100,0"
                        PreviewStylusDown="BtnCard_PreviewStylusDown"
                            PreviewMouseDown="BtnCard_PreviewMouseDown"
@@ -157,7 +157,7 @@
                        Source="/Images/NewDesing/Buttons/b-tarjeta.png"/>
                     
                     <Image x:Name="BtnNo"
-                       HorizontalAlignment="Right"
+                       HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                        Width="200" 
                        PreviewStylusDown="BtnNo_PreviewStylusDown"

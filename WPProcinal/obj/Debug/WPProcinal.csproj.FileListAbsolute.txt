@@ -9,7 +9,6 @@ D:\WPProcinal\WPProcinal\bin\Debug\EntityFramework.SqlServer.dll
 D:\WPProcinal\WPProcinal\bin\Debug\MaterialDesignColors.dll
 D:\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.dll
 D:\WPProcinal\WPProcinal\bin\Debug\Newtonsoft.Json.dll
-D:\WPProcinal\WPProcinal\bin\Debug\PayPad.BilleteroV2.dll
 D:\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.dll
 D:\WPProcinal\WPProcinal\bin\Debug\CEntidades.pdb
 D:\WPProcinal\WPProcinal\bin\Debug\EntityFramework.xml
@@ -18,7 +17,6 @@ D:\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.pdb
 D:\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.xml
 D:\WPProcinal\WPProcinal\bin\Debug\Newtonsoft.Json.xml
 D:\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.xml
-D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojResolveAssemblyReference.cache
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmCancelPay.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmCinema.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.g.cs
@@ -29,7 +27,6 @@ D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPay.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmSeat.g.cs
-D:\WPProcinal\WPProcinal\obj\Debug\MainWindow.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\App.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal_Content.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
@@ -46,7 +43,6 @@ D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPay.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmSeat.baml
-D:\WPProcinal\WPProcinal\obj\Debug\MainWindow.baml
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.g.resources
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.Properties.Resources.resources
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.GenerateResource.cache
@@ -412,3 +408,16 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opcion
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.baml
+D:\WPProcinal\WPProcinal\bin\Debug\DBProcinal.mdf
+D:\WPProcinal\WPProcinal\bin\Debug\DBProcinal_log.ldf
+D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.g.cs
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.g.cs
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.g.cs
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.g.cs
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.baml
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.baml
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.baml
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.baml
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.baml
