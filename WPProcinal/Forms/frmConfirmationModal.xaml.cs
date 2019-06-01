@@ -23,7 +23,7 @@ namespace WPProcinal.Forms
 
             TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
             TxtRoom.Text = dipMap.RoomName;
-            TxtDate.Text = string.Format("{0} {1}",dipMap.Day,dipMap.HourFunction);
+            TxtDate.Text = string.Format("{0} {1}", dipMap.Day, dipMap.HourFunction);
             TxtTotal.Text = string.Format("{0:C0}", total);
             lvListSeats.ItemsSource = typeSeats.OrderBy(s => s.Name);
             Utilities.ValorPagar = total;
@@ -31,6 +31,7 @@ namespace WPProcinal.Forms
 
         private void BtnYes_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            Utilities.MedioPago = 1;
             DialogResult = true;
         }
 
@@ -41,6 +42,7 @@ namespace WPProcinal.Forms
 
         private void BtnYes_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
+            Utilities.MedioPago = 1;
             DialogResult = true;
         }
 
@@ -51,6 +53,24 @@ namespace WPProcinal.Forms
 
         private void BtnYes_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            Utilities.MedioPago = 1;
+            DialogResult = true;
+        }
+
+        private void BtnNo_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void BtnCard_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+            Utilities.MedioPago = 2;
+            DialogResult = true;
+        }
+
+        private void BtnCard_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Utilities.MedioPago = 2;
             DialogResult = true;
         }
     }

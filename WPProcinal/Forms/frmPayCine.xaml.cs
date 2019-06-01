@@ -344,7 +344,10 @@ namespace WPProcinal.Forms
                         Environment.NewLine,
                         "Su transacción ha finalizado correctamente!"));
                         _frmModal.ShowDialog();
-                        Utilities.GoToInicial(this);
+                        FrmFinalTransaction frmFinal = new FrmFinalTransaction();
+                        frmFinal.Show();
+                        this.Close();
+                        //Utilities.GoToInicial(this);
                     });
                     GC.Collect();
                 }

@@ -23,6 +23,7 @@ using WPProcinal.Forms;
 using WPProcinal.Models;
 using WPProcinal.Service;
 using static WPProcinal.Models.ApiLocal.Uptake;
+using trx;
 
 namespace WPProcinal.Classes
 {
@@ -35,7 +36,45 @@ namespace WPProcinal.Classes
             set { _Date = value; }
         }
 
+        #region Sección Datáfono
 
+        TEFTransactionManager transactionManager;
+
+        public static Action<string> CallBackRespuesta;
+
+        public string EnviarPeticion(string data)
+        {
+            return transactionManager.getTEFAuthorization(data);
+        }
+
+        public string EnviarPeticionEspera()
+        {
+            return transactionManager.getTEFAuthorization();
+        }
+
+        public string CalculateLRC(string s)
+        {
+            int checksum = 0;
+            foreach (Char c in GetStringFromHex(s))
+            {
+                checksum = checksum ^ Convert.ToByte(c);
+            }
+            string nuevaCadena = string.Concat("[", s, checksum.ToString("X2"));
+            return nuevaCadena;
+        }
+
+        private string GetStringFromHex(string s2)
+        {
+            string result = string.Empty;
+            var result2 = string.Join("", s2.Select(c => ((int)c).ToString("X2")));
+            for (int i = 0; i < result2.Length; i = i + 2)
+            {
+                result += Convert.ToChar(int.Parse(result2.Substring(i, 2),
+               System.Globalization.NumberStyles.HexNumber));
+            }
+            return result;
+        }
+        #endregion
 
         public static List<Pelicula> Movies = new List<Pelicula>();
 
@@ -54,6 +93,8 @@ namespace WPProcinal.Classes
         public decimal ValorFaltante { get; set; }
 
         public decimal ValorRestante { get; set; }
+
+        public static int MedioPago { get; set; }
 
         internal static DipMap ConvertDipMap(TblDipMap dipmap)
         {
@@ -179,6 +220,7 @@ namespace WPProcinal.Classes
 
         public Utilities()
         {
+            transactionManager = new TEFTransactionManager();
         }
 
         public enum ETipoAlerta
@@ -679,4 +721,46 @@ namespace WPProcinal.Classes
         public static string Texto { get { return "[^a-zA-ZÁáÉéÍíÓóÚú]"; } }
         public static string AlfaNumerico { get { return "[^A-Za-z0-9]+"; } }
     }
+
+    public class Mensajes : INotifyPropertyChanged
+    {
+        private string mensajePrincipal;
+
+        public string MensajePrincipal
+        {
+            get { return this.mensajePrincipal; }
+            set
+            {
+                if (this.mensajePrincipal != value)
+                {
+                    this.mensajePrincipal = value;
+                    this.NotifyPropertyChanged("MensajePrincipal");
+                }
+            }
+        }
+
+        private string mensajeModal;
+
+        public string MensajeModal
+        {
+            get { return this.mensajeModal; }
+            set
+            {
+                if (this.mensajeModal != value)
+                {
+                    this.mensajeModal = value;
+                    this.NotifyPropertyChanged("MensajeModal");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged(string propName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
+    }
+
 }

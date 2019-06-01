@@ -36,7 +36,7 @@ namespace WPProcinal.Forms
 
         private void BtnConsult_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Utilities.GoToInicial(this);
+            //Utilities.GoToInicial(this);
         }
     }
 }
