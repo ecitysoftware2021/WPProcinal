@@ -1,8 +1,11 @@
-﻿C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\App.xaml;;
+FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\FrmCardPayment.xaml;;
 FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmConfigurate.xaml;;
 FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmCancelPay.xaml;;
 FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmCinema.xaml;;
+FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmConfirmationModal.xaml;;
+FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\FrmFinalTransaction.xaml;;
 FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\FrmLoading.xaml;;
 FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmModal.xaml;;
 FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmModalCancel.xaml;;
@@ -10,10 +13,6 @@ FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmMovies.xaml;
 FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmPay.xaml;;
 FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmPayCine.xaml;;
 FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmSchedule.xaml;;
-FC:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\Forms\FrmCardPayment.xaml;;
-FC:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmCinema.xaml;;
-FC:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmConfirmationModal.xaml;;
-FC:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmPayCine.xaml;;
-FC:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmSeat.xaml;;
-FC:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\Forms\Opciones.xaml;;
+FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\frmSeat.xaml;;
+FC:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\Forms\Opciones.xaml;;
 

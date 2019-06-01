@@ -406,3 +406,9 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.c
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.g.cs
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.g.cs
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.g.cs
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.baml
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.baml
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.baml
