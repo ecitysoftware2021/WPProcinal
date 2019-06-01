@@ -282,6 +282,27 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CoreCompileInputs.ca
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmCancelPay.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmCinema.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalCancel.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPay.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmSeat.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\App.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_Content.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.cache
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.lref
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DBProcinal.mdf
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DBProcinal_log.ldf
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DataBases\DBProcinal.mdf
@@ -303,29 +324,13 @@ C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Material
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Newtonsoft.Json.xml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.xml
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmCancelPay.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmCinema.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalCancel.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPay.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmSeat.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\App.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_Content.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.cache
-C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.lref
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\App.baml
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.baml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.baml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmCancelPay.baml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmCinema.baml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.baml
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.baml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.baml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.baml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalCancel.baml
@@ -334,6 +339,7 @@ C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\fr
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.baml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.baml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmSeat.baml
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.baml
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.g.resources
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.Properties.Resources.resources
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.GenerateResource.cache

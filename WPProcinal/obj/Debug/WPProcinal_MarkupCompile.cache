@@ -9,12 +9,14 @@ WPProcinal
 none
 false
 DEBUG;TRACE
-C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\App.xaml
-12986582772
+
+C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\App.xaml
+15-905508029
 6743108923
-762073580308
-30-1728043010
-Forms\frmConfigurate.xaml;Forms\frmCancelPay.xaml;Forms\frmCinema.xaml;Forms\frmConfirmationModal.xaml;Forms\FrmLoading.xaml;Forms\frmModal.xaml;Forms\frmModalCancel.xaml;Forms\frmMovies.xaml;Forms\frmPay.xaml;Forms\frmPayCine.xaml;Forms\frmSchedule.xaml;Forms\frmSeat.xaml;
+791918211803
+31-517984555
+Forms\FrmCardPayment.xaml;Forms\frmConfigurate.xaml;Forms\frmCancelPay.xaml;Forms\frmCinema.xaml;Forms\frmConfirmationModal.xaml;Forms\FrmFinalTransaction.xaml;Forms\FrmLoading.xaml;Forms\frmModal.xaml;Forms\frmModalCancel.xaml;Forms\frmMovies.xaml;Forms\frmPay.xaml;Forms\frmPayCine.xaml;Forms\frmSchedule.xaml;Forms\frmSeat.xaml;Forms\Opciones.xaml;
+
 
 False
 

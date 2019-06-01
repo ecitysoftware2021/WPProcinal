@@ -67,6 +67,10 @@
     <Reference Include="ITLlib">
       <HintPath>..\..\ITLlib.dll</HintPath>
     </Reference>
+    <Reference Include="KioskosLib, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\KioskosLib.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -197,11 +201,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmCardPayment.xaml.cs">
+      <DependentUpon>FrmCardPayment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmConfigurate.xaml.cs">
       <DependentUpon>frmConfigurate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmCancelPay.xaml.cs">
       <DependentUpon>frmCancelPay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmFinalTransaction.xaml.cs">
+      <DependentUpon>FrmFinalTransaction.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmLoading.xaml.cs">
       <DependentUpon>FrmLoading.xaml</DependentUpon>
@@ -218,6 +228,9 @@
     </Compile>
     <Compile Include="Forms\frmPayCine.xaml.cs">
       <DependentUpon>frmPayCine.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Opciones.xaml.cs">
+      <DependentUpon>Opciones.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\ApiLocal\DataPaypad.cs" />
     <Compile Include="Models\ApiLocal\RequestAuth.cs" />
@@ -241,6 +254,10 @@
     <Compile Include="Service\ApiServices.cs" />
     <Compile Include="Service\CLSWCFPayPad.cs" />
     <Compile Include="Service\WCFServices.cs" />
+    <Page Include="Forms\FrmCardPayment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\frmConfigurate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -254,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\frmConfirmationModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FrmFinalTransaction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -313,6 +334,10 @@
     <Compile Include="Forms\frmSeat.xaml.cs">
       <DependentUpon>frmSeat.xaml</DependentUpon>
     </Compile>
+    <Page Include="Forms\Opciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CinemaMovies.cs" />
@@ -633,7 +658,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>DBProcinal.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\NewDesing\Others\v-inserte-tarjeta.png" />
+    <Resource Include="Images\Tags\cartel-4dx.png" />
+    <Resource Include="Images\Tags\cartel-blackstar.png" />
+    <Resource Include="Images\Tags\cartel-cinearte.png" />
+    <Resource Include="Images\Tags\cartel-starkids.png" />
+    <Resource Include="Images\Tags\cartel-supernova.png" />
     <Resource Include="Images\Tags\cartel-vibra.png" />
+    <Resource Include="Images\NewDesing\Backgrounds\v-metodo-pago.png" />
+    <Resource Include="Images\Tags\cartel-vibra2.png" />
     <Resource Include="Images\NewDesing\Others\v-inserte-villete.png" />
     <Resource Include="Images\backButton.png" />
     <Resource Include="Images\NewDesing\Backgrounds\fondoModal.jpg" />
@@ -687,11 +720,11 @@
     <Resource Include="Images\puff.png" />
     <Resource Include="Images\seleccionada.png" />
     <Resource Include="Images\vibrosound.png" />
-    <Resource Include="Images\Tags\cartel-4dx.png" />
-    <Resource Include="Images\Tags\cartel-blackstar.png" />
-    <Resource Include="Images\Tags\cartel-cinearte.png" />
-    <Resource Include="Images\Tags\cartel-starkids.png" />
-    <Resource Include="Images\Tags\cartel-supernova.png" />
+    <Resource Include="Images\Tags\cartel-4dx2.png" />
+    <Resource Include="Images\Tags\cartel-blackstar2.png" />
+    <Resource Include="Images\Tags\cartel-cinearte2.png" />
+    <Resource Include="Images\Tags\cartel-starkids2.png" />
+    <Resource Include="Images\Tags\cartel-supernova2.png" />
     <Resource Include="Images\Tags\cartel-2d-vibra.png" />
     <Resource Include="Images\Tags\cartel-3d-vibra.png" />
     <Resource Include="Images\silla-discapacitados.png" />
