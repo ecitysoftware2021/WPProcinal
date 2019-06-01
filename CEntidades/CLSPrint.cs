@@ -39,6 +39,7 @@ namespace CEntidades
         public decimal ValorDevuelto { get; set; }
 
         public Receipt Recibo { get; set; }
+        public string Consecutivo { get; set; }
 
         public void ImprimirComprobante()
         {
@@ -186,7 +187,7 @@ namespace CEntidades
             g.DrawString("Tel:", fBody1, sb, 10, increment);
             g.DrawString(GetConfiguration("TelPromotora"), fBody1, sb, 120, increment);
             increment += 15;
-            g.DrawString("ENTRADA A CINE - 9 DMC9 127813", fBody1, sb, 10, increment);
+            g.DrawString("ENTRADA A CINE - 87 DMC9 "+ Consecutivo, fBody1, sb, 10, increment);
             increment += 15;
             g.DrawString("Audi 051682", fBody1, sb, 10, increment);
             increment += 20;

@@ -90,7 +90,18 @@ namespace WPProcinal.Service
                 var url = Utilities.GetConfiguration(controller);
                 var authentication = Encoding.ASCII.GetBytes(Utilities.TOKEN);
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
-                var response = await client.PostAsync(url, content);
+                HttpResponseMessage response;
+
+                if (controller == "GetInvoiceData")
+                {
+                    url = string.Format(url, 21, "&", true);
+                    response = await client.GetAsync(url);
+                }
+                else
+                {
+                    response = await client.PostAsync(url, content);
+                }
+
                 if (!response.IsSuccessStatusCode)
                 {
                     return new ResponseApi

@@ -86,6 +86,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -149,6 +150,7 @@
     <Compile Include="Classes\PaymentViewModel.cs" />
     <Compile Include="Classes\PayViewModel.cs" />
     <Compile Include="Classes\Response.cs" />
+    <Compile Include="Classes\SP_GET_INVOICE_DATA_Result.cs" />
     <Compile Include="Classes\Transaction.cs" />
     <Compile Include="Classes\TypeSeat.cs" />
     <Compile Include="Connected Services\WCFDesAssing\Reference.cs">

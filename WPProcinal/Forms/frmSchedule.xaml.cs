@@ -189,6 +189,7 @@ namespace WPProcinal.Forms
                 else
                 {
                     Utilities.ShowModal("Lo sentimos, no hay funciones para esta película");
+                    Utilities.ResetTimer();
                     Utilities.GoToInicial(this);
                     return;
                 }
@@ -360,6 +361,7 @@ namespace WPProcinal.Forms
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            Utilities.ResetTimer();
             frmMovies frmMovies = new frmMovies();
             frmMovies.Show();
             Close();

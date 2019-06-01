@@ -88,6 +88,8 @@ namespace WPProcinal.Classes
 
         public static List<CLSDatos> LDatos = new List<CLSDatos>();
 
+        public static List<SP_GET_INVOICE_DATA_Result> DashboardPrint;
+
         public bool Estado { get; set; }
 
         public decimal Valor { get; set; }
@@ -182,6 +184,8 @@ namespace WPProcinal.Classes
         public static string UrlImages = Utilities.GetConfiguration("UrlImages");
 
         public static Pelicula Movie;
+
+        public static int CantSeats;
 
         public static Peliculas Peliculas;
 
@@ -563,6 +567,8 @@ namespace WPProcinal.Classes
         {
             try
             {
+                int i = 0;
+
                 foreach (var seat in Seats)
                 {
                     objPrint.Cinema = GetConfiguration("NameCinema");
@@ -576,6 +582,8 @@ namespace WPProcinal.Classes
                     objPrint.Tramite = "Boleto de Cine";
                     objPrint.Category = dipMap.Category;
                     objPrint.Recibo = receipt;
+                    objPrint.Consecutivo = DashboardPrint[i].RANGO_ACTUAL.ToString();
+                    i++;
                     objPrint.ImprimirComprobante();
                 }
             }
@@ -735,6 +743,47 @@ namespace WPProcinal.Classes
             }
         }
 
+        public async Task<bool> CreatePrintDashboard()
+        {
+            try
+            {
+                DashboardPrint = new List<SP_GET_INVOICE_DATA_Result>();
+
+                ApiLocal api = new ApiLocal();
+
+                for (int i = 0; i < CantSeats; i++)
+                {
+                    var response = await api.GetResponse(new RequestApi
+                    {
+                        Data = null
+                    }, "GetInvoiceData");
+
+                    if (response != null)
+                    {
+                        if (response.CodeError == 200)
+                        {
+                            var responseApi = JsonConvert.DeserializeObject<SP_GET_INVOICE_DATA_Result>(response.Data.ToString());
+
+                            if (responseApi.IS_AVAILABLE == true)
+                            {
+                                DashboardPrint.Add(responseApi);
+                            }
+                        }
+                    }
+                }
+
+                if (DashboardPrint.Count() == CantSeats)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 
     public class CLSDatos

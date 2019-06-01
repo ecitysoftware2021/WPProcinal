@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -34,7 +35,7 @@ namespace WPProcinal.Service
             {
                 WCFReserva.ServiceSoapClient serviceSoapClient = new WCFReserva.ServiceSoapClient();
                 var data = serviceSoapClient.resgru(tea_ext_l: dipMap.CinemaId,
-                    pun_ext_l: dipMap.PointOfSale,
+                    pun_ext_l: double.Parse(ConfigurationManager.AppSettings["Cinema"]),
                     sal_ext_l: dipMap.RoomId,
                     fex_ext_l: dipMap.Date,
                     fun_ext_l: dipMap.Hour,
@@ -254,7 +255,7 @@ namespace WPProcinal.Service
                     fecha_funcion: dipMap.Date,
                     total_compra: total,
                     med_pago: paymentMethod,
-                    pun_ext_l: dipMap.PointOfSale.Value
+                    pun_ext_l: double.Parse(ConfigurationManager.AppSettings["Cinema"])
                     );
 
                 return new Response
@@ -292,7 +293,7 @@ namespace WPProcinal.Service
                     fecha_funcion: dipMap.Date,
                     total_compra: dipMap.Total,
                     med_pago: dipMap.PaymentMethod,
-                    pun_ext_l: dipMap.PointOfSale
+                    pun_ext_l: double.Parse(ConfigurationManager.AppSettings["Cinema"])
                     );
 
                 return new Response

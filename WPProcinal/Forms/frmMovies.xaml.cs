@@ -305,6 +305,7 @@ namespace WPProcinal.Forms
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            Utilities.ResetTimer();
             frmCinema frmCinema = new frmCinema();
             frmCinema.Show();
             Close();
