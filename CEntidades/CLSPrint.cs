@@ -80,25 +80,27 @@ namespace CEntidades
             string RutaIMG = GetConfiguration("LogoComprobante");
             g.DrawImage(Image.FromFile(RutaIMG), 30, 0);
             g.DrawString(Cinema, fBody, sb, 120, SPACE);
+            //Solo para los demas
             g.DrawString("Colombia de Cines S.A", fBody, sb, 10, SPACE + 25);
             g.DrawString("NIT:", fBody, sb, 10, SPACE + 40);
             g.DrawString(GetConfiguration("Nit"), fBody1, sb, 120, SPACE + 40);
-            g.DrawString("Cra 4850 sur 128 of 6005 piso 7", fBody1, sb, 10, SPACE + 55);
+            g.DrawString("Cra 48 N. 50 sur 128", fBody1, sb, 10, SPACE + 55);
             int increment = SPACE + 55;
             increment += 15;
             g.DrawString("Tel:", fBody1, sb, 10, increment);
             g.DrawString(GetConfiguration("Tel"), fBody1, sb, 120, increment);
 
             increment += 15;
-            g.DrawString("Promotora Nacional de Cines S.A.S", fBody, sb, 10, increment);
-            increment += 15;
-            g.DrawString("NIT:", fBody, sb, 10, increment);
-            g.DrawString(GetConfiguration("NitPromotora"), fBody1, sb, 120, increment);
-            increment += 15;
-            g.DrawString("Tel:", fBody1, sb, 10, increment);
-            g.DrawString(GetConfiguration("TelPromotora"), fBody1, sb, 120, increment);
-            increment += 15;
-            g.DrawString("ENTRADA A CINE - 9 DMC9 127813", fBody1, sb, 10, increment);
+            //Solo para puerta del norta
+            //g.DrawString("Promotora Nacional de Cines S.A.S", fBody, sb, 10, increment);
+            //increment += 15;
+            //g.DrawString("NIT:", fBody, sb, 10, increment);
+            //g.DrawString(GetConfiguration("NitPromotora"), fBody1, sb, 120, increment);
+            //increment += 15;
+            //g.DrawString("Tel:", fBody1, sb, 10, increment);
+            //g.DrawString(GetConfiguration("TelPromotora"), fBody1, sb, 120, increment);
+            //increment += 15;
+            g.DrawString("ENTRADA A CINE - 87" + Consecutivo, fBody1, sb, 10, increment);
             increment += 15;
             g.DrawString("Audi 051682", fBody1, sb, 10, increment);
             increment += 20;
@@ -149,7 +151,7 @@ namespace CEntidades
             increment += 15;
             g.DrawString("EN NUESTRAS CONFITERIAS,", fBody, sb, 10, increment);
             increment += 15;
-            g.DrawString("O CAFES DEL CINEMA.", fBody, sb, 10, increment);
+            g.DrawString("O CAFES DEL CINEMA, GRACIAS.", fBody, sb, 10, increment);
 
             increment += 30;
             g.DrawString("PELICULAS CON RESTRICCIÓN PARA MAYORES", fBody, sb, 10, increment);
@@ -169,25 +171,28 @@ namespace CEntidades
             string RutaIMG = GetConfiguration("LogoComprobante");
             g.DrawImage(Image.FromFile(RutaIMG), 30, 0);
             g.DrawString(Cinema, fBody, sb, 120, SPACE);
+
+            //TODO: Solo para los demas
             g.DrawString("Colombia de Cines S.A", fBody, sb, 10, SPACE + 25);
             g.DrawString("NIT:", fBody, sb, 10, SPACE + 40);
             g.DrawString(GetConfiguration("Nit"), fBody1, sb, 120, SPACE + 40);
-            g.DrawString("Cra 4850 sur 128 of 6005 piso 7", fBody1, sb, 10, SPACE + 55);
+            g.DrawString("Cra 48 N. 50 sur 128", fBody1, sb, 10, SPACE + 55);
             int increment = SPACE + 55;
             increment += 15;
             g.DrawString("Tel:", fBody1, sb, 10, increment);
             g.DrawString(GetConfiguration("Tel"), fBody1, sb, 120, increment);
 
             increment += 15;
-            g.DrawString("Promotora Nacional de Cines S.A.S", fBody, sb, 10, increment);
-            increment += 15;
-            g.DrawString("NIT:", fBody, sb, 10, increment);
-            g.DrawString(GetConfiguration("NitPromotora"), fBody1, sb, 120, increment);
-            increment += 15;
-            g.DrawString("Tel:", fBody1, sb, 10, increment);
-            g.DrawString(GetConfiguration("TelPromotora"), fBody1, sb, 120, increment);
-            increment += 15;
-            g.DrawString("ENTRADA A CINE - 87 DMC9 "+ Consecutivo, fBody1, sb, 10, increment);
+            //TODO: Solo para puerta del norta
+            //g.DrawString("Promotora Nacional de Cines S.A.S", fBody, sb, 10, increment);
+            //increment += 15;
+            //g.DrawString("NIT:", fBody, sb, 10, increment);
+            //g.DrawString(GetConfiguration("NitPromotora"), fBody1, sb, 120, increment);
+            //increment += 15;
+            //g.DrawString("Tel:", fBody1, sb, 10, increment);
+            //g.DrawString(GetConfiguration("TelPromotora"), fBody1, sb, 120, increment);
+            //increment += 15;
+            g.DrawString("ENTRADA A CINE - 87 " + Consecutivo, fBody1, sb, 10, increment);
             increment += 15;
             g.DrawString("Audi 051682", fBody1, sb, 10, increment);
             increment += 20;
@@ -231,19 +236,26 @@ namespace CEntidades
                 g.DrawString("Devolución:", fBody, sb, 10, increment);
                 g.DrawString(ValorDevuelto.ToString("C", CultureInfo.CurrentCulture), fBody1, sb, 120, increment);
             }
-            increment += 30;
-            g.DrawString(Recibo.Footer, fBody, sb, 10, increment);
-            increment += 30;
+            increment += 20;
+            g.DrawString("SOLO SE PERMITE EL INGRESO A LAS", fBody, sb, 10, increment);
+            increment += 15;
+            g.DrawString("INSTALACIONES DE CINEMAS PROCINAL,", fBody, sb, 10, increment);
+            increment += 15;
+            g.DrawString("DE PRODUCTOS QUE HAYAN SIDO COMPRADOS", fBody, sb, 10, increment);
+            increment += 15;
+            g.DrawString("EN NUESTRAS CONFITERIAS,", fBody, sb, 10, increment);
+            increment += 15;
+            g.DrawString("O CAFES DEL CINEMA", fBody, sb, 10, increment);
+            increment += 15;
+            g.DrawString("GRACIAS.", fBody, sb, 10, increment);
 
-            g.DrawString("= Sólo se permite el ingreso a las", fBody1, sb, 30, increment);
+            increment += 30;
+            g.DrawString("PELICULAS CON RESTRICCIÓN PARA MAYORES", fBody, sb, 10, increment);
             increment += 15;
-            g.DrawString("= instalaciones de Cinemas Procinal, de", fBody1, sb, 30, increment);
+            g.DrawString("DE 15 O 18 AÑOS DEBE PRESENTAR", fBody, sb, 10, increment);
             increment += 15;
-            g.DrawString("= productos que hayan sido comprados", fBody1, sb, 30, increment);
-            increment += 15;
-            g.DrawString("= en nuestras confiterias o cafés del cinema", fBody1, sb, 30, increment);
-            increment += 15;
-            g.DrawString("= Gracias", fBody1, sb, 30, increment);
+            g.DrawString("DOCUMENTO DE IDENTIDAD. GRACIAS.", fBody, sb, 10, increment);
+
             increment += 30;
             g.DrawString("E-city software", fBody1, sb, 82, increment);
         }

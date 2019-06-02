@@ -58,24 +58,24 @@ namespace WPProcinal.Forms
                 TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
                 TxtHour.Text = dipMap.HourFunction;
                 TxtSubTitle.Text = dipMap.Language;
-                SavePay(true);
-                //logError = new LogErrorGeneral
-                //{
-                //    Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                //    IDCorresponsal = Utilities.CorrespondentId,
-                //    IdTransaction = Utilities.IDTransactionDB,
-                //    //ValuePay = Utilities.PayVal,
-                //    //TypeConsult = Utilities.TypeConsult,
-                //    //Consult = Utilities.Consult,
-                //    //Id_Nit = Utilities.Id_Nit,
-                //    //Name = Utilities.Name,
-                //    //Phone = Utilities.Phone,
-                //};
+                //SavePay(true);
+                logError = new LogErrorGeneral
+                {
+                    Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
+                    IDCorresponsal = Utilities.CorrespondentId,
+                    IdTransaction = Utilities.IDTransactionDB,
+                    //ValuePay = Utilities.PayVal,
+                    //TypeConsult = Utilities.TypeConsult,
+                    //Consult = Utilities.Consult,
+                    //Id_Nit = Utilities.Id_Nit,
+                    //Name = Utilities.Name,
+                    //Phone = Utilities.Phone,
+                };
 
-                //count = 0;
-                //stateUpdate = true;
-                //payState = true;
-                //Utilities.control.StartValues();
+                count = 0;
+                stateUpdate = true;
+                payState = true;
+                Utilities.control.StartValues();
             }
             catch (Exception ex)
             {
