@@ -202,8 +202,7 @@ namespace WPProcinal.Forms
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
                 };
 
-                //Utilities.control.StartAceptance(PaymentViewModel.PayValue);
-                Utilities.control.StartAceptance(5000);
+                Utilities.control.StartAceptance(PaymentViewModel.PayValue);
             }
             catch (Exception ex)
             {
