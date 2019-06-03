@@ -25,6 +25,7 @@ using WPProcinal.Models;
 using WPProcinal.Service;
 using static WPProcinal.Models.ApiLocal.Uptake;
 using trx;
+using WPProcinal.DataModel;
 
 namespace WPProcinal.Classes
 {
@@ -45,6 +46,7 @@ namespace WPProcinal.Classes
         TEFTransactionManager transactionManager;
 
         public static Action<string> CallBackRespuesta;
+
 
         public string EnviarPeticion(string data)
         {
@@ -789,6 +791,112 @@ namespace WPProcinal.Classes
                 return false;
             }
         }
+
+
+        public void ProccesValue(decimal enterValue, int opt, int quantity, string code, int idTransactionAPi)
+        {
+            try
+            {
+                if (opt == 2)
+                {
+                    if (enterValue > 1000)
+                    {
+                        code = "AP";
+                    }
+                    else
+                    {
+                        code = "MA";
+                    }
+                }
+                else
+                {
+                    if (enterValue > 1000)
+                    {
+                        code = "DP";
+                    }
+                    else
+                    {
+                        code = "MD";
+                    }
+                }
+
+                Task.Run(() =>
+                {
+                    SaveDetailsTransaction(new RequestTransactionDetails
+                    {
+                        Code = code,
+                        Denomination = Convert.ToInt32(enterValue),
+                        Operation = opt,
+                        Quantity = quantity,
+                        TransactionId = idTransactionAPi,
+                    });
+                });
+            }
+            catch (Exception ex)
+            {
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProccesValue(decimal enterValue, int opt, int quantity, string code, int idTransactionAPi)");
+
+            }
+        }
+
+        public void ProccesValue(string messaje, int idTransactionAPi)
+        {
+            try
+            {
+                Task.Run(() =>
+                {
+                    SaveDetailsTransaction(new RequestTransactionDetails
+                    {
+                        Description = messaje,
+                        TransactionId = idTransactionAPi
+                    });
+                });
+            }
+            catch (Exception ex)
+            {
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProccesValue(string messaje, int idTransactionAPi)");
+            }
+        }
+
+        public async static void SaveDetailsTransaction(RequestTransactionDetails detail)
+        {
+            try
+            {
+                ApiLocal api = new ApiLocal();
+
+                var se = Utilities.Session;
+                if (detail != null)
+                {
+                    var data = new TRANSACTION_DETAIL
+                    {
+                        TRANSACTION_ID = detail.TransactionId,
+                        DENOMINATION = detail.Denomination,
+                        QUANTITY = detail.Quantity,
+                        OPERATION = detail.Operation,
+                        CODE = detail.Code,
+                        DESCRIPTION = detail.Description
+                    };
+
+                    api.CallApi("SaveTransactionDetail", detail);
+                }
+            }
+            catch (Exception ex)
+            {
+                //logErrors.Add(new LogError
+                //{
+                //    Fecha = DateTime.Now,
+                //    Operacion = "SaveDetailsTransaction",
+                //    Error = ex.Message,
+                //    Exception = ex
+                //});
+                //Utilities.CrearLogErrores(logErrors);
+            }
+        }
+
     }
 
     public class CLSDatos

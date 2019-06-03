@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using WPProcinal.Classes;
@@ -18,6 +19,7 @@ namespace WPProcinal.Service
         private string basseAddress;
         private HttpResponseMessage response;
         private RequestAuth requestAuth;
+        private static RequestApi requestApi;
         private string User4Told;
         private string Password4Told;
         #endregion
@@ -27,6 +29,7 @@ namespace WPProcinal.Service
         {
             basseAddress = Utilities.GetConfiguration("basseAddressLocal");
             client = new HttpClient();
+            requestApi = new RequestApi();
             client.BaseAddress = new Uri(basseAddress);
             ReadKeys();
         }
@@ -152,6 +155,45 @@ namespace WPProcinal.Service
             catch (Exception ex)
             {
             }
+        }
+
+
+        public async Task<object> CallApi(string controller, object data = null)
+        {
+            try
+            {
+                client = new HttpClient();
+                client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocal"));
+
+                requestApi.Data = data;
+                requestApi.Session = Utilities.Session;
+
+                var request = JsonConvert.SerializeObject(requestApi);
+                var content = new StringContent(request, Encoding.UTF8, "Application/json");
+                var url = Utilities.GetConfiguration(controller);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
+                var response = await client.PostAsync(url, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+
+                    return null;
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var responseApi = JsonConvert.DeserializeObject<ResponseApi>(result);
+
+                if (responseApi.CodeError == 200)
+                {
+                    return responseApi.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return null;
         }
         #endregion
     }

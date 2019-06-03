@@ -55,6 +55,8 @@ namespace WPProcinal.Classes
 
         public Action<string> callbackError;//Calback de error
 
+        public Action<string> callbackLog;//Calback de devolucion
+
         public Action<string> callbackMessage;//Calback de mensaje
 
         public Action<bool> callbackToken;//Calback de mensaje
@@ -683,6 +685,7 @@ namespace WPProcinal.Classes
                 if (isBX == 0 || isBX == 2)
                 {
                     LogMessage += string.Concat(data.Replace("\r", string.Empty), "!");
+                    callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"));
                 }
 
                 if (!stateError)

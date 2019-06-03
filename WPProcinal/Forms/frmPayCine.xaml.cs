@@ -126,6 +126,11 @@ namespace WPProcinal.Forms
                         Cancelled();
                     };
 
+                    Utilities.control.callbackLog = log =>
+                    {
+                        utilities.ProccesValue(log, Utilities.IDTransactionDB);
+                    };
+
                     Utilities.control.callbackOut = quiantityOut =>
                     {
                         Cancelled();
@@ -163,6 +168,7 @@ namespace WPProcinal.Forms
                     if (enterValue > 0)
                     {
                         PaymentViewModel.ValorIngresado += enterValue;
+                        utilities.ProccesValue(enterValue, 2, 1, "", Utilities.IDTransactionDB);
                     }
                 };
 
@@ -209,6 +215,7 @@ namespace WPProcinal.Forms
         {
             try
             {
+
                 Utilities.control.callbackTotalOut = totalOut =>
                 {
                     Utilities.SaveLogDispenser(ControlPeripherals.log);

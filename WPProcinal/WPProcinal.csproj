@@ -203,6 +203,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\TRANSACTION_DETAIL.cs" />
     <Compile Include="Forms\FrmCardPayment.xaml.cs">
       <DependentUpon>FrmCardPayment.xaml</DependentUpon>
     </Compile>
@@ -255,6 +256,7 @@
     <Compile Include="Service\ApiLocal.cs" />
     <Compile Include="Service\ApiServices.cs" />
     <Compile Include="Service\CLSWCFPayPad.cs" />
+    <Compile Include="Service\Uptake.cs" />
     <Compile Include="Service\WCFServices.cs" />
     <Page Include="Forms\FrmCardPayment.xaml">
       <SubType>Designer</SubType>
