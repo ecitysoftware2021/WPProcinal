@@ -97,6 +97,9 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsError(
+              string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+              ex.InnerException, "---------- Trace: ", ex.StackTrace), "Window_Loaded PayCine");
             }
         }
 
@@ -150,6 +153,9 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsError(
+              string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+              ex.InnerException, "---------- Trace: ", ex.StackTrace), "btnCancelar_PreviewStylusDown PayCine");
             }
         }
         #endregion
@@ -216,6 +222,11 @@ namespace WPProcinal.Forms
             try
             {
 
+                Utilities.control.callbackLog = log =>
+                {
+                    utilities.ProccesValue(log, Utilities.IDTransactionDB);
+                };
+
                 Utilities.control.callbackTotalOut = totalOut =>
                 {
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
@@ -265,6 +276,9 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsError(
+             string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+             ex.InnerException, "---------- Trace: ", ex.StackTrace), "OrganizeValues PayCine");
             }
         }
 
@@ -392,15 +406,27 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsError(
+           string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+           ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
             }
         }
 
         private void GetReceipt()
         {
-            var response = WCFServices.GetReceiptProcinal(ControlPantalla.IdCorrespo);
-            if (response.IsSuccess)
+            try
             {
-                Utilities.Receipt = JsonConvert.DeserializeObject<Receipt>(response.Result.ToString());
+                var response = WCFServices.GetReceiptProcinal(ControlPantalla.IdCorrespo);
+                if (response.IsSuccess)
+                {
+                    Utilities.Receipt = JsonConvert.DeserializeObject<Receipt>(response.Result.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.CreateLogsError(
+           string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+           ex.InnerException, "---------- Trace: ", ex.StackTrace), "GetReceipt PayCine");
             }
         }
 
