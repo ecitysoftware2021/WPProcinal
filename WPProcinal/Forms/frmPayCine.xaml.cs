@@ -45,7 +45,7 @@ namespace WPProcinal.Forms
             try
             {
                 api = new ApiLocal();
-                Utilities.PayVal = Utilities.RoundValue(Utilities.ValorPagar);
+                Utilities.PayVal = Utilities.RoundValue(Utilities.ValorPagar); ;
                 OrganizeValues();
                 frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();
@@ -58,18 +58,11 @@ namespace WPProcinal.Forms
                 TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
                 TxtHour.Text = dipMap.HourFunction;
                 TxtSubTitle.Text = dipMap.Language;
-                //SavePay(true);
                 logError = new LogErrorGeneral
                 {
                     Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
-                    //ValuePay = Utilities.PayVal,
-                    //TypeConsult = Utilities.TypeConsult,
-                    //Consult = Utilities.Consult,
-                    //Id_Nit = Utilities.Id_Nit,
-                    //Name = Utilities.Name,
-                    //Phone = Utilities.Phone,
                 };
 
                 count = 0;
@@ -94,7 +87,6 @@ namespace WPProcinal.Forms
                     if (payState)
                     {
                         ActivateWallet();
-                        //Buytickets();
                     }
                 });
 
@@ -198,10 +190,14 @@ namespace WPProcinal.Forms
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
                 };
 
-                Utilities.control.StartAceptance(PaymentViewModel.PayValue);
+                //Utilities.control.StartAceptance(PaymentViewModel.PayValue);
+                Utilities.control.StartAceptance(5000);
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsError(
+               string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+               ex.InnerException, "---------- Trace: ", ex.StackTrace), "ActivateWallet");
             }
         }
 
@@ -236,6 +232,9 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsError(
+               string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+               ex.InnerException, "---------- Trace: ", ex.StackTrace), "ReturnMoney");
             }
         }
 
@@ -312,7 +311,7 @@ namespace WPProcinal.Forms
                     {
                         PaymentGrid.Opacity = 0.3;
                         Utilities.Loading(frmLoading, false, this);
-                        frmModal modal = new frmModal("No se pudo realizar el pago");
+                        frmModal modal = new frmModal("No se pudo realizar la compra");
                         modal.ShowDialog();
 
                         Utilities.Loading(frmLoading, true, this);
@@ -332,11 +331,18 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
+
                     ApproveTrans();
 
                     objUtil.ImprimirComprobante("Aprobada", Utilities.Receipt, Utilities.TypeSeats, Utilities.DipMapCurrent);
 
                     Utilities.control.StopAceptance();
+
+                    await Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        this.Opacity = 1;
+                        Utilities.Loading(frmLoading, false, this);
+                    });
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
@@ -347,13 +353,15 @@ namespace WPProcinal.Forms
                         FrmFinalTransaction frmFinal = new FrmFinalTransaction();
                         frmFinal.Show();
                         this.Close();
-                        //Utilities.GoToInicial(this);
                     });
                     GC.Collect();
                 }
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "SavePay(" + task + ")");
             }
         }
 
@@ -391,62 +399,71 @@ namespace WPProcinal.Forms
 
         private void Buytickets()
         {
-            if (num == 2)
+            try
             {
-                return;
-            }
-
-            if (countError < 3 && num == 1)
-            {
-                payState = true;
-                var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
-                responseGlobal = response;
-                if (!response.IsSuccess)
+                if (num == 2)
                 {
-                    Utilities.SaveLogError(new LogError
-                    {
-                        Message = response.Message,
-                        Method = "WCFServices.PostComprar"
-                    });
-
-                    countError++;
-                    Buytickets();
+                    return;
                 }
 
-                var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                if (transaccionCompra.Respuesta == "Fallida")
+                if (countError < 3 && num == 1)
                 {
-                    payState = false;
-                    Utilities.SaveLogError(new LogError
-                    {
-                        Message = transaccionCompra.Respuesta,
-                        Method = "WCFServices.PostComprar.Fallida"
-                    });
-                    countError++;
-                    Buytickets();
-                }
-                else
-                {
-                    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                    payState = true;
+                    var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
+                    responseGlobal = response;
                     if (!response.IsSuccess)
                     {
                         Utilities.SaveLogError(new LogError
                         {
-                            Message = responseDB.Message,
-                            Method = "DBProcinalController.EditPaySeat"
+                            Message = response.Message,
+                            Method = "WCFServices.PostComprar"
                         });
+
+                        countError++;
+                        Buytickets();
+                    }
+
+                    var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
+                    if (transaccionCompra.Respuesta == "Fallida")
+                    {
+                        payState = false;
+                        Utilities.SaveLogError(new LogError
+                        {
+                            Message = transaccionCompra.Respuesta,
+                            Method = "WCFServices.PostComprar.Fallida"
+                        });
+                        countError++;
+                        Buytickets();
+                    }
+                    else
+                    {
+                        var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                        if (!response.IsSuccess)
+                        {
+                            Utilities.SaveLogError(new LogError
+                            {
+                                Message = responseDB.Message,
+                                Method = "DBProcinalController.EditPaySeat"
+                            });
+                        }
                     }
                 }
-            }
 
-            if (num == 2)
-            {
-                return;
-            }
+                if (num == 2)
+                {
+                    return;
+                }
 
-            if (num == 1)
+                if (num == 1)
+                {
+                    SavePay(payState);
+                }
+            }
+            catch (Exception ex)
             {
-                SavePay(payState);
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "Buytickets");
             }
         }
         #endregion

@@ -110,7 +110,7 @@ namespace WPProcinal.Forms
                 _frmModal.ShowDialog();
 
                 //CloseApplication(this);
-                Utilities.ResetTimer();
+                //Utilities.ResetTimer();
                 Utilities.GoToInicial(this);
             }
             else
@@ -128,7 +128,7 @@ namespace WPProcinal.Forms
                     _frmModal.ShowDialog();
 
                     //CloseApplication(this);
-                    Utilities.ResetTimer();
+                    //Utilities.ResetTimer();
                     Utilities.GoToInicial(this);
                 }
                 else
@@ -201,11 +201,11 @@ namespace WPProcinal.Forms
         private void CloseApplication(Window form)
         {
             form.Close();
-            Utilities.ResetTimer();
+            //Utilities.ResetTimer();
             Utilities.GoToInicial(this);
         }
 
-       
+
         private void OrganizePositionOfSeats(List<SeatTmp> states,
             int positionX, List<string> FTDistinc,
             int positionY, List<TypeSeat>
@@ -260,7 +260,7 @@ namespace WPProcinal.Forms
                             };
 
                             item.Type = type.Type;
-                            if (state.State == "S")
+                            if (state.State == "S" && state.Type != "D")
                             {
                                 image.PreviewStylusDown += new StylusDownEventHandler((s, eh) =>
                                                                                                 SelectSeats(s, eh, item));
@@ -430,7 +430,7 @@ namespace WPProcinal.Forms
 
         private void ReloadWindow()
         {
-            Utilities.ResetTimer();
+            //Utilities.ResetTimer();
             frmSeat _frmSeat = new frmSeat(dipMapCurrent);
             _frmSeat.Show();
             this.Close();
@@ -455,6 +455,8 @@ namespace WPProcinal.Forms
             }
 
             dipMapCurrent.Secuence = int.Parse(secuence.Secuencia);
+            Utilities.Secuencia = secuence.Secuencia;
+
             foreach (var item in SelectedTypeSeats)
             {
                 var response = WCFServices.PostReserva(dipMapCurrent, item);
@@ -491,52 +493,6 @@ namespace WPProcinal.Forms
             {
                 frmLoadding.Close();
                 ShowPay();
-            }
-        }
-
-        private void GenerateTransactions()
-        {
-            _ErrorTransaction = true;
-            foreach (var selectedTypeSeat in SelectedTypeSeats)
-            {
-                var reference = GetReferencetransaction(dipMapCurrent, selectedTypeSeat);
-                selectedTypeSeat.TransactionId = CrearTransaccion(reference, selectedTypeSeat.Price);
-            }
-        }
-
-        private int CrearTransaccion(string reference, decimal monto)
-        {
-            try
-            {
-                CLSWCFPayPad objWCFPayPad = new CLSWCFPayPad();
-                WCFPayPad.CLSTransaction objTransaction = new WCFPayPad.CLSTransaction
-                {
-                    IDCorresponsal = Utilities.CorrespondetId,
-                    IDTramite = Utilities.TramiteId,
-                    Referencia = reference,
-                    Total = monto,
-
-                };
-
-                var transactionId = objWCFPayPad.InsertarTransaccion(objTransaction);
-                Utilities.IDTransaccionDBs.Add(transactionId);
-                return transactionId;
-            }
-            catch (Exception ex)
-            {
-                _ErrorTransaction = false;
-                Utilities.SaveLogError(new LogError
-                {
-                    Method = "Crear transacción",
-                    Exception = ex,
-                    Message = ex.Message,
-                });
-
-                Utilities.CancelAssing(SelectedTypeSeats, dipMapCurrent);
-                Utilities.ShowModal("Servicio no disponible");
-                Utilities.ResetTimer();
-                Utilities.GoToInicial(this);
-                return 0;
             }
         }
 
@@ -577,11 +533,11 @@ namespace WPProcinal.Forms
             Utilities.ShowModal(stringerror.ToString());
         }
 
-        private string GetReferencetransaction(DipMap dipMap, TypeSeat typeSeat)
-        {
-            return string.Concat(dipMap.CinemaId,
-                                    dipMap.Secuence);
-        }
+        //private string GetReferencetransaction(DipMap dipMap, TypeSeat typeSeat)
+        //{
+        //    return string.Concat(dipMap.CinemaId,
+        //                            dipMap.Secuence);
+        //}
 
         private async void ShowPay()
         {
@@ -608,21 +564,23 @@ namespace WPProcinal.Forms
                         grabador.Grabar(Utilities.IDTransactionDB);
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //TODO: guardar en log
+                    LogService.CreateLogsError(
+                    string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                    ex.InnerException, "---------- Trace: ", ex.StackTrace), "ShowPay");
                 }
 
                 if (Utilities.MedioPago == 1)
                 {
-                    Utilities.ResetTimer();
+                    //Utilities.ResetTimer();
                     frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
                     pay.Show();
                     this.Close();
                 }
                 else
                 {
-                    Utilities.ResetTimer();
+                    //Utilities.ResetTimer();
                     FrmCardPayment pay = new FrmCardPayment(SelectedTypeSeats, dipMapCurrent);
                     pay.Show();
                     this.Close();
@@ -633,7 +591,7 @@ namespace WPProcinal.Forms
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Utilities.ResetTimer();
+            //Utilities.ResetTimer();
             frmSchedule frmSchedule = new frmSchedule(Utilities.Movie);
             frmSchedule.Show();
             Close();
@@ -648,7 +606,7 @@ namespace WPProcinal.Forms
         {
             try
             {
-                Utilities.Timer(tbTimer, this);
+                //Utilities.Timer(tbTimer, this);
 
                 this.Dispatcher.Invoke(() =>
                 {
@@ -663,7 +621,10 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                //TODO: guardar en log
+
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "Window_Loaded");
             }
         }
 

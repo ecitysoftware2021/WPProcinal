@@ -17,6 +17,7 @@ namespace CEntidades
         public string NumeroRecibo { get; set; }
         public string Movie { get; set; }
         public string Referencia { get; set; }
+        public string Secuencia { get; set; }
         public string Tramite { get; set; }
         public string Time { get; set; }
         public string Room { get; set; }
@@ -102,7 +103,7 @@ namespace CEntidades
             //increment += 15;
             g.DrawString("ENTRADA A CINE - 87" + Consecutivo, fBody1, sb, 10, increment);
             increment += 15;
-            g.DrawString("Audi 051682", fBody1, sb, 10, increment);
+            g.DrawString("Audi " + Secuencia, fBody1, sb, 10, increment);
             increment += 20;
 
             g.DrawString("Película:", fBody, sb, 10, increment);
@@ -151,7 +152,7 @@ namespace CEntidades
             increment += 15;
             g.DrawString("EN NUESTRAS CONFITERIAS,", fBody, sb, 10, increment);
             increment += 15;
-            g.DrawString("O CAFES DEL CINEMA, GRACIAS.", fBody, sb, 10, increment);
+            g.DrawString("O CAFES DEL CINEMA.", fBody, sb, 10, increment);
 
             increment += 30;
             g.DrawString("PELICULAS CON RESTRICCIÓN PARA MAYORES", fBody, sb, 10, increment);
@@ -194,7 +195,7 @@ namespace CEntidades
             //increment += 15;
             g.DrawString("ENTRADA A CINE - 87 " + Consecutivo, fBody1, sb, 10, increment);
             increment += 15;
-            g.DrawString("Audi 051682", fBody1, sb, 10, increment);
+            g.DrawString("Audi " + Secuencia, fBody1, sb, 10, increment);
             increment += 20;
             g.DrawString("Película:", fBody, sb, 10, increment);
             g.DrawString(Movie, fBody1, sb, 120, increment);
@@ -245,9 +246,7 @@ namespace CEntidades
             increment += 15;
             g.DrawString("EN NUESTRAS CONFITERIAS,", fBody, sb, 10, increment);
             increment += 15;
-            g.DrawString("O CAFES DEL CINEMA", fBody, sb, 10, increment);
-            increment += 15;
-            g.DrawString("GRACIAS.", fBody, sb, 10, increment);
+            g.DrawString("O CAFES DEL CINEMA.", fBody, sb, 10, increment);
 
             increment += 30;
             g.DrawString("PELICULAS CON RESTRICCIÓN PARA MAYORES", fBody, sb, 10, increment);

@@ -105,6 +105,7 @@ namespace WPProcinal.Service
             {
                 WCFSecuencia.ServiceSoapClient serviceSoapClient = new WCFSecuencia.ServiceSoapClient();
                 var data = serviceSoapClient.secven(dipMap.CinemaId, dipMap.PointOfSale);
+                LogService.CreateLogsSecuencia(data);
                 return new Response
                 {
                     IsSuccess = true,

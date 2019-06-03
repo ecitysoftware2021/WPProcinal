@@ -90,6 +90,7 @@ namespace WPProcinal.Classes
 
         public static List<SP_GET_INVOICE_DATA_Result> DashboardPrint;
 
+        public static string Secuencia { get; set; }
         public bool Estado { get; set; }
 
         public decimal Valor { get; set; }
@@ -583,12 +584,16 @@ namespace WPProcinal.Classes
                     objPrint.Category = dipMap.Category;
                     objPrint.Recibo = receipt;
                     objPrint.Consecutivo = DashboardPrint[i].RANGO_ACTUAL.ToString();
+                    objPrint.Secuencia = Secuencia;
                     i++;
                     objPrint.ImprimirComprobante();
                 }
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ImprimirComprobante");
             }
         }
 

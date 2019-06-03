@@ -148,7 +148,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                    string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                    ex.InnerException, "---------- Trace: ", ex.StackTrace), "InitPortBills");
+
             }
         }
 
@@ -172,7 +175,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                    string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                    ex.InnerException, "---------- Trace: ", ex.StackTrace), "InitPortPurses");
+
             }
         }
 
@@ -197,7 +203,9 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                     string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                     ex.InnerException, "---------- Trace: ", ex.StackTrace), "SendMessageBills");
             }
         }
 
@@ -218,7 +226,9 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "SendMessageCoins");
             }
         }
 
@@ -244,7 +254,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+
+                LogService.CreateLogsError(
+                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "_serialPortBillsDataReceived");
             }
         }
 
@@ -266,7 +279,9 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "_serialPortCoinsDataReceived");
             }
         }
 
@@ -280,23 +295,32 @@ namespace WPProcinal.Classes
         /// <param name="message">respuesta del puerto de los billeteros</param>
         private void ProcessResponseBills(string message)
         {
-            string[] response = message.Split(':');
-            switch (response[0])
+            try
             {
-                case "RC":
-                    ProcessRC(response);
-                    break;
-                case "ER":
-                    ProcessER(response);
-                    break;
-                case "UN":
-                    ProcessUN(response);
-                    break;
-                case "TO":
-                    ProcessTO(response);
-                    break;
-                default:
-                    break;
+                string[] response = message.Split(':');
+                switch (response[0])
+                {
+                    case "RC":
+                        ProcessRC(response);
+                        break;
+                    case "ER":
+                        ProcessER(response);
+                        break;
+                    case "UN":
+                        ProcessUN(response);
+                        break;
+                    case "TO":
+                        ProcessTO(response);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessResponseBills");
             }
         }
 
@@ -306,23 +330,33 @@ namespace WPProcinal.Classes
         /// <param name="message">respuesta del puerto de los monederos</param>
         private void ProcessResponseCoins(string message)
         {
-            string[] response = message.Split(':');
-            switch (response[0])
+            try
             {
-                case "RC":
-                    ProcessRC(response);
-                    break;
-                case "ER":
-                    ProcessER(response);
-                    break;
-                case "UN":
-                    ProcessUN(response);
-                    break;
-                case "TO":
-                    ProcessTO(response);
-                    break;
-                default:
-                    break;
+                string[] response = message.Split(':');
+                switch (response[0])
+                {
+                    case "RC":
+                        ProcessRC(response);
+                        break;
+                    case "ER":
+                        ProcessER(response);
+                        break;
+                    case "UN":
+                        ProcessUN(response);
+                        break;
+                    case "TO":
+                        ProcessTO(response);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessResponseCoins");
+
             }
         }
 
@@ -336,23 +370,33 @@ namespace WPProcinal.Classes
         /// <param name="response">respuesta</param>
         private void ProcessRC(string[] response)
         {
-            if (response[1] == "OK")
+            try
             {
-                switch (response[2])
+                if (response[1] == "OK")
                 {
-                    case "AP":
+                    switch (response[2])
+                    {
+                        case "AP":
 
-                        break;
-                    case "DP":
-                        if (response[3] == "HD" && !string.IsNullOrEmpty(response[4]))
-                        {
-                            TOKEN = response[4].Replace("\r", string.Empty);
-                            callbackToken?.Invoke(true);
-                        }
-                        break;
-                    default:
-                        break;
+                            break;
+                        case "DP":
+                            if (response[3] == "HD" && !string.IsNullOrEmpty(response[4]))
+                            {
+                                TOKEN = response[4].Replace("\r", string.Empty);
+                                callbackToken?.Invoke(true);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessRC");
+
             }
         }
 
@@ -362,19 +406,28 @@ namespace WPProcinal.Classes
         /// <param name="response">respuesta</param>
         private void ProcessER(string[] response)
         {
-            if (response[1] == "DP" || response[1] == "MD")
+            try
             {
-                stateError = true;
-                callbackError?.Invoke(string.Concat("Error, se alcanzó a entregar:", deliveryValue));
+                if (response[1] == "DP" || response[1] == "MD")
+                {
+                    stateError = true;
+                    callbackError?.Invoke(string.Concat("Error, se alcanzó a entregar:", deliveryValue));
+                }
+                if (response[1] == "AP")
+                {
+                    callbackError?.Invoke("Error, en el billetero Aceptance");
+                }
+                else if (response[1] == "FATAL")
+                {
+                    Utilities.RestartApp();
+                }
             }
-            if (response[1] == "AP")
+            catch (Exception ex)
             {
-                stateError = true;
-                callbackError?.Invoke("Error, en el billetero Aceptance");
-            }
-            else if (response[1] == "FATAL")
-            {
-                Utilities.RestartApp();
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessER");
+
             }
         }
 
@@ -384,29 +437,39 @@ namespace WPProcinal.Classes
         /// <param name="response">respuesta</param>
         private void ProcessUN(string[] response)
         {
-            if (response[1] == "DP")
+            try
             {
-                deliveryValue += decimal.Parse(response[2]) * _mil;
-                callbackValueOut?.Invoke(Convert.ToDecimal(response[2]) * _mil);
-            }
-            else if (response[1] == "MD")
-            {
-                deliveryValue += decimal.Parse(response[2]) * _hundred;
-                callbackValueOut?.Invoke(Convert.ToDecimal(response[2]) * _hundred);
-            }
-            else
-            {
-                if (response[1] == "AP")
+                if (response[1] == "DP")
                 {
-                    enterValue += decimal.Parse(response[2]) * _mil;
-                    callbackValueIn?.Invoke(Convert.ToDecimal(response[2]) * _mil);
+                    deliveryValue += decimal.Parse(response[2]) * _mil;
+                    callbackValueOut?.Invoke(Convert.ToDecimal(response[2]) * _mil);
                 }
-                else if (response[1] == "MA")
+                else if (response[1] == "MD")
                 {
-                    enterValue += decimal.Parse(response[2]);
-                    callbackValueIn?.Invoke(Convert.ToDecimal(response[2]));
+                    deliveryValue += decimal.Parse(response[2]) * _hundred;
+                    callbackValueOut?.Invoke(Convert.ToDecimal(response[2]) * _hundred);
                 }
-                ValidateEnterValue();
+                else
+                {
+                    if (response[1] == "AP")
+                    {
+                        enterValue += decimal.Parse(response[2]) * _mil;
+                        callbackValueIn?.Invoke(Convert.ToDecimal(response[2]) * _mil);
+                    }
+                    else if (response[1] == "MA")
+                    {
+                        enterValue += decimal.Parse(response[2]);
+                        callbackValueIn?.Invoke(Convert.ToDecimal(response[2]));
+                    }
+                    ValidateEnterValue();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessUN");
+
             }
         }
 
@@ -424,27 +487,37 @@ namespace WPProcinal.Classes
         /// <param name="response">respuesta</param>
         private void ProcessTO(string[] response)
         {
-            string responseFull;
-            if (response[1] == "OK")
+            try
             {
-                responseFull = string.Concat(response[2], ":", response[3]);
-                if (response[2] == "DP")
+                string responseFull;
+                if (response[1] == "OK")
                 {
-                    ConfigDataDispenser(responseFull, 1);
-                }
+                    responseFull = string.Concat(response[2], ":", response[3]);
+                    if (response[2] == "DP")
+                    {
+                        ConfigDataDispenser(responseFull, 1);
+                    }
 
-                if (response[2] == "MD")
+                    if (response[2] == "MD")
+                    {
+                        ConfigDataDispenser(responseFull);
+                    }
+                }
+                else
                 {
-                    ConfigDataDispenser(responseFull);
+                    responseFull = string.Concat(response[2], ":", response[3]);
+                    if (response[2] == "DP")
+                    {
+                        ConfigDataDispenser(responseFull, 2);
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                responseFull = string.Concat(response[2], ":", response[3]);
-                if (response[2] == "DP")
-                {
-                    ConfigDataDispenser(responseFull, 2);
-                }
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessTO");
+
             }
         }
 
@@ -465,7 +538,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "StartDispenser");
+
             }
         }
 
@@ -504,7 +580,9 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ConfigurateDispenser");
             }
         }
 
@@ -524,7 +602,9 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "DispenserMoney");
             }
         }
 
@@ -546,7 +626,9 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "StartAceptance");
             }
         }
 
@@ -585,40 +667,48 @@ namespace WPProcinal.Classes
         /// <param name="isRj">si se fue o no al reject</param>
         private void ConfigDataDispenser(string data, int isBX = 0)
         {
-            string[] values = data.Split(':')[1].Split(';');
-            if (isBX < 2)
+            try
             {
-                foreach (var value in values)
+                string[] values = data.Split(':')[1].Split(';');
+                if (isBX < 2)
                 {
-                    int denominacion = int.Parse(value.Split('-')[0]);
-                    int cantidad = int.Parse(value.Split('-')[1]);
-                    deliveryVal += denominacion * cantidad;
-                }
-            }
-
-            if (isBX == 0 || isBX == 2)
-            {
-                LogMessage += string.Concat(data.Replace("\r", string.Empty), "!");
-            }
-
-            if (!stateError)
-            {
-                if (deliveryVal == 50000) { deliveryVal = 2000; }
-
-                if (dispenserValue == deliveryVal)
-                {
-                    if (isBX == 2 || isBX == 0)
+                    foreach (var value in values)
                     {
-                        callbackTotalOut?.Invoke(deliveryVal);
+                        int denominacion = int.Parse(value.Split('-')[0]);
+                        int cantidad = int.Parse(value.Split('-')[1]);
+                        deliveryVal += denominacion * cantidad;
+                    }
+                }
+
+                if (isBX == 0 || isBX == 2)
+                {
+                    LogMessage += string.Concat(data.Replace("\r", string.Empty), "!");
+                }
+
+                if (!stateError)
+                {
+                    if (dispenserValue == deliveryVal)
+                    {
+                        if (isBX == 2 || isBX == 0)
+                        {
+                            callbackTotalOut?.Invoke(deliveryVal);
+                        }
+                    }
+                }
+                else
+                {
+                    if (isBX == 2)
+                    {
+                        callbackOut?.Invoke(deliveryVal);
                     }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                if (isBX == 2)
-                {
-                    callbackOut?.Invoke(deliveryVal);
-                }
+
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ConfigDataDispenser");
             }
         }
 
@@ -631,18 +721,30 @@ namespace WPProcinal.Classes
         /// </summary>
         public void ClosePorts()
         {
-            if (_serialPortBills.IsOpen)
+            try
             {
-                _serialPortBills.Close();
-            }
+                if (_serialPortBills.IsOpen)
+                {
+                    _serialPortBills.Close();
+                }
 
-            if (_serialPortCoins.IsOpen)
+                if (_serialPortCoins.IsOpen)
+                {
+                    _serialPortCoins.Close();
+                }
+            }
+            catch (Exception ex)
             {
-                _serialPortCoins.Close();
+
+                LogService.CreateLogsError(
+                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ConfigDataDispenser");
             }
         }
 
         #endregion
+
+
 
     }
 }

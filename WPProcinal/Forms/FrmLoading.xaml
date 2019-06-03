@@ -12,6 +12,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"                
         Height="200" 
+        Topmost="True"
         Width="400"
         Background="Transparent"        
         AllowsTransparency="True"

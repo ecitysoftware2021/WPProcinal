@@ -56,7 +56,7 @@ namespace WPProcinal.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Utilities.Timer(tbTimer,this);
+            //Utilities.Timer(tbTimer,this);
         }
 
         private void Window_PreviewStylusDown(object sender, StylusDownEventArgs e) => Utilities.time = TimeSpan.Parse(Utilities.Duration);
@@ -283,7 +283,7 @@ namespace WPProcinal.Forms
 
             //if (ControlPantalla.EstadoBaul && ControlPantalla.EstadoBilletes && ControlPantalla.EstadoMonedas)
             //{
-            Utilities.ResetTimer();
+            //Utilities.ResetTimer();
             frmSchedule frmSchedule = new frmSchedule(movie);
             frmSchedule.Show();
             Close();
@@ -305,7 +305,7 @@ namespace WPProcinal.Forms
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Utilities.ResetTimer();
+            //Utilities.ResetTimer();
             frmCinema frmCinema = new frmCinema();
             frmCinema.Show();
             Close();
