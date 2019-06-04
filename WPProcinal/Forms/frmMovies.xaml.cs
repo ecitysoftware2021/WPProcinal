@@ -28,12 +28,12 @@ namespace WPProcinal.Forms
         string Cinema = string.Empty;
 
         /*--LIST DATE--*/
-        private List<DateName> dateName;
+        private List<DateName> dateName = new List<DateName>();
         private int currentPageIndex2 = 0;
         private int itemPerPage2 = 7;
         private int totalPage2 = 0;
-        private CollectionViewSource view2;
-        private ObservableCollection<DateName> lstPager2;
+        private CollectionViewSource view2 = new CollectionViewSource();
+        private ObservableCollection<DateName> lstPager2 = new ObservableCollection<DateName>();
         List<ListViewItem> grid = new List<ListViewItem>();
         /*--END DATE--*/
         #endregion
@@ -60,6 +60,7 @@ namespace WPProcinal.Forms
                 Utilities.DoEvents();
 
                 ListFechas();
+                InitView2();
             }
             catch (Exception ex)
             {
@@ -244,8 +245,6 @@ namespace WPProcinal.Forms
         {
             try
             {
-                dateName = new List<DateName>();
-
                 for (int i = 0; i < 8; i++)
                 {
                     DateTime dt2 = DateTime.Now.AddDays(i);
@@ -274,7 +273,6 @@ namespace WPProcinal.Forms
                     }
                 }
 
-                InitView2();
             }
             catch (Exception ex)
             {
