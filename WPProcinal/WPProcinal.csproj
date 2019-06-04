@@ -240,6 +240,7 @@
     <Compile Include="Models\ApiLocal\ResponseAuth.cs" />
     <Compile Include="Models\ApiLocal\Uptake.cs" />
     <Compile Include="Models\Data.cs" />
+    <Compile Include="Models\DateName.cs" />
     <Compile Include="Models\DesAsignarReserva.cs" />
     <Compile Include="Models\DipMap.cs" />
     <Compile Include="Models\EstadoFila.cs" />

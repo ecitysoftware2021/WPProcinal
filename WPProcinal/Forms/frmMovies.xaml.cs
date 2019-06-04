@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,6 +26,16 @@ namespace WPProcinal.Forms
         int itemPerPage = 6;
         int totalPage = 0;
         string Cinema = string.Empty;
+
+        /*--LIST DATE--*/
+        private List<DateName> dateName;
+        private int currentPageIndex2 = 0;
+        private int itemPerPage2 = 7;
+        private int totalPage2 = 0;
+        private CollectionViewSource view2;
+        private ObservableCollection<DateName> lstPager2;
+        List<ListViewItem> grid = new List<ListViewItem>();
+        /*--END DATE--*/
         #endregion
 
         #region LoadMethods
@@ -47,6 +58,8 @@ namespace WPProcinal.Forms
                     frmLoading.Close();
                 }));
                 Utilities.DoEvents();
+
+                ListFechas();
             }
             catch (Exception ex)
             {
@@ -173,7 +186,6 @@ namespace WPProcinal.Forms
 
         #region Methods
 
-
         private void CreatePages()
         {
             int itemcount = Utilities.Movies.Count;
@@ -223,6 +235,147 @@ namespace WPProcinal.Forms
             {
 
                 e.Accepted = false;
+            }
+        }
+        #endregion
+
+        #region "ListViewDate"
+        private void ListFechas()
+        {
+            try
+            {
+                dateName = new List<DateName>();
+
+                for (int i = 0; i < 8; i++)
+                {
+                    DateTime dt2 = DateTime.Now.AddDays(i);
+                    string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
+
+                    if (NombreDiaAdd != "miércoles")
+                    {
+                        dateName.Add(new DateName
+                        {
+                            FechaOrigin = dt2,
+                            Fecha = dt2.ToString("yyyy/MM/dd"),
+                            Nombre = NombreDiaAdd.ToUpper().Substring(0, 3) + "."
+                        });
+                    }
+                    else
+                    {
+                        dateName.Add(new DateName
+                        {
+                            FechaOrigin = dt2,
+                            Fecha = dt2.ToString("yyyy/MM/dd"),
+                            Nombre = NombreDiaAdd.ToUpper().Substring(0, 3) + "."
+                        });
+
+                        //Utilities.DateName = dateName;
+                        return;
+                    }
+                }
+
+                InitView2();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void InitView2()
+        {
+            try
+            {
+                if (dateName.Count() > 0)
+                {
+                    foreach (var item in dateName)
+                    {
+                        lstPager2.Add(new DateName
+                        {
+                            Fecha = item.Fecha,
+                            Nombre = item.Nombre,
+                            FechaOrigin = item.FechaOrigin,
+                            TextColor = "Black"
+                        });
+                    }
+
+                    CreatePages2(dateName.Count());
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void CreatePages2(int i)
+        {
+            try
+            {
+                int itemcount = i;
+                totalPage2 = itemcount / itemPerPage2;
+                if (itemcount % itemPerPage2 != 0)
+                {
+                    totalPage2 += 1;
+                }
+                lstPager2[0].TextColor = "#FF1385FF";
+                view2.Source = lstPager2;
+                view2.Filter += new FilterEventHandler(View_Filter2);
+                lv_DateName.DataContext = view2;
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void View_Filter2(object sender, FilterEventArgs e)
+        {
+            try
+            {
+                int index = lstPager2.IndexOf((DateName)e.Item);
+
+                if (index >= itemPerPage2 * currentPageIndex2 && index < itemPerPage2 * (currentPageIndex2 + 1))
+                {
+                    e.Accepted = true;
+                }
+                else
+                {
+                    e.Accepted = false;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private async void lv_DateName_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+            try
+            {
+                var service = (DateName)(sender as ListViewItem).Content;
+                var text = (sender as ListViewItem);
+
+                ClearDateList();
+                
+                foreach (var item in lstPager2.Where(lp => lp != service))
+                {
+                    item.TextColor = "Black";
+                }
+                service.TextColor = "#FF1385FF";
+
+                service.FechaOrigin = DateTime.Parse(service.FechaOrigin.ToShortDateString());
+                
+                lv_DateName.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void ClearDateList()
+        {
+            foreach (var item in grid)
+            {
+                item.Foreground = Brushes.Black;
+                item.FontWeight = FontWeights.Normal;
             }
         }
         #endregion
