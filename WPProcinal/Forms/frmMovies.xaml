@@ -43,7 +43,7 @@
                       VerticalAlignment="Bottom"
                       ItemsSource="{Binding}"
                       Margin="10,0,10,0"
-                      Height="80"
+                      Height="130"
                       Grid.Row="1"
                       Grid.Column="0"
                       Background="Transparent"
@@ -68,7 +68,7 @@
                     </ListView.ItemContainerStyle>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Columns="7"
+                            <UniformGrid Columns="2"
                                  HorizontalAlignment="Center"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
@@ -80,13 +80,13 @@
                                 HorizontalAlignment="Stretch">
                                 <Grid HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-                                  Margin="0,0,0,30"
-                                  Width="65"
-                                  Height="50"
+                                  Margin="20,0,20,0"
+                                  Width="150"
+                                  Height="130"
                               >
                                     <Grid>
                                         <TextBlock 
-                                            FontSize="17"
+                                            FontSize="57"
                                             TextAlignment="Center"
                                             TextWrapping="WrapWithOverflow"
                                             Margin="0,0,0,0"
@@ -97,14 +97,13 @@
                                             Text="{Binding Nombre}"
                                         />
                                         <TextBlock 
-                                            FontSize="10"
+                                            FontSize="30"
                                             TextAlignment="Center"
                                             TextWrapping="WrapWithOverflow"
-                                            Margin="0,40,0,0"
-                                            VerticalAlignment="Center"
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Bottom"
                                             HorizontalAlignment="Center"
-                                            Grid.Row="0"
-                                                Foreground="{Binding TextColor}"
+                                            Foreground="{Binding TextColor}"
                                             Text="{Binding Fecha}"
                                         />
                                     </Grid>
