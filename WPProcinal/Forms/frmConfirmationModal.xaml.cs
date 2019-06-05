@@ -15,19 +15,21 @@ namespace WPProcinal.Forms
         public frmConfirmationModal(List<TypeSeat> typeSeats, DipMap dipMap)
         {
             InitializeComponent();
-            decimal total = 0;
+            decimal totalModal = 0;
+            decimal totalPago = 0;
             foreach (var seat in typeSeats)
             {
-                //seat.Price = Utilities.RoundValue(seat.Price);
-                total += seat.Price;
+                totalPago += seat.Price;
+                seat.Price = Utilities.RoundValue(seat.Price);
+                totalModal += seat.Price;
             }
 
             TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
             TxtRoom.Text = dipMap.RoomName;
             TxtDate.Text = string.Format("{0} {1}", dipMap.Day, dipMap.HourFunction);
-            TxtTotal.Text = string.Format("{0:C0}", total);
+            TxtTotal.Text = string.Format("{0:C0}", totalModal);
             lvListSeats.ItemsSource = typeSeats.OrderBy(s => s.Name);
-            Utilities.ValorPagar = total;
+            Utilities.ValorPagar = totalPago;
         }
 
         private void BtnYes_MouseDown(object sender, MouseButtonEventArgs e)

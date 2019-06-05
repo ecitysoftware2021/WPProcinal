@@ -386,25 +386,34 @@ namespace WPProcinal.Classes
 
         public static decimal RoundValue(decimal valor)
         {
-            decimal RoundTo = 100;
-            decimal Amount = valor;
-            decimal ExcessAmount = Amount % RoundTo;
-            decimal a = 0;
-            if (ExcessAmount < (RoundTo / 2))
-            {
-                Amount -= ExcessAmount;
-                Amount = Amount + RoundTo;
-                a = Amount - RoundTo;
-            }
-            else
-            {
-                Amount += (RoundTo - ExcessAmount);
-                a = Amount - RoundTo;
-            }
+            decimal roundVal = (Math.Ceiling(valor / 100)) * 100;
+            //decimal RoundTo = 100;
+            //decimal Amount = valor;
+            //decimal sobrante = 0;
+            //decimal ExcessAmount = Amount % RoundTo;
+            //decimal a = 0;
+            //if (ExcessAmount < (RoundTo / 2))
+            //{
+            //    Amount -= ExcessAmount;
+            //    Amount = Amount + RoundTo;
+            //    a = Amount - RoundTo;
+            //}
+            //else
+            //{
+            //    Amount += (RoundTo - ExcessAmount);
+            //    a = Amount - RoundTo;
+            //}
 
-            valor = a;
+            //sobrante = valor - a;
+            //if (sobrante > 0)
+            //{
+            //    if (RoundTo / sobrante == 2)
+            //    {
+            //        a = a + RoundTo;
+            //    }
+            //}
 
-            return valor;
+            return roundVal;
         }
 
         /// <summary>
@@ -730,7 +739,6 @@ namespace WPProcinal.Classes
         {
             try
             {
-                return true;
                 ApiLocal api = new ApiLocal();
 
                 Transaction Transaction = new Transaction

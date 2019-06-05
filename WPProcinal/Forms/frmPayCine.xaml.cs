@@ -45,13 +45,13 @@ namespace WPProcinal.Forms
             try
             {
                 api = new ApiLocal();
-                Utilities.PayVal = Utilities.RoundValue(Utilities.ValorPagar); ;
+                Utilities.PayVal = Utilities.RoundValue(Utilities.ValorPagar);
                 OrganizeValues();
                 frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();
                 Utilities.TypeSeats = Seats;
                 Utilities.DipMapCurrent = dipMap;
-                Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.PayVal);
+                Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.ValorPagar);
 
                 TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
                 TxtDay.Text = dipMap.Day;
@@ -449,6 +449,7 @@ namespace WPProcinal.Forms
         {
             try
             {
+
                 try
                 {
                     LogService.CreateLogsPeticionRespuestaDispositivos("BuyTickets: ", "Ingresé");
