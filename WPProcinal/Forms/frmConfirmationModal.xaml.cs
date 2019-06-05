@@ -18,7 +18,7 @@ namespace WPProcinal.Forms
             decimal total = 0;
             foreach (var seat in typeSeats)
             {
-                seat.Price = Utilities.RoundValue(seat.Price);
+                //seat.Price = Utilities.RoundValue(seat.Price);
                 total += seat.Price;
             }
 

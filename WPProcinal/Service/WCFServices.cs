@@ -279,6 +279,11 @@ namespace WPProcinal.Service
         {
             try
             {
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("Peticion comint: ", JsonConvert.SerializeObject(dipMap));
+                }
+                catch { }
                 WCFPcrint.ServiceSoapClient serviceSoapClient = new WCFPcrint.ServiceSoapClient();
                 var data = serviceSoapClient.comint(
                     teatro: dipMap.CinemaId,

@@ -358,9 +358,6 @@ namespace WPProcinal.Forms
 
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
             Utilities.CantSeats = SelectedTypeSeats.Count;
-            Utilities.TypeSeats = SelectedTypeSeats;
-
-
         }
 
         private ImageSource GetImage(string ckeck)
@@ -615,7 +612,7 @@ namespace WPProcinal.Forms
 
         private async void ShowPay()
         {
-            var response = await utilities.CreateTransaction("Cine", dipMapCurrent);
+            var response = await utilities.CreateTransaction("Cine", dipMapCurrent, SelectedTypeSeats);
 
             var responseDash = await utilities.CreatePrintDashboard();
 

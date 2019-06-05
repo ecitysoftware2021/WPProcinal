@@ -82,7 +82,7 @@ namespace WPProcinal.Forms
             try
             {
                 api = new ApiLocal();
-                Utilities.PayVal = Utilities.RoundValue(Utilities.ValorPagar);
+                Utilities.PayVal = Utilities.ValorPagar;
                 lblValorPagar.Content = Utilities.PayVal.ToString("#,##0");
                 frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();

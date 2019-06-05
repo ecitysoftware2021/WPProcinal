@@ -329,6 +329,7 @@ namespace WPProcinal.Classes
             foreach (var typeSeat in typeSeatsCurrent)
             {
                 var response = WCFServices.PostDesAssingreserva(dipMapCurrent, typeSeat);
+                LogService.CreateLogsPeticionRespuestaDispositivos("PostDesAssingreserva: ", JsonConvert.SerializeObject(response));
                 if (!response.IsSuccess)
                 {
                     Utilities.SaveLogError(new LogError
@@ -662,7 +663,7 @@ namespace WPProcinal.Classes
         /// Método encargado de crear la transacciòn en bd y retornar el id de esta misma   
         /// </summary>
         /// <param name="Amount">Cantdiad a pagaar o retirar</param>
-        public async Task<bool> CreateTransaction(string name, DipMap movie)
+        public async Task<bool> CreateTransaction(string name, DipMap movie, List<TypeSeat> Seats)
         {
             try
             {
@@ -678,7 +679,7 @@ namespace WPProcinal.Classes
                     PAYER_ID = 477
                 };
 
-                foreach (var item in Utilities.TypeSeats)
+                foreach (var item in Seats)
                 {
                     var details = new TRANSACTION_DESCRIPTION
                     {
