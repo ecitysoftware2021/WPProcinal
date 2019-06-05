@@ -82,6 +82,7 @@ namespace WPProcinal.Classes
         private decimal deliveryValue;//Valor entregado
 
         private decimal dispenserValue;//Valor a dispensar
+        private decimal RealdispenserValue;//Valor a dispensar
 
         private bool stateError;
 
@@ -584,6 +585,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                RealdispenserValue = dispenserValue;
                 if (dispenserValue > 0)
                 {
                     decimal newAmountBills = 0;
@@ -715,6 +717,11 @@ namespace WPProcinal.Classes
         {
             try
             {
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("ConfigDataDispenser: ", data);
+                }
+                catch { }
                 string[] values = data.Split(':')[1].Split(';');
                 if (isBX < 2)
                 {
@@ -728,22 +735,29 @@ namespace WPProcinal.Classes
 
                 if (isBX == 0 || isBX == 2)
                 {
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("isBX == 0 || isBX == 2: ", "true");
+                    }
+                    catch { }
                     LogMessage += string.Concat(data.Replace("\r", string.Empty), "!");
                     callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"));
+
+                    ValidateFibal(isBX);
                 }
 
                 if (!stateError)
                 {
-                    if (dispenserValue == deliveryVal)
-                    {
-                        if (isBX == 2 || isBX == 0)
-                        {
-                            callbackTotalOut?.Invoke(deliveryVal);
-                        }
-                    }
+
+                    ValidateFibal(isBX);
                 }
                 else
                 {
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("stateError: ", "true");
+                    }
+                    catch { }
                     if (isBX == 2)
                     {
                         callbackOut?.Invoke(deliveryVal);
@@ -756,6 +770,27 @@ namespace WPProcinal.Classes
                 LogService.CreateLogsError(
                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "ConfigDataDispenser");
+            }
+        }
+
+        private void ValidateFibal(int isBX)
+        {
+            if (RealdispenserValue == deliveryVal)
+            {
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("dispenserValue: " + RealdispenserValue + " - deliveryVal: " + deliveryVal, "true");
+                }
+                catch { }
+                if (isBX == 2 || isBX == 0)
+                {
+                    callbackTotalOut?.Invoke(deliveryVal);
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("callbackTotalOut?.Invoke(" + deliveryVal + "): ", "llamada");
+                    }
+                    catch { }
+                }
             }
         }
 

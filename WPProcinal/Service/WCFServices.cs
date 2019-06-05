@@ -296,7 +296,11 @@ namespace WPProcinal.Service
                     med_pago: dipMap.PaymentMethod,
                     pun_ext_l: double.Parse(ConfigurationManager.AppSettings["Cinema"])
                     );
-
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("PostComprar: ", JsonConvert.SerializeObject(data));
+                }
+                catch { }
                 return new Response
                 {
                     IsSuccess = true,
@@ -417,7 +421,7 @@ namespace WPProcinal.Service
                         Price = item.Price,
                         Secuence = item.NumSecuencia,
                         Type = item.Type,
-                        IsPay = item.IsPay,                        
+                        IsPay = item.IsPay,
                     });
                 }
 

@@ -232,6 +232,11 @@ namespace WPProcinal.Forms
                 {
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
                     Utilities.ValueDelivery = (long)totalOut;
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("ReturnMoney: ", "Ingresé(" + state + ")");
+                    }
+                    catch { }
                     if (state)
                     {
                         Buytickets();
@@ -335,6 +340,11 @@ namespace WPProcinal.Forms
 
             try
             {
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("SavePay: ", task.ToString());
+                }
+                catch { }
                 if (!task)
                 {
                     await Dispatcher.BeginInvoke((Action)delegate
@@ -376,10 +386,6 @@ namespace WPProcinal.Forms
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
-                        //frmModal _frmModal = new frmModal(string.Concat("!Muchas gracias por utilizar nuestro servicio.",
-                        //Environment.NewLine,
-                        //"Su transacción ha finalizado correctamente!"));
-                        //_frmModal.ShowDialog();
                         FrmFinalTransaction frmFinal = new FrmFinalTransaction();
                         frmFinal.Show();
                         this.Close();
@@ -443,15 +449,21 @@ namespace WPProcinal.Forms
         {
             try
             {
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("BuyTickets: ", "Ingresé");
+                }
+                catch { }
                 if (num == 2)
                 {
                     return;
                 }
 
-                if (countError < 3 && num == 1)
+                if (num == 1)
                 {
                     payState = true;
                     var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
+
                     responseGlobal = response;
                     if (!response.IsSuccess)
                     {
@@ -460,13 +472,15 @@ namespace WPProcinal.Forms
                             Message = response.Message,
                             Method = "WCFServices.PostComprar"
                         });
-
-                        countError++;
-                        Buytickets();
                     }
 
                     var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                    if (transaccionCompra.Respuesta == "Fallida")
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("PostComprar: ", transaccionCompra.Respuesta);
+                    }
+                    catch { }
+                    if (transaccionCompra.Respuesta != "Exitosa")
                     {
                         payState = false;
                         Utilities.SaveLogError(new LogError
@@ -474,8 +488,6 @@ namespace WPProcinal.Forms
                             Message = transaccionCompra.Respuesta,
                             Method = "WCFServices.PostComprar.Fallida"
                         });
-                        countError++;
-                        Buytickets();
                     }
                     else
                     {
@@ -498,6 +510,11 @@ namespace WPProcinal.Forms
 
                 if (num == 1)
                 {
+                    try
+                    {
+                        LogService.CreateLogsOperation("Llamé a SavePay(" + payState + ")");
+                    }
+                    catch { }
                     SavePay(payState);
                 }
             }

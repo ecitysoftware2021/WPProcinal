@@ -571,7 +571,11 @@ namespace WPProcinal.Classes
             try
             {
                 int i = 0;
-
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("ImprimirComprobante: ", "Ingresé");
+                }
+                catch { }
                 foreach (var seat in Seats)
                 {
                     objPrint.Cinema = GetConfiguration("NameCinema");
@@ -591,6 +595,11 @@ namespace WPProcinal.Classes
                     i++;
                     objPrint.ImprimirComprobante();
                 }
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("ImprimirComprobante: ", "Salí");
+                }
+                catch { }
             }
             catch (Exception ex)
             {
@@ -676,12 +685,12 @@ namespace WPProcinal.Classes
                         AMOUNT = item.Price,
                         TRANSACTION_ID = transaction.TRANSACTION_ID,
                         REFERENCE = Utilities.Secuencia,
-                        OBSERVATION = movie.MovieName +" - "+item.Name,
+                        OBSERVATION = movie.MovieName + " - " + item.Name,
                         TRANSACTION_DESCRIPTION_ID = 0,
                         STATE = true
                     };
 
-                    transaction.TRANSACTION_DESCRIPTION.Add(details); 
+                    transaction.TRANSACTION_DESCRIPTION.Add(details);
                 }
 
                 var response = await api.GetResponse(new RequestApi
