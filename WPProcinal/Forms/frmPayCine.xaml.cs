@@ -142,6 +142,7 @@ namespace WPProcinal.Forms
                     Utilities.control.callbackError = error =>
                     {
                         Utilities.SaveLogDispenser(ControlPeripherals.log);
+
                     };
 
                     Utilities.control.StartDispenser(Utilities.DispenserVal);
@@ -200,6 +201,7 @@ namespace WPProcinal.Forms
                 Utilities.control.callbackError = error =>
                 {
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
+
                 };
 
                 Utilities.control.StartAceptance(PaymentViewModel.PayValue);
@@ -243,6 +245,14 @@ namespace WPProcinal.Forms
                 Utilities.control.callbackError = error =>
                 {
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
+                    if (PaymentViewModel.ValorIngresado >= Utilities.PayVal)
+                    {
+                        frmModal _frmModal = new frmModal(error);
+                        _frmModal.ShowDialog();
+                        FrmFinalTransaction frmFinal = new FrmFinalTransaction();
+                        frmFinal.Show();
+                        this.Close();
+                    }
                 };
 
                 Utilities.control.StartDispenser(returnValue);
@@ -366,10 +376,10 @@ namespace WPProcinal.Forms
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
-                        frmModal _frmModal = new frmModal(string.Concat("!Muchas gracias por utilizar nuestro servicio.",
-                        Environment.NewLine,
-                        "Su transacción ha finalizado correctamente!"));
-                        _frmModal.ShowDialog();
+                        //frmModal _frmModal = new frmModal(string.Concat("!Muchas gracias por utilizar nuestro servicio.",
+                        //Environment.NewLine,
+                        //"Su transacción ha finalizado correctamente!"));
+                        //_frmModal.ShowDialog();
                         FrmFinalTransaction frmFinal = new FrmFinalTransaction();
                         frmFinal.Show();
                         this.Close();

@@ -18,6 +18,7 @@ namespace CEntidades
         public string Movie { get; set; }
         public string Referencia { get; set; }
         public string Secuencia { get; set; }
+        public string Formato { get; set; }
         public string Tramite { get; set; }
         public string Time { get; set; }
         public string Room { get; set; }
@@ -105,9 +106,11 @@ namespace CEntidades
             increment += 15;
             g.DrawString("Audi " + Secuencia, fBody1, sb, 10, increment);
             increment += 20;
-
             g.DrawString("Película:", fBody, sb, 10, increment);
             g.DrawString(Movie, fBody1, sb, 120, increment);
+            increment += 20;
+            g.DrawString("Formato:", fBody, sb, 10, increment);
+            g.DrawString(Formato, fBody1, sb, 120, increment);
             increment += 20;
             g.DrawString("Censura:", fBody, sb, 10, increment);
             g.DrawString(Category, fBody1, sb, 120, increment);
@@ -199,6 +202,9 @@ namespace CEntidades
             increment += 20;
             g.DrawString("Película:", fBody, sb, 10, increment);
             g.DrawString(Movie, fBody1, sb, 120, increment);
+            increment += 20;
+            g.DrawString("Formato:", fBody, sb, 10, increment);
+            g.DrawString(Formato, fBody1, sb, 120, increment);
             increment += 20;
             g.DrawString("Censura:", fBody, sb, 10, increment);
             g.DrawString(Category, fBody1, sb, 120, increment);

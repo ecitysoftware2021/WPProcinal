@@ -59,8 +59,8 @@ namespace WPProcinal.Forms
 
                         if (data.State)
                         {
-                            //if (data.StateAceptance && data.StateDispenser)
-                            //{
+                            if (data.StateAceptance && data.StateDispenser)
+                            {
                                 Utilities.control.callbackError = error =>
                                 {
                                     GetToken();
@@ -75,11 +75,11 @@ namespace WPProcinal.Forms
                                     });
                                 };
                                 Utilities.control.Start();
-                            //}
-                            //else
-                            //{
-                            //    ShowModalError("No están disponibles los billeteros");
-                            //}
+                            }
+                            else
+                            {
+                                ShowModalError("No están disponibles los billeteros");
+                            }
                         }
                         else
                         {

@@ -85,7 +85,7 @@ namespace WPProcinal.Classes
         public static List<Pelicula> Movies = new List<Pelicula>();
 
         public static string CinemaId { get; set; }
-        //GetDatosTCRClient WCFTCR = new GetDatosTCRClient();
+        public static DateTime FechaSeleccionada = DateTime.Today;
         public static decimal ValorPagar { get; set; }
 
         public static List<CLSDatos> LDatos = new List<CLSDatos>();
@@ -587,6 +587,7 @@ namespace WPProcinal.Classes
                     objPrint.Recibo = receipt;
                     objPrint.Consecutivo = DashboardPrint[i].RANGO_ACTUAL.ToString();
                     objPrint.Secuencia = Secuencia;
+                    objPrint.Formato = MovieFormat;
                     i++;
                     objPrint.ImprimirComprobante();
                 }

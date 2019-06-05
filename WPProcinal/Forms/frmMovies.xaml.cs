@@ -21,16 +21,18 @@ namespace WPProcinal.Forms
         #region Reference
         List<ImageSource> movie_posters_list = new List<ImageSource>();
         List<String> movie_names = new List<String>();
-        CollectionViewSource view = new CollectionViewSource();        
+        CollectionViewSource view = new CollectionViewSource();
         int currentPageIndex = 0;
         int itemPerPage = 6;
         int totalPage = 0;
         string Cinema = string.Empty;
 
         /*--LIST DATE--*/
+        private DateTime FechaSelect = new DateTime();
         private List<DateName> dateName = new List<DateName>();
+        List<Border> borders = new List<Border>();
         private int currentPageIndex2 = 0;
-        private int itemPerPage2 = 7;
+        private int itemPerPage2 = 3;
         private int totalPage2 = 0;
         private CollectionViewSource view2 = new CollectionViewSource();
         private ObservableCollection<DateName> lstPager2 = new ObservableCollection<DateName>();
@@ -87,12 +89,12 @@ namespace WPProcinal.Forms
                         {
                             //TODO: el originl va sin la condicion, esta es la nueva version 
                             var peliculaExistente = Utilities.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
-                            if (peliculaExistente==0)
+                            if (peliculaExistente == 0)
                             {
                                 Utilities.Movies.Add(pelicula);
                                 LoadMovies(pelicula);
                             }
-                            
+
                         }
                     }
                 }
@@ -103,7 +105,7 @@ namespace WPProcinal.Forms
         {
             string ImagePath = string.Concat(Utilities.UrlImages, pelicula.Id, ".jpg");
             string TagPath = string.Empty;
-            
+
             //TagPath = LoadImagePath(pelicula);
 
             Utilities.LstMovies.Add(new MoviesViewModel
@@ -113,7 +115,7 @@ namespace WPProcinal.Forms
                 Id = pelicula.Id,
                 //ImageTag = Utilities.LoadImage(TagPath, false),
             });
-            
+
         }
 
         private static string LoadImagePath(Pelicula pelicula)
@@ -212,7 +214,7 @@ namespace WPProcinal.Forms
             lvMovies.DataContext = view;
             ShowCurrentPageIndex();
             tbTotalPage.Text = totalPage.ToString();
-            
+
             GifLoadder.Visibility = Visibility.Hidden;
             ValidateImage();
             //});
@@ -255,8 +257,9 @@ namespace WPProcinal.Forms
                         dateName.Add(new DateName
                         {
                             FechaOrigin = dt2,
-                            Fecha = dt2.ToString("yyyy/MM/dd"),
-                            Nombre = NombreDiaAdd.ToUpper().Substring(0, 3) + "."
+                            Mes = dt2.ToString("MMM"),
+                            NombreDia = NombreDiaAdd,
+                            DiaNumero = dt2.ToString("dd")
                         });
                     }
                     else
@@ -264,11 +267,11 @@ namespace WPProcinal.Forms
                         dateName.Add(new DateName
                         {
                             FechaOrigin = dt2,
-                            Fecha = dt2.ToString("yyyy/MM/dd"),
-                            Nombre = NombreDiaAdd.ToUpper().Substring(0, 3) + "."
+                            Mes = dt2.ToString("MMM"),
+                            NombreDia = NombreDiaAdd,
+                            DiaNumero = dt2.ToString("dd")
                         });
 
-                        //Utilities.DateName = dateName;
                         return;
                     }
                 }
@@ -289,10 +292,11 @@ namespace WPProcinal.Forms
                     {
                         lstPager2.Add(new DateName
                         {
-                            Fecha = item.Fecha,
-                            Nombre = item.Nombre,
+                            Mes = item.Mes,
+                            NombreDia = item.NombreDia,
                             FechaOrigin = item.FechaOrigin,
-                            TextColor = "Black"
+                            TextColor = "Black",
+                            DiaNumero = item.DiaNumero
                         });
                     }
 
@@ -349,31 +353,85 @@ namespace WPProcinal.Forms
             try
             {
                 var service = (DateName)(sender as ListViewItem).Content;
-                var text = (sender as ListViewItem);
 
-                ClearDateList();
-                
-                foreach (var item in lstPager2.Where(lp => lp != service))
-                {
-                    item.TextColor = "Black";
-                }
-                service.TextColor = "#FF1385FF";
-
-                service.FechaOrigin = DateTime.Parse(service.FechaOrigin.ToShortDateString());
-                
-                lv_DateName.Items.Refresh();
+                FechaSelect = service.FechaOrigin;//poner la fecha en el formato xml
+                Utilities.FechaSeleccionada = FechaSelect;
             }
             catch (Exception ex)
             {
             }
         }
 
-        private void ClearDateList()
+        private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
-            foreach (var item in grid)
+            try
             {
-                item.Foreground = Brushes.Black;
-                item.FontWeight = FontWeights.Normal;
+                var childs = (sender as Grid).Children;
+                foreach (var item in childs)
+                {
+                    if (item is Border)
+                    {
+                        ClearHoursList();
+                        var border = item as Border;
+                        Color color2 = (Color)ColorConverter.ConvertFromString("#FFF89126");
+                        border.Background = new SolidColorBrush(color2);
+                        borders.Add(border);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void ClearHoursList()
+        {
+            foreach (var item in borders)
+            {
+                item.Background = Brushes.White;
+            }
+        }
+
+        private void btnNext2_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+            try
+            {
+                if (currentPageIndex2 < totalPage2 - 1)
+                {
+                    currentPageIndex2++;
+                    view2.View.Refresh();
+                }
+                if (currentPageIndex2 == totalPage2 - 1)
+                {
+                    btnNext2.Visibility = Visibility.Hidden;
+                }
+
+                btnPrev2.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void btnPrev2_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+            try
+            {
+                if (currentPageIndex2 > 0)
+                {
+                    currentPageIndex2--;
+                    view2.View.Refresh();
+                }
+
+                if (currentPageIndex2 == 0)
+                {
+                    btnPrev2.Visibility = Visibility.Hidden;
+                }
+
+                btnNext2.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
             }
         }
         #endregion
@@ -391,7 +449,7 @@ namespace WPProcinal.Forms
                 btnPrev.Visibility = Visibility.Visible;
             }
 
-            if (currentPageIndex == totalPage -1)
+            if (currentPageIndex == totalPage - 1)
             {
                 btnNext.Visibility = Visibility.Hidden;
             }
@@ -430,7 +488,7 @@ namespace WPProcinal.Forms
             var movie = Utilities.Movies.Where(m => m.Id == grid.Tag.ToString()).FirstOrDefault();
             string ImagePath = string.Concat(Utilities.UrlImages, movie.Id, ".jpg");
             Utilities.ImageSelected = Utilities.LoadImage(ImagePath, true);
-            Utilities.MovieFormat = GenerateTag(movie);
+            
 
             //if (ControlPantalla.EstadoBaul && ControlPantalla.EstadoBilletes && ControlPantalla.EstadoMonedas)
             //{

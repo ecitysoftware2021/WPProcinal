@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -90,6 +91,14 @@ namespace WPProcinal.Classes
 
         public static LogDispenser log;//Log del dispenser
 
+        #endregion
+
+        #region Casettes
+        private int _Casete1 = int.Parse(ConfigurationManager.AppSettings["Casete1"]);//Denominacion cassete 1
+
+        private int _Casete2 = int.Parse(ConfigurationManager.AppSettings["Casete2"]);//Denominacion cassete 2
+
+        private int _Casete3 = int.Parse(ConfigurationManager.AppSettings["Casete3"]);//Denominacion cassete 3
         #endregion
 
         #endregion
@@ -200,6 +209,11 @@ namespace WPProcinal.Classes
                 {
                     Thread.Sleep(2000);
                     _serialPortBills.Write(message);
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("Mensaje al billetero: ", message);
+                    }
+                    catch { }
                     log.SendMessage += string.Format("Billetero: {0}\n", message);
                 }
             }
@@ -223,6 +237,11 @@ namespace WPProcinal.Classes
                 {
                     Thread.Sleep(2000);
                     _serialPortCoins.Write(message);
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("Mensaje al monedero: ", message);
+                    }
+                    catch { }
                     log.SendMessage += string.Format("Monedero: {0}\n", message);
                 }
             }
@@ -250,6 +269,11 @@ namespace WPProcinal.Classes
                 string response = _serialPortBills.ReadLine();
                 if (!string.IsNullOrEmpty(response))
                 {
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del billetero: ", response);
+                    }
+                    catch { }
                     log.ResponseMessage += string.Format("Respuesta Billetero:{0}\n", response);
                     ProcessResponseBills(response);
                 }
@@ -275,6 +299,11 @@ namespace WPProcinal.Classes
                 string response = _serialPortCoins.ReadLine();
                 if (!string.IsNullOrEmpty(response))
                 {
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del monedero: ", response);
+                    }
+                    catch { }
                     log.ResponseMessage += string.Format("Respuesta Monedero: {0}\n", response);
                     ProcessResponseCoins(response);
                 }
@@ -525,6 +554,7 @@ namespace WPProcinal.Classes
 
         #endregion
 
+
         #region Dispenser
 
         /// <summary>
@@ -556,27 +586,41 @@ namespace WPProcinal.Classes
             {
                 if (dispenserValue > 0)
                 {
-                    int amountCoins = Convert.ToInt32(dispenserValue % _mil);
-                    decimal amountBills = dispenserValue - amountCoins;
-                    if (amountBills >= 2000)
+                    decimal newAmountBills = 0;
+                    decimal resta = dispenserValue;
+                    if (dispenserValue >= 2000)
                     {
-                        decimal valuePay = amountBills / _mil;
-                        if (valuePay % 2 != 0)
+                        do
                         {
-                            valuePay--;
-                            amountCoins += _mil;
-                        }
-
-                        DispenserMoney(valuePay.ToString());
-                        if (amountCoins > 0)
+                            if (_Casete1 > 0)
+                            {
+                                if (Convert.ToInt32(Math.Floor(resta / _Casete1)) > 0)
+                                {
+                                    newAmountBills += Convert.ToInt32(Math.Floor(resta / _Casete1)) * _Casete1;
+                                }
+                            }
+                            else if (Convert.ToInt32(Math.Floor(resta / _Casete2)) > 0)
+                            {
+                                newAmountBills += Convert.ToInt32(Math.Floor(resta / _Casete2)) * _Casete2;
+                                Console.WriteLine(_Casete2 + ": " + Convert.ToInt32(Math.Floor(resta / _Casete2)));
+                            }
+                            else if (Convert.ToInt32(Math.Floor(resta / _Casete3)) > 0)
+                            {
+                                newAmountBills += Convert.ToInt32(Math.Floor(resta / _Casete3)) * _Casete3;
+                                Console.WriteLine(_Casete3 + ": " + Convert.ToInt32(Math.Floor(resta / _Casete3)));
+                            }
+                            resta = dispenserValue - newAmountBills;
+                        } while (resta >= 2000);
+                        dispenserValue -= newAmountBills;
+                        DispenserMoney((newAmountBills / _mil).ToString());
+                        if (dispenserValue > 0)
                         {
-                            SendMessageCoins(_DispenserCoinOn + (amountCoins / _hundred).ToString());
+                            SendMessageCoins((dispenserValue / _hundred).ToString());
                         }
                     }
                     else
                     {
-                        decimal valuePayCoin = dispenserValue / _hundred;
-                        SendMessageCoins(_DispenserCoinOn + valuePayCoin.ToString());
+                        SendMessageCoins(_DispenserCoinOn + (dispenserValue / _hundred).ToString());
                     }
                 }
             }

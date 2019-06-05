@@ -44,7 +44,7 @@ namespace WPProcinal.Forms
             MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
             TxtTitle.Text = MovieName;
 
-            DateTime fechaActual = DateTime.Today;
+            DateTime fechaActual = Utilities.FechaSeleccionada;
 
             TxtDay.Text = string.Format("{0} {1}, {2}", fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
 
@@ -90,9 +90,8 @@ namespace WPProcinal.Forms
                                 /*Se obtiene la fecha de la función  y luego se valida para no mostrar
                                 funciones con fechas menores a la actual*/
                                 var datetime = GetDateCorrectly(function.Univ);
-                                //TODO:fechas mayores a hoy, version anterior
-                                //if (datetime >= DateTime.Today)
-                                if (datetime == DateTime.Today)
+                                var fechaSeleccionada = GetDateCorrectly(Utilities.FechaSeleccionada.ToString("yyyyMMdd"));
+                                if (datetime == fechaSeleccionada)
                                 {
 
                                     var schedules = function.Hora.OrderBy(h => h.Militar).ToList();
@@ -102,7 +101,18 @@ namespace WPProcinal.Forms
                                     bool available = true;
                                     foreach (var item in schedules)
                                     {
-                                        if (int.Parse(item.Militar) > int.Parse(DateTime.Now.ToString("HHmm")))
+                                        if (fechaSeleccionada != DateTime.Today)
+                                        {
+                                            horatmps.Add(new HoraTMP
+                                            {
+                                                Horario = item.Horario,
+                                                IdFuncion = item.IdFuncion,
+                                                Militar = int.Parse(item.Militar),
+                                                Reservas = item.Reservas,
+                                                TipoZona = function.TipoZona[count]
+                                            });
+                                        }
+                                        else if (int.Parse(item.Militar) > int.Parse(DateTime.Now.AddMinutes(40).ToString("HHmm")))
                                         {
                                             horatmps.Add(new HoraTMP
                                             {
@@ -351,6 +361,7 @@ namespace WPProcinal.Forms
                 UnivDate = selectedSchedule.DatosPelicula.UnivDate
             };
             //Schedule schedule = (Schedule)lvSchedule.SelectedItem;
+            Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;
             DipMap dipmap = SetProperties(schedule);
 
             //Utilities.ResetTimer();
