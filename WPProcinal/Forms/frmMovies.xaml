@@ -38,6 +38,7 @@
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        Margin="20,70,0,0"
+                       Name="btnAtras"
                        PreviewMouseDown="Image_PreviewMouseDown"/>
                 <ListView x:Name="lv_DateName"
                       HorizontalAlignment="Center" 

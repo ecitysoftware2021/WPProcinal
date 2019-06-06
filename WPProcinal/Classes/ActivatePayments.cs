@@ -351,7 +351,7 @@ namespace WPProcinal.Classes
                             InsertarDetalleTransaccion();
 
                             objUtil.ValorIngresado = objUtil.ValorIngresado + decimal.Parse(objPropiedades.ValorAlmacenado);
-                            objUtil.ValorFaltante = Utilities.ValorPagar - objUtil.ValorIngresado;
+                            objUtil.ValorFaltante = Utilities.ValorPagarScore - objUtil.ValorIngresado;
 
                             UpdateValues();
                             Utilities.DoEvents();
@@ -713,7 +713,7 @@ namespace WPProcinal.Classes
                         //WCFPayPadWS.InsertarControlMonedas(idDenominacion, idCorrespo, 1, 1);
                         DatosRecibidos = string.Empty;
                         objUtil.ValorIngresado = objUtil.ValorIngresado + Total;
-                        objUtil.ValorFaltante = Utilities.ValorPagar - objUtil.ValorIngresado;
+                        objUtil.ValorFaltante = Utilities.ValorPagarScore - objUtil.ValorIngresado;
 
 
                         PayViewModel.ValorIngresado = objUtil.ValorIngresado.ToString("C", CultureInfo.CurrentCulture);

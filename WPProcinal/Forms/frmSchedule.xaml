@@ -52,6 +52,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Height="130"
+                   Name="btnAtras"
                    PreviewMouseDown="Image_PreviewMouseDown"/>
 
             <TextBlock x:Name="TxtTitle"

@@ -45,13 +45,13 @@ namespace WPProcinal.Forms
             try
             {
                 api = new ApiLocal();
-                Utilities.PayVal = Utilities.RoundValue(Utilities.ValorPagar);
+                //Utilities.PayVal = Utilities.RoundValue(Utilities.ValorPagarScore);
                 OrganizeValues();
                 frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();
                 Utilities.TypeSeats = Seats;
                 Utilities.DipMapCurrent = dipMap;
-                Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.ValorPagar);
+                Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.ValorPagarScore);
 
                 TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
                 TxtDay.Text = dipMap.Day;
@@ -190,10 +190,18 @@ namespace WPProcinal.Forms
                     Utilities.EnterTotal = enterTotal;
                     if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                     {
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            btnCancelar.IsEnabled = false;
+                        });
                         ReturnMoney(PaymentViewModel.ValorSobrante, true);
                     }
                     else
                     {
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            btnCancelar.IsEnabled = false;
+                        });
                         Buytickets();
                     }
                 };
@@ -351,7 +359,7 @@ namespace WPProcinal.Forms
                     {
                         PaymentGrid.Opacity = 0.3;
                         Utilities.Loading(frmLoading, false, this);
-                        frmModal modal = new frmModal("No se pudo realizar la compra");
+                        frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.PayVal.ToString("#,##0"));
                         modal.ShowDialog();
 
                         Utilities.Loading(frmLoading, true, this);

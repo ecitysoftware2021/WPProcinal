@@ -47,6 +47,7 @@ namespace WPProcinal.Forms
         {
 
             InitializeComponent();
+            Utilities.FechaSeleccionada = DateTime.Now;
             var frmLoading = new FrmLoading("¡Cargando peliculas!");
             frmLoading.Show();
             try
@@ -557,8 +558,13 @@ namespace WPProcinal.Forms
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
+            try
+            {
+                btnAtras.IsEnabled = false;
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+            }
+            catch { }
             //Utilities.ResetTimer();
             frmCinema frmCinema = new frmCinema();
             frmCinema.Show();

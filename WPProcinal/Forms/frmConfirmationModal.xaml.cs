@@ -29,7 +29,8 @@ namespace WPProcinal.Forms
             TxtDate.Text = string.Format("{0} {1}", dipMap.Day, dipMap.HourFunction);
             TxtTotal.Text = string.Format("{0:C0}", totalModal);
             lvListSeats.ItemsSource = typeSeats.OrderBy(s => s.Name);
-            Utilities.ValorPagar = totalPago;
+            Utilities.ValorPagarScore = totalPago;
+            Utilities.PayVal = totalModal;
         }
 
         private void BtnYes_MouseDown(object sender, MouseButtonEventArgs e)

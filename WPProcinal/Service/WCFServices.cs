@@ -297,7 +297,7 @@ namespace WPProcinal.Service
                     sec_papaya: 0,
                     monedapago: "COP",
                     fecha_funcion: dipMap.Date,
-                    total_compra: double.Parse(Utilities.ValorPagar.ToString()),
+                    total_compra: double.Parse(Utilities.ValorPagarScore.ToString()),
                     med_pago: dipMap.PaymentMethod,
                     pun_ext_l: double.Parse(ConfigurationManager.AppSettings["Cinema"])
                     );

@@ -31,7 +31,7 @@ namespace WPProcinal.Forms
             //});
 
             LoadData();
-            
+
         }
 
         private void DesReserve()
@@ -50,7 +50,7 @@ namespace WPProcinal.Forms
                         var seatst = Utilities.ConvertSeats(dd);
                         Utilities.CancelAssing(seatst, dipMap);
                     }
-                } 
+                }
             }
         }
 
@@ -78,7 +78,7 @@ namespace WPProcinal.Forms
                             var res2 = DBProcinalController.UpdateDipMap(dipmap.DipMapId);
                         }
                     }
-                } 
+                }
             }
         }
 
@@ -150,10 +150,11 @@ namespace WPProcinal.Forms
 
         private void BtnConsult_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //var frmLoading = FrmLoading.GetInstance();
-            //frmLoading.Show();
-            //frmLoading.Owner();
-
+            try
+            {
+                gridPrincipal.IsEnabled = false;
+            }
+            catch { }
             frmMovies frmMovies = new frmMovies();
             frmMovies.Show();
             Close();

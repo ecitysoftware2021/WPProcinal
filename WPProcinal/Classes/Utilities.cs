@@ -86,7 +86,8 @@ namespace WPProcinal.Classes
 
         public static string CinemaId { get; set; }
         public static DateTime FechaSeleccionada = DateTime.Today;
-        public static decimal ValorPagar { get; set; }
+        public static decimal ValorPagarScore { get; set; }
+        public static decimal ValorPagarCorresponsal { get; set; }
 
         public static List<CLSDatos> LDatos = new List<CLSDatos>();
 
@@ -680,7 +681,7 @@ namespace WPProcinal.Classes
 
                 Transaction transaction = new Transaction
                 {
-                    TOTAL_AMOUNT = ValorPagar,
+                    TOTAL_AMOUNT = ValorPagarScore,
                     DATE_BEGIN = DateTime.Now,
                     DESCRIPTION = "Se inició la transacción para: " + name,
                     TYPE_TRANSACTION_ID = 14,

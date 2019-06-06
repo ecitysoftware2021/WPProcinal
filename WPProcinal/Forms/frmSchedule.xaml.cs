@@ -391,8 +391,13 @@ namespace WPProcinal.Forms
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
+            try
+            {
+                btnAtras.IsEnabled = false;
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+            }
+            catch { }
             //Utilities.ResetTimer();
             frmMovies frmMovies = new frmMovies();
             frmMovies.Show();

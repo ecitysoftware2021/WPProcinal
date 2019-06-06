@@ -344,7 +344,7 @@ namespace WPProcinal.Forms
             var seatcurrent = SelectedTypeSeats.Where(s => s.Name == item.Name).FirstOrDefault();
             if (seatcurrent == null)
             {
-                if (SelectedTypeSeats.Count < 11)
+                if (SelectedTypeSeats.Count < 10)
                 {
                     SelectedTypeSeats.Add(item);
                     image.Source = GetImage("R");
@@ -676,6 +676,7 @@ namespace WPProcinal.Forms
         {
             try
             {
+                btnAtras.IsEnabled = false;
                 SetCallBacksNull();
                 timer.CallBackStop?.Invoke(1);
             }

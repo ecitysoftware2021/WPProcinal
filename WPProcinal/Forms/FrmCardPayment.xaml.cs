@@ -82,7 +82,7 @@ namespace WPProcinal.Forms
             try
             {
                 api = new ApiLocal();
-                Utilities.PayVal = Utilities.ValorPagar;
+                //Utilities.PayVal = Utilities.ValorPagarScore;
                 lblValorPagar.Content = Utilities.PayVal.ToString("#,##0");
                 frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();
@@ -130,7 +130,7 @@ namespace WPProcinal.Forms
                     {
 
 
-                        ValorTotal = Utilities.ValorPagar.ToString();
+                        ValorTotal = Utilities.ValorPagarScore.ToString();
                         NumeroTransaccion = Utilities.IDTransactionDB.ToString();
                         TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
                             TipoOperacion, Delimitador,
