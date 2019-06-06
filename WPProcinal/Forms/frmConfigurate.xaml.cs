@@ -68,11 +68,11 @@ namespace WPProcinal.Forms
                                 Utilities.control.callbackToken = isSucces =>
                                 {
                                     Dispatcher.BeginInvoke((Action)delegate
-                                    {
-                                        frmCinema inicio = new frmCinema();
-                                        inicio.Show();
-                                        Close();
-                                    });
+                                        {
+                                            frmCinema inicio = new frmCinema();
+                                            inicio.Show();
+                                            Close();
+                                        });
                                 };
                                 Utilities.control.Start();
                             }

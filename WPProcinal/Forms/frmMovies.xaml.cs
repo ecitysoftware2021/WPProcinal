@@ -27,6 +27,8 @@ namespace WPProcinal.Forms
         int totalPage = 0;
         string Cinema = string.Empty;
 
+        TimerTiempo timer;
+
         /*--LIST DATE--*/
         private DateTime FechaSelect = new DateTime();
         private List<DateName> dateName = new List<DateName>();
@@ -63,6 +65,7 @@ namespace WPProcinal.Forms
 
                 ListFechas();
                 InitView2();
+                ActivateTimer();
             }
             catch (Exception ex)
             {
@@ -184,6 +187,36 @@ namespace WPProcinal.Forms
 
             return Path;
         }
+
+
+        void ActivateTimer()
+        {
+            tbTimer.Text = Utilities.GetConfiguration("TimerMovies");
+            timer = new TimerTiempo(tbTimer.Text);
+            timer.CallBackClose = response =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    frmCinema main = new frmCinema();
+                    main.Show();
+                    this.Close();
+                });
+            };
+            timer.CallBackTimer = response =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    tbTimer.Text = response;
+                });
+            };
+        }
+
+        void SetCallBacksNull()
+        {
+            timer.CallBackClose = null;
+            timer.CallBackTimer = null;
+        }
+
 
         #endregion
 
@@ -396,6 +429,8 @@ namespace WPProcinal.Forms
         {
             try
             {
+                SetCallBacksNull();
+                ActivateTimer();
                 if (currentPageIndex2 < totalPage2 - 1)
                 {
                     currentPageIndex2++;
@@ -417,6 +452,8 @@ namespace WPProcinal.Forms
         {
             try
             {
+                SetCallBacksNull();
+                ActivateTimer();
                 if (currentPageIndex2 > 0)
                 {
                     currentPageIndex2--;
@@ -461,6 +498,8 @@ namespace WPProcinal.Forms
 
         private void btnPrev_Click(object sender, RoutedEventArgs e)
         {
+            SetCallBacksNull();
+            ActivateTimer();
             // Display previous page
             if (currentPageIndex > 0)
             {
@@ -473,6 +512,8 @@ namespace WPProcinal.Forms
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
+            SetCallBacksNull();
+            ActivateTimer();
             // Display next page
             if (currentPageIndex < totalPage - 1)
             {
@@ -488,11 +529,13 @@ namespace WPProcinal.Forms
             var movie = Utilities.Movies.Where(m => m.Id == grid.Tag.ToString()).FirstOrDefault();
             string ImagePath = string.Concat(Utilities.UrlImages, movie.Id, ".jpg");
             Utilities.ImageSelected = Utilities.LoadImage(ImagePath, true);
-            
+
 
             //if (ControlPantalla.EstadoBaul && ControlPantalla.EstadoBilletes && ControlPantalla.EstadoMonedas)
             //{
             //Utilities.ResetTimer();
+            SetCallBacksNull();
+            timer.CallBackStop?.Invoke(1);
             frmSchedule frmSchedule = new frmSchedule(movie);
             frmSchedule.Show();
             Close();
@@ -514,6 +557,8 @@ namespace WPProcinal.Forms
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            SetCallBacksNull();
+            timer.CallBackStop?.Invoke(1);
             //Utilities.ResetTimer();
             frmCinema frmCinema = new frmCinema();
             frmCinema.Show();

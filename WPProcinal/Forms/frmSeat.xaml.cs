@@ -33,6 +33,10 @@ namespace WPProcinal.Forms
 
         Utilities utilities = new Utilities();
 
+
+        TimerTiempo timer;
+        int controlReinicio = 0;
+
         public frmSeat(DipMap dipMap)
         {
             InitializeComponent();
@@ -50,7 +54,39 @@ namespace WPProcinal.Forms
             TxtSubTitle.Text = dipMap.Language;
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
             HideImages();
+            ActivateTimer();
+        }
 
+        void ActivateTimer()
+        {
+            try
+            {
+                tbTimer.Text = Utilities.GetConfiguration("TimerSilla");
+                timer = new TimerTiempo(tbTimer.Text);
+                timer.CallBackClose = response =>
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        frmCinema main = new frmCinema();
+                        main.Show();
+                        this.Close();
+                    });
+                };
+                timer.CallBackTimer = response =>
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        tbTimer.Text = response;
+                    });
+                };
+            }
+            catch { }
+        }
+
+        void SetCallBacksNull()
+        {
+            timer.CallBackClose = null;
+            timer.CallBackTimer = null;
         }
 
         private void HideImages()
@@ -298,12 +334,21 @@ namespace WPProcinal.Forms
 
         private void SelectedSeatsMethod(object sender, TypeSeat item)
         {
+            try
+            {
+                SetCallBacksNull();
+                ActivateTimer();
+            }
+            catch (Exception) { }
             Image image = (Image)sender;
             var seatcurrent = SelectedTypeSeats.Where(s => s.Name == item.Name).FirstOrDefault();
             if (seatcurrent == null)
             {
-                SelectedTypeSeats.Add(item);
-                image.Source = GetImage("R");
+                if (SelectedTypeSeats.Count < 11)
+                {
+                    SelectedTypeSeats.Add(item);
+                    image.Source = GetImage("R");
+                }
             }
             else
             {
@@ -313,6 +358,9 @@ namespace WPProcinal.Forms
 
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
             Utilities.CantSeats = SelectedTypeSeats.Count;
+            Utilities.TypeSeats = SelectedTypeSeats;
+
+
         }
 
         private ImageSource GetImage(string ckeck)
@@ -361,11 +409,16 @@ namespace WPProcinal.Forms
 
         private void SendData()
         {
+
+            SetCallBacksNull();
+            timer.CallBackStop?.Invoke(1);
             if (SelectedTypeSeats.Count == 0)
             {
+
                 this.Opacity = 0.3;
                 Utilities.ShowModal("Debe seleccionar almenos un puesto");
                 this.Opacity = 1;
+                ActivateTimer();
                 return;
             }
 
@@ -425,6 +478,11 @@ namespace WPProcinal.Forms
 
                 SecuenceAndReserve();
             }
+
+            if (controlReinicio == 0)
+            {
+                ActivateTimer();
+            }
             this.Opacity = 1;
         }
 
@@ -438,6 +496,13 @@ namespace WPProcinal.Forms
 
         private void SecuenceAndReserve()
         {
+
+            try
+            {
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+            }
+            catch { }
             var frmLoadding = new FrmLoading("¡Reservando los puestos seleccionados!");
             frmLoadding.Show();
             var responseSec = WCFServices.GetSecuence(dipMapCurrent);
@@ -470,6 +535,7 @@ namespace WPProcinal.Forms
                 if (!string.IsNullOrEmpty(reserve.Error_en_proceso))
                 {
                     item.IsReserved = false;
+                    frmLoadding.Close();
                     Utilities.ShowModal(reserve.Error_en_proceso);
                 }
                 else
@@ -520,8 +586,14 @@ namespace WPProcinal.Forms
 
         private void ShowModalError(List<TypeSeat> tyseats)
         {
+            try
+            {
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+            }
+            catch { }
             var stringerror = new StringBuilder();
-            stringerror.Append("No se puerieron reservar los puestos: ");
+            stringerror.Append("No se puedieron reservar los puestos: ");
             stringerror.AppendLine();
             foreach (var tyseat in tyseats)
             {
@@ -530,7 +602,9 @@ namespace WPProcinal.Forms
             }
 
             stringerror.Append("Por favor vuelva a intentarlo.");
+
             Utilities.ShowModal(stringerror.ToString());
+            controlReinicio++;
         }
 
         //private string GetReferencetransaction(DipMap dipMap, TypeSeat typeSeat)
@@ -573,6 +647,12 @@ namespace WPProcinal.Forms
 
                 if (Utilities.MedioPago == 1)
                 {
+                    try
+                    {
+                        SetCallBacksNull();
+                        timer.CallBackStop?.Invoke(1);
+                    }
+                    catch { }
                     //Utilities.ResetTimer();
                     frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
                     pay.Show();
@@ -580,6 +660,12 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
+                    try
+                    {
+                        SetCallBacksNull();
+                        timer.CallBackStop?.Invoke(1);
+                    }
+                    catch { }
                     //Utilities.ResetTimer();
                     FrmCardPayment pay = new FrmCardPayment(SelectedTypeSeats, dipMapCurrent);
                     pay.Show();
@@ -591,6 +677,12 @@ namespace WPProcinal.Forms
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            try
+            {
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+            }
+            catch { }
             //Utilities.ResetTimer();
             frmSchedule frmSchedule = new frmSchedule(Utilities.Movie);
             frmSchedule.Show();

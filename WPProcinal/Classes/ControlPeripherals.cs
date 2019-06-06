@@ -615,12 +615,12 @@ namespace WPProcinal.Classes
                         DispenserMoney((newAmountBills / _mil).ToString());
                         if (dispenserValue > 0)
                         {
-                            SendMessageCoins((dispenserValue / _hundred).ToString());
+                            SendMessageCoins(_DispenserCoinOn + (dispenserValue / _hundred));
                         }
                     }
                     else
                     {
-                        SendMessageCoins(_DispenserCoinOn + (dispenserValue / _hundred).ToString());
+                        SendMessageCoins(_DispenserCoinOn + (dispenserValue / _hundred));
                     }
                 }
             }

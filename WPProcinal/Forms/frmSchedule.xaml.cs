@@ -25,6 +25,8 @@ namespace WPProcinal.Forms
         int FontS = 0;
         int cinemaId = Convert.ToInt16(Utilities.GetConfiguration("CodCinema"));
         Pelicula Movie = new Pelicula();
+
+        TimerTiempo timer;
         #endregion
 
         #region LoadMethods
@@ -33,7 +35,7 @@ namespace WPProcinal.Forms
             InitializeComponent();
             this.Movie = Movie;
             Utilities.Movie = Movie;
-
+            ActivateTimer();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -62,6 +64,34 @@ namespace WPProcinal.Forms
 
         private void Window_PreviewStylusDown(object sender, StylusDownEventArgs e) => Utilities.time = TimeSpan.Parse(Utilities.Duration);
 
+        void ActivateTimer()
+        {
+            tbTimer.Text = Utilities.GetConfiguration("TimerHorario");
+            timer = new TimerTiempo(tbTimer.Text);
+            timer.CallBackClose = response =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+
+                    frmCinema main = new frmCinema();
+                    main.Show();
+                    this.Close();
+                });
+            };
+            timer.CallBackTimer = response =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    tbTimer.Text = response;
+                });
+            };
+        }
+
+        void SetCallBacksNull()
+        {
+            timer.CallBackClose = null;
+            timer.CallBackTimer = null;
+        }
 
         #endregion
 
@@ -112,7 +142,7 @@ namespace WPProcinal.Forms
                                                 TipoZona = function.TipoZona[count]
                                             });
                                         }
-                                        else if (int.Parse(item.Militar) > int.Parse(DateTime.Now.AddMinutes(40).ToString("HHmm")))
+                                        else if (int.Parse(item.Militar) > int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
                                         {
                                             horatmps.Add(new HoraTMP
                                             {
@@ -198,7 +228,14 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
+                    try
+                    {
+                        SetCallBacksNull();
+                        timer.CallBackStop?.Invoke(1);
+                    }
+                    catch { }
                     Utilities.ShowModal("Lo sentimos, no hay funciones para esta película");
+
                     //Utilities.ResetTimer();
                     Utilities.GoToInicial(this);
                     return;
@@ -238,27 +275,7 @@ namespace WPProcinal.Forms
 
         private void CreatePages(int i)
         {
-            //int itemcount = i;
-            ////Calcular el total de páginas que tendrá la vista
-            //totalPage = itemcount / itemPerPage;
-            //if (itemcount % itemPerPage != 0)
-            //{
-            //    totalPage += 1;
-            //}
-
-            ////Cuando sólo haya una página se ocultaran los botónes de Next y Prev
-            //if (totalPage == 1)
-            //{
-            //    btnNext.Visibility = Visibility.Hidden;
-            //    btnPrev.Visibility = Visibility.Hidden;
-            //}
-
-            //view.Source = lstGrid;
-            //view.Filter += new FilterEventHandler(View_Filter);
             lvSchedule.DataContext = lstGrid;
-            //ShowCurrentPageIndex();
-            //tbTotalPage.Text = totalPage.ToString();
-            //ValidateImage();
         }
 
         private void ShowCurrentPageIndex()
@@ -364,6 +381,8 @@ namespace WPProcinal.Forms
             Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;
             DipMap dipmap = SetProperties(schedule);
 
+            SetCallBacksNull();
+            timer.CallBackStop?.Invoke(1);
             //Utilities.ResetTimer();
             frmSeat frmSeat = new frmSeat(dipmap);
             frmSeat.Show();
@@ -372,6 +391,8 @@ namespace WPProcinal.Forms
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            SetCallBacksNull();
+            timer.CallBackStop?.Invoke(1);
             //Utilities.ResetTimer();
             frmMovies frmMovies = new frmMovies();
             frmMovies.Show();

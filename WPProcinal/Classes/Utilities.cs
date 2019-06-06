@@ -669,17 +669,20 @@ namespace WPProcinal.Classes
                     PAYER_ID = 477
                 };
 
-                var details = new TRANSACTION_DESCRIPTION
+                foreach (var item in Utilities.TypeSeats)
                 {
-                    AMOUNT = ValorPagar,
-                    TRANSACTION_ID = transaction.TRANSACTION_ID,
-                    REFERENCE = "0",
-                    OBSERVATION = movie.MovieName,
-                    TRANSACTION_DESCRIPTION_ID = 0,
-                    STATE = true
-                };
+                    var details = new TRANSACTION_DESCRIPTION
+                    {
+                        AMOUNT = item.Price,
+                        TRANSACTION_ID = transaction.TRANSACTION_ID,
+                        REFERENCE = Utilities.Secuencia,
+                        OBSERVATION = movie.MovieName +" - "+item.Name,
+                        TRANSACTION_DESCRIPTION_ID = 0,
+                        STATE = true
+                    };
 
-                transaction.TRANSACTION_DESCRIPTION.Add(details);
+                    transaction.TRANSACTION_DESCRIPTION.Add(details); 
+                }
 
                 var response = await api.GetResponse(new RequestApi
                 {
@@ -717,6 +720,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                return true;
                 ApiLocal api = new ApiLocal();
 
                 Transaction Transaction = new Transaction

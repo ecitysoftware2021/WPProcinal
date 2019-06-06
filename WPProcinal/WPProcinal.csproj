@@ -151,6 +151,7 @@
     <Compile Include="Classes\PayViewModel.cs" />
     <Compile Include="Classes\Response.cs" />
     <Compile Include="Classes\SP_GET_INVOICE_DATA_Result.cs" />
+    <Compile Include="Classes\TimerTiempo.cs" />
     <Compile Include="Classes\Transaction.cs" />
     <Compile Include="Classes\TypeSeat.cs" />
     <Compile Include="Connected Services\WCFDesAssing\Reference.cs">
