@@ -268,7 +268,7 @@ namespace WPProcinal.Forms
                         {
                             var state = states.Where(s => s.Name == item.Name).FirstOrDefault();
                             ImageSource imageSource = null;
-                            if (dipMapCurrent.TypeZona == "G")
+                            if (dipMapCurrent.TypeZona == "G" && state.Type != "D")
                             {
                                 imageSource = (state.State == "B") ? GetImage(state.State) : GetImage(string.Empty);
                             }
