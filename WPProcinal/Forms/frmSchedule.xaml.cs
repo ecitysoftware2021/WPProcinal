@@ -142,7 +142,7 @@ namespace WPProcinal.Forms
                                                 TipoZona = function.TipoZona[count]
                                             });
                                         }
-                                        else if (int.Parse(item.Militar) > int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
+                                        else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
                                         {
                                             horatmps.Add(new HoraTMP
                                             {

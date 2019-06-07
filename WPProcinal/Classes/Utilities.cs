@@ -681,7 +681,7 @@ namespace WPProcinal.Classes
 
                 Transaction transaction = new Transaction
                 {
-                    TOTAL_AMOUNT = ValorPagarCorresponsal,
+                    TOTAL_AMOUNT = Utilities.PayVal,
                     DATE_BEGIN = DateTime.Now,
                     DESCRIPTION = "Se inició la transacción para: " + name,
                     TYPE_TRANSACTION_ID = 14,
