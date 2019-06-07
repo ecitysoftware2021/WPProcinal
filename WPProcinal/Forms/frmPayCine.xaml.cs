@@ -424,8 +424,6 @@ namespace WPProcinal.Forms
                     modal.ShowDialog();
                 });
                 GC.Collect();
-
-                Utilities.GoToInicial(this);
             }
             catch (Exception ex)
             {
@@ -433,6 +431,7 @@ namespace WPProcinal.Forms
            string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
            ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
             }
+            Utilities.GoToInicial(this);
         }
 
         private void GetReceipt()
@@ -491,6 +490,7 @@ namespace WPProcinal.Forms
                     catch { }
                     if (transaccionCompra.Respuesta != "Exitosa")
                     {
+                        Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
                         payState = false;
                         Utilities.SaveLogError(new LogError
                         {
