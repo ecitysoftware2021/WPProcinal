@@ -116,7 +116,7 @@ namespace WPProcinal.Forms
                 {
                     utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante).Wait();
 
-                    logError.Description = "\nNo Se cancelo una transaccion";
+                    logError.Description = "\nSe cancelo una transaccion";
                     logError.State = "Cancelada";
                     Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
 
@@ -126,7 +126,7 @@ namespace WPProcinal.Forms
                     Utilities.DispenserVal = PaymentViewModel.ValorIngresado;
                     Utilities.control.callbackTotalOut = totalOut =>
                     {
-                        Cancelled();
+                        Cancelled("btnCancelar_PreviewStylusDown");
                     };
 
                     Utilities.control.callbackLog = log =>
@@ -136,7 +136,7 @@ namespace WPProcinal.Forms
 
                     Utilities.control.callbackOut = quiantityOut =>
                     {
-                        Cancelled();
+                        Cancelled("btnCancelar_PreviewStylusDown");
                     };
 
                     Utilities.control.callbackError = error =>
@@ -149,7 +149,7 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    Cancelled();
+                    Cancelled("btnCancelar_PreviewStylusDown");
                 }
             }
             catch (Exception ex)
@@ -251,7 +251,7 @@ namespace WPProcinal.Forms
                     }
                     else
                     {
-                        Cancelled();
+                        Cancelled("ReturnMoney(" + state + " > callbackTotalOut=" + totalOut);
                     }
                 };
 
@@ -338,6 +338,9 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                logError.Description = "\nNo fue posible actualizar esta transacción a aprobada";
+                logError.State = "Iniciada";
+                Utilities.SaveLogTransactions(logError, "LogTransacciones\\Iniciadas");
                 stateUpdate = false;
             }
         }
@@ -357,6 +360,7 @@ namespace WPProcinal.Forms
                 {
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("SavePay: ", "Cancelada");
                         PaymentGrid.Opacity = 0.3;
                         Utilities.Loading(frmLoading, false, this);
                         frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.PayVal.ToString("#,##0"));
@@ -368,9 +372,13 @@ namespace WPProcinal.Forms
 
                     Task.Run(() =>
                     {
+                        Dispatcher.BeginInvoke((Action)delegate
+                       {
+                           LogService.CreateLogsPeticionRespuestaDispositivos("UpdateTransaction: ", "Cancelada");
+                       });
                         utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante).Wait();
 
-                        logError.Description = "\nNo Se cancelo una transaccion";
+                        logError.Description = "\nSe cancelo una transaccion";
                         logError.State = "Cancelada";
                         Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
                     }).Wait();
@@ -379,8 +387,17 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("ApproveTrans: ", "LLamada");
+                    }
+                    catch { }
 
-                    ApproveTrans();
+                    try
+                    {
+                        ApproveTrans();
+                    }
+                    catch { }
 
                     objUtil.ImprimirComprobante("Aprobada", Utilities.Receipt, Utilities.TypeSeats, Utilities.DipMapCurrent);
 
@@ -409,11 +426,27 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void Cancelled()
+        private void Cancelled(string llamada)
         {
             try
             {
-                Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                try
+                {
+                    Task.Run(() =>
+                            {
+                                Dispatcher.Invoke(() =>
+                                {
+                                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                                });
+                            });
+                }
+                catch (Exception ex)
+                {
+                    LogService.CreateLogsError(
+                          string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                          ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
+                }
+
                 Utilities.control.StopAceptance();
 
                 Dispatcher.Invoke(() =>
@@ -467,7 +500,7 @@ namespace WPProcinal.Forms
                     return;
                 }
 
-                if (num == 1)
+                if (countError < 3 && num == 1)
                 {
                     payState = true;
                     var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
@@ -480,6 +513,8 @@ namespace WPProcinal.Forms
                             Message = response.Message,
                             Method = "WCFServices.PostComprar"
                         });
+                        countError++;
+                        Buytickets();
                     }
 
                     var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
@@ -490,13 +525,14 @@ namespace WPProcinal.Forms
                     catch { }
                     if (transaccionCompra.Respuesta != "Exitosa")
                     {
-                        Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
                         payState = false;
                         Utilities.SaveLogError(new LogError
                         {
                             Message = transaccionCompra.Respuesta,
                             Method = "WCFServices.PostComprar.Fallida"
                         });
+                        countError++;
+                        Buytickets();
                     }
                     else
                     {
@@ -532,6 +568,7 @@ namespace WPProcinal.Forms
                 LogService.CreateLogsError(
                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "Buytickets");
+                SavePay(payState);
             }
         }
         #endregion

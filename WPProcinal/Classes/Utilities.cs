@@ -664,7 +664,7 @@ namespace WPProcinal.Classes
 
                 logService.CreateLogsTransactions(log);
             }
-            catch (Exception ex)
+            catch
             {
             }
         }
