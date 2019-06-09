@@ -428,51 +428,57 @@ namespace WPProcinal.Forms
                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "SavePay(" + task + ")");
             }
         }
+        int controlCancel = 0;
 
         private void Cancelled(string llamada)
         {
-            try
+
+            if (controlCancel == 0)
             {
-                LogService.CreateLogsPeticionRespuestaDispositivos("Cancelled: ", llamada);
-            }
-            catch { }
-            try
-            {
+                controlCancel = 1;
                 try
                 {
-                    Task.Run(() =>
-                            {
-                                Dispatcher.Invoke(() =>
+                    LogService.CreateLogsPeticionRespuestaDispositivos("Cancelled: ", llamada);
+                }
+                catch { }
+                try
+                {
+                    try
+                    {
+                        Task.Run(() =>
                                 {
-                                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                                    Dispatcher.Invoke(() =>
+                                    {
+                                        Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                                    });
                                 });
-                            });
+                    }
+                    catch (Exception ex)
+                    {
+                        LogService.CreateLogsError(
+                              string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                              ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
+                    }
+
+                    Utilities.control.StopAceptance();
+
+                    Dispatcher.Invoke(() =>
+                    {
+                        PaymentGrid.Opacity = 0.3;
+                        Utilities.Loading(frmLoading, false, this);
+                        frmModal modal = new frmModal("Usuario su pago fue cancelado.");
+                        modal.ShowDialog();
+                    });
+                    GC.Collect();
                 }
                 catch (Exception ex)
                 {
                     LogService.CreateLogsError(
-                          string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                          ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
+               string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+               ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
                 }
-
-                Utilities.control.StopAceptance();
-
-                Dispatcher.Invoke(() =>
-                {
-                    PaymentGrid.Opacity = 0.3;
-                    Utilities.Loading(frmLoading, false, this);
-                    frmModal modal = new frmModal("Usuario su pago fue cancelado.");
-                    modal.ShowDialog();
-                });
-                GC.Collect();
+                Utilities.GoToInicial(this);
             }
-            catch (Exception ex)
-            {
-                LogService.CreateLogsError(
-           string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-           ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
-            }
-            Utilities.GoToInicial(this);
         }
 
         private void GetReceipt()
@@ -508,9 +514,10 @@ namespace WPProcinal.Forms
                     return;
                 }
 
-                if (countError < 3 && num == 1)
+                if (num == 1)
                 {
                     payState = true;
+
                     var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
 
                     responseGlobal = response;
@@ -521,8 +528,6 @@ namespace WPProcinal.Forms
                             Message = response.Message,
                             Method = "WCFServices.PostComprar"
                         });
-                        countError++;
-                        Buytickets();
                     }
 
                     var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
@@ -539,8 +544,6 @@ namespace WPProcinal.Forms
                             Message = transaccionCompra.Respuesta,
                             Method = "WCFServices.PostComprar.Fallida"
                         });
-                        countError++;
-                        Buytickets();
                     }
                     else
                     {

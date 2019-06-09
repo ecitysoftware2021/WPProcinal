@@ -406,7 +406,7 @@ namespace WPProcinal.Forms
 
         private void SendData()
         {
-
+            int control = 0;
             SetCallBacksNull();
             timer.CallBackStop?.Invoke(1);
             if (SelectedTypeSeats.Count == 0)
@@ -457,30 +457,36 @@ namespace WPProcinal.Forms
                 {
                     tarifa = plantilla.Tarifas.Where(t => t.Tipo == dipMapCurrent.TypeZona).FirstOrDefault();
                 }
-
-                selectedTypeSeat.Price = decimal.Parse(tarifa.Valor.Split(',')[0]);
-                selectedTypeSeat.CodTarifa = tarifa.Codigo;
+                if (tarifa!=null)
+                {
+                    control = 1;
+                    selectedTypeSeat.Price = decimal.Parse(tarifa.Valor.Split(',')[0]);
+                    selectedTypeSeat.CodTarifa = tarifa.Codigo;
+                }
             }
 
-            this.Opacity = 0.3;
-            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
-            _frmConfirmationModal.ShowDialog();
-            if (_frmConfirmationModal.DialogResult.HasValue &&
-                _frmConfirmationModal.DialogResult.Value)
+            if (control == 1)
             {
-                //this.Dispatcher.BeginInvoke(new ThreadStart(() =>
-                //{
-                //    GifLoadder.Visibility = Visibility.Visible;
-                //}));
+                this.Opacity = 0.3;
+                frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
+                _frmConfirmationModal.ShowDialog();
+                if (_frmConfirmationModal.DialogResult.HasValue &&
+                    _frmConfirmationModal.DialogResult.Value)
+                {
+                    //this.Dispatcher.BeginInvoke(new ThreadStart(() =>
+                    //{
+                    //    GifLoadder.Visibility = Visibility.Visible;
+                    //}));
 
-                SecuenceAndReserve();
-            }
+                    SecuenceAndReserve();
+                }
 
-            if (controlReinicio == 0)
-            {
-                ActivateTimer();
+                if (controlReinicio == 0)
+                {
+                    ActivateTimer();
+                }
+                this.Opacity = 1; 
             }
-            this.Opacity = 1;
         }
 
         private void ReloadWindow()
