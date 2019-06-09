@@ -238,13 +238,16 @@ namespace WPProcinal.Forms
 
                 Utilities.control.callbackTotalOut = totalOut =>
                 {
-                    Utilities.SaveLogDispenser(ControlPeripherals.log);
+
                     Utilities.ValueDelivery = (long)totalOut;
                     try
                     {
                         LogService.CreateLogsPeticionRespuestaDispositivos("ReturnMoney: ", "Ingresé(" + state + ")");
                     }
                     catch { }
+
+                    Utilities.SaveLogDispenser(ControlPeripherals.log);
+
                     if (state)
                     {
                         Buytickets();
@@ -430,6 +433,11 @@ namespace WPProcinal.Forms
         {
             try
             {
+                LogService.CreateLogsPeticionRespuestaDispositivos("Cancelled: ", llamada);
+            }
+            catch { }
+            try
+            {
                 try
                 {
                     Task.Run(() =>
@@ -568,7 +576,7 @@ namespace WPProcinal.Forms
                 LogService.CreateLogsError(
                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "Buytickets");
-                SavePay(payState);
+                //SavePay(payState);
             }
         }
         #endregion
