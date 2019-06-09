@@ -2,17 +2,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WPProcinal.Classes;
 using WPProcinal.Models;
 using WPProcinal.Service;
@@ -34,6 +26,7 @@ namespace WPProcinal.Forms
         private int countError = 0;
         private bool payState;
         private int num = 1;
+        TimerTiempo timer;
         Response responseGlobal = new Response();
         Utilities objUtil = new Utilities();
 
@@ -209,6 +202,7 @@ namespace WPProcinal.Forms
                 Utilities.control.callbackError = error =>
                 {
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
+                    ///
 
                 };
 
@@ -270,7 +264,10 @@ namespace WPProcinal.Forms
                         this.Close();
                     }
                 };
-
+                Task.Run(() =>
+                {
+                    ActivateTimer();
+                });
                 Utilities.control.StartDispenser(returnValue);
             }
             catch (Exception ex)
@@ -581,6 +578,54 @@ namespace WPProcinal.Forms
                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "Buytickets");
                 //SavePay(payState);
             }
+        }
+        #endregion
+
+        #region TimerInactividad
+        void ActivateTimer()
+        {
+            try
+            {
+                string timerInactividad = Utilities.GetConfiguration("TimerInactividad");
+                timer = new TimerTiempo(timerInactividad);
+                timer.CallBackClose = response =>
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        if (PaymentViewModel.ValorIngresado >= Utilities.PayVal)
+                        {
+
+                            try
+                            {
+                                LogService.CreateLogsPeticionRespuestaDispositivos("ActivateTimer: ", "Tiempo Transcurrido Inactividad Dispositivos");
+                            }
+                            catch { }
+                            frmModal modal = new frmModal("Estimado usuario, si el dispositivo no le entregó la totalidad de la devolución, por favor contacte con un administrador, presione aceptar para tomar sus boletas. Gracias");
+                            modal.ShowDialog();
+                            //this.Opacity = 0.3;
+                            //Utilities.Loading(frmLoading, true, this);
+                            Buytickets();
+                            Utilities.Loading(frmLoading, false, this);
+                            SetCallBacksNull();
+                        }
+                    });
+                    GC.Collect();
+                };
+                timer.CallBackTimer = response =>
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        //tbTimer.Text = response;
+                    });
+                };
+            }
+            catch { }
+        }
+
+        void SetCallBacksNull()
+        {
+            timer.CallBackClose = null;
+            timer.CallBackTimer = null;
         }
         #endregion
     }

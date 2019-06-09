@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace WPProcinal.Classes
 {
@@ -440,14 +441,21 @@ namespace WPProcinal.Classes
         {
             try
             {
-                if (response[1] == "DP" || response[1] == "MD")
+                if (response[1] == "MD")
                 {
-                    stateError = true;
-                    callbackError?.Invoke(string.Concat("Error, se alcanzó a entregar:", deliveryValue));
+                    Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
+                    {
+                        callbackError?.Invoke(deliveryValue.ToString());
+                    }));
                 }
+                if (response[1] == "DP")
+                {
+                    //callbackError?.Invoke(string.Concat("Error, se alcanzó a entregar:", deliveryValue));
+                }
+
                 if (response[1] == "AP")
                 {
-                    callbackError?.Invoke("Error, en el billetero Aceptance");
+                    //callbackError?.Invoke("Error, en el billetero Aceptance");
                 }
                 else if (response[1] == "FATAL")
                 {
