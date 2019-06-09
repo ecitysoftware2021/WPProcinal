@@ -297,6 +297,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                Thread.Sleep(1000);
                 string response = _serialPortCoins.ReadLine();
                 if (!string.IsNullOrEmpty(response))
                 {
