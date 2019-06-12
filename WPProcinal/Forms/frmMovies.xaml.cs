@@ -64,8 +64,8 @@ namespace WPProcinal.Forms
                 }));
                 Utilities.DoEvents();
 
-                ListFechas();
-                InitView2();
+                //ListFechas();
+                //InitView2();
                 ActivateTimer();
             }
             catch (Exception ex)
@@ -276,203 +276,203 @@ namespace WPProcinal.Forms
         }
         #endregion
 
-        #region "ListViewDate"
-        private void ListFechas()
-        {
-            try
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    DateTime dt2 = DateTime.Now.AddDays(i);
-                    string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
+        //#region "ListViewDate"
+        //private void ListFechas()
+        //{
+        //    try
+        //    {
+        //        for (int i = 0; i < 8; i++)
+        //        {
+        //            DateTime dt2 = DateTime.Now.AddDays(i);
+        //            string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
 
-                    if (NombreDiaAdd != "miércoles")
-                    {
-                        dateName.Add(new DateName
-                        {
-                            FechaOrigin = dt2,
-                            Mes = dt2.ToString("MMM"),
-                            NombreDia = NombreDiaAdd,
-                            DiaNumero = dt2.ToString("dd")
-                        });
-                    }
-                    else
-                    {
-                        dateName.Add(new DateName
-                        {
-                            FechaOrigin = dt2,
-                            Mes = dt2.ToString("MMM"),
-                            NombreDia = NombreDiaAdd,
-                            DiaNumero = dt2.ToString("dd")
-                        });
+        //            if (NombreDiaAdd != "miércoles")
+        //            {
+        //                dateName.Add(new DateName
+        //                {
+        //                    FechaOrigin = dt2,
+        //                    Mes = dt2.ToString("MMM"),
+        //                    NombreDia = NombreDiaAdd,
+        //                    DiaNumero = dt2.ToString("dd")
+        //                });
+        //            }
+        //            else
+        //            {
+        //                dateName.Add(new DateName
+        //                {
+        //                    FechaOrigin = dt2,
+        //                    Mes = dt2.ToString("MMM"),
+        //                    NombreDia = NombreDiaAdd,
+        //                    DiaNumero = dt2.ToString("dd")
+        //                });
 
-                        return;
-                    }
-                }
+        //                return;
+        //            }
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
-        private void InitView2()
-        {
-            try
-            {
-                if (dateName.Count() > 0)
-                {
-                    foreach (var item in dateName)
-                    {
-                        lstPager2.Add(new DateName
-                        {
-                            Mes = item.Mes,
-                            NombreDia = item.NombreDia,
-                            FechaOrigin = item.FechaOrigin,
-                            TextColor = "Black",
-                            DiaNumero = item.DiaNumero
-                        });
-                    }
+        //private void InitView2()
+        //{
+        //    try
+        //    {
+        //        if (dateName.Count() > 0)
+        //        {
+        //            foreach (var item in dateName)
+        //            {
+        //                lstPager2.Add(new DateName
+        //                {
+        //                    Mes = item.Mes,
+        //                    NombreDia = item.NombreDia,
+        //                    FechaOrigin = item.FechaOrigin,
+        //                    TextColor = "Black",
+        //                    DiaNumero = item.DiaNumero
+        //                });
+        //            }
 
-                    CreatePages2(dateName.Count());
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+        //            CreatePages2(dateName.Count());
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
-        private void CreatePages2(int i)
-        {
-            try
-            {
-                int itemcount = i;
-                totalPage2 = itemcount / itemPerPage2;
-                if (itemcount % itemPerPage2 != 0)
-                {
-                    totalPage2 += 1;
-                }
-                lstPager2[0].TextColor = "#FF1385FF";
-                view2.Source = lstPager2;
-                view2.Filter += new FilterEventHandler(View_Filter2);
-                lv_DateName.DataContext = view2;
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+        //private void CreatePages2(int i)
+        //{
+        //    try
+        //    {
+        //        int itemcount = i;
+        //        totalPage2 = itemcount / itemPerPage2;
+        //        if (itemcount % itemPerPage2 != 0)
+        //        {
+        //            totalPage2 += 1;
+        //        }
+        //        lstPager2[0].TextColor = "#FF1385FF";
+        //        view2.Source = lstPager2;
+        //        view2.Filter += new FilterEventHandler(View_Filter2);
+        //        lv_DateName.DataContext = view2;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
-        private void View_Filter2(object sender, FilterEventArgs e)
-        {
-            try
-            {
-                int index = lstPager2.IndexOf((DateName)e.Item);
+        //private void View_Filter2(object sender, FilterEventArgs e)
+        //{
+        //    try
+        //    {
+        //        int index = lstPager2.IndexOf((DateName)e.Item);
 
-                if (index >= itemPerPage2 * currentPageIndex2 && index < itemPerPage2 * (currentPageIndex2 + 1))
-                {
-                    e.Accepted = true;
-                }
-                else
-                {
-                    e.Accepted = false;
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+        //        if (index >= itemPerPage2 * currentPageIndex2 && index < itemPerPage2 * (currentPageIndex2 + 1))
+        //        {
+        //            e.Accepted = true;
+        //        }
+        //        else
+        //        {
+        //            e.Accepted = false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
-        private async void lv_DateName_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            try
-            {
-                var service = (DateName)(sender as ListViewItem).Content;
+        //private async void lv_DateName_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        //{
+        //    try
+        //    {
+        //        var service = (DateName)(sender as ListViewItem).Content;
 
-                FechaSelect = service.FechaOrigin;//poner la fecha en el formato xml
-                Utilities.FechaSeleccionada = FechaSelect;
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+        //        FechaSelect = service.FechaOrigin;//poner la fecha en el formato xml
+        //        Utilities.FechaSeleccionada = FechaSelect;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
-        private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            try
-            {
-                var childs = (sender as Grid).Children;
-                foreach (var item in childs)
-                {
-                    if (item is Border)
-                    {
-                        ClearHoursList();
-                        var border = item as Border;
-                        Color color2 = (Color)ColorConverter.ConvertFromString("#FFF89126");
-                        border.Background = new SolidColorBrush(color2);
-                        borders.Add(border);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+        //private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        //{
+        //    try
+        //    {
+        //        var childs = (sender as Grid).Children;
+        //        foreach (var item in childs)
+        //        {
+        //            if (item is Border)
+        //            {
+        //                ClearHoursList();
+        //                var border = item as Border;
+        //                Color color2 = (Color)ColorConverter.ConvertFromString("#FFF89126");
+        //                border.Background = new SolidColorBrush(color2);
+        //                borders.Add(border);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
-        private void ClearHoursList()
-        {
-            foreach (var item in borders)
-            {
-                item.Background = Brushes.White;
-            }
-        }
+        //private void ClearHoursList()
+        //{
+        //    foreach (var item in borders)
+        //    {
+        //        item.Background = Brushes.White;
+        //    }
+        //}
 
-        private void btnNext2_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            try
-            {
-                SetCallBacksNull();
-                ActivateTimer();
-                if (currentPageIndex2 < totalPage2 - 1)
-                {
-                    currentPageIndex2++;
-                    view2.View.Refresh();
-                }
-                if (currentPageIndex2 == totalPage2 - 1)
-                {
-                    btnNext2.Visibility = Visibility.Hidden;
-                }
+        //private void btnNext2_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        //{
+        //    try
+        //    {
+        //        SetCallBacksNull();
+        //        ActivateTimer();
+        //        if (currentPageIndex2 < totalPage2 - 1)
+        //        {
+        //            currentPageIndex2++;
+        //            view2.View.Refresh();
+        //        }
+        //        if (currentPageIndex2 == totalPage2 - 1)
+        //        {
+        //            btnNext2.Visibility = Visibility.Hidden;
+        //        }
 
-                btnPrev2.Visibility = Visibility.Visible;
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+        //        btnPrev2.Visibility = Visibility.Visible;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
-        private void btnPrev2_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            try
-            {
-                SetCallBacksNull();
-                ActivateTimer();
-                if (currentPageIndex2 > 0)
-                {
-                    currentPageIndex2--;
-                    view2.View.Refresh();
-                }
+        //private void btnPrev2_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        //{
+        //    try
+        //    {
+        //        SetCallBacksNull();
+        //        ActivateTimer();
+        //        if (currentPageIndex2 > 0)
+        //        {
+        //            currentPageIndex2--;
+        //            view2.View.Refresh();
+        //        }
 
-                if (currentPageIndex2 == 0)
-                {
-                    btnPrev2.Visibility = Visibility.Hidden;
-                }
+        //        if (currentPageIndex2 == 0)
+        //        {
+        //            btnPrev2.Visibility = Visibility.Hidden;
+        //        }
 
-                btnNext2.Visibility = Visibility.Visible;
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-        #endregion
+        //        btnNext2.Visibility = Visibility.Visible;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
+        //#endregion
 
         #region Buttons-Events
 
