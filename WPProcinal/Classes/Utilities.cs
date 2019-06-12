@@ -778,6 +778,8 @@ namespace WPProcinal.Classes
                     Data = Transaction
                 }, "UpdateTransaction");
 
+                LogService.CreateLogsPeticionRespuestaDispositivos("GetResponse: ", JsonConvert.SerializeObject(response));
+
                 if (response != null)
                 {
                     if (response.Result.CodeError != 200)
@@ -803,12 +805,15 @@ namespace WPProcinal.Classes
             {
                 SaveLocalPay(Transaction);
             }
+            LogService.CreateLogsPeticionRespuestaDispositivos("UpdateTransaction: ", "Salí");
+
         }
 
         public void SaveLocalPay(Transaction dataPay)
         {
             try
             {
+                LogService.CreateLogsPeticionRespuestaDispositivos("SaveLocalPay: ", "Ingresé");
                 using (var con = new DBProcinalEntities())
                 {
                     NotifyPay notify = new NotifyPay
@@ -831,6 +836,7 @@ namespace WPProcinal.Classes
                 }
                 catch { }
             }
+            LogService.CreateLogsPeticionRespuestaDispositivos("SaveLocalPay: ", "Salí");
         }
 
         public async Task<bool> CreatePrintDashboard()

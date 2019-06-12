@@ -267,13 +267,18 @@ namespace WPProcinal.Forms
                 Utilities.control.callbackError = error =>
                 {
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
+                    try
+                    {
+                        timer.CallBackStop?.Invoke(1);
+                        SetCallBacksNull();
+                    }
+                    catch { }
                     if (PaymentViewModel.ValorIngresado >= Utilities.PayVal)
                     {
-                        frmModal _frmModal = new frmModal(error);
-                        _frmModal.ShowDialog();
-                        FrmFinalTransaction frmFinal = new FrmFinalTransaction();
-                        frmFinal.Show();
-                        this.Close();
+                        frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
+                        modal.ShowDialog();
+                        Buytickets();
+                        Utilities.Loading(frmLoading, false, this);
                     }
                 };
 
@@ -320,14 +325,12 @@ namespace WPProcinal.Forms
         {
             try
             {
+                LogService.CreateLogsPeticionRespuestaDispositivos("ApproveTrans: ", "Ingresé");
                 if (stateUpdate)
                 {
                     Task.Run(() =>
                     {
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 2, PaymentViewModel.ValorSobrante);
-                        });
+                        utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 2, PaymentViewModel.ValorSobrante);
                     });
                 }
             }
@@ -338,6 +341,7 @@ namespace WPProcinal.Forms
                 Utilities.SaveLogTransactions(logError, "LogTransacciones\\Iniciadas");
                 stateUpdate = false;
             }
+            LogService.CreateLogsPeticionRespuestaDispositivos("ApproveTrans: ", "Salí");
         }
 
         private async void SavePay(bool task)
@@ -368,16 +372,18 @@ namespace WPProcinal.Forms
                     }
                     catch { }
 
+                    utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
+                    logError.Description = "\nSe cancelo una transaccion";
+                    logError.State = "Cancelada";
+                    Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
+
                     Task.Run(() =>
                     {
-                        utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
-
-                        logError.Description = "\nSe cancelo una transaccion";
-                        logError.State = "Cancelada";
-                        Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
-                    }).Wait();
-
+                        ActivateTimer(false);
+                    });
                     ReturnMoney(Utilities.PayVal, false);
+
+
                 }
                 else
                 {
@@ -611,6 +617,12 @@ namespace WPProcinal.Forms
                                 catch { }
                                 controlInactividad = 1;
                                 Utilities.IsRestart = true;
+                                try
+                                {
+                                    timer.CallBackStop?.Invoke(1);
+                                    SetCallBacksNull();
+                                }
+                                catch { }
                                 if (state)
                                 {
                                     frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
@@ -624,12 +636,7 @@ namespace WPProcinal.Forms
                                     modal.ShowDialog();
                                     Utilities.RestartApp();
                                 }
-                                try
-                                {
-                                    timer.CallBackStop?.Invoke(1);
-                                    SetCallBacksNull();
-                                }
-                                catch { }
+
                             }
                         }
                     });
