@@ -349,8 +349,6 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opcion
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.baml
-D:\WPProcinal\WPProcinal\bin\Debug\DBProcinal.mdf
-D:\WPProcinal\WPProcinal\bin\Debug\DBProcinal_log.ldf
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs

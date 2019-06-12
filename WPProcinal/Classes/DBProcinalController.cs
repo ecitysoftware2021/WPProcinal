@@ -47,7 +47,7 @@ namespace WPProcinal.Classes
                     Secuence = dipMap.Secuence
                 };
 
-                db.TblDipMaps.Add(tblDipMap);
+                db.TblDipMap.Add(tblDipMap);
                 db.SaveChanges();
                 return new Response
                 {
@@ -69,7 +69,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var seats = db.TblTypeSeats.Where(s => s.IsReserved == true).ToList();
+                var seats = db.TblTypeSeat.Where(s => s.IsReserved == true).ToList();
                 return seats;
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace WPProcinal.Classes
             }
         }
 
-        public static Response SaveTypeSeats(List<TypeSeat> tyseats,int dipMap)
+        public static Response SaveTypeSeats(List<TypeSeat> tyseats, int dipMap)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace WPProcinal.Classes
                         IsPay = false,
                     };
 
-                    db.TblTypeSeats.Add(seat);
+                    db.TblTypeSeat.Add(seat);
                     db.SaveChanges();
                 }
 
@@ -123,11 +123,11 @@ namespace WPProcinal.Classes
             {
                 try
                 {
-                    var dipmap = db.TblDipMaps.Find(dipMapId);
+                    var dipmap = db.TblDipMap.Find(dipMapId);
                     dipmap.Active = false;
                     db.Entry(dipmap).State = EntityState.Modified;
                     db.SaveChanges();
-                    var seats = db.TblTypeSeats.Where(s => s.DipMapId == dipMapId).ToList();
+                    var seats = db.TblTypeSeat.Where(s => s.DipMapId == dipMapId).ToList();
                     foreach (var seat in seats)
                     {
                         seat.IsReserved = false;
@@ -150,7 +150,7 @@ namespace WPProcinal.Classes
                         IsSuccess = false,
                         Message = ex.Message,
                     };
-                } 
+                }
             }
         }
 
@@ -158,7 +158,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var seats = db.TblTypeSeats.Where(s => s.DipMapId == dipMapId).ToList();
+                var seats = db.TblTypeSeat.Where(s => s.DipMapId == dipMapId).ToList();
                 foreach (var seat in seats)
                 {
                     seat.IsPay = true;
@@ -185,7 +185,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var dipmap = db.TblDipMaps.ToList();
+                var dipmap = db.TblDipMap.ToList();
                 return dipmap;
             }
             catch (Exception ex)
@@ -198,7 +198,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var seats = db.TblTypeSeats.Where(s => s.DipMapId == id).ToList();
+                var seats = db.TblTypeSeat.Where(s => s.DipMapId == id).ToList();
                 return seats;
             }
             catch (Exception ex)
@@ -211,7 +211,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var dipmap = db.TblDipMaps.Where(d => d.DipMapId == id).FirstOrDefault();
+                var dipmap = db.TblDipMap.Where(d => d.DipMapId == id).FirstOrDefault();
                 if (dipmap == null)
                 {
                     return false;
@@ -232,7 +232,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var dipmap = db.TblDipMaps.Where(d => d.DipMapId == id).FirstOrDefault();
+                var dipmap = db.TblDipMap.Where(d => d.DipMapId == id).FirstOrDefault();
                 if (dipmap == null)
                 {
                     return null;
@@ -250,7 +250,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var notPays = db.TblPays.Where(t => t.IsPay == true).ToList();
+                var notPays = db.TblPay.Where(t => t.IsPay == true).ToList();
                 return notPays;
             }
             catch (Exception ex)
@@ -269,7 +269,7 @@ namespace WPProcinal.Classes
                     IsPay = true,
                 };
 
-                db.TblPays.Add(notPay);
+                db.TblPay.Add(notPay);
                 db.SaveChanges();
                 return new Response
                 {
@@ -290,7 +290,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var tblPay = db.TblPays.Where(t => t.DipMapId == id).FirstOrDefault();
+                var tblPay = db.TblPay.Where(t => t.DipMapId == id).FirstOrDefault();
                 if (tblPay == null)
                 {
                     return new Response
@@ -298,8 +298,8 @@ namespace WPProcinal.Classes
                         IsSuccess = true,
                     };
                 }
-                
-                db.TblPays.Remove(tblPay);
+
+                db.TblPay.Remove(tblPay);
                 db.SaveChanges();
                 return new Response
                 {
@@ -322,7 +322,7 @@ namespace WPProcinal.Classes
             {
                 try
                 {
-                    var dipmap = db.TblDipMaps.Find(id);
+                    var dipmap = db.TblDipMap.Find(id);
                     if (dipmap == null)
                     {
                         transaction.Rollback();
@@ -332,14 +332,14 @@ namespace WPProcinal.Classes
                         };
                     }
 
-                    var seats = db.TblTypeSeats.Where(s => s.DipMapId == id).ToList();
+                    var seats = db.TblTypeSeat.Where(s => s.DipMapId == id).ToList();
                     foreach (var item in seats)
                     {
-                        db.TblTypeSeats.Remove(item);
+                        db.TblTypeSeat.Remove(item);
                         db.SaveChanges();
                     }
 
-                    db.TblDipMaps.Remove(dipmap);
+                    db.TblDipMap.Remove(dipmap);
                     db.SaveChanges();
                     transaction.Commit();
                     return new Response
@@ -349,14 +349,17 @@ namespace WPProcinal.Classes
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();                    
+
+                    transaction.Rollback();
                     return new Response
                     {
                         IsSuccess = false,
                         Message = ex.Message
                     };
-                } 
+                }
             }
         }
+
+
     }
 }

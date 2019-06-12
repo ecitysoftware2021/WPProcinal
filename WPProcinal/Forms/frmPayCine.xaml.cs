@@ -24,6 +24,8 @@ namespace WPProcinal.Forms
         private int count;
         private bool stateUpdate;
         private int countError = 0;
+        int controlInactividad = 0;
+        int controlCancel = 0;
         private bool payState;
         private int num = 1;
         TimerTiempo timer;
@@ -107,7 +109,7 @@ namespace WPProcinal.Forms
 
                 Task.Run(() =>
                 {
-                    utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante).Wait();
+                    utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
 
                     logError.Description = "\nSe cancelo una transaccion";
                     logError.State = "Cancelada";
@@ -187,6 +189,10 @@ namespace WPProcinal.Forms
                         {
                             btnCancelar.IsEnabled = false;
                         });
+                        Task.Run(() =>
+                        {
+                            ActivateTimer(true);
+                        });
                         ReturnMoney(PaymentViewModel.ValorSobrante, true);
                     }
                     else
@@ -244,6 +250,12 @@ namespace WPProcinal.Forms
 
                     if (state)
                     {
+                        try
+                        {
+                            SetCallBacksNull();
+                            timer.CallBackStop?.Invoke(1);
+                        }
+                        catch { }
                         Buytickets();
                     }
                     else
@@ -264,10 +276,7 @@ namespace WPProcinal.Forms
                         this.Close();
                     }
                 };
-                Task.Run(() =>
-                {
-                    ActivateTimer();
-                });
+
                 Utilities.control.StartDispenser(returnValue);
             }
             catch (Exception ex)
@@ -313,27 +322,13 @@ namespace WPProcinal.Forms
             {
                 if (stateUpdate)
                 {
-                    var state = utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 2, PaymentViewModel.ValorSobrante);
-                    if (!state.Result)
+                    Task.Run(() =>
                     {
-                        if (count < 2)
+                        Dispatcher.BeginInvoke((Action)delegate
                         {
-                            count++;
-                            ApproveTrans();
-                        }
-                        else
-                        {
-                            logError.Description = "\nNo fue posible actualizar esta transacción a aprobada";
-                            logError.State = "Iniciada";
-                            Utilities.SaveLogTransactions(logError, "LogTransacciones\\Iniciadas");
-                        }
-                    }
-                    else
-                    {
-                        logError.Description = "\nTransacción Exitosa";
-                        logError.State = "Aprobada";
-                        Utilities.SaveLogTransactions(logError, "LogTransacciones\\Aprobadas");
-                    }
+                            utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 2, PaymentViewModel.ValorSobrante);
+                        });
+                    });
                 }
             }
             catch (Exception ex)
@@ -356,27 +351,26 @@ namespace WPProcinal.Forms
                     LogService.CreateLogsPeticionRespuestaDispositivos("SavePay: ", task.ToString());
                 }
                 catch { }
+
                 if (!task)
                 {
-                    await Dispatcher.BeginInvoke((Action)delegate
+                    try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("SavePay: ", "Cancelada");
-                        PaymentGrid.Opacity = 0.3;
-                        Utilities.Loading(frmLoading, false, this);
-                        frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.PayVal.ToString("#,##0"));
-                        modal.ShowDialog();
-
-                        Utilities.Loading(frmLoading, true, this);
-                    });
-                    GC.Collect();
+                        await Dispatcher.BeginInvoke((Action)delegate
+                                    {
+                                        PaymentGrid.Opacity = 0.3;
+                                        Utilities.Loading(frmLoading, false, this);
+                                        frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.PayVal.ToString("#,##0"));
+                                        modal.ShowDialog();
+                                        Utilities.Loading(frmLoading, true, this);
+                                    });
+                        GC.Collect();
+                    }
+                    catch { }
 
                     Task.Run(() =>
                     {
-                        Dispatcher.BeginInvoke((Action)delegate
-                       {
-                           LogService.CreateLogsPeticionRespuestaDispositivos("UpdateTransaction: ", "Cancelada");
-                       });
-                        utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante).Wait();
+                        utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
 
                         logError.Description = "\nSe cancelo una transaccion";
                         logError.State = "Cancelada";
@@ -389,17 +383,25 @@ namespace WPProcinal.Forms
                 {
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("ApproveTrans: ", "LLamada");
-                    }
-                    catch { }
-
-                    try
-                    {
-                        ApproveTrans();
+                        LogService.CreateLogsPeticionRespuestaDispositivos("ImprimirComprobante: ", "LLamada");
                     }
                     catch { }
 
                     objUtil.ImprimirComprobante("Aprobada", Utilities.Receipt, Utilities.TypeSeats, Utilities.DipMapCurrent);
+
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("ApproveTrans: ", "LLamada");
+                    }
+                    catch { }
+
+                    ApproveTrans();
+
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("StopAceptance(): ", "LLamada");
+                    }
+                    catch { }
 
                     Utilities.control.StopAceptance();
 
@@ -425,7 +427,6 @@ namespace WPProcinal.Forms
                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "SavePay(" + task + ")");
             }
         }
-        int controlCancel = 0;
 
         private void Cancelled(string llamada)
         {
@@ -565,7 +566,7 @@ namespace WPProcinal.Forms
                 {
                     try
                     {
-                        LogService.CreateLogsOperation("Llamé a SavePay(" + payState + ")");
+                        LogService.CreateLogsPeticionRespuestaDispositivos("SavePay", "" + payState);
                     }
                     catch { }
                     SavePay(payState);
@@ -582,7 +583,8 @@ namespace WPProcinal.Forms
         #endregion
 
         #region TimerInactividad
-        void ActivateTimer()
+
+        void ActivateTimer(bool state)
         {
             try
             {
@@ -592,21 +594,43 @@ namespace WPProcinal.Forms
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
-                        if (PaymentViewModel.ValorIngresado >= Utilities.PayVal)
+                        try
                         {
-
-                            try
+                            timer.CallBackClose = null;
+                        }
+                        catch { }
+                        if (controlInactividad == 0)
+                        {
+                            if (PaymentViewModel.ValorIngresado >= Utilities.PayVal)
                             {
-                                LogService.CreateLogsPeticionRespuestaDispositivos("ActivateTimer: ", "Tiempo Transcurrido Inactividad Dispositivos");
+
+                                try
+                                {
+                                    LogService.CreateLogsPeticionRespuestaDispositivos("ActivateTimer: ", "Tiempo Transcurrido Inactividad Dispositivos");
+                                }
+                                catch { }
+                                controlInactividad = 1;
+                                Utilities.IsRestart = true;
+                                if (state)
+                                {
+                                    frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
+                                    modal.ShowDialog();
+                                    Buytickets();
+                                    Utilities.Loading(frmLoading, false, this);
+                                }
+                                else
+                                {
+                                    frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador. Gracias");
+                                    modal.ShowDialog();
+                                    Utilities.RestartApp();
+                                }
+                                try
+                                {
+                                    timer.CallBackStop?.Invoke(1);
+                                    SetCallBacksNull();
+                                }
+                                catch { }
                             }
-                            catch { }
-                            frmModal modal = new frmModal("Estimado usuario, si el dispositivo no le entregó la totalidad de la devolución, por favor contacte con un administrador, presione aceptar para tomar sus boletas. Gracias");
-                            modal.ShowDialog();
-                            //this.Opacity = 0.3;
-                            //Utilities.Loading(frmLoading, true, this);
-                            Buytickets();
-                            Utilities.Loading(frmLoading, false, this);
-                            SetCallBacksNull();
                         }
                     });
                     GC.Collect();
@@ -624,8 +648,12 @@ namespace WPProcinal.Forms
 
         void SetCallBacksNull()
         {
-            timer.CallBackClose = null;
-            timer.CallBackTimer = null;
+            try
+            {
+                timer.CallBackClose = null;
+                timer.CallBackTimer = null;
+            }
+            catch { }
         }
         #endregion
     }

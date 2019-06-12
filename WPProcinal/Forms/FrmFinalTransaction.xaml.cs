@@ -29,7 +29,14 @@ namespace WPProcinal.Forms
                 Thread.Sleep(5000);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    Utilities.GoToInicial(this);
+                    if (Utilities.IsRestart)
+                    {
+                        Utilities.RestartApp();
+                    }
+                    else
+                    {
+                        Utilities.GoToInicial(this);
+                    }
                 });
             });
         }

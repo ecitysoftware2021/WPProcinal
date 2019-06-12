@@ -25,8 +25,9 @@ namespace WPProcinal.ADO
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<TblDipMap> TblDipMaps { get; set; }
-        public virtual DbSet<TblPay> TblPays { get; set; }
-        public virtual DbSet<TblTypeSeat> TblTypeSeats { get; set; }
+        public virtual DbSet<NotifyPay> NotifyPay { get; set; }
+        public virtual DbSet<TblDipMap> TblDipMap { get; set; }
+        public virtual DbSet<TblPay> TblPay { get; set; }
+        public virtual DbSet<TblTypeSeat> TblTypeSeat { get; set; }
     }
 }

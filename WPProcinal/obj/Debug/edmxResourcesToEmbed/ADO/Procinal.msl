@@ -1,7 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DBProcinalModelStoreContainer" CdmEntityContainer="DBProcinalEntities">
-    <EntitySetMapping Name="TblDipMaps">
+    <EntitySetMapping Name="NotifyPay">
+      <EntityTypeMapping TypeName="DBProcinalModel.NotifyPay">
+        <MappingFragment StoreEntitySet="NotifyPay">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="STATE_TRANSACTION_ID" ColumnName="STATE_TRANSACTION_ID" />
+          <ScalarProperty Name="DATE_END" ColumnName="DATE_END" />
+          <ScalarProperty Name="INCOME_AMOUNT" ColumnName="INCOME_AMOUNT" />
+          <ScalarProperty Name="RETURN_AMOUNT" ColumnName="RETURN_AMOUNT" />
+          <ScalarProperty Name="TRANSACTION_ID" ColumnName="TRANSACTION_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblDipMap">
       <EntityTypeMapping TypeName="DBProcinalModel.TblDipMap">
         <MappingFragment StoreEntitySet="TblDipMap">
           <ScalarProperty Name="DipMapId" ColumnName="DipMapId" />
@@ -30,7 +42,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TblPays">
+    <EntitySetMapping Name="TblPay">
       <EntityTypeMapping TypeName="DBProcinalModel.TblPay">
         <MappingFragment StoreEntitySet="TblPay">
           <ScalarProperty Name="TblPayId" ColumnName="TblPayId" />
@@ -39,7 +51,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TblTypeSeats">
+    <EntitySetMapping Name="TblTypeSeat">
       <EntityTypeMapping TypeName="DBProcinalModel.TblTypeSeat">
         <MappingFragment StoreEntitySet="TblTypeSeat">
           <ScalarProperty Name="TblTypeSeat1" ColumnName="TblTypeSeat" />

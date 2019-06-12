@@ -47,6 +47,7 @@ namespace WPProcinal.Classes
 
         public static Action<string> CallBackRespuesta;
 
+        private LogErrorGeneral logError;
 
         public string EnviarPeticion(string data)
         {
@@ -243,6 +244,7 @@ namespace WPProcinal.Classes
         public static decimal EnterTotal;
         public static long ValueDelivery { get; set; }
         public static decimal DispenserVal { get; set; }
+        public static bool IsRestart = false;
 
         public Utilities(int i)
         {
@@ -261,6 +263,12 @@ namespace WPProcinal.Classes
             try
             {
                 transactionManager = new TEFTransactionManager();
+                logError = new LogErrorGeneral
+                {
+                    Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
+                    IDCorresponsal = Utilities.CorrespondentId,
+                    IdTransaction = Utilities.IDTransactionDB,
+                };
             }
             catch { }
         }
@@ -470,12 +478,25 @@ namespace WPProcinal.Classes
         /// </summary>
         public static void RestartApp()
         {
+            try
+            {
+                CLSGrabador grabador = new CLSGrabador();
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    grabador.FinalizarGrabacion();
+                }));
+
+            }
+            catch (Exception)
+            {
+                //TODO: guardar en log
+            }
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
             {
                 Process pc = new Process();
                 Process pn = new Process();
                 ProcessStartInfo si = new ProcessStartInfo();
-                si.FileName = Path.Combine(Directory.GetCurrentDirectory(), "WPProinal.exe");
+                si.FileName = Path.Combine(Directory.GetCurrentDirectory(), "WPProcinal.exe");
                 pn.StartInfo = si;
                 pn.Start();
                 pc = Process.GetCurrentProcess();
@@ -736,41 +757,79 @@ namespace WPProcinal.Classes
         /// <param name="state">Estaado por el cual se actualizará</param>
         /// <param name="Return">Valor a devolver, por defecto es 0 ya que hay transacciones donde no hay que devolver</param>
         /// <returns>Retorna un verdadero o un falso dependiendo el resultado del update</returns>
-        public async Task<bool> UpdateTransaction(decimal Enter, int state, decimal Return = 0)
+        public void UpdateTransaction(decimal Enter, int state, decimal Return = 0)
         {
+            Transaction Transaction = new Transaction
+            {
+                STATE_TRANSACTION_ID = state,
+                DATE_END = DateTime.Now,
+                INCOME_AMOUNT = Enter,
+                RETURN_AMOUNT = Return,
+                TRANSACTION_ID = IDTransactionDB
+            };
+
             try
             {
+                LogService.CreateLogsPeticionRespuestaDispositivos("UpdateTransaction: ", "Ingresé");
                 ApiLocal api = new ApiLocal();
 
-                Transaction Transaction = new Transaction
-                {
-                    STATE_TRANSACTION_ID = state,
-                    DATE_END = DateTime.Now,
-                    INCOME_AMOUNT = Enter,
-                    RETURN_AMOUNT = Return,
-                    TRANSACTION_ID = IDTransactionDB
-                };
-
-                var response = await api.GetResponse(new RequestApi
+                var response = api.GetResponse(new RequestApi
                 {
                     Data = Transaction
                 }, "UpdateTransaction");
 
                 if (response != null)
                 {
-                    if (response.CodeError == 200)
+                    if (response.Result.CodeError != 200)
                     {
-                        return true;
+                        SaveLocalPay(Transaction);
+                        logError.Description = "\nNo fue posible actualizar esta transacción a aprobada";
+                        logError.State = "Iniciada";
+                        Utilities.SaveLogTransactions(logError, "LogTransacciones\\Iniciadas");
                     }
-
-                    return false;
+                    else
+                    {
+                        logError.Description = "\nTransacción Exitosa";
+                        logError.State = "Aprobada";
+                        Utilities.SaveLogTransactions(logError, "LogTransacciones\\Aprobadas");
+                    }
                 }
-
-                return false;
+                else
+                {
+                    SaveLocalPay(Transaction);
+                }
             }
             catch (Exception ex)
             {
-                return false;
+                SaveLocalPay(Transaction);
+            }
+        }
+
+        public void SaveLocalPay(Transaction dataPay)
+        {
+            try
+            {
+                using (var con = new DBProcinalEntities())
+                {
+                    NotifyPay notify = new NotifyPay
+                    {
+                        TRANSACTION_ID = dataPay.TRANSACTION_ID,
+                        STATE_TRANSACTION_ID = dataPay.STATE_TRANSACTION_ID,
+                        INCOME_AMOUNT = dataPay.INCOME_AMOUNT,
+                        DATE_END = dataPay.DATE_END,
+                        RETURN_AMOUNT = dataPay.RETURN_AMOUNT
+                    };
+                    con.NotifyPay.Add(notify);
+                    con.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("SaveLocalPay: ", JsonConvert.SerializeObject(dataPay));
+                }
+                catch { }
             }
         }
 
@@ -823,7 +882,7 @@ namespace WPProcinal.Classes
             {
                 if (opt == 2)
                 {
-                    if (enterValue > 1000)
+                    if (enterValue >= 1000)
                     {
                         code = "AP";
                     }

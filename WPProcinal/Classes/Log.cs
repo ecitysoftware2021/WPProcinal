@@ -207,37 +207,6 @@ namespace WPProcinal.Classes
             }
             catch { }
         }
-
-        public static void CreateLogsOperation(string operacion)
-        {
-            try
-            {
-                PeticionRespuesta peticion = new PeticionRespuesta
-                {
-                    Operacion = operacion
-                };
-
-                var json = JsonConvert.SerializeObject(peticion);
-                string fullPath = string.Format(@"C:\\LogsOperacion\");
-                if (!Directory.Exists(fullPath))
-                {
-                    Directory.CreateDirectory(fullPath);
-                }
-
-                var nameFile = Path.Combine(fullPath, "Operaciones" + DateTime.Now.ToString("yyyyMMdd"));
-                if (!File.Exists(nameFile))
-                {
-                    var archivo = File.CreateText(nameFile);
-                    archivo.Close();
-                }
-
-                using (StreamWriter sw = File.AppendText(nameFile))
-                {
-                    sw.WriteLine(json);
-                }
-            }
-            catch { }
-        }
     }
 }
 

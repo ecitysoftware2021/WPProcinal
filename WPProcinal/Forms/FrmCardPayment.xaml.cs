@@ -189,7 +189,7 @@ namespace WPProcinal.Forms
 
                 Task.Run(() =>
                 {
-                    utilities.UpdateTransaction(0, 3, 0).Wait();
+                    utilities.UpdateTransaction(0, 3, 0);
                     logError.Description = "\nNo Se cancelo una transaccion";
                     logError.State = "Cancelada";
                     Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
@@ -211,27 +211,7 @@ namespace WPProcinal.Forms
             {
                 if (stateUpdate)
                 {
-                    var state = utilities.UpdateTransaction(0, 2, 0);
-                    if (!state.Result)
-                    {
-                        if (count < 2)
-                        {
-                            count++;
-                            ApproveTrans();
-                        }
-                        else
-                        {
-                            logError.Description = "\nNo fue posible actualizar esta transacción a aprobada";
-                            logError.State = "Iniciada";
-                            Utilities.SaveLogTransactions(logError, "LogTransacciones\\Iniciadas");
-                        }
-                    }
-                    else
-                    {
-                        logError.Description = "\nTransacción Exitosa";
-                        logError.State = "Aprobada";
-                        Utilities.SaveLogTransactions(logError, "LogTransacciones\\Aprobadas");
-                    }
+                    utilities.UpdateTransaction(0, 2, 0);
                 }
             }
             catch (Exception ex)
@@ -261,7 +241,7 @@ namespace WPProcinal.Forms
 
                     Task.Run(() =>
                     {
-                        utilities.UpdateTransaction(0, 3, 0).Wait();
+                        utilities.UpdateTransaction(0, 3, 0);
 
                         logError.Description = "\nNo Se cancelo una transaccion";
                         logError.State = "Cancelada";

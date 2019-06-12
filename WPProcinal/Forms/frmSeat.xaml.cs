@@ -1,18 +1,14 @@
-﻿using CEntidades;
-using Grabador.Transaccion;
-using Newtonsoft.Json;
+﻿using Grabador.Transaccion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Xml;
 using WPProcinal.Classes;
 using WPProcinal.Models;
 using WPProcinal.Service;
@@ -26,13 +22,9 @@ namespace WPProcinal.Forms
     {
         List<TypeSeat> SelectedTypeSeats = new List<TypeSeat>();
         DipMap dipMapCurrent = new DipMap();
-
         CLSGrabador grabador = new CLSGrabador();
-
         bool _ErrorTransaction = true;
-
         Utilities utilities = new Utilities();
-
 
         TimerTiempo timer;
         int controlReinicio = 0;
@@ -457,7 +449,7 @@ namespace WPProcinal.Forms
                 {
                     tarifa = plantilla.Tarifas.Where(t => t.Tipo == dipMapCurrent.TypeZona).FirstOrDefault();
                 }
-                if (tarifa!=null)
+                if (tarifa != null)
                 {
                     control = 1;
                     selectedTypeSeat.Price = decimal.Parse(tarifa.Valor.Split(',')[0]);
@@ -485,10 +477,13 @@ namespace WPProcinal.Forms
                 {
                     ActivateTimer();
                 }
-                this.Opacity = 1; 
+                this.Opacity = 1;
             }
         }
 
+        /// <summary>
+        /// Vuelve a cargar la vista si hay error en las sillas
+        /// </summary>
         private void ReloadWindow()
         {
             //Utilities.ResetTimer();
@@ -497,6 +492,9 @@ namespace WPProcinal.Forms
             this.Close();
         }
 
+        /// <summary>
+        /// Reserva los puestos
+        /// </summary>
         private void SecuenceAndReserve()
         {
 
@@ -616,6 +614,9 @@ namespace WPProcinal.Forms
         //                            dipMap.Secuence);
         //}
 
+        /// <summary>
+        /// Envía al formulario de pagos
+        /// </summary>
         private async void ShowPay()
         {
             var response = await utilities.CreateTransaction("Cine", dipMapCurrent, SelectedTypeSeats);
@@ -656,6 +657,8 @@ namespace WPProcinal.Forms
                         timer.CallBackStop?.Invoke(1);
                     }
                     catch { }
+
+                    LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(50, '=') + Environment.NewLine + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
                     //Utilities.ResetTimer();
                     frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
                     pay.Show();

@@ -122,7 +122,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                   string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                   ex.InnerException, "---------- Trace: ", ex.StackTrace), "InitPortBills");
+                Utilities.RestartApp();
             }
         }
 
@@ -137,7 +140,9 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                LogService.CreateLogsError(
+                   string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                   ex.InnerException, "---------- Trace: ", ex.StackTrace), "InitPortBills");
             }
         }
 
@@ -164,7 +169,7 @@ namespace WPProcinal.Classes
                 LogService.CreateLogsError(
                     string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                     ex.InnerException, "---------- Trace: ", ex.StackTrace), "InitPortBills");
-
+                //Utilities.RestartApp();
             }
         }
 
@@ -191,7 +196,7 @@ namespace WPProcinal.Classes
                 LogService.CreateLogsError(
                     string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                     ex.InnerException, "---------- Trace: ", ex.StackTrace), "InitPortPurses");
-
+                //Utilities.RestartApp();
             }
         }
 
@@ -209,11 +214,11 @@ namespace WPProcinal.Classes
             {
                 if (_serialPortBills.IsOpen)
                 {
-                    Thread.Sleep(2000);
+                    Thread.Sleep(5000);
                     _serialPortBills.Write(message);
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("Mensaje al billetero: ", message);
+                        LogService.CreateLogsPeticionRespuestaDispositivos("Mensaje al billetero " + DateTime.Now + ": ", message);
                     }
                     catch { }
                     log.SendMessage += string.Format("Billetero: {0}\n", message);
@@ -241,7 +246,7 @@ namespace WPProcinal.Classes
                     _serialPortCoins.Write(message);
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("Mensaje al monedero: ", message);
+                        LogService.CreateLogsPeticionRespuestaDispositivos("Mensaje al monedero " + DateTime.Now + ": ", message);
                     }
                     catch { }
                     log.SendMessage += string.Format("Monedero: {0}\n", message);
@@ -273,7 +278,7 @@ namespace WPProcinal.Classes
                 {
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del billetero: ", response);
+                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del billetero " + DateTime.Now + ": ", response);
                     }
                     catch { }
                     log.ResponseMessage += string.Format("Respuesta Billetero:{0}\n", response);
@@ -286,6 +291,7 @@ namespace WPProcinal.Classes
                 LogService.CreateLogsError(
                  string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                  ex.InnerException, "---------- Trace: ", ex.StackTrace), "_serialPortBillsDataReceived");
+                //Utilities.RestartApp();
             }
         }
 
@@ -303,7 +309,7 @@ namespace WPProcinal.Classes
                 {
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del monedero: ", response);
+                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del monedero " + DateTime.Now + ": ", response);
                     }
                     catch { }
                     log.ResponseMessage += string.Format("Respuesta Monedero: {0}\n", response);
@@ -315,6 +321,7 @@ namespace WPProcinal.Classes
                 LogService.CreateLogsError(
                  string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                  ex.InnerException, "---------- Trace: ", ex.StackTrace), "_serialPortCoinsDataReceived");
+                //Utilities.RestartApp();
             }
         }
 

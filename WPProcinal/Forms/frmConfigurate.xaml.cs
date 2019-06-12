@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPProcinal.ADO;
 using WPProcinal.Classes;
 using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
@@ -100,6 +101,44 @@ namespace WPProcinal.Forms
             {
                 ShowModalError(ex.Message, ex.StackTrace);
             }
+        }
+
+        public void NotifyPending()
+        {
+            try
+            {
+                using (var con = new DBProcinalEntities())
+                {
+                    var notifies = con.NotifyPay.ToList();
+
+                    foreach (var item in notifies)
+                    {
+                        Transaction Transaction = new Transaction
+                        {
+                            STATE_TRANSACTION_ID = item.STATE_TRANSACTION_ID.Value,
+                            DATE_END = item.DATE_END.Value,
+                            INCOME_AMOUNT = item.INCOME_AMOUNT.Value,
+                            RETURN_AMOUNT = item.RETURN_AMOUNT.Value,
+                            TRANSACTION_ID = item.TRANSACTION_ID.Value
+                        };
+
+                        var response = api.GetResponse(new Uptake.RequestApi()
+                        {
+                            Data = Transaction
+                        }, "UpdateTransaction");
+
+                        if (response != null)
+                        {
+                            if (response.Result.CodeError == 200)
+                            {
+                                con.NotifyPay.Remove(item);
+                                con.SaveChanges();
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
         }
 
         private void ShowModalError(string description, string message = "")

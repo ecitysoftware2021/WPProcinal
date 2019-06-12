@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="DBProcinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="NotifyPay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="STATE_TRANSACTION_ID" Type="int" />
+          <Property Name="DATE_END" Type="datetime" />
+          <Property Name="INCOME_AMOUNT" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="RETURN_AMOUNT" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TRANSACTION_ID" Type="int" />
+        </EntityType>
         <EntityType Name="TblDipMap">
           <Key>
             <PropertyRef Name="DipMapId" />
@@ -59,6 +70,7 @@
           <Property Name="TransactionId" Type="int" />
         </EntityType>
         <EntityContainer Name="DBProcinalModelStoreContainer">
+          <EntitySet Name="NotifyPay" EntityType="Self.NotifyPay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblDipMap" EntityType="Self.TblDipMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblPay" EntityType="Self.TblPay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblTypeSeat" EntityType="Self.TblTypeSeat" Schema="dbo" store:Type="Tables" />
@@ -68,6 +80,17 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBProcinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="NotifyPay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="STATE_TRANSACTION_ID" Type="Int32" />
+          <Property Name="DATE_END" Type="DateTime" Precision="3" />
+          <Property Name="INCOME_AMOUNT" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RETURN_AMOUNT" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TRANSACTION_ID" Type="Int32" />
+        </EntityType>
         <EntityType Name="TblDipMap">
           <Key>
             <PropertyRef Name="DipMapId" />
@@ -122,9 +145,10 @@
           <Property Name="TransactionId" Type="Int32" />
         </EntityType>
         <EntityContainer Name="DBProcinalEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TblDipMaps" EntityType="Self.TblDipMap" />
-          <EntitySet Name="TblPays" EntityType="Self.TblPay" />
-          <EntitySet Name="TblTypeSeats" EntityType="Self.TblTypeSeat" />
+          <EntitySet Name="NotifyPay" EntityType="Self.NotifyPay" />
+          <EntitySet Name="TblDipMap" EntityType="Self.TblDipMap" />
+          <EntitySet Name="TblPay" EntityType="Self.TblPay" />
+          <EntitySet Name="TblTypeSeat" EntityType="Self.TblTypeSeat" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -132,7 +156,19 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DBProcinalModelStoreContainer" CdmEntityContainer="DBProcinalEntities">
-          <EntitySetMapping Name="TblDipMaps">
+          <EntitySetMapping Name="NotifyPay">
+            <EntityTypeMapping TypeName="DBProcinalModel.NotifyPay">
+              <MappingFragment StoreEntitySet="NotifyPay">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="STATE_TRANSACTION_ID" ColumnName="STATE_TRANSACTION_ID" />
+                <ScalarProperty Name="DATE_END" ColumnName="DATE_END" />
+                <ScalarProperty Name="INCOME_AMOUNT" ColumnName="INCOME_AMOUNT" />
+                <ScalarProperty Name="RETURN_AMOUNT" ColumnName="RETURN_AMOUNT" />
+                <ScalarProperty Name="TRANSACTION_ID" ColumnName="TRANSACTION_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblDipMap">
             <EntityTypeMapping TypeName="DBProcinalModel.TblDipMap">
               <MappingFragment StoreEntitySet="TblDipMap">
                 <ScalarProperty Name="DipMapId" ColumnName="DipMapId" />
@@ -161,7 +197,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TblPays">
+          <EntitySetMapping Name="TblPay">
             <EntityTypeMapping TypeName="DBProcinalModel.TblPay">
               <MappingFragment StoreEntitySet="TblPay">
                 <ScalarProperty Name="TblPayId" ColumnName="TblPayId" />
@@ -170,7 +206,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TblTypeSeats">
+          <EntitySetMapping Name="TblTypeSeat">
             <EntityTypeMapping TypeName="DBProcinalModel.TblTypeSeat">
               <MappingFragment StoreEntitySet="TblTypeSeat">
                 <ScalarProperty Name="TblTypeSeat1" ColumnName="TblTypeSeat" />
@@ -202,7 +238,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
