@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -24,6 +25,7 @@ namespace WPProcinal.Forms
         public FrmFinalTransaction()
         {
             InitializeComponent();
+            string reiniciarAplicacion = ConfigurationManager.AppSettings["ReinicioAplicacion"];
             Task.Run(() =>
             {
                 Thread.Sleep(5000);
@@ -35,7 +37,14 @@ namespace WPProcinal.Forms
                     }
                     else
                     {
-                        Utilities.GoToInicial(this);
+                        if (Utilities.CantidadTransacciones >= 10 && reiniciarAplicacion.Equals("true"))
+                        {
+                            Utilities.RestartApp();
+                        }
+                        else
+                        {
+                            Utilities.GoToInicial(this);
+                        }
                     }
                 });
             });

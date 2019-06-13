@@ -33,6 +33,8 @@ namespace WPProcinal.Classes
             CallBackStop = response =>
             {
                 timer.Stop();
+                GC.Collect();
+               
             };
 
             if (Minutos >= 1)
@@ -51,6 +53,7 @@ namespace WPProcinal.Classes
                 {
                     timer.Stop();
                     CallBackClose?.Invoke(1);
+                    GC.Collect();
                 }
             }
             CallBackTimer?.Invoke(string.Concat(Minutos.ToString().PadLeft(2, '0'), ":", Segundos.ToString().PadLeft(2, '0')));

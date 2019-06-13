@@ -103,6 +103,20 @@ namespace WPProcinal.Classes
         private int _Casete3 = int.Parse(ConfigurationManager.AppSettings["Casete3"]);//Denominacion cassete 3
         #endregion
 
+        #region Ports Times
+        private int BillsReadTime = int.Parse(ConfigurationManager.AppSettings["BillsReadTime"]);//Denominacion cassete 1
+
+        private int BillsWriteTimes = int.Parse(ConfigurationManager.AppSettings["BillsWriteTimes"]);//Denominacion cassete 2
+
+        private int BillsBaudRate = int.Parse(ConfigurationManager.AppSettings["BillsBaudRate"]);//Denominacion cassete 3
+
+        private int CoinsReadTime = int.Parse(ConfigurationManager.AppSettings["CoinsReadTime"]);//Denominacion cassete 3
+
+        private int CoinsWriteTimes = int.Parse(ConfigurationManager.AppSettings["CoinsWriteTimes"]);//Denominacion cassete 3
+
+        private int CoinsBaudRate = int.Parse(ConfigurationManager.AppSettings["CoinsBaudRate"]);//Denominacion cassete 3
+        #endregion
+
         #endregion
 
         #region LoadMethods
@@ -115,7 +129,11 @@ namespace WPProcinal.Classes
             try
             {
                 _serialPortBills = new SerialPort();
+                _serialPortBills.DtrEnable = true;
+                _serialPortBills.DiscardNull = true;
                 _serialPortCoins = new SerialPort();
+                _serialPortCoins.DtrEnable = true;
+                _serialPortCoins.DiscardNull = true;
                 log = new LogDispenser();
                 InitPortBills();
                 InitPortPurses();
@@ -156,10 +174,11 @@ namespace WPProcinal.Classes
                 if (!_serialPortBills.IsOpen)
                 {
                     _serialPortBills.PortName = Utilities.GetConfiguration("PortBills");
-                    _serialPortBills.ReadTimeout = 3000;
-                    _serialPortBills.WriteTimeout = 500;
-                    _serialPortBills.BaudRate = 57600;
+                    _serialPortBills.ReadTimeout = BillsReadTime;
+                    _serialPortBills.WriteTimeout = BillsWriteTimes;
+                    _serialPortBills.BaudRate = BillsBaudRate;
                     _serialPortBills.Open();
+                    Thread.Sleep(3000);
                 }
 
                 _serialPortBills.DataReceived += new SerialDataReceivedEventHandler(_serialPortBillsDataReceived);
@@ -183,10 +202,11 @@ namespace WPProcinal.Classes
                 if (!_serialPortCoins.IsOpen)
                 {
                     _serialPortCoins.PortName = Utilities.GetConfiguration("PortCoins");
-                    _serialPortCoins.ReadTimeout = 3000;
-                    _serialPortCoins.WriteTimeout = 500;
-                    _serialPortCoins.BaudRate = 57600;
+                    _serialPortCoins.ReadTimeout = CoinsReadTime;
+                    _serialPortCoins.WriteTimeout = CoinsWriteTimes;
+                    _serialPortCoins.BaudRate = CoinsBaudRate;
                     _serialPortCoins.Open();
+                    Thread.Sleep(3000);
                 }
 
                 _serialPortCoins.DataReceived += new SerialDataReceivedEventHandler(_serialPortCoinsDataReceived);
@@ -214,8 +234,9 @@ namespace WPProcinal.Classes
             {
                 if (_serialPortBills.IsOpen)
                 {
-                    Thread.Sleep(5000);
+
                     _serialPortBills.Write(message);
+                    Thread.Sleep(200);
                     try
                     {
                         LogService.CreateLogsPeticionRespuestaDispositivos("Mensaje al billetero " + DateTime.Now + ": ", message);
@@ -284,6 +305,14 @@ namespace WPProcinal.Classes
                     log.ResponseMessage += string.Format("Respuesta Billetero:{0}\n", response);
                     ProcessResponseBills(response);
                 }
+                else
+                {
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del monedero " + DateTime.Now + ": ", "Vacío");
+                    }
+                    catch { }
+                }
             }
             catch (Exception ex)
             {
@@ -314,6 +343,14 @@ namespace WPProcinal.Classes
                     catch { }
                     log.ResponseMessage += string.Format("Respuesta Monedero: {0}\n", response);
                     ProcessResponseCoins(response);
+                }
+                else
+                {
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del monedero " + DateTime.Now + ": ", "Vacío");
+                    }
+                    catch { }
                 }
             }
             catch (Exception ex)
@@ -570,7 +607,6 @@ namespace WPProcinal.Classes
 
         #endregion
 
-
         #region Dispenser
 
         /// <summary>
@@ -630,6 +666,7 @@ namespace WPProcinal.Classes
                         } while (resta >= 2000);
                         dispenserValue -= newAmountBills;
                         DispenserMoney((newAmountBills / _mil).ToString());
+
                         if (dispenserValue > 0)
                         {
                             SendMessageCoins(_DispenserCoinOn + (dispenserValue / _hundred));
@@ -758,13 +795,13 @@ namespace WPProcinal.Classes
                     LogMessage += string.Concat(data.Replace("\r", string.Empty), "!");
                     callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"));
 
-                    ValidateFibal(isBX);
+                    ValidateFinal(isBX);
                 }
 
                 if (!stateError)
                 {
 
-                    ValidateFibal(isBX);
+                    ValidateFinal(isBX);
                 }
                 else
                 {
@@ -788,7 +825,7 @@ namespace WPProcinal.Classes
             }
         }
 
-        private void ValidateFibal(int isBX)
+        private void ValidateFinal(int isBX)
         {
             if (RealdispenserValue == deliveryVal)
             {

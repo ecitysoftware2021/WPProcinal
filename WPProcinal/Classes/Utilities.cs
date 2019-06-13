@@ -86,8 +86,11 @@ namespace WPProcinal.Classes
         public static List<Pelicula> Movies = new List<Pelicula>();
 
         public static string CinemaId { get; set; }
+
         public static DateTime FechaSeleccionada = DateTime.Today;
+
         public static decimal ValorPagarScore { get; set; }
+
         public static decimal ValorPagarCorresponsal { get; set; }
 
         public static List<CLSDatos> LDatos = new List<CLSDatos>();
@@ -95,6 +98,7 @@ namespace WPProcinal.Classes
         public static List<SP_GET_INVOICE_DATA_Result> DashboardPrint;
 
         public static string Secuencia { get; set; }
+
         public bool Estado { get; set; }
 
         public decimal Valor { get; set; }
@@ -169,6 +173,8 @@ namespace WPProcinal.Classes
         public static string TramitePagado { get; set; }
 
         public static int ConceptoContable { get; set; }
+
+        public static int CantidadTransacciones = 0;
 
         public static string IdentificadorArchivo { get; set; }
 
@@ -491,6 +497,7 @@ namespace WPProcinal.Classes
             {
                 //TODO: guardar en log
             }
+            GC.Collect();
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
             {
                 Process pc = new Process();
@@ -502,7 +509,7 @@ namespace WPProcinal.Classes
                 pc = Process.GetCurrentProcess();
                 pc.Kill();
             }));
-            GC.Collect();
+
         }
 
         public static void DoEvents()

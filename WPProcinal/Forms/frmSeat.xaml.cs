@@ -79,6 +79,7 @@ namespace WPProcinal.Forms
         {
             timer.CallBackClose = null;
             timer.CallBackTimer = null;
+            
         }
 
         private void HideImages()
