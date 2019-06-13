@@ -915,18 +915,18 @@ namespace WPProcinal.Classes
                         code = "MD";
                     }
                 }
-
-                Task.Run(() =>
-                {
-                    SaveDetailsTransaction(new RequestTransactionDetails
-                    {
-                        Code = code,
-                        Denomination = Convert.ToInt32(enterValue),
-                        Operation = opt,
-                        Quantity = quantity,
-                        TransactionId = idTransactionAPi,
-                    });
-                });
+                //TODO: descomentar
+                //Task.Run(() =>
+                //{
+                //    SaveDetailsTransaction(new RequestTransactionDetails
+                //    {
+                //        Code = code,
+                //        Denomination = Convert.ToInt32(enterValue),
+                //        Operation = opt,
+                //        Quantity = quantity,
+                //        TransactionId = idTransactionAPi,
+                //    });
+                //});
             }
             catch (Exception ex)
             {
@@ -941,14 +941,15 @@ namespace WPProcinal.Classes
         {
             try
             {
-                Task.Run(() =>
-                {
-                    SaveDetailsTransaction(new RequestTransactionDetails
-                    {
-                        Description = messaje,
-                        TransactionId = idTransactionAPi
-                    });
-                });
+                //TODO: descomentar
+                //Task.Run(() =>
+                //{
+                //    SaveDetailsTransaction(new RequestTransactionDetails
+                //    {
+                //        Description = messaje,
+                //        TransactionId = idTransactionAPi
+                //    });
+                //});
             }
             catch (Exception ex)
             {

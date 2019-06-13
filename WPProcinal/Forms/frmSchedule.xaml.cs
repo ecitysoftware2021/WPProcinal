@@ -139,6 +139,8 @@ namespace WPProcinal.Forms
                                 funciones con fechas menores a la actual*/
                                 var datetime = GetDateCorrectly(function.Univ);
                                 var fechaSeleccionada = GetDateCorrectly(Utilities.FechaSeleccionada.ToString("yyyyMMdd"));
+                                if (true)
+                                    //TODO:quitar true
                                 if (datetime == fechaSeleccionada)
                                 {
 
@@ -149,6 +151,7 @@ namespace WPProcinal.Forms
                                     bool available = true;
                                     foreach (var item in schedules)
                                     {
+
                                         if (fechaSeleccionada != DateTime.Today)
                                         {
                                             horatmps.Add(new HoraTMP

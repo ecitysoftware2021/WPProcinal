@@ -165,8 +165,6 @@ C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DBProcinal.mdf
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DBProcinal_log.ldf
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.g.cs
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs

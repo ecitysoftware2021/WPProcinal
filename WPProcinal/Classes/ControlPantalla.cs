@@ -39,13 +39,13 @@ namespace WPProcinal.Classes
 
         public static void ConsultarControlPantalla()
         {
-            var datos = WCFPayPadWS.GetDataControlScreen(IdCorrespo);
-            ClSMinDenominations = datos.ClSMinDenominations.ToList();
-            MaxBaul = datos.MaxBaul.ToString();
-            MailTo = datos.Email;
-            ValidarBaul();
-            ValidarBilletes();
-            ValidarMonedas();
+            //var datos = WCFPayPadWS.GetDataControlScreen(IdCorrespo);
+            //ClSMinDenominations = datos.ClSMinDenominations.ToList();
+            //MaxBaul = datos.MaxBaul.ToString();
+            //MailTo = datos.Email;
+            //ValidarBaul();
+            //ValidarBilletes();
+            //ValidarMonedas();
         }
 
         public static void ValidarBaul()

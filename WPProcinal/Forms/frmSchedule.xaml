@@ -23,7 +23,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="570" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -86,12 +86,12 @@
                                     FontWeight="Bold"/>
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
            
            
             <ListView x:Name="lv_DateName"
                       HorizontalAlignment="Center" 
-                      VerticalAlignment="Bottom"
+                      VerticalAlignment="Top"
                       ItemsSource="{Binding}"
                       Margin="0,0,0,0"
                       Height="170"
@@ -130,7 +130,7 @@
                                 HorizontalAlignment="Stretch">
                             <Grid HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-                                  Margin="20,0,40,0"
+                                  Margin="0,0,0,0"
                                       
                                       PreviewStylusDown="Grid_PreviewStylusDown"
                               >
@@ -193,9 +193,10 @@
             </ListView>
             <Image
                         Grid.Column="0"
+                
                         HorizontalAlignment="Left" 
                         Name="btnPrev2" 
-                        VerticalAlignment="Bottom"
+                        VerticalAlignment="Top"
                         Margin="5,0,0,35"
                         Height="40"
                         Visibility="Hidden"
@@ -203,12 +204,13 @@
                         PreviewStylusDown="btnPrev2_PreviewStylusDown"
                     />
             <Image  Grid.Column="1"
-                        Margin="0,0,5,35"
+                   
+                        Margin="5,0,0,35"
                         HorizontalAlignment="Right"
                         Name="btnNext2" 
-                        VerticalAlignment="Bottom"
+                        VerticalAlignment="Top"
                         Height="40" 
-                        Grid.RowSpan="1"
+                        
                         Visibility="Visible"
                         Source="../Images/siguiente.png"
                         PreviewStylusDown="btnNext2_PreviewStylusDown"
@@ -221,7 +223,7 @@
                 HorizontalAlignment="Center" 
                       Width="850"
                 VerticalAlignment="Center"
-                Margin="-150,0,0,0"
+                Margin="-150,-800,0,0"
                 ItemsSource="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

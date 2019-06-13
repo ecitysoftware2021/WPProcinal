@@ -330,7 +330,8 @@ namespace WPProcinal.Forms
                 {
                     Task.Run(() =>
                     {
-                        utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 2, PaymentViewModel.ValorSobrante);
+                        //TODO: descomentar
+                        //utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 2, PaymentViewModel.ValorSobrante);
                     });
                 }
             }
@@ -522,45 +523,53 @@ namespace WPProcinal.Forms
                 {
                     payState = true;
 
-                    var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
-
-                    responseGlobal = response;
-                    if (!response.IsSuccess)
+                    Task.Run(() =>
                     {
-                        Utilities.SaveLogError(new LogError
+                        Dispatcher.Invoke(() =>
                         {
-                            Message = response.Message,
-                            Method = "WCFServices.PostComprar"
+                            Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
                         });
-                    }
+                    });
+                    //TODO: Descomentar
+                    //var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
 
-                    var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("PostComprar: ", transaccionCompra.Respuesta);
-                    }
-                    catch { }
-                    if (transaccionCompra.Respuesta != "Exitosa")
-                    {
-                        payState = false;
-                        Utilities.SaveLogError(new LogError
-                        {
-                            Message = transaccionCompra.Respuesta,
-                            Method = "WCFServices.PostComprar.Fallida"
-                        });
-                    }
-                    else
-                    {
-                        var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
-                        if (!response.IsSuccess)
-                        {
-                            Utilities.SaveLogError(new LogError
-                            {
-                                Message = responseDB.Message,
-                                Method = "DBProcinalController.EditPaySeat"
-                            });
-                        }
-                    }
+                    //responseGlobal = response;
+                    //if (!response.IsSuccess)
+                    //{
+                    //    Utilities.SaveLogError(new LogError
+                    //    {
+                    //        Message = response.Message,
+                    //        Method = "WCFServices.PostComprar"
+                    //    });
+                    //}
+
+                    //var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
+                    //try
+                    //{
+                    //    LogService.CreateLogsPeticionRespuestaDispositivos("PostComprar: ", transaccionCompra.Respuesta);
+                    //}
+                    //catch { }
+                    //if (transaccionCompra.Respuesta != "Exitosa")
+                    //{
+                    //    payState = false;
+                    //    Utilities.SaveLogError(new LogError
+                    //    {
+                    //        Message = transaccionCompra.Respuesta,
+                    //        Method = "WCFServices.PostComprar.Fallida"
+                    //    });
+                    //}
+                    //else
+                    //{
+                    //    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                    //    if (!response.IsSuccess)
+                    //    {
+                    //        Utilities.SaveLogError(new LogError
+                    //        {
+                    //            Message = responseDB.Message,
+                    //            Method = "DBProcinalController.EditPaySeat"
+                    //        });
+                    //    }
+                    //}
                 }
 
                 if (num == 2)
