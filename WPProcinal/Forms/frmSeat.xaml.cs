@@ -666,6 +666,7 @@ namespace WPProcinal.Forms
 
                     LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(50, '=') + Environment.NewLine + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
                     //Utilities.ResetTimer();
+                    Utilities.controlStop = 0;
                     frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
                     pay.Show();
                     this.Close();

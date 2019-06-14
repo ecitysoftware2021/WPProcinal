@@ -736,7 +736,7 @@ namespace WPProcinal.Classes
             }
         }
 
-        int controlStop = 0;
+        
         /// <summary>
         /// Valida el valor que ingresa
         /// </summary>
@@ -745,10 +745,10 @@ namespace WPProcinal.Classes
             decimal enterVal = enterValue;
             if (enterValue >= payValue)
             {
-                if (controlStop==0)
+                if (Utilities.controlStop==0)
                 {
                     StopAceptance();
-                    controlStop++;
+                    Utilities.controlStop++;
                 }
                 enterValue = 0;
                 callbackTotalIn?.Invoke(enterVal);

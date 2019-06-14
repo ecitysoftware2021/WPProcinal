@@ -99,6 +99,7 @@ namespace WPProcinal.Classes
 
         public static string Secuencia { get; set; }
 
+        public static int controlStop = 0;
         public bool Estado { get; set; }
 
         public decimal Valor { get; set; }
