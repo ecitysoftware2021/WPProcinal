@@ -79,7 +79,7 @@ namespace WPProcinal.Forms
         {
             timer.CallBackClose = null;
             timer.CallBackTimer = null;
-            
+
         }
 
         private void HideImages()
@@ -394,6 +394,7 @@ namespace WPProcinal.Forms
 
         private void Pay_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
+
             SendData();
         }
 
@@ -470,14 +471,18 @@ namespace WPProcinal.Forms
                     //{
                     //    GifLoadder.Visibility = Visibility.Visible;
                     //}));
-
+                    Pay.IsEnabled = false;
                     SecuenceAndReserve();
                 }
-
-                if (controlReinicio == 0)
+                else
                 {
-                    ActivateTimer();
+                    if (controlReinicio == 0)
+                    {
+                        ActivateTimer();
+                    }
                 }
+
+
                 this.Opacity = 1;
             }
         }

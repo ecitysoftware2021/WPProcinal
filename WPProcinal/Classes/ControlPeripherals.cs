@@ -666,15 +666,18 @@ namespace WPProcinal.Classes
                         } while (resta >= 2000);
                         dispenserValue -= newAmountBills;
                         DispenserMoney((newAmountBills / _mil).ToString());
+                        Thread.Sleep(2000);
 
                         if (dispenserValue > 0)
                         {
                             SendMessageCoins(_DispenserCoinOn + (dispenserValue / _hundred));
+                            Thread.Sleep(200);
                         }
                     }
                     else
                     {
                         SendMessageCoins(_DispenserCoinOn + (dispenserValue / _hundred));
+                        Thread.Sleep(200);
                     }
                 }
             }
@@ -722,6 +725,7 @@ namespace WPProcinal.Classes
             {
                 this.payValue = payValue;
                 SendMessageBills(_AceptanceBillOn);
+                Thread.Sleep(200);
                 SendMessageCoins(_AceptanceCoinOn);
             }
             catch (Exception ex)
@@ -732,6 +736,7 @@ namespace WPProcinal.Classes
             }
         }
 
+        int controlStop = 0;
         /// <summary>
         /// Valida el valor que ingresa
         /// </summary>
@@ -740,7 +745,11 @@ namespace WPProcinal.Classes
             decimal enterVal = enterValue;
             if (enterValue >= payValue)
             {
-                StopAceptance();
+                if (controlStop==0)
+                {
+                    StopAceptance();
+                    controlStop++;
+                }
                 enterValue = 0;
                 callbackTotalIn?.Invoke(enterVal);
             }
@@ -752,6 +761,7 @@ namespace WPProcinal.Classes
         public void StopAceptance()
         {
             SendMessageBills(_AceptanceBillOFF);
+            Thread.Sleep(200);
             SendMessageCoins(_AceptanceCoinOff);
         }
 

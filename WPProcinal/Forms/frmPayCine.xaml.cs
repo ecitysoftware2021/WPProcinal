@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -105,7 +106,7 @@ namespace WPProcinal.Forms
                 Utilities.Loading(frmLoading, true, this);
 
                 Utilities.control.StopAceptance();
-
+                Thread.Sleep(200);
                 Task.Run(() =>
                 {
                     utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
@@ -120,6 +121,7 @@ namespace WPProcinal.Forms
                     Utilities.DispenserVal = PaymentViewModel.ValorIngresado;
                     Utilities.control.callbackTotalOut = totalOut =>
                     {
+                        Utilities.control.callbackTotalOut = null;
                         Cancelled("btnCancelar_PreviewStylusDown");
                     };
 
@@ -175,6 +177,8 @@ namespace WPProcinal.Forms
 
                 Utilities.control.callbackTotalIn = enterTotal =>
                 {
+                    Utilities.control.callbackTotalIn = null;
+                    Thread.Sleep(200);
                     Dispatcher.BeginInvoke((Action)delegate
                     {
                         this.Opacity = 0.3;
@@ -206,6 +210,7 @@ namespace WPProcinal.Forms
 
                 Utilities.control.callbackError = error =>
                 {
+                    Utilities.control.callbackError = null;
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
                     ///
 
@@ -237,7 +242,7 @@ namespace WPProcinal.Forms
 
                 Utilities.control.callbackTotalOut = totalOut =>
                 {
-
+                    Utilities.control.callbackTotalOut = null;
                     Utilities.ValueDelivery = (long)totalOut;
                     try
                     {
@@ -265,6 +270,7 @@ namespace WPProcinal.Forms
 
                 Utilities.control.callbackError = error =>
                 {
+                    Utilities.control.callbackError = null;
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
                     try
                     {
@@ -377,10 +383,9 @@ namespace WPProcinal.Forms
                     logError.State = "Cancelada";
                     Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
 
-                    Task.Run(() =>
-                    {
-                        ActivateTimer(false);
-                    });
+
+                    ActivateTimer(false);
+
                     ReturnMoney(Utilities.PayVal, false);
 
 
@@ -408,8 +413,8 @@ namespace WPProcinal.Forms
                         LogService.CreateLogsPeticionRespuestaDispositivos("StopAceptance(): ", "LLamada");
                     }
                     catch { }
-
-                    Utilities.control.StopAceptance();
+                    //TODO: version anterior
+                    //Utilities.control.StopAceptance();
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
@@ -436,6 +441,7 @@ namespace WPProcinal.Forms
 
         private void Cancelled(string llamada)
         {
+            // Utilities.control.StopAceptance();
 
             if (controlCancel == 0)
             {
@@ -463,8 +469,8 @@ namespace WPProcinal.Forms
                               string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                               ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
                     }
-
-                    Utilities.control.StopAceptance();
+                    //TODO last version
+                    //Utilities.control.StopAceptance();
 
                     Dispatcher.Invoke(() =>
                     {
@@ -648,13 +654,6 @@ namespace WPProcinal.Forms
                         }
                     });
                     GC.Collect();
-                };
-                timer.CallBackTimer = response =>
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        //tbTimer.Text = response;
-                    });
                 };
             }
             catch { }

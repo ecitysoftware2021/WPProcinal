@@ -255,7 +255,7 @@ namespace WPProcinal.Forms
 
                     objUtil.ImprimirComprobante("Aprobada", Utilities.Receipt, Utilities.TypeSeats, Utilities.DipMapCurrent);
 
-                    Utilities.control.StopAceptance();
+                    //Utilities.control.StopAceptance();
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {

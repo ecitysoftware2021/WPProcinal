@@ -37,7 +37,7 @@ namespace WPProcinal.Forms
                     }
                     else
                     {
-                        if (Utilities.CantidadTransacciones >= 10 && reiniciarAplicacion.Equals("true"))
+                        if (Utilities.CantidadTransacciones >= 20 && reiniciarAplicacion.Equals("true"))
                         {
                             Utilities.RestartApp();
                         }
