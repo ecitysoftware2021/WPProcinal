@@ -8,8 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using WPProcinal.Classes;
 using WPProcinal.Models;
 
@@ -49,12 +47,12 @@ namespace WPProcinal.Forms
             InitializeComponent();
             this.Movie = Movie;
             Utilities.Movie = Movie;
-
-            ListFechas();
+            ListFechas(Movie.DiasDisponiblesTodosCinemas);
             InitView2();
-
             ActivateTimer();
         }
+
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -63,7 +61,6 @@ namespace WPProcinal.Forms
             imgBackground.ImageSource = Utilities.ImageSelected;
             MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
             TxtTitle.Text = MovieName;
-
             DateTime fechaActual = Utilities.FechaSeleccionada;
 
             TxtDay.Text = string.Format("{0} {1}, {2}", fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
@@ -76,7 +73,6 @@ namespace WPProcinal.Forms
             {
                 FontS = 35;
             }
-
             GenerateFunctions();
         }
 
@@ -120,6 +116,7 @@ namespace WPProcinal.Forms
             try
             {
                 int i = 0;
+                lstGrid.Clear();
                 //Se arma una lista con los datos de sólo el cinema donde se encuentra la máquina
                 //var Cinema = Movie.Cinemas.Cinema.Where(f => f.Id == Utilities.CinemaId).FirstOrDefault();
                 int Hour = DateTime.Now.Hour;
@@ -141,92 +138,71 @@ namespace WPProcinal.Forms
                                 var fechaSeleccionada = GetDateCorrectly(Utilities.FechaSeleccionada.ToString("yyyyMMdd"));
                                 if (true)
                                     //TODO:quitar true
-                                if (datetime == fechaSeleccionada)
-                                {
-
-                                    var schedules = function.Hora.OrderBy(h => h.Militar).ToList();
-                                    List<HoraTMP> horatmps = new List<HoraTMP>();
-                                    int count = 0;
-                                    int countAvailable = 0;
-                                    bool available = true;
-                                    foreach (var item in schedules)
+                                    if (datetime == fechaSeleccionada)
                                     {
 
-                                        if (fechaSeleccionada != DateTime.Today)
+                                        var schedules = function.Hora.OrderBy(h => h.Militar).ToList();
+                                        List<HoraTMP> horatmps = new List<HoraTMP>();
+                                        int count = 0;
+                                        int countAvailable = 0;
+                                        bool available = true;
+
+                                        foreach (var item in schedules)
                                         {
-                                            horatmps.Add(new HoraTMP
+
+                                            if (fechaSeleccionada != DateTime.Today)
                                             {
-                                                Horario = item.Horario,
-                                                IdFuncion = item.IdFuncion,
-                                                Militar = int.Parse(item.Militar),
-                                                Reservas = item.Reservas,
-                                                TipoZona = function.TipoZona[count]
-                                            });
-                                        }
-                                        else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
-                                        {
-                                            horatmps.Add(new HoraTMP
+                                                horatmps.Add(new HoraTMP
+                                                {
+                                                    Horario = item.Horario,
+                                                    IdFuncion = item.IdFuncion,
+                                                    Militar = int.Parse(item.Militar),
+                                                    Reservas = item.Reservas,
+                                                    TipoZona = function.TipoZona[count]
+                                                });
+                                            }
+                                            else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
                                             {
-                                                Horario = item.Horario,
-                                                IdFuncion = item.IdFuncion,
-                                                Militar = int.Parse(item.Militar),
-                                                Reservas = item.Reservas,
-                                                TipoZona = function.TipoZona[count]
-                                            });
+                                                horatmps.Add(new HoraTMP
+                                                {
+                                                    Horario = item.Horario,
+                                                    IdFuncion = item.IdFuncion,
+                                                    Militar = int.Parse(item.Militar),
+                                                    Reservas = item.Reservas,
+                                                    TipoZona = function.TipoZona[count]
+                                                });
+                                            }
+                                            else
+                                            {
+                                                countAvailable++;
+                                            }
+                                            if (countAvailable == schedules.Count())
+                                            {
+                                                available = false;
+                                            }
+                                            count++;
                                         }
-                                        else
-                                        {
-                                            countAvailable++;
-                                        }
-                                        if (countAvailable == schedules.Count())
-                                        {
-                                            available = false;
-                                        }
-                                        count++;
-                                    }
 
 
-                                    if (available)
-                                    {
-                                        string ruta = GenerateTags(room.TipoSala);
+                                        if (available)
+                                        {
+                                            string ruta = GenerateTags(room.TipoSala);
 
-                                        string[] days = function.Dia.Split(' ');
-                                        //int MilitarHour = Convert.ToInt16(schedule.Militar);
-                                        lstGrid.Add(new Schedule
-                                        {
-                                            //Id = schedule.IdFuncion,
-                                            Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
-                                            FontS = FontS,
-                                            Language = string.Concat(Movie.Data.Idioma),
-                                            Gener = Movie.Data.Genero,
-                                            Duration = string.Concat(Movie.Data.Duracion, " minutos"),
-                                            Category = Movie.Data.Censura,
-                                            Date = string.Concat(days[1], " ", days[2], " ", days[3]),
-                                            Room = string.Concat("Sala ", room.NumeroSala),
-                                            //Hour = schedule.Horario,
-                                            Hours = horatmps,
-                                            TipoSala = ruta,
-                                            RoomId = Convert.ToInt16(room.NumeroSala),
-                                            UnivDate = function.Univ,
-                                            //MilitarHour = MilitarHour,
-                                            MovieId = Convert.ToInt16(peli.Id),
-                                            //TypeZona = function.TipoZona[count],
-                                            Formato = peli.Data.Formato
-                                        });
-                                        foreach (var newHoras in horatmps)
-                                        {
-                                            newHoras.DatosPelicula = new Schedule
+                                            string[] days = function.Dia.Split(' ');
+                                            //int MilitarHour = Convert.ToInt16(schedule.Militar);
+                                            lstGrid.Add(new Schedule
                                             {
+                                                //Id = schedule.IdFuncion,
                                                 Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
                                                 FontS = FontS,
-                                                Language = string.Concat(Movie.Data.Idioma),
+                                                Language = string.Concat(peli.Data.Idioma),
                                                 Gener = Movie.Data.Genero,
                                                 Duration = string.Concat(Movie.Data.Duracion, " minutos"),
                                                 Category = Movie.Data.Censura,
                                                 Date = string.Concat(days[1], " ", days[2], " ", days[3]),
                                                 Room = string.Concat("Sala ", room.NumeroSala),
-                                                Hour = newHoras.Horario,
-                                                //Hours = horatmps,
+                                                //Hour = schedule.Horario,
+                                                Hours = horatmps,
                                                 TipoSala = ruta,
                                                 RoomId = Convert.ToInt16(room.NumeroSala),
                                                 UnivDate = function.Univ,
@@ -234,10 +210,32 @@ namespace WPProcinal.Forms
                                                 MovieId = Convert.ToInt16(peli.Id),
                                                 //TypeZona = function.TipoZona[count],
                                                 Formato = peli.Data.Formato
-                                            };
+                                            });
+                                            foreach (var newHoras in horatmps)
+                                            {
+                                                newHoras.DatosPelicula = new Schedule
+                                                {
+                                                    Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
+                                                    FontS = FontS,
+                                                    Language = string.Concat(peli.Data.Idioma),
+                                                    Gener = Movie.Data.Genero,
+                                                    Duration = string.Concat(Movie.Data.Duracion, " minutos"),
+                                                    Category = Movie.Data.Censura,
+                                                    Date = string.Concat(days[1], " ", days[2], " ", days[3]),
+                                                    Room = string.Concat("Sala ", room.NumeroSala),
+                                                    Hour = newHoras.Horario,
+                                                    //Hours = horatmps,
+                                                    TipoSala = ruta,
+                                                    RoomId = Convert.ToInt16(room.NumeroSala),
+                                                    UnivDate = function.Univ,
+                                                    //MilitarHour = MilitarHour,
+                                                    MovieId = Convert.ToInt16(peli.Id),
+                                                    //TypeZona = function.TipoZona[count],
+                                                    Formato = peli.Data.Formato
+                                                };
+                                            }
                                         }
                                     }
-                                }
                             }
                         }
                     }
@@ -249,16 +247,16 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    try
-                    {
-                        SetCallBacksNull();
-                        timer.CallBackStop?.Invoke(1);
-                    }
-                    catch { }
-                    Utilities.ShowModal("Lo sentimos, no hay funciones para esta película");
+                    //try
+                    //{
+                    //    SetCallBacksNull();
+                    //    timer.CallBackStop?.Invoke(1);
+                    //}
+                    //catch { }
+                    Utilities.ShowModal("No hay funciones disponibles en esta fecha: " + Utilities.FechaSeleccionada.ToLongDateString());
 
                     //Utilities.ResetTimer();
-                    Utilities.GoToInicial(this);
+                    //Utilities.GoToInicial(this);
                     return;
                 }
             }
@@ -477,43 +475,59 @@ namespace WPProcinal.Forms
         #region Dias Disponibles
 
         #region Metodos
-
-        private void ListFechas()
+        int controlFechaActual = 0;
+        private void ListFechas(DiasDisponiblesTodosCinemas dias)
         {
             try
             {
-                for (int i = 0; i < 8; i++)
+
+
+
+                foreach (var item in dias.Dia)
                 {
-                    DateTime dt2 = DateTime.Now.AddDays(i);
-                    string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
+                    string fechaCompuesta = ConvertDate(item);
+                    DateTime dt2 = DateTime.Parse(fechaCompuesta);
+                    var datetime = GetDateCorrectly(item.Univ);
 
-                    if (NombreDiaAdd != "miércoles")
+                    if (datetime >= DateTime.Today)
                     {
+                        if (controlFechaActual == 0)
+                        {
+                            Utilities.FechaSeleccionada = datetime;
+                            controlFechaActual++;
+                        }
+                        string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
+
                         dateName.Add(new DateName
                         {
                             FechaOrigin = dt2,
-                            Mes = dt2.ToString("MMM"),
-                            NombreDia = NombreDiaAdd,
+                            Mes = dt2.ToString("MMM").ToUpper(),
+                            NombreDia = NombreDiaAdd.ToUpper(),
                             DiaNumero = dt2.ToString("dd")
                         });
                     }
-                    else
-                    {
-                        dateName.Add(new DateName
-                        {
-                            FechaOrigin = dt2,
-                            Mes = dt2.ToString("MMM"),
-                            NombreDia = NombreDiaAdd,
-                            DiaNumero = dt2.ToString("dd")
-                        });
 
-                        return;
-                    }
                 }
 
             }
             catch (Exception ex)
             {
+            }
+        }
+
+        private static string ConvertDate(Dia item)
+        {
+            try
+            {
+                string anio = item.Univ.Substring(0, 4);
+                string mes = item.Univ.Substring(4, 2);
+                string dia = item.Univ.Substring(6, 2);
+                string fechaCompuesta = string.Concat(anio, "/", mes, "/", dia);
+                return fechaCompuesta;
+            }
+            catch (Exception ex)
+            {
+                return DateTime.Today.ToString();
             }
         }
 
@@ -594,6 +608,7 @@ namespace WPProcinal.Forms
 
                 FechaSelect = service.FechaOrigin;//poner la fecha en el formato xml
                 Utilities.FechaSeleccionada = FechaSelect;
+                GenerateFunctions();
             }
             catch (Exception ex)
             {

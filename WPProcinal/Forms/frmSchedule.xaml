@@ -43,7 +43,7 @@
                 Width="300"
                 Height="400"
                 HorizontalAlignment="Right"
-                Margin="0,120,80,0">
+                Margin="0,-50,80,0">
                 <Border.Background>
                     <ImageBrush x:Name="imgBackground"
                         Stretch="UniformToFill"/>
@@ -76,17 +76,11 @@
                        TextAlignment="Center"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left" 
-                       Margin="200,380,0,0"/>
-            <TextBlock
-                                    Text="Selecciona la función "
-                                    FontSize="50"
-                                    Foreground="White"
-                                    Margin="-430,490,0,0"
-                                    HorizontalAlignment="Center"
-                                    FontWeight="Bold"/>
+                       Margin="200,400,0,0"/>
+            
         </Grid>
 
-        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+        <Grid x:Name="gridFechasPrincipal"  Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="Top" Margin="0,-170,0,0">
            
            
             <ListView x:Name="lv_DateName"
@@ -124,17 +118,17 @@
                 </ItemsControl.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal"
+                        <StackPanel x:Name="panelData" Orientation="Horizontal"
                                         Width="300"
                                 VerticalAlignment="Stretch" 
                                 HorizontalAlignment="Stretch">
-                            <Grid HorizontalAlignment="Center"
+                            <Grid x:Name="gridFechas" HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Margin="0,0,0,0"
                                       
                                       PreviewStylusDown="Grid_PreviewStylusDown"
                               >
-                                <Border
+                                <Border 
                                         BorderBrush="White"
                                         Width="260"
                                         Background="White"
@@ -197,7 +191,7 @@
                         HorizontalAlignment="Left" 
                         Name="btnPrev2" 
                         VerticalAlignment="Top"
-                        Margin="5,0,0,35"
+                        Margin="5,80,0,35"
                         Height="40"
                         Visibility="Hidden"
                         Source="../Images/anterior.png"
@@ -205,7 +199,7 @@
                     />
             <Image  Grid.Column="1"
                    
-                        Margin="5,0,0,35"
+                        Margin="5,80,0,35"
                         HorizontalAlignment="Right"
                         Name="btnNext2" 
                         VerticalAlignment="Top"
@@ -218,12 +212,13 @@
         </Grid>
 
 
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <ListView x:Name="lvSchedule"
                 HorizontalAlignment="Center" 
                       Width="850"
-                VerticalAlignment="Center"
-                Margin="-150,-800,0,0"
+                      Height="1900"
+                VerticalAlignment="Top"
+                Margin="-150,0,0,0"
                 ItemsSource="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

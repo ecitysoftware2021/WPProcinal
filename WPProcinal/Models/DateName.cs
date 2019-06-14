@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WPProcinal.Models
 {
@@ -12,6 +8,7 @@ namespace WPProcinal.Models
         public string Mes { get; set; }
         public string DiaNumero { get; set; }
         public string TextColor { get; set; }
+        public string BackColor { get; set; }
         public DateTime FechaOrigin { get; set; }
     }
 }

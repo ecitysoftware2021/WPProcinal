@@ -40,7 +40,6 @@ namespace WPProcinal.Forms
             try
             {
                 api = new ApiLocal();
-                //Utilities.PayVal = Utilities.RoundValue(Utilities.ValorPagarScore);
                 OrganizeValues();
                 frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();
@@ -592,7 +591,6 @@ namespace WPProcinal.Forms
                 LogService.CreateLogsError(
                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "Buytickets");
-                //SavePay(payState);
             }
         }
         #endregion
