@@ -736,7 +736,7 @@ namespace WPProcinal.Classes
             }
         }
 
-        
+
         /// <summary>
         /// Valida el valor que ingresa
         /// </summary>
@@ -745,7 +745,7 @@ namespace WPProcinal.Classes
             decimal enterVal = enterValue;
             if (enterValue >= payValue)
             {
-                if (Utilities.controlStop==0)
+                if (Utilities.controlStop == 0)
                 {
                     StopAceptance();
                     Utilities.controlStop++;
@@ -887,9 +887,6 @@ namespace WPProcinal.Classes
         }
 
         #endregion
-
-
-
     }
 }
 

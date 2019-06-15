@@ -35,13 +35,9 @@ namespace WPProcinal.Forms
 
 
             dipMapCurrent = dipMap;
-            //imgBackground.Source = Utilities.ImageSelected;
             TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
             TxtDay.Text = dipMap.Day;
-            //TxtDuration.Text = string.Format("Duración: {0}", dipMap.Duration);
-            //TxtGenero.Text = string.Format("Género: {0}", dipMap.Gener);
             TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
-            //TxtCategory.Text = string.Format("Censura: {0}", dipMap.Category);
             TxtHour.Text = dipMap.HourFunction;
             TxtSubTitle.Text = dipMap.Language;
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
@@ -138,8 +134,6 @@ namespace WPProcinal.Forms
                 frmModal _frmModal = new frmModal("El servicio no esta disponible.");
                 _frmModal.ShowDialog();
 
-                //CloseApplication(this);
-                //Utilities.ResetTimer();
                 Utilities.GoToInicial(this);
             }
             else
@@ -156,8 +150,6 @@ namespace WPProcinal.Forms
                     frmModal _frmModal = new frmModal("El servicio no esta disponible.");
                     _frmModal.ShowDialog();
 
-                    //CloseApplication(this);
-                    //Utilities.ResetTimer();
                     Utilities.GoToInicial(this);
                 }
                 else
@@ -230,7 +222,6 @@ namespace WPProcinal.Forms
         private void CloseApplication(Window form)
         {
             form.Close();
-            //Utilities.ResetTimer();
             Utilities.GoToInicial(this);
         }
 
@@ -311,8 +302,6 @@ namespace WPProcinal.Forms
 
                 top = topNew;
             }
-
-            //GifLoadder.Visibility = Visibility.Hidden;
         }
 
         private void MSelectedsetas(object sender, MouseButtonEventArgs eh, TypeSeat item)
@@ -467,10 +456,6 @@ namespace WPProcinal.Forms
                 if (_frmConfirmationModal.DialogResult.HasValue &&
                     _frmConfirmationModal.DialogResult.Value)
                 {
-                    //this.Dispatcher.BeginInvoke(new ThreadStart(() =>
-                    //{
-                    //    GifLoadder.Visibility = Visibility.Visible;
-                    //}));
                     Pay.IsEnabled = false;
                     SecuenceAndReserve();
                 }
@@ -492,7 +477,6 @@ namespace WPProcinal.Forms
         /// </summary>
         private void ReloadWindow()
         {
-            //Utilities.ResetTimer();
             frmSeat _frmSeat = new frmSeat(dipMapCurrent);
             _frmSeat.Show();
             this.Close();
@@ -561,7 +545,6 @@ namespace WPProcinal.Forms
             }
 
             SaveDataBaseLocal();
-            // GenerateTransactions();
             if (_ErrorTransaction)
             {
                 frmLoadding.Close();
@@ -614,11 +597,6 @@ namespace WPProcinal.Forms
             controlReinicio++;
         }
 
-        //private string GetReferencetransaction(DipMap dipMap, TypeSeat typeSeat)
-        //{
-        //    return string.Concat(dipMap.CinemaId,
-        //                            dipMap.Secuence);
-        //}
 
         /// <summary>
         /// Envía al formulario de pagos
@@ -665,7 +643,6 @@ namespace WPProcinal.Forms
                     catch { }
 
                     LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(50, '=') + Environment.NewLine + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-                    //Utilities.ResetTimer();
                     Utilities.controlStop = 0;
                     frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
                     pay.Show();
@@ -679,7 +656,6 @@ namespace WPProcinal.Forms
                         timer.CallBackStop?.Invoke(1);
                     }
                     catch { }
-                    //Utilities.ResetTimer();
                     FrmCardPayment pay = new FrmCardPayment(SelectedTypeSeats, dipMapCurrent);
                     pay.Show();
                     this.Close();
@@ -697,7 +673,6 @@ namespace WPProcinal.Forms
                 timer.CallBackStop?.Invoke(1);
             }
             catch { }
-            //Utilities.ResetTimer();
             frmSchedule frmSchedule = new frmSchedule(Utilities.Movie);
             frmSchedule.Show();
             Close();
@@ -712,8 +687,6 @@ namespace WPProcinal.Forms
         {
             try
             {
-                //Utilities.Timer(tbTimer, this);
-
                 this.Dispatcher.Invoke(() =>
                 {
                     var frmLoading = new FrmLoading("¡Cargando la sala!");
@@ -721,13 +694,10 @@ namespace WPProcinal.Forms
                     LoadSeats();
                     frmLoading.Close();
                 });
-
-
                 Utilities.DoEvents();
             }
             catch (Exception ex)
             {
-
                 LogService.CreateLogsError(
                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "Window_Loaded");

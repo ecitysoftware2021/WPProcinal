@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,7 +16,6 @@ namespace WPProcinal.Forms
             InitializeComponent();
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
             Utilities.CantidadTransacciones++;
-            //LblCinema.Text = Dictionaries.Cinemas[Utilities.CinemaId];
 
             var t = Task.Run(() =>
             {
@@ -25,14 +23,7 @@ namespace WPProcinal.Forms
                 DesReserve();
                 SendDataToDataBase();
             });
-
-            //var task2 = Task.Run(() =>
-            //{
-            //    GetScreen();
-            //});
-
             LoadData();
-
         }
 
         private void DesReserve()

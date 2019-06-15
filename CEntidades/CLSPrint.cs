@@ -82,7 +82,7 @@ namespace CEntidades
             string RutaIMG = GetConfiguration("LogoComprobante");
             g.DrawImage(Image.FromFile(RutaIMG), 30, 0);
             g.DrawString(Cinema, fBody, sb, 120, SPACE);
-            //Solo para los demas
+            //TODO: Solo para los demas
             g.DrawString("Colombia de Cines S.A", fBody, sb, 10, SPACE + 25);
             g.DrawString("NIT:", fBody, sb, 10, SPACE + 40);
             g.DrawString(GetConfiguration("Nit"), fBody1, sb, 120, SPACE + 40);
@@ -93,7 +93,7 @@ namespace CEntidades
             g.DrawString(GetConfiguration("Tel"), fBody1, sb, 120, increment);
 
             increment += 15;
-            //Solo para puerta del norta
+            //TODO: Solo para puerta del norta
             //g.DrawString("Promotora Nacional de Cines S.A.S", fBody, sb, 10, increment);
             //increment += 15;
             //g.DrawString("NIT:", fBody, sb, 10, increment);
@@ -187,7 +187,7 @@ namespace CEntidades
             g.DrawString(GetConfiguration("Tel"), fBody1, sb, 120, increment);
 
             increment += 15;
-            //TODO: Solo para puerta del norta
+            //TODO: Solo para puerta del norte
             //g.DrawString("Promotora Nacional de Cines S.A.S", fBody, sb, 10, increment);
             //increment += 15;
             //g.DrawString("NIT:", fBody, sb, 10, increment);

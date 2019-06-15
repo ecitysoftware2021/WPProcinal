@@ -448,10 +448,7 @@ namespace WPProcinal.Classes
                     }));
 
                 }
-                catch (Exception)
-                {
-                    //TODO: guardar en log
-                }
+                catch { }
             });
             try
             {
@@ -494,9 +491,8 @@ namespace WPProcinal.Classes
                 }));
 
             }
-            catch (Exception)
+            catch
             {
-                //TODO: guardar en log
             }
             GC.Collect();
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
@@ -916,18 +912,17 @@ namespace WPProcinal.Classes
                         code = "MD";
                     }
                 }
-                //TODO: descomentar
-                //Task.Run(() =>
-                //{
-                //    SaveDetailsTransaction(new RequestTransactionDetails
-                //    {
-                //        Code = code,
-                //        Denomination = Convert.ToInt32(enterValue),
-                //        Operation = opt,
-                //        Quantity = quantity,
-                //        TransactionId = idTransactionAPi,
-                //    });
-                //});
+                Task.Run(() =>
+                {
+                    SaveDetailsTransaction(new RequestTransactionDetails
+                    {
+                        Code = code,
+                        Denomination = Convert.ToInt32(enterValue),
+                        Operation = opt,
+                        Quantity = quantity,
+                        TransactionId = idTransactionAPi,
+                    });
+                });
             }
             catch (Exception ex)
             {
@@ -942,15 +937,14 @@ namespace WPProcinal.Classes
         {
             try
             {
-                //TODO: descomentar
-                //Task.Run(() =>
-                //{
-                //    SaveDetailsTransaction(new RequestTransactionDetails
-                //    {
-                //        Description = messaje,
-                //        TransactionId = idTransactionAPi
-                //    });
-                //});
+                Task.Run(() =>
+                {
+                    SaveDetailsTransaction(new RequestTransactionDetails
+                    {
+                        Description = messaje,
+                        TransactionId = idTransactionAPi
+                    });
+                });
             }
             catch (Exception ex)
             {

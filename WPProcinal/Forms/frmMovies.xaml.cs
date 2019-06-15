@@ -44,7 +44,7 @@ namespace WPProcinal.Forms
         {
 
             InitializeComponent();
-            
+
             var frmLoading = new FrmLoading("¡Cargando peliculas!");
             frmLoading.Show();
             try
@@ -88,7 +88,6 @@ namespace WPProcinal.Forms
                     {
                         if (Cinema.Id == Utilities.CinemaId)
                         {
-                            //TODO: el originl va sin la condicion, esta es la nueva version 
                             var peliculaExistente = Utilities.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
                             if (peliculaExistente == 0)
                             {
@@ -101,20 +100,17 @@ namespace WPProcinal.Forms
                 }
             }
         }
-        //TODO:  para cargar los tipos de sala debe descomentar todo lo de este metodo
+
         public void LoadMovies(Pelicula pelicula)
         {
             string ImagePath = string.Concat(Utilities.UrlImages, pelicula.Id, ".jpg");
             string TagPath = string.Empty;
-
-            //TagPath = LoadImagePath(pelicula);
 
             Utilities.LstMovies.Add(new MoviesViewModel
             {
                 ImageData = Utilities.LoadImage(ImagePath, true),
                 Tag = pelicula.Id,
                 Id = pelicula.Id,
-                //ImageTag = Utilities.LoadImage(TagPath, false),
             });
 
         }
