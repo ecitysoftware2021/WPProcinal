@@ -614,22 +614,30 @@ namespace WPProcinal.Classes
                 catch { }
                 foreach (var seat in Seats)
                 {
-                    objPrint.Cinema = GetConfiguration("NameCinema");
-                    objPrint.Movie = dipMap.MovieName;
-                    objPrint.Time = dipMap.HourFunction;
-                    objPrint.Room = dipMap.RoomName;
-                    objPrint.Date = dipMap.Day; //Fecha
-                    objPrint.Seat = seat.Name;
-                    objPrint.FechaPago = DateTime.Now;
-                    objPrint.Valor = seat.Price;
-                    objPrint.Tramite = "Boleto de Cine";
-                    objPrint.Category = dipMap.Category;
-                    objPrint.Recibo = receipt;
-                    objPrint.Consecutivo = DashboardPrint[i].RANGO_ACTUAL.ToString();
-                    objPrint.Secuencia = Secuencia;
-                    objPrint.Formato = MovieFormat;
-                    i++;
-                    objPrint.ImprimirComprobante();
+                    if (seat.Price != 0)
+                    {
+                        try
+                        {
+                            LogService.CreateLogsPeticionRespuestaDispositivos("ImprimirComprobante: ", "Boleta " + i);
+                        }
+                        catch { }
+                        objPrint.Cinema = GetConfiguration("NameCinema");
+                        objPrint.Movie = dipMap.MovieName;
+                        objPrint.Time = dipMap.HourFunction;
+                        objPrint.Room = dipMap.RoomName;
+                        objPrint.Date = dipMap.Day; //Fecha
+                        objPrint.Seat = seat.Name;
+                        objPrint.FechaPago = DateTime.Now;
+                        objPrint.Valor = seat.Price;
+                        objPrint.Tramite = "Boleto de Cine";
+                        objPrint.Category = dipMap.Category;
+                        objPrint.Recibo = receipt;
+                        objPrint.Consecutivo = DashboardPrint[i].RANGO_ACTUAL.ToString();
+                        objPrint.Secuencia = Secuencia;
+                        objPrint.Formato = MovieFormat;
+                        i++;
+                        objPrint.ImprimirComprobante();
+                    }
                 }
                 try
                 {

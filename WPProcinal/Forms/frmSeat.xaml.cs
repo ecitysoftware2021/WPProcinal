@@ -413,7 +413,7 @@ namespace WPProcinal.Forms
             var plantillatmp = WCFServices.DeserealizeXML<Plantilla>(response.Result.ToString());
             if (!string.IsNullOrEmpty(plantillatmp.Tarifas.Codigo.Error_en_Sistema))
             {
-                Utilities.ShowModal(plantillatmp.Tarifas.Codigo.ToString());
+                Utilities.ShowModal(plantillatmp.Tarifas.Codigo.Error_en_Sistema.ToString());
                 ReloadWindow();
             }
 
@@ -477,9 +477,12 @@ namespace WPProcinal.Forms
         /// </summary>
         private void ReloadWindow()
         {
-            frmSeat _frmSeat = new frmSeat(dipMapCurrent);
-            _frmSeat.Show();
-            this.Close();
+            Dispatcher.BeginInvoke((Action)delegate
+            {
+                frmSeat _frmSeat = new frmSeat(dipMapCurrent);
+                _frmSeat.Show();
+                this.Close();
+            });
         }
 
         /// <summary>
@@ -490,66 +493,75 @@ namespace WPProcinal.Forms
 
             try
             {
-                SetCallBacksNull();
-                timer.CallBackStop?.Invoke(1);
+                try
+                {
+                    SetCallBacksNull();
+                    timer.CallBackStop?.Invoke(1);
+                }
+                catch { }
+                var frmLoadding = new FrmLoading("¡Reservando los puestos seleccionados!");
+                frmLoadding.Show();
+                var responseSec = WCFServices.GetSecuence(dipMapCurrent);
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("GetSecuence", responseSec.Message);
+                }
+                catch { }
+                if (!responseSec.IsSuccess)
+                {
+                    Utilities.ShowModal(responseSec.Message);
+                    ReloadWindow();
+                }
+
+                var secuence = WCFServices.DeserealizeXML<SecuenciaVenta>(responseSec.Result.ToString());
+                if (!string.IsNullOrEmpty(secuence.Error))
+                {
+                    Utilities.ShowModal(secuence.Error);
+                    ReloadWindow();
+                }
+
+                dipMapCurrent.Secuence = int.Parse(secuence.Secuencia);
+                Utilities.Secuencia = secuence.Secuencia;
+
+                foreach (var item in SelectedTypeSeats)
+                {
+                    var response = WCFServices.PostReserva(dipMapCurrent, item);
+                    if (!response.IsSuccess)
+                    {
+                        item.IsReserved = false;
+                        Utilities.ShowModal(response.Message);
+                    }
+
+                    var reserve = WCFServices.DeserealizeXML<Reserva>(response.Result.ToString());
+                    if (!string.IsNullOrEmpty(reserve.Error_en_proceso))
+                    {
+                        item.IsReserved = false;
+                        frmLoadding.Close();
+                        Utilities.ShowModal(reserve.Error_en_proceso);
+                    }
+                    else
+                    {
+                        item.NumSecuencia = reserve.Secuencia_reserva;
+                        item.IsReserved = true;
+                    }
+                }
+
+                var tyseat = SelectedTypeSeats.Where(s => s.IsReserved == false).ToList();
+                if (tyseat.Count > 0)
+                {
+                    ShowModalError(tyseat);
+                    ReloadWindow();
+                    return;
+                }
+
+                SaveDataBaseLocal();
+                if (_ErrorTransaction)
+                {
+                    frmLoadding.Close();
+                    ShowPay();
+                }
             }
             catch { }
-            var frmLoadding = new FrmLoading("¡Reservando los puestos seleccionados!");
-            frmLoadding.Show();
-            var responseSec = WCFServices.GetSecuence(dipMapCurrent);
-            if (!responseSec.IsSuccess)
-            {
-                Utilities.ShowModal(responseSec.Message);
-                ReloadWindow();
-            }
-
-            var secuence = WCFServices.DeserealizeXML<SecuenciaVenta>(responseSec.Result.ToString());
-            if (!string.IsNullOrEmpty(secuence.Error))
-            {
-                Utilities.ShowModal(secuence.Error);
-                ReloadWindow();
-            }
-
-            dipMapCurrent.Secuence = int.Parse(secuence.Secuencia);
-            Utilities.Secuencia = secuence.Secuencia;
-
-            foreach (var item in SelectedTypeSeats)
-            {
-                var response = WCFServices.PostReserva(dipMapCurrent, item);
-                if (!response.IsSuccess)
-                {
-                    item.IsReserved = false;
-                    Utilities.ShowModal(response.Message);
-                }
-
-                var reserve = WCFServices.DeserealizeXML<Reserva>(response.Result.ToString());
-                if (!string.IsNullOrEmpty(reserve.Error_en_proceso))
-                {
-                    item.IsReserved = false;
-                    frmLoadding.Close();
-                    Utilities.ShowModal(reserve.Error_en_proceso);
-                }
-                else
-                {
-                    item.NumSecuencia = reserve.Secuencia_reserva;
-                    item.IsReserved = true;
-                }
-            }
-
-            var tyseat = SelectedTypeSeats.Where(s => s.IsReserved == false).ToList();
-            if (tyseat.Count > 0)
-            {
-                ShowModalError(tyseat);
-                ReloadWindow();
-                return;
-            }
-
-            SaveDataBaseLocal();
-            if (_ErrorTransaction)
-            {
-                frmLoadding.Close();
-                ShowPay();
-            }
         }
 
         private void SaveDataBaseLocal()
@@ -603,65 +615,69 @@ namespace WPProcinal.Forms
         /// </summary>
         private async void ShowPay()
         {
-            var response = await utilities.CreateTransaction("Cine", dipMapCurrent, SelectedTypeSeats);
-
-            var responseDash = await utilities.CreatePrintDashboard();
-
-            if (!response || !responseDash)
+            try
             {
-                await Dispatcher.BeginInvoke((Action)delegate
+                var response = await utilities.CreateTransaction("Cine", dipMapCurrent, SelectedTypeSeats);
+
+                var responseDash = await utilities.CreatePrintDashboard();
+
+                if (!response || !responseDash)
                 {
-                    this.Opacity = 0.3;
-                    Utilities.ShowModal("No se pudo crear la transacción...");
-                    this.Opacity = 1;
-                });
-                GC.Collect();
-            }
-            else
-            {
-                try
-                {
-                    Task.Run(() =>
+                    await Dispatcher.BeginInvoke((Action)delegate
                     {
-                        grabador.Grabar(Utilities.IDTransactionDB);
+                        this.Opacity = 0.3;
+                        Utilities.ShowModal("No se pudo crear la transacción...");
+                        this.Opacity = 1;
                     });
-                }
-                catch (Exception ex)
-                {
-                    LogService.CreateLogsError(
-                    string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                    ex.InnerException, "---------- Trace: ", ex.StackTrace), "ShowPay");
-                }
-
-                if (Utilities.MedioPago == 1)
-                {
-                    try
-                    {
-                        SetCallBacksNull();
-                        timer.CallBackStop?.Invoke(1);
-                    }
-                    catch { }
-
-                    LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(50, '=') + Environment.NewLine + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-                    Utilities.controlStop = 0;
-                    frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
-                    pay.Show();
-                    this.Close();
+                    GC.Collect();
                 }
                 else
                 {
                     try
                     {
-                        SetCallBacksNull();
-                        timer.CallBackStop?.Invoke(1);
+                        Task.Run(() =>
+                        {
+                            grabador.Grabar(Utilities.IDTransactionDB);
+                        });
                     }
-                    catch { }
-                    FrmCardPayment pay = new FrmCardPayment(SelectedTypeSeats, dipMapCurrent);
-                    pay.Show();
-                    this.Close();
-                }
+                    catch (Exception ex)
+                    {
+                        LogService.CreateLogsError(
+                        string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                        ex.InnerException, "---------- Trace: ", ex.StackTrace), "ShowPay");
+                    }
 
+                    if (Utilities.MedioPago == 1)
+                    {
+                        try
+                        {
+                            SetCallBacksNull();
+                            timer.CallBackStop?.Invoke(1);
+                        }
+                        catch { }
+
+                        LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(50, '=') + Environment.NewLine + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+                        Utilities.controlStop = 0;
+                        frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
+                        pay.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            SetCallBacksNull();
+                            timer.CallBackStop?.Invoke(1);
+                        }
+                        catch { }
+                        FrmCardPayment pay = new FrmCardPayment(SelectedTypeSeats, dipMapCurrent);
+                        pay.Show();
+                        this.Close();
+                    }
+
+                }
             }
+            catch { }
         }
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)

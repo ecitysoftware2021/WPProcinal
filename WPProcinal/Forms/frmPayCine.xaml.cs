@@ -506,7 +506,7 @@ namespace WPProcinal.Forms
 
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("BuyTickets: ", "Ingresé");
+                    LogService.CreateLogsPeticionRespuestaDispositivos("BuyTickets: ", "Ingresé, num=" + num);
                 }
                 catch { }
                 if (num == 2)
@@ -518,13 +518,11 @@ namespace WPProcinal.Forms
                 {
                     payState = true;
 
-                    //Task.Run(() =>
-                    //{
-                    //    Dispatcher.Invoke(() =>
-                    //    {
-                    //        Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                    //    });
-                    //});
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("PostComprar: ", "Llamado");
+                    }
+                    catch { }
                     var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
 
                     responseGlobal = response;

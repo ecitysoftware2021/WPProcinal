@@ -314,6 +314,11 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos("Excepcion: ", ex.Message);
+                }
+                catch { }
                 return new Response
                 {
                     IsSuccess = false,
