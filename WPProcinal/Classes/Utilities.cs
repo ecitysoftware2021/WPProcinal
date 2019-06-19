@@ -618,7 +618,7 @@ namespace WPProcinal.Classes
                     {
                         try
                         {
-                            LogService.CreateLogsPeticionRespuestaDispositivos("ImprimirComprobante: ", "Boleta " + i);
+                            LogService.CreateLogsPeticionRespuestaDispositivos("ImprimirComprobante : ", "Boleta " + (i + 1));
                         }
                         catch { }
                         objPrint.Cinema = GetConfiguration("NameCinema");
