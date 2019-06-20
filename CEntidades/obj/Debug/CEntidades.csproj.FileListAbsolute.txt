@@ -34,3 +34,6 @@ D:\WPProcinal\CEntidades\obj\Debug\CEntidades.csprojAssemblyReference.cache
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\CEntidades\bin\Debug\Newtonsoft.Json.dll
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\CEntidades\bin\Debug\Newtonsoft.Json.xml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj.CopyComplete
+C:\Users\H81\Documents\GitHub\WPProcinal\CEntidades\bin\Debug\Newtonsoft.Json.dll
+C:\Users\H81\Documents\GitHub\WPProcinal\CEntidades\bin\Debug\Newtonsoft.Json.xml
+C:\Users\H81\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj.CopyComplete

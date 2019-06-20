@@ -427,14 +427,14 @@ namespace WPProcinal.Classes
 
         private void VarificarBaul()
         {
-            var t = Task.Run(() =>
-            {
-                int BillestesBaul = objWCFPayPad.BilletesBaul(ControlPantalla.IdCorrespo);
-                if (BillestesBaul >= int.Parse(ControlPantalla.MaxBaul))
-                {
-                    HelperEmails.SendEmail(Utilities.ETipoAlerta.BaulLLeno, objIngresar, BillestesBaul);
-                }
-            });
+            //var t = Task.Run(() =>
+            //{
+            //    int BillestesBaul = objWCFPayPad.BilletesBaul(ControlPantalla.IdCorrespo);
+            //    if (BillestesBaul >= int.Parse(ControlPantalla.MaxBaul))
+            //    {
+            //        HelperEmails.SendEmail(Utilities.ETipoAlerta.BaulLLeno, objIngresar, BillestesBaul);
+            //    }
+            //});
         }
 
         private void VerificarValorIngresadoAlBaul()
