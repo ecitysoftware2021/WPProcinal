@@ -70,7 +70,14 @@ namespace WPProcinal.Forms
                             }
                             else
                             {
-                                ShowModalError("No están disponibles los billeteros");
+                                Task.Run(() =>
+                                {
+                                    if (!string.IsNullOrEmpty(data.Message))
+                                    {
+                                        SendEmails.SendEmail(data.Message);
+                                    }
+                                });
+                                ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
                             }
                         }
                         else
@@ -80,12 +87,12 @@ namespace WPProcinal.Forms
                     }
                     else
                     {
-                        ShowModalError("No se pudo iniciar el cajero");
+                        ShowModalError("No se pudo iniciar el Dispositivo");
                     }
                 }
                 else
                 {
-                    ShowModalError("No se pudo verificar las credenciales.");
+                    ShowModalError("No hay conexión disponible.");
                 }
             }
             catch (Exception ex)
