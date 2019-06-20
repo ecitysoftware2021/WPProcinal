@@ -25,6 +25,7 @@ namespace WPProcinal.Forms
         CLSGrabador grabador = new CLSGrabador();
         bool _ErrorTransaction = true;
         Utilities utilities = new Utilities();
+        FrmLoading frmLoading;
 
         TimerTiempo timer;
         int controlReinicio = 0;
@@ -33,7 +34,7 @@ namespace WPProcinal.Forms
         {
             InitializeComponent();
 
-
+            frmLoading = new FrmLoading("¡Cargando la sala!");
             dipMapCurrent = dipMap;
             TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
             TxtDay.Text = dipMap.Day;
@@ -122,7 +123,7 @@ namespace WPProcinal.Forms
             var response = WCFServices.GetDipMap(dipMapCurrent);
             if (!response.IsSuccess)
             {
-
+                frmLoading.Close();
 
                 Utilities.SaveLogError(new LogError
                 {
@@ -141,6 +142,7 @@ namespace WPProcinal.Forms
                 var responseV2 = WCFServices.GetStateRoom(dipMapCurrent);
                 if (!response.IsSuccess)
                 {
+                    frmLoading.Close();
                     Utilities.SaveLogError(new LogError
                     {
                         Message = response.Message,
@@ -509,6 +511,7 @@ namespace WPProcinal.Forms
                 catch { }
                 if (!responseSec.IsSuccess)
                 {
+                    frmLoadding.Close();
                     Utilities.ShowModal(responseSec.Message);
                     ReloadWindow();
                 }
@@ -516,6 +519,7 @@ namespace WPProcinal.Forms
                 var secuence = WCFServices.DeserealizeXML<SecuenciaVenta>(responseSec.Result.ToString());
                 if (!string.IsNullOrEmpty(secuence.Error))
                 {
+                    frmLoadding.Close();
                     Utilities.ShowModal(secuence.Error);
                     ReloadWindow();
                 }
@@ -529,6 +533,7 @@ namespace WPProcinal.Forms
                     if (!response.IsSuccess)
                     {
                         item.IsReserved = false;
+
                         Utilities.ShowModal(response.Message);
                     }
 
@@ -546,10 +551,26 @@ namespace WPProcinal.Forms
                     }
                 }
 
+
+
+
                 var tyseat = SelectedTypeSeats.Where(s => s.IsReserved == false).ToList();
                 if (tyseat.Count > 0)
                 {
+                    var tyseatDesre = SelectedTypeSeats.Where(s => s.IsReserved != false).ToList();
+                    if (tyseatDesre.Count > 0)
+                    {
+                        foreach (var item in tyseatDesre)
+                        {
+                            List<TypeSeat> lista = new List<TypeSeat>();
+                            lista.Add(item);
+                            Utilities.CancelAssing(lista, dipMapCurrent);
+                        }
+                    }
+
+                    frmLoadding.Close();
                     ShowModalError(tyseat);
+
                     ReloadWindow();
                     return;
                 }
@@ -705,7 +726,7 @@ namespace WPProcinal.Forms
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    var frmLoading = new FrmLoading("¡Cargando la sala!");
+
                     frmLoading.Show();
                     LoadSeats();
                     frmLoading.Close();

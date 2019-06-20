@@ -35,6 +35,7 @@ namespace WPProcinal.Forms
 
         private void BtnYes_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            BtnYes.IsEnabled = false;
             Utilities.MedioPago = 1;
             DialogResult = true;
         }
@@ -46,6 +47,7 @@ namespace WPProcinal.Forms
 
         private void BtnYes_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
+            BtnYes.IsEnabled = false;
             Utilities.MedioPago = 1;
             DialogResult = true;
         }
@@ -57,6 +59,7 @@ namespace WPProcinal.Forms
 
         private void BtnYes_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            BtnYes.IsEnabled = false;
             Utilities.MedioPago = 1;
             DialogResult = true;
         }
@@ -68,12 +71,14 @@ namespace WPProcinal.Forms
 
         private void BtnCard_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
+            BtnCard.IsEnabled = false;
             Utilities.MedioPago = 2;
             DialogResult = true;
         }
 
         private void BtnCard_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            BtnCard.IsEnabled = false;
             Utilities.MedioPago = 2;
             DialogResult = true;
         }
