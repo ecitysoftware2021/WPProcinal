@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\
+D:\WPProcinal\WPProcinal\obj\Debug\
 WPProcinal
 none
 false
 DEBUG;TRACE
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\App.xaml
+D:\WPProcinal\WPProcinal\App.xaml
 15-905508029
 41640633236
 86-1427422301
-32-1067099945
+32-1082885225
 Forms\FrmCardPayment.xaml;Forms\frmConfigurate.xaml;Forms\frmCancelPay.xaml;Forms\frmCinema.xaml;Forms\frmConfirmationModal.xaml;Forms\FrmFinalTransaction.xaml;Forms\FrmLoading.xaml;Forms\frmModal.xaml;Forms\frmModalCancel.xaml;Forms\frmMovies.xaml;Forms\frmPay.xaml;Forms\frmPayCine.xaml;Forms\frmSchedule.xaml;Forms\frmSeat.xaml;Forms\Opciones.xaml;
 
 False

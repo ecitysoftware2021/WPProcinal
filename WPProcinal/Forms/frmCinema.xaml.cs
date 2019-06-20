@@ -46,11 +46,6 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void GetScreen()
-        {
-            ControlPantalla.ConsultarControlPantalla();
-        }
-
         private void SendPayments()
         {
             var notpayments = DBProcinalController.GetDipmapNotPay();

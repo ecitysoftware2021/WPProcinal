@@ -232,6 +232,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsPeticionRespuestaDispositivos("ValidatePayPad", ex.Message);
             }
         }
 
@@ -252,8 +253,6 @@ namespace WPProcinal.Forms
                 btnPrev.Visibility = Visibility.Hidden;
             }
 
-            //this.Dispatcher.Invoke(() =>
-            //{
             Thread.Sleep(1000);
             view.Source = Utilities.LstMovies;
             view.Filter += new FilterEventHandler(View_Filter);
@@ -263,7 +262,6 @@ namespace WPProcinal.Forms
 
             GifLoadder.Visibility = Visibility.Hidden;
             ValidateImage();
-            //});
 
         }
 
@@ -288,203 +286,6 @@ namespace WPProcinal.Forms
         }
         #endregion
 
-        //#region "ListViewDate"
-        //private void ListFechas()
-        //{
-        //    try
-        //    {
-        //        for (int i = 0; i < 8; i++)
-        //        {
-        //            DateTime dt2 = DateTime.Now.AddDays(i);
-        //            string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
-
-        //            if (NombreDiaAdd != "miércoles")
-        //            {
-        //                dateName.Add(new DateName
-        //                {
-        //                    FechaOrigin = dt2,
-        //                    Mes = dt2.ToString("MMM"),
-        //                    NombreDia = NombreDiaAdd,
-        //                    DiaNumero = dt2.ToString("dd")
-        //                });
-        //            }
-        //            else
-        //            {
-        //                dateName.Add(new DateName
-        //                {
-        //                    FechaOrigin = dt2,
-        //                    Mes = dt2.ToString("MMM"),
-        //                    NombreDia = NombreDiaAdd,
-        //                    DiaNumero = dt2.ToString("dd")
-        //                });
-
-        //                return;
-        //            }
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //}
-
-        //private void InitView2()
-        //{
-        //    try
-        //    {
-        //        if (dateName.Count() > 0)
-        //        {
-        //            foreach (var item in dateName)
-        //            {
-        //                lstPager2.Add(new DateName
-        //                {
-        //                    Mes = item.Mes,
-        //                    NombreDia = item.NombreDia,
-        //                    FechaOrigin = item.FechaOrigin,
-        //                    TextColor = "Black",
-        //                    DiaNumero = item.DiaNumero
-        //                });
-        //            }
-
-        //            CreatePages2(dateName.Count());
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //}
-
-        //private void CreatePages2(int i)
-        //{
-        //    try
-        //    {
-        //        int itemcount = i;
-        //        totalPage2 = itemcount / itemPerPage2;
-        //        if (itemcount % itemPerPage2 != 0)
-        //        {
-        //            totalPage2 += 1;
-        //        }
-        //        lstPager2[0].TextColor = "#FF1385FF";
-        //        view2.Source = lstPager2;
-        //        view2.Filter += new FilterEventHandler(View_Filter2);
-        //        lv_DateName.DataContext = view2;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //}
-
-        //private void View_Filter2(object sender, FilterEventArgs e)
-        //{
-        //    try
-        //    {
-        //        int index = lstPager2.IndexOf((DateName)e.Item);
-
-        //        if (index >= itemPerPage2 * currentPageIndex2 && index < itemPerPage2 * (currentPageIndex2 + 1))
-        //        {
-        //            e.Accepted = true;
-        //        }
-        //        else
-        //        {
-        //            e.Accepted = false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //}
-
-        //private async void lv_DateName_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        //{
-        //    try
-        //    {
-        //        var service = (DateName)(sender as ListViewItem).Content;
-
-        //        FechaSelect = service.FechaOrigin;//poner la fecha en el formato xml
-        //        Utilities.FechaSeleccionada = FechaSelect;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //}
-
-        //private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        //{
-        //    try
-        //    {
-        //        var childs = (sender as Grid).Children;
-        //        foreach (var item in childs)
-        //        {
-        //            if (item is Border)
-        //            {
-        //                ClearHoursList();
-        //                var border = item as Border;
-        //                Color color2 = (Color)ColorConverter.ConvertFromString("#FFF89126");
-        //                border.Background = new SolidColorBrush(color2);
-        //                borders.Add(border);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //}
-
-        //private void ClearHoursList()
-        //{
-        //    foreach (var item in borders)
-        //    {
-        //        item.Background = Brushes.White;
-        //    }
-        //}
-
-        //private void btnNext2_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        //{
-        //    try
-        //    {
-        //        SetCallBacksNull();
-        //        ActivateTimer();
-        //        if (currentPageIndex2 < totalPage2 - 1)
-        //        {
-        //            currentPageIndex2++;
-        //            view2.View.Refresh();
-        //        }
-        //        if (currentPageIndex2 == totalPage2 - 1)
-        //        {
-        //            btnNext2.Visibility = Visibility.Hidden;
-        //        }
-
-        //        btnPrev2.Visibility = Visibility.Visible;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //}
-
-        //private void btnPrev2_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        //{
-        //    try
-        //    {
-        //        SetCallBacksNull();
-        //        ActivateTimer();
-        //        if (currentPageIndex2 > 0)
-        //        {
-        //            currentPageIndex2--;
-        //            view2.View.Refresh();
-        //        }
-
-        //        if (currentPageIndex2 == 0)
-        //        {
-        //            btnPrev2.Visibility = Visibility.Hidden;
-        //        }
-
-        //        btnNext2.Visibility = Visibility.Visible;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //}
-        //#endregion
 
         #region Buttons-Events
 
@@ -538,45 +339,32 @@ namespace WPProcinal.Forms
 
         private void Movie_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Grid grid = (Grid)sender;
-            var movie = Utilities.Movies.Where(m => m.Id == grid.Tag.ToString()).FirstOrDefault();
-            string ImagePath = string.Concat(Utilities.UrlImages, movie.Id, ".jpg");
-            Utilities.ImageSelected = Utilities.LoadImage(ImagePath, true);
-
-
-            //if (ControlPantalla.EstadoBaul && ControlPantalla.EstadoBilletes && ControlPantalla.EstadoMonedas)
-            //{
-            //Utilities.ResetTimer();
-            SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
+            try
+            {
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+            }
+            catch { }
 
             if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
             {
+                Grid grid = (Grid)sender;
+                var movie = Utilities.Movies.Where(m => m.Id == grid.Tag.ToString()).FirstOrDefault();
+                string ImagePath = string.Concat(Utilities.UrlImages, movie.Id, ".jpg");
+                Utilities.ImageSelected = Utilities.LoadImage(ImagePath, true);
+
                 frmSchedule frmSchedule = new frmSchedule(movie);
                 frmSchedule.Show();
                 Close();
             }
             else
             {
-                frmModal modal = new frmModal("No tengo direno para procesar unatransacción, acércate a taquilla o regresa más tarde por favor.");
+                frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeSinDinero"));
                 modal.ShowDialog();
-                Utilities.GoToInicial(this);
+                frmCinema frmCinema = new frmCinema();
+                frmCinema.Show();
+                Close();
             }
-            
-            //}
-            //else
-            //{
-
-            //    frmModal _modal = new frmModal(string.Concat(
-            //        "En estos momentos no se pueden realizar transacciones.",
-            //        Environment.NewLine,
-            //        "Por favor intente más tarde."));
-            //    _modal.ShowDialog();
-
-            //    frmCinema _frmCinema = new frmCinema();
-            //    _frmCinema.Show();
-            //    Close();
-            //}
         }
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
