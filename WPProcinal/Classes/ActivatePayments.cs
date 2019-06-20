@@ -481,7 +481,7 @@ namespace WPProcinal.Classes
                     }
                 }
 
-                HelperEmails.SendEmail(Utilities.ETipoAlerta.BilleteroVacio, objIngresar, 0);
+                //HelperEmails.SendEmail(Utilities.ETipoAlerta.BilleteroVacio, objIngresar, 0);
             });
         }
 

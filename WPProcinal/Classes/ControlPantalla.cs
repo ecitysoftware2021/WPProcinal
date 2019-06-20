@@ -56,7 +56,7 @@ namespace WPProcinal.Classes
             {
                 EstadoBaul = false;
                 mensajeBaul = string.Format("Pronto se llenará el Baul de la sucursal {0}, por favor realizar arqueo.", Sucursal);
-                HelperEmails.SendEmail(mensajeBaul);
+                //HelperEmails.SendEmail(mensajeBaul);
                 mensajeBaul = string.Empty;
             }
         }
@@ -87,7 +87,7 @@ namespace WPProcinal.Classes
             string messageEmail = string.Format(mensajeMonedas, message.ToString(), Sucursal);
             if (!EstadoMonedas)
             {
-                HelperEmails.SendEmail(messageEmail);
+                //HelperEmails.SendEmail(messageEmail);
             }
         }
 
@@ -133,7 +133,7 @@ namespace WPProcinal.Classes
 
             if (!EstadoBilletes)
             {
-                HelperEmails.SendEmail(messageEmail);
+                //HelperEmails.SendEmail(messageEmail);
             }
         }
     }

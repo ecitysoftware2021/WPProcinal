@@ -26,6 +26,7 @@ using WPProcinal.Service;
 using static WPProcinal.Models.ApiLocal.Uptake;
 using trx;
 using WPProcinal.DataModel;
+using WPProcinal.Models.ApiLocal;
 
 namespace WPProcinal.Classes
 {
@@ -48,6 +49,8 @@ namespace WPProcinal.Classes
         public static Action<string> CallBackRespuesta;
 
         private LogErrorGeneral logError;
+
+        public static DataPaypad dataPaypad = new DataPaypad();
 
         public string EnviarPeticion(string data)
         {

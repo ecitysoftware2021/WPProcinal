@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -44,6 +45,13 @@ namespace WPProcinal.Forms
         {
 
             InitializeComponent();
+
+            Task.Run(() =>
+            {
+
+                ValidatePayPad();
+
+            });
 
             var frmLoading = new FrmLoading("¡Cargando peliculas!");
             frmLoading.Show();
@@ -215,6 +223,17 @@ namespace WPProcinal.Forms
         #endregion
 
         #region Methods
+        private async void ValidatePayPad()
+        {
+            try
+            {
+                AdminPaypad adminPaypad = new AdminPaypad();
+                adminPaypad.UpdatePeripherals();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
 
         private void CreatePages()
         {
@@ -530,9 +549,20 @@ namespace WPProcinal.Forms
             //Utilities.ResetTimer();
             SetCallBacksNull();
             timer.CallBackStop?.Invoke(1);
-            frmSchedule frmSchedule = new frmSchedule(movie);
-            frmSchedule.Show();
-            Close();
+
+            if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
+            {
+                frmSchedule frmSchedule = new frmSchedule(movie);
+                frmSchedule.Show();
+                Close();
+            }
+            else
+            {
+                frmModal modal = new frmModal("No tengo direno para procesar unatransacción, acércate a taquilla o regresa más tarde por favor.");
+                modal.ShowDialog();
+                Utilities.GoToInicial(this);
+            }
+            
             //}
             //else
             //{
