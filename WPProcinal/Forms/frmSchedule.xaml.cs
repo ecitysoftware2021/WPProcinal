@@ -242,9 +242,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-               string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-               ex.InnerException, "---------- Trace: ", ex.StackTrace), "GenerateFunctions");
+                AdminPaypad.SaveErrorControl(ex.Message, "GenerateFunctions en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -492,6 +490,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "ListFechas en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -534,6 +533,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "InitView2 en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -554,6 +554,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "CreatePages2 en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -577,6 +578,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "View_Filter2 en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -592,6 +594,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "lv_Datename_previewstylusDown en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -615,6 +618,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "btnNext en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -637,15 +641,20 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "Grid_PreviewStylus en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
         private void ClearHoursList()
         {
-            foreach (var item in borders)
+            try
             {
-                item.Background = Brushes.White;
+                foreach (var item in borders)
+                {
+                    item.Background = Brushes.White;
+                }
             }
+            catch { }
         }
 
         private void btnPrev2_PreviewStylusDown(object sender, StylusDownEventArgs e)
@@ -669,6 +678,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "btnPrev2 en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
         #endregion

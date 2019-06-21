@@ -113,7 +113,7 @@ namespace WPProcinal.Classes
 
                 });
             }
-            catch (Exception ex)
+            catch
             {
             }
         }

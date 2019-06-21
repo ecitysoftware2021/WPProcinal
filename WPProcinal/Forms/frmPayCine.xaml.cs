@@ -217,9 +217,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-               string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-               ex.InnerException, "---------- Trace: ", ex.StackTrace), "ActivateWallet");
+                AdminPaypad.SaveErrorControl(ex.Message, "ActivateWallet en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -288,9 +286,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-               string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-               ex.InnerException, "---------- Trace: ", ex.StackTrace), "ReturnMoney");
+                AdminPaypad.SaveErrorControl(ex.Message, "ReturnMoney en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -314,9 +310,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-             string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-             ex.InnerException, "---------- Trace: ", ex.StackTrace), "OrganizeValues PayCine");
+                AdminPaypad.SaveErrorControl(ex.Message, "OrganizeValue en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -398,9 +392,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "SavePay(" + task + ")");
+                AdminPaypad.SaveErrorControl(ex.Message, "SavePay en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -444,9 +436,7 @@ namespace WPProcinal.Forms
                 }
                 catch (Exception ex)
                 {
-                    LogService.CreateLogsError(
-               string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-               ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
+                    AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
                 }
                 Utilities.GoToInicial(this);
             }
@@ -464,9 +454,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-           string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-           ex.InnerException, "---------- Trace: ", ex.StackTrace), "GetReceipt PayCine");
+                AdminPaypad.SaveErrorControl(ex.Message, "GetReceipt en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -536,9 +524,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "Buytickets");
+                AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
         #endregion

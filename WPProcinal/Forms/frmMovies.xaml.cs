@@ -48,9 +48,7 @@ namespace WPProcinal.Forms
 
             Task.Run(() =>
             {
-
                 ValidatePayPad();
-
             });
 
             var frmLoading = new FrmLoading("¡Cargando peliculas!");
@@ -81,110 +79,138 @@ namespace WPProcinal.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //Utilities.Timer(tbTimer,this);
         }
 
         private void Window_PreviewStylusDown(object sender, StylusDownEventArgs e) => Utilities.time = TimeSpan.Parse(Utilities.Duration);
 
         private void DownloadData(Peliculas data)
         {
-            if (data != null)
+            try
             {
-                foreach (var pelicula in data.Pelicula)
+                if (data != null)
                 {
-                    foreach (var Cinema in pelicula.Cinemas.Cinema)
+                    foreach (var pelicula in data.Pelicula)
                     {
-                        if (Cinema.Id == Utilities.CinemaId)
+                        foreach (var Cinema in pelicula.Cinemas.Cinema)
                         {
-                            var peliculaExistente = Utilities.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
-                            if (peliculaExistente == 0)
+                            if (Cinema.Id == Utilities.CinemaId)
                             {
-                                Utilities.Movies.Add(pelicula);
-                                LoadMovies(pelicula);
-                            }
+                                var peliculaExistente = Utilities.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
+                                if (peliculaExistente == 0)
+                                {
+                                    Utilities.Movies.Add(pelicula);
+                                    LoadMovies(pelicula);
+                                }
 
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "DownloadData en frmMovies", EError.Aplication, ELevelError.Medium);
             }
         }
 
         public void LoadMovies(Pelicula pelicula)
         {
-            string ImagePath = string.Concat(Utilities.UrlImages, pelicula.Id, ".jpg");
-            string TagPath = string.Empty;
-
-            Utilities.LstMovies.Add(new MoviesViewModel
+            try
             {
-                ImageData = Utilities.LoadImage(ImagePath, true),
-                Tag = pelicula.Id,
-                Id = pelicula.Id,
-            });
+                string ImagePath = string.Concat(Utilities.UrlImages, pelicula.Id, ".jpg");
+                string TagPath = string.Empty;
 
+                Utilities.LstMovies.Add(new MoviesViewModel
+                {
+                    ImageData = Utilities.LoadImage(ImagePath, true),
+                    Tag = pelicula.Id,
+                    Id = pelicula.Id,
+                });
+
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "LoadMovies en frmMovies", EError.Aplication, ELevelError.Medium);
+            }
         }
 
         private static string LoadImagePath(Pelicula pelicula)
         {
-            string Path = GenerateTag(pelicula);
-            string TagPath = string.Concat("../Images/Tags/cartel-", Path, ".png");
+            try
+            {
+                string Path = GenerateTag(pelicula);
+                string TagPath = string.Concat("../Images/Tags/cartel-", Path, ".png");
 
-            return TagPath;
+                return TagPath;
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "LoadImagePath en frmMovies", EError.Aplication, ELevelError.Medium);
+                return string.Empty;
+            }
         }
 
         private static string GenerateTag(Pelicula pelicula)
         {
             string Path = string.Empty;
-            string[] Name = pelicula.Nombre.Split(' ');
-
-            if (Name[0].Contains("2D"))
+            try
             {
-                if (Name[1].Contains("BS"))
+                string[] Name = pelicula.Nombre.Split(' ');
+
+                if (Name[0].Contains("2D"))
                 {
-                    Path = "blackstar";
+                    if (Name[1].Contains("BS"))
+                    {
+                        Path = "blackstar";
+                    }
+                    else if (Name[1].Contains("CA"))
+                    {
+                        Path = "cinearte";
+                    }
+                    else if (Name[1].Contains("SK"))
+                    {
+                        Path = "starkids";
+                    }
+                    else if (Name[1].Contains("SN"))
+                    {
+                        Path = "supernova";
+                    }
+                    else if (Name[1].Contains("VIB"))
+                    {
+                        Path = "2d-vibra";
+                    }
+                    else
+                    {
+                        Path = "2d";
+                    }
                 }
-                else if (Name[1].Contains("CA"))
+                else if (Name[0].Contains("3D"))
                 {
-                    Path = "cinearte";
-                }
-                else if (Name[1].Contains("SK"))
-                {
-                    Path = "starkids";
-                }
-                else if (Name[1].Contains("SN"))
-                {
-                    Path = "supernova";
-                }
-                else if (Name[1].Contains("VIB"))
-                {
-                    Path = "2d-vibra";
-                }
-                else
-                {
-                    Path = "2d";
+                    if (Name[1].Contains("4DX"))
+                    {
+                        Path = "4dx";
+                    }
+                    else if (Name[1].Contains("BS"))
+                    {
+                        Path = "blackstar";
+                    }
+                    else if (Name[1].Contains("SN"))
+                    {
+                        Path = "supernova";
+                    }
+                    else if (Name[1].Contains("VIB"))
+                    {
+                        Path = "3d-vibra";
+                    }
+                    else
+                    {
+                        Path = "3d";
+                    }
                 }
             }
-            else if (Name[0].Contains("3D"))
+            catch (Exception ex)
             {
-                if (Name[1].Contains("4DX"))
-                {
-                    Path = "4dx";
-                }
-                else if (Name[1].Contains("BS"))
-                {
-                    Path = "blackstar";
-                }
-                else if (Name[1].Contains("SN"))
-                {
-                    Path = "supernova";
-                }
-                else if (Name[1].Contains("VIB"))
-                {
-                    Path = "3d-vibra";
-                }
-                else
-                {
-                    Path = "3d";
-                }
+                AdminPaypad.SaveErrorControl(ex.Message, "GenerateTags en frmMovies", EError.Aplication, ELevelError.Medium);
             }
 
             return Path;
@@ -193,24 +219,28 @@ namespace WPProcinal.Forms
 
         void ActivateTimer()
         {
-            tbTimer.Text = Utilities.GetConfiguration("TimerMovies");
-            timer = new TimerTiempo(tbTimer.Text);
-            timer.CallBackClose = response =>
+            try
             {
-                Dispatcher.BeginInvoke((Action)delegate
+                tbTimer.Text = Utilities.GetConfiguration("TimerMovies");
+                timer = new TimerTiempo(tbTimer.Text);
+                timer.CallBackClose = response =>
                 {
-                    frmCinema main = new frmCinema();
-                    main.Show();
-                    this.Close();
-                });
-            };
-            timer.CallBackTimer = response =>
-            {
-                Dispatcher.BeginInvoke((Action)delegate
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        frmCinema main = new frmCinema();
+                        main.Show();
+                        this.Close();
+                    });
+                };
+                timer.CallBackTimer = response =>
                 {
-                    tbTimer.Text = response;
-                });
-            };
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        tbTimer.Text = response;
+                    });
+                };
+            }
+            catch {}
         }
 
         void SetCallBacksNull()
@@ -232,36 +262,43 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ValidatePayPad", ex.Message);
+                AdminPaypad.SaveErrorControl(ex.Message, "ValidatePayPad en frmMovies", EError.Aplication, ELevelError.Medium);
             }
         }
 
         private void CreatePages()
         {
-            int itemcount = Utilities.Movies.Count;
-
-            // Calculate the total pages
-            totalPage = itemcount / itemPerPage;
-            if (itemcount % itemPerPage != 0)
+            try
             {
-                totalPage += 1;
-            }
+                int itemcount = Utilities.Movies.Count;
 
-            if (totalPage == 1)
+                // Calculate the total pages
+                totalPage = itemcount / itemPerPage;
+                if (itemcount % itemPerPage != 0)
+                {
+                    totalPage += 1;
+                }
+
+                if (totalPage == 1)
+                {
+                    btnNext.Visibility = Visibility.Hidden;
+                    btnPrev.Visibility = Visibility.Hidden;
+                }
+
+                Thread.Sleep(1000);
+                view.Source = Utilities.LstMovies;
+                view.Filter += new FilterEventHandler(View_Filter);
+                lvMovies.DataContext = view;
+                ShowCurrentPageIndex();
+                tbTotalPage.Text = totalPage.ToString();
+
+                GifLoadder.Visibility = Visibility.Hidden;
+                ValidateImage();
+            }
+            catch (Exception ex)
             {
-                btnNext.Visibility = Visibility.Hidden;
-                btnPrev.Visibility = Visibility.Hidden;
+                AdminPaypad.SaveErrorControl(ex.Message, "CreatePages en frmMovies", EError.Aplication, ELevelError.Medium);
             }
-
-            Thread.Sleep(1000);
-            view.Source = Utilities.LstMovies;
-            view.Filter += new FilterEventHandler(View_Filter);
-            lvMovies.DataContext = view;
-            ShowCurrentPageIndex();
-            tbTotalPage.Text = totalPage.ToString();
-
-            GifLoadder.Visibility = Visibility.Hidden;
-            ValidateImage();
 
         }
 

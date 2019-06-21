@@ -140,9 +140,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                   string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                   ex.InnerException, "---------- Trace: ", ex.StackTrace), "InitPortBills");
+                AdminPaypad.SaveErrorControl(ex.Message, "Constructor en ControlPeripherals", EError.Aplication, ELevelError.Medium);
                 Utilities.RestartApp();
             }
         }
@@ -158,9 +156,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                   string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                   ex.InnerException, "---------- Trace: ", ex.StackTrace), "InitPortBills");
+                AdminPaypad.SaveErrorControl(ex.Message, "Start en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -185,10 +181,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                    string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                    ex.InnerException, "---------- Trace: ", ex.StackTrace), "InitPortBills");
-                //Utilities.RestartApp();
+                AdminPaypad.SaveErrorControl(ex.Message, "InitPortBills en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -213,10 +206,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                    string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                    ex.InnerException, "---------- Trace: ", ex.StackTrace), "InitPortPurses");
-                //Utilities.RestartApp();
+                AdminPaypad.SaveErrorControl(ex.Message, "InitPortPurses en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -247,9 +237,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                     string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                     ex.InnerException, "---------- Trace: ", ex.StackTrace), "SendMessageBills");
+                AdminPaypad.SaveErrorControl(ex.Message, "SendMessageBills en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -275,9 +263,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "SendMessageCoins");
+                AdminPaypad.SaveErrorControl(ex.Message, "SendMessageCoins en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -316,11 +302,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-
-                LogService.CreateLogsError(
-                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "_serialPortBillsDataReceived");
-                //Utilities.RestartApp();
+                AdminPaypad.SaveErrorControl(ex.Message, "_serialPortBillsDataReceived en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -347,10 +329,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                 string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                 ex.InnerException, "---------- Trace: ", ex.StackTrace), "_serialPortCoinsDataReceived");
-                //Utilities.RestartApp();
+                AdminPaypad.SaveErrorControl(ex.Message, "_serialPortCoinsDataReceived en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -387,9 +366,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessResponseBills");
+                AdminPaypad.SaveErrorControl(ex.Message, "ProcessResponseBills en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -422,10 +399,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessResponseCoins");
-
+                AdminPaypad.SaveErrorControl(ex.Message, "ProcessResponseCoins en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -462,10 +436,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessRC");
-
+                AdminPaypad.SaveErrorControl(ex.Message, "ProccessRC en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -500,10 +471,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessER");
-
+                AdminPaypad.SaveErrorControl(ex.Message, "ProcessER en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -542,10 +510,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessUN");
-
+                AdminPaypad.SaveErrorControl(ex.Message, "ProcessUN en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -590,10 +555,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProcessTO");
-
+                AdminPaypad.SaveErrorControl(ex.Message, "ProcessTO en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -614,10 +576,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "StartDispenser");
-
+                AdminPaypad.SaveErrorControl(ex.Message, "StartDispenser en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -675,9 +634,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ConfigurateDispenser");
+                AdminPaypad.SaveErrorControl(ex.Message, "ConfigurateDispenser en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -697,9 +654,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "DispenserMoney");
+                AdminPaypad.SaveErrorControl(ex.Message, "DispenserMoney en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -722,9 +677,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "StartAceptance");
+                AdminPaypad.SaveErrorControl(ex.Message, "StartAceptance en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -806,10 +759,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ConfigDataDispenser");
+                AdminPaypad.SaveErrorControl(ex.Message, "ConfigDataDispenser en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
 
