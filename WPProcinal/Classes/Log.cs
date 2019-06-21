@@ -8,6 +8,26 @@ using System.Threading.Tasks;
 
 namespace WPProcinal.Classes
 {
+    public class RequestLog
+    {
+        public string Reference { get; set; }
+
+        public string Description { get; set; }
+    }
+
+    public class RequestLogDevice
+    {
+        public int TransactionId { get; set; }
+
+        public string Description { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public string Code { get; set; }
+
+        public ELevelError Level { get; set; }
+    }
+
     public class LogErrorApi
     {
         public int ERROR_LOG_ID { get; set; }
@@ -180,30 +200,11 @@ namespace WPProcinal.Classes
         {
             try
             {
-                PeticionRespuesta peticion = new PeticionRespuesta
+                AdminPaypad.SaveLog(new RequestLog
                 {
-                    Operacion = operacion,
-                    Mensaje = mensaje
-                };
-
-                var json = JsonConvert.SerializeObject(peticion);
-                string fullPath = string.Format(@"C:\\LogsPeticiones\");
-                if (!Directory.Exists(fullPath))
-                {
-                    Directory.CreateDirectory(fullPath);
-                }
-
-                var nameFile = Path.Combine(fullPath, "Peticiones" + DateTime.Now.ToString("yyyyMMdd"));
-                if (!File.Exists(nameFile))
-                {
-                    var archivo = File.CreateText(nameFile);
-                    archivo.Close();
-                }
-
-                using (StreamWriter sw = File.AppendText(nameFile))
-                {
-                    sw.WriteLine(json);
-                }
+                    Description = mensaje,
+                    Reference = operacion
+                }, ELogType.General);
             }
             catch { }
         }

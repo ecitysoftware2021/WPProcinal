@@ -506,7 +506,7 @@ namespace WPProcinal.Forms
                 var responseSec = WCFServices.GetSecuence(dipMapCurrent);
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("GetSecuence", responseSec.Message);
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: GetSecuence", responseSec.Message);
                 }
                 catch { }
                 if (!responseSec.IsSuccess)

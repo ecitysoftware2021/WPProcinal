@@ -429,3 +429,10 @@ D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CoreCompileInputs.cache
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
+D:\WPProcinal\WPProcinal\bin\Debug\Dapper.dll
+D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.dll
+D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.EF6.dll
+D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.Linq.dll
+D:\WPProcinal\WPProcinal\bin\Debug\Dapper.xml
+D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.xml
+D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.dll.config

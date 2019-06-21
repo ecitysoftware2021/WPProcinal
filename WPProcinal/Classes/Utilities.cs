@@ -348,7 +348,7 @@ namespace WPProcinal.Classes
             foreach (var typeSeat in typeSeatsCurrent)
             {
                 var response = WCFServices.PostDesAssingreserva(dipMapCurrent, typeSeat);
-                LogService.CreateLogsPeticionRespuestaDispositivos("PostDesAssingreserva: ", JsonConvert.SerializeObject(response));
+                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostDesAssingreserva: ", JsonConvert.SerializeObject(response));
                 if (!response.IsSuccess)
                 {
                     Utilities.SaveLogError(new LogError
@@ -406,31 +406,6 @@ namespace WPProcinal.Classes
         public static decimal RoundValue(decimal valor)
         {
             decimal roundVal = (Math.Ceiling(valor / 100)) * 100;
-            //decimal RoundTo = 100;
-            //decimal Amount = valor;
-            //decimal sobrante = 0;
-            //decimal ExcessAmount = Amount % RoundTo;
-            //decimal a = 0;
-            //if (ExcessAmount < (RoundTo / 2))
-            //{
-            //    Amount -= ExcessAmount;
-            //    Amount = Amount + RoundTo;
-            //    a = Amount - RoundTo;
-            //}
-            //else
-            //{
-            //    Amount += (RoundTo - ExcessAmount);
-            //    a = Amount - RoundTo;
-            //}
-
-            //sobrante = valor - a;
-            //if (sobrante > 0)
-            //{
-            //    if (RoundTo / sobrante == 2)
-            //    {
-            //        a = a + RoundTo;
-            //    }
-            //}
 
             return roundVal;
         }
@@ -612,7 +587,7 @@ namespace WPProcinal.Classes
                 int i = 0;
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("ImprimirComprobante: ", "Ingresé");
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante: ", "Ingresé");
                 }
                 catch { }
                 foreach (var seat in Seats)
@@ -621,7 +596,7 @@ namespace WPProcinal.Classes
                     {
                         try
                         {
-                            LogService.CreateLogsPeticionRespuestaDispositivos("ImprimirComprobante : ", "Boleta " + (i + 1));
+                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante : ", "Boleta " + (i + 1));
                         }
                         catch { }
                         objPrint.Cinema = GetConfiguration("NameCinema");
@@ -644,15 +619,17 @@ namespace WPProcinal.Classes
                 }
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("ImprimirComprobante: ", "Salí");
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante: ", "Salí");
                 }
                 catch { }
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ImprimirComprobante");
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante: ", ex.Message);
+                }
+                catch { }
             }
         }
 
@@ -785,15 +762,12 @@ namespace WPProcinal.Classes
 
             try
             {
-                LogService.CreateLogsPeticionRespuestaDispositivos("UpdateTransaction: ", "Ingresé");
                 ApiLocal api = new ApiLocal();
 
                 var response = api.GetResponse(new RequestApi
                 {
                     Data = Transaction
                 }, "UpdateTransaction");
-
-                LogService.CreateLogsPeticionRespuestaDispositivos("GetResponse: ", JsonConvert.SerializeObject(response));
 
                 if (response != null)
                 {
@@ -820,7 +794,7 @@ namespace WPProcinal.Classes
             {
                 SaveLocalPay(Transaction);
             }
-            LogService.CreateLogsPeticionRespuestaDispositivos("UpdateTransaction: ", "Salí");
+            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: UpdateTransaction: ", "Salí");
 
         }
 
@@ -828,7 +802,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                LogService.CreateLogsPeticionRespuestaDispositivos("SaveLocalPay: ", "Ingresé");
+
                 using (var con = new DBProcinalEntities())
                 {
                     NotifyPay notify = new NotifyPay
@@ -847,11 +821,11 @@ namespace WPProcinal.Classes
             {
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("SaveLocalPay: ", JsonConvert.SerializeObject(dataPay));
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Error SaveLocalPay: ", JsonConvert.SerializeObject(dataPay));
                 }
                 catch { }
             }
-            LogService.CreateLogsPeticionRespuestaDispositivos("SaveLocalPay: ", "Salí");
+            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SaveLocalPay: ", "OK");
         }
 
         public async Task<bool> CreatePrintDashboard()

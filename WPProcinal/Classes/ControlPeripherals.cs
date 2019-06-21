@@ -239,7 +239,7 @@ namespace WPProcinal.Classes
                     Thread.Sleep(200);
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("Mensaje al billetero " + DateTime.Now + ": ", message);
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Mensaje al billetero: ", message);
                     }
                     catch { }
                     log.SendMessage += string.Format("Billetero: {0}\n", message);
@@ -267,7 +267,7 @@ namespace WPProcinal.Classes
                     _serialPortCoins.Write(message);
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("Mensaje al monedero " + DateTime.Now + ": ", message);
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Mensaje al monedero: ", message);
                     }
                     catch { }
                     log.SendMessage += string.Format("Monedero: {0}\n", message);
@@ -299,7 +299,7 @@ namespace WPProcinal.Classes
                 {
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del billetero " + DateTime.Now + ": ", response);
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del billetero: ", response);
                     }
                     catch { }
                     log.ResponseMessage += string.Format("Respuesta Billetero:{0}\n", response);
@@ -309,7 +309,7 @@ namespace WPProcinal.Classes
                 {
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del monedero " + DateTime.Now + ": ", "Vacío");
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", "Vacío");
                     }
                     catch { }
                 }
@@ -338,19 +338,11 @@ namespace WPProcinal.Classes
                 {
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del monedero " + DateTime.Now + ": ", response);
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", response);
                     }
                     catch { }
                     log.ResponseMessage += string.Format("Respuesta Monedero: {0}\n", response);
                     ProcessResponseCoins(response);
-                }
-                else
-                {
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("Respuesta del monedero " + DateTime.Now + ": ", "Vacío");
-                    }
-                    catch { }
                 }
             }
             catch (Exception ex)
@@ -779,11 +771,6 @@ namespace WPProcinal.Classes
         {
             try
             {
-                try
-                {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("ConfigDataDispenser: ", data);
-                }
-                catch { }
                 string[] values = data.Split(':')[1].Split(';');
                 if (isBX < 2)
                 {
@@ -797,11 +784,7 @@ namespace WPProcinal.Classes
 
                 if (isBX == 0 || isBX == 2)
                 {
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("isBX == 0 || isBX == 2: ", "true");
-                    }
-                    catch { }
+
                     LogMessage += string.Concat(data.Replace("\r", string.Empty), "!");
                     callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"));
 
@@ -815,11 +798,6 @@ namespace WPProcinal.Classes
                 }
                 else
                 {
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("stateError: ", "true");
-                    }
-                    catch { }
                     if (isBX == 2)
                     {
                         callbackOut?.Invoke(deliveryVal);
@@ -841,7 +819,7 @@ namespace WPProcinal.Classes
             {
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("dispenserValue: " + RealdispenserValue + " - deliveryVal: " + deliveryVal, "true");
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ValidateFinal >> dispenserValue: " + RealdispenserValue + " - deliveryVal: " + deliveryVal, "true");
                 }
                 catch { }
                 if (isBX == 2 || isBX == 0)

@@ -281,7 +281,7 @@ namespace WPProcinal.Service
             {
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("Peticion comint: ", JsonConvert.SerializeObject(dipMap));
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Peticion PostComprar: ", JsonConvert.SerializeObject(dipMap));
                 }
                 catch { }
                 WCFPcrint.ServiceSoapClient serviceSoapClient = new WCFPcrint.ServiceSoapClient();
@@ -303,7 +303,7 @@ namespace WPProcinal.Service
                     );
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("PostComprar: ", JsonConvert.SerializeObject(data));
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar: ", JsonConvert.SerializeObject(data));
                 }
                 catch { }
                 return new Response
@@ -316,7 +316,7 @@ namespace WPProcinal.Service
             {
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("Excepcion: ", ex.Message);
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar Excepcion: ", ex.Message);
                 }
                 catch { }
                 return new Response

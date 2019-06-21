@@ -232,7 +232,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsPeticionRespuestaDispositivos("ValidatePayPad", ex.Message);
+                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ValidatePayPad", ex.Message);
             }
         }
 

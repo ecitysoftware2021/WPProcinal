@@ -243,7 +243,7 @@ namespace WPProcinal.Forms
                     Utilities.ValueDelivery = (long)totalOut;
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("ReturnMoney: ", "Ingresé(" + state + ")");
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ReturnMoney: ", "Ingresé(" + state + ")");
                     }
                     catch { }
 
@@ -327,7 +327,6 @@ namespace WPProcinal.Forms
         {
             try
             {
-                LogService.CreateLogsPeticionRespuestaDispositivos("ApproveTrans: ", "Ingresé");
                 if (stateUpdate)
                 {
                     Task.Run(() =>
@@ -343,7 +342,7 @@ namespace WPProcinal.Forms
                 Utilities.SaveLogTransactions(logError, "LogTransacciones\\Iniciadas");
                 stateUpdate = false;
             }
-            LogService.CreateLogsPeticionRespuestaDispositivos("ApproveTrans: ", "Salí");
+            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ApproveTrans: ", "OK");
         }
 
         private async void SavePay(bool task)
@@ -352,12 +351,6 @@ namespace WPProcinal.Forms
 
             try
             {
-                try
-                {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("SavePay: ", task.ToString());
-                }
-                catch { }
-
                 if (!task)
                 {
                     try
@@ -379,36 +372,14 @@ namespace WPProcinal.Forms
                     logError.State = "Cancelada";
                     Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
 
-
                     ActivateTimer(false);
-
                     ReturnMoney(Utilities.PayVal, false);
-
 
                 }
                 else
                 {
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("ImprimirComprobante: ", "LLamada");
-                    }
-                    catch { }
-
                     objUtil.ImprimirComprobante("Aprobada", Utilities.Receipt, Utilities.TypeSeats, Utilities.DipMapCurrent);
-
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("ApproveTrans: ", "LLamada");
-                    }
-                    catch { }
-
                     ApproveTrans();
-
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("StopAceptance(): ", "LLamada");
-                    }
-                    catch { }
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
@@ -503,12 +474,6 @@ namespace WPProcinal.Forms
         {
             try
             {
-
-                try
-                {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("BuyTickets: ", "Ingresé, num=" + num);
-                }
-                catch { }
                 if (num == 2)
                 {
                     return;
@@ -518,11 +483,6 @@ namespace WPProcinal.Forms
                 {
                     payState = true;
 
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("PostComprar: ", "Llamado");
-                    }
-                    catch { }
                     var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
 
                     responseGlobal = response;
@@ -538,7 +498,7 @@ namespace WPProcinal.Forms
                     var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("PostComprar: ", transaccionCompra.Respuesta);
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar: ", transaccionCompra.Respuesta);
                     }
                     catch { }
                     if (transaccionCompra.Respuesta != "Exitosa")
@@ -571,11 +531,6 @@ namespace WPProcinal.Forms
 
                 if (num == 1)
                 {
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("SavePay", "" + payState);
-                    }
-                    catch { }
                     SavePay(payState);
                 }
             }
@@ -612,7 +567,7 @@ namespace WPProcinal.Forms
 
                                 try
                                 {
-                                    LogService.CreateLogsPeticionRespuestaDispositivos("ActivateTimer: ", "Tiempo Transcurrido Inactividad Dispositivos");
+                                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ActivateTimer: ", "Tiempo Transcurrido Inactividad Dispositivos");
                                 }
                                 catch { }
                                 controlInactividad = 1;
