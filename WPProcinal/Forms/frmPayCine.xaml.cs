@@ -84,17 +84,10 @@ namespace WPProcinal.Forms
                         ActivateWallet();
                     }
                 });
-
-                Task.Run(() =>
-                {
-                    GetReceipt();
-                });
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-              string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-              ex.InnerException, "---------- Trace: ", ex.StackTrace), "Window_Loaded PayCine");
+                AdminPaypad.SaveErrorControl(ex.Message, "Window_Loaded en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -372,7 +365,7 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    objUtil.ImprimirComprobante("Aprobada", Utilities.Receipt, Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    objUtil.ImprimirComprobante("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
                     ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
@@ -439,22 +432,6 @@ namespace WPProcinal.Forms
                     AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
                 }
                 Utilities.GoToInicial(this);
-            }
-        }
-
-        private void GetReceipt()
-        {
-            try
-            {
-                var response = WCFServices.GetReceiptProcinal(ControlPantalla.IdCorrespo);
-                if (response.IsSuccess)
-                {
-                    Utilities.Receipt = JsonConvert.DeserializeObject<Receipt>(response.Result.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "GetReceipt en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 

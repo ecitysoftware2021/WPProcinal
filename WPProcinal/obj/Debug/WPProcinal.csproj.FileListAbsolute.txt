@@ -369,7 +369,6 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs
-D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmCancelPay.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmCinema.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.g.cs
@@ -377,14 +376,12 @@ D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalCancel.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.g.cs
-D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPay.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmSeat.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\App.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal_Content.g.cs
-D:\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.cache
 D:\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.lref
 D:\WPProcinal\WPProcinal\bin\Debug\DataBases\DBProcinal.mdf
@@ -409,7 +406,6 @@ D:\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.xml
 D:\WPProcinal\WPProcinal\obj\Debug\App.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.baml
-D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmCancelPay.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmCinema.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.baml
@@ -417,7 +413,6 @@ D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalCancel.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.baml
-D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPay.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmSeat.baml

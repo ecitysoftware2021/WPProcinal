@@ -16,15 +16,7 @@ namespace WPProcinal
     {
         public App()
         {
-            var task2 = Task.Run(() =>
-            {
-                GetScreen();
-            });
-        }
 
-        private void GetScreen()
-        {
-            ControlPantalla.ConsultarControlPantalla();
         }
     }
 }

@@ -580,7 +580,7 @@ namespace WPProcinal.Classes
             frmModal.ShowDialog();
         }
 
-        public void ImprimirComprobante(string Estado, Receipt receipt, List<TypeSeat> Seats, DipMap dipMap)
+        public void ImprimirComprobante(string Estado, List<TypeSeat> Seats, DipMap dipMap)
         {
             try
             {
@@ -609,7 +609,6 @@ namespace WPProcinal.Classes
                         objPrint.Valor = seat.Price;
                         objPrint.Tramite = "Boleto de Cine";
                         objPrint.Category = dipMap.Category;
-                        objPrint.Recibo = receipt;
                         objPrint.Consecutivo = DashboardPrint[i].RANGO_ACTUAL.ToString();
                         objPrint.Secuencia = Secuencia;
                         objPrint.Formato = MovieFormat;

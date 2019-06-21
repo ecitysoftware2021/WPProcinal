@@ -1,8 +1,7 @@
-﻿D:\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 FD:\WPProcinal\WPProcinal\App.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\FrmCardPayment.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\frmConfigurate.xaml;;
-FD:\WPProcinal\WPProcinal\Forms\frmCancelPay.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\frmCinema.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\frmConfirmationModal.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\FrmFinalTransaction.xaml;;
@@ -10,7 +9,6 @@ FD:\WPProcinal\WPProcinal\Forms\FrmLoading.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\frmModal.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\frmModalCancel.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\frmMovies.xaml;;
-FD:\WPProcinal\WPProcinal\Forms\frmPay.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\frmPayCine.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\frmSchedule.xaml;;
 FD:\WPProcinal\WPProcinal\Forms\frmSeat.xaml;;

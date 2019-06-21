@@ -156,10 +156,7 @@
     <Compile Include="ADO\TblTypeSeat.cs">
       <DependentUpon>Procinal.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\ActivatePayments.cs" />
     <Compile Include="Classes\AdminPaypad.cs" />
-    <Compile Include="Classes\CLSListaDenominacionValor.cs" />
-    <Compile Include="Classes\ControlPantalla.cs" />
     <Compile Include="Classes\ControlPeripherals.cs" />
     <Compile Include="Classes\DBConnection\SqliteDataAccess.cs" />
     <Compile Include="Classes\DBProcinalController.cs" />
@@ -235,9 +232,6 @@
     <Compile Include="Forms\frmConfigurate.xaml.cs">
       <DependentUpon>frmConfigurate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmCancelPay.xaml.cs">
-      <DependentUpon>frmCancelPay.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FrmFinalTransaction.xaml.cs">
       <DependentUpon>FrmFinalTransaction.xaml</DependentUpon>
     </Compile>
@@ -250,9 +244,6 @@
     <Compile Include="Classes\Schedule.cs" />
     <Compile Include="Forms\frmModalCancel.xaml.cs">
       <DependentUpon>frmModalCancel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmPay.xaml.cs">
-      <DependentUpon>frmPay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmPayCine.xaml.cs">
       <DependentUpon>frmPayCine.xaml</DependentUpon>
@@ -292,10 +283,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\frmCancelPay.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Forms\frmCinema.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -321,10 +308,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\frmMovies.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\frmPay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

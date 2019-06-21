@@ -151,11 +151,7 @@ namespace WPProcinal.Forms
                         Utilities.CallBackRespuesta?.Invoke(datos);
                     }
                 });
-
-                Task.Run(() =>
-                {
-                    GetReceipt();
-                });
+                
             }
             catch (Exception ex)
             {
@@ -253,7 +249,7 @@ namespace WPProcinal.Forms
                 {
                     ApproveTrans();
 
-                    objUtil.ImprimirComprobante("Aprobada", Utilities.Receipt, Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    objUtil.ImprimirComprobante("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
 
                     //Utilities.control.StopAceptance();
 
@@ -295,15 +291,6 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-            }
-        }
-
-        private void GetReceipt()
-        {
-            var response = WCFServices.GetReceiptProcinal(ControlPantalla.IdCorrespo);
-            if (response.IsSuccess)
-            {
-                Utilities.Receipt = JsonConvert.DeserializeObject<Receipt>(response.Result.ToString());
             }
         }
 
