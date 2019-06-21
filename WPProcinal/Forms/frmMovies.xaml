@@ -211,7 +211,7 @@
                                    Margin="0,10,10,0"
                                    Width="325"
                                    Height="500"
-                                   PreviewMouseDown="Movie_MouseDown">
+                                   PreviewMouseDown="Movie_MouseDown" PreviewStylusDown="Grid_PreviewStylusDown">
                                     <Grid.Background>
                                         <ImageBrush 
                                         ImageSource="{Binding ImageData}"

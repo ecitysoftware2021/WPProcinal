@@ -212,7 +212,7 @@
         </Grid>
 
 
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <ListView x:Name="lvSchedule"
                 HorizontalAlignment="Center" 
                       Width="850"

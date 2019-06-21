@@ -78,6 +78,7 @@ namespace WPProcinal.Forms
                                     }
                                 });
                                 ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
+                                GetToken();
                             }
                         }
                         else
