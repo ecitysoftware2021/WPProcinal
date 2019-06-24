@@ -17,6 +17,7 @@ namespace WPProcinal.Forms
     {
         ApiLocal api;
         bool state;
+        int contPanic = 0;
 
         public frmConfigurate()
         {
@@ -40,8 +41,17 @@ namespace WPProcinal.Forms
         {
             try
             {
+                contPanic++;
+                if (contPanic > 3)
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        frmPanicModal modal = new frmPanicModal();
+                        modal.Show();
+                    });
+                }
                 Utilities util = new Utilities(1);
-                state = await api.SecurityToken();
+                state = true;// await api.SecurityToken();
                 if (state)
                 {
                     var response = await api.GetResponse(new Uptake.RequestApi(), "InitPaypad");
@@ -77,17 +87,23 @@ namespace WPProcinal.Forms
                                         SendEmails.SendEmail(data.Message);
                                     }
                                 });
+                                LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", data.Message);
                                 ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
+
                                 GetToken();
                             }
                         }
                         else
                         {
+                            LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", "Estado Perifericos: " + data.State);
+                            GetToken();
                             ShowModalError("No se pudo verificar el estado de los periféricos");
                         }
                     }
                     else
                     {
+                        LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", response.Message);
+                        GetToken();
                         ShowModalError("No se pudo iniciar el Dispositivo");
                     }
                 }
@@ -146,12 +162,12 @@ namespace WPProcinal.Forms
             {
                 frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el cajero no se encuentra disponible.\nError: ", description));
                 modal.ShowDialog();
-                if (modal.DialogResult.HasValue)
-                {
-                    frmConfigurate configurate = new frmConfigurate();
-                    configurate.Show();
-                    this.Close();
-                }
+                //if (modal.DialogResult.HasValue)
+                //{
+                //    frmConfigurate configurate = new frmConfigurate();
+                //    configurate.Show();
+                //    this.Close();
+                //}
             });
         }
     }

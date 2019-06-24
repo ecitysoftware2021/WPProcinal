@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\WPProcinal\WPProcinal\App.xaml
-13-824829135
+14392993242
 51613832075
-91-578594478
+92-1560877710
 36-2110426728
-Forms\FrmCardPayment.xaml;Forms\frmConfigurate.xaml;Forms\frmCinema.xaml;Forms\frmConfirmationModal.xaml;Forms\FrmFinalTransaction.xaml;Forms\FrmLoading.xaml;Forms\frmModal.xaml;Forms\frmModalCancel.xaml;Forms\frmMovies.xaml;Forms\frmPayCine.xaml;Forms\frmSchedule.xaml;Forms\frmSeat.xaml;Forms\Opciones.xaml;
+Forms\FrmCardPayment.xaml;Forms\frmConfigurate.xaml;Forms\frmCinema.xaml;Forms\frmConfirmationModal.xaml;Forms\FrmFinalTransaction.xaml;Forms\FrmLoading.xaml;Forms\frmModal.xaml;Forms\frmModalCancel.xaml;Forms\frmMovies.xaml;Forms\frmPanicModal.xaml;Forms\frmPayCine.xaml;Forms\frmSchedule.xaml;Forms\frmSeat.xaml;Forms\Opciones.xaml;
 
-True
+False
 

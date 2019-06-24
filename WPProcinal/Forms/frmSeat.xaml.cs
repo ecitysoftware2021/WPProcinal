@@ -437,7 +437,8 @@ namespace WPProcinal.Forms
                 var response = WCFServices.GetPrices(dipMapCurrent);
                 if (!response.IsSuccess)
                 {
-                    Utilities.ShowModal(response.Message);
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SendData > GetPrices en frmSeat", response.Message);
+                    Utilities.ShowModal("No fúe posible obtener las tarífas, por favor intente de nuevo");
                     ReloadWindow();
                     return;
                 }
@@ -445,6 +446,7 @@ namespace WPProcinal.Forms
                 var plantillatmp = WCFServices.DeserealizeXML<Plantilla>(response.Result.ToString());
                 if (!string.IsNullOrEmpty(plantillatmp.Tarifas.Codigo.Error_en_Sistema))
                 {
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SendData > plantillatmp en frmSeat", plantillatmp.Tarifas.Codigo.Error_en_Sistema);
                     Utilities.ShowModal(plantillatmp.Tarifas.Codigo.Error_en_Sistema.ToString());
                     ReloadWindow();
                 }
@@ -567,6 +569,7 @@ namespace WPProcinal.Forms
                     var response = WCFServices.PostReserva(dipMapCurrent, item);
                     if (!response.IsSuccess)
                     {
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > PostReserva > isSuccess en frmSeat", "False");
                         item.IsReserved = false;
 
                         Utilities.ShowModal(response.Message);
@@ -575,6 +578,7 @@ namespace WPProcinal.Forms
                     var reserve = WCFServices.DeserealizeXML<Reserva>(response.Result.ToString());
                     if (!string.IsNullOrEmpty(reserve.Error_en_proceso))
                     {
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > PostReserva en frmSeat", reserve.Error_en_proceso);
                         item.IsReserved = false;
                         frmLoadding.Close();
                         Utilities.ShowModal(reserve.Error_en_proceso);

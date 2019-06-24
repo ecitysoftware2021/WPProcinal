@@ -245,6 +245,9 @@
     <Compile Include="Forms\frmModalCancel.xaml.cs">
       <DependentUpon>frmModalCancel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmPanicModal.xaml.cs">
+      <DependentUpon>frmPanicModal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmPayCine.xaml.cs">
       <DependentUpon>frmPayCine.xaml</DependentUpon>
     </Compile>
@@ -308,6 +311,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\frmMovies.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmPanicModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
