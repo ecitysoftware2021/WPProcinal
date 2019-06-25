@@ -362,6 +362,7 @@ namespace WPProcinal.Classes
                 var desAssing = WCFServices.DeserealizeXML<DesAsignarReserva>(response.Result.ToString());
                 if (!string.IsNullOrEmpty(desAssing.Error_en_proceso))
                 {
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostDesAssingreserva > desAssing.Error_en_proceso ", desAssing.Error_en_proceso);
                     SaveLogError(new LogError
                     {
                         Message = desAssing.Error_en_proceso,

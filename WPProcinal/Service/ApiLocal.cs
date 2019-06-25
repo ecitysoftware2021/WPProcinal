@@ -97,7 +97,7 @@ namespace WPProcinal.Service
 
                 if (controller == "GetInvoiceData")
                 {
-                    url = string.Format(url, 21, "&", true);
+                    url = string.Format(url, Utilities.GetConfiguration("idPaypad"), "&", true);
                     response = await client.GetAsync(url);
                 }
                 else

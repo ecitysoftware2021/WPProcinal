@@ -258,6 +258,8 @@ namespace WPProcinal.Forms
                     return "/Images/Tags/cartel-4dx.png";
                 case "2D":
                     return "/Images/Tags/cartel-2d.png";
+                case "3D":
+                    return "/Images/Tags/cartel-3d.png";
                 case "Vibrasound":
                     return "/Images/Tags/cartel-vibra.png";
                 case "Supernova":

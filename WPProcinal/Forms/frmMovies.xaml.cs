@@ -66,9 +66,7 @@ namespace WPProcinal.Forms
                     frmLoading.Close();
                 }));
                 Utilities.DoEvents();
-
-                //ListFechas();
-                //InitView2();
+                
                 ActivateTimer();
             }
             catch (Exception ex)
@@ -376,27 +374,6 @@ namespace WPProcinal.Forms
 
         private void Movie_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
-        }
-
-        private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                btnAtras.IsEnabled = false;
-                SetCallBacksNull();
-                timer.CallBackStop?.Invoke(1);
-            }
-            catch { }
-            //Utilities.ResetTimer();
-            frmCinema frmCinema = new frmCinema();
-            frmCinema.Show();
-            Close();
-        }
-        #endregion
-
-        private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
             try
             {
                 SetCallBacksNull();
@@ -423,6 +400,27 @@ namespace WPProcinal.Forms
                 frmCinema.Show();
                 Close();
             }
+        }
+
+        private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                btnAtras.IsEnabled = false;
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+            }
+            catch { }
+            //Utilities.ResetTimer();
+            frmCinema frmCinema = new frmCinema();
+            frmCinema.Show();
+            Close();
+        }
+        #endregion
+
+        private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+           
         }
     }
 }

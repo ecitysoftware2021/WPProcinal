@@ -93,6 +93,7 @@ namespace WPProcinal.Forms
 
         private void btnCancelar_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
+
             try
             {
                 this.Opacity = 0.3;
@@ -177,23 +178,20 @@ namespace WPProcinal.Forms
                         this.Opacity = 0.3;
                         Utilities.Loading(frmLoading, true, this);
                     });
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        btnCancelar.IsEnabled = false;
+                    });
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
                     Utilities.EnterTotal = enterTotal;
                     if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                     {
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            btnCancelar.IsEnabled = false;
-                        });
                         ActivateTimer(true);
                         ReturnMoney(PaymentViewModel.ValorSobrante, true);
                     }
                     else
                     {
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            btnCancelar.IsEnabled = false;
-                        });
+
                         Buytickets();
                     }
                 };
@@ -206,7 +204,7 @@ namespace WPProcinal.Forms
 
                 };
 
-                Utilities.control.StartAceptance(PaymentViewModel.PayValue);
+                //Utilities.control.StartAceptance(PaymentViewModel.PayValue);
             }
             catch (Exception ex)
             {
