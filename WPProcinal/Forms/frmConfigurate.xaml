@@ -14,7 +14,7 @@
         Loaded="Window_Loaded">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-inicio.jpg"/>
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="300" />
