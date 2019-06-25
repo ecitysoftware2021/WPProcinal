@@ -638,7 +638,7 @@ namespace WPProcinal.Forms
                         }
                     }
 
-                    
+
                     ShowModalError(tyseat);
 
                     ReloadWindow();
@@ -727,6 +727,14 @@ namespace WPProcinal.Forms
                 if (!response || !responseDash)
                 {
                     LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Transaction | PrintID > ", response + "|" + responseDash);
+
+                    foreach (var item in SelectedTypeSeats)
+                    {
+                        List<TypeSeat> lista = new List<TypeSeat>();
+                        lista.Add(item);
+                        Utilities.CancelAssing(lista, dipMapCurrent);
+                    }
+
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
                         this.Opacity = 0.3;
