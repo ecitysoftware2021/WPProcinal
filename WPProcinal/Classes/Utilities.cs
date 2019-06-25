@@ -348,7 +348,7 @@ namespace WPProcinal.Classes
             foreach (var typeSeat in typeSeatsCurrent)
             {
                 var response = WCFServices.PostDesAssingreserva(dipMapCurrent, typeSeat);
-                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostDesAssingreserva: ", JsonConvert.SerializeObject(response));
+                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostDesAssingreserva: ", response.Result.ToString());
                 if (!response.IsSuccess)
                 {
                     Utilities.SaveLogError(new LogError
@@ -357,7 +357,6 @@ namespace WPProcinal.Classes
                         Method = "CancelAssing",
                         Error = response.Result
                     });
-                    //Utilities.ShowModal(response.Message);
                 }
 
                 var desAssing = WCFServices.DeserealizeXML<DesAsignarReserva>(response.Result.ToString());

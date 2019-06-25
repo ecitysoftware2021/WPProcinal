@@ -529,7 +529,7 @@ namespace WPProcinal.Forms
         /// </summary>
         private void SecuenceAndReserve()
         {
-
+            frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
             try
             {
                 try
@@ -538,8 +538,8 @@ namespace WPProcinal.Forms
                     timer.CallBackStop?.Invoke(1);
                 }
                 catch { }
-                var frmLoadding = new FrmLoading("¡Reservando los puestos seleccionados!");
-                frmLoadding.Show();
+
+                frmLoading.Show();
                 var responseSec = WCFServices.GetSecuence(dipMapCurrent);
                 try
                 {
@@ -548,7 +548,7 @@ namespace WPProcinal.Forms
                 catch { }
                 if (!responseSec.IsSuccess)
                 {
-                    frmLoadding.Close();
+                    frmLoading.Close();
                     Utilities.ShowModal(responseSec.Message);
                     ReloadWindow();
                 }
@@ -556,7 +556,7 @@ namespace WPProcinal.Forms
                 var secuence = WCFServices.DeserealizeXML<SecuenciaVenta>(responseSec.Result.ToString());
                 if (!string.IsNullOrEmpty(secuence.Error))
                 {
-                    frmLoadding.Close();
+                    frmLoading.Close();
                     Utilities.ShowModal(secuence.Error);
                     ReloadWindow();
                 }
@@ -569,7 +569,8 @@ namespace WPProcinal.Forms
                     var response = WCFServices.PostReserva(dipMapCurrent, item);
                     if (!response.IsSuccess)
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > PostReserva > isSuccess en frmSeat", "False");
+                        frmLoading.Close();
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > PostReserva > isSuccess en frmSeat", response.Result.ToString());
                         item.IsReserved = false;
 
                         Utilities.ShowModal(response.Message);
@@ -580,18 +581,16 @@ namespace WPProcinal.Forms
                     {
                         LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > PostReserva en frmSeat", reserve.Error_en_proceso);
                         item.IsReserved = false;
-                        frmLoadding.Close();
+                        frmLoading.Close();
                         Utilities.ShowModal(reserve.Error_en_proceso);
                     }
                     else
                     {
+                        frmLoading.Close();
                         item.NumSecuencia = reserve.Secuencia_reserva;
                         item.IsReserved = true;
                     }
                 }
-
-
-
 
                 var tyseat = SelectedTypeSeats.Where(s => s.IsReserved == false).ToList();
                 if (tyseat.Count > 0)
@@ -607,7 +606,7 @@ namespace WPProcinal.Forms
                         }
                     }
 
-                    frmLoadding.Close();
+                    frmLoading.Close();
                     ShowModalError(tyseat);
 
                     ReloadWindow();
@@ -617,14 +616,16 @@ namespace WPProcinal.Forms
                 SaveDataBaseLocal();
                 if (_ErrorTransaction)
                 {
-                    frmLoadding.Close();
+                    frmLoading.Close();
                     ShowPay();
                 }
             }
             catch (Exception ex)
             {
+                frmLoading.Close();
                 AdminPaypad.SaveErrorControl(ex.Message, "SecueceAndReserve en frmSeat", EError.Aplication, ELevelError.Medium);
             }
+            frmLoading.Close();
         }
 
         private void SaveDataBaseLocal()

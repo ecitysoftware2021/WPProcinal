@@ -14,7 +14,7 @@
         WindowStartupLocation="CenterScreen">
     <Grid PreviewMouseDown="BtnConsult_MouseDown" Name="gridPrincipal">
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-inicio.jpg"
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/procinal01.gif" 
