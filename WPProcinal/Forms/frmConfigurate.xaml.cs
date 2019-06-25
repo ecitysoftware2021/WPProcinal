@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using WPProcinal.ADO;
 using WPProcinal.Classes;
 using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
@@ -51,7 +49,7 @@ namespace WPProcinal.Forms
                     });
                 }
                 Utilities util = new Utilities(1);
-                state = true;// await api.SecurityToken();
+                state = await api.SecurityToken();
                 if (state)
                 {
                     var response = await api.GetResponse(new Uptake.RequestApi(), "InitPaypad");
@@ -118,43 +116,7 @@ namespace WPProcinal.Forms
             }
         }
 
-        public void NotifyPending()
-        {
-            try
-            {
-                using (var con = new DBProcinalEntities())
-                {
-                    var notifies = con.NotifyPay.ToList();
-
-                    foreach (var item in notifies)
-                    {
-                        Transaction Transaction = new Transaction
-                        {
-                            STATE_TRANSACTION_ID = item.STATE_TRANSACTION_ID.Value,
-                            DATE_END = item.DATE_END.Value,
-                            INCOME_AMOUNT = item.INCOME_AMOUNT.Value,
-                            RETURN_AMOUNT = item.RETURN_AMOUNT.Value,
-                            TRANSACTION_ID = item.TRANSACTION_ID.Value
-                        };
-
-                        var response = api.GetResponse(new Uptake.RequestApi()
-                        {
-                            Data = Transaction
-                        }, "UpdateTransaction");
-
-                        if (response != null)
-                        {
-                            if (response.Result.CodeError == 200)
-                            {
-                                con.NotifyPay.Remove(item);
-                                con.SaveChanges();
-                            }
-                        }
-                    }
-                }
-            }
-            catch { }
-        }
+        
 
         private void ShowModalError(string description, string message = "")
         {

@@ -473,13 +473,6 @@
     <Resource Include="Images\logo-header.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Background\movie3.jpg" />
-    <Resource Include="Images\Background\movie2.jpg" />
-    <Resource Include="Images\Background\movie4.jpg" />
-    <Resource Include="Images\Background\movie5.jpg" />
-    <Resource Include="Images\Background\movie6.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\cuadro-contenido.png" />
     <Resource Include="Images\homebg-seleccion-sillas.jpg" />
     <Resource Include="Images\cancelar.png" />
@@ -492,9 +485,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Selector copy-1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Background\movie1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\home-bg-peliculas2.jpg" />

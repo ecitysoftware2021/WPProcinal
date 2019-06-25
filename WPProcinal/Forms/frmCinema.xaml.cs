@@ -1,27 +1,42 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using WPProcinal.ADO;
 using WPProcinal.Classes;
 using WPProcinal.Models;
+using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms
 {
     public partial class frmCinema : Window
     {
+        ApiLocal api;
         public frmCinema()
         {
             InitializeComponent();
+            api = new ApiLocal();
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
             Utilities.CantidadTransacciones++;
 
-            var t = Task.Run(() =>
+            Task.Run(() =>
             {
                 SendPayments();
+            });
+            Task.Run(() =>
+            {
                 DesReserve();
+            });
+            Task.Run(() =>
+            {
                 SendDataToDataBase();
+            });
+            Task.Run(() =>
+            {
+                NotifyPending();
             });
             LoadData();
         }
@@ -125,7 +140,7 @@ namespace WPProcinal.Forms
             catch (System.Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "SendDataToDatabase en frmCinema", EError.Aplication, ELevelError.Medium);
-                throw;
+
             }
         }
 
@@ -180,6 +195,47 @@ namespace WPProcinal.Forms
             catch (System.Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        public void NotifyPending()
+        {
+            try
+            {
+                using (var con = new DBProcinalEntities())
+                {
+                    var notifies = con.NotifyPay.ToList();
+
+                    foreach (var item in notifies)
+                    {
+                        Transaction Transaction = new Transaction
+                        {
+                            STATE_TRANSACTION_ID = item.STATE_TRANSACTION_ID.Value,
+                            DATE_END = item.DATE_END.Value,
+                            INCOME_AMOUNT = item.INCOME_AMOUNT.Value,
+                            RETURN_AMOUNT = item.RETURN_AMOUNT.Value,
+                            TRANSACTION_ID = item.TRANSACTION_ID.Value
+                        };
+
+                        var response = api.GetResponse(new Uptake.RequestApi()
+                        {
+                            Data = Transaction
+                        }, "UpdateTransaction");
+
+                        if (response != null)
+                        {
+                            if (response.Result.CodeError == 200)
+                            {
+                                con.NotifyPay.Remove(item);
+                                con.SaveChanges();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "NotifyPending en frmCinema", EError.Aplication, ELevelError.Medium);
             }
         }
     }

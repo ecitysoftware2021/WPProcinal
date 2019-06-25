@@ -191,6 +191,7 @@ namespace WPProcinal.Forms
                                             Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
                                             FontS = FontS,
                                             Language = string.Concat(peli.Data.Idioma),
+
                                             Gener = Movie.Data.Genero,
                                             Duration = string.Concat(Movie.Data.Duracion, " minutos"),
                                             Category = Movie.Data.Censura,
@@ -201,7 +202,8 @@ namespace WPProcinal.Forms
                                             RoomId = Convert.ToInt16(room.NumeroSala),
                                             UnivDate = function.Univ,
                                             MovieId = Convert.ToInt16(peli.Id),
-                                            Formato = peli.Data.Formato
+                                            Formato = peli.Data.Formato,
+                                            Censura = peli.Data.Censura
                                         });
                                         foreach (var newHoras in horatmps)
                                         {
@@ -220,7 +222,8 @@ namespace WPProcinal.Forms
                                                 RoomId = Convert.ToInt16(room.NumeroSala),
                                                 UnivDate = function.Univ,
                                                 MovieId = Convert.ToInt16(peli.Id),
-                                                Formato = peli.Data.Formato
+                                                Formato = peli.Data.Formato,
+                                                Censura = peli.Data.Censura
                                             };
                                         }
                                     }
@@ -372,7 +375,8 @@ namespace WPProcinal.Forms
                 //TipoSala=,
                 Title = selectedSchedule.DatosPelicula.Title,
                 TypeZona = selectedSchedule.TipoZona,
-                UnivDate = selectedSchedule.DatosPelicula.UnivDate
+                UnivDate = selectedSchedule.DatosPelicula.UnivDate,
+                Censura = selectedSchedule.DatosPelicula.Censura
             };
             //Schedule schedule = (Schedule)lvSchedule.SelectedItem;
             Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;

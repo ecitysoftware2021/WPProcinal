@@ -431,3 +431,5 @@ D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.Linq.dll
 D:\WPProcinal\WPProcinal\bin\Debug\Dapper.xml
 D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.xml
 D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.dll.config
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPanicModal.g.cs
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPanicModal.baml
