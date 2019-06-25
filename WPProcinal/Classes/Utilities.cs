@@ -957,7 +957,9 @@ namespace WPProcinal.Classes
                         DESCRIPTION = detail.Description
                     };
 
-                    api.CallApi("SaveTransactionDetail", detail);
+                    var result = api.CallApi("SaveTransactionDetail", detail);
+
+                    //TODO: lógica para guardar en localdb si no se insertan los detalles de billetes y monedas
                 }
             }
             catch (Exception ex)
