@@ -23,6 +23,7 @@ namespace WPProcinal.Classes
             {"319","Aventura"},
             {"321","La Ceja"},
             {"323","Guacarí"},
+            { "325","La Central"},
         };
     }
 }
