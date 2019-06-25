@@ -281,10 +281,7 @@ namespace WPProcinal.Forms
             lvSchedule.DataContext = lstGrid;
         }
 
-        private void ShowCurrentPageIndex()
-        {
-            ValidateImage();
-        }
+     
 
         private void View_Filter(object sender, FilterEventArgs e)
         {
@@ -401,59 +398,11 @@ namespace WPProcinal.Forms
                 timer.CallBackStop?.Invoke(1);
             }
             catch { }
-            //Utilities.ResetTimer();
             frmMovies frmMovies = new frmMovies();
             frmMovies.Show();
             Close();
         }
 
-        private void ValidateImage()
-        {
-            //if (currentPageIndex == 0)
-            //{
-            //    btnPrev.Visibility = Visibility.Hidden;
-            //}
-            //else
-            //{
-            //    btnPrev.Visibility = Visibility.Visible;
-            //}
-
-            //if (currentPageIndex == totalPage - 1)
-            //{
-            //    btnNext.Visibility = Visibility.Hidden;
-            //}
-            //else
-            //{
-            //    btnNext.Visibility = Visibility.Visible;
-            //}
-        }
-
-        private void btnPrev_Click(object sender, RoutedEventArgs e)
-        {
-            // Display previous page
-            if (currentPageIndex > 0)
-            {
-                currentPageIndex--;
-                view.View.Refresh();
-            }
-            ShowCurrentPageIndex();
-        }
-
-        private void btnNext_Click(object sender, RoutedEventArgs e)
-        {
-            //ListView lv = lvSchedule;
-            //DoubleAnimation animation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.5));
-            //lv.BeginAnimation(OpacityProperty, animation);
-
-            // Display next page
-            if (currentPageIndex < totalPage - 1)
-            {
-                currentPageIndex++;
-                view.View.Refresh();
-            }
-            ShowCurrentPageIndex();
-            //lv.Visibility = Visibility.Visible;
-        }
         #endregion
 
         #region Dias Disponibles
@@ -464,9 +413,6 @@ namespace WPProcinal.Forms
         {
             try
             {
-
-
-
                 foreach (var item in dias.Dia)
                 {
                     string fechaCompuesta = ConvertDate(item);
