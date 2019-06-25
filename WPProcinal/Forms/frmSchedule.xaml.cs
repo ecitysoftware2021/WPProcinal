@@ -56,8 +56,7 @@ namespace WPProcinal.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //Utilities.Timer(tbTimer, this);
-
+           
             imgBackground.ImageSource = Utilities.ImageSelected;
             MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
             TxtTitle.Text = MovieName;

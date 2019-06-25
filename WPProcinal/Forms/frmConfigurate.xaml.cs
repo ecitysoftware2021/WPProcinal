@@ -65,16 +65,16 @@ namespace WPProcinal.Forms
                                 {
                                     GetToken();
                                 };
-                                //Utilities.control.callbackToken = isSucces =>
-                                //{
+                                Utilities.control.callbackToken = isSucces =>
+                                {
                                     Dispatcher.BeginInvoke((Action)delegate
                                             {
                                                 frmCinema inicio = new frmCinema();
                                                 inicio.Show();
                                                 Close();
                                             });
-                                //};
-                                //Utilities.control.Start();
+                                };
+                                Utilities.control.Start();
                             }
                             else
                             {
@@ -116,7 +116,7 @@ namespace WPProcinal.Forms
             }
         }
 
-        
+
 
         private void ShowModalError(string description, string message = "")
         {
