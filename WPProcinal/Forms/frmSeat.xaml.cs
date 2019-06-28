@@ -723,11 +723,11 @@ namespace WPProcinal.Forms
                 var response = await utilities.CreateTransaction("Cine " + Utilities.GetConfiguration("Sucursal"), dipMapCurrent, SelectedTypeSeats);
 
                 var responseDash = await utilities.CreatePrintDashboard();
+                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Transaction | PrintID > ", response + "|" + responseDash);
 
                 if (!response || !responseDash)
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Transaction | PrintID > ", response + "|" + responseDash);
-
+                    
                     foreach (var item in SelectedTypeSeats)
                     {
                         List<TypeSeat> lista = new List<TypeSeat>();
