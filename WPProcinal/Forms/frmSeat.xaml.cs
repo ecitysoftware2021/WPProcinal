@@ -271,61 +271,64 @@ namespace WPProcinal.Forms
                     int count = 0;
                     foreach (var item in typeSeats)
                     {
-
-                        if (item.Letter.Equals(FTDistinc[i]))
+                        try
                         {
-                            int newleft = count != 0 ? left + sum : left;
-                            var type = seatTmps.Where(t => t.Name == item.Name).FirstOrDefault();
-                            if (type.Type != "P")
+                            if (item.Letter.Equals(FTDistinc[i]))
                             {
-                                var state = states.Where(s => s.Name == item.Name).FirstOrDefault();
-                                ImageSource imageSource = null;
-                                if (dipMapCurrent.TypeZona == "G" && state.Type != "D")
+                                int newleft = count != 0 ? left + sum : left;
+                                var type = seatTmps.Where(t => t.Name == item.Name).FirstOrDefault();
+                                if (type.Type != "P")
                                 {
-                                    imageSource = (state.State == "B") ? GetImage(state.State) : GetImage(string.Empty);
-                                }
-                                else
-                                {
-                                    imageSource = (state.State == "B") ? GetImage(state.State) : GetImage(state.Type);
-                                }
-
-                                Image image = new Image
-                                {
-                                    Source = imageSource,
-                                    Height = 26,
-                                    Width = 30,
-                                    VerticalAlignment = VerticalAlignment.Top,
-                                    HorizontalAlignment = HorizontalAlignment.Left,
-                                    Margin = new Thickness
+                                    var state = states.Where(s => s.Name == item.Name).FirstOrDefault();
+                                    ImageSource imageSource = null;
+                                    if (dipMapCurrent.TypeZona == "G" && state.Type != "D")
                                     {
-                                        Right = 0,
-                                        Bottom = 0,
-                                        Top = topNew,
-                                        Left = newleft,
-                                    },
-                                    Name = item.Name,
-                                    Tag = state.Type,
-                                };
+                                        imageSource = (state.State == "B") ? GetImage(state.State) : GetImage(string.Empty);
+                                    }
+                                    else
+                                    {
+                                        imageSource = (state.State == "B") ? GetImage(state.State) : GetImage(state.Type);
+                                    }
 
-                                item.Type = type.Type;
-                                if (state.State == "S" && state.Type != "D")
-                                {
-                                    image.PreviewStylusDown += new StylusDownEventHandler((s, eh) =>
-                                                                                                    SelectSeats(s, eh, item));
-                                    //image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
+                                    Image image = new Image
+                                    {
+                                        Source = imageSource,
+                                        Height = 26,
+                                        Width = 30,
+                                        VerticalAlignment = VerticalAlignment.Top,
+                                        HorizontalAlignment = HorizontalAlignment.Left,
+                                        Margin = new Thickness
+                                        {
+                                            Right = 0,
+                                            Bottom = 0,
+                                            Top = topNew,
+                                            Left = newleft,
+                                        },
+                                        Name = item.Name,
+                                        Tag = state.Type,
+                                    };
+
+                                    item.Type = type.Type;
+                                    if (state.State == "S" && state.Type != "D")
+                                    {
+                                        image.PreviewStylusDown += new StylusDownEventHandler((s, eh) =>
+                                                                                                        SelectSeats(s, eh, item));
+                                        //image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
+                                    }
+
+
+                                    GridSeat.Children.Add(image);
+                                    Grid.SetRow(image, 2);
+                                    Grid.SetColumn(image, 0);
+                                    Grid.SetColumnSpan(image, 2);
                                 }
 
-
-                                GridSeat.Children.Add(image);
-                                Grid.SetRow(image, 2);
-                                Grid.SetColumn(image, 0);
-                                Grid.SetColumnSpan(image, 2);
+                                left = newleft;
+                                count++;
+                                item.Type = type.Type;
                             }
-
-                            left = newleft;
-                            count++;
-                            item.Type = type.Type;
                         }
+                        catch { }
                     }
 
                     top = topNew;
@@ -720,14 +723,14 @@ namespace WPProcinal.Forms
         {
             try
             {
-                var response = await utilities.CreateTransaction("Cine " + Utilities.GetConfiguration("Sucursal"), dipMapCurrent, SelectedTypeSeats);
+                var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
 
                 var responseDash = await utilities.CreatePrintDashboard();
                 LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Transaction | PrintID > ", response + "|" + responseDash);
 
                 if (!response || !responseDash)
                 {
-                    
+
                     foreach (var item in SelectedTypeSeats)
                     {
                         List<TypeSeat> lista = new List<TypeSeat>();
