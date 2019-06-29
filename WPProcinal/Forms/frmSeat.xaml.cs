@@ -741,6 +741,7 @@ namespace WPProcinal.Forms
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
                         this.Opacity = 0.3;
+                        Pay.IsEnabled = true;
                         Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
                         this.Opacity = 1;
                     });
