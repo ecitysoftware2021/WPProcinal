@@ -48,7 +48,21 @@ namespace WPProcinal.Service
                 var url = Utilities.GetConfiguration("GetToken");
                 var authentication = Encoding.ASCII.GetBytes(User4Told + ":" + Password4Told);
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(authentication));
-                var response = await client.PostAsync(url, content);
+
+                var task = client.PostAsync(url, content);
+                HttpResponseMessage response;
+
+
+                if (await Task.WhenAny(task, Task.Delay(15000)) == task)
+                {
+                    response = task.Result;
+                }
+                else
+                {
+                    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
+                    response = await client.PostAsync(url, content);
+                }
+
                 if (!response.IsSuccessStatusCode)
                 {
                     return false;
@@ -98,11 +112,30 @@ namespace WPProcinal.Service
                 if (controller == "GetInvoiceData")
                 {
                     url = string.Format(url, Utilities.GetConfiguration("idPaypad"), "&", true);
-                    response = await client.GetAsync(url);
+
+                    var task = client.GetAsync(url);
+                    if (await Task.WhenAny(task, Task.Delay(15000)) == task)
+                    {
+                        response = task.Result;
+                    }
+                    else
+                    {
+                        client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
+                        response = await client.GetAsync(url);
+                    }
                 }
                 else
                 {
-                    response = await client.PostAsync(url, content);
+                    var task = client.PostAsync(url, content);
+                    if (await Task.WhenAny(task, Task.Delay(15000)) == task)
+                    {
+                        response = task.Result;
+                    }
+                    else
+                    {
+                        client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
+                        response = await client.PostAsync(url, content);
+                    }
                 }
 
                 if (!response.IsSuccessStatusCode)
@@ -172,11 +205,21 @@ namespace WPProcinal.Service
                 var content = new StringContent(request, Encoding.UTF8, "Application/json");
                 var url = Utilities.GetConfiguration(controller);
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
-                var response = await client.PostAsync(url, content);
+
+                HttpResponseMessage response;
+
+                var task = client.PostAsync(url, content);
+                if (await Task.WhenAny(task, Task.Delay(15000)) == task)
+                {
+                    response = task.Result;
+                }
+                else
+                {
+                    response = await client.PostAsync(url, content);
+                }
 
                 if (!response.IsSuccessStatusCode)
                 {
-
                     return null;
                 }
 

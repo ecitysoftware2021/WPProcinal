@@ -18,7 +18,6 @@ namespace WPProcinal.Classes
 
         public static SqliteDataAccess consults = new SqliteDataAccess();
 
-
         public async void UpdatePeripherals()
         {
             try
@@ -44,7 +43,6 @@ namespace WPProcinal.Classes
                 Utilities.dataPaypad.State = false;
             }
         }
-
 
         public async static void SaveLog(object log, ELogType type)
         {
@@ -117,7 +115,5 @@ namespace WPProcinal.Classes
             {
             }
         }
-
-
     }
 }
