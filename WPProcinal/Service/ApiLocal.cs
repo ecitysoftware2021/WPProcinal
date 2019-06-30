@@ -53,14 +53,18 @@ namespace WPProcinal.Service
                 HttpResponseMessage response;
 
 
-                if (await Task.WhenAny(task, Task.Delay(15000)) == task)
+                if (await Task.WhenAny(task, Task.Delay(20000)) == task)
                 {
                     response = task.Result;
                 }
                 else
                 {
+                    var requestEspejo = JsonConvert.SerializeObject(requestAuth);
+                    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
+                    client = new HttpClient();
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(authentication));
                     client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
-                    response = await client.PostAsync(url, content);
+                    response = await client.PostAsync(url, contentEspejo);
                 }
 
                 if (!response.IsSuccessStatusCode)
@@ -114,12 +118,17 @@ namespace WPProcinal.Service
                     url = string.Format(url, Utilities.GetConfiguration("idPaypad"), "&", true);
 
                     var task = client.GetAsync(url);
-                    if (await Task.WhenAny(task, Task.Delay(15000)) == task)
+                    if (await Task.WhenAny(task, Task.Delay(20000)) == task)
                     {
                         response = task.Result;
                     }
                     else
                     {
+
+                        var requestEspejo = JsonConvert.SerializeObject(model);
+                        var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
+                        client = new HttpClient();
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
                         client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
                         response = await client.GetAsync(url);
                     }
@@ -127,14 +136,18 @@ namespace WPProcinal.Service
                 else
                 {
                     var task = client.PostAsync(url, content);
-                    if (await Task.WhenAny(task, Task.Delay(15000)) == task)
+                    if (await Task.WhenAny(task, Task.Delay(20000)) == task)
                     {
                         response = task.Result;
                     }
                     else
                     {
+                        var requestEspejo = JsonConvert.SerializeObject(model);
+                        var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
+                        client = new HttpClient();
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
                         client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
-                        response = await client.PostAsync(url, content);
+                        response = await client.PostAsync(url, contentEspejo);
                     }
                 }
 
@@ -197,10 +210,8 @@ namespace WPProcinal.Service
             {
                 client = new HttpClient();
                 client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocal"));
-
                 requestApi.Data = data;
                 requestApi.Session = Utilities.Session;
-
                 var request = JsonConvert.SerializeObject(requestApi);
                 var content = new StringContent(request, Encoding.UTF8, "Application/json");
                 var url = Utilities.GetConfiguration(controller);
@@ -209,12 +220,18 @@ namespace WPProcinal.Service
                 HttpResponseMessage response;
 
                 var task = client.PostAsync(url, content);
-                if (await Task.WhenAny(task, Task.Delay(15000)) == task)
+                if (await Task.WhenAny(task, Task.Delay(20000)) == task)
                 {
                     response = task.Result;
                 }
                 else
                 {
+                    client = new HttpClient();
+                    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
+                    var requestEspejo = JsonConvert.SerializeObject(requestApi);
+                    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
+
                     response = await client.PostAsync(url, content);
                 }
 
