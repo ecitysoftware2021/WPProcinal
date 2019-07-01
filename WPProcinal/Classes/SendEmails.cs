@@ -13,25 +13,28 @@ namespace WPProcinal.Classes
 
         public static void SendEmail(string mensaje)
         {
-            try
+            if (Utilities.GetConfiguration("EnviarCorreo").Equals("si"))
             {
-                int IdCorresponsal = Convert.ToInt32(Utilities.GetConfiguration("IDCorresponsal"));
-                string Sucursal = Utilities.GetConfiguration("Sucursal");
-                string Email = Utilities.GetConfiguration("Email");
-
-                if (!string.IsNullOrEmpty(Email))
+                try
                 {
-                    var emails = Email.Split(';');
+                    int IdCorresponsal = Convert.ToInt32(Utilities.GetConfiguration("IDCorresponsal"));
+                    string Sucursal = Utilities.GetConfiguration("Sucursal");
+                    string Email = Utilities.GetConfiguration("Email");
 
-                    foreach (var item in emails)
+                    if (!string.IsNullOrEmpty(Email))
                     {
-                        WCFPayPadWS.EnviarCorreo(mensaje, Sucursal, IdCorresponsal, "Email 101", item);
+                        var emails = Email.Split(';');
+
+                        foreach (var item in emails)
+                        {
+                            WCFPayPadWS.EnviarCorreo(mensaje, Sucursal, IdCorresponsal, "Email 101", item);
+                        }
                     }
                 }
-            }
-            catch
-            {
+                catch
+                {
 
+                }
             }
         }
     }

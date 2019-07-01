@@ -157,9 +157,9 @@ namespace CEntidades
             g.DrawString("Venta realizada en el Kiosko Digital", fBody, sb, 10, increment);
             increment += 20;
             g.DrawString("Por: E-city software", fBody, sb, 10, increment);
-            increment += 20;
-            g.DrawString("===================================================", fBody, sb, 10, increment);
-            increment += 20;
+            //increment += 20;
+            //g.DrawString("===================================================", fBody, sb, 10, increment);
+            //increment += 20;
         }
 
         public void ImprimirComprobanteCancelar()

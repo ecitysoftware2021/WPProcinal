@@ -170,6 +170,11 @@ namespace WPProcinal.Forms
 
                 Utilities.control.callbackTotalIn = enterTotal =>
                 {
+
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        btnCancelar.IsEnabled = false;
+                    });
                     Utilities.control.callbackTotalIn = null;
                     Thread.Sleep(200);
                     Dispatcher.BeginInvoke((Action)delegate
@@ -177,10 +182,7 @@ namespace WPProcinal.Forms
                         this.Opacity = 0.3;
                         Utilities.Loading(frmLoading, true, this);
                     });
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        btnCancelar.IsEnabled = false;
-                    });
+
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
                     Utilities.EnterTotal = enterTotal;
                     if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
@@ -190,7 +192,6 @@ namespace WPProcinal.Forms
                     }
                     else
                     {
-
                         Buytickets();
                     }
                 };
@@ -337,6 +338,19 @@ namespace WPProcinal.Forms
                 {
                     try
                     {
+                        Task.Run(() =>
+                                   {
+                                       Dispatcher.Invoke(() =>
+                                       {
+                                           Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                                       });
+                                   });
+                    }
+                    catch { }
+
+                    try
+                    {
+
                         await Dispatcher.BeginInvoke((Action)delegate
                                     {
                                         PaymentGrid.Opacity = 0.3;
@@ -350,9 +364,9 @@ namespace WPProcinal.Forms
                     catch { }
 
                     utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
-                    logError.Description = "\nSe cancelo una transaccion";
-                    logError.State = "Cancelada";
-                    Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
+                    //logError.Description = "\nSe cancelo una transaccion";
+                    //logError.State = "Cancelada";
+                    //Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
 
                     ActivateTimer(false);
                     ReturnMoney(Utilities.PayVal, false);
@@ -496,6 +510,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                SavePay(false);
                 AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }

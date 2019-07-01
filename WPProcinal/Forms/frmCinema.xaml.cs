@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using WPProcinal.ADO;
@@ -22,6 +23,7 @@ namespace WPProcinal.Forms
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
             Utilities.CantidadTransacciones++;
 
+
             Task.Run(() =>
             {
                 SendPayments();
@@ -40,6 +42,8 @@ namespace WPProcinal.Forms
             });
             LoadData();
         }
+
+
 
         private void DesReserve()
         {

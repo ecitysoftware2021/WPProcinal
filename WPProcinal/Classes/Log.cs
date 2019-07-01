@@ -203,7 +203,7 @@ namespace WPProcinal.Classes
                 AdminPaypad.SaveLog(new RequestLog
                 {
                     Description = mensaje,
-                    Reference = operacion
+                    Reference = Utilities.GetConfiguration("Sucursal") + " - " + operacion
                 }, ELogType.General);
             }
             catch { }

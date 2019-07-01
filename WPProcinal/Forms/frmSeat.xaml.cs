@@ -705,8 +705,8 @@ namespace WPProcinal.Forms
             stringerror.AppendLine();
             foreach (var tyseat in tyseats)
             {
-                stringerror.Append(tyseat.Name);
-                stringerror.AppendLine();
+                stringerror.Append(tyseat.Name + "-");
+                //stringerror.AppendLine();
             }
 
             stringerror.Append("Por favor vuelva a intentarlo.");
@@ -723,14 +723,16 @@ namespace WPProcinal.Forms
         {
             try
             {
+                frmLoading = new FrmLoading("¡Creando la transacción...!");
+                frmLoading.Show();
                 var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
 
                 var responseDash = await utilities.CreatePrintDashboard();
+                frmLoading.Close();
                 LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Transaction | PrintID > ", response + "|" + responseDash);
 
                 if (!response || !responseDash)
                 {
-
                     foreach (var item in SelectedTypeSeats)
                     {
                         List<TypeSeat> lista = new List<TypeSeat>();
