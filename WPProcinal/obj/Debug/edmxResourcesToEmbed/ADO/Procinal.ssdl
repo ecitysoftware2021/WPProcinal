@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DBProcinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="NotifyMoney">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TRANSACTION_ID" Type="int" />
+    <Property Name="DENOMINATION" Type="int" />
+    <Property Name="QUANTITY" Type="int" />
+    <Property Name="OPERATION" Type="int" />
+    <Property Name="CODE" Type="nvarchar" MaxLength="50" />
+    <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="NotifyPay">
     <Key>
       <PropertyRef Name="Id" />
@@ -10,6 +22,26 @@
     <Property Name="INCOME_AMOUNT" Type="decimal" Precision="18" Scale="0" />
     <Property Name="RETURN_AMOUNT" Type="decimal" Precision="18" Scale="0" />
     <Property Name="TRANSACTION_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="RePrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Cinema" Type="nvarchar" MaxLength="50" />
+    <Property Name="Movie" Type="nvarchar" MaxLength="50" />
+    <Property Name="Time" Type="nvarchar" MaxLength="50" />
+    <Property Name="Room" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="nvarchar" MaxLength="50" />
+    <Property Name="Seat" Type="nvarchar" MaxLength="50" />
+    <Property Name="FechaPago" Type="datetime" />
+    <Property Name="Valor" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Tramite" Type="nvarchar" MaxLength="50" />
+    <Property Name="Category" Type="nvarchar" MaxLength="50" />
+    <Property Name="Consecutivo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Secuencia" Type="nvarchar" MaxLength="50" />
+    <Property Name="Formato" Type="nvarchar" MaxLength="50" />
+    <Property Name="IDTransaccion" Type="int" />
   </EntityType>
   <EntityType Name="TblDipMap">
     <Key>
@@ -65,7 +97,9 @@
     <Property Name="TransactionId" Type="int" />
   </EntityType>
   <EntityContainer Name="DBProcinalModelStoreContainer">
+    <EntitySet Name="NotifyMoney" EntityType="Self.NotifyMoney" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NotifyPay" EntityType="Self.NotifyPay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RePrint" EntityType="Self.RePrint" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TblDipMap" EntityType="Self.TblDipMap" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TblPay" EntityType="Self.TblPay" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TblTypeSeat" EntityType="Self.TblTypeSeat" Schema="dbo" store:Type="Tables" />

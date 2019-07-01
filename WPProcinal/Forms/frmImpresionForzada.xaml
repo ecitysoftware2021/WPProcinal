@@ -1,0 +1,170 @@
+﻿<Window x:Class="WPProcinal.Forms.frmImpresionForzada"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPProcinal.Forms"
+        mc:Ignorable="d"
+        Title="frmImpresionForzada" WindowStyle="None"
+        WindowState="Maximized"
+        Height="2064.095"
+        Width="1250.599"
+        WindowStartupLocation="CenterScreen">
+    
+    
+    
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Name="gridTeclado" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="NÚMERO DE TRANSACCIÓN" FontSize="35"
+                         TextAlignment="Center"
+                         Foreground="White"
+                       FontWeight="Bold"
+                 Width="500" 
+                 Height="50" 
+                       Grid.ColumnSpan="3" Margin="356,64,387,0"/>
+            <TextBox x:Name="txtIDTransaccion"
+                         FontSize="35"
+                         TextAlignment="Center"
+                         Foreground="White"
+                       FontWeight="Bold"
+                 Width="200" 
+                 Height="50" 
+                 Grid.Column="1"
+                 Grid.Row="1"
+                     />
+
+            <TextBlock Text="1"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   FontSize="40"
+                   HorizontalAlignment="Right"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   Tag="1"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+            <TextBlock Text="2"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   FontSize="40"
+                   HorizontalAlignment="Center"
+                   Grid.Row="2"
+                   Grid.Column="1"
+                   Tag="2"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+            <TextBlock Text="3"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   FontSize="40"
+                   HorizontalAlignment="Left"
+                   Grid.Row="2"
+                   Grid.Column="2"
+                   Tag="3"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+            <TextBlock Text="4"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   FontSize="40"
+                   HorizontalAlignment="Right"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                   Tag="4"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+            <TextBlock Text="5"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   FontSize="40"
+                   HorizontalAlignment="Center"
+                   Grid.Row="3"
+                   Grid.Column="1"
+                   Tag="4"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+            <TextBlock Text="6"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   FontSize="40"
+                   HorizontalAlignment="Left"
+                   Grid.Row="3"
+                   Grid.Column="2"
+                   Tag="6"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+            <TextBlock Text="7"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   FontSize="40"
+                   HorizontalAlignment="Right"
+                   Grid.Row="4"
+                   Grid.Column="0"
+                   Tag="7"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+            <TextBlock Text="8"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   FontSize="40"
+                   HorizontalAlignment="Center"
+                   Grid.Row="4"
+                   Grid.Column="1"
+                   Tag="8"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+            <TextBlock Text="9"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   FontSize="40"
+                   HorizontalAlignment="Left"
+                   Grid.Row="4"
+                   Grid.Column="2"
+                   Tag="9"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+            <TextBlock Text="Aceptar" Name="botonAceptar"
+                   FontSize="40"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   HorizontalAlignment="Right"
+                   Grid.Row="5"
+                   Grid.Column="0"
+                   Tag="x"
+                     PreviewStylusDown="BotonAceptar_PreviewStylusDown"/>
+            <TextBlock Text="0"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   FontSize="40"
+                   HorizontalAlignment="Center"
+                   Grid.Row="5"
+                   Grid.Column="1"
+                   Tag="0"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+            <TextBlock Text="&lt;"
+                   FontSize="40"
+                           Foreground="White"
+                       FontWeight="Bold"
+                   HorizontalAlignment="Left"
+                   Grid.Row="5"
+                   Grid.Column="2"
+                   Tag="&lt;"
+                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+        </Grid>
+
+        
+    </Grid>
+</Window>

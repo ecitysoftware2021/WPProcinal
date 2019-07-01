@@ -437,3 +437,5 @@ C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojResolveAssemblyReference.cache
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPanicModal.g.cs
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPanicModal.baml
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmImpresionForzada.g.cs
+D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmImpresionForzada.baml

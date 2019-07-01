@@ -69,5 +69,39 @@
     <EntitySet Name="TblDipMap" EntityType="Self.TblDipMap" />
     <EntitySet Name="TblPay" EntityType="Self.TblPay" />
     <EntitySet Name="TblTypeSeat" EntityType="Self.TblTypeSeat" />
+    <EntitySet Name="NotifyMoney" EntityType="DBProcinalModel.NotifyMoney" />
+    <EntitySet Name="RePrint" EntityType="DBProcinalModel.RePrint" />
   </EntityContainer>
+  <EntityType Name="NotifyMoney">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TRANSACTION_ID" Type="Int32" />
+    <Property Name="DENOMINATION" Type="Int32" />
+    <Property Name="QUANTITY" Type="Int32" />
+    <Property Name="OPERATION" Type="Int32" />
+    <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="RePrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Cinema" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Movie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Room" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Seat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FechaPago" Type="DateTime" Precision="3" />
+    <Property Name="Valor" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Tramite" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Consecutivo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Secuencia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Formato" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IDTransaccion" Type="Int32" />
+  </EntityType>
 </Schema>

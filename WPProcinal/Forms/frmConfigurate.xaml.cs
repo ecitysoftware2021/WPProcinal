@@ -58,9 +58,19 @@ namespace WPProcinal.Forms
                                 {
                                     Dispatcher.BeginInvoke((Action)delegate
                                             {
-                                                frmCinema inicio = new frmCinema();
-                                                inicio.Show();
-                                                Close();
+                                                if (!Utilities.GetConfiguration("ReImpresion").Equals("si"))
+                                                {
+                                                    frmCinema inicio = new frmCinema();
+                                                    inicio.Show();
+                                                    Close();
+                                                }
+                                                else
+                                                {
+                                                    frmImpresionForzada impresionForzada = new frmImpresionForzada();
+                                                    impresionForzada.Show();
+                                                    Close();
+                                                }
+
                                             });
                                 };
                                 Utilities.control.Start();

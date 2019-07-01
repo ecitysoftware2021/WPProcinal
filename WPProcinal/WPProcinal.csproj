@@ -129,6 +129,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ADO\NotifyMoney.cs">
+      <DependentUpon>Procinal.tt</DependentUpon>
+    </Compile>
     <Compile Include="ADO\NotifyPay.cs">
       <DependentUpon>Procinal.tt</DependentUpon>
     </Compile>
@@ -147,6 +150,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Procinal.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ADO\RePrint.cs">
+      <DependentUpon>Procinal.tt</DependentUpon>
+    </Compile>
     <Compile Include="ADO\TblDipMap.cs">
       <DependentUpon>Procinal.tt</DependentUpon>
     </Compile>
@@ -161,6 +167,7 @@
     <Compile Include="Classes\DBConnection\SqliteDataAccess.cs" />
     <Compile Include="Classes\DBProcinalController.cs" />
     <Compile Include="Classes\Enumerables.cs" />
+    <Compile Include="Classes\ImpresionForzada.cs" />
     <Compile Include="Classes\Log.cs" />
     <Compile Include="Classes\LogError.cs" />
     <Compile Include="Classes\PaymentViewModel.cs" />
@@ -235,6 +242,9 @@
     <Compile Include="Forms\FrmFinalTransaction.xaml.cs">
       <DependentUpon>FrmFinalTransaction.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmImpresionForzada.xaml.cs">
+      <DependentUpon>frmImpresionForzada.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmLoading.xaml.cs">
       <DependentUpon>FrmLoading.xaml</DependentUpon>
     </Compile>
@@ -295,6 +305,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\FrmFinalTransaction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmImpresionForzada.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

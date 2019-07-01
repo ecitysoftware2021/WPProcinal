@@ -69,5 +69,39 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="NotifyMoney">
+      <EntityTypeMapping TypeName="DBProcinalModel.NotifyMoney">
+        <MappingFragment StoreEntitySet="NotifyMoney">
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="CODE" ColumnName="CODE" />
+          <ScalarProperty Name="OPERATION" ColumnName="OPERATION" />
+          <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+          <ScalarProperty Name="DENOMINATION" ColumnName="DENOMINATION" />
+          <ScalarProperty Name="TRANSACTION_ID" ColumnName="TRANSACTION_ID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RePrint">
+      <EntityTypeMapping TypeName="DBProcinalModel.RePrint">
+        <MappingFragment StoreEntitySet="RePrint">
+          <ScalarProperty Name="IDTransaccion" ColumnName="IDTransaccion" />
+          <ScalarProperty Name="Formato" ColumnName="Formato" />
+          <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+          <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Tramite" ColumnName="Tramite" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="FechaPago" ColumnName="FechaPago" />
+          <ScalarProperty Name="Seat" ColumnName="Seat" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Room" ColumnName="Room" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Movie" ColumnName="Movie" />
+          <ScalarProperty Name="Cinema" ColumnName="Cinema" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

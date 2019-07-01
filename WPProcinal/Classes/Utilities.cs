@@ -599,6 +599,7 @@ namespace WPProcinal.Classes
                             LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante : ", "Boleta " + (i + 1));
                         }
                         catch { }
+
                         objPrint.Cinema = GetConfiguration("NameCinema");
                         objPrint.Movie = dipMap.MovieName;
                         objPrint.Time = dipMap.HourFunction;
@@ -645,6 +646,44 @@ namespace WPProcinal.Classes
             objPrint.Category = dipMap.Category;
             objPrint.Estado = "Cancelado";
             objPrint.ImprimirComprobanteCancelar();
+        }
+
+        public static void ImprimirComprobanteForzado(int idTransaccion)
+        {
+            try
+            {
+                ImpresionForzada forzada = new ImpresionForzada();
+                using (var conexion = new DBProcinalEntities())
+                {
+                    var data = conexion.RePrint.Where(re => re.IDTransaccion == idTransaccion).ToList();
+                    foreach (var seat in data)
+                    {
+
+                        forzada.Cinema = seat.Cinema;
+                        forzada.Movie = seat.Movie;
+                        forzada.Time = seat.Time;
+                        forzada.Room = seat.Room;
+                        forzada.Date = seat.Date;
+                        forzada.Seat = seat.Seat;
+                        forzada.FechaPago = seat.FechaPago.Value;
+                        forzada.Valor = seat.Valor.Value;
+                        forzada.Tramite = seat.Tramite;
+                        forzada.Category = seat.Category;
+                        forzada.Consecutivo = seat.Consecutivo;
+                        forzada.Secuencia = seat.Secuencia;
+                        forzada.Formato = seat.Formato;
+                        forzada.ImprimirComprobante();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobanteForzado: ", ex.Message);
+                }
+                catch { }
+            }
         }
 
         public static void SaveLogDispenser(LogDispenser log)
