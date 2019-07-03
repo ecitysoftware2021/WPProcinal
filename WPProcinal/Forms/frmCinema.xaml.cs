@@ -19,28 +19,28 @@ namespace WPProcinal.Forms
         public frmCinema()
         {
             InitializeComponent();
-            api = new ApiLocal();
+            //api = new ApiLocal();
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
             Utilities.CantidadTransacciones++;
 
 
-            Task.Run(() =>
-            {
-                SendPayments();
-            });
-            Task.Run(() =>
-            {
-                DesReserve();
-            });
-            Task.Run(() =>
-            {
-                SendDataToDataBase();
-            });
-            Task.Run(() =>
-            {
-                NotifyPending();
-            });
-            LoadData();
+            //Task.Run(() =>
+            //{
+            //    SendPayments();
+            //});
+            //Task.Run(() =>
+            //{
+            //    DesReserve();
+            //});
+            //Task.Run(() =>
+            //{
+            //    SendDataToDataBase();
+            //});
+            //Task.Run(() =>
+            //{
+            //    NotifyPending();
+            //});
+            //LoadData();
         }
 
 
@@ -187,14 +187,14 @@ namespace WPProcinal.Forms
         {
             try
             {
-                try
-                {
-                    gridPrincipal.IsEnabled = false;
-                }
-                catch { }
-                frmMovies frmMovies = new frmMovies();
-                frmMovies.Show();
-                Close();
+                //try
+                //{
+                //    gridPrincipal.IsEnabled = false;
+                //}
+                //catch { }
+                //frmMovies frmMovies = new frmMovies();
+                //frmMovies.Show();
+                //Close();
             }
             catch (System.Exception ex)
             {

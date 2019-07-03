@@ -18,17 +18,17 @@
                         Stretch="UniformToFill"/>
         </Grid.Background>
        
-        <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/procinal01.gif" 
+        <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/Procinal1.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
                     x:Name="GifLoad2" 
                     Stretch="Fill"
-                    Margin="0,350,0,0" 
-                    VerticalAlignment="Center" 
+                    Margin="0,50,0,0" 
+                    VerticalAlignment="top  " 
                     HorizontalAlignment="Center" 
-                    Width="300" 
+                    Width="750" 
                     Visibility="Visible"
-                    Height="300" 
+                    Height="350" 
                     Grid.Column="1"/>
     </Grid>
 </Window>

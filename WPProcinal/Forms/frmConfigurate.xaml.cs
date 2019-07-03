@@ -38,24 +38,24 @@ namespace WPProcinal.Forms
             try
             {
                 Utilities util = new Utilities(1);
-                state = await api.SecurityToken();
-                if (state)
-                {
-                    var response = await api.GetResponse(new Uptake.RequestApi(), "InitPaypad");
-                    if (response.CodeError == 200)
-                    {
-                        DataPaypad data = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
+                //state = await api.SecurityToken();
+                //if (state)
+                //{
+                //    var response = await api.GetResponse(new Uptake.RequestApi(), "InitPaypad");
+                //    if (response.CodeError == 200)
+                //    {
+                //        DataPaypad data = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
 
-                        if (data.State)
-                        {
-                            if (data.StateAceptance && data.StateDispenser)
-                            {
-                                Utilities.control.callbackError = error =>
-                                {
-                                    GetToken();
-                                };
-                                Utilities.control.callbackToken = isSucces =>
-                                {
+                //        if (data.State)
+                //        {
+                //            if (data.StateAceptance && data.StateDispenser)
+                //            {
+                //                Utilities.control.callbackError = error =>
+                //                {
+                //                    GetToken();
+                //                };
+                                //Utilities.control.callbackToken = isSucces =>
+                                //{
                                     Dispatcher.BeginInvoke((Action)delegate
                                             {
                                                 if (!Utilities.GetConfiguration("ReImpresion").Equals("si"))
@@ -72,44 +72,44 @@ namespace WPProcinal.Forms
                                                 }
 
                                             });
-                                };
-                                Utilities.control.Start();
-                            }
-                            else
-                            {
-                                Task.Run(() =>
-                                {
-                                    if (!string.IsNullOrEmpty(data.Message))
-                                    {
-                                        SendEmails.SendEmail(data.Message);
-                                    }
-                                });
-                                LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", data.Message);
-                                ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
-                                GetToken();
-                            }
-                        }
-                        else
-                        {
-                            LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", "Estado Perifericos: " + data.State);
+                                //};
+                                //Utilities.control.Start();
+                //            }
+                //            else
+                //            {
+                //                Task.Run(() =>
+                //                {
+                //                    if (!string.IsNullOrEmpty(data.Message))
+                //                    {
+                //                        SendEmails.SendEmail(data.Message);
+                //                    }
+                //                });
+                //                LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", data.Message);
+                //                ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
+                //                GetToken();
+                //            }
+                //        }
+                //        else
+                //        {
+                //            LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", "Estado Perifericos: " + data.State);
 
-                            ShowModalError("No se pudo verificar el estado de los periféricos");
-                            GetToken();
-                        }
-                    }
-                    else
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", response.Message);
+                //            ShowModalError("No se pudo verificar el estado de los periféricos");
+                //            GetToken();
+                //        }
+                //    }
+                //    else
+                //    {
+                //        LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", response.Message);
 
-                        ShowModalError("No se pudo iniciar el Dispositivo");
-                        GetToken();
-                    }
-                }
-                else
-                {
-                    ShowModalError("No hay conexión disponible.");
-                    GetToken();
-                }
+                //        ShowModalError("No se pudo iniciar el Dispositivo");
+                //        GetToken();
+                //    }
+                //}
+                //else
+                //{
+                //    ShowModalError("No hay conexión disponible.");
+                //    GetToken();
+                //}
             }
             catch (Exception ex)
             {

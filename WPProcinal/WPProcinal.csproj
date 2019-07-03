@@ -667,6 +667,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataModel\PaypadLocalModel.edmx.sql" />
+    <Resource Include="Images\NewDesing\Gif\Procinal1.gif" />
     <Resource Include="Images\NewDesing\Others\v-inserte-tarjeta.png" />
     <Resource Include="Images\Tags\cartel-4dx.png" />
     <Resource Include="Images\Tags\cartel-blackstar.png" />
