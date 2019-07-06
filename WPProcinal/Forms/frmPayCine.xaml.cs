@@ -53,17 +53,20 @@ namespace WPProcinal.Forms
                 TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
                 TxtHour.Text = dipMap.HourFunction;
                 TxtSubTitle.Text = dipMap.Language;
+                var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
+                TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
+
                 logError = new LogErrorGeneral
                 {
                     Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-                Buytickets();
-                //count = 0;
-                //stateUpdate = true;
-                //payState = true;
-                //Utilities.control.StartValues();
+
+                count = 0;
+                stateUpdate = true;
+                payState = true;
+                Utilities.control.StartValues();
             }
             catch (Exception ex)
             {
@@ -364,10 +367,7 @@ namespace WPProcinal.Forms
                     catch { }
 
                     utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
-                    //logError.Description = "\nSe cancelo una transaccion";
-                    //logError.State = "Cancelada";
-                    //Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
-
+                    
                     ActivateTimer(false);
                     ReturnMoney(Utilities.PayVal, false);
 
@@ -375,8 +375,7 @@ namespace WPProcinal.Forms
                 else
                 {
                     objUtil.ImprimirComprobante("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
-                    //TODO:descomment
-                    // ApproveTrans();
+                    ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
@@ -458,49 +457,47 @@ namespace WPProcinal.Forms
                 {
                     payState = true;
 
-                    //TODO: comment
-                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    //Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
 
-                    //TODO: descomment
-                    //var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
+                    var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
 
-                    //responseGlobal = response;
-                    //if (!response.IsSuccess)
-                    //{
-                    //    Utilities.SaveLogError(new LogError
-                    //    {
-                    //        Message = response.Message,
-                    //        Method = "WCFServices.PostComprar"
-                    //    });
-                    //}
+                    responseGlobal = response;
+                    if (!response.IsSuccess)
+                    {
+                        Utilities.SaveLogError(new LogError
+                        {
+                            Message = response.Message,
+                            Method = "WCFServices.PostComprar"
+                        });
+                    }
 
-                    //var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                    //try
-                    //{
-                    //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar: ", transaccionCompra.Respuesta);
-                    //}
-                    //catch { }
-                    //if (transaccionCompra.Respuesta != "Exitosa")
-                    //{
-                    //    payState = false;
-                    //    Utilities.SaveLogError(new LogError
-                    //    {
-                    //        Message = transaccionCompra.Respuesta,
-                    //        Method = "WCFServices.PostComprar.Fallida"
-                    //    });
-                    //}
-                    //else
-                    //{
-                    //    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
-                    //    if (!response.IsSuccess)
-                    //    {
-                    //        Utilities.SaveLogError(new LogError
-                    //        {
-                    //            Message = responseDB.Message,
-                    //            Method = "DBProcinalController.EditPaySeat"
-                    //        });
-                    //    }
-                    //}
+                    var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar: ", transaccionCompra.Respuesta);
+                    }
+                    catch { }
+                    if (transaccionCompra.Respuesta != "Exitosa")
+                    {
+                        payState = false;
+                        Utilities.SaveLogError(new LogError
+                        {
+                            Message = transaccionCompra.Respuesta,
+                            Method = "WCFServices.PostComprar.Fallida"
+                        });
+                    }
+                    else
+                    {
+                        var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                        if (!response.IsSuccess)
+                        {
+                            Utilities.SaveLogError(new LogError
+                            {
+                                Message = responseDB.Message,
+                                Method = "DBProcinalController.EditPaySeat"
+                            });
+                        }
+                    }
                 }
 
                 if (num == 2)

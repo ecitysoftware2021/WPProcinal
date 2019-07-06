@@ -30,7 +30,7 @@ namespace WPProcinal.Forms
         bool vibraAvailable = false;
         TimerTiempo timer;
         int controlReinicio = 0;
-
+        bool activePay = false;
         public frmSeat(DipMap dipMap)
         {
             InitializeComponent();
@@ -42,6 +42,9 @@ namespace WPProcinal.Forms
             TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
             TxtHour.Text = dipMap.HourFunction;
             TxtSubTitle.Text = dipMap.Language;
+            var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
+            TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
+
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
             HideImages();
             ActivateTimer();
@@ -66,7 +69,8 @@ namespace WPProcinal.Forms
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
-                        tbTimer.Text = response;
+                        tbTimer.Text = "Tiempo de transacción: " + response;
+                        tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("HH:mm:ss");
                     });
                 };
             }
@@ -561,6 +565,9 @@ namespace WPProcinal.Forms
         /// </summary>
         private void SecuenceAndReserve()
         {
+            this.IsEnabled = false;
+            activePay = true;
+            this.Opacity = 0.3;
             frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
             try
             {
@@ -724,16 +731,20 @@ namespace WPProcinal.Forms
         {
             try
             {
-                frmLoading = new FrmLoading("¡Creando la transacción...!");
+                btnAtras.IsEnabled = false;
+                FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
                 frmLoading.Show();
                 var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
-
+                frmLoading.Close();
+                frmLoading = new FrmLoading("¡Generando ticket, espere...!");
+                frmLoading.Show();
                 var responseDash = await utilities.CreatePrintDashboard();
                 frmLoading.Close();
                 LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Transaction | PrintID > ", response + "|" + responseDash);
 
                 if (!response || !responseDash)
                 {
+                    btnAtras.IsEnabled = true;
                     foreach (var item in SelectedTypeSeats)
                     {
                         List<TypeSeat> lista = new List<TypeSeat>();
@@ -745,6 +756,7 @@ namespace WPProcinal.Forms
                     {
                         this.Opacity = 0.3;
                         Pay.IsEnabled = true;
+                        this.IsEnabled = true;
                         Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
                         this.Opacity = 1;
                     });
@@ -831,6 +843,16 @@ namespace WPProcinal.Forms
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+
+            if (activePay)
+            {
+                foreach (var item in SelectedTypeSeats)
+                {
+                    List<TypeSeat> lista = new List<TypeSeat>();
+                    lista.Add(item);
+                    Utilities.CancelAssing(lista, dipMapCurrent);
+                }
+            }
             try
             {
                 btnAtras.IsEnabled = false;
@@ -859,6 +881,7 @@ namespace WPProcinal.Forms
                     LoadSeats();
                     frmLoading.Close();
                 });
+
                 Utilities.DoEvents();
             }
             catch (Exception ex)

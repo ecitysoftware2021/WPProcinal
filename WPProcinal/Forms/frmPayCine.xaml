@@ -28,6 +28,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
+            
             <TextBlock 
                 x:Name="TxtTitle"
                 FontSize="50"
@@ -52,19 +53,31 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right" 
                 Width="300"
-                Margin="0,140,50,0">
+                Margin="0,100,50,0">
             </TextBlock>
             <TextBlock x:Name="TxtFormat"
                        FontSize="40"
                        Text="2h 24min"
                        FontWeight="Bold"
                        TextWrapping="Wrap"
-                       TextAlignment="Center"
+                       TextAlignment="Right"
                        Foreground="Red"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right" 
-                       Margin="0,250,50,0"
+                       Margin="0,200,50,0"
                        />
+            <TextBlock x:Name="TxtDuracion"
+                       FontSize="35"
+                       Text="Duraciòn: 135 min"                   
+                       FontWeight="Bold"
+                       Width="500"
+                       TextAlignment="Right"
+                       TextWrapping="Wrap"
+                       Foreground="Red"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right" 
+                       Margin="0,280,10,0"/>
+
             <TextBlock x:Name="TxtDay"
                        FontSize="40"
                        Text="24 Sábado"

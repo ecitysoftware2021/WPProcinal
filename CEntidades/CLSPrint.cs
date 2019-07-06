@@ -84,7 +84,7 @@ namespace CEntidades
             g.DrawString(GetConfiguration("Tel"), fBody1, sb, 120, increment);
 
             increment += 15;
-            //TODO: Solo para puerta del norta
+            //TODO: Solo para puerta del norte
             //g.DrawString("Promotora Nacional de Cines S.A.S", fBody, sb, 10, increment);
             //increment += 15;
             //g.DrawString("NIT:", fBody, sb, 10, increment);

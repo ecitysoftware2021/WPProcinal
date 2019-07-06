@@ -54,8 +54,8 @@ namespace WPProcinal.Forms
                                 {
                                     GetToken();
                                 };
-                                //Utilities.control.callbackToken = isSucces =>
-                                //{
+                                Utilities.control.callbackToken = isSucces =>
+                                {
                                     Dispatcher.BeginInvoke((Action)delegate
                                             {
                                                 if (!Utilities.GetConfiguration("ReImpresion").Equals("si"))
@@ -72,8 +72,8 @@ namespace WPProcinal.Forms
                                                 }
 
                                             });
-                                //};
-                                //Utilities.control.Start();
+                                };
+                                Utilities.control.Start();
                             }
                             else
                             {
@@ -125,9 +125,7 @@ namespace WPProcinal.Forms
                 modal.ShowDialog();
                 if (modal.DialogResult.HasValue)
                 {
-                    frmConfigurate configurate = new frmConfigurate();
-                    configurate.Show();
-                    this.Close();
+                    Utilities.RestartApp();
                 }
             });
         }

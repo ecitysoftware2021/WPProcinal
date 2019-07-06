@@ -261,8 +261,8 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                
-                                <Image Width="200"
-                                       Height="70"
+                                <Image Width="400"
+                                       Height="75"
                                        Grid.Column="0"
                                        Grid.Row="0"
                                        HorizontalAlignment="Left"
