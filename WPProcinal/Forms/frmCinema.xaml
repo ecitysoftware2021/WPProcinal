@@ -11,6 +11,7 @@
         WindowState="Maximized"
         Height="2064.095" 
         Width="1250.599"
+        Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen">
     <Grid PreviewMouseDown="BtnConsult_MouseDown" Name="gridPrincipal">
         <Grid.Background>
@@ -18,17 +19,17 @@
                         Stretch="UniformToFill"/>
         </Grid.Background>
        
-        <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/Procinal1.gif" 
+        <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/procinal01.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
                     x:Name="GifLoad2" 
                     Stretch="Fill"
-                    Margin="0,50,0,0" 
-                    VerticalAlignment="top  " 
+                    Margin="0,350,0,0" 
+                    VerticalAlignment="Center" 
                     HorizontalAlignment="Center" 
-                    Width="750" 
+                    Width="300" 
                     Visibility="Visible"
-                    Height="350" 
+                    Height="300" 
                     Grid.Column="1"/>
     </Grid>
 </Window>

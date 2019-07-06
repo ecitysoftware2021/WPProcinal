@@ -45,6 +45,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -264,6 +266,7 @@
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Impresora\PrintProperties.cs" />
     <Compile Include="Models\ApiLocal\DataPaypad.cs" />
     <Compile Include="Models\ApiLocal\RequestAuth.cs" />
     <Compile Include="Models\ApiLocal\ResponseAuth.cs" />

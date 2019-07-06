@@ -27,6 +27,7 @@ using static WPProcinal.Models.ApiLocal.Uptake;
 using trx;
 using WPProcinal.DataModel;
 using WPProcinal.Models.ApiLocal;
+using WPProcinal.Impresora;
 
 namespace WPProcinal.Classes
 {
@@ -85,6 +86,8 @@ namespace WPProcinal.Classes
             return result;
         }
         #endregion
+
+        public PrintProperties PrintProperties = new PrintProperties();
 
         public static List<Pelicula> Movies = new List<Pelicula>();
 
@@ -273,6 +276,8 @@ namespace WPProcinal.Classes
             try
             {
                 transactionManager = new TEFTransactionManager();
+                PrintProperties.Bandrate = Utilities.GetConfiguration("PrintBandrate");
+                PrintProperties.PortName = Utilities.GetConfiguration("PortPrinter");
                 logError = new LogErrorGeneral
                 {
                     Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
@@ -281,6 +286,22 @@ namespace WPProcinal.Classes
                 };
             }
             catch { }
+        }
+
+        public bool ValidatePrint()
+        {
+            return PrintProperties.Start();
+        }
+
+        public string MessagePrint()
+        {
+            int status = PrintProperties.GetPrintStatus();
+            if (status == 0)
+            {
+                return string.Empty;
+            }
+
+            return PrintProperties.MessageStatus(status);
         }
 
         public enum ETipoAlerta

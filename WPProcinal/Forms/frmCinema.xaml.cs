@@ -16,32 +16,36 @@ namespace WPProcinal.Forms
     public partial class frmCinema : Window
     {
         ApiLocal api;
+        Utilities printService;
         public frmCinema()
         {
             InitializeComponent();
-            //api = new ApiLocal();
+            printService = new Utilities();
+            api = new ApiLocal();
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
             Utilities.CantidadTransacciones++;
 
 
-            //Task.Run(() =>
-            //{
-            //    SendPayments();
-            //});
-            //Task.Run(() =>
-            //{
-            //    DesReserve();
-            //});
-            //Task.Run(() =>
-            //{
-            //    SendDataToDataBase();
-            //});
-            //Task.Run(() =>
-            //{
-            //    NotifyPending();
-            //});
-            //LoadData();
+            Task.Run(() =>
+            {
+                SendPayments();
+            });
+            Task.Run(() =>
+            {
+                DesReserve();
+            });
+            Task.Run(() =>
+            {
+                SendDataToDataBase();
+            });
+            Task.Run(() =>
+            {
+                NotifyPending();
+            });
+            LoadData();
         }
+
+
 
 
 
@@ -187,14 +191,31 @@ namespace WPProcinal.Forms
         {
             try
             {
-                //try
-                //{
-                //    gridPrincipal.IsEnabled = false;
-                //}
-                //catch { }
-                //frmMovies frmMovies = new frmMovies();
-                //frmMovies.Show();
-                //Close();
+                bool print = printService.ValidatePrint();
+                if (!print)
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        string message = printService.MessagePrint();
+                        if (!string.IsNullOrEmpty(message))
+                        {
+                            frmModal modal = new frmModal(message);
+                            modal.ShowDialog();
+                        }
+                    });
+                }
+                else
+                {
+                    try
+                    {
+                        gridPrincipal.IsEnabled = false;
+                    }
+                    catch { }
+                    frmMovies frmMovies = new frmMovies();
+                    frmMovies.Show();
+                    Close();
+                }
+                
             }
             catch (System.Exception ex)
             {
@@ -241,6 +262,11 @@ namespace WPProcinal.Forms
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "NotifyPending en frmCinema", EError.Aplication, ELevelError.Medium);
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

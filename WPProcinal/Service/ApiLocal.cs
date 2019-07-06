@@ -118,7 +118,7 @@ namespace WPProcinal.Service
                     url = string.Format(url, Utilities.GetConfiguration("idPaypad"), "&", true);
 
                     var task = client.GetAsync(url);
-                    if (await Task.WhenAny(task, Task.Delay(20000)) == task)
+                    if (await Task.WhenAny(task, Task.Delay(1)) == task)
                     {
                         response = task.Result;
                     }
