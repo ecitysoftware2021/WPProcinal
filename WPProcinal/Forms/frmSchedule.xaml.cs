@@ -60,6 +60,10 @@ namespace WPProcinal.Forms
             imgBackground.ImageSource = Utilities.ImageSelected;
             MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
             TxtTitle.Text = MovieName;
+            
+            var time = TimeSpan.FromMinutes(double.Parse(Movie.Data.Duracion));
+            TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
+
             DateTime fechaActual = Utilities.FechaSeleccionada;
 
             TxtDay.Text = string.Format("{0} {1}, {2}", fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
@@ -95,7 +99,8 @@ namespace WPProcinal.Forms
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    tbTimer.Text = response;
+                    tbTimer.Text = "Tiempo de transacción: "+response;
+                    tbHoraActual.Text = "Hora actual: "+DateTime.Now.ToString("HH:mm:ss");
                 });
             };
         }

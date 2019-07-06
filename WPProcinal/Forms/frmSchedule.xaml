@@ -32,11 +32,18 @@
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
             <TextBlock x:Name="tbTimer"
                        FontSize="35"
-                       HorizontalAlignment="Center"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
-            />
-            
+                       Margin="10,50,0,0" FontFamily="Arial" FontWeight="Bold"/>
+
+            <TextBlock x:Name="tbHoraActual"
+                       FontSize="35"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10,100,0,0" FontFamily="Arial" FontWeight="Bold"/>
+
             <Border
                 BorderBrush="White" 
                 BorderThickness="3,3,3,3"
@@ -58,8 +65,20 @@
                    Name="btnAtras"
                    PreviewMouseDown="Image_PreviewMouseDown"/>
 
+            <TextBlock x:Name="TxtDuracion"
+                       FontSize="35"
+                       Text="Duraciòn: 135 min"                   
+                       FontWeight="Bold"
+                       Width="500"
+                       TextAlignment="Left"
+                       TextWrapping="Wrap"
+                       Foreground="Red"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" 
+                       Margin="190,-100,0,0"/>
+            
             <TextBlock x:Name="TxtTitle"
-                       FontSize="50"
+                       FontSize="35"
                        Text="TÍTULO"                   
                        FontWeight="Bold"
                        Width="500"

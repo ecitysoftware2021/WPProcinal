@@ -434,8 +434,10 @@ C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Dapper.xml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.xml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.dll.config
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojResolveAssemblyReference.cache
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPanicModal.g.cs
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmPanicModal.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmImpresionForzada.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmImpresionForzada.baml
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmImpresionForzada.g.cs
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmImpresionForzada.baml

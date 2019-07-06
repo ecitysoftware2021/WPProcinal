@@ -95,17 +95,19 @@
                                    Height="500"
                                    PreviewMouseDown="Movie_MouseDown" PreviewStylusDown="Grid_PreviewStylusDown">
                                         <Grid.Background>
-                                            <ImageBrush 
+                                    <ImageBrush 
                                         ImageSource="{Binding ImageData}"
                                         Stretch="Uniform" />
                                         </Grid.Background>
-                                        <Image Source="{Binding ImageTag}" 
+                                        
+                                <Image Source="{Binding ImageTag}" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Margin="0,15,10,0"
                                    Width="100"
                                    Height="100"
                                    Stretch="Uniform"/>
+                                        
                                     </Grid>
                                 </StackPanel>
                             </DataTemplate>

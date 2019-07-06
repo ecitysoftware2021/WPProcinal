@@ -117,7 +117,7 @@ namespace WPProcinal.Forms
             {
                 string ImagePath = string.Concat(Utilities.UrlImages, pelicula.Id, ".jpg");
                 string TagPath = string.Empty;
-
+                
                 Utilities.LstMovies.Add(new MoviesViewModel
                 {
                     ImageData = Utilities.LoadImage(ImagePath, true),

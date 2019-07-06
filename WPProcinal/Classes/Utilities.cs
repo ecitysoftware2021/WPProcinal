@@ -275,7 +275,6 @@ namespace WPProcinal.Classes
         {
             try
             {
-                transactionManager = new TEFTransactionManager();
                 PrintProperties.Bandrate = Utilities.GetConfiguration("PrintBandrate");
                 PrintProperties.PortName = Utilities.GetConfiguration("PortPrinter");
                 logError = new LogErrorGeneral
@@ -284,6 +283,8 @@ namespace WPProcinal.Classes
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
+
+                transactionManager = new TEFTransactionManager();
             }
             catch { }
         }

@@ -59,11 +59,11 @@ namespace WPProcinal.Forms
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-
-                count = 0;
-                stateUpdate = true;
-                payState = true;
-                Utilities.control.StartValues();
+                Buytickets();
+                //count = 0;
+                //stateUpdate = true;
+                //payState = true;
+                //Utilities.control.StartValues();
             }
             catch (Exception ex)
             {
@@ -375,7 +375,8 @@ namespace WPProcinal.Forms
                 else
                 {
                     objUtil.ImprimirComprobante("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
-                    ApproveTrans();
+                    //TODO:descomment
+                    // ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
@@ -457,45 +458,49 @@ namespace WPProcinal.Forms
                 {
                     payState = true;
 
-                    var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
+                    //TODO: comment
+                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
 
-                    responseGlobal = response;
-                    if (!response.IsSuccess)
-                    {
-                        Utilities.SaveLogError(new LogError
-                        {
-                            Message = response.Message,
-                            Method = "WCFServices.PostComprar"
-                        });
-                    }
+                    //TODO: descomment
+                    //var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
 
-                    var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar: ", transaccionCompra.Respuesta);
-                    }
-                    catch { }
-                    if (transaccionCompra.Respuesta != "Exitosa")
-                    {
-                        payState = false;
-                        Utilities.SaveLogError(new LogError
-                        {
-                            Message = transaccionCompra.Respuesta,
-                            Method = "WCFServices.PostComprar.Fallida"
-                        });
-                    }
-                    else
-                    {
-                        var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
-                        if (!response.IsSuccess)
-                        {
-                            Utilities.SaveLogError(new LogError
-                            {
-                                Message = responseDB.Message,
-                                Method = "DBProcinalController.EditPaySeat"
-                            });
-                        }
-                    }
+                    //responseGlobal = response;
+                    //if (!response.IsSuccess)
+                    //{
+                    //    Utilities.SaveLogError(new LogError
+                    //    {
+                    //        Message = response.Message,
+                    //        Method = "WCFServices.PostComprar"
+                    //    });
+                    //}
+
+                    //var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
+                    //try
+                    //{
+                    //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar: ", transaccionCompra.Respuesta);
+                    //}
+                    //catch { }
+                    //if (transaccionCompra.Respuesta != "Exitosa")
+                    //{
+                    //    payState = false;
+                    //    Utilities.SaveLogError(new LogError
+                    //    {
+                    //        Message = transaccionCompra.Respuesta,
+                    //        Method = "WCFServices.PostComprar.Fallida"
+                    //    });
+                    //}
+                    //else
+                    //{
+                    //    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                    //    if (!response.IsSuccess)
+                    //    {
+                    //        Utilities.SaveLogError(new LogError
+                    //        {
+                    //            Message = responseDB.Message,
+                    //            Method = "DBProcinalController.EditPaySeat"
+                    //        });
+                    //    }
+                    //}
                 }
 
                 if (num == 2)
