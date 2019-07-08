@@ -35,7 +35,6 @@ namespace WPProcinal.Service
         }
         #endregion
 
-
         #region "Métodos"
         public async Task<bool> SecurityToken()
         {
@@ -57,23 +56,23 @@ namespace WPProcinal.Service
                 {
                     response = task.Result;
                 }
-                else
-                {
-                    client.CancelPendingRequests();
-                    var requestEspejo = JsonConvert.SerializeObject(requestAuth);
-                    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
-                    client = new HttpClient();
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(authentication));
-                    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
+                //else
+                //{
+                //    client.CancelPendingRequests();
+                //    var requestEspejo = JsonConvert.SerializeObject(requestAuth);
+                //    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
+                //    client = new HttpClient();
+                //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(authentication));
+                //    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
 
-                    var taskEspejo = client.PostAsync(url, contentEspejo);
+                //    var taskEspejo = client.PostAsync(url, contentEspejo);
 
-                    if (await Task.WhenAny(taskEspejo, Task.Delay(30000)) == taskEspejo)
-                    {
-                        response = taskEspejo.Result;
-                    }
-                    client.CancelPendingRequests();
-                }
+                //    if (await Task.WhenAny(taskEspejo, Task.Delay(30000)) == taskEspejo)
+                //    {
+                //        response = taskEspejo.Result;
+                //    }
+                //    client.CancelPendingRequests();
+                //}
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -130,23 +129,23 @@ namespace WPProcinal.Service
                     {
                         response = task.Result;
                     }
-                    else
-                    {
+                    //else
+                    //{
 
-                        var requestEspejo = JsonConvert.SerializeObject(model);
-                        var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
-                        client = new HttpClient();
-                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
-                        client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
+                    //    var requestEspejo = JsonConvert.SerializeObject(model);
+                    //    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
+                    //    client = new HttpClient();
+                    //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
+                    //    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
 
-                        var taskEspejo = client.GetAsync(url);
+                    //    var taskEspejo = client.GetAsync(url);
 
-                        if (await Task.WhenAny(taskEspejo, Task.Delay(30000)) == taskEspejo)
-                        {
-                            response = taskEspejo.Result;
-                        }
-                        client.CancelPendingRequests();
-                    }
+                    //    if (await Task.WhenAny(taskEspejo, Task.Delay(30000)) == taskEspejo)
+                    //    {
+                    //        response = taskEspejo.Result;
+                    //    }
+                    //    client.CancelPendingRequests();
+                    //}
                 }
                 else
                 {
@@ -155,15 +154,15 @@ namespace WPProcinal.Service
                     {
                         response = task.Result;
                     }
-                    else
-                    {
-                        var requestEspejo = JsonConvert.SerializeObject(model);
-                        var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
-                        client = new HttpClient();
-                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
-                        client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
-                        response = await client.PostAsync(url, contentEspejo);
-                    }
+                    //else
+                    //{
+                    //    var requestEspejo = JsonConvert.SerializeObject(model);
+                    //    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
+                    //    client = new HttpClient();
+                    //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
+                    //    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
+                    //    response = await client.PostAsync(url, contentEspejo);
+                    //}
                 }
 
                 if (!response.IsSuccessStatusCode)
@@ -218,7 +217,6 @@ namespace WPProcinal.Service
             }
         }
 
-
         public async Task<object> CallApi(string controller, object data = null)
         {
             try
@@ -239,20 +237,20 @@ namespace WPProcinal.Service
                 {
                     response = task.Result;
                 }
-                else
-                {
-                    client = new HttpClient();
-                    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
-                    var requestEspejo = JsonConvert.SerializeObject(requestApi);
-                    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
+                //else
+                //{
+                //    client = new HttpClient();
+                //    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
+                //    var requestEspejo = JsonConvert.SerializeObject(requestApi);
+                //    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
+                //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
 
-                    var taskEspejo = client.PostAsync(url, content);
-                    if (await Task.WhenAny(taskEspejo, Task.Delay(20000)) == taskEspejo)
-                    {
-                        response = taskEspejo.Result;
-                    }
-                }
+                //    var taskEspejo = client.PostAsync(url, content);
+                //    if (await Task.WhenAny(taskEspejo, Task.Delay(20000)) == taskEspejo)
+                //    {
+                //        response = taskEspejo.Result;
+                //    }
+                //}
 
                 if (!response.IsSuccessStatusCode)
                 {

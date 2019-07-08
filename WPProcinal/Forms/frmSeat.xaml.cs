@@ -571,97 +571,98 @@ namespace WPProcinal.Forms
             frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
             try
             {
-                try
-                {
-                    SetCallBacksNull();
-                    timer.CallBackStop?.Invoke(1);
-                }
-                catch { }
+                //TODO: descomentar
+                //try
+                //{
+                //    SetCallBacksNull();
+                //    timer.CallBackStop?.Invoke(1);
+                //}
+                //catch { }
 
-                frmLoading.Show();
-                var responseSec = WCFServices.GetSecuence(dipMapCurrent);
+                //frmLoading.Show();
+                //var responseSec = WCFServices.GetSecuence(dipMapCurrent);
 
-                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > GetSecuence", responseSec.Result.ToString());
+                //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > GetSecuence", responseSec.Result.ToString());
 
-                if (!responseSec.IsSuccess)
-                {
-                    frmLoading.Close();
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve >  responseSec.Message en frmSeat", responseSec.Message);
+                //if (!responseSec.IsSuccess)
+                //{
+                //    frmLoading.Close();
+                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve >  responseSec.Message en frmSeat", responseSec.Message);
 
-                    Utilities.ShowModal("Lo sentimos, algo ha salido mal, por favor intenta nuevamente.");
-                    ReloadWindow();
-                }
+                //    Utilities.ShowModal("Lo sentimos, algo ha salido mal, por favor intenta nuevamente.");
+                //    ReloadWindow();
+                //}
 
-                var secuence = WCFServices.DeserealizeXML<SecuenciaVenta>(responseSec.Result.ToString());
-                if (!string.IsNullOrEmpty(secuence.Error))
-                {
-                    frmLoading.Close();
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve >  secuence.Error en frmSeat", secuence.Error);
+                //var secuence = WCFServices.DeserealizeXML<SecuenciaVenta>(responseSec.Result.ToString());
+                //if (!string.IsNullOrEmpty(secuence.Error))
+                //{
+                //    frmLoading.Close();
+                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve >  secuence.Error en frmSeat", secuence.Error);
 
-                    Utilities.ShowModal("Lo sentimos, algo salió mal, intenta nuevamente por favor.");
-                    ReloadWindow();
-                }
+                //    Utilities.ShowModal("Lo sentimos, algo salió mal, intenta nuevamente por favor.");
+                //    ReloadWindow();
+                //}
 
-                dipMapCurrent.Secuence = int.Parse(secuence.Secuencia);
-                Utilities.Secuencia = secuence.Secuencia;
+                //dipMapCurrent.Secuence = int.Parse(secuence.Secuencia);
+                //Utilities.Secuencia = secuence.Secuencia;
 
-                foreach (var item in SelectedTypeSeats)
-                {
-                    var response = WCFServices.PostReserva(dipMapCurrent, item);
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > PostReserva > response.Result en frmSeat", response.Result.ToString());
+                //foreach (var item in SelectedTypeSeats)
+                //{
+                //    var response = WCFServices.PostReserva(dipMapCurrent, item);
+                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > PostReserva > response.Result en frmSeat", response.Result.ToString());
 
-                    if (!response.IsSuccess)
-                    {
-                        frmLoading.Close();
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > response.Message en frmSeat", response.Message);
-                        item.IsReserved = false;
+                //    if (!response.IsSuccess)
+                //    {
+                //        frmLoading.Close();
+                //        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > response.Message en frmSeat", response.Message);
+                //        item.IsReserved = false;
 
-                        Utilities.ShowModal("Lo sentimos, algo ha salido mal, por favor intenta nuevamente.");
-                    }
+                //        Utilities.ShowModal("Lo sentimos, algo ha salido mal, por favor intenta nuevamente.");
+                //    }
 
-                    var reserve = WCFServices.DeserealizeXML<Reserva>(response.Result.ToString());
-                    if (!string.IsNullOrEmpty(reserve.Error_en_proceso))
-                    {
-                        frmLoading.Close();
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > reserve.Error_en_proceso en frmSeat", reserve.Error_en_proceso);
-                        item.IsReserved = false;
-                        Utilities.ShowModal(reserve.Error_en_proceso);
-                    }
-                    else
-                    {
-                        frmLoading.Close();
-                        item.NumSecuencia = reserve.Secuencia_reserva;
-                        item.IsReserved = true;
-                    }
-                }
-                frmLoading.Close();
-                var tyseat = SelectedTypeSeats.Where(s => s.IsReserved == false).ToList();
-                if (tyseat.Count > 0)
-                {
-                    var tyseatDesre = SelectedTypeSeats.Where(s => s.IsReserved != false).ToList();
-                    if (tyseatDesre.Count > 0)
-                    {
-                        foreach (var item in tyseatDesre)
-                        {
-                            List<TypeSeat> lista = new List<TypeSeat>();
-                            lista.Add(item);
-                            Utilities.CancelAssing(lista, dipMapCurrent);
-                        }
-                    }
+                //    var reserve = WCFServices.DeserealizeXML<Reserva>(response.Result.ToString());
+                //    if (!string.IsNullOrEmpty(reserve.Error_en_proceso))
+                //    {
+                //        frmLoading.Close();
+                //        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > reserve.Error_en_proceso en frmSeat", reserve.Error_en_proceso);
+                //        item.IsReserved = false;
+                //        Utilities.ShowModal(reserve.Error_en_proceso);
+                //    }
+                //    else
+                //    {
+                //        frmLoading.Close();
+                //        item.NumSecuencia = reserve.Secuencia_reserva;
+                //        item.IsReserved = true;
+                //    }
+                //}
+                //frmLoading.Close();
+                //var tyseat = SelectedTypeSeats.Where(s => s.IsReserved == false).ToList();
+                //if (tyseat.Count > 0)
+                //{
+                //    var tyseatDesre = SelectedTypeSeats.Where(s => s.IsReserved != false).ToList();
+                //    if (tyseatDesre.Count > 0)
+                //    {
+                //        foreach (var item in tyseatDesre)
+                //        {
+                //            List<TypeSeat> lista = new List<TypeSeat>();
+                //            lista.Add(item);
+                //            Utilities.CancelAssing(lista, dipMapCurrent);
+                //        }
+                //    }
 
 
-                    ShowModalError(tyseat);
+                //    ShowModalError(tyseat);
 
-                    ReloadWindow();
-                    return;
-                }
+                //    ReloadWindow();
+                //    return;
+                //}
 
-                SaveDataBaseLocal();
-                if (_ErrorTransaction)
-                {
-                    frmLoading.Close();
-                    ShowPay();
-                }
+                //SaveDataBaseLocal();
+                //if (_ErrorTransaction)
+                //{
+                //    frmLoading.Close();
+                //    ShowPay();
+                //}
             }
             catch (Exception ex)
             {
@@ -673,31 +674,32 @@ namespace WPProcinal.Forms
 
         private void SaveDataBaseLocal()
         {
-            try
-            {
-                _ErrorTransaction = true;
-                var response = DBProcinalController.SaveDipMap(dipMapCurrent);
-                if (!response.IsSuccess)
-                {
-                    Utilities.ShowModal(response.Message);
-                    _ErrorTransaction = false;
-                    return;
-                }
+            //TODO: descomentar
+            //try
+            //{
+            //    _ErrorTransaction = true;
+            //    var response = DBProcinalController.SaveDipMap(dipMapCurrent);
+            //    if (!response.IsSuccess)
+            //    {
+            //        Utilities.ShowModal(response.Message);
+            //        _ErrorTransaction = false;
+            //        return;
+            //    }
 
-                int dipMap = int.Parse(response.Result.ToString());
-                dipMapCurrent.DipMapId = dipMap;
-                var responseSeat = DBProcinalController.SaveTypeSeats(SelectedTypeSeats, dipMap);
-                if (!responseSeat.IsSuccess)
-                {
-                    Utilities.ShowModal(responseSeat.Message);
-                    _ErrorTransaction = false;
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "SaveDataBaseLocal en frmSeat", EError.Aplication, ELevelError.Medium);
-            }
+            //    int dipMap = int.Parse(response.Result.ToString());
+            //    dipMapCurrent.DipMapId = dipMap;
+            //    var responseSeat = DBProcinalController.SaveTypeSeats(SelectedTypeSeats, dipMap);
+            //    if (!responseSeat.IsSuccess)
+            //    {
+            //        Utilities.ShowModal(responseSeat.Message);
+            //        _ErrorTransaction = false;
+            //        return;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    AdminPaypad.SaveErrorControl(ex.Message, "SaveDataBaseLocal en frmSeat", EError.Aplication, ELevelError.Medium);
+            //}
         }
 
         private void ShowModalError(List<TypeSeat> tyseats)
