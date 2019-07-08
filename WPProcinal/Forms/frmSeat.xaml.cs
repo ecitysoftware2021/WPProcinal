@@ -740,11 +740,16 @@ namespace WPProcinal.Forms
                 frmLoading.Show();
                 var responseDash = await utilities.CreatePrintDashboard();
                 frmLoading.Close();
-                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Transaction | PrintID > ", response + "|" + responseDash);
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    this.IsEnabled = true;
+                    btnAtras.IsEnabled = true;
+                });
+                //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Transaction | PrintID > ", response + "|" + responseDash);
 
                 if (!response || !responseDash)
                 {
-                    btnAtras.IsEnabled = true;
+
                     foreach (var item in SelectedTypeSeats)
                     {
                         List<TypeSeat> lista = new List<TypeSeat>();
@@ -774,21 +779,23 @@ namespace WPProcinal.Forms
 
                     catch (Exception ex)
                     {
-                        AdminPaypad.SaveErrorControl(ex.Message, "Grabador en ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
+                        //AdminPaypad.SaveErrorControl(ex.Message, "Grabador en ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
                     }
 
-                    if (Utilities.MedioPago == 1)
+                    //if (Utilities.MedioPago == 1)
+                    //{
+                    try
                     {
-                        try
-                        {
-                            SetCallBacksNull();
-                            timer.CallBackStop?.Invoke(1);
-                        }
-                        catch { }
+                        SetCallBacksNull();
+                        timer.CallBackStop?.Invoke(1);
+                    }
+                    catch { }
 
-                        LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-                        Utilities.controlStop = 0;
-                        int i = 0;
+                    LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+                    Utilities.controlStop = 0;
+                    int i = 0;
+                    try
+                    {
                         using (var conexion = new DBProcinalEntities())
                         {
                             foreach (var item in SelectedTypeSeats)
@@ -815,23 +822,25 @@ namespace WPProcinal.Forms
                             }
 
                         }
+                    }
+                    catch { }
 
-                        frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
-                        pay.Show();
-                        this.Close();
-                    }
-                    else
-                    {
-                        try
-                        {
-                            SetCallBacksNull();
-                            timer.CallBackStop?.Invoke(1);
-                        }
-                        catch { }
-                        FrmCardPayment pay = new FrmCardPayment(SelectedTypeSeats, dipMapCurrent);
-                        pay.Show();
-                        this.Close();
-                    }
+                    frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
+                    pay.Show();
+                    this.Close();
+                    //}
+                    //else
+                    //{
+                    //    try
+                    //    {
+                    //        SetCallBacksNull();
+                    //        timer.CallBackStop?.Invoke(1);
+                    //    }
+                    //    catch { }
+                    //    FrmCardPayment pay = new FrmCardPayment(SelectedTypeSeats, dipMapCurrent);
+                    //    pay.Show();
+                    //    this.Close();
+                    //}
 
                 }
             }

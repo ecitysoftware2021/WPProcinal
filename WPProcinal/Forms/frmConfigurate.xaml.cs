@@ -107,7 +107,7 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    ShowModalError("No hay conexión disponible.");
+                    ShowModalError("No se pudo establecer conexión.");
                     GetToken();
                 }
             }
@@ -121,7 +121,7 @@ namespace WPProcinal.Forms
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
-                frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el cajero no se encuentra disponible.\nError: ", description));
+                frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description));
                 modal.ShowDialog();
                 if (modal.DialogResult.HasValue)
                 {

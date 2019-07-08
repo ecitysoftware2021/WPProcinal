@@ -87,7 +87,7 @@ namespace WPProcinal.Classes
         }
         #endregion
 
-        public PrintProperties PrintProperties = new PrintProperties();
+        //public PrintProperties PrintProperties = new PrintProperties();
 
         public static List<Pelicula> Movies = new List<Pelicula>();
 
@@ -275,8 +275,8 @@ namespace WPProcinal.Classes
         {
             try
             {
-                PrintProperties.Bandrate = Utilities.GetConfiguration("PrintBandrate");
-                PrintProperties.PortName = Utilities.GetConfiguration("PortPrinter");
+                //PrintProperties.Bandrate = Utilities.GetConfiguration("PrintBandrate");
+                //PrintProperties.PortName = Utilities.GetConfiguration("PortPrinter");
                 logError = new LogErrorGeneral
                 {
                     Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
@@ -291,18 +291,19 @@ namespace WPProcinal.Classes
 
         public bool ValidatePrint()
         {
-            return PrintProperties.Start();
+            return true;
+            //return PrintProperties.Start();
         }
 
         public string MessagePrint()
         {
-            int status = PrintProperties.GetPrintStatus();
-            if (status == 0)
-            {
+            //int status = PrintProperties.GetPrintStatus();
+            //if (status == 0)
+            //{
                 return string.Empty;
-            }
+            //}
 
-            return PrintProperties.MessageStatus(status);
+            //return PrintProperties.MessageStatus(status);
         }
 
         public enum ETipoAlerta

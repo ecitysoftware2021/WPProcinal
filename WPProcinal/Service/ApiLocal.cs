@@ -49,22 +49,30 @@ namespace WPProcinal.Service
                 var authentication = Encoding.ASCII.GetBytes(User4Told + ":" + Password4Told);
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(authentication));
 
+                HttpResponseMessage response = new HttpResponseMessage();
+
                 var task = client.PostAsync(url, content);
-                HttpResponseMessage response;
 
-
-                if (await Task.WhenAny(task, Task.Delay(20000)) == task)
+                if (await Task.WhenAny(task, Task.Delay(30000)) == task)
                 {
                     response = task.Result;
                 }
                 else
                 {
+                    client.CancelPendingRequests();
                     var requestEspejo = JsonConvert.SerializeObject(requestAuth);
                     var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
                     client = new HttpClient();
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(authentication));
                     client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
-                    response = await client.PostAsync(url, contentEspejo);
+
+                    var taskEspejo = client.PostAsync(url, contentEspejo);
+
+                    if (await Task.WhenAny(taskEspejo, Task.Delay(30000)) == taskEspejo)
+                    {
+                        response = taskEspejo.Result;
+                    }
+                    client.CancelPendingRequests();
                 }
 
                 if (!response.IsSuccessStatusCode)
@@ -111,7 +119,7 @@ namespace WPProcinal.Service
                 var url = Utilities.GetConfiguration(controller);
                 var authentication = Encoding.ASCII.GetBytes(Utilities.TOKEN);
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
-                HttpResponseMessage response;
+                HttpResponseMessage response = new HttpResponseMessage();
 
                 if (controller == "GetInvoiceData")
                 {
@@ -130,7 +138,14 @@ namespace WPProcinal.Service
                         client = new HttpClient();
                         client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
                         client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
-                        response = await client.GetAsync(url);
+
+                        var taskEspejo = client.GetAsync(url);
+
+                        if (await Task.WhenAny(taskEspejo, Task.Delay(30000)) == taskEspejo)
+                        {
+                            response = taskEspejo.Result;
+                        }
+                        client.CancelPendingRequests();
                     }
                 }
                 else
@@ -217,7 +232,7 @@ namespace WPProcinal.Service
                 var url = Utilities.GetConfiguration(controller);
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
 
-                HttpResponseMessage response;
+                HttpResponseMessage response = new HttpResponseMessage();
 
                 var task = client.PostAsync(url, content);
                 if (await Task.WhenAny(task, Task.Delay(20000)) == task)
@@ -232,7 +247,11 @@ namespace WPProcinal.Service
                     var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
 
-                    response = await client.PostAsync(url, content);
+                    var taskEspejo = client.PostAsync(url, content);
+                    if (await Task.WhenAny(taskEspejo, Task.Delay(20000)) == taskEspejo)
+                    {
+                        response = taskEspejo.Result;
+                    }
                 }
 
                 if (!response.IsSuccessStatusCode)
