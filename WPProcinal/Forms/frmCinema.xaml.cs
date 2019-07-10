@@ -191,30 +191,30 @@ namespace WPProcinal.Forms
         {
             try
             {
-                //bool print = printService.ValidatePrint();
-                //if (!print)
-                //{
-                //    Dispatcher.BeginInvoke((Action)delegate
-                //    {
-                //        string message = printService.MessagePrint();
-                //        if (!string.IsNullOrEmpty(message))
-                //        {
-                //            frmModal modal = new frmModal(message);
-                //            modal.ShowDialog();
-                //        }
-                //    });
-                //}
-                //else
-                //{
-                try
+                bool print = printService.ValidatePrint();
+                if (!print)
                 {
-                    gridPrincipal.IsEnabled = false;
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        string message = printService.MessagePrint();
+                        if (!string.IsNullOrEmpty(message))
+                        {
+                            frmModal modal = new frmModal(message);
+                            modal.ShowDialog();
+                        }
+                    });
                 }
-                catch { }
-                frmMovies frmMovies = new frmMovies();
-                frmMovies.Show();
-                Close();
-                //}
+                else
+                {
+                    try
+                    {
+                        gridPrincipal.IsEnabled = false;
+                    }
+                    catch { }
+                    frmMovies frmMovies = new frmMovies();
+                    frmMovies.Show();
+                    Close();
+                }
 
             }
             catch (System.Exception ex)

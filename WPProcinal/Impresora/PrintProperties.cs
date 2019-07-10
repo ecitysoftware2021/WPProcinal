@@ -153,6 +153,8 @@ namespace WPProcinal.Impresora
         {
             try
             {
+
+
                 if (m_iInit != 0)
                 {
                     return 1;
@@ -173,15 +175,22 @@ namespace WPProcinal.Impresora
                 StringBuilder sPort = new StringBuilder(PortName, PortName.Length);
                 int iBaudrate = int.Parse(Bandrate);
                 SetPrintport(sPort, iBaudrate);
-                m_iInit = SetInit();
-                if (m_iInit == 0)
+
+                int intents = 0;
+                while (intents < 3)
                 {
-                    return true;
+                    m_iInit = SetInit();
+
+                    if (m_iInit == 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        intents++;
+                    }
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
             catch (Exception ex)
             {
