@@ -128,20 +128,39 @@ namespace WPProcinal.Classes
         {
             try
             {
-                _serialPortBills = new SerialPort();
-                _serialPortBills.DtrEnable = true;
-                _serialPortBills.DiscardNull = true;
-                _serialPortCoins = new SerialPort();
-                _serialPortCoins.DtrEnable = true;
-                _serialPortCoins.DiscardNull = true;
-                log = new LogDispenser();
-                InitPortBills();
-                InitPortPurses();
+                if (_serialPortBills==null)
+                {
+                    _serialPortBills = new SerialPort();
+                }
+                if (_serialPortCoins==null)
+                {
+                    _serialPortCoins = new SerialPort();
+                }
+                
+                if (!_serialPortBills.IsOpen)
+                {
+                   
+                    _serialPortBills.DtrEnable = true;
+                    _serialPortBills.DiscardNull = true;
+                    InitPortBills();
+                }
+
+                if (!_serialPortCoins.IsOpen)
+                {
+                   
+                    _serialPortCoins.DtrEnable = true;
+                    _serialPortCoins.DiscardNull = true;
+                    InitPortPurses();
+                }
+
+                if (log == null)
+                {
+                    log = new LogDispenser();
+                }
             }
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "Constructor en ControlPeripherals", EError.Aplication, ELevelError.Medium);
-                Utilities.RestartApp();
             }
         }
 
@@ -174,13 +193,14 @@ namespace WPProcinal.Classes
                     _serialPortBills.WriteTimeout = BillsWriteTimes;
                     _serialPortBills.BaudRate = BillsBaudRate;
                     _serialPortBills.Open();
-                    Thread.Sleep(3000);
+                    Thread.Sleep(1000);
                 }
 
                 _serialPortBills.DataReceived += new SerialDataReceivedEventHandler(_serialPortBillsDataReceived);
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsPeticion("InitPortBills", ex.Message);
                 AdminPaypad.SaveErrorControl(ex.Message, "InitPortBills en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
@@ -199,13 +219,14 @@ namespace WPProcinal.Classes
                     _serialPortCoins.WriteTimeout = CoinsWriteTimes;
                     _serialPortCoins.BaudRate = CoinsBaudRate;
                     _serialPortCoins.Open();
-                    Thread.Sleep(3000);
+                    Thread.Sleep(1000);
                 }
 
                 _serialPortCoins.DataReceived += new SerialDataReceivedEventHandler(_serialPortCoinsDataReceived);
             }
             catch (Exception ex)
             {
+                LogService.CreateLogsPeticion("InitPortPurses", ex.Message);
                 AdminPaypad.SaveErrorControl(ex.Message, "InitPortPurses en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }

@@ -73,16 +73,18 @@ namespace WPProcinal.Service
                 //    }
                 //    client.CancelPendingRequests();
                 //}
+                LogService.CreateLogsPeticion("Respuesta GetToken", JsonConvert.SerializeObject(response));
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return false;
+                     return false;
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
                 if (result != null)
                 {
                     var requestresponse = JsonConvert.DeserializeObject<ResponseAuth>(result);
+
                     if (requestresponse != null)
                     {
                         if (requestresponse.CodeError == 200)
@@ -125,7 +127,7 @@ namespace WPProcinal.Service
                     url = string.Format(url, Utilities.GetConfiguration("idPaypad"), "&", true);
 
                     var task = client.GetAsync(url);
-                    if (await Task.WhenAny(task, Task.Delay(1)) == task)
+                    if (await Task.WhenAny(task, Task.Delay(30000)) == task)
                     {
                         response = task.Result;
                     }
@@ -164,6 +166,9 @@ namespace WPProcinal.Service
                     //    response = await client.PostAsync(url, contentEspejo);
                     //}
                 }
+
+                LogService.CreateLogsPeticion($"Respuesta {controller}", JsonConvert.SerializeObject(response));
+
 
                 if (!response.IsSuccessStatusCode)
                 {

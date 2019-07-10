@@ -130,6 +130,11 @@ namespace WPProcinal.Service
             {
                 WCFPcrmap.ServiceSoapClient serviceSoapClient = new WCFPcrmap.ServiceSoapClient();
                 var data = serviceSoapClient.dibmap(dipMap.CinemaId, dipMap.RoomId, dipMap.Date, dipMap.Hour);
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: GetDipMap: ", JsonConvert.SerializeObject(data));
+                }
+                catch { }
                 return new Response
                 {
                     IsSuccess = true,

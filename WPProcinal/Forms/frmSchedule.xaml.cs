@@ -47,7 +47,11 @@ namespace WPProcinal.Forms
             InitializeComponent();
             this.Movie = Movie;
             Utilities.Movie = Movie;
-            ListFechas(Movie.DiasDisponiblesTodosCinemas);
+
+            foreach (var peli in Utilities.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
+            {
+                ListFechas(peli.DiasDisponiblesTodosCinemas);
+            }
             InitView2();
             ActivateTimer();
         }
@@ -56,11 +60,11 @@ namespace WPProcinal.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-           
+
             imgBackground.ImageSource = Utilities.ImageSelected;
             MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
             TxtTitle.Text = MovieName;
-            
+
             var time = TimeSpan.FromMinutes(double.Parse(Movie.Data.Duracion));
             TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
 
@@ -99,8 +103,8 @@ namespace WPProcinal.Forms
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    tbTimer.Text = "Tiempo de transacción: "+response;
-                    tbHoraActual.Text = "Hora actual: "+DateTime.Now.ToString("HH:mm:ss");
+                    tbTimer.Text = "Tiempo de transacción: " + response;
+                    tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("HH:mm:ss");
                 });
             };
         }
@@ -126,6 +130,8 @@ namespace WPProcinal.Forms
 
                 foreach (var peli in Utilities.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
                 {
+
+                    //ListFechas(peli.DiasDisponiblesTodosCinemas);
                     foreach (var Cinema in peli.Cinemas.Cinema.Where(cine => cine.Id == Utilities.CinemaId))
                     {
                         //Se recorre cada sala del Cinema
@@ -285,7 +291,7 @@ namespace WPProcinal.Forms
             lvSchedule.DataContext = lstGrid;
         }
 
-     
+
 
         private void View_Filter(object sender, FilterEventArgs e)
         {
@@ -425,24 +431,28 @@ namespace WPProcinal.Forms
 
                     if (datetime >= DateTime.Today)
                     {
-                        if (controlFechaActual == 0)
-                        {
-                            Utilities.FechaSeleccionada = datetime;
-                            controlFechaActual++;
-                        }
                         string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
-
-                        dateName.Add(new DateName
+                        var exist = dateName.Where(dt => dt.Mes == dt2.ToString("MMM").ToUpper() && dt.DiaNumero == dt2.ToString("dd")).Count();
+                        if (exist == 0)
                         {
-                            FechaOrigin = dt2,
-                            Mes = dt2.ToString("MMM").ToUpper(),
-                            NombreDia = NombreDiaAdd.ToUpper(),
-                            DiaNumero = dt2.ToString("dd")
-                        });
+                            dateName.Add(new DateName
+                            {
+                                FechaOrigin = dt2,
+                                Mes = dt2.ToString("MMM").ToUpper(),
+                                NombreDia = NombreDiaAdd.ToUpper(),
+                                DiaNumero = dt2.ToString("dd")
+                            });
+
+                            dateName = dateName.OrderBy(i => i.FechaOrigin).ToList();
+                        }
                     }
 
                 }
 
+                
+                    Utilities.FechaSeleccionada = dateName[0].FechaOrigin;
+                  
+                
             }
             catch (Exception ex)
             {
