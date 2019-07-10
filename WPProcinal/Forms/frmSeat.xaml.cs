@@ -314,7 +314,7 @@ namespace WPProcinal.Forms
                                     };
 
                                     item.Type = type.Type;
-                                    if (state.State != "S" && state.Type != "D")
+                                    if (state.State == "S" && state.Type != "D")
                                     {
                                         image.PreviewStylusDown += new StylusDownEventHandler((s, eh) =>
                                                                                                         SelectSeats(s, eh, item));
