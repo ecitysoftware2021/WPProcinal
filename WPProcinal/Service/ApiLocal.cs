@@ -77,7 +77,7 @@ namespace WPProcinal.Service
 
                 if (!response.IsSuccessStatusCode)
                 {
-                     return false;
+                    return false;
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
@@ -152,7 +152,7 @@ namespace WPProcinal.Service
                 else
                 {
                     var task = client.PostAsync(url, content);
-                    if (await Task.WhenAny(task, Task.Delay(20000)) == task)
+                    if (await Task.WhenAny(task, Task.Delay(30000)) == task)
                     {
                         response = task.Result;
                     }
