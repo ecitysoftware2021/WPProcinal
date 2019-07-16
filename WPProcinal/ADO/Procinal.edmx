@@ -16,6 +16,7 @@
           <Property Name="OPERATION" Type="int" />
           <Property Name="CODE" Type="nvarchar" MaxLength="50" />
           <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="50" />
+          <Property Name="DATE" Type="date" />
         </EntityType>
         <EntityType Name="NotifyPay">
           <Key>
@@ -196,6 +197,7 @@
           <Property Name="OPERATION" Type="Int32" />
           <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DESCRIPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DATE" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="RePrint">
           <Key>
@@ -294,6 +296,7 @@
           <EntitySetMapping Name="NotifyMoney">
             <EntityTypeMapping TypeName="DBProcinalModel.NotifyMoney">
               <MappingFragment StoreEntitySet="NotifyMoney">
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
                 <ScalarProperty Name="CODE" ColumnName="CODE" />
                 <ScalarProperty Name="OPERATION" ColumnName="OPERATION" />

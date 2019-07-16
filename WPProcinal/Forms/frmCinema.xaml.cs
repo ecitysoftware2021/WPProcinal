@@ -264,6 +264,31 @@ namespace WPProcinal.Forms
             }
         }
 
+        public void NotifyPendingMoney()
+        {
+            try
+            {
+                using (var con = new DBProcinalEntities())
+                {
+                    var notifies = con.NotifyMoney.ToList();
+
+                    foreach (var item in notifies)
+                    {
+                        if (item.DATE.Value.ToString("yyyyMMdd").Equals(DateTime.Now.ToString("yyyyMMdd")))
+                        {
+                            printService.ProccesValue(item.DENOMINATION.Value, 2, 1, "", item.TRANSACTION_ID.Value);
+                        }
+                        con.NotifyMoney.Remove(item);
+                    }
+                    con.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "NotifyPending en frmCinema", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 

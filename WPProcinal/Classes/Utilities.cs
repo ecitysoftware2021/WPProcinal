@@ -1019,8 +1019,29 @@ namespace WPProcinal.Classes
                     };
 
                     var result = api.CallApi("SaveTransactionDetail", detail);
+                    if (result == null)
+                    {
+                        using (var con = new DBProcinalEntities())
+                        {
+                            NotifyMoney notify = new NotifyMoney
+                            {
+                                CODE = detail.Code,
+                                DENOMINATION = detail.Denomination,
+                                DESCRIPTION = detail.Description,
+                                OPERATION = detail.Operation,
+                                QUANTITY = detail.Quantity,
+                                TRANSACTION_ID = detail.TransactionId,
+                                DATE = DateTime.Now
+                            };
+                            con.NotifyMoney.Add(notify);
+                            con.SaveChanges();
+                        }
+                    }
+                    else
+                    {
 
-                    //TODO: lógica para guardar en localdb si no se insertan los detalles de billetes y monedas
+                    }
+
                 }
             }
             catch (Exception ex)

@@ -21,5 +21,6 @@ namespace WPProcinal.ADO
         public Nullable<int> OPERATION { get; set; }
         public string CODE { get; set; }
         public string DESCRIPTION { get; set; }
+        public Nullable<System.DateTime> DATE { get; set; }
     }
 }
