@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -54,9 +55,9 @@ namespace WPProcinal.Forms
             }
             InitView2();
             ActivateTimer();
+
+
         }
-
-
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -81,6 +82,11 @@ namespace WPProcinal.Forms
                 FontS = 35;
             }
             GenerateFunctions();
+            if (Utilities.Movie.Data.Censura != "Todos")
+            {
+                frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeCensura"));
+                modal.ShowDialog();
+            }
         }
 
         private void Window_PreviewStylusDown(object sender, StylusDownEventArgs e) => Utilities.time = TimeSpan.Parse(Utilities.Duration);
@@ -285,13 +291,10 @@ namespace WPProcinal.Forms
             }
         }
 
-
         private void CreatePages(int i)
         {
             lvSchedule.DataContext = lstGrid;
         }
-
-
 
         private void View_Filter(object sender, FilterEventArgs e)
         {
@@ -449,10 +452,10 @@ namespace WPProcinal.Forms
 
                 }
 
-                
-                    Utilities.FechaSeleccionada = dateName[0].FechaOrigin;
-                  
-                
+
+                Utilities.FechaSeleccionada = dateName[0].FechaOrigin;
+
+
             }
             catch (Exception ex)
             {

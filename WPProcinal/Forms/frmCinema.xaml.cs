@@ -42,6 +42,10 @@ namespace WPProcinal.Forms
             {
                 NotifyPending();
             });
+            Task.Run(() =>
+            {
+                NotifyPendingMoney()
+            });
             LoadData();
         }
 

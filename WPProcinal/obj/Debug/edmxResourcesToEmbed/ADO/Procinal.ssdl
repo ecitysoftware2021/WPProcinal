@@ -11,6 +11,7 @@
     <Property Name="OPERATION" Type="int" />
     <Property Name="CODE" Type="nvarchar" MaxLength="50" />
     <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="50" />
+    <Property Name="DATE" Type="date" />
   </EntityType>
   <EntityType Name="NotifyPay">
     <Key>

@@ -83,6 +83,7 @@
     <Property Name="OPERATION" Type="Int32" />
     <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DESCRIPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DATE" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="RePrint">
     <Key>

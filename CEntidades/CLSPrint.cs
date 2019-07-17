@@ -124,7 +124,7 @@ namespace CEntidades
             g.DrawString("Fecha de venta:", fBody, sb, 10, increment);
             g.DrawString(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), fBody1, sb, 120, increment);
             increment += 20;
-            
+
             if (Estado != "Rechazada")
             {
                 g.DrawString("Tarifa:", fBody, sb, 10, increment);
@@ -157,9 +157,6 @@ namespace CEntidades
             g.DrawString("Venta realizada en el Kiosko Digital", fBody, sb, 10, increment);
             increment += 20;
             g.DrawString("Por: E-city software", fBody, sb, 10, increment);
-            //increment += 20;
-            //g.DrawString("===================================================", fBody, sb, 10, increment);
-            //increment += 20;
         }
 
         public void ImprimirComprobanteCancelar()

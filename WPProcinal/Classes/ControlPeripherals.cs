@@ -128,18 +128,18 @@ namespace WPProcinal.Classes
         {
             try
             {
-                if (_serialPortBills==null)
+                if (_serialPortBills == null)
                 {
                     _serialPortBills = new SerialPort();
                 }
-                if (_serialPortCoins==null)
+                if (_serialPortCoins == null)
                 {
                     _serialPortCoins = new SerialPort();
                 }
-                
+
                 if (!_serialPortBills.IsOpen)
                 {
-                   
+
                     _serialPortBills.DtrEnable = true;
                     _serialPortBills.DiscardNull = true;
                     InitPortBills();
@@ -147,7 +147,7 @@ namespace WPProcinal.Classes
 
                 if (!_serialPortCoins.IsOpen)
                 {
-                   
+
                     _serialPortCoins.DtrEnable = true;
                     _serialPortCoins.DiscardNull = true;
                     InitPortPurses();
@@ -788,19 +788,9 @@ namespace WPProcinal.Classes
         {
             if (RealdispenserValue == deliveryVal)
             {
-                try
-                {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ValidateFinal >> dispenserValue: " + RealdispenserValue + " - deliveryVal: " + deliveryVal, "true");
-                }
-                catch { }
                 if (isBX == 2 || isBX == 0)
                 {
                     callbackTotalOut?.Invoke(deliveryVal);
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("callbackTotalOut?.Invoke(" + deliveryVal + "): ", "llamada");
-                    }
-                    catch { }
                 }
             }
         }
