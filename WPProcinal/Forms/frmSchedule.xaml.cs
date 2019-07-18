@@ -54,9 +54,6 @@ namespace WPProcinal.Forms
                 ListFechas(peli.DiasDisponiblesTodosCinemas);
             }
             InitView2();
-            ActivateTimer();
-
-
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -87,6 +84,7 @@ namespace WPProcinal.Forms
                 frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeCensura"));
                 modal.ShowDialog();
             }
+            ActivateTimer();
         }
 
         private void Window_PreviewStylusDown(object sender, StylusDownEventArgs e) => Utilities.time = TimeSpan.Parse(Utilities.Duration);

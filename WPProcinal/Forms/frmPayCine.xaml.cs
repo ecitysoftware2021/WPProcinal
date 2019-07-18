@@ -231,11 +231,11 @@ namespace WPProcinal.Forms
                 {
                     Utilities.control.callbackTotalOut = null;
                     Utilities.ValueDelivery = (long)totalOut;
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ReturnMoney: ", "Ingresé(" + state + ")");
-                    }
-                    catch { }
+                    //try
+                    //{
+                    //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ReturnMoney: ", "Ingresé(" + state + ")");
+                    //}
+                    //catch { }
 
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
 
@@ -265,7 +265,7 @@ namespace WPProcinal.Forms
                         SetCallBacksNull();
                     }
                     catch { }
-                    if (PaymentViewModel.ValorIngresado >= Utilities.PayVal)
+                    if (PaymentViewModel.ValorIngresado >= Utilities.PayVal && payState)
                     {
                         frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
                         modal.ShowDialog();
@@ -510,7 +510,8 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                SavePay(false);
+                payState = false;
+                SavePay(payState);
                 AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }

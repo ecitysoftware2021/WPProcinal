@@ -44,14 +44,10 @@ namespace WPProcinal.Forms
             });
             Task.Run(() =>
             {
-                NotifyPendingMoney()
+                NotifyPendingMoney();
             });
             LoadData();
         }
-
-
-
-
 
         private void DesReserve()
         {
