@@ -23,5 +23,10 @@ namespace WPProcinal.Forms
         {
             DialogResult = true;
         }
+
+        private void BtnEnd_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

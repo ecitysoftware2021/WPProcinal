@@ -81,7 +81,7 @@ namespace WPProcinal.Forms
             GenerateFunctions();
             if (Utilities.Movie.Data.Censura != "Todos")
             {
-                frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeCensura"));
+                frmModal modal = new frmModal(string.Format(Utilities.GetConfiguration("MensajeCensura"), Utilities.Movie.Data.Censura));
                 modal.ShowDialog();
             }
             ActivateTimer();
