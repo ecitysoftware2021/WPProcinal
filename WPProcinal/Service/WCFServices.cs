@@ -130,11 +130,11 @@ namespace WPProcinal.Service
             {
                 WCFPcrmap.ServiceSoapClient serviceSoapClient = new WCFPcrmap.ServiceSoapClient();
                 var data = serviceSoapClient.dibmap(dipMap.CinemaId, dipMap.RoomId, dipMap.Date, dipMap.Hour);
-                try
-                {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: GetDipMap: ", JsonConvert.SerializeObject(data));
-                }
-                catch { }
+                //try
+                //{
+                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: GetDipMap: ", JsonConvert.SerializeObject(data));
+                //}
+                //catch { }
                 return new Response
                 {
                     IsSuccess = true,
@@ -284,11 +284,11 @@ namespace WPProcinal.Service
         {
             try
             {
-                try
-                {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Peticion PostComprar: ", JsonConvert.SerializeObject(dipMap));
-                }
-                catch { }
+                //try
+                //{
+                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Peticion PostComprar: ", JsonConvert.SerializeObject(dipMap));
+                //}
+                //catch { }
                 WCFPcrint.ServiceSoapClient serviceSoapClient = new WCFPcrint.ServiceSoapClient();
                 var data = serviceSoapClient.comint(
                     teatro: dipMap.CinemaId,

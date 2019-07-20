@@ -15,6 +15,7 @@ namespace WPProcinal.Forms
     {
         ApiLocal api;
         bool state;
+        Utilities util;
         public frmConfigurate()
         {
             InitializeComponent();
@@ -37,7 +38,10 @@ namespace WPProcinal.Forms
         {
             try
             {
-                Utilities util = new Utilities(1);
+                if (util == null)
+                {
+                    util = new Utilities(1);
+                }
                 state = await api.SecurityToken();
                 if (state)
                 {

@@ -304,11 +304,11 @@ namespace WPProcinal.Classes
                 string response = _serialPortBills.ReadLine();
                 if (!string.IsNullOrEmpty(response))
                 {
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del billetero: ", response);
-                    }
-                    catch { }
+                    //try
+                    //{
+                    //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del billetero: ", response);
+                    //}
+                    //catch { }
                     log.ResponseMessage += string.Format("Respuesta Billetero:{0}\n", response);
                     ProcessResponseBills(response);
                 }
@@ -339,11 +339,11 @@ namespace WPProcinal.Classes
                 string response = _serialPortCoins.ReadLine();
                 if (!string.IsNullOrEmpty(response))
                 {
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", response);
-                    }
-                    catch { }
+                    //try
+                    //{
+                    //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", response);
+                    //}
+                    //catch { }
                     log.ResponseMessage += string.Format("Respuesta Monedero: {0}\n", response);
                     ProcessResponseCoins(response);
                 }
@@ -373,6 +373,11 @@ namespace WPProcinal.Classes
                         ProcessRC(response);
                         break;
                     case "ER":
+                        try
+                        {
+                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", message);
+                        }
+                        catch { }
                         ProcessER(response);
                         break;
                     case "UN":
@@ -406,6 +411,11 @@ namespace WPProcinal.Classes
                         ProcessRC(response);
                         break;
                     case "ER":
+                        try
+                        {
+                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", message);
+                        }
+                        catch { }
                         ProcessER(response);
                         break;
                     case "UN":

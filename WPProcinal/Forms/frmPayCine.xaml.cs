@@ -328,7 +328,7 @@ namespace WPProcinal.Forms
                 Utilities.SaveLogTransactions(logError, "LogTransacciones\\Iniciadas");
                 stateUpdate = false;
             }
-            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ApproveTrans: ", "OK");
+            //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ApproveTrans: ", "OK");
         }
 
         private async void SavePay(bool task)
@@ -403,11 +403,11 @@ namespace WPProcinal.Forms
             if (controlCancel == 0)
             {
                 controlCancel = 1;
-                try
-                {
-                    LogService.CreateLogsPeticionRespuestaDispositivos("Cancelled: ", llamada);
-                }
-                catch { }
+                //try
+                //{
+                //    LogService.CreateLogsPeticionRespuestaDispositivos("Cancelled: ", llamada);
+                //}
+                //catch { }
                 try
                 {
                     try
@@ -545,7 +545,7 @@ namespace WPProcinal.Forms
                                 }
                                 catch { }
                                 controlInactividad = 1;
-                                Utilities.IsRestart = true;
+                                //Utilities.IsRestart = true;
                                 try
                                 {
                                     timer.CallBackStop?.Invoke(1);
@@ -554,8 +554,8 @@ namespace WPProcinal.Forms
                                 catch { }
                                 if (state)
                                 {
-                                    frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
-                                    modal.ShowDialog();
+                                    //frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
+                                    //modal.ShowDialog();
                                     Buytickets();
                                     Utilities.Loading(frmLoading, false, this);
                                 }

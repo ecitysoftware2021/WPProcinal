@@ -31,21 +31,21 @@ namespace WPProcinal.Forms
                 Thread.Sleep(5000);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    if (Utilities.IsRestart)
-                    {
-                        Utilities.RestartApp();
-                    }
-                    else
-                    {
-                        if (Utilities.CantidadTransacciones >= 20 && reiniciarAplicacion.Equals("true"))
-                        {
-                            Utilities.RestartApp();
-                        }
-                        else
-                        {
-                            Utilities.GoToInicial(this);
-                        }
-                    }
+                    //if (Utilities.IsRestart)
+                    //{
+                    //    Utilities.RestartApp();
+                    //}
+                    //else
+                    //{
+                    //    if (Utilities.CantidadTransacciones >= 20 && reiniciarAplicacion.Equals("true"))
+                    //    {
+                    //        Utilities.RestartApp();
+                    //    }
+                    //    else
+                    //    {
+                    Utilities.GoToInicial(this);
+                    //    }
+                    //}
                 });
             });
         }

@@ -384,7 +384,7 @@ namespace WPProcinal.Classes
                 var desAssing = WCFServices.DeserealizeXML<DesAsignarReserva>(response.Result.ToString());
                 if (!string.IsNullOrEmpty(desAssing.Error_en_proceso))
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostDesAssingreserva > desAssing.Error_en_proceso ", desAssing.Error_en_proceso);
+                    //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostDesAssingreserva > desAssing.Error_en_proceso ", desAssing.Error_en_proceso);
                     SaveLogError(new LogError
                     {
                         Message = desAssing.Error_en_proceso,
@@ -607,11 +607,11 @@ namespace WPProcinal.Classes
             try
             {
                 int i = 0;
-                try
-                {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante: ", "Ingresé");
-                }
-                catch { }
+                //try
+                //{
+                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante: ", "Ingresé");
+                //}
+                //catch { }
                 foreach (var seat in Seats)
                 {
                     if (seat.Price != 0)
@@ -639,11 +639,11 @@ namespace WPProcinal.Classes
                         objPrint.ImprimirComprobante();
                     }
                 }
-                try
-                {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante: ", "Salí");
-                }
-                catch { }
+                //try
+                //{
+                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante: ", "Salí");
+                //}
+                //catch { }
             }
             catch (Exception ex)
             {
@@ -854,7 +854,7 @@ namespace WPProcinal.Classes
             {
                 SaveLocalPay(Transaction);
             }
-            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: UpdateTransaction: ", "Salí");
+            //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: UpdateTransaction: ", "Salí");
 
         }
 
@@ -885,7 +885,7 @@ namespace WPProcinal.Classes
                 }
                 catch { }
             }
-            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SaveLocalPay: ", "OK");
+            //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SaveLocalPay: ", "OK");
         }
 
         public async Task<bool> CreatePrintDashboard()
@@ -1021,21 +1021,21 @@ namespace WPProcinal.Classes
                     var result = api.CallApi("SaveTransactionDetail", detail);
                     if (result == null)
                     {
-                        using (var con = new DBProcinalEntities())
-                        {
-                            NotifyMoney notify = new NotifyMoney
-                            {
-                                CODE = detail.Code,
-                                DENOMINATION = detail.Denomination,
-                                DESCRIPTION = detail.Description,
-                                OPERATION = detail.Operation,
-                                QUANTITY = detail.Quantity,
-                                TRANSACTION_ID = detail.TransactionId,
-                                DATE = DateTime.Now
-                            };
-                            con.NotifyMoney.Add(notify);
-                            con.SaveChanges();
-                        }
+                        //using (var con = new DBProcinalEntities())
+                        //{
+                        //    NotifyMoney notify = new NotifyMoney
+                        //    {
+                        //        CODE = detail.Code,
+                        //        DENOMINATION = detail.Denomination,
+                        //        DESCRIPTION = detail.Description,
+                        //        OPERATION = detail.Operation,
+                        //        QUANTITY = detail.Quantity,
+                        //        TRANSACTION_ID = detail.TransactionId,
+                        //        DATE = DateTime.Now
+                        //    };
+                        //    con.NotifyMoney.Add(notify);
+                        //    con.SaveChanges();
+                        //}
                     }
                     else
                     {

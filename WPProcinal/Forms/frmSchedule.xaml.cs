@@ -79,7 +79,7 @@ namespace WPProcinal.Forms
                 FontS = 35;
             }
             GenerateFunctions();
-            if (Utilities.Movie.Data.Censura != "Todos")
+            if (Utilities.Movie.Data.Censura.Contains("15") || Utilities.Movie.Data.Censura.Contains("18"))
             {
                 frmModal modal = new frmModal(string.Format(Utilities.GetConfiguration("MensajeCensura"), Utilities.Movie.Data.Censura));
                 modal.ShowDialog();

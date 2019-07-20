@@ -581,7 +581,7 @@ namespace WPProcinal.Forms
                 frmLoading.Show();
                 var responseSec = WCFServices.GetSecuence(dipMapCurrent);
 
-                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > GetSecuence", responseSec.Result.ToString());
+                //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > GetSecuence", responseSec.Result.ToString());
 
                 if (!responseSec.IsSuccess)
                 {
@@ -608,7 +608,7 @@ namespace WPProcinal.Forms
                 foreach (var item in SelectedTypeSeats)
                 {
                     var response = WCFServices.PostReserva(dipMapCurrent, item);
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > PostReserva > response.Result en frmSeat", response.Result.ToString());
+                    //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > PostReserva > response.Result en frmSeat", response.Result.ToString());
 
                     if (!response.IsSuccess)
                     {
