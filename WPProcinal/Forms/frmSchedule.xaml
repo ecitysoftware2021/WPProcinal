@@ -112,8 +112,6 @@
                           Width="1300"
                       Background="Transparent"
                       BorderBrush="Transparent"
-                      AutomationProperties.AutomationId="ItemGridView"
-                      AutomationProperties.Name="Grouped Items"
                       >
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}" >
@@ -250,7 +248,7 @@
                     <DataTemplate>
                         <StackPanel  Orientation="Vertical" >
                             <Grid 
-                            Margin="0,0,0,0">
+                            Margin="0,-20,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>

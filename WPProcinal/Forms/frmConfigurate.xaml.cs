@@ -58,8 +58,8 @@ namespace WPProcinal.Forms
                                 {
                                     GetToken();
                                 };
-                                Utilities.control.callbackToken = isSucces =>
-                                {
+                                //Utilities.control.callbackToken = isSucces =>
+                                //{
                                     Dispatcher.BeginInvoke((Action)delegate
                                             {
                                                 if (!Utilities.GetConfiguration("ReImpresion").Equals("si"))
@@ -76,8 +76,8 @@ namespace WPProcinal.Forms
                                                 }
 
                                             });
-                                };
-                                Utilities.control.Start();
+                                //};
+                                //Utilities.control.Start();
                             }
                             else
                             {

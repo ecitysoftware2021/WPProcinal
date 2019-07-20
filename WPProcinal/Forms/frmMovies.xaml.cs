@@ -50,12 +50,13 @@ namespace WPProcinal.Forms
             {
                 ValidatePayPad();
             });
-
             var frmLoading = new FrmLoading("¡Cargando peliculas!");
             frmLoading.Show();
             try
             {
                 Utilities.Movies.Clear();
+
+                Utilities.LstMovies.Clear();
                 Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
                 lblCinema1.Text = Dictionaries.Cinemas[Utilities.CinemaId];
 
