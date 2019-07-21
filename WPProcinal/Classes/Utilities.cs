@@ -616,11 +616,11 @@ namespace WPProcinal.Classes
                 {
                     if (seat.Price != 0)
                     {
-                        try
-                        {
-                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante : ", "Boleta " + (i + 1));
-                        }
-                        catch { }
+                        //try
+                        //{
+                        //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante : ", "Boleta " + (i + 1));
+                        //}
+                        //catch { }
 
                         objPrint.Cinema = GetConfiguration("NameCinema");
                         objPrint.Movie = dipMap.MovieName;
@@ -879,11 +879,11 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                try
-                {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Error SaveLocalPay: ", JsonConvert.SerializeObject(dataPay));
-                }
-                catch { }
+                //try
+                //{
+                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Error SaveLocalPay: ", JsonConvert.SerializeObject(dataPay));
+                //}
+                //catch { }
             }
             //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SaveLocalPay: ", "OK");
         }

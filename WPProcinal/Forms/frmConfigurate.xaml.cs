@@ -61,24 +61,23 @@ namespace WPProcinal.Forms
                                 Utilities.control.callbackToken = isSucces =>
                                 {
                                     Dispatcher.BeginInvoke((Action)delegate
+                                        {
+                                            if (!Utilities.GetConfiguration("ReImpresion").Equals("si"))
                                             {
-                                                if (!Utilities.GetConfiguration("ReImpresion").Equals("si"))
-                                                {
-                                                    frmCinema inicio = new frmCinema();
-                                                    inicio.Show();
-                                                    Close();
-                                                }
-                                                else
-                                                {
-                                                    frmImpresionForzada impresionForzada = new frmImpresionForzada();
-                                                    impresionForzada.Show();
-                                                    Close();
-                                                }
-
-                                            });
-                            };
-                            Utilities.control.Start();
-                        }
+                                                frmCinema inicio = new frmCinema();
+                                                inicio.Show();
+                                                Close();
+                                            }
+                                            else
+                                            {
+                                                frmImpresionForzada impresionForzada = new frmImpresionForzada();
+                                                impresionForzada.Show();
+                                                Close();
+                                            }
+                                        });
+                                };
+                                Utilities.control.Start();
+                            }
                             else
                             {
                                 Task.Run(() =>
@@ -88,7 +87,7 @@ namespace WPProcinal.Forms
                                         SendEmails.SendEmail(data.Message);
                                     }
                                 });
-                                LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", data.Message);
+                                //LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", data.Message);
                                 ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
                                 GetToken();
                             }

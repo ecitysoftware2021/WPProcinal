@@ -470,11 +470,11 @@ namespace WPProcinal.Forms
                     }
 
                     var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar: ", transaccionCompra.Respuesta);
-                    }
-                    catch { }
+                    //try
+                    //{
+                    //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar: ", transaccionCompra.Respuesta);
+                    //}
+                    //catch { }
                     if (transaccionCompra.Respuesta != "Exitosa")
                     {
                         payState = false;
