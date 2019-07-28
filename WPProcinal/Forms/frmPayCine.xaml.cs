@@ -231,11 +231,6 @@ namespace WPProcinal.Forms
                 {
                     Utilities.control.callbackTotalOut = null;
                     Utilities.ValueDelivery = (long)totalOut;
-                    //try
-                    //{
-                    //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ReturnMoney: ", "Ingresé(" + state + ")");
-                    //}
-                    //catch { }
 
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
 
@@ -265,7 +260,8 @@ namespace WPProcinal.Forms
                         SetCallBacksNull();
                     }
                     catch { }
-                    if (PaymentViewModel.ValorIngresado >= Utilities.PayVal && payState)
+
+                    if (PaymentViewModel.ValorIngresado >= Utilities.PayVal && state)
                     {
                         frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
                         modal.ShowDialog();
