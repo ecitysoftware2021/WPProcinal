@@ -75,9 +75,9 @@ namespace CEntidades
             g.DrawImage(Image.FromFile(RutaIMG), 25, 0);
             g.DrawString(Cinema, fBodyCinema, sb, 120, SPACE);
             //TODO: Solo para los demas
-            g.DrawString("Colombia de Cines S.A", fBody, sb, 10, SPACE + 25);
-            g.DrawString("NIT:", fBody, sb, 10, SPACE + 40);
-            g.DrawString(GetConfiguration("Nit"), fBody1, sb, 120, SPACE + 40);
+            //g.DrawString("Colombia de Cines S.A", fBody, sb, 10, SPACE + 25);
+            //g.DrawString("NIT:", fBody, sb, 10, SPACE + 40);
+            //g.DrawString(GetConfiguration("Nit"), fBody1, sb, 120, SPACE + 40);
             //g.DrawString("Cra 48 N. 50 sur 128", fBody1, sb, 10, SPACE + 55);
             int increment = SPACE + 55;
             //increment += 15;
@@ -86,14 +86,14 @@ namespace CEntidades
 
             increment += 15;
             //TODO: Solo para puerta del norte
-            //g.DrawString("Promotora Nacional de Cines S.A.S", fBody, sb, 10, increment);
-            //increment += 15;
-            //g.DrawString("NIT:", fBody, sb, 10, increment);
-            //g.DrawString(GetConfiguration("NitPromotora"), fBody1, sb, 120, increment);
+            g.DrawString("Promotora Nacional de Cines S.A.S", fBody, sb, 10, increment);
+            increment += 15;
+            g.DrawString("NIT:", fBody, sb, 10, increment);
+            g.DrawString(GetConfiguration("NitPromotora"), fBody1, sb, 120, increment);
             //increment += 15;
             //g.DrawString("Tel:", fBody1, sb, 10, increment);
             //g.DrawString(GetConfiguration("TelPromotora"), fBody1, sb, 120, increment);
-            //increment += 15;
+            increment += 15;
             g.DrawString("ENTRADA A CINE - 87" + Consecutivo, fBody1, sb, 10, increment);
             increment += 15;
             g.DrawString("Audi " + Secuencia, fBody1, sb, 10, increment);
