@@ -781,65 +781,65 @@ namespace WPProcinal.Forms
                         //AdminPaypad.SaveErrorControl(ex.Message, "Grabador en ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
                     }
 
-                    //if (Utilities.MedioPago == 1)
-                    //{
-                    try
+                    if (Utilities.MedioPago == 1)
                     {
-                        SetCallBacksNull();
-                        timer.CallBackStop?.Invoke(1);
-                    }
-                    catch { }
-
-                    LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-                    Utilities.controlStop = 0;
-                    int i = 0;
-                    try
-                    {
-                        using (var conexion = new DBProcinalEntities())
+                        try
                         {
-                            foreach (var item in SelectedTypeSeats)
-                            {
-                                conexion.RePrint.Add(new RePrint
-                                {
-                                    Category = dipMapCurrent.Category,
-                                    Cinema = Utilities.GetConfiguration("NameCinema"),
-                                    Consecutivo = Utilities.DashboardPrint[i].RANGO_ACTUAL.ToString(),
-                                    Date = dipMapCurrent.Date,
-                                    FechaPago = DateTime.Now,
-                                    Formato = Utilities.MovieFormat,
-                                    Movie = dipMapCurrent.MovieName,
-                                    Room = dipMapCurrent.RoomName,
-                                    Seat = item.Name,
-                                    Secuencia = Utilities.Secuencia,
-                                    Time = dipMapCurrent.HourFunction,
-                                    Tramite = "Boleto de Cine",
-                                    Valor = item.Price,
-                                    IDTransaccion = Utilities.IDTransactionDB
-                                });
-                                conexion.SaveChanges();
-                                i++;
-                            }
-
+                            SetCallBacksNull();
+                            timer.CallBackStop?.Invoke(1);
                         }
-                    }
-                    catch { }
+                        catch { }
 
-                    frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
-                    pay.Show();
-                    this.Close();
-                    //}
-                    //else
-                    //{
-                    //    try
-                    //    {
-                    //        SetCallBacksNull();
-                    //        timer.CallBackStop?.Invoke(1);
-                    //    }
-                    //    catch { }
-                    //    FrmCardPayment pay = new FrmCardPayment(SelectedTypeSeats, dipMapCurrent);
-                    //    pay.Show();
-                    //    this.Close();
-                    //}
+                        LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+                        Utilities.controlStop = 0;
+                        int i = 0;
+                        try
+                        {
+                            using (var conexion = new DBProcinalEntities())
+                            {
+                                foreach (var item in SelectedTypeSeats)
+                                {
+                                    conexion.RePrint.Add(new RePrint
+                                    {
+                                        Category = dipMapCurrent.Category,
+                                        Cinema = Utilities.GetConfiguration("NameCinema"),
+                                        Consecutivo = Utilities.DashboardPrint[i].RANGO_ACTUAL.ToString(),
+                                        Date = dipMapCurrent.Date,
+                                        FechaPago = DateTime.Now,
+                                        Formato = Utilities.MovieFormat,
+                                        Movie = dipMapCurrent.MovieName,
+                                        Room = dipMapCurrent.RoomName,
+                                        Seat = item.Name,
+                                        Secuencia = Utilities.Secuencia,
+                                        Time = dipMapCurrent.HourFunction,
+                                        Tramite = "Boleto de Cine",
+                                        Valor = item.Price,
+                                        IDTransaccion = Utilities.IDTransactionDB
+                                    });
+                                    conexion.SaveChanges();
+                                    i++;
+                                }
+
+                            }
+                        }
+                        catch { }
+
+                        frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
+                        pay.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            SetCallBacksNull();
+                            timer.CallBackStop?.Invoke(1);
+                        }
+                        catch { }
+                        FrmCardPayment pay = new FrmCardPayment(SelectedTypeSeats, dipMapCurrent);
+                        pay.Show();
+                        this.Close();
+                    }
 
                 }
             }

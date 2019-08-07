@@ -17,27 +17,13 @@ namespace WPProcinal.Forms
     public partial class frmMovies : Window
     {
         #region Reference
-        List<ImageSource> movie_posters_list = new List<ImageSource>();
-        List<String> movie_names = new List<String>();
         CollectionViewSource view = new CollectionViewSource();
         int currentPageIndex = 0;
         int itemPerPage = 6;
         int totalPage = 0;
-        string Cinema = string.Empty;
 
         TimerTiempo timer;
 
-        /*--LIST DATE--*/
-        private DateTime FechaSelect = new DateTime();
-        private List<DateName> dateName = new List<DateName>();
-        List<Border> borders = new List<Border>();
-        private int currentPageIndex2 = 0;
-        private int itemPerPage2 = 3;
-        private int totalPage2 = 0;
-        private CollectionViewSource view2 = new CollectionViewSource();
-        private ObservableCollection<DateName> lstPager2 = new ObservableCollection<DateName>();
-        List<ListViewItem> grid = new List<ListViewItem>();
-        /*--END DATE--*/
         #endregion
 
         #region LoadMethods
@@ -67,7 +53,7 @@ namespace WPProcinal.Forms
                     frmLoading.Close();
                 }));
                 Utilities.DoEvents();
-                
+
                 ActivateTimer();
             }
             catch (Exception ex)
@@ -79,8 +65,6 @@ namespace WPProcinal.Forms
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
         }
-
-        private void Window_PreviewStylusDown(object sender, StylusDownEventArgs e) => Utilities.time = TimeSpan.Parse(Utilities.Duration);
 
         private void DownloadData(Peliculas data)
         {
@@ -118,7 +102,7 @@ namespace WPProcinal.Forms
             {
                 string ImagePath = string.Concat(Utilities.UrlImages, pelicula.Id, ".jpg");
                 string TagPath = string.Empty;
-                
+
                 Utilities.LstMovies.Add(new MoviesViewModel
                 {
                     ImageData = Utilities.LoadImage(ImagePath, true),
@@ -132,89 +116,6 @@ namespace WPProcinal.Forms
                 AdminPaypad.SaveErrorControl(ex.Message, "LoadMovies en frmMovies", EError.Aplication, ELevelError.Medium);
             }
         }
-
-        private static string LoadImagePath(Pelicula pelicula)
-        {
-            try
-            {
-                string Path = GenerateTag(pelicula);
-                string TagPath = string.Concat("../Images/Tags/cartel-", Path, ".png");
-
-                return TagPath;
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "LoadImagePath en frmMovies", EError.Aplication, ELevelError.Medium);
-                return string.Empty;
-            }
-        }
-
-        private static string GenerateTag(Pelicula pelicula)
-        {
-            string Path = string.Empty;
-            try
-            {
-                string[] Name = pelicula.Nombre.Split(' ');
-
-                if (Name[0].Contains("2D"))
-                {
-                    if (Name[1].Contains("BS"))
-                    {
-                        Path = "blackstar";
-                    }
-                    else if (Name[1].Contains("CA"))
-                    {
-                        Path = "cinearte";
-                    }
-                    else if (Name[1].Contains("SK"))
-                    {
-                        Path = "starkids";
-                    }
-                    else if (Name[1].Contains("SN"))
-                    {
-                        Path = "supernova";
-                    }
-                    else if (Name[1].Contains("VIB"))
-                    {
-                        Path = "2d-vibra";
-                    }
-                    else
-                    {
-                        Path = "2d";
-                    }
-                }
-                else if (Name[0].Contains("3D"))
-                {
-                    if (Name[1].Contains("4DX"))
-                    {
-                        Path = "4dx";
-                    }
-                    else if (Name[1].Contains("BS"))
-                    {
-                        Path = "blackstar";
-                    }
-                    else if (Name[1].Contains("SN"))
-                    {
-                        Path = "supernova";
-                    }
-                    else if (Name[1].Contains("VIB"))
-                    {
-                        Path = "3d-vibra";
-                    }
-                    else
-                    {
-                        Path = "3d";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "GenerateTags en frmMovies", EError.Aplication, ELevelError.Medium);
-            }
-
-            return Path;
-        }
-
 
         void ActivateTimer()
         {
@@ -239,7 +140,7 @@ namespace WPProcinal.Forms
                     });
                 };
             }
-            catch {}
+            catch { }
         }
 
         void SetCallBacksNull()
@@ -421,7 +322,7 @@ namespace WPProcinal.Forms
 
         private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
-           
+
         }
     }
 }

@@ -17,7 +17,6 @@ namespace WPProcinal.Forms
     /// </summary>
     public partial class frmPayCine : Window
     {
-        private ApiLocal api;
         private PaymentViewModel PaymentViewModel;
         private FrmLoading frmLoading;
         private Utilities utilities;
@@ -40,7 +39,6 @@ namespace WPProcinal.Forms
 
             try
             {
-                api = new ApiLocal();
                 OrganizeValues();
                 frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();

@@ -33,59 +33,12 @@ namespace WPProcinal.Classes
 {
     public class Utilities
     {
-        private static DateTime _Date;
-        public static DateTime Date
-        {
-            get { return _Date; }
-            set { _Date = value; }
-        }
 
         public static string Duration = GetConfiguration("Duration");
+
         public static TimeSpan time;
+
         public static DispatcherTimer timer;
-        #region Sección Datáfono
-
-        TEFTransactionManager transactionManager;
-
-        public static Action<string> CallBackRespuesta;
-
-        private LogErrorGeneral logError;
-
-        public static DataPaypad dataPaypad = new DataPaypad();
-
-        public string EnviarPeticion(string data)
-        {
-            return transactionManager.getTEFAuthorization(data);
-        }
-
-        public string EnviarPeticionEspera()
-        {
-            return transactionManager.getTEFAuthorization();
-        }
-
-        public string CalculateLRC(string s)
-        {
-            int checksum = 0;
-            foreach (Char c in GetStringFromHex(s))
-            {
-                checksum = checksum ^ Convert.ToByte(c);
-            }
-            string nuevaCadena = string.Concat("[", s, checksum.ToString("X2"));
-            return nuevaCadena;
-        }
-
-        private string GetStringFromHex(string s2)
-        {
-            string result = string.Empty;
-            var result2 = string.Join("", s2.Select(c => ((int)c).ToString("X2")));
-            for (int i = 0; i < result2.Length; i = i + 2)
-            {
-                result += Convert.ToChar(int.Parse(result2.Substring(i, 2),
-               System.Globalization.NumberStyles.HexNumber));
-            }
-            return result;
-        }
-        #endregion
 
         public PrintProperties PrintProperties = new PrintProperties();
 
@@ -97,8 +50,6 @@ namespace WPProcinal.Classes
 
         public static decimal ValorPagarScore { get; set; }
 
-        public static decimal ValorPagarCorresponsal { get; set; }
-
         public static List<CLSDatos> LDatos = new List<CLSDatos>();
 
         public static List<SP_GET_INVOICE_DATA_Result> DashboardPrint;
@@ -106,16 +57,10 @@ namespace WPProcinal.Classes
         public static string Secuencia { get; set; }
 
         public static int controlStop = 0;
-        public bool Estado { get; set; }
 
-        public decimal Valor { get; set; }
+        private LogErrorGeneral logError;
 
-        public decimal ValorIngresado { get; set; }
-
-        public decimal ValorFaltante { get; set; }
-
-        public decimal ValorRestante { get; set; }
-
+        public static DataPaypad dataPaypad = new DataPaypad();
         public static int MedioPago { get; set; }
 
         internal static DipMap ConvertDipMap(TblDipMap dipmap)
@@ -175,21 +120,9 @@ namespace WPProcinal.Classes
             }
         }
 
-        public static decimal ValorDevolver { get; set; }
-
-        public static string TramitePagado { get; set; }
-
-        public static int ConceptoContable { get; set; }
-
         public static int CantidadTransacciones = 0;
 
-        public static string IdentificadorArchivo { get; set; }
-
         public static string MovieFormat { get; set; }
-
-        public static int CorrespondetId = int.Parse(GetConfiguration("IDCorresponsal"));
-
-        public static int TramiteId = int.Parse(GetConfiguration("IDTramite"));
 
         public static string NamePath = GetConfiguration("NamePath");
 
@@ -221,42 +154,18 @@ namespace WPProcinal.Classes
 
         public static Receipt Receipt = new Receipt();
 
-        public static void Timer(TextBlock textblock, Window window)
-        {
-            time = TimeSpan.Parse(Duration);
-            timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 1);
-            timer.Tick += (a, b) =>
-            {
-                time = time.Subtract(new TimeSpan(0, 0, 1));
-                textblock.Text = (time.Seconds < 10) ? string.Format("0{0}:0{1}", time.Minutes, time.Seconds) : string.Format("0{0}:{1}", time.Minutes, time.Seconds);
-
-                if (time.Minutes == 0 && time.Seconds == 0)
-                {
-                    timer.Stop();
-                    GoToInicial(window);
-                }
-                Debug.WriteLine(time.Seconds);
-            };
-
-            timer.Start();
-        }
-
-        public static void ResetTimer()
-        {
-            time = TimeSpan.Parse(Duration);
-            timer.Stop();
-        }
-
         public static ControlPeripherals control;
         public static string TOKEN { get; set; }
         public static int Session { get; set; }
         public static int IDTransactionDB { get; set; }
-        public static int CorrespondentId = int.Parse(GetConfiguration("IDCorresponsal"));
+        public static int CorrespondentId { get; set; }
+
         public static decimal PayVal { get; set; }
+
         public static decimal EnterTotal;
         public static long ValueDelivery { get; set; }
         public static decimal DispenserVal { get; set; }
+
         public static bool IsRestart = false;
 
         public Utilities(int i)
@@ -283,8 +192,6 @@ namespace WPProcinal.Classes
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-
-                transactionManager = new TEFTransactionManager();
             }
             catch { }
         }
@@ -303,12 +210,6 @@ namespace WPProcinal.Classes
             }
 
             return PrintProperties.MessageStatus(status);
-        }
-
-        public enum ETipoAlerta
-        {
-            BaulLLeno = 0,
-            BilleteroVacio = 1,
         }
 
         /// <summary>
@@ -349,20 +250,6 @@ namespace WPProcinal.Classes
             }
 
             return new BitmapImage(new Uri(string.Concat(filename), UriKind.Relative));
-        }
-
-        public static bool IfExistUrl(string url)
-        {
-            try
-            {
-                WebRequest webRequest = WebRequest.Create(url);
-                WebResponse webResponse = webRequest.GetResponse();
-                return true;
-            }
-            catch (WebException ex)
-            {
-                return false;
-            }
         }
 
         public static void CancelAssing(List<TypeSeat> typeSeatsCurrent, DipMap dipMapCurrent)
@@ -420,10 +307,6 @@ namespace WPProcinal.Classes
             }
         }
 
-        public static void SetReceipt(object result)
-        {
-            var receipt = JsonConvert.DeserializeObject<Receipt>(result.ToString());
-        }
 
         public static decimal RoundValue(decimal valor)
         {
@@ -466,16 +349,6 @@ namespace WPProcinal.Classes
             }
         }
 
-        public static void CloseWindows(string Title)
-        {
-            foreach (Window w in Application.Current.Windows)
-            {
-                if (w.IsLoaded && w.Title != Title)
-                {
-                    w.Close();
-                }
-            }
-        }
 
         /// <summary>
         /// Método usado para regresar a la pantalla principal
@@ -528,16 +401,6 @@ namespace WPProcinal.Classes
         {
             AppSettingsReader reader = new AppSettingsReader();
             return reader.GetValue(key, typeof(String)).ToString();
-        }
-
-        public static ImageSource GenerateSource(string path)
-        {
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.UriSource = new Uri(string.Concat("../Images/Background/", path, ".jpg"), UriKind.Relative);
-            bitmapImage.EndInit();
-
-            return bitmapImage;
         }
 
         public static bool IfExistFileXML()
@@ -607,20 +470,10 @@ namespace WPProcinal.Classes
             try
             {
                 int i = 0;
-                //try
-                //{
-                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante: ", "Ingresé");
-                //}
-                //catch { }
                 foreach (var seat in Seats)
                 {
                     if (seat.Price != 0)
                     {
-                        //try
-                        //{
-                        //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante : ", "Boleta " + (i + 1));
-                        //}
-                        //catch { }
 
                         objPrint.Cinema = GetConfiguration("NameCinema");
                         objPrint.Movie = dipMap.MovieName;
@@ -639,11 +492,6 @@ namespace WPProcinal.Classes
                         objPrint.ImprimirComprobante();
                     }
                 }
-                //try
-                //{
-                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante: ", "Salí");
-                //}
-                //catch { }
             }
             catch (Exception ex)
             {
@@ -653,21 +501,6 @@ namespace WPProcinal.Classes
                 }
                 catch { }
             }
-        }
-
-        public void ImprimirComprobanteCancelado(string state, decimal value, DipMap dipMap)
-        {
-            objPrint.Cinema = GetConfiguration("NameCinema");
-            objPrint.Movie = dipMap.MovieName;
-            objPrint.Time = dipMap.HourFunction;
-            objPrint.Room = dipMap.RoomName;
-            objPrint.Date = dipMap.Day; //Fecha            
-            objPrint.FechaPago = DateTime.Now;
-            objPrint.Valor = value;
-            objPrint.Tramite = "Boleto de Cine";
-            objPrint.Category = dipMap.Category;
-            objPrint.Estado = "Cancelado";
-            objPrint.ImprimirComprobanteCancelar();
         }
 
         public static void ImprimirComprobanteForzado(int idTransaccion)
@@ -759,7 +592,8 @@ namespace WPProcinal.Classes
                     DESCRIPTION = "Se inició la transacción para: " + name,
                     TYPE_TRANSACTION_ID = 14,
                     STATE_TRANSACTION_ID = 1,
-                    PAYER_ID = 477
+                    PAYER_ID = 477,
+                    PAYMENT_TYPE_ID = Utilities.MedioPago
                 };
 
                 foreach (var item in Seats)
@@ -858,6 +692,37 @@ namespace WPProcinal.Classes
 
         }
 
+        public async Task<bool> SaveCardInformation(RequestCardInformation request)
+        {
+            try
+            {
+                ApiLocal api = new ApiLocal();
+
+
+
+                var response = await api.GetResponse(new RequestApi
+                {
+                    Data = request
+                }, "SaveCardInformation");
+
+
+                if (response != null)
+                {
+                    if (response.CodeError == 200)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public void SaveLocalPay(Transaction dataPay)
         {
             try
@@ -879,13 +744,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                //try
-                //{
-                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Error SaveLocalPay: ", JsonConvert.SerializeObject(dataPay));
-                //}
-                //catch { }
             }
-            //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SaveLocalPay: ", "OK");
         }
 
         public async Task<bool> CreatePrintDashboard()
@@ -929,7 +788,6 @@ namespace WPProcinal.Classes
                 return false;
             }
         }
-
 
         public void ProccesValue(decimal enterValue, int opt, int quantity, string code, int idTransactionAPi)
         {
@@ -1059,64 +917,5 @@ namespace WPProcinal.Classes
 
     }
 
-    public class CLSDatos
-    {
-        public string DNI { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Direccion { get; set; }
-        public long NumeroBastidor { get; set; }
-        public string TipoVehiculo { get; set; }
-        public string CategoriaVehiculo { get; set; }
-        public string Referencia { get; set; }
-    }
-
-    public class CLSTipoExpresion
-    {
-        public static string Numerica { get { return "[^0-9 ]+$"; } }
-        public static string Texto { get { return "[^a-zA-ZÁáÉéÍíÓóÚú]"; } }
-        public static string AlfaNumerico { get { return "[^A-Za-z0-9]+"; } }
-    }
-
-    public class Mensajes : INotifyPropertyChanged
-    {
-        private string mensajePrincipal;
-
-        public string MensajePrincipal
-        {
-            get { return this.mensajePrincipal; }
-            set
-            {
-                if (this.mensajePrincipal != value)
-                {
-                    this.mensajePrincipal = value;
-                    this.NotifyPropertyChanged("MensajePrincipal");
-                }
-            }
-        }
-
-        private string mensajeModal;
-
-        public string MensajeModal
-        {
-            get { return this.mensajeModal; }
-            set
-            {
-                if (this.mensajeModal != value)
-                {
-                    this.mensajeModal = value;
-                    this.NotifyPropertyChanged("MensajeModal");
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChanged(string propName)
-        {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-    }
 
 }

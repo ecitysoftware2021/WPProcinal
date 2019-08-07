@@ -165,6 +165,7 @@
       <DependentUpon>Procinal.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\AdminPaypad.cs" />
+    <Compile Include="Classes\ClasesUtiles.cs" />
     <Compile Include="Classes\ControlPeripherals.cs" />
     <Compile Include="Classes\DBConnection\SqliteDataAccess.cs" />
     <Compile Include="Classes\DBProcinalController.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Classes\SendEmails.cs" />
     <Compile Include="Classes\SP_GET_INVOICE_DATA_Result.cs" />
     <Compile Include="Classes\TimerTiempo.cs" />
+    <Compile Include="Classes\TPVOperation.cs" />
     <Compile Include="Classes\Transaction.cs" />
     <Compile Include="Classes\TypeSeat.cs" />
     <Compile Include="Connected Services\WCFDesAssing\Reference.cs">
@@ -404,6 +406,7 @@
     <None Include="ADO\Procinal.edmx.diagram">
       <DependentUpon>Procinal.edmx</DependentUpon>
     </None>
+    <None Include="Configuracion\Configuration.config" />
     <None Include="Connected Services\WCFDesAssing\service.wsdl" />
     <None Include="Connected Services\WCFPayPad\ServicePayPad.wsdl" />
     <None Include="Connected Services\WCFPayPad\ServicePayPad.xsd">
@@ -468,20 +471,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\consultar.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\siguiente.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\home - Copy.jpg" />
-    <Resource Include="Images\home-bg-seleccion-horario-3.jpg" />
-    <Resource Include="Images\home.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\home-bg.jpg" />
     <Resource Include="Images\indicador-sillas.png" />
-    <Resource Include="Images\Selector copy.png" />
     <Resource Include="Images\silla-disponible.png" />
     <Resource Include="Images\silla-no-disponible.png" />
     <Resource Include="Images\silla-selecionada.png" />
@@ -490,40 +483,14 @@
     <Resource Include="Images\logo-header.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\cuadro-contenido.png" />
-    <Resource Include="Images\homebg-seleccion-sillas.jpg" />
     <Resource Include="Images\cancelar.png" />
     <Resource Include="Images\Disponible.png" />
-    <Resource Include="Images\continuar.png" />
-    <Resource Include="Images\estados.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\info-pelicula.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Selector copy-1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\home-bg-peliculas2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\home-bg2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ContentBlue.png" />
-    <Resource Include="Images\ContentGray.png" />
-    <Resource Include="Images\ContentGreen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\deposite-pago-red.png" />
-    <Resource Include="Images\espere-cambio-red.png" />
-    <Resource Include="Images\espere-recibo-red.png" />
-    <Resource Include="Images\home-bg-seleccion-horario-2.jpg" />
-    <Resource Include="Images\leyendo-bill-red.png" />
     <Resource Include="Images\pay.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\cancelar-pago-red.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CEntidades\CEntidades.csproj">
@@ -532,20 +499,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\next.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\salir2.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\atras.png" />
     <Resource Include="Images\cancelar-pago.png" />
-    <Resource Include="Images\espere-cambio.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ingresar dinero.png" />
-    <Resource Include="Images\ingresar-dinero.png" />
-    <Resource Include="Images\retire-billete.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\left.png" />
@@ -670,6 +628,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataModel\PaypadLocalModel.edmx.sql" />
+    <Resource Include="Images\NewDesing\Gif\DESLIZAR.gif" />
+    <Resource Include="Images\NewDesing\Gif\INSERTAR.gif" />
+    <Resource Include="Images\NewDesing\Gif\PAGO MOVIL.gif" />
+    <Resource Include="Images\NewDesing\Gif\QR.gif" />
+    <Resource Include="Images\NewDesing\Buttons\QR.png" />
+    <Resource Include="Images\NewDesing\Buttons\ACERCAR.png" />
+    <Resource Include="Images\NewDesing\Buttons\AHORROS.png" />
+    <Resource Include="Images\NewDesing\Buttons\CORRIENTE.png" />
+    <Resource Include="Images\NewDesing\Buttons\CREDITO.png" />
+    <Resource Include="Images\NewDesing\Buttons\DESLIZAR.png" />
+    <Resource Include="Images\NewDesing\Buttons\INSERTAR.png" />
+    <Resource Include="Images\NewDesing\Buttons\PAGO MOVIL.png" />
     <Resource Include="Images\NewDesing\Gif\Procinal1.gif" />
     <Resource Include="Images\NewDesing\Others\v-inserte-tarjeta.png" />
     <Resource Include="Images\Tags\cartel-4dx.png" />
@@ -681,7 +651,6 @@
     <Resource Include="Images\NewDesing\Backgrounds\v-metodo-pago.png" />
     <Resource Include="Images\Tags\cartel-vibra2.png" />
     <Resource Include="Images\NewDesing\Others\v-inserte-villete.png" />
-    <Resource Include="Images\backButton.png" />
     <Resource Include="Images\NewDesing\Backgrounds\fondoModal.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\fondo-modal.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\p-fondo-pay.jpg" />
@@ -707,17 +676,11 @@
     <Resource Include="Images\NewDesing\Backgrounds\p-fondo-general.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\p-fondo-inicio.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\p-fondo-pelicula.jpg" />
-    <Resource Include="Images\b-contando-billetes.gif" />
-    <Resource Include="Images\b-espere-cambio.gif" />
-    <Resource Include="Images\b-espere-recibo.gif" />
     <Resource Include="Images\b-ingrese-billete.gif" />
-    <Resource Include="Images\b-leyendo-billete.gif" />
     <Resource Include="Images\loadingbar.gif" />
-    <Resource Include="Images\fondo-mayorcav3.jpg" />
     <Resource Include="Images\vibrosoundv2.png" />
     <Resource Include="Images\discapacitadosv2.png" />
     <Resource Include="Images\NoDisponiblev2.png" />
-    <Resource Include="Images\preferencialv2.png" />
     <Resource Include="Images\puffv2.png" />
     <Resource Include="Images\seleccionadav2.png" />
     <Resource Include="Images\disponiblev2.png" />
@@ -728,10 +691,7 @@
     <Resource Include="Images\silla-no-disponiblev2.png" />
     <Resource Include="Images\silla-disponiblev2.png" />
     <Resource Include="Images\discapacitados.png" />
-    <Resource Include="Images\NoDisponible.png" />
-    <Resource Include="Images\preferencial.png" />
     <Resource Include="Images\puff.png" />
-    <Resource Include="Images\seleccionada.png" />
     <Resource Include="Images\vibrosound.png" />
     <Resource Include="Images\Tags\cartel-4dx2.png" />
     <Resource Include="Images\Tags\cartel-blackstar2.png" />
@@ -746,10 +706,6 @@
     <Resource Include="Images\silla-vibrasound.png" />
     <Resource Include="Images\anterior.png" />
     <Resource Include="Images\cargando.gif" />
-    <Resource Include="Images\leyendo-billete.png" />
-    <Resource Include="Images\fondo-mayorcaV2.jpg" />
-    <Resource Include="Images\confirmar.png" />
-    <Resource Include="Images\espere-su-cambio.png" />
     <Resource Include="Images\Tags\cartel-2d.png" />
     <Resource Include="Images\Tags\cartel-3d.png" />
     <Resource Include="Images\loadder.gif" />
@@ -783,7 +739,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>DBProcinal.mdf</DependentUpon>
     </Content>
-    <Resource Include="Images\fondo-mayorca.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

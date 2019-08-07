@@ -84,13 +84,6 @@ namespace WPProcinal.Classes
             {
                 Task.Run(() =>
                 {
-
-                    var idPaypad = Utilities.CorrespondentId;
-                    if (idPaypad == 0)
-                    {
-                        idPaypad = int.Parse(Utilities.GetConfiguration("idPaypad"));
-                    }
-
                     if (desciption.Contains("FATAL"))
                     {
                         level = ELevelError.Strong;
@@ -98,7 +91,7 @@ namespace WPProcinal.Classes
 
                     PAYPAD_CONSOLE_ERROR consoleError = new PAYPAD_CONSOLE_ERROR
                     {
-                        PAYPAD_ID = (int)idPaypad,
+                        PAYPAD_ID = Utilities.CorrespondentId,
                         DATE = DateTime.Now,
                         STATE = 0,
                         DESCRIPTION = desciption,

@@ -58,25 +58,25 @@ namespace WPProcinal.Forms
                                 {
                                     GetToken();
                                 };
-                                Utilities.control.callbackToken = isSucces =>
-                                {
-                                    Dispatcher.BeginInvoke((Action)delegate
+                                //Utilities.control.callbackToken = isSucces =>
+                                //{
+                                Dispatcher.BeginInvoke((Action)delegate
+                                    {
+                                        if (!Utilities.GetConfiguration("ReImpresion").Equals("si"))
                                         {
-                                            if (!Utilities.GetConfiguration("ReImpresion").Equals("si"))
-                                            {
-                                                frmCinema inicio = new frmCinema();
-                                                inicio.Show();
-                                                Close();
-                                            }
-                                            else
-                                            {
-                                                frmImpresionForzada impresionForzada = new frmImpresionForzada();
-                                                impresionForzada.Show();
-                                                Close();
-                                            }
-                                        });
-                                };
-                                Utilities.control.Start();
+                                            frmCinema inicio = new frmCinema();
+                                            inicio.Show();
+                                            Close();
+                                        }
+                                        else
+                                        {
+                                            frmImpresionForzada impresionForzada = new frmImpresionForzada();
+                                            impresionForzada.Show();
+                                            Close();
+                                        }
+                                    });
+                                //};
+                                //Utilities.control.Start();
                             }
                             else
                             {

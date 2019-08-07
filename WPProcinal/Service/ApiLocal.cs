@@ -56,23 +56,6 @@ namespace WPProcinal.Service
                 {
                     response = task.Result;
                 }
-                //else
-                //{
-                //    client.CancelPendingRequests();
-                //    var requestEspejo = JsonConvert.SerializeObject(requestAuth);
-                //    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
-                //    client = new HttpClient();
-                //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(authentication));
-                //    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
-
-                //    var taskEspejo = client.PostAsync(url, contentEspejo);
-
-                //    if (await Task.WhenAny(taskEspejo, Task.Delay(30000)) == taskEspejo)
-                //    {
-                //        response = taskEspejo.Result;
-                //    }
-                //    client.CancelPendingRequests();
-                //}
                 LogService.CreateLogsPeticion("Respuesta GetToken", JsonConvert.SerializeObject(response));
 
                 if (!response.IsSuccessStatusCode)

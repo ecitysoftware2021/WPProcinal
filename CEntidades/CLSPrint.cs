@@ -72,7 +72,7 @@ namespace CEntidades
 
             Graphics g = e.Graphics;
             string RutaIMG = GetConfiguration("LogoComprobante");
-            g.DrawImage(Image.FromFile(RutaIMG), 25, 0);
+            //g.DrawImage(Image.FromFile(RutaIMG), 25, 0);
             g.DrawString(Cinema, fBodyCinema, sb, 120, SPACE);
             //TODO: Solo para los demas
             //g.DrawString("Colombia de Cines S.A", fBody, sb, 10, SPACE + 25);

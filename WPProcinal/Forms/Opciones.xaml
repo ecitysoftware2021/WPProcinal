@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WPProcinal.Forms"
         mc:Ignorable="d"
         WindowStyle="None"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         ResizeMode="NoResize"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
@@ -15,7 +16,6 @@
         Title="Opciones" 
         Height="600" 
         Width="800" 
-        DataContext="{Binding}" 
         Loaded="Window_Loaded">
     <Border 
             BorderBrush="Black" 
@@ -25,7 +25,7 @@
             <ImageBrush ImageSource="/Images/NewDesing/Backgrounds/p-fondo-general.jpg"
                         Stretch="Fill"/>
         </Border.Background>
-        <Grid>
+        <Grid x:Name="gridOperaciones" DataContext="{Binding}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -34,19 +34,19 @@
                 <RowDefinition Height="31*"/>
                 <RowDefinition Height="134*"/>
             </Grid.RowDefinitions>
-            <TextBlock Name="txtOpcion" 
+            <TextBlock Name="txtOpcion" Text="{Binding mensaje}"
                        Foreground="White"
                        FontWeight="Bold"
-                   FontSize="40"
+                   FontSize="35"
                    Grid.Column="0"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    TextAlignment="Center" 
                        Height="68" 
                        Margin="94,98,94,26" 
-                       Width="606" 
+                       Width="616" 
                        Grid.RowSpan="2"/>
-            <Grid Grid.Row="2" Name="gridTeclado" Visibility="Visible">
+            <Grid Grid.Row="2" Name="gridTeclado" Visibility="Hidden">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -62,6 +62,8 @@
                 </Grid.RowDefinitions>
                 <TextBox x:Name="txtultimosDigitos"
                          FontSize="35"
+                         MaxLength="{Binding maxlen}"
+                         MinLines="{Binding minlen}"
                          TextAlignment="Center"
                          Foreground="White"
                        FontWeight="Bold"
@@ -78,6 +80,7 @@
                    Grid.Row="2"
                    Grid.Column="0"
                    Tag="1"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
                 <TextBlock Text="2"
                            Foreground="White"
@@ -87,6 +90,7 @@
                    Grid.Row="2"
                    Grid.Column="1"
                    Tag="2"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
                 <TextBlock Text="3"
                            Foreground="White"
@@ -96,6 +100,7 @@
                    Grid.Row="2"
                    Grid.Column="2"
                    Tag="3"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
                 <TextBlock Text="4"
                            Foreground="White"
@@ -105,6 +110,7 @@
                    Grid.Row="3"
                    Grid.Column="0"
                    Tag="4"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
                 <TextBlock Text="5"
                            Foreground="White"
@@ -113,7 +119,8 @@
                    HorizontalAlignment="Center"
                    Grid.Row="3"
                    Grid.Column="1"
-                   Tag="4"
+                   Tag="5"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
                 <TextBlock Text="6"
                            Foreground="White"
@@ -123,6 +130,7 @@
                    Grid.Row="3"
                    Grid.Column="2"
                    Tag="6"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
                 <TextBlock Text="7"
                            Foreground="White"
@@ -132,6 +140,7 @@
                    Grid.Row="4"
                    Grid.Column="0"
                    Tag="7"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
                 <TextBlock Text="8"
                            Foreground="White"
@@ -141,6 +150,7 @@
                    Grid.Row="4"
                    Grid.Column="1"
                    Tag="8"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
                 <TextBlock Text="9"
                            Foreground="White"
@@ -150,6 +160,7 @@
                    Grid.Row="4"
                    Grid.Column="2"
                    Tag="9"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
                 <TextBlock Text="Aceptar" Visibility="Hidden" Name="botonAceptar"
                    FontSize="40"
@@ -159,6 +170,7 @@
                    Grid.Row="5"
                    Grid.Column="0"
                    Tag="x"
+                           PreviewStylusDown="BotonAceptar_PreviewStylusDown"
                    PreviewMouseDown="BotonAceptar_PreviewMouseDown"/>
                 <TextBlock Text="0"
                            Foreground="White"
@@ -168,6 +180,7 @@
                    Grid.Row="5"
                    Grid.Column="1"
                    Tag="0"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
                 <TextBlock Text="&lt;"
                    FontSize="40"
@@ -177,8 +190,21 @@
                    Grid.Row="5"
                    Grid.Column="2"
                    Tag="&lt;"
+                           PreviewStylusDown="TextBlock_PreviewStylusDown"
                    PreviewMouseDown="TextBlock_PreviewMouseDown"/>
             </Grid>
+
+            <Image gif:ImageBehavior.AnimatedSource="{Binding imagen}" 
+                   gif:ImageBehavior.AnimateInDesignMode="True"
+                   gif:ImageBehavior.AutoStart="True" 
+                    x:Name="GifLoad2" 
+                    Stretch="Fill"
+                    Margin="262,10,232,92" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Width="300" 
+                   Visibility="{Binding visible}"
+                    Height="300" Grid.Row="2"/>
         </Grid>
     </Border>
 </Window>

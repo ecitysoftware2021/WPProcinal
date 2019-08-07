@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WPProcinal.Classes;
 
 namespace WPProcinal.Forms
@@ -22,35 +15,44 @@ namespace WPProcinal.Forms
     {
         string _peticion = string.Empty;
         bool _isCredit = false;
-        Utilities Util;
-        public Opciones(string mensaje, int len = 0, string peticion = null, bool isCredit = false)
+        TPVOperation TPV;
+        DataCardTransaction _dataCard;
+        public Opciones(DataCardTransaction dataCard)
         {
             InitializeComponent();
-            txtOpcion.Text = mensaje;
-            //Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-            //    new Action(delegate { }));
-
-            txtultimosDigitos.MaxLength = len;
-            Util = new Utilities();
-            _peticion = peticion;
-            _isCredit = isCredit;
+            _dataCard = dataCard;
+            //txtOpcion.Text = mensaje;
+            //txtultimosDigitos.MaxLength = maxlen;
+            //txtultimosDigitos.MinLines = minlen;
+            TPV = new TPVOperation();
+            _peticion = dataCard.peticion;
+            _isCredit = dataCard.isCredit;
+            gridOperaciones.DataContext = _dataCard;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (!_isCredit)
             {
-                if (_peticion != null)
+                Task.Run(() =>
                 {
-                    var respuestaPeticion = Util.EnviarPeticion(_peticion);
-                    Utilities.CallBackRespuesta?.Invoke(respuestaPeticion);
-                }
-                else
-                {
-                    var respuestaPeticion = Util.EnviarPeticionEspera();
-                    Utilities.CallBackRespuesta?.Invoke(respuestaPeticion);
-                }
-                Close();
+                    if (_peticion != null)
+                    {
+
+                        var respuestaPeticion = TPV.EnviarPeticion(_peticion);
+                        TPVOperation.CallBackRespuesta?.Invoke(respuestaPeticion);
+                    }
+                    else
+                    {
+                        var respuestaPeticion = TPV.EnviarPeticionEspera();
+                        TPVOperation.CallBackRespuesta?.Invoke(respuestaPeticion);
+                    }
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        Close();
+                    });
+                });
+
             }
             else
             {
@@ -59,6 +61,11 @@ namespace WPProcinal.Forms
         }
 
         private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //NumbersButtons(sender);
+        }
+
+        private void NumbersButtons(object sender)
         {
             var boton = sender as TextBlock;
             if (boton.Tag.Equals("<"))
@@ -76,7 +83,8 @@ namespace WPProcinal.Forms
                 }
             }
 
-            if (txtultimosDigitos.Text.Length != txtultimosDigitos.MaxLength)
+            if (txtultimosDigitos.Text.Length != txtultimosDigitos.MaxLength
+                && txtultimosDigitos.Text.Length < txtultimosDigitos.MinLines)
             {
                 botonAceptar.Visibility = Visibility.Hidden;
             }
@@ -88,11 +96,25 @@ namespace WPProcinal.Forms
 
         private void BotonAceptar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            //AcceptButton();
+        }
+
+        private void AcceptButton()
+        {
+
             if (!txtultimosDigitos.Text.Equals("0"))
             {
-                string peticion = Util.CalculateLRC(string.Concat(_peticion, txtultimosDigitos.Text, "]"));
-                var respuestaPeticion = Util.EnviarPeticion(peticion);
-                Utilities.CallBackRespuesta?.Invoke(respuestaPeticion);
+                FrmLoading frmLoading = new FrmLoading("Esperando confirmación del pago...");
+                if (txtultimosDigitos.Text.Length <= 2)
+                {
+                    this.Hide();
+                    frmLoading.Show();
+                    TPVOperation.Quotas = int.Parse(txtultimosDigitos.Text);
+                }
+                string peticion = TPV.CalculateLRC(string.Concat(_peticion, txtultimosDigitos.Text, "]"));
+                var respuestaPeticion = TPV.EnviarPeticion(peticion);
+                TPVOperation.CallBackRespuesta?.Invoke(respuestaPeticion);
+                frmLoading.Close();
                 Close();
             }
             else
@@ -101,5 +123,16 @@ namespace WPProcinal.Forms
             }
         }
 
+        private void TextBlock_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+            NumbersButtons(sender);
+        }
+
+        private void BotonAceptar_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+            _dataCard.mensaje = "Esperando datáfono...";
+            _dataCard.visible = "Hidden";
+            AcceptButton();
+        }
     }
 }

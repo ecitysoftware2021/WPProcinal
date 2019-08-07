@@ -26,53 +26,53 @@ namespace WPProcinal.Forms
     /// </summary>
     public partial class FrmCardPayment : Window
     {
-        private ApiLocal api;
-        private PaymentViewModel PaymentViewModel;
         private FrmLoading frmLoading;
         private Utilities utilities;
         private LogErrorGeneral logError;
-        private int count;
         private bool stateUpdate;
-        private int countError = 0;
         private bool payState;
-        private int num = 1;
-        Response responseGlobal = new Response();
         Utilities objUtil = new Utilities();
+        TPVOperation TPV;
 
         #region Propiedades Tarjeta
 
+        private string TramaCancelar;
+
         private string TramaInicial;
 
-        private string Delimitador { get { return ","; } }
+        private string Delimitador { get { return Utilities.GetConfiguration("Delimitador"); } }
 
-        private string IdentificadorInicio { get { return "I"; } }
+        private string IdentificadorInicio { get { return Utilities.GetConfiguration("IdentificadorInicio"); } }
 
-        private string TipoOperacion { get { return "01"; } }
+        private string TipoOperacion { get { return Utilities.GetConfiguration("TipoOperacion"); } }
 
         private string ValorTotal { get; set; }
 
         private string ValorIVA { get { return "0"; } }
 
-        private string NumeroKiosko { get { return "T0501"; } }
+        private string NumeroKiosko { get { return Utilities.GetConfiguration("NumeroKiosko"); } }
 
-        private string NumeroTerminal { get { return "000CRE01"; } }
+        private string NumeroTerminal { get { return Utilities.GetConfiguration("NumeroTerminal"); } }
 
         private string NumeroTransaccion { get; set; }
 
         private string ValorPropina { get { return "0"; } }
 
-        private string CodigoUnico { get { return "010601557"; } }
+        private string CodigoUnico { get { return Utilities.GetConfiguration("CodigoUnico"); } }
 
         private string ValorIAC { get { return "0"; } }
 
-        private string IdentificacionCajero { get { return "PRU"; } }
+        private string IdentificacionCajero { get { return Utilities.GetConfiguration("IdentificacionCajero"); } }
 
+        string _Franchise;
+        string _LastNumbers;
+        string _AutorizationCode;
+        string _ReceiptNumber;
+        string _RRN;
 
-        int reintent = 0;
+        Opciones FrmOciones;
 
-        Opciones opciones;
-
-        Mensajes mensajes;
+        Mensajes ModalMensajes;
         #endregion
 
         public FrmCardPayment(List<TypeSeat> Seats, DipMap dipMap)
@@ -81,20 +81,25 @@ namespace WPProcinal.Forms
 
             try
             {
-                api = new ApiLocal();
-                //Utilities.PayVal = Utilities.ValorPagarScore;
-                lblValorPagar.Content = Utilities.PayVal.ToString("#,##0");
-                frmLoading = new FrmLoading("Cargando...");
+                frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
+                Modal.ShowDialog();
+
+                lblValorPagar.Content = Utilities.ValorPagarScore.ToString("#,##0");
+                frmLoading = new FrmLoading("Conectandose con el datáfono, espere por favor...");
+                frmLoading.Show();
+
                 utilities = new Utilities();
+                ModalMensajes = new Mensajes();
+                TPV = new TPVOperation();
+
                 Utilities.TypeSeats = Seats;
                 Utilities.DipMapCurrent = dipMap;
-                Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.PayVal);
+                Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.ValorPagarScore);
 
-                mensajes = new Mensajes();
-                this.DataContext = mensajes;
+                ModalMensajes.MensajePrincipal = "Conectandose con el datáfono...";
+                this.DataContext = ModalMensajes;
 
                 TramaInicial = "";
-
 
 
                 TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
@@ -102,6 +107,9 @@ namespace WPProcinal.Forms
                 TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
                 TxtHour.Text = dipMap.HourFunction;
                 TxtSubTitle.Text = dipMap.Language;
+                var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
+                TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
+
 
                 logError = new LogErrorGeneral
                 {
@@ -110,7 +118,6 @@ namespace WPProcinal.Forms
                     IdTransaction = Utilities.IDTransactionDB,
                 };
 
-                count = 0;
                 stateUpdate = true;
                 payState = true;
                 Activar();
@@ -128,8 +135,6 @@ namespace WPProcinal.Forms
                 {
                     if (payState)
                     {
-
-
                         ValorTotal = Utilities.ValorPagarScore.ToString();
                         NumeroTransaccion = Utilities.IDTransactionDB.ToString();
                         TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
@@ -145,13 +150,12 @@ namespace WPProcinal.Forms
                             IdentificacionCajero, "]");
 
                         //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
-                        var LCRPeticion = objUtil.CalculateLRC(TramaInicial);
+                        var LCRPeticion = TPV.CalculateLRC(TramaInicial);
                         //Envío la trama que intentará activar el datáfono
-                        var datos = objUtil.EnviarPeticion(LCRPeticion);
-                        Utilities.CallBackRespuesta?.Invoke(datos);
+                        var datos = TPV.EnviarPeticion(LCRPeticion);
+                        TPVOperation.CallBackRespuesta?.Invoke(datos);
                     }
                 });
-                
             }
             catch (Exception ex)
             {
@@ -163,26 +167,19 @@ namespace WPProcinal.Forms
         /// </summary>
         private void Activar()
         {
-
-
-            //Activo el callback que procesará todas las respuestas del datáfono
-            Utilities.CallBackRespuesta = Respuesta =>
+            TPVOperation.CallBackRespuesta = Respuesta =>
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     ProcesarRespuesta(Respuesta);
                 });
             };
-
         }
 
         private void btnCancelar_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
             try
             {
-                this.Opacity = 0.3;
-                Utilities.Loading(frmLoading, true, this);
-
                 Task.Run(() =>
                 {
                     utilities.UpdateTransaction(0, 3, 0);
@@ -199,7 +196,8 @@ namespace WPProcinal.Forms
         }
 
         /// <summary>
-        /// Método encargado de actualizar la transacción a aprobada, se llama en finalizar pago En caso de fallo se reintenta dos veces más actualizar el estado de la transacción, si el error persiste se guarda en un log local y en el servidor, seguido de esto se continua con la transacción normal
+        /// Método encargado de actualizar la transacción a aprobada.
+        /// Además inserta la información de la tarjeta
         /// </summary>
         private void ApproveTrans()
         {
@@ -207,7 +205,21 @@ namespace WPProcinal.Forms
             {
                 if (stateUpdate)
                 {
-                    utilities.UpdateTransaction(0, 2, 0);
+                    Task.Run(() =>
+                    {
+                        utilities.UpdateTransaction(Utilities.ValorPagarScore, 2, 0);
+                    });
+                    utilities.SaveCardInformation(new RequestCardInformation
+                    {
+                        Autorization_code = _AutorizationCode,
+                        Franchise = _Franchise,
+                        Last_number = _LastNumbers,
+                        Receipt_number = _ReceiptNumber,
+                        RRN = _RRN,
+                        Transaction_id = Utilities.IDTransactionDB,
+                        Quotas = TPVOperation.Quotas,
+                        Card_Type = TPVOperation.Quotas != null ? 2 : 1
+                    });
                 }
             }
             catch (Exception ex)
@@ -216,68 +228,93 @@ namespace WPProcinal.Forms
             }
         }
 
+        /// <summary>
+        /// Finaliza el proceso de pago, imprime las boletas y va al formulario final
+        /// </summary>
+        /// <param name="task"></param>
         private async void SavePay(bool task)
         {
-            num = 2;
-
             try
             {
                 if (!task)
                 {
-                    await Dispatcher.BeginInvoke((Action)delegate
+                    try
                     {
-                        PaymentGrid.Opacity = 0.3;
-                        Utilities.Loading(frmLoading, false, this);
-                        frmModal modal = new frmModal("No se pudo realizar el pago");
-                        modal.ShowDialog();
+                        Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    }
+                    catch { }
 
-                        Utilities.Loading(frmLoading, true, this);
-                    });
-                    GC.Collect();
+                    //try
+                    //{
 
-                    Task.Run(() =>
-                    {
-                        utilities.UpdateTransaction(0, 3, 0);
+                    //    await Dispatcher.BeginInvoke((Action)delegate
+                    //    {
+                    //        PaymentGrid.Opacity = 0.3;
+                    //        Utilities.Loading(frmLoading, false, this);
+                    //        frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.PayVal.ToString("#,##0"));
+                    //        modal.ShowDialog();
+                    //        Utilities.Loading(frmLoading, true, this);
+                    //    });
+                    //    GC.Collect();
+                    //}
+                    //catch { }
 
-                        logError.Description = "\nNo Se cancelo una transaccion";
-                        logError.State = "Cancelada";
-                        Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
-                    }).Wait();
+                    utilities.UpdateTransaction(0, 3, 0);
+
+                    //ActivateTimer(false);
+                    //ReturnMoney(Utilities.PayVal, false);
 
                 }
                 else
                 {
-                    ApproveTrans();
-
                     objUtil.ImprimirComprobante("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
-
-                    //Utilities.control.StopAceptance();
+                    ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
-                        frmModal _frmModal = new frmModal(string.Concat("!Muchas gracias por utilizar nuestro servicio.",
-                        Environment.NewLine,
-                        "Su transacción ha finalizado correctamente!"));
-                        _frmModal.ShowDialog();
+                        this.Opacity = 1;
+                        Utilities.Loading(frmLoading, false, this);
+                    });
+
+                    await Dispatcher.BeginInvoke((Action)delegate
+                    {
                         FrmFinalTransaction frmFinal = new FrmFinalTransaction();
                         frmFinal.Show();
                         this.Close();
-                        //Utilities.GoToInicial(this);
                     });
                     GC.Collect();
                 }
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "SavePay en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
+        /// <summary>
+        /// Cancelar el pago
+        /// </summary>
         private void Cancelled()
         {
             try
             {
-                Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                //order cancelar datafono
+                try
+                {
+                    Task.Run(() =>
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                        });
+                    });
+                }
+                catch (Exception ex)
+                {
+                    LogService.CreateLogsError(
+                          string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                          ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
+                }
+
                 Dispatcher.Invoke(() =>
                 {
                     PaymentGrid.Opacity = 0.3;
@@ -286,142 +323,146 @@ namespace WPProcinal.Forms
                     modal.ShowDialog();
                 });
                 GC.Collect();
-
-                Utilities.GoToInicial(this);
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
+            Utilities.GoToInicial(this);
         }
 
+        /// <summary>
+        /// Finalizar el pago ante score
+        /// </summary>
         private void Buytickets()
         {
-            if (num == 2)
-            {
-                return;
-            }
-
-            if (countError < 3 && num == 1)
+            try
             {
                 payState = true;
-                var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
-                responseGlobal = response;
-                if (!response.IsSuccess)
+
+                try
                 {
-                    Utilities.SaveLogError(new LogError
-                    {
-                        Message = response.Message,
-                        Method = "WCFServices.PostComprar"
-                    });
-
-                    countError++;
-                    Buytickets();
+                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
                 }
-
-                var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                if (transaccionCompra.Respuesta == "Fallida")
-                {
-                    payState = false;
-                    Utilities.SaveLogError(new LogError
-                    {
-                        Message = transaccionCompra.Respuesta,
-                        Method = "WCFServices.PostComprar.Fallida"
-                    });
-                    countError++;
-                    Buytickets();
-                }
-                else
-                {
-                    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
-                    if (!response.IsSuccess)
-                    {
-                        Utilities.SaveLogError(new LogError
-                        {
-                            Message = responseDB.Message,
-                            Method = "DBProcinalController.EditPaySeat"
-                        });
-                    }
-                }
-
-            }
-
-            if (num == 2)
-            {
-                return;
-            }
-
-            if (num == 1)
-            {
+                catch { }
+                //var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
+                //if (!response.IsSuccess)
+                //{
+                //    Utilities.SaveLogError(new LogError
+                //    {
+                //        Message = response.Message,
+                //        Method = "WCFServices.PostComprar"
+                //    });
+                //}
+                //var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
+                //if (transaccionCompra.Respuesta != "Exitosa")
+                //{
+                //    payState = false;
+                //    Utilities.SaveLogError(new LogError
+                //    {
+                //        Message = transaccionCompra.Respuesta,
+                //        Method = "WCFServices.PostComprar.Fallida"
+                //    });
+                //}
+                //else
+                //{
+                //    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                //    if (!response.IsSuccess)
+                //    {
+                //        Utilities.SaveLogError(new LogError
+                //        {
+                //            Message = responseDB.Message,
+                //            Method = "DBProcinalController.EditPaySeat"
+                //        });
+                //    }
+                //}
                 SavePay(payState);
             }
+            catch (Exception ex)
+            {
+                payState = false;
+                SavePay(payState);
+                AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
+            }
         }
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////
-        ///
 
         #region TransactionalMethods
 
         /// <summary>
         /// Procesa todas las respuestas del datáfono
         /// </summary>
-        /// <param name="respuesta"></param>
-        private void ProcesarRespuesta(string respuesta)
+        /// <param name="responseTPV"></param>
+        private void ProcesarRespuesta(string responseTPV)
         {
             try
             {
-                //Divido la respuesta para tomar la trama de la información
-                var dataResponse = respuesta.Split('[');
-
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    this.Opacity = 1;
+                });
                 /**
-                 * -Si la respuesta contiene 06 en sus 2 primeros caracteres se trata de una respuesta operativa,
-                 * es decir, una respuesta para dar indicaciones al usuario en la pantalla.
-                 * 
-                 * - Si la trama contiene una P en en segundo caracter se trata de una respuesta de error
+                 * Todas las respuestas correctas tienen mas de 4 caracteres
                  * **/
-                if (respuesta.Substring(0, 2).Equals("06") || respuesta.Substring(1, 1).Equals("P"))
+                if (responseTPV.Length < 4)
                 {
-                    //Si al dividir la trama se optienen mas de 1 posicion entonces la trama se puede validar
-                    if (dataResponse.Length > 1)
-                    {
-                        /****
-                         * Si esta respuesta contiene una F en la posicion 3 entonces se trata de una respuesta final
-                         * para un pago con tarjeta de crédito
-                         */
-                        if (respuesta.Substring(3, 1).Equals("F"))
-                        {
-                            //Procesa la ultima respuesta del datáfono
-                            ProcesarFinal(dataResponse[1]);
-                        }
-                        else
-                        {
-                            //Procesa las tramas transaccionales
-                            ProccessDataTransaction(dataResponse[1]);
-                        }
-                    }
-                    else
-                    {
-                        SetMessageAndPutVisibility("Datáfono no disponible, intente de nuevo mas tarde.");
-                        Task.Run(() =>
-                        {
-                            Thread.Sleep(2000);
-                            Close();
-                        });
-                    }
-                }
-                else if (respuesta.Substring(1, 1).Equals("F"))
-                {
-                    //Si la respuesta contiene una F en su caracter en posición 1, se trata de la finalización de una transacción
-                    // con tarjeta débito
-                    ProcesarFinal(dataResponse[1]);
+                    frmLoading.Close();
+
+                    this.IsEnabled = true;
+                    SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
                 }
                 else
                 {
-                    SetMessageAndPutVisibility("No se pudo procesar la transacción, intente de nuevo mas tarde.");
-                    Task.Run(() =>
+                    /**
+                     * Tomo los datos que esten dentro de los corchetes
+                     * **/
+                    var dataSubString = responseTPV.Substring(responseTPV.IndexOf("[") + 1).Split(']')[0];
+
+                    //Divido la respuesta para tomar la trama de la información
+                    var dataResponse = dataSubString.Split(',');
+
+                    //Una p en el primer campo significa acción que debe realizar la pantalla
+                    if (dataResponse[0].Equals("P"))
                     {
-                        Thread.Sleep(2000);
-                        Close();
-                    });
+                        //Valido que la respuesta no corresponda a un error
+                        if (dataResponse.Length == 4 && !dataResponse[2].ToLower().Equals("error"))
+                        {
+                            /**
+                             * Si la trama contiene 'pin' se trata de la solicitud de la clave
+                             * De lo contrario se trata de informacion seleccionable en pantalla
+                             */
+                            if (dataResponse[3].ToLower().Contains("pin"))
+                            {
+                                ProcessDebitOperation();
+                            }
+                            else
+                            {
+                                ProccessPositiveResponse(dataResponse);
+                            }
+                        }
+                        else if (dataResponse[2].ToLower().Equals("error"))
+                        {
+                            //Procesa  todas las tramas con error del datáfono
+                            ProcesarFinalError(dataResponse[3]);
+                        }
+                        else
+                        {
+                            //Procesa todas las tramas operacionales del datafono
+                            ProcessOperation(dataResponse);
+                        }
+                    }
+                    else if (dataResponse[0].Equals("F"))
+                    {
+                        /**
+                         * Si la respuesta contiene una F se trata del final de una transacción
+                         */
+                        ProcesarFinal(dataResponse);
+                    }
+                    else
+                    {
+                        frmLoading.Close();
+                        this.IsEnabled = true;
+                        SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
+                    }
                 }
             }
             catch (Exception ex)
@@ -431,57 +472,63 @@ namespace WPProcinal.Forms
         }
 
         /// <summary>
-        /// Procesa todas las tramas transaccionales antes de llegar al final del pago
+        /// Procesa todas las tramas transaccionales de tarjeta crédito
         /// </summary>
         /// <param name="response"></param>
-        void ProccessDataTransaction(string response)
+        void ProcessOperation(string[] response)
         {
             try
             {
-                var dataTransaction = response.Split(',');
+                var dataTransaction = response[3].Split(';');
                 //Valido si la respuesta concuerda con una respuesta válida para el sistema
-                if (dataTransaction.Length == 4)
+                if (response.Length == 4)
                 {
-                    //Si la trama contiene 63 puede tratarse de un error o de la solicitud de la clave
-                    if (dataTransaction[1].Equals("63"))
-                    {
-                        //Si se trata de un error Espero hasta que me responda la trama total del error
-                        if (dataTransaction[2].Equals("ERROR"))
-                        {
-                            var respuestaPeticion = objUtil.EnviarPeticionEspera();
-                            Utilities.CallBackRespuesta?.Invoke(respuestaPeticion);
-                        }
-                        else
-                        {
-                            lvOpciones.Visibility = Visibility.Hidden;
-                            opciones = new Opciones("Digita la clave en el datáfono");
-                            opciones.ShowDialog();
-                            var respuestaPeticion = objUtil.EnviarPeticionEspera();
-                            Utilities.CallBackRespuesta?.Invoke(respuestaPeticion);
-                        }
-                    }
-                    else
-                    {
-                        //Si la respuesta es diferente a 63 entonces se trata de una trama transaccional válida
-                        ProccessPositiveResponse(dataTransaction);
-                    }
-
+                    this.IsEnabled = true;
+                    ProccessPositiveResponse(dataTransaction);
                 }
-                else if (dataTransaction.Length > 4)// Si la data supera los 4 espacios se trata de un pago con tarjeta de crétido
+                else if (response.Length > 4)// Si la data supera los 4 espacios se trata de un pago con tarjeta de crétido
                 {
                     //Armo la trama necesaria para las tarjetas de crédito
-                    string Trama = string.Concat("R,", dataTransaction[1], ",1,");
+                    string Trama = string.Concat("R,", response[1], ",1,");
                     //Si la trama respondida por el datáfono contiene Ult. se trata de la peticion de los 4 últimos dígitos de la tarjeta al usuario
-                    if (dataTransaction[3].Contains("Ult."))
+                    if (response[3].Contains("Ult."))
                     {
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            this.Opacity = 0.3;
+                        });
                         //Se envía un maxlenght para el campo de ingreso de los 4 números, la trama y si es crédito
-                        opciones = new Opciones("Cuatro últimos dígitos de la tarjeta", len: 4, peticion: Trama, isCredit: true);
-                        opciones.ShowDialog();
+                        DataCardTransaction dataCard = new DataCardTransaction
+                        {
+                            imagen = string.Empty,
+                            isCredit = true,
+                            maxlen = 4,
+                            mensaje = "Cuatro últimos dígitos de la tarjeta",
+                            minlen = 4,
+                            peticion = Trama,
+                            visible = "Visible"
+                        };
+                        FrmOciones = new Opciones(dataCard);
+                        FrmOciones.ShowDialog();
                     }
-                    else if (dataTransaction[3].Contains("Cuotas"))//Si contiene Cuotas entonces se trata de la solicitud del número de cueotas para la compra al usuario
+                    else if (response[3].Contains("Cuotas"))//Si contiene Cuotas entonces se trata de la solicitud del número de cueotas para la compra al usuario
                     {
-                        opciones = new Opciones("¿Número de cuotas?", len: 2, peticion: Trama, isCredit: true);
-                        opciones.ShowDialog();
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            this.Opacity = 0.3;
+                        });
+                        DataCardTransaction dataCard = new DataCardTransaction
+                        {
+                            imagen = string.Empty,
+                            isCredit = true,
+                            maxlen = 2,
+                            mensaje = "¿Número de cuotas?",
+                            minlen = 1,
+                            peticion = Trama,
+                            visible = "Visible"
+                        };
+                        FrmOciones = new Opciones(dataCard);
+                        FrmOciones.ShowDialog();
                     }
                 }
             }
@@ -489,54 +536,80 @@ namespace WPProcinal.Forms
             {
 
             }
+        }
+
+        /// <summary>
+        /// Solicita la clave en el datafono
+        /// </summary>
+        private void ProcessDebitOperation()
+        {
+            Dispatcher.BeginInvoke((Action)delegate
+            {
+                this.Opacity = 0.3;
+            });
+
+            lvOpciones.Visibility = Visibility.Hidden;
+            DataCardTransaction dataCard = new DataCardTransaction
+            {
+                imagen = string.Empty,
+                isCredit = false,
+                maxlen = 1,
+                mensaje = "Digita la clave en el datáfono",
+                minlen = 1,
+                peticion = null,
+                visible = "Hidden"
+            };
+
+            FrmOciones = new Opciones(dataCard);
+            FrmOciones.ShowDialog();
         }
 
         /// <summary>
         /// Procesa la respuesta transaccional positiva
+        /// Todas las respuestas del datafono donde se debe habilitar la selección en pantalla
         /// </summary>
         /// <param name="positiveResponse"></param>
         private void ProccessPositiveResponse(string[] positiveResponse)
         {
             try
             {
-                lvOpciones.Visibility = Visibility.Visible;
-                //Asigno el título de la operación actual para el usuario
-                mensajes.MensajePrincipal = positiveResponse[2];
-                //Separo la trama requerida y pierdo el final innecesario
-                var responseData = positiveResponse[3].Split(']')[0];
-                //Elimino un (;) que queda el final de la trama para evitar errores
-                responseData = responseData.Substring(0, responseData.Length - 1);
-
                 //Separo y obtengo las opciones transaccionales que se le presentarán al usuario
-                var opcionesTransaccionales = responseData.Split(';');
-                //En esta lista se almanecarán las opciones que se le presentaran en la vista al usuario
-                List<FormaPago> formas = new List<FormaPago>();
-                //Este índice le da a cada opción su valor segun la trama del datáfono
-                int indiceForma = 1;
-
-                //Se recorren y agregan a la vista todas las opciones presentadas por el datáfono
-                foreach (var item in opcionesTransaccionales)
+                var opcionesTransaccionales = positiveResponse[3].Split(';');
+                if (opcionesTransaccionales.Length > 1)
                 {
-                    formas.Add(new FormaPago
+                    lvOpciones.Visibility = Visibility.Visible;
+                    frmLoading.Close();
+                    //Asigno el título de la operación actual para el usuario
+                    ModalMensajes.MensajePrincipal = positiveResponse[2];
+
+                    //En esta lista se almanecarán las opciones que se le presentaran en la vista al usuario
+                    List<FormaPago> formas = new List<FormaPago>();
+                    //Este índice le da a cada opción su valor segun la trama del datáfono
+                    int indiceForma = 1;
+                    foreach (var item in opcionesTransaccionales)
                     {
-                        Forma = item,
-                        Trama = string.Concat("R,", positiveResponse[1], ",", indiceForma, "]"),
-                    });
-                    indiceForma++;
-                }
+                        if (!item.ToLower().Equals("nfc") && !string.IsNullOrEmpty(item))
+                        {
+                            formas.Add(new FormaPago
+                            {
+                                Forma = item,
+                                Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
+                                Trama = string.Concat("R,", positiveResponse[1], ",", indiceForma, "]"),
+                            });
+                        }
+                        indiceForma++;
+                    }
 
-                //Finalmente agrego otra opcion que servirá para cancelar la transacción
-                formas.Add(new FormaPago
-                {
-                    Forma = "Cancelar",
-                    Trama = string.Concat("R,", positiveResponse[1], ",0]"),
-                });
-                //Se le asigna el modelo a la vista transaccional
-                lvOpciones.DataContext = formas;
+                    TramaCancelar = string.Concat("R,", positiveResponse[1], ",0]");
+
+                    //Se le asigna el modelo a la vista transaccional
+                    this.IsEnabled = true;
+                    lvOpciones.DataContext = formas;
+                }
             }
             catch (Exception ex)
             {
-                throw;
+
             }
         }
 
@@ -544,32 +617,35 @@ namespace WPProcinal.Forms
         /// Procesa la respuesta final del datáfono a la pantalla
         /// </summary>
         /// <param name="response"></param>
-        void ProcesarFinal(string response)
+        void ProcesarFinal(string[] response)
         {
             try
             {
-                //Divido la trama separada por (,) para obtener el estado de la transacción
-                var data = response.Split(',');
-                if (data[2].Equals("00"))
+
+                this.IsEnabled = true;
+                //Transacción aprobada es igual a 00
+                if (response[2].Equals("00"))
                 {
-                    SetMessageAndPutVisibility("Pago Exitoso");
+                    _Franchise = response[13];
+                    _LastNumbers = response[16];
+                    _AutorizationCode = response[3];
+                    _ReceiptNumber = response[7];
+                    _RRN = response[8];
+                    Buytickets();
                 }
                 else
                 {
-                    //Si falla la comunicación re-intento por 3 ocasiones, esto reinicia la transacción
-                    if (reintent < 3 && !data[2].Contains("]"))
+                    frmLoading.Close();
+                    //Error de tarjeta
+                    if (response[2].Equals("02"))
                     {
-                        reintent++;
-                        SetMessageAndPutVisibility("Intente de nuevo.");
-                        var hexResult = objUtil.CalculateLRC(TramaInicial);
-                        var datos = objUtil.EnviarPeticion(hexResult);
-                        Utilities.CallBackRespuesta?.Invoke(datos);
+                        SetMessageAndPutVisibility("Transacción rechazada.");
                     }
-                    else
+                    else if (response[2].Equals("05"))//Error de conexión a puerto (Fisico)
                     {
-                        SetMessageAndPutVisibility("No se pudo procesar el pago, intente de nuevo mas tarde.");
-                        Close();
+                        SetMessageAndPutVisibility("Datáfono no disponible.");
                     }
+
                 }
             }
             catch (Exception ex)
@@ -577,6 +653,17 @@ namespace WPProcinal.Forms
 
             }
         }
+
+        void ProcesarFinalError(string message)
+        {
+            UnlockTPV();
+            frmLoading.Close();
+            SetMessageAndPutVisibility(message);
+        }
+
+        #endregion
+
+        #region Events
 
         /// <summary>
         /// Método para cambiar mensaje y ocultar lista de opciones
@@ -586,11 +673,14 @@ namespace WPProcinal.Forms
         {
             try
             {
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    mensajes.MensajePrincipal = message;
-                    lvOpciones.Visibility = Visibility.Hidden;
-                });
+                GC.Collect();
+                ModalMensajes.MensajePrincipal = message;
+                lvOpciones.Visibility = Visibility.Hidden;
+                frmLoading = new FrmLoading("Cancelando transacción, espere por favor...");
+                frmModal modal = new frmModal(GetMessageError(message));
+                modal.ShowDialog();
+                RetryPayment();
+                GC.Collect();
             }
             catch (Exception ex)
             {
@@ -598,19 +688,28 @@ namespace WPProcinal.Forms
             }
         }
 
-        #endregion
+        private void UnlockTPV()
+        {
+            TPV.EnviarPeticion("[R,61,0]38");
+        }
 
-        #region Events
+        #endregion
 
         /// <summary>
         /// Evento de lo que selecciona el usuario en pantalla
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ListViewItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void ListViewItem_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+            OptionsSelect(sender);
+        }
+
+        private void OptionsSelect(object sender)
         {
             try
             {
+                this.IsEnabled = false;
                 //Optengo la data contenida en el elemento seleccionado
                 var data = (sender as ListBoxItem).DataContext;
 
@@ -618,58 +717,150 @@ namespace WPProcinal.Forms
                 if (data is FormaPago)
                 {
                     var datos = data as FormaPago;
-                    var LRCPeticion = objUtil.CalculateLRC(datos.Trama);
+                    var LRCPeticion = TPV.CalculateLRC(datos.Trama);
 
+                    DataCardTransaction dataCard = new DataCardTransaction
+                    {
+                        isCredit = false,
+                        maxlen = 1,
+                        minlen = 1,
+                        visible = "Visible"
+                    };
                     //Swicheo todas las opciones presentadas por el datáfono para pintarle al usuario las guías correspondientes
                     switch (datos.Forma)
                     {
                         case "DESLIZAR":
+                            OptionSelected(datos, LRCPeticion, dataCard, "Desliza tu tarjeta en el datáfono");
+                            break;
                         case "INSERTAR":
+                            OptionSelected(datos, LRCPeticion, dataCard, "Inserta tu tarjeta en el datáfono");
+
+                            break;
                         case "ACERCAR":
-                            opciones = new Opciones("Pasa tu tarjeta por el datáfono", peticion: LRCPeticion);
-                            opciones.ShowDialog();
+                            OptionSelected(datos, LRCPeticion, dataCard, "Acerca tu tarjeta al datáfono");
+
                             break;
                         case "QR":
-                            opciones = new Opciones("Lee el QR en el datáfono", peticion: LRCPeticion);
-                            opciones.ShowDialog();
+                            OptionSelected(datos, LRCPeticion, dataCard, "Lee el QR en el datáfono");
+
                             break;
                         case "PAGO MOVIL":
-                            opciones = new Opciones("Utiliza tu teléfono para completar el pago en el datáfono", peticion: LRCPeticion);
-                            opciones.ShowDialog();
+                            OptionSelected(datos, LRCPeticion, dataCard, "Acerca el teléfono al datáfono");
+
                             break;
                         case "NFC":
-                            opciones = new Opciones("Acerca el dispositivo NFC al datáfono", peticion: LRCPeticion);
-                            opciones.ShowDialog();
+                            //opciones = new Opciones("Acerca el dispositivo NFC al datáfono", peticion: LRCPeticion);
+                            //opciones.ShowDialog();
                             break;
                         case "AHORROS":
-                            opciones = new Opciones("Digite la clave en el datáfono", peticion: LRCPeticion);
-                            opciones.ShowDialog();
+                            ActionTPV(LRCPeticion, dataCard, "Digita la clave en el datáfono", "Hidden");
                             break;
                         case "CORRIENTE":
-                            opciones = new Opciones("Digita la clave en el datáfono", peticion: LRCPeticion);
-                            opciones.ShowDialog();
+                            ActionTPV(LRCPeticion, dataCard, "Digita la clave en el datáfono", "Hidden");
+
                             break;
                         case "CREDITO":
-                            opciones = new Opciones("¿A cuantas cuotas realizará la compra?", peticion: LRCPeticion);
-                            opciones.ShowDialog();
+                            ActionTPV(LRCPeticion, dataCard, "Cuatro últimos dígitos de la tarjeta", "Visible");
+
                             break;
                         default:
                             break;
                     }
-
                 }
             }
             catch (Exception ex)
             {
 
             }
-
         }
 
-        #endregion
+        private void ActionTPV(string LRCPeticion, DataCardTransaction dataCard, string message, string visible)
+        {
+            dataCard.mensaje = message;
+            dataCard.peticion = LRCPeticion;
+            dataCard.imagen = string.Empty;
+            dataCard.visible = visible;
+            FrmOciones = new Opciones(dataCard);
+            FrmOciones.ShowDialog();
+        }
+
+        private void OptionSelected(FormaPago datos, string LRCPeticion, DataCardTransaction dataCard, string message)
+        {
+            dataCard.mensaje = message;
+            dataCard.peticion = LRCPeticion;
+            dataCard.imagen = string.Concat("/Images/NewDesing/Gif/", datos.Forma, ".Gif");
+            this.Opacity = 0.3;
+            FrmOciones = new Opciones(dataCard);
+            FrmOciones.ShowDialog();
+        }
+
+        private void RetryPayment()
+        {
+            this.Opacity = 0.3;
+
+            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(Utilities.TypeSeats, Utilities.DipMapCurrent);
+            _frmConfirmationModal.ShowDialog();
+            if (_frmConfirmationModal.DialogResult.HasValue &&
+                _frmConfirmationModal.DialogResult.Value)
+            {
+                if (Utilities.MedioPago == 1)
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        frmPayCine pay = new frmPayCine(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                        pay.Show();
+                        this.Close();
+                    });
+                }
+                else
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        FrmCardPayment pay = new FrmCardPayment(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                        pay.Show();
+                        this.Close();
+                    });
+                }
+            }
+            else
+            {
+                Cancelled();
+            }
+        }
+
+        private string GetMessageError(string error)
+        {
+            if (error.ToLower().Contains("digitos"))
+            {
+                error = "Señor usuario, los 4 últimos dígitos de su tarjeta no coinciden con los ingresados, por favor intente de nuevo.";
+            }
+            else if (error.ToLower().Contains("comunicacion"))
+            {
+                error = "Señor usuario, No hay comunicación con el datáfono.";
+            }
+            else if (error.ToLower().Contains("declinada"))
+            {
+                error = "Señor usuario, su tarjeta fué declinada, intente con otra tarjeta.";
+            }
+            else if (error.ToLower().Contains("soportada"))
+            {
+                error = "Señor usuario, transacción no soportada, intente de otro modo.";
+            }
+            else if (error.ToLower().Contains("invalida"))
+            {
+                error = "Señor usuario, transacción inválida, intente nuevamente.";
+            }
+            else if (error.ToLower().Contains("rechazada"))
+            {
+                error = "Señor usuario, transacción rechazada, intente nuevamente.";
+            }
+            return error;
+        }
+
     }
     public class FormaPago
     {
+        public string Imagen { get; set; }
         public string Forma { get; set; }
         public string Trama { get; set; }
     }

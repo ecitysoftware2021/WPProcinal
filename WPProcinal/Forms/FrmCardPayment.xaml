@@ -20,10 +20,12 @@
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="570" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
+
             <TextBlock 
                 x:Name="TxtTitle"
                 FontSize="50"
@@ -35,7 +37,7 @@
                 TextAlignment="Left"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left" 
-                Margin="190,50,0,0" >
+                Margin="190,0,0,250" >
             </TextBlock>
             <TextBlock
                 x:Name="TxtSubTitle"
@@ -48,19 +50,31 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right" 
                 Width="300"
-                Margin="0,140,50,0">
+                Margin="0,0,50,250">
             </TextBlock>
             <TextBlock x:Name="TxtFormat"
                        FontSize="40"
                        Text="2h 24min"
                        FontWeight="Bold"
                        TextWrapping="Wrap"
-                       TextAlignment="Center"
+                       TextAlignment="Right"
                        Foreground="Red"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right" 
-                       Margin="0,250,50,0"
+                       Margin="0,0,50,180"
                        />
+            <TextBlock x:Name="TxtDuracion"
+                       FontSize="35"
+                       Text="Duraciòn: 135 min"                   
+                       FontWeight="Bold"
+                       Width="500"
+                       TextAlignment="Right"
+                       TextWrapping="Wrap"
+                       Foreground="Red"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right" 
+                       Margin="0,0,10,100"/>
+
             <TextBlock x:Name="TxtDay"
                        FontSize="40"
                        Text="24 Sábado"
@@ -69,7 +83,7 @@
                        TextAlignment="Center"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left" 
-                        Margin="200,380,0,0"/>
+                        Margin="200,410,0,0"/>
             <Image HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Source="../Images/backButton.png"
@@ -88,7 +102,8 @@
                        Margin="660,265,0,0"/>
 
         </Grid>
-        
+
+
         <Grid Grid.Row="2">
             <Border
                 BorderThickness="3,3,3,3"
@@ -96,7 +111,7 @@
                 Width="900"
                 Height="1100"
                 HorizontalAlignment="Center"
-                Margin="0,0,0,250">
+                Margin="0,-500,0,0">
                 <Border.Background>
                     <ImageBrush x:Name="imgBackground"
                                 ImageSource="/Images/NewDesing/Others/v-inserte-tarjeta.png"
@@ -104,32 +119,35 @@
                 </Border.Background>
             </Border>
         </Grid>
-        
-        <Label Content="$ 0.00"
-                   FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="White"
-                   Name="lblValorPagar"
-               FontWeight="Bold"
-                   FontSize="50"      
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
-                   HorizontalContentAlignment="Center" 
-                   Grid.Row="1" Margin="538,0,553,1416"/>
+
+
 
         <TextBlock Name="txtOpcion" 
                    Text="{Binding MensajePrincipal}" 
-                   FontSize="50"
+                   FontSize="60"
+                   Foreground="White"
                    HorizontalAlignment="Center" 
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center"
+                   Margin="0,500,0,0"/>
         <ListView x:Name="lvOpciones" 
+                  Grid.Row="1"
                       ItemsSource="{Binding}"
                       BorderBrush="Transparent"
                       BorderThickness="0"
-                      Background="Transparent">
+                      Background="Transparent"
+                  VerticalAlignment="Center"
+                  Margin="0,0,0,500">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3"
+                                 HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
-                    <EventSetter Event="PreviewMouseDown"
-                         Handler="ListViewItem_PreviewMouseDown" />
+                    <EventSetter Event="PreviewStylusDown"
+                         Handler="ListViewItem_PreviewStylusDown" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListViewItem">
@@ -144,13 +162,10 @@
                 <DataTemplate>
                     <StackPanel >
                         <Grid>
-                            <md:Card
-                                Height="100" 
-                                Width="400"
-                                Margin="10">
-                                <Grid >
-                                    <TextBlock Text="{Binding Forma}"
-                                              FontSize="50"/>
+                            <md:Card Margin="10" Height="210" Width="250">
+                                <Grid>
+                                    <Image Width="200" 
+                                           Height="200" Source="{Binding Imagen}"/>
                                 </Grid>
                             </md:Card>
                         </Grid>
@@ -159,13 +174,23 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <!--<Image Name="btnCancelar"
+        <Image Name="btnCancelar"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom" 
                    Margin="100,0,0,50" 
                    Width="400"  
                    Source="/Images/cancelar-pago.png"
                    Grid.Row="3"
-                   PreviewStylusDown="btnCancelar_PreviewStylusDown"/>-->
+                   PreviewStylusDown="btnCancelar_PreviewStylusDown"/>
+        <Label Content="$ 0.00"
+                   FontFamily="pack://application:,,,/fonts/#Ubuntu"
+                   Foreground="White"
+                   Name="lblValorPagar"
+               FontWeight="Bold"
+                   FontSize="70"      
+                    HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom" 
+                   Margin="200,0,0,70"   
+                   Grid.Row="3" />
     </Grid>
 </Window>
