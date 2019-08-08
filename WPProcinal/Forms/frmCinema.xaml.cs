@@ -192,6 +192,7 @@ namespace WPProcinal.Forms
             try
             {
                 //bool print = printService.ValidatePrint();
+
                 //if (!print)
                 //{
                 //    Dispatcher.BeginInvoke((Action)delegate

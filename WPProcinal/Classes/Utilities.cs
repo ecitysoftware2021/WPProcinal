@@ -40,7 +40,7 @@ namespace WPProcinal.Classes
 
         public static DispatcherTimer timer;
 
-        public PrintProperties PrintProperties = new PrintProperties();
+        public PrintProperties _PrintProperties = new PrintProperties();
 
         public static List<Pelicula> Movies = new List<Pelicula>();
 
@@ -165,6 +165,7 @@ namespace WPProcinal.Classes
         public static decimal EnterTotal;
         public static long ValueDelivery { get; set; }
         public static decimal DispenserVal { get; set; }
+        public bool StatePrint { get; private set; }
 
         public static bool IsRestart = false;
 
@@ -180,12 +181,11 @@ namespace WPProcinal.Classes
             }
         }
 
+
         public Utilities()
         {
             try
             {
-                PrintProperties.Bandrate = Utilities.GetConfiguration("PrintBandrate");
-                PrintProperties.PortName = Utilities.GetConfiguration("PortPrinter");
                 logError = new LogErrorGeneral
                 {
                     Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
@@ -196,21 +196,48 @@ namespace WPProcinal.Classes
             catch { }
         }
 
-        public bool ValidatePrint()
-        {
-            return PrintProperties.Start();
-        }
 
-        public string MessagePrint()
+        private void Init()
         {
-            int status = PrintProperties.GetPrintStatus();
-            if (status == 0)
+            try
             {
-                return string.Empty;
-            }
+                _PrintProperties.ConfigurationPrinter(Utilities.GetConfiguration("PortPrinter"), Utilities.GetConfiguration("PrintBandrate"));
+                StatusPrint();
 
-            return PrintProperties.MessageStatus(status);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
+
+        public int StatusPrint()
+        {
+            int status = 1;
+            try
+            {
+                if (_PrintProperties != null)
+                {
+                    status = _PrintProperties.GetPrintStatus();
+                    if (status == 0)
+                    {
+                        StatePrint = true;
+                        return 0;
+                    }
+                }
+            }
+            catch (Exception EX)
+            {
+            }
+            StatePrint = false;
+            return status;
+        }
+
+        public string MessageStatus(int status)
+        {
+            return _PrintProperties.MessageStatus(status);
+        }
+
 
         /// <summary>
         /// Se usa para ocultar o mostrar la modal de carga
@@ -652,7 +679,7 @@ namespace WPProcinal.Classes
                 INCOME_AMOUNT = Enter,
                 RETURN_AMOUNT = Return,
                 TRANSACTION_ID = IDTransactionDB,
-                PAYMENT_TYPE_ID=Utilities.MedioPago
+                PAYMENT_TYPE_ID = Utilities.MedioPago
             };
 
             try

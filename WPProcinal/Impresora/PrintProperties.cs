@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-
+using System.Runtime.InteropServices;
 
 namespace WPProcinal.Impresora
 {
-    public class PrintProperties
+  public  class PrintProperties
     {
         [DllImport("kernel32.dll", EntryPoint = "GetSystemDefaultLCID", CallingConvention = CallingConvention.Cdecl)]
         public static extern int GetSystemDefaultLCID();
@@ -89,11 +85,6 @@ namespace WPProcinal.Impresora
         int m_iStatus = -1;
         int m_lcLanguage = 0;
 
-        public string PortName { get; set; }
-
-        public string Bandrate { get; set; }
-
-
         public PrintProperties()
         {
             m_lcLanguage = GetSystemDefaultLCID();
@@ -105,7 +96,7 @@ namespace WPProcinal.Impresora
             switch (status)
             {
                 case 0:
-                    message = "La impresora es normal ";
+                    message = "La impresora está normal ";
                     break;
                 case 1:
                     message = "La impresora no está conectada o encendida";
@@ -143,8 +134,6 @@ namespace WPProcinal.Impresora
         {
             try
             {
-
-
                 if (m_iInit != 0)
                 {
                     return 1;
@@ -158,26 +147,25 @@ namespace WPProcinal.Impresora
                 throw new Exception(ex.Message);
             }
         }
-        public bool Start()
+
+        public bool ConfigurationPrinter(string portName, string baudrate)
         {
             try
             {
-                StringBuilder sPort = new StringBuilder(PortName, PortName.Length);
-                int iBaudrate = int.Parse(Bandrate);
+                int countIntent = 0;
+                StringBuilder sPort = new StringBuilder(portName, portName.Length);
+                int iBaudrate = int.Parse(baudrate);
                 SetPrintport(sPort, iBaudrate);
-
-                int intents = 0;
-                while (intents < 3)
+                while (countIntent < 3)
                 {
                     m_iInit = SetInit();
-
                     if (m_iInit == 0)
                     {
                         return true;
                     }
                     else
                     {
-                        intents++;
+                        countIntent++;
                     }
                 }
                 return false;
