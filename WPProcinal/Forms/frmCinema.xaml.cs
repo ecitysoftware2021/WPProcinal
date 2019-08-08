@@ -42,10 +42,10 @@ namespace WPProcinal.Forms
             {
                 NotifyPending();
             });
-            //Task.Run(() =>
-            //{
-            //    NotifyPendingMoney();
-            //});
+            Task.Run(() =>
+            {
+                NotifyPendingMoney();
+            });
             LoadData();
         }
 
@@ -268,20 +268,20 @@ namespace WPProcinal.Forms
         {
             try
             {
-                //using (var con = new DBProcinalEntities())
-                //{
-                //    var notifies = con.NotifyMoney.ToList();
+                using (var con = new DBProcinalEntities())
+                {
+                    var notifies = con.NotifyMoney.ToList();
 
-                //    foreach (var item in notifies)
-                //    {
-                //        if (item.DATE.Value.ToString("yyyyMMdd").Equals(DateTime.Now.ToString("yyyyMMdd")))
-                //        {
-                //            printService.ProccesValue(item.DENOMINATION.Value, 2, 1, "", item.TRANSACTION_ID.Value);
-                //        }
-                //        con.NotifyMoney.Remove(item);
-                //    }
-                //    con.SaveChanges();
-                //}
+                    foreach (var item in notifies)
+                    {
+                        if (item.DATE.Value.ToString("yyyyMMdd").Equals(DateTime.Now.ToString("yyyyMMdd")))
+                        {
+                            printService.ProccesValue(item.DENOMINATION.Value, 2, item.QUANTITY.Value, "", item.TRANSACTION_ID.Value);
+                        }
+                        con.NotifyMoney.Remove(item);
+                    }
+                    con.SaveChanges();
+                }
             }
             catch (Exception ex)
             {

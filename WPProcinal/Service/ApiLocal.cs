@@ -114,23 +114,6 @@ namespace WPProcinal.Service
                     {
                         response = task.Result;
                     }
-                    //else
-                    //{
-
-                    //    var requestEspejo = JsonConvert.SerializeObject(model);
-                    //    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
-                    //    client = new HttpClient();
-                    //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
-                    //    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
-
-                    //    var taskEspejo = client.GetAsync(url);
-
-                    //    if (await Task.WhenAny(taskEspejo, Task.Delay(30000)) == taskEspejo)
-                    //    {
-                    //        response = taskEspejo.Result;
-                    //    }
-                    //    client.CancelPendingRequests();
-                    //}
                 }
                 else
                 {
@@ -139,15 +122,6 @@ namespace WPProcinal.Service
                     {
                         response = task.Result;
                     }
-                    //else
-                    //{
-                    //    var requestEspejo = JsonConvert.SerializeObject(model);
-                    //    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
-                    //    client = new HttpClient();
-                    //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
-                    //    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
-                    //    response = await client.PostAsync(url, contentEspejo);
-                    //}
                 }
 
                 LogService.CreateLogsPeticion($"Respuesta {controller}", JsonConvert.SerializeObject(response));

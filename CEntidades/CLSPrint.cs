@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Globalization;
+using System.IO;
 
 namespace CEntidades
 {
@@ -71,8 +72,8 @@ namespace CEntidades
         {
 
             Graphics g = e.Graphics;
-            string RutaIMG = GetConfiguration("LogoComprobante");
-            //g.DrawImage(Image.FromFile(RutaIMG), 25, 0);
+            string RutaIMG =Path.Combine(Directory.GetCurrentDirectory(), GetConfiguration("LogoComprobante"));
+            g.DrawImage(Image.FromFile(RutaIMG), 25, 0);
             g.DrawString(Cinema, fBodyCinema, sb, 120, SPACE);
             //TODO: Solo para los demas
             //g.DrawString("Colombia de Cines S.A", fBody, sb, 10, SPACE + 25);

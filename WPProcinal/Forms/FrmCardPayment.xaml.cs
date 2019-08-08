@@ -588,14 +588,44 @@ namespace WPProcinal.Forms
                     int indiceForma = 1;
                     foreach (var item in opcionesTransaccionales)
                     {
-                        if (!item.ToLower().Equals("nfc") && !string.IsNullOrEmpty(item))
+                        if (!string.IsNullOrEmpty(item))
                         {
-                            formas.Add(new FormaPago
+                            if (item.ToLower().Equals("qr"))
                             {
-                                Forma = item,
-                                Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
-                                Trama = string.Concat("R,", positiveResponse[1], ",", indiceForma, "]"),
-                            });
+                                formas.Add(new FormaPago
+                                {
+                                    Forma = item,
+                                    Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
+                                    Trama = string.Concat("R,", positiveResponse[1], ",R]"),
+                                });
+                            }
+                            else if (item.ToLower().Equals("pago movil"))
+                            {
+                                formas.Add(new FormaPago
+                                {
+                                    Forma = item,
+                                    Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
+                                    Trama = string.Concat("R,", positiveResponse[1], ",9]"),
+                                });
+                            }
+                            else if (item.ToLower().Equals("nfc"))
+                            {
+                                formas.Add(new FormaPago
+                                {
+                                    Forma = item,
+                                    Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
+                                    Trama = string.Concat("R,", positiveResponse[1], ",1]"),
+                                });
+                            }
+                            else
+                            {
+                                formas.Add(new FormaPago
+                                {
+                                    Forma = item,
+                                    Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
+                                    Trama = string.Concat("R,", positiveResponse[1], ",", indiceForma, "]"),
+                                });
+                            }
                         }
                         indiceForma++;
                     }

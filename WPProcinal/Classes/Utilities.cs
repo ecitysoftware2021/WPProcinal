@@ -651,7 +651,8 @@ namespace WPProcinal.Classes
                 DATE_END = DateTime.Now,
                 INCOME_AMOUNT = Enter,
                 RETURN_AMOUNT = Return,
-                TRANSACTION_ID = IDTransactionDB
+                TRANSACTION_ID = IDTransactionDB,
+                PAYMENT_TYPE_ID=Utilities.MedioPago
             };
 
             try
@@ -877,23 +878,23 @@ namespace WPProcinal.Classes
                     };
 
                     var result = api.CallApi("SaveTransactionDetail", detail);
-                    if (result == null)
+                    if (result.Result == null)
                     {
-                        //using (var con = new DBProcinalEntities())
-                        //{
-                        //    NotifyMoney notify = new NotifyMoney
-                        //    {
-                        //        CODE = detail.Code,
-                        //        DENOMINATION = detail.Denomination,
-                        //        DESCRIPTION = detail.Description,
-                        //        OPERATION = detail.Operation,
-                        //        QUANTITY = detail.Quantity,
-                        //        TRANSACTION_ID = detail.TransactionId,
-                        //        DATE = DateTime.Now
-                        //    };
-                        //    con.NotifyMoney.Add(notify);
-                        //    con.SaveChanges();
-                        //}
+                        using (var con = new DBProcinalEntities())
+                        {
+                            NotifyMoney notify = new NotifyMoney
+                            {
+                                CODE = detail.Code,
+                                DENOMINATION = detail.Denomination,
+                                DESCRIPTION = detail.Description,
+                                OPERATION = detail.Operation,
+                                QUANTITY = detail.Quantity,
+                                TRANSACTION_ID = detail.TransactionId,
+                                DATE = DateTime.Now
+                            };
+                            con.NotifyMoney.Add(notify);
+                            con.SaveChanges();
+                        }
                     }
                     else
                     {
