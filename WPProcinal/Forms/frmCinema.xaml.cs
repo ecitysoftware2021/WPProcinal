@@ -276,7 +276,7 @@ namespace WPProcinal.Forms
                     {
                         if (item.DATE.Value.ToString("yyyyMMdd").Equals(DateTime.Now.ToString("yyyyMMdd")))
                         {
-                            printService.ProccesValue(item.DENOMINATION.Value, 2, item.QUANTITY.Value, "", item.TRANSACTION_ID.Value);
+                            printService.ProccesValue(item.DENOMINATION.Value, item.OPERATION.Value, item.QUANTITY.Value, "", item.TRANSACTION_ID.Value);
                         }
                         con.NotifyMoney.Remove(item);
                     }
