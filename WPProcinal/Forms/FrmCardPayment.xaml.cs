@@ -396,6 +396,11 @@ namespace WPProcinal.Forms
         {
             try
             {
+                try
+                {
+                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del datáfono: ", responseTPV);
+                }
+                catch { }
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     this.Opacity = 1;
@@ -771,11 +776,11 @@ namespace WPProcinal.Forms
 
                             break;
                         case "QR":
-                            OptionSelected(datos, LRCPeticion, dataCard, "Lee el QR en el datáfono");
+                            //OptionSelected(datos, LRCPeticion, dataCard, "Lee el QR en el datáfono");
 
                             break;
                         case "PAGO MOVIL":
-                            OptionSelected(datos, LRCPeticion, dataCard, "Acerca el teléfono al datáfono");
+                            //OptionSelected(datos, LRCPeticion, dataCard, "Acerca el teléfono al datáfono");
 
                             break;
                         case "NFC":
