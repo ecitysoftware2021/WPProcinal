@@ -375,7 +375,7 @@ namespace WPProcinal.Classes
                     case "ER":
                         try
                         {
-                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", message);
+                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del billetero: ", message);
                         }
                         catch { }
                         ProcessER(response);
