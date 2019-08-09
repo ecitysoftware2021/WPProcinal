@@ -191,31 +191,38 @@ namespace WPProcinal.Forms
         {
             try
             {
-                //bool print = printService.ValidatePrint();
+                int statusCode = printService.Init();
 
-                //if (!print)
-                //{
-                //    Dispatcher.BeginInvoke((Action)delegate
-                //    {
-                //        string message = printService.MessagePrint();
-                //        if (!string.IsNullOrEmpty(message))
-                //        {
-                //            frmModal modal = new frmModal(message);
-                //            modal.ShowDialog();
-                //        }
-                //    });
-                //}
-                //else
-                //{
-                try
+                if (!printService.StatePrint)
                 {
-                    gridPrincipal.IsEnabled = false;
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        string message = printService.MessageStatus(statusCode);
+                        if (!string.IsNullOrEmpty(message))
+                        {
+                            frmModal modal = new frmModal(message);
+                            modal.ShowDialog();
+                        }
+                    });
                 }
-                catch { }
-                frmMovies frmMovies = new frmMovies();
-                frmMovies.Show();
-                Close();
-                //}
+                else
+                {
+                    try
+                    {
+                        gridPrincipal.IsEnabled = false;
+                    }
+                    catch { }
+                    if (statusCode == 8)
+                    {
+
+                        string message = printService.MessageStatus(statusCode);
+                        frmModal modal = new frmModal(message);
+                        modal.ShowDialog();
+                    }
+                    frmMovies frmMovies = new frmMovies();
+                    frmMovies.Show();
+                    Close();
+                }
 
             }
             catch (System.Exception ex)

@@ -197,17 +197,17 @@ namespace WPProcinal.Classes
         }
 
 
-        private void Init()
+        public int Init()
         {
             try
             {
                 _PrintProperties.ConfigurationPrinter(Utilities.GetConfiguration("PortPrinter"), Utilities.GetConfiguration("PrintBandrate"));
-                StatusPrint();
+                return StatusPrint();
 
             }
             catch (Exception ex)
             {
-
+                return 0;
             }
         }
 
@@ -219,7 +219,7 @@ namespace WPProcinal.Classes
                 if (_PrintProperties != null)
                 {
                     status = _PrintProperties.GetPrintStatus();
-                    if (status == 0)
+                    if (status == 0 || status == 8)
                     {
                         StatePrint = true;
                         return 0;
