@@ -81,11 +81,12 @@ namespace WPProcinal.Forms
 
             try
             {
+
                 frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
                 Modal.ShowDialog();
 
-                lblValorPagar.Content = Utilities.ValorPagarScore.ToString("#,##0");
-                frmLoading = new FrmLoading("Conectandose con el datáfono, espere por favor...");
+                lblValorPagar.Content = Utilities.ValorPagarScore.ToString("$ #,##0");
+                frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
                 frmLoading.Show();
 
                 utilities = new Utilities();
@@ -96,7 +97,7 @@ namespace WPProcinal.Forms
                 Utilities.DipMapCurrent = dipMap;
                 Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.ValorPagarScore);
 
-                ModalMensajes.MensajePrincipal = "Conectandose con el datáfono...";
+                ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
                 this.DataContext = ModalMensajes;
 
                 TramaInicial = "";
@@ -151,9 +152,15 @@ namespace WPProcinal.Forms
 
                         //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
                         var LCRPeticion = TPV.CalculateLRC(TramaInicial);
+                        try
+                        {
+                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Petición al datáfono: ", LCRPeticion);
+                        }
+                        catch { }
                         //Envío la trama que intentará activar el datáfono
-                        var datos = TPV.EnviarPeticion(LCRPeticion);
-                        TPVOperation.CallBackRespuesta?.Invoke(datos);
+                        Buytickets();
+                        //var datos = TPV.EnviarPeticion(LCRPeticion);
+                        //TPVOperation.CallBackRespuesta?.Invoke(datos);
                     }
                 });
             }
@@ -183,7 +190,7 @@ namespace WPProcinal.Forms
                 Task.Run(() =>
                 {
                     utilities.UpdateTransaction(0, 3, 0);
-                    logError.Description = "\nNo Se cancelo una transaccion";
+                    logError.Description = "\nSe cancelo una transaccion";
                     logError.State = "Cancelada";
                     Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
                 });
@@ -244,20 +251,18 @@ namespace WPProcinal.Forms
                     }
                     catch { }
 
-                    //try
-                    //{
+                    try
+                    {
 
-                    //    await Dispatcher.BeginInvoke((Action)delegate
-                    //    {
-                    //        PaymentGrid.Opacity = 0.3;
-                    //        Utilities.Loading(frmLoading, false, this);
-                    //        frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.PayVal.ToString("#,##0"));
-                    //        modal.ShowDialog();
-                    //        Utilities.Loading(frmLoading, true, this);
-                    //    });
-                    //    GC.Collect();
-                    //}
-                    //catch { }
+                        await Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            PaymentGrid.Opacity = 0.3;
+                            frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular la compra.");
+                            modal.ShowDialog();
+                        });
+                        GC.Collect();
+                    }
+                    catch { }
 
                     utilities.UpdateTransaction(0, 3, 0);
 
@@ -314,7 +319,7 @@ namespace WPProcinal.Forms
                           string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                           ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
                 }
-
+                UnlockTPV();
                 Dispatcher.Invoke(() =>
                 {
                     PaymentGrid.Opacity = 0.3;
@@ -595,7 +600,9 @@ namespace WPProcinal.Forms
                     {
                         if (!string.IsNullOrEmpty(item))
                         {
-                            if (item.ToLower().Equals("qr"))
+                            if (item.ToLower().Contains("insertar")
+                                || item.ToLower().Contains("deslizar")
+                                || item.ToLower().Contains("acercar"))
                             {
                                 formas.Add(new FormaPago
                                 {
@@ -604,33 +611,33 @@ namespace WPProcinal.Forms
                                     Trama = string.Concat("R,", positiveResponse[1], ",R]"),
                                 });
                             }
-                            else if (item.ToLower().Equals("pago movil"))
-                            {
-                                formas.Add(new FormaPago
-                                {
-                                    Forma = item,
-                                    Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
-                                    Trama = string.Concat("R,", positiveResponse[1], ",9]"),
-                                });
-                            }
-                            else if (item.ToLower().Equals("nfc"))
-                            {
-                                formas.Add(new FormaPago
-                                {
-                                    Forma = item,
-                                    Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
-                                    Trama = string.Concat("R,", positiveResponse[1], ",1]"),
-                                });
-                            }
-                            else
-                            {
-                                formas.Add(new FormaPago
-                                {
-                                    Forma = item,
-                                    Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
-                                    Trama = string.Concat("R,", positiveResponse[1], ",", indiceForma, "]"),
-                                });
-                            }
+                            //else if (item.ToLower().Equals("pago movil"))
+                            //{
+                            //    formas.Add(new FormaPago
+                            //    {
+                            //        Forma = item,
+                            //        Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
+                            //        Trama = string.Concat("R,", positiveResponse[1], ",9]"),
+                            //    });
+                            //}
+                            //else if (item.ToLower().Equals("nfc"))
+                            //{
+                            //    formas.Add(new FormaPago
+                            //    {
+                            //        Forma = item,
+                            //        Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
+                            //        Trama = string.Concat("R,", positiveResponse[1], ",1]"),
+                            //    });
+                            //}
+                            //else
+                            //{
+                            //    formas.Add(new FormaPago
+                            //    {
+                            //        Forma = item,
+                            //        Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
+                            //        Trama = string.Concat("R,", positiveResponse[1], ",", indiceForma, "]"),
+                            //    });
+                            //}
                         }
                         indiceForma++;
                     }
@@ -775,18 +782,18 @@ namespace WPProcinal.Forms
                             OptionSelected(datos, LRCPeticion, dataCard, "Acerca tu tarjeta al datáfono");
 
                             break;
-                        case "QR":
-                            //OptionSelected(datos, LRCPeticion, dataCard, "Lee el QR en el datáfono");
+                        //case "QR":
+                        //    //OptionSelected(datos, LRCPeticion, dataCard, "Lee el QR en el datáfono");
 
-                            break;
-                        case "PAGO MOVIL":
-                            //OptionSelected(datos, LRCPeticion, dataCard, "Acerca el teléfono al datáfono");
+                        //    break;
+                        //case "PAGO MOVIL":
+                        //    //OptionSelected(datos, LRCPeticion, dataCard, "Acerca el teléfono al datáfono");
 
-                            break;
-                        case "NFC":
-                            //opciones = new Opciones("Acerca el dispositivo NFC al datáfono", peticion: LRCPeticion);
-                            //opciones.ShowDialog();
-                            break;
+                        //    break;
+                        //case "NFC":
+                        //    //opciones = new Opciones("Acerca el dispositivo NFC al datáfono", peticion: LRCPeticion);
+                        //    //opciones.ShowDialog();
+                        //    break;
                         case "AHORROS":
                             ActionTPV(LRCPeticion, dataCard, "Digita la clave en el datáfono", "Hidden");
                             break;
@@ -888,6 +895,10 @@ namespace WPProcinal.Forms
             else if (error.ToLower().Contains("rechazada"))
             {
                 error = "Señor usuario, transacción rechazada, intente nuevamente.";
+            }
+            else if (error.ToLower().Contains("host"))
+            {
+                error = "Señor usuario, No hay comunicación con el datáfono.";
             }
             return error;
         }

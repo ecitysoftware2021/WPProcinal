@@ -31,18 +31,19 @@
 
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
             <TextBlock x:Name="tbTimer"
+
                        FontSize="35"
                        Foreground="White"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       Margin="10,50,0,0" FontFamily="Arial" FontWeight="Bold"/>
+                       Margin="10,50,0,0" FontFamily="Gotham" FontWeight="Bold"/>
 
             <TextBlock x:Name="tbHoraActual"
                        FontSize="35"
                        Foreground="White"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       Margin="10,100,0,0" FontFamily="Arial" FontWeight="Bold"/>
+                       Margin="10,100,0,0" FontFamily="Gotham" FontWeight="Bold"/>
 
             <Border
                 BorderBrush="White" 
@@ -67,6 +68,7 @@
 
             <TextBlock x:Name="TxtDuracion"
                        FontSize="35"
+                       FontFamily="Gotham"
                        Text="Duraciòn: 135 min"                   
                        FontWeight="Bold"
                        Width="500"
@@ -79,6 +81,7 @@
             
             <TextBlock x:Name="TxtTitle"
                        FontSize="35"
+                       FontFamily="Gotham"
                        Text="TÍTULO"                   
                        FontWeight="Bold"
                        Width="500"
@@ -90,6 +93,7 @@
                        Margin="190,50,0,0"/>
             <TextBlock x:Name="TxtDay"
                        FontSize="40"
+                       FontFamily="Gotham"
                        Text="24 Sábado"
                        FontWeight="Bold"
                        Foreground="Red"
@@ -164,6 +168,7 @@
                                             <TextBlock 
                                             Grid.Column="0"
                                             Grid.Row="0"
+                                                FontFamily="Gotham"
                                             FontSize="30"
                                             TextAlignment="Center"
                                             TextWrapping="WrapWithOverflow"
@@ -180,6 +185,7 @@
                                             TextAlignment="Center"
                                             TextWrapping="WrapWithOverflow"
                                             Margin="0,0,0,0"
+                                                FontFamily="Gotham"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
                                             Foreground="Gray"
@@ -189,6 +195,7 @@
                                             Grid.Column="0"
                                             FontSize="30"
                                             TextAlignment="Center"
+                                                FontFamily="Gotham"
                                             TextWrapping="WrapWithOverflow"
                                             Margin="10,0,0,10"
                                             VerticalAlignment="Bottom"
@@ -247,8 +254,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel  Orientation="Vertical" >
-                            <Grid 
-                            Margin="0,-20,0,0">
+                            <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
@@ -266,10 +272,11 @@
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        Margin="0,0,0,0"
-                                       Source="{Binding TipoSala}"/>
+                                       Source="{Binding RutaTipoSala}"/>
                                 <TextBlock
                                     Text="{Binding Formato}"
                                     FontSize="40"
+                                    FontFamily="Gotham"
                                     Foreground="White"
                                     Grid.Column="0"
                                     Grid.Row="0"
@@ -281,6 +288,7 @@
                                     FontSize="40"
                                     Foreground="White"
                                     Grid.Column="0"
+                                    FontFamily="Gotham"
                                     Grid.Row="0"
                                     Margin="-10,0,350,0"
                                     HorizontalAlignment="Right"
@@ -290,7 +298,6 @@
                                         HorizontalAlignment="Center" 
                                         VerticalAlignment="Center"
                                           Grid.Row="1"
-                                        Margin="0,0,0,0"
                                         ItemsSource="{Binding Hours}"
                                         SelectionChanged="LvSchedule_SelectionChanged">
                                     <ItemsControl.ItemsPanel>
@@ -311,6 +318,7 @@
                                                         Height="50">
                                                         <TextBlock Text="{Binding Horario}"
                                                                FontSize="20"
+                                                                   FontFamily="Gotham"
                                                                FontWeight="Bold"
                                                                    VerticalAlignment="Center"
                                                                    HorizontalAlignment="Center"

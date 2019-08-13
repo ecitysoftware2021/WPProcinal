@@ -23,9 +23,7 @@ namespace WPProcinal.Forms
             printService = new Utilities();
             api = new ApiLocal();
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
-            //Utilities.CantidadTransacciones++;
-
-
+           
             Task.Run(() =>
             {
                 SendPayments();
@@ -284,7 +282,13 @@ namespace WPProcinal.Forms
                     {
                         if (item.DATE.Value.ToString("yyyyMMdd").Equals(DateTime.Now.ToString("yyyyMMdd")))
                         {
-                            printService.ProccesValue(item.DENOMINATION.Value, item.OPERATION.Value, item.QUANTITY.Value, "", item.TRANSACTION_ID.Value);
+                            printService.ProccesValue(new DataMoneyNotification
+                            {
+                                enterValue= item.DENOMINATION.Value,
+                                opt= item.OPERATION.Value,
+                                quantity= item.QUANTITY.Value,
+                                idTransactionAPi= item.TRANSACTION_ID.Value
+                            });
                         }
                         con.NotifyMoney.Remove(item);
                     }
@@ -300,6 +304,11 @@ namespace WPProcinal.Forms
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Image_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("ok");
         }
     }
 }

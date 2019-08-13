@@ -27,11 +27,18 @@ namespace WPProcinal.Service
         #region "Constructor"
         public ApiLocal()
         {
-            basseAddress = Utilities.GetConfiguration("basseAddressLocal");
-            client = new HttpClient();
-            requestApi = new RequestApi();
-            client.BaseAddress = new Uri(basseAddress);
-            ReadKeys();
+            try
+            {
+                basseAddress = Utilities.GetConfiguration("basseAddressLocal");
+                client = new HttpClient();
+                requestApi = new RequestApi();
+                client.BaseAddress = new Uri(basseAddress);
+                ReadKeys();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
@@ -176,6 +183,7 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
+                throw ex;
             }
         }
 
@@ -199,20 +207,6 @@ namespace WPProcinal.Service
                 {
                     response = task.Result;
                 }
-                //else
-                //{
-                //    client = new HttpClient();
-                //    client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocalEspejo"));
-                //    var requestEspejo = JsonConvert.SerializeObject(requestApi);
-                //    var contentEspejo = new StringContent(requestEspejo, Encoding.UTF8, "Application/json");
-                //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
-
-                //    var taskEspejo = client.PostAsync(url, content);
-                //    if (await Task.WhenAny(taskEspejo, Task.Delay(20000)) == taskEspejo)
-                //    {
-                //        response = taskEspejo.Result;
-                //    }
-                //}
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -229,7 +223,7 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
-
+                return null;
             }
 
             return null;

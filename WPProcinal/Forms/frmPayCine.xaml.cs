@@ -21,9 +21,7 @@ namespace WPProcinal.Forms
         private FrmLoading frmLoading;
         private Utilities utilities;
         private LogErrorGeneral logError;
-        private int count;
         private bool stateUpdate;
-        private int countError = 0;
         int controlInactividad = 0;
         int controlCancel = 0;
         private bool payState;
@@ -61,7 +59,6 @@ namespace WPProcinal.Forms
                     IdTransaction = Utilities.IDTransactionDB,
                 };
 
-                count = 0;
                 stateUpdate = true;
                 payState = true;
                 Utilities.control.StartValues();
@@ -165,7 +162,13 @@ namespace WPProcinal.Forms
                     if (enterValue > 0)
                     {
                         PaymentViewModel.ValorIngresado += enterValue;
-                        utilities.ProccesValue(enterValue, 2, 1, "", Utilities.IDTransactionDB);
+                        utilities.ProccesValue(new DataMoneyNotification
+                        {
+                            enterValue = enterValue,
+                            opt = 2,
+                            quantity = 1,
+                            idTransactionAPi = Utilities.IDTransactionDB
+                        });
                     }
                 };
 

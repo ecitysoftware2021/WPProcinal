@@ -29,6 +29,7 @@
             <TextBlock 
                 x:Name="TxtTitle"
                 FontSize="50"
+                               FontFamily="Gotham"
                 Text="TÍTULO TÍTULO TÍTULO TÍTULO aaaaqaaaaa"
                 TextWrapping="Wrap"
                 FontWeight="Bold"
@@ -42,6 +43,7 @@
             <TextBlock
                 x:Name="TxtSubTitle"
                 FontSize="30"
+                FontFamily="Gotham"
                 Text="2D HABLADA EN ESPAÑOLw"
                 FontWeight="Bold"                
                 TextAlignment="Center"
@@ -54,6 +56,7 @@
             </TextBlock>
             <TextBlock x:Name="TxtFormat"
                        FontSize="40"
+                       FontFamily="Gotham"
                        Text="2h 24min"
                        FontWeight="Bold"
                        TextWrapping="Wrap"
@@ -65,6 +68,7 @@
                        />
             <TextBlock x:Name="TxtDuracion"
                        FontSize="35"
+                       FontFamily="Gotham"
                        Text="Duraciòn: 135 min"                   
                        FontWeight="Bold"
                        Width="500"
@@ -77,6 +81,7 @@
 
             <TextBlock x:Name="TxtDay"
                        FontSize="40"
+                       FontFamily="Gotham"
                        Text="24 Sábado"
                        FontWeight="Bold"
                        Foreground="Red"
@@ -84,14 +89,10 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left" 
                         Margin="200,410,0,0"/>
-            <Image HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Source="../Images/backButton.png"
-                   Width="150"
-                   Height="55"
-                   Margin="660,263,0,0"/>
+            
             <TextBlock x:Name="TxtHour"
                        FontSize="25"
+                       FontFamily="Gotham"
                        Text="4:30 PM"
                        FontWeight="Bold"
                        Foreground="#FFF"
@@ -120,11 +121,21 @@
             </Border>
         </Grid>
 
-
+        <Label Content="$ 0.00"
+                   FontFamily="Gotham"
+                   Foreground="White"
+                   Name="lblValorPagar"
+               FontWeight="Bold"
+                   FontSize="70"      
+                    HorizontalAlignment="Center"
+                   VerticalAlignment="Center" 
+                   Margin="0,150,0,0"   
+                   Grid.Row="0" />
 
         <TextBlock Name="txtOpcion" 
                    Text="{Binding MensajePrincipal}" 
-                   FontSize="60"
+                   FontSize="50"
+                   FontFamily="Gotham"
                    Foreground="White"
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center"
@@ -182,15 +193,6 @@
                    Source="/Images/cancelar-pago.png"
                    Grid.Row="3"
                    PreviewStylusDown="btnCancelar_PreviewStylusDown"/>
-        <Label Content="$ 0.00"
-                   FontFamily="pack://application:,,,/fonts/#Ubuntu"
-                   Foreground="White"
-                   Name="lblValorPagar"
-               FontWeight="Bold"
-                   FontSize="70"      
-                    HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom" 
-                   Margin="200,0,0,70"   
-                   Grid.Row="3" />
+        
     </Grid>
 </Window>

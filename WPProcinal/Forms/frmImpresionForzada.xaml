@@ -63,7 +63,7 @@
                    Grid.Row="2"
                    Grid.Column="0"
                    Tag="1"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                       PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="2"
                            Foreground="White"
                        FontWeight="Bold"
@@ -72,7 +72,7 @@
                    Grid.Row="2"
                    Grid.Column="1"
                    Tag="2"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="3"
                            Foreground="White"
                        FontWeight="Bold"
@@ -81,7 +81,7 @@
                    Grid.Row="2"
                    Grid.Column="2"
                    Tag="3"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="4"
                            Foreground="White"
                        FontWeight="Bold"
@@ -90,7 +90,7 @@
                    Grid.Row="3"
                    Grid.Column="0"
                    Tag="4"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="5"
                            Foreground="White"
                        FontWeight="Bold"
@@ -99,7 +99,7 @@
                    Grid.Row="3"
                    Grid.Column="1"
                    Tag="4"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="6"
                            Foreground="White"
                        FontWeight="Bold"
@@ -108,7 +108,7 @@
                    Grid.Row="3"
                    Grid.Column="2"
                    Tag="6"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="7"
                            Foreground="White"
                        FontWeight="Bold"
@@ -117,7 +117,7 @@
                    Grid.Row="4"
                    Grid.Column="0"
                    Tag="7"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="8"
                            Foreground="White"
                        FontWeight="Bold"
@@ -126,7 +126,7 @@
                    Grid.Row="4"
                    Grid.Column="1"
                    Tag="8"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="9"
                            Foreground="White"
                        FontWeight="Bold"
@@ -135,7 +135,7 @@
                    Grid.Row="4"
                    Grid.Column="2"
                    Tag="9"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="Aceptar" Name="botonAceptar"
                    FontSize="40"
                            Foreground="White"
@@ -144,7 +144,7 @@
                    Grid.Row="5"
                    Grid.Column="0"
                    Tag="x"
-                     PreviewStylusDown="BotonAceptar_PreviewStylusDown"/>
+                     PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="0"
                            Foreground="White"
                        FontWeight="Bold"
@@ -153,7 +153,7 @@
                    Grid.Row="5"
                    Grid.Column="1"
                    Tag="0"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   PreviewStylusDown="TextBlock_PreviewStylusDown"/>
             <TextBlock Text="&lt;"
                    FontSize="40"
                            Foreground="White"
@@ -162,7 +162,7 @@
                    Grid.Row="5"
                    Grid.Column="2"
                    Tag="&lt;"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   PreviewStylusDown="TextBlock_PreviewStylusDown"/>
         </Grid>
 
         

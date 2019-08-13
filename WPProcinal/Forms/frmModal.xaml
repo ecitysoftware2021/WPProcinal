@@ -50,6 +50,7 @@
                     <TextBlock x:Name="LblMessage" 
                            HorizontalAlignment="Center"
                            Margin="0,50,0,0" 
+                               FontFamily="Gotham"
                            Grid.Row="1" 
                            FontSize="30" 
                            TextWrapping="WrapWithOverflow"

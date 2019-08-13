@@ -123,6 +123,7 @@ namespace WPProcinal.Classes
         public static int CantidadTransacciones = 0;
 
         public static string MovieFormat { get; set; }
+        public static string TipoSala { get; set; }
 
         public static string NamePath = GetConfiguration("NamePath");
 
@@ -515,6 +516,7 @@ namespace WPProcinal.Classes
                         objPrint.Consecutivo = DashboardPrint[i].RANGO_ACTUAL.ToString();
                         objPrint.Secuencia = Secuencia;
                         objPrint.Formato = MovieFormat;
+                        objPrint.TipoSala = Utilities.TipoSala;
                         i++;
                         objPrint.ImprimirComprobante();
                     }
@@ -817,41 +819,42 @@ namespace WPProcinal.Classes
             }
         }
 
-        public void ProccesValue(decimal enterValue, int opt, int quantity, string code, int idTransactionAPi)
+        public void ProccesValue(DataMoneyNotification data)
         {
             try
             {
-                if (opt == 2)
+                if (data.opt == 2)
                 {
-                    if (enterValue >= 1000)
+                    if (data.enterValue >= 1000)
                     {
-                        code = "AP";
+                        data.code = "AP";
                     }
                     else
                     {
-                        code = "MA";
+                        data.code = "MA";
                     }
                 }
                 else
                 {
-                    if (enterValue > 1000)
+                    if (data.enterValue > 1000)
                     {
-                        code = "DP";
+                        data.code = "DP";
                     }
                     else
                     {
-                        code = "MD";
+                        data.code = "MD";
                     }
                 }
                 Task.Run(() =>
                 {
                     SaveDetailsTransaction(new RequestTransactionDetails
                     {
-                        Code = code,
-                        Denomination = Convert.ToInt32(enterValue),
-                        Operation = opt,
-                        Quantity = quantity,
-                        TransactionId = idTransactionAPi,
+                        Code = data.code,
+                        Denomination = Convert.ToInt32(data.enterValue),
+                        Operation = data.opt,
+                        Quantity = data.quantity,
+                        TransactionId = data.idTransactionAPi,
+                        Date = data.Date
                     });
                 });
             }
@@ -917,7 +920,7 @@ namespace WPProcinal.Classes
                                 OPERATION = detail.Operation,
                                 QUANTITY = detail.Quantity,
                                 TRANSACTION_ID = detail.TransactionId,
-                                DATE = DateTime.Now
+                                DATE = detail.Date
                             };
                             con.NotifyMoney.Add(notify);
                             con.SaveChanges();
@@ -943,6 +946,15 @@ namespace WPProcinal.Classes
             }
         }
 
+    }
+    public class DataMoneyNotification
+    {
+        public decimal enterValue { get; set; }
+        public int opt { get; set; }
+        public int quantity { get; set; }
+        public string code { get; set; }
+        public int idTransactionAPi { get; set; }
+        public DateTime Date { get; set; }
     }
 
 

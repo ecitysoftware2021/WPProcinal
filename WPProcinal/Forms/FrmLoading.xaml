@@ -30,6 +30,7 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 Text="Prueba"
+                FontFamily="Gotham"
                 VerticalAlignment="Center"
                 TextAlignment="Justify"
                 TextWrapping="Wrap"

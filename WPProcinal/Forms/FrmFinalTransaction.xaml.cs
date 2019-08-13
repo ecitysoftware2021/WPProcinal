@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WPProcinal.Classes;
 
 namespace WPProcinal.Forms
@@ -28,7 +19,7 @@ namespace WPProcinal.Forms
             string reiniciarAplicacion = ConfigurationManager.AppSettings["ReinicioAplicacion"];
             Task.Run(() =>
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(2000);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     //if (Utilities.IsRestart)

@@ -19,15 +19,25 @@ namespace WPProcinal.Forms
         public frmConfigurate()
         {
             InitializeComponent();
-            api = new ApiLocal();
+            try
+            {
+                api = new ApiLocal();
+            }
+            catch (Exception ex)
+            {
+                ShowModalError(ex.Message);
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Task.Run(() =>
+            if (api != null)
             {
-                GetToken();
-            });
+                Task.Run(() =>
+                    {
+                        GetToken();
+                    });
+            }
         }
 
         /// <summary>
@@ -38,10 +48,6 @@ namespace WPProcinal.Forms
         {
             try
             {
-                if (util == null)
-                {
-                    util = new Utilities(1);
-                }
                 state = await api.SecurityToken();
                 if (state)
                 {
@@ -54,29 +60,26 @@ namespace WPProcinal.Forms
                         {
                             if (data.StateAceptance && data.StateDispenser)
                             {
+                                if (util == null)
+                                {
+                                    util = new Utilities(1);
+                                }
                                 Utilities.control.callbackError = error =>
                                 {
-                                    GetToken();
+                                    //TODO: descomentar
+                                    //ShowModalError(error);
                                 };
-                                //Utilities.control.callbackToken = isSucces =>
-                                //{
-                                Dispatcher.BeginInvoke((Action)delegate
+                                Utilities.control.OpenSerialPorts();
+                                Utilities.control.callbackToken = isSucces =>
+                                {
+                                    Dispatcher.BeginInvoke((Action)delegate
                                     {
-                                        if (!Utilities.GetConfiguration("ReImpresion").Equals("si"))
-                                        {
-                                            frmCinema inicio = new frmCinema();
-                                            inicio.Show();
-                                            Close();
-                                        }
-                                        else
-                                        {
-                                            frmImpresionForzada impresionForzada = new frmImpresionForzada();
-                                            impresionForzada.Show();
-                                            Close();
-                                        }
+                                        frmCinema inicio = new frmCinema();
+                                        inicio.Show();
+                                        Close();
                                     });
-                                //};
-                                //Utilities.control.Start();
+                                };
+                                Utilities.control.Start();
                             }
                             else
                             {
@@ -87,31 +90,23 @@ namespace WPProcinal.Forms
                                         SendEmails.SendEmail(data.Message);
                                     }
                                 });
-                                //LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", data.Message);
                                 ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
                                 GetToken();
                             }
                         }
                         else
                         {
-                            LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", "Estado Perifericos: " + data.State);
-
                             ShowModalError("No se pudo verificar el estado de los periféricos");
-                            GetToken();
                         }
                     }
                     else
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos("frmConfigurate", response.Message);
-
                         ShowModalError("No se pudo iniciar el Dispositivo");
-                        GetToken();
                     }
                 }
                 else
                 {
                     ShowModalError("No se pudo establecer conexión.");
-                    GetToken();
                 }
             }
             catch (Exception ex)
@@ -121,6 +116,18 @@ namespace WPProcinal.Forms
         }
 
         private void ShowModalError(string description, string message = "")
+        {
+            Dispatcher.BeginInvoke((Action)delegate
+            {
+                frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description));
+                modal.ShowDialog();
+                if (modal.DialogResult.HasValue)
+                {
+                    GetToken();
+                }
+            });
+        }
+        private void ShowModalError(string description)
         {
             Dispatcher.BeginInvoke((Action)delegate
             {

@@ -32,14 +32,14 @@
                        Foreground="White"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       Margin="10,50,0,0" FontFamily="Arial" FontWeight="Bold"/>
+                       Margin="10,50,0,0" FontFamily="Gotham" FontWeight="Bold"/>
 
             <TextBlock x:Name="tbHoraActual"
                        FontSize="35"
                        Foreground="White"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       Margin="10,100,0,0" FontFamily="Arial" FontWeight="Bold"/>
+                       Margin="10,100,0,0" FontFamily="Gotham" FontWeight="Bold"/>
 
             <Image Source="../Images/NewDesing/buttons/b-atras.png" 
                    Margin="50,150,0,0"
@@ -51,6 +51,7 @@
             <TextBlock 
                 x:Name="TxtTitle"
                 FontSize="50"
+                FontFamily="Gotham"
                 Text="TÍTULO TÍTULO TÍTULO TÍTULO aaaaqaaaaa"
                 TextWrapping="Wrap"
                 FontWeight="Bold"
@@ -62,6 +63,7 @@
                 Margin="190,50,0,0" >
             </TextBlock>
             <TextBlock
+                FontFamily="Gotham"
                 x:Name="TxtSubTitle"
                 FontSize="30"
                 Text="2D HABLADA EN ESPAÑOLw"
@@ -75,6 +77,7 @@
                 Margin="0,100,50,0">
             </TextBlock>
             <TextBlock x:Name="TxtFormat"
+                       FontFamily="Gotham"
                        FontSize="40"
                        Text="2h 24min"
                        FontWeight="Bold"
@@ -87,6 +90,7 @@
                        />
             <TextBlock x:Name="TxtDuracion"
                        FontSize="35"
+                       FontFamily="Gotham"
                        Text="Duraciòn: 135 min"                   
                        FontWeight="Bold"
                        Width="500"
@@ -100,19 +104,16 @@
             <TextBlock x:Name="TxtDay"
                        FontSize="40"
                        Text="24 Sábado"
+                       FontFamily="Gotham"
                        FontWeight="Bold"
                        Foreground="Red"
                        TextAlignment="Center"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left" 
                         Margin="200,380,0,0"/>
-            <Image HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Source="../Images/backButton.png"
-                   Width="150"
-                   Height="55"
-                   Margin="660,263,0,0"/>
+            
             <TextBlock x:Name="TxtHour"
+                       FontFamily="Gotham"
                        FontSize="25"
                        Text="4:30 PM"
                        FontWeight="Bold"
@@ -191,14 +192,7 @@
                VerticalAlignment="Top"
                Width="144"/>
         </Grid>
-        <!--<Image HorizontalAlignment="Center" 
-               Height="102"                
-               Grid.Row="3" 
-               Grid.ColumnSpan="2"
-               Margin="0,0,0,20"
-               Source="../Images/estados.png"
-               VerticalAlignment="Top"
-               Width="673"/>-->
+        
         <Image HorizontalAlignment="Left" 
                Height="79"                
                Grid.Row="3" 
@@ -212,6 +206,7 @@
                Margin="80,160,0,0" 
                Grid.Row="3" 
                FontSize="30"
+               FontFamily="Gotham"
                Name="LblNumSeats"
                FontWeight="Bold"
                Foreground="#FFF"
@@ -228,16 +223,6 @@
                Source="../Images/pay.png"
                VerticalAlignment="Top"
                />
-        <!--<Image gif:ImageBehavior.AnimatedSource="../Images/cargando.gif" 
-            x:Name="GifLoadder" 
-               Margin="0,0,0,0" 
-               VerticalAlignment="Center" 
-               HorizontalAlignment="Center" 
-               Width="256" 
-               Height="256"                               
-               Grid.Column="0"
-               Grid.ColumnSpan="2"
-               Grid.Row="2"
-               />-->
+       
     </Grid>
 </Window>

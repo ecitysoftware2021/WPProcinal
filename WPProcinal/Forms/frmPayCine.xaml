@@ -19,10 +19,6 @@
                         ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="570" />
             <RowDefinition Height="*" />
@@ -32,6 +28,7 @@
             <TextBlock 
                 x:Name="TxtTitle"
                 FontSize="50"
+                FontFamily="Gotham"
                 Text="TÍTULO TÍTULO TÍTULO TÍTULO aaaaqaaaaa"
                 TextWrapping="Wrap"
                 FontWeight="Bold"
@@ -45,6 +42,7 @@
             <TextBlock
                 x:Name="TxtSubTitle"
                 FontSize="30"
+                FontFamily="Gotham"
                 Text="2D HABLADA EN ESPAÑOLw"
                 FontWeight="Bold"                
                 TextAlignment="Center"
@@ -58,6 +56,7 @@
             <TextBlock x:Name="TxtFormat"
                        FontSize="40"
                        Text="2h 24min"
+                       FontFamily="Gotham"
                        FontWeight="Bold"
                        TextWrapping="Wrap"
                        TextAlignment="Right"
@@ -71,6 +70,7 @@
                        Text="Duraciòn: 135 min"                   
                        FontWeight="Bold"
                        Width="500"
+                       FontFamily="Gotham"
                        TextAlignment="Right"
                        TextWrapping="Wrap"
                        Foreground="Red"
@@ -82,19 +82,16 @@
                        FontSize="40"
                        Text="24 Sábado"
                        FontWeight="Bold"
+                       FontFamily="Gotham"
                        Foreground="Red"
                        TextAlignment="Center"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left" 
                         Margin="200,380,0,0"/>
-            <Image HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Source="../Images/backButton.png"
-                   Width="150"
-                   Height="55"
-                   Margin="660,263,0,0"/>
+           
             <TextBlock x:Name="TxtHour"
                        FontSize="25"
+                       FontFamily="Gotham"
                        Text="4:30 PM"
                        FontWeight="Bold"
                        Foreground="#FFF"
@@ -121,7 +118,7 @@
             </Border>
         </Grid>
         <Label Content="$ 0.00"
-                   FontFamily="pack://application:,,,/fonts/#Ubuntu"
+                   FontFamily="Gotham"
                    Foreground="Gray"
                    Name="lblValorPagar" 
                    Margin="0,70,0,0" 
@@ -133,7 +130,7 @@
                    HorizontalContentAlignment="Center" 
                    Grid.Row="2"/>
         <Label Content="Valor Ingresado" 
-                   FontFamily="pack://application:,,,/fonts/#Ubuntu"
+                   FontFamily="Gotham"
                       Foreground="Gray"
                FontWeight="Bold"
                    Margin="200,300,0,0" 
@@ -143,7 +140,7 @@
                    Grid.Row="2"/>
         <TextBlock Text="{Binding ValorIngresado, StringFormat={}{0:C0}}" 
                    Name="lblValorIngresado" 
-                   FontFamily="pack://application:,,,/fonts/#Ubuntu"
+                   FontFamily="Gotham"
                       Foreground="Gray"
                FontWeight="Bold"
                    Margin="700,300,0,0" 
@@ -153,7 +150,7 @@
                    Height="56" 
                    Grid.Row="2"/>
         <Label Content="Valor Faltante" 
-               FontFamily="pack://application:,,,/fonts/#Ubuntu"
+               FontFamily="Gotham"
                    Foreground="Gray"
                FontWeight="Bold"
                 Margin="200,0,0,400" 
@@ -163,7 +160,7 @@
                 Grid.Row="2"/>
         <TextBlock Text="{Binding ValorFaltante, StringFormat={}{0:C0}}"
                    Name="lblFaltante"
-                   FontFamily="pack://application:,,,/fonts/#Ubuntu"
+                   FontFamily="Gotham"
                       Foreground="Gray"
                FontWeight="Bold"
                    HorizontalAlignment="Left"
@@ -172,7 +169,7 @@
                    FontSize="40" 
                    Grid.Row="2"/>
         <Label Content="Valor Restante" 
-                   FontFamily="pack://application:,,,/fonts/#Ubuntu"
+                  FontFamily="Gotham"
                    Foreground="Gray"
                FontWeight="Bold"
                    Margin="200,0,0,300" 
@@ -182,7 +179,7 @@
                    Grid.Row="2"/>
         <TextBlock Text="{Binding ValorSobrante, StringFormat={}{0:C0}}" 
                    Name="lblSobrante" 
-                   FontFamily="pack://application:,,,/fonts/#Ubuntu"
+                   FontFamily="Gotham"
                       Foreground="Gray"
                FontWeight="Bold"
                    HorizontalAlignment="Left"

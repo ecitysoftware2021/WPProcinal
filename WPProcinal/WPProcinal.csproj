@@ -256,12 +256,6 @@
       <DependentUpon>frmModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Schedule.cs" />
-    <Compile Include="Forms\frmModalCancel.xaml.cs">
-      <DependentUpon>frmModalCancel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmPanicModal.xaml.cs">
-      <DependentUpon>frmPanicModal.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmPayCine.xaml.cs">
       <DependentUpon>frmPayCine.xaml</DependentUpon>
     </Compile>
@@ -325,15 +319,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\frmModalCancel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Forms\frmMovies.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\frmPanicModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -628,6 +614,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataModel\PaypadLocalModel.edmx.sql" />
+    <Resource Include="Images\NewDesing\Others\img_show.png" />
+    <Resource Include="Images\NewDesing\Others\img_show_hider.png" />
+    <Resource Include="Images\NewDesing\Others\disview.png" />
+    <Resource Include="Images\NewDesing\Others\view.png" />
     <Resource Include="Images\NewDesing\Gif\DESLIZAR.gif" />
     <Resource Include="Images\NewDesing\Gif\INSERTAR.gif" />
     <Resource Include="Images\NewDesing\Gif\PAGO MOVIL.gif" />
@@ -649,7 +639,6 @@
     <Resource Include="Images\Tags\cartel-supernova.png" />
     <Resource Include="Images\Tags\cartel-vibra.png" />
     <Resource Include="Images\NewDesing\Backgrounds\v-metodo-pago.png" />
-    <Resource Include="Images\Tags\cartel-vibra2.png" />
     <Resource Include="Images\NewDesing\Others\v-inserte-villete.png" />
     <Resource Include="Images\NewDesing\Backgrounds\fondoModal.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\fondo-modal.jpg" />
@@ -676,7 +665,6 @@
     <Resource Include="Images\NewDesing\Backgrounds\p-fondo-general.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\p-fondo-inicio.jpg" />
     <Resource Include="Images\NewDesing\Backgrounds\p-fondo-pelicula.jpg" />
-    <Resource Include="Images\b-ingrese-billete.gif" />
     <Resource Include="Images\loadingbar.gif" />
     <Resource Include="Images\vibrosoundv2.png" />
     <Resource Include="Images\discapacitadosv2.png" />
@@ -693,13 +681,6 @@
     <Resource Include="Images\discapacitados.png" />
     <Resource Include="Images\puff.png" />
     <Resource Include="Images\vibrosound.png" />
-    <Resource Include="Images\Tags\cartel-4dx2.png" />
-    <Resource Include="Images\Tags\cartel-blackstar2.png" />
-    <Resource Include="Images\Tags\cartel-cinearte2.png" />
-    <Resource Include="Images\Tags\cartel-starkids2.png" />
-    <Resource Include="Images\Tags\cartel-supernova2.png" />
-    <Resource Include="Images\Tags\cartel-2d-vibra.png" />
-    <Resource Include="Images\Tags\cartel-3d-vibra.png" />
     <Resource Include="Images\silla-discapacitados.png" />
     <Resource Include="Images\silla-preferencial.png" />
     <Resource Include="Images\silla-puff.png" />

@@ -108,7 +108,7 @@ namespace WPProcinal.Forms
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     tbTimer.Text = "Tiempo de transacción: " + response;
-                    tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("HH:mm:ss");
+                    tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("hh:MM:ss");
                 });
             };
         }
@@ -212,7 +212,8 @@ namespace WPProcinal.Forms
                                             Date = string.Concat(days[1], " ", days[2], " ", days[3]),
                                             Room = string.Concat("Sala ", room.NumeroSala),
                                             Hours = horatmps,
-                                            TipoSala = ruta,
+                                            RutaTipoSala = ruta,
+                                            TipoSala= room.TipoSala,
                                             RoomId = Convert.ToInt16(room.NumeroSala),
                                             UnivDate = function.Univ,
                                             MovieId = Convert.ToInt16(peli.Id),
@@ -232,7 +233,8 @@ namespace WPProcinal.Forms
                                                 Date = string.Concat(days[1], " ", days[2], " ", days[3]),
                                                 Room = string.Concat("Sala ", room.NumeroSala),
                                                 Hour = newHoras.Horario,
-                                                TipoSala = ruta,
+                                                RutaTipoSala = ruta,
+                                                TipoSala = room.TipoSala,
                                                 RoomId = Convert.ToInt16(room.NumeroSala),
                                                 UnivDate = function.Univ,
                                                 MovieId = Convert.ToInt16(peli.Id),
@@ -390,6 +392,7 @@ namespace WPProcinal.Forms
             };
             //Schedule schedule = (Schedule)lvSchedule.SelectedItem;
             Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;
+            Utilities.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
             DipMap dipmap = SetProperties(schedule);
 
             SetCallBacksNull();

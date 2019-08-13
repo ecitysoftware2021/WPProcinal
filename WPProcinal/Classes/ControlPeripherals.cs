@@ -137,22 +137,6 @@ namespace WPProcinal.Classes
                     _serialPortCoins = new SerialPort();
                 }
 
-                if (!_serialPortBills.IsOpen)
-                {
-
-                    _serialPortBills.DtrEnable = true;
-                    _serialPortBills.DiscardNull = true;
-                    InitPortBills();
-                }
-
-                if (!_serialPortCoins.IsOpen)
-                {
-
-                    _serialPortCoins.DtrEnable = true;
-                    _serialPortCoins.DiscardNull = true;
-                    InitPortPurses();
-                }
-
                 if (log == null)
                 {
                     log = new LogDispenser();
@@ -161,6 +145,28 @@ namespace WPProcinal.Classes
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "Constructor en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        /// <summary>
+        /// We open Bills and Coins Serial Ports
+        /// </summary>
+        public void OpenSerialPorts()
+        {
+            if (!_serialPortBills.IsOpen)
+            {
+
+                _serialPortBills.DtrEnable = true;
+                _serialPortBills.DiscardNull = true;
+                InitPortBills();
+            }
+
+            if (!_serialPortCoins.IsOpen)
+            {
+
+                _serialPortCoins.DtrEnable = true;
+                _serialPortCoins.DiscardNull = true;
+                InitPortPurses();
             }
         }
 
@@ -200,8 +206,8 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsPeticion("InitPortBills", ex.Message);
-                AdminPaypad.SaveErrorControl(ex.Message, "InitPortBills en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+                LogService.CreateLogsPeticionRespuestaDispositivos("InitPortBills", ex.Message);
+                callbackError?.Invoke(string.Concat("Billetero: ", ex.Message));
             }
         }
 
@@ -226,8 +232,8 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsPeticion("InitPortPurses", ex.Message);
-                AdminPaypad.SaveErrorControl(ex.Message, "InitPortPurses en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+                LogService.CreateLogsPeticionRespuestaDispositivos("InitPortPurses", ex.Message);
+                callbackError?.Invoke(string.Concat("Monedero: ", ex.Message));
             }
         }
 
@@ -258,7 +264,8 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "SendMessageBills en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+                LogService.CreateLogsPeticionRespuestaDispositivos("SendMessageBills", ex.Message);
+                callbackError?.Invoke(string.Concat("Billetero: ", ex.Message));
             }
         }
 
@@ -284,7 +291,8 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "SendMessageCoins en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+                LogService.CreateLogsPeticionRespuestaDispositivos("SendMessageCoins", ex.Message);
+                callbackError?.Invoke(string.Concat("Monedero: ", ex.Message));
             }
         }
 
@@ -304,21 +312,8 @@ namespace WPProcinal.Classes
                 string response = _serialPortBills.ReadLine();
                 if (!string.IsNullOrEmpty(response))
                 {
-                    //try
-                    //{
-                    //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del billetero: ", response);
-                    //}
-                    //catch { }
                     log.ResponseMessage += string.Format("Respuesta Billetero:{0}\n", response);
                     ProcessResponseBills(response);
-                }
-                else
-                {
-                    try
-                    {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", "Vacío");
-                    }
-                    catch { }
                 }
             }
             catch (Exception ex)
@@ -339,11 +334,6 @@ namespace WPProcinal.Classes
                 string response = _serialPortCoins.ReadLine();
                 if (!string.IsNullOrEmpty(response))
                 {
-                    //try
-                    //{
-                    //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", response);
-                    //}
-                    //catch { }
                     log.ResponseMessage += string.Format("Respuesta Monedero: {0}\n", response);
                     ProcessResponseCoins(response);
                 }

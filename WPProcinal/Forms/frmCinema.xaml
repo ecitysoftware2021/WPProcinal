@@ -18,7 +18,7 @@
             <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
-       
+
         <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/procinal01.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
@@ -31,5 +31,6 @@
                     Visibility="Visible"
                     Height="300" 
                     Grid.Column="1"/>
+        
     </Grid>
 </Window>

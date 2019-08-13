@@ -25,7 +25,7 @@
 
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Text="CONFIGURACIÓN DEL DISPOSITIVO"
-                       FontFamily="Arial"
+                       FontFamily="Gotham"
                        FontSize="60"
                        Foreground="White"
                        VerticalAlignment="Bottom"
@@ -33,7 +33,7 @@
                        Margin="0,0,0,400"
                        FontWeight="Bold"/>
             <TextBlock Text="Espera mientras se configura el dispositivo para iniciar"
-                       FontFamily="Arial"
+                       FontFamily="Gotham"
                        FontSize="45"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"

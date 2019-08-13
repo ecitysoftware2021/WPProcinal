@@ -27,6 +27,20 @@ namespace WPProcinal.Forms
 
         private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            
+        }
+
+        private void BotonAceptar_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtIDTransaccion.Text))
+            {
+                return;
+            }
+            Utilities.ImprimirComprobanteForzado(int.Parse(txtIDTransaccion.Text));
+        }
+
+        private void TextBlock_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
             var boton = sender as TextBlock;
             if (boton.Tag.Equals("<"))
             {
@@ -37,20 +51,8 @@ namespace WPProcinal.Forms
             }
             else
             {
-                if (txtIDTransaccion.Text.Length < txtIDTransaccion.MaxLength)
-                {
-                    txtIDTransaccion.Text += boton.Tag;
-                }
+                txtIDTransaccion.Text += boton.Tag;
             }
-        }
-
-        private void BotonAceptar_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtIDTransaccion.Text))
-            {
-                return;
-            }
-            Utilities.ImprimirComprobanteForzado(int.Parse(txtIDTransaccion.Text));
         }
     }
 }
