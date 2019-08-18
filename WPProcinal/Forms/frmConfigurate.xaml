@@ -18,43 +18,218 @@
             <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"/>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="300" />
-            <RowDefinition Height="350" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-            <TextBlock Text="CONFIGURACIÓN DEL DISPOSITIVO"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Text="CONFIGURACIÓN DEL DISPOSITIVO"
                        FontFamily="Gotham"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="2"
                        FontSize="60"
                        Foreground="White"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
-                       Margin="0,0,0,400"
-                       FontWeight="Bold"/>
-            <TextBlock Text="Espera mientras se configura el dispositivo para iniciar"
+                       FontWeight="Bold"
+                   Margin="40"/>
+
+        <TextBlock Text="COMUNICACIÓN SERVIDOR"
+                   Grid.Row="2"
+                   Grid.Column="0"
                        FontFamily="Gotham"
-                       FontSize="45"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,200"
+                       FontSize="30"
                        Foreground="White"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Right"
+                       FontWeight="Bold" 
+                   Height="36" 
+                   
+                   Margin="0,30,0,0"/>
+        <Image     x:Name="okServidor" 
+                    Grid.Column="1"
+                   Grid.Row="2"
+                   Source="/Images/NewDesing/Buttons/ok.png"
+                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Center" 
+                    Width="100" 
+                    Visibility="Hidden"
+                   Margin="0,0,0,220"
+                    Height="100" />
+        <Image     x:Name="badServidor" 
+                    Grid.Column="1"
+                   Grid.Row="2"
+                   Margin="0,0,0,220"
+                   Source="/Images/NewDesing/Buttons/bad.png"
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Center" 
+                    Width="100" 
+                    Visibility="Visible"
+                    Height="100"  />
+
+
+        <TextBlock Text="BILLETERO ACEPTADOR"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                       FontFamily="Gotham"
+                       FontSize="30"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       FontWeight="Bold" 
+                   Height="36" 
+                   
+                   Margin="0,0,0,0"/>
+        <Image     x:Name="okAceptadorBilletes" 
+                    Grid.Column="1"
+                   Grid.Row="2"
+                   Source="/Images/NewDesing/Buttons/ok.png"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Width="100" 
+                    Visibility="Hidden"
+                   Margin="0,10,0,0"
+                    Height="100" />
+        <Image     x:Name="badAceptadorBilletes" 
+                    Grid.Column="1"
+                   Grid.Row="2"
+                   Margin="0,10,0,0"
+                   Source="/Images/NewDesing/Buttons/bad.png"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Width="100" 
+                    Visibility="Visible"
+                    Height="100"  />
+
+        <TextBlock Text="BILLETERO DISPENSADOR"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                       FontFamily="Gotham"
+                       FontSize="30"
+                       Foreground="White"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Right"
+                       FontWeight="Bold" 
+                   Margin="0,0,0,30"
+                   Height="36"/>
+        <Image     x:Name="okDispensadorBilletes" 
+                    Grid.Column="1"
+                   Source="/Images/NewDesing/Buttons/ok.png"
+                    Grid.Row="2"
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Center" 
+                    Width="100" 
+                    Visibility="Hidden"
+                    Height="100" />
+        <Image     x:Name="badDispensadorBilletes" 
+                    Grid.Column="1"
+                   Source="/Images/NewDesing/Buttons/bad.png"
+                    Grid.Row="2"
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Center" 
+                    Width="100" 
+                    Visibility="Visible"
+                    Height="100"/>
+
+        <TextBlock Text="MONEDEROS"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                       FontFamily="Gotham"
+                       FontSize="30"
+                       Foreground="White"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Right"
+                       FontWeight="Bold" 
+                   Height="36"
+                   Margin="0,40,0,0"
+                   Width="188"/>
+        <Image     x:Name="okMonederos" 
+                    Grid.Column="1"
+                   Source="/Images/NewDesing/Buttons/ok.png"
+                    Grid.Row="3"
+                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Center" 
+                    Width="100" 
+                    Visibility="Hidden"
+                   Margin="10"
+                    Height="100" />
+        <Image     x:Name="badMonederos" 
+                    Grid.Column="1"
+                   Source="/Images/NewDesing/Buttons/bad.png"
+                    Grid.Row="3"
+                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Center" 
+                    Width="100" 
+                   Margin="10"
+                    Visibility="Visible"
+                    Height="100" />
+
+        <TextBlock Text="IMPRESORA"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                       FontFamily="Gotham"
+                       FontSize="30"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       FontWeight="Bold" 
+                   Height="36" 
+                   Margin="0,0,0,0"
+                   Width="172"/>
+        <Image     x:Name="okImpresora" 
+                    Grid.Column="1"
+                   Source="/Images/NewDesing/Buttons/ok.png"
+                    Grid.Row="3"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Width="100" 
+                   Margin="0,0,0,0"
+                    Visibility="Hidden"
+                    Height="100" />
+        <Image     x:Name="badImpresora" 
+                    Grid.Column="1"
+                   Source="/Images/NewDesing/Buttons/bad.png"
+                    Grid.Row="3"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Width="100"
+                   Margin="0,0,0,0" 
+                    Visibility="Visible"
+                    Height="100"  />
+
+        
+        <TextBlock Text="Espera mientras se configura el dispositivo para iniciar"
+                       FontFamily="Gotham"
+                       Grid.Row="4"
+                       FontSize="45"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Foreground="White"
+                   Margin="0,0,0,0"
                        FontWeight="Bold"
                        TextWrapping="Wrap"
                        TextAlignment="Center"
-                       Width="900" Grid.ColumnSpan="2"/>
-            <Image gif:ImageBehavior.AnimatedSource="/Images/loadder.gif" 
+                       Width="900" 
+                       Grid.ColumnSpan="2" 
+                   Height="108" />
+        <Image gif:ImageBehavior.AnimatedSource="/Images/loadder.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
                     x:Name="GifLoad2" 
-                    Stretch="Fill"
-                    Margin="0,0,0,150" 
-                    VerticalAlignment="Center" 
+                    VerticalAlignment="Top" 
                     HorizontalAlignment="Center" 
                     Width="300" 
+               Margin="0,70,0,0"
                     Visibility="Visible"
                     Height="300" 
-                    Grid.Column="1"/>
-        </Grid>
+                   Grid.Row="4"
+                   Grid.ColumnSpan="2" />
     </Grid>
 </Window>

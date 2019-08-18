@@ -27,7 +27,6 @@ using static WPProcinal.Models.ApiLocal.Uptake;
 using trx;
 using WPProcinal.DataModel;
 using WPProcinal.Models.ApiLocal;
-using WPProcinal.Impresora;
 
 namespace WPProcinal.Classes
 {
@@ -39,8 +38,6 @@ namespace WPProcinal.Classes
         public static TimeSpan time;
 
         public static DispatcherTimer timer;
-
-        public PrintProperties _PrintProperties = new PrintProperties();
 
         public static List<Pelicula> Movies = new List<Pelicula>();
 
@@ -156,6 +153,7 @@ namespace WPProcinal.Classes
         public static Receipt Receipt = new Receipt();
 
         public static ControlPeripherals control;
+        public static ControlPeripheralsNotArduino PeripheralsNotArduino;
         public static string TOKEN { get; set; }
         public static int Session { get; set; }
         public static int IDTransactionDB { get; set; }
@@ -175,6 +173,7 @@ namespace WPProcinal.Classes
             try
             {
                 control = new ControlPeripherals();
+                PeripheralsNotArduino = new ControlPeripheralsNotArduino();
                 control.StopAceptance();
             }
             catch (Exception ex)
@@ -195,48 +194,6 @@ namespace WPProcinal.Classes
                 };
             }
             catch { }
-        }
-
-
-        public int Init()
-        {
-            try
-            {
-                _PrintProperties.ConfigurationPrinter(Utilities.GetConfiguration("PortPrinter"), Utilities.GetConfiguration("PrintBandrate"));
-                return StatusPrint();
-
-            }
-            catch (Exception ex)
-            {
-                return 0;
-            }
-        }
-
-        public int StatusPrint()
-        {
-            int status = 1;
-            try
-            {
-                if (_PrintProperties != null)
-                {
-                    status = _PrintProperties.GetPrintStatus();
-                    if (status == 0 || status == 8)
-                    {
-                        StatePrint = true;
-                        return 0;
-                    }
-                }
-            }
-            catch (Exception EX)
-            {
-            }
-            StatePrint = false;
-            return status;
-        }
-
-        public string MessageStatus(int status)
-        {
-            return _PrintProperties.MessageStatus(status);
         }
 
 
@@ -665,6 +622,34 @@ namespace WPProcinal.Classes
             }
         }
 
+        public static async void SendMailNotificationError(string message)
+        {
+            try
+            {
+                ApiLocal api = new ApiLocal();
+
+                Email mail = new Email
+                {
+                    Body = message,
+                    paypad_id = Utilities.CorrespondentId,
+                    Subject = "Error Pay+"
+                };
+
+                Task.Run(() =>
+                {
+                    var response = api.GetResponse(new RequestApi
+                    {
+                        Data = mail
+                    }, "SendEmail");
+                });
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+
         /// <summary>
         /// Mètodo para actualizar la transacción en base de datos por el estado que coorresponda
         /// </summary>
@@ -777,47 +762,47 @@ namespace WPProcinal.Classes
             }
         }
 
-        public async Task<bool> CreatePrintDashboard()
-        {
-            try
-            {
-                DashboardPrint = new List<SP_GET_INVOICE_DATA_Result>();
+        //public async Task<bool> CreatePrintDashboard()
+        //{
+        //    try
+        //    {
+        //        DashboardPrint = new List<SP_GET_INVOICE_DATA_Result>();
 
-                ApiLocal api = new ApiLocal();
+        //        ApiLocal api = new ApiLocal();
 
-                for (int i = 0; i < CantSeats; i++)
-                {
-                    var response = await api.GetResponse(new RequestApi
-                    {
-                        Data = null
-                    }, "GetInvoiceData");
+        //        for (int i = 0; i < CantSeats; i++)
+        //        {
+        //            var response = await api.GetResponse(new RequestApi
+        //            {
+        //                Data = null
+        //            }, "GetInvoiceData");
 
-                    if (response != null)
-                    {
-                        if (response.CodeError == 200)
-                        {
-                            var responseApi = JsonConvert.DeserializeObject<SP_GET_INVOICE_DATA_Result>(response.Data.ToString());
+        //            if (response != null)
+        //            {
+        //                if (response.CodeError == 200)
+        //                {
+        //                    var responseApi = JsonConvert.DeserializeObject<SP_GET_INVOICE_DATA_Result>(response.Data.ToString());
 
-                            if (responseApi.IS_AVAILABLE == true)
-                            {
-                                DashboardPrint.Add(responseApi);
-                            }
-                        }
-                    }
-                }
+        //                    if (responseApi.IS_AVAILABLE == true)
+        //                    {
+        //                        DashboardPrint.Add(responseApi);
+        //                    }
+        //                }
+        //            }
+        //        }
 
-                if (DashboardPrint.Count() == CantSeats)
-                {
-                    return true;
-                }
+        //        if (DashboardPrint.Count() == CantSeats)
+        //        {
+        //            return true;
+        //        }
 
-                return false;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //}
 
         public void ProccesValue(DataMoneyNotification data)
         {

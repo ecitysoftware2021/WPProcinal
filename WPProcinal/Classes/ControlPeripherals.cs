@@ -41,6 +41,8 @@ namespace WPProcinal.Classes
 
         private string _AceptanceCoinOff = "OR:OFF:MA";//Cerrar Monedero Aceptance
 
+        private string _CoinAceptanceStatus = "OR:ST:MA";//Preguntar estado del aceptador
+
         #endregion
 
         #region Callbacks
@@ -62,6 +64,8 @@ namespace WPProcinal.Classes
         public Action<string> callbackMessage;//Calback de mensaje
 
         public Action<bool> callbackToken;//Calback de mensaje
+        public Action<bool> callbackStatusBillAceptance;//Calback de mensaje
+        public Action<bool> callbackStatusCoinAceptanceDispenser;//Calback de mensaje
 
 
         #endregion
@@ -182,6 +186,17 @@ namespace WPProcinal.Classes
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "Start en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+            }
+        }
+        public void StartCoinAcceptorDispenser()
+        {
+            try
+            {
+                SendMessageCoins(_CoinAceptanceStatus);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -356,6 +371,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                message = message.Replace("\r", string.Empty);
                 string[] response = message.Split(':');
                 switch (response[0])
                 {
@@ -368,6 +384,7 @@ namespace WPProcinal.Classes
                             LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del billetero: ", message);
                         }
                         catch { }
+                        Utilities.SendMailNotificationError(message);
                         ProcessER(response);
                         break;
                     case "UN":
@@ -394,6 +411,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                message = message.Replace("\r", string.Empty);
                 string[] response = message.Split(':');
                 switch (response[0])
                 {
@@ -441,7 +459,7 @@ namespace WPProcinal.Classes
                     switch (response[2])
                     {
                         case "AP":
-
+                            callbackStatusBillAceptance?.Invoke(true);
                             break;
                         case "DP":
                             if (response[3] == "HD" && !string.IsNullOrEmpty(response[4]))
@@ -449,6 +467,9 @@ namespace WPProcinal.Classes
                                 TOKEN = response[4].Replace("\r", string.Empty);
                                 callbackToken?.Invoke(true);
                             }
+                            break;
+                        case "MA":
+                            callbackStatusCoinAceptanceDispenser?.Invoke(true);
                             break;
                         default:
                             break;

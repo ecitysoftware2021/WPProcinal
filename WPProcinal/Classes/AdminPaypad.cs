@@ -27,11 +27,6 @@ namespace WPProcinal.Classes
                 {
                     DataPaypad data = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
                     Utilities.dataPaypad = data;
-
-                    if (!string.IsNullOrEmpty(data.Message))
-                    {
-                        SendEmails.SendEmail(data.Message);
-                    }
                 }
                 else
                 {

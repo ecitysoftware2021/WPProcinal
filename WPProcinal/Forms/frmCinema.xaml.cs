@@ -23,7 +23,7 @@ namespace WPProcinal.Forms
             printService = new Utilities();
             api = new ApiLocal();
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
-           
+
             Task.Run(() =>
             {
                 SendPayments();
@@ -31,10 +31,6 @@ namespace WPProcinal.Forms
             Task.Run(() =>
             {
                 DesReserve();
-            });
-            Task.Run(() =>
-            {
-                SendDataToDataBase();
             });
             Task.Run(() =>
             {
@@ -104,52 +100,6 @@ namespace WPProcinal.Forms
             }
         }
 
-        private async void SendDataToDataBase()
-        {
-            try
-            {
-                var dipmaps = DBProcinalController.GetDipMapActive();
-                if (dipmaps == null)
-                {
-                    return;
-                }
-
-                foreach (var dipmap in dipmaps)
-                {
-                    var seats = DBProcinalController.GetSeats(dipmap.DipMapId);
-                    if (seats == null)
-                    {
-                        return;
-                    }
-
-                    var response = await WCFServices.InsertDBProcinal(dipmap, seats);
-                    if (!response.IsSuccess)
-                    {
-                        Utilities.SaveLogError(new LogError
-                        {
-                            Message = response.Message,
-                            Method = "SendDataToDataBase",
-                        });
-                    }
-
-                    var res = DBProcinalController.RemoveDipmap(dipmap.DipMapId);
-                    if (!res.IsSuccess)
-                    {
-                        Utilities.SaveLogError(new LogError
-                        {
-                            Message = response.Message,
-                            Method = "DBProcinalController.RemoveDipmap",
-                        });
-                    }
-                }
-            }
-            catch (System.Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "SendDataToDatabase en frmCinema", EError.Aplication, ELevelError.Medium);
-
-            }
-        }
-
         private void LoadData()
         {
             try
@@ -189,38 +139,16 @@ namespace WPProcinal.Forms
         {
             try
             {
-                int statusCode = printService.Init();
 
-                if (!printService.StatePrint)
+                try
                 {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        string message = printService.MessageStatus(statusCode);
-                        if (!string.IsNullOrEmpty(message))
-                        {
-                            frmModal modal = new frmModal(message);
-                            modal.ShowDialog();
-                        }
-                    });
+                    gridPrincipal.IsEnabled = false;
                 }
-                else
-                {
-                    try
-                    {
-                        gridPrincipal.IsEnabled = false;
-                    }
-                    catch { }
-                    if (statusCode == 8)
-                    {
+                catch { }
 
-                        string message = printService.MessageStatus(statusCode);
-                        frmModal modal = new frmModal(message);
-                        modal.ShowDialog();
-                    }
-                    frmMovies frmMovies = new frmMovies();
-                    frmMovies.Show();
-                    Close();
-                }
+                frmMovies frmMovies = new frmMovies();
+                frmMovies.Show();
+                Close();
 
             }
             catch (System.Exception ex)
@@ -284,10 +212,10 @@ namespace WPProcinal.Forms
                         {
                             printService.ProccesValue(new DataMoneyNotification
                             {
-                                enterValue= item.DENOMINATION.Value,
-                                opt= item.OPERATION.Value,
-                                quantity= item.QUANTITY.Value,
-                                idTransactionAPi= item.TRANSACTION_ID.Value
+                                enterValue = item.DENOMINATION.Value,
+                                opt = item.OPERATION.Value,
+                                quantity = item.QUANTITY.Value,
+                                idTransactionAPi = item.TRANSACTION_ID.Value
                             });
                         }
                         con.NotifyMoney.Remove(item);

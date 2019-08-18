@@ -16,6 +16,9 @@ namespace WPProcinal.Forms
         ApiLocal api;
         bool state;
         Utilities util;
+        int peripheralsValidated = 0;
+        bool stateServerComunication = false;
+        bool stateMoney = false;
         public frmConfigurate()
         {
             InitializeComponent();
@@ -54,44 +57,36 @@ namespace WPProcinal.Forms
                     var response = await api.GetResponse(new Uptake.RequestApi(), "InitPaypad");
                     if (response.CodeError == 200)
                     {
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            stateServerComunication = true;
+                        });
                         DataPaypad data = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
 
                         if (data.State)
                         {
                             if (data.StateAceptance && data.StateDispenser)
                             {
+                                Dispatcher.BeginInvoke((Action)delegate
+                                {
+                                    stateMoney = true;
+                                });
                                 if (util == null)
                                 {
                                     util = new Utilities(1);
+                                    ChangeStatusPeripherals();
                                 }
-                                Utilities.control.callbackError = error =>
+                                Dispatcher.BeginInvoke((Action)delegate
                                 {
-                                    //TODO: descomentar
-                                    //ShowModalError(error);
-                                };
-                                Utilities.control.OpenSerialPorts();
-                                Utilities.control.callbackToken = isSucces =>
-                                {
-                                    Dispatcher.BeginInvoke((Action)delegate
-                                    {
-                                        frmCinema inicio = new frmCinema();
-                                        inicio.Show();
-                                        Close();
-                                    });
-                                };
-                                Utilities.control.Start();
+                                    Utilities.control.OpenSerialPorts();
+                                    Utilities.control.Start();
+                                    Utilities.control.StartCoinAcceptorDispenser();
+                                    Utilities.PeripheralsNotArduino.InitPortPrinter();
+                                });
                             }
                             else
                             {
-                                Task.Run(() =>
-                                {
-                                    if (!string.IsNullOrEmpty(data.Message))
-                                    {
-                                        SendEmails.SendEmail(data.Message);
-                                    }
-                                });
                                 ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
-                                GetToken();
                             }
                         }
                         else
@@ -112,6 +107,99 @@ namespace WPProcinal.Forms
             catch (Exception ex)
             {
                 ShowModalError(ex.Message, ex.StackTrace);
+            }
+        }
+
+        private void ChangeStatusPeripherals()
+        {
+            if (stateServerComunication)
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    peripheralsValidated++;
+                    okServidor.Visibility = Visibility.Visible;
+                    badServidor.Visibility = Visibility.Hidden;
+                    CheckPeripheralsAndContinue();
+                });
+            }
+
+            if (stateMoney)
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    peripheralsValidated++;
+                });
+            }
+
+            Utilities.control.callbackError = error =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Utilities.control.callbackError = null;
+                });
+                ShowModalError(error);
+            };
+
+            Utilities.control.callbackStatusBillAceptance = State =>
+            {
+
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Utilities.control.callbackStatusBillAceptance = null;
+                    peripheralsValidated++;
+                    okAceptadorBilletes.Visibility = Visibility.Visible;
+                    badAceptadorBilletes.Visibility = Visibility.Hidden;
+                    CheckPeripheralsAndContinue();
+                });
+            };
+
+            Utilities.control.callbackStatusCoinAceptanceDispenser = State =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Utilities.control.callbackStatusCoinAceptanceDispenser = null;
+                    peripheralsValidated++;
+                    okMonederos.Visibility = Visibility.Visible;
+                    badMonederos.Visibility = Visibility.Hidden;
+                    CheckPeripheralsAndContinue();
+                });
+            };
+
+            Utilities.control.callbackToken = isSucces =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Utilities.control.callbackToken = null;
+                    peripheralsValidated++;
+                    okDispensadorBilletes.Visibility = Visibility.Visible;
+                    badDispensadorBilletes.Visibility = Visibility.Hidden;
+                    CheckPeripheralsAndContinue();
+                });
+            };
+
+            ControlPeripheralsNotArduino.callbackStatusPrinter = Status =>
+            {
+                if (Status.STATUS == "OK")
+                {
+                    ControlPeripheralsNotArduino.callbackStatusPrinter = null;
+                    peripheralsValidated++;
+                    okImpresora.Visibility = Visibility.Visible;
+                    badImpresora.Visibility = Visibility.Hidden;
+                    CheckPeripheralsAndContinue();
+                }
+            };
+        }
+
+        private void CheckPeripheralsAndContinue()
+        {
+            if (peripheralsValidated >= 6)
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    frmCinema inicio = new frmCinema();
+                    inicio.Show();
+                    Close();
+                });
             }
         }
 

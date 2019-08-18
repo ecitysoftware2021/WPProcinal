@@ -2,7 +2,7 @@
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace WPProcinal.Impresora
+namespace WP.Impresora
 {
   public  class PrintProperties
     {
@@ -90,46 +90,6 @@ namespace WPProcinal.Impresora
             m_lcLanguage = GetSystemDefaultLCID();
         }
 
-        public string MessageStatus(int status)
-        {
-            string message = string.Empty;
-            switch (status)
-            {
-                case 0:
-                    message = "La impresora está normal ";
-                    break;
-                case 1:
-                    message = "La impresora no está conectada o encendida";
-                    break;
-                case 2:
-                    message = "La impresora y la biblioteca de llamadas no coinciden";
-                    break;
-                case 3:
-                    message = "Encabezado de impresión abierto";
-                    break;
-                case 4:
-                    message = "Cuchillo de corte no RESET ";
-                    break;
-                case 5:
-                    message = "Sobrecalentamiento de cabezal de impresión ";
-                    break;
-                case 6:
-                    message = "Error de etiqueta negra";
-                    break;
-                case 7:
-                    message = "No hay papel en la impresora";
-                    break;
-                case 8:
-                    message = "El papel se agotará";
-                    break;
-                default:
-                    message = string.Empty;
-                    break;
-            }
-
-            return message;
-        }
-
         public int GetPrintStatus()
         {
             try
@@ -176,9 +136,5 @@ namespace WPProcinal.Impresora
             }
         }
 
-        public void ClosePrint()
-        {
-            SetClose();
-        }
     }
 }

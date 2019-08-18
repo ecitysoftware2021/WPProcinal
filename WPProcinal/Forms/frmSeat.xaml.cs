@@ -737,7 +737,7 @@ namespace WPProcinal.Forms
                 frmLoading.Close();
                 frmLoading = new FrmLoading("¡Generando ticket, espere...!");
                 frmLoading.Show();
-                var responseDash = await utilities.CreatePrintDashboard();
+                //var responseDash = await utilities.CreatePrintDashboard();
                 frmLoading.Close();
                 Dispatcher.BeginInvoke((Action)delegate
                 {
@@ -746,7 +746,8 @@ namespace WPProcinal.Forms
                 });
                 //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Transaction | PrintID > ", response + "|" + responseDash);
 
-                if (!response || !responseDash)
+                //if (!response || !responseDash)
+                if (!response)
                 {
 
                     foreach (var item in SelectedTypeSeats)
