@@ -49,14 +49,14 @@ namespace WPProcinal
         public static string PRINTER_OK_MESSAGE { get { return "La impresora está conectada"; } }
 
 
-        public static string PRINTER_DISCONNECT_MESSAGE { get { return "La impresora no está conectada o encendida, puerto: "; } }
-        public static string PRINTER_LIBRARY_DOES_NOT_MATCH_MESSAGE { get { return "La impresora y la biblioteca de llamadas no coinciden"; } }
-        public static string PRINTER_HEADER_OPEN_MESSAGE { get { return "Encabezado de impresión abierto"; } }
-        public static string PRINTER_KHIFE_NO_RESET_MESSAGE { get { return "Cuchillo de corte no RESET "; } }
-        public static string PRINTER_OVERHEATING_MESSAGE { get { return "Sobrecalentamiento de cabezal de impresión "; } }
-        public static string PRINTER_BLACK_LABEL_MESSAGE { get { return "Error de etiqueta negra"; } }
-        public static string PRINTER_NO_PAPER_MESSAGE { get { return "No hay papel en la impresora"; } }
-        public static string PRINTER_LOW_PAPER_MESSAGE { get { return "El papel se agotará"; } }
+        public static string PRINTER_DISCONNECT_MESSAGE { get { return "ER:Printer:La impresora no está conectada o encendida, puerto: "; } }
+        public static string PRINTER_LIBRARY_DOES_NOT_MATCH_MESSAGE { get { return "ER:Printer:La impresora y la biblioteca de llamadas no coinciden"; } }
+        public static string PRINTER_HEADER_OPEN_MESSAGE { get { return "ER:Printer:Encabezado de impresión abierto"; } }
+        public static string PRINTER_KHIFE_NO_RESET_MESSAGE { get { return "ER:Printer:Cuchillo de corte no RESET "; } }
+        public static string PRINTER_OVERHEATING_MESSAGE { get { return "ER:Printer:Sobrecalentamiento de cabezal de impresión "; } }
+        public static string PRINTER_BLACK_LABEL_MESSAGE { get { return "ER:Printer:Error de etiqueta negra"; } }
+        public static string PRINTER_NO_PAPER_MESSAGE { get { return "ER:Printer:No hay papel en la impresora"; } }
+        public static string PRINTER_LOW_PAPER_MESSAGE { get { return "ER:Printer:El papel se agotará"; } }
         #endregion
     }
 

@@ -17,7 +17,6 @@ namespace WPProcinal.Forms
         bool state;
         Utilities util;
         int peripheralsValidated = 0;
-        bool stateServerComunication = false;
         bool stateMoney = false;
         public frmConfigurate()
         {
@@ -59,7 +58,8 @@ namespace WPProcinal.Forms
                     {
                         Dispatcher.BeginInvoke((Action)delegate
                         {
-                            stateServerComunication = true;
+                            okServidor.Visibility = Visibility.Visible;
+                            badServidor.Visibility = Visibility.Hidden;
                         });
                         DataPaypad data = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
 
@@ -112,17 +112,7 @@ namespace WPProcinal.Forms
 
         private void ChangeStatusPeripherals()
         {
-            if (stateServerComunication)
-            {
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    peripheralsValidated++;
-                    okServidor.Visibility = Visibility.Visible;
-                    badServidor.Visibility = Visibility.Hidden;
-                    CheckPeripheralsAndContinue();
-                });
-            }
-
+           
             if (stateMoney)
             {
                 Dispatcher.BeginInvoke((Action)delegate
@@ -187,12 +177,20 @@ namespace WPProcinal.Forms
                     badImpresora.Visibility = Visibility.Hidden;
                     CheckPeripheralsAndContinue();
                 }
+                else
+                {
+                    try
+                    {
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", Status.ERROR_MESSAGE);
+                    }
+                    catch { }
+                }
             };
         }
 
         private void CheckPeripheralsAndContinue()
         {
-            if (peripheralsValidated >= 6)
+            if (peripheralsValidated >= 5)
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {

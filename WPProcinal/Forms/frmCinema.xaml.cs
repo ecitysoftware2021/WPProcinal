@@ -142,13 +142,36 @@ namespace WPProcinal.Forms
 
                 try
                 {
+                    ControlPeripheralsNotArduino.callbackStatusPrinter = Status =>
+                    {
+                        ControlPeripheralsNotArduino.callbackStatusPrinter = null;
+                        if (Status.STATUS == "OK")
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmMovies frmMovies = new frmMovies();
+                                frmMovies.Show();
+                                Close();
+                            });
+                        }
+                        else
+                        {
+                            try
+                            {
+                                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", Status.ERROR_MESSAGE);
+                            }
+                            catch { }
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmModal modal = new frmModal(Status.ERROR_MESSAGE);
+                                modal.ShowDialog();
+                            });
+                        }
+                    };
+                    Utilities.PeripheralsNotArduino.InitPortPrinter();
                     gridPrincipal.IsEnabled = false;
                 }
                 catch { }
-
-                frmMovies frmMovies = new frmMovies();
-                frmMovies.Show();
-                Close();
 
             }
             catch (System.Exception ex)
