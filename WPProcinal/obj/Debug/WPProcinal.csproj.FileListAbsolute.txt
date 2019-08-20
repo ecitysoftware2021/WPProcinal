@@ -398,7 +398,6 @@ C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Newtonsoft.Json.xm
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.xml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.xml
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmCardPayment.g.cs
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmCinema.g.cs
@@ -434,6 +433,6 @@ C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.g.resou
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.Properties.Resources.resources
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.GenerateResource.cache
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CoreCompileInputs.cache
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojResolveAssemblyReference.cache
