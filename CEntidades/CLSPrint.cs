@@ -36,7 +36,7 @@ namespace CEntidades
 
         public decimal Valor { get; set; }
 
-        public string Consecutivo { get; set; }
+        //public string Consecutivo { get; set; }
 
         public void ImprimirComprobante()
         {

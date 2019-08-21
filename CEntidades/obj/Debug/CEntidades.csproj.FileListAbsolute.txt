@@ -36,3 +36,4 @@ C:\Users\H81\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj.
 C:\Users\H81\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj.CopyComplete
 C:\Users\H81\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.dll
 C:\Users\H81\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.pdb
+D:\WPProcinal\CEntidades\obj\Debug\CEntidades.csprojAssemblyReference.cache
