@@ -311,7 +311,6 @@ D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.g.cs
-D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalCancel.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.g.cs
@@ -348,7 +347,6 @@ D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.baml
-D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalCancel.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPayCine.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmSchedule.baml
@@ -368,8 +366,6 @@ D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.Linq.dll
 D:\WPProcinal\WPProcinal\bin\Debug\Dapper.xml
 D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.xml
 D:\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.dll.config
-D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPanicModal.g.cs
-D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmPanicModal.baml
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmImpresionForzada.g.cs
 D:\WPProcinal\WPProcinal\obj\Debug\Forms\frmImpresionForzada.baml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DataBases\DBProcinal.mdf

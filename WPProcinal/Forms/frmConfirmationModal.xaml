@@ -161,7 +161,8 @@
                        HorizontalAlignment="Left"
                        Height="200"
                        Source="/Images/NewDesing/Buttons/b-efectivo.png" />
-                    <Image x:Name="BtnCard"                     
+                    <Image x:Name="BtnCard"     
+                          Visibility="Hidden"
                            Margin="0,-106,50,0"
                        PreviewStylusDown="BtnCard_PreviewStylusDown"
                            PreviewMouseDown="BtnCard_PreviewMouseDown"

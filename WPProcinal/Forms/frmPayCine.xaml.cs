@@ -325,7 +325,6 @@ namespace WPProcinal.Forms
                 Utilities.SaveLogTransactions(logError, "LogTransacciones\\Iniciadas");
                 stateUpdate = false;
             }
-            //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ApproveTrans: ", "OK");
         }
 
         private async void SavePay(bool task)
@@ -467,11 +466,6 @@ namespace WPProcinal.Forms
                     }
 
                     var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                    //try
-                    //{
-                    //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar: ", transaccionCompra.Respuesta);
-                    //}
-                    //catch { }
                     if (transaccionCompra.Respuesta != "Exitosa")
                     {
                         payState = false;
@@ -542,7 +536,6 @@ namespace WPProcinal.Forms
                                 }
                                 catch { }
                                 controlInactividad = 1;
-                                //Utilities.IsRestart = true;
                                 try
                                 {
                                     timer.CallBackStop?.Invoke(1);
@@ -551,8 +544,6 @@ namespace WPProcinal.Forms
                                 catch { }
                                 if (state)
                                 {
-                                    //frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
-                                    //modal.ShowDialog();
                                     Buytickets();
                                     Utilities.Loading(frmLoading, false, this);
                                 }

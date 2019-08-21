@@ -158,7 +158,7 @@ namespace WPProcinal.Forms
                         {
                             try
                             {
-                                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", Status.ERROR_MESSAGE);
+                                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta de la Impresora: ", Status.ERROR_MESSAGE);
                             }
                             catch { }
                             Dispatcher.BeginInvoke((Action)delegate

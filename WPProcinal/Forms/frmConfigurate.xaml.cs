@@ -112,7 +112,7 @@ namespace WPProcinal.Forms
 
         private void ChangeStatusPeripherals()
         {
-           
+
             if (stateMoney)
             {
                 Dispatcher.BeginInvoke((Action)delegate
@@ -181,7 +181,7 @@ namespace WPProcinal.Forms
                 {
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", Status.ERROR_MESSAGE);
+                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta de la Impresora: ", Status.ERROR_MESSAGE);
                     }
                     catch { }
                 }

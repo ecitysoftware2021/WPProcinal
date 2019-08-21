@@ -41,7 +41,7 @@ namespace WPProcinal.Classes
 
         private string _AceptanceCoinOff = "OR:OFF:MA";//Cerrar Monedero Aceptance
 
-        private string _CoinAceptanceStatus = "OR:ST:MA";//Preguntar estado del aceptador
+        private string _CoinAceptanceStatus = "OR:START";//Preguntar estado del aceptador
 
         #endregion
 
@@ -468,7 +468,7 @@ namespace WPProcinal.Classes
                                 callbackToken?.Invoke(true);
                             }
                             break;
-                        case "MA":
+                        case "MD":
                             callbackStatusCoinAceptanceDispenser?.Invoke(true);
                             break;
                         default:
