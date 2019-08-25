@@ -42,11 +42,12 @@
                    Grid.Column="0"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       
                    TextAlignment="Center" 
-                       Height="68" 
-                       Margin="94,98,94,26" 
-                       Width="616" 
-                       Grid.RowSpan="2"/>
+                       Height="85" 
+                       Margin="90,8,88,0" 
+                       Width="616" RenderTransformOrigin="0.499,0.979" Grid.Row="1"/>
             <Grid Grid.Row="2" Name="gridTeclado" Visibility="Hidden">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

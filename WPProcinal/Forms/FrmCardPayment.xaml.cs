@@ -40,6 +40,7 @@ namespace WPProcinal.Forms
 
         private string TramaInicial;
 
+        private string MensajeDebito { get; set; }
         private string Delimitador { get { return Utilities.GetConfiguration("Delimitador"); } }
 
         private string IdentificadorInicio { get { return Utilities.GetConfiguration("IdentificadorInicio"); } }
@@ -158,9 +159,8 @@ namespace WPProcinal.Forms
                         }
                         catch { }
                         //Envío la trama que intentará activar el datáfono
-                        Buytickets();
-                        //var datos = TPV.EnviarPeticion(LCRPeticion);
-                        //TPVOperation.CallBackRespuesta?.Invoke(datos);
+                        var datos = TPV.EnviarPeticion(LCRPeticion);
+                        TPVOperation.CallBackRespuesta?.Invoke(datos);
                     }
                 });
             }
@@ -225,7 +225,7 @@ namespace WPProcinal.Forms
                         RRN = _RRN,
                         Transaction_id = Utilities.IDTransactionDB,
                         Quotas = TPVOperation.Quotas,
-                        Card_Type = TPVOperation.Quotas != null ? 2 : 1
+                        Card_Type = TPVOperation.Quotas != 0 ? 2 : 1
                     });
                 }
             }
@@ -442,7 +442,8 @@ namespace WPProcinal.Forms
                              */
                             if (dataResponse[3].ToLower().Contains("pin"))
                             {
-                                ProcessDebitOperation();
+                                MensajeDebito = "Digita la clave en el datáfono y presiona el botón verde";
+                                ProcessDebitOperation(MensajeDebito);
                             }
                             else
                             {
@@ -452,7 +453,15 @@ namespace WPProcinal.Forms
                         else if (dataResponse[2].ToLower().Equals("error"))
                         {
                             //Procesa  todas las tramas con error del datáfono
-                            ProcesarFinalError(dataResponse[3]);
+                            if (dataResponse[3].ToLower().Contains("pin"))
+                            {
+                                MensajeDebito = "Pin incorrecto, intente nuevamente y presiona el botón verde.";
+                                ProcessDebitOperation(MensajeDebito);
+                            }
+                            else
+                            {
+                                ProcesarFinalError(dataResponse[3]);
+                            }
                         }
                         else
                         {
@@ -551,7 +560,7 @@ namespace WPProcinal.Forms
         /// <summary>
         /// Solicita la clave en el datafono
         /// </summary>
-        private void ProcessDebitOperation()
+        private void ProcessDebitOperation(string message)
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
@@ -561,13 +570,13 @@ namespace WPProcinal.Forms
             lvOpciones.Visibility = Visibility.Hidden;
             DataCardTransaction dataCard = new DataCardTransaction
             {
-                imagen = string.Empty,
+                imagen = "/Images/NewDesing/Gif/clave.Gif",
                 isCredit = false,
                 maxlen = 1,
-                mensaje = "Digita la clave en el datáfono",
+                mensaje = message,
                 minlen = 1,
                 peticion = null,
-                visible = "Hidden"
+                visible = "Visible"
             };
 
             FrmOciones = new Opciones(dataCard);
@@ -600,15 +609,15 @@ namespace WPProcinal.Forms
                     {
                         if (!string.IsNullOrEmpty(item))
                         {
-                            if (item.ToLower().Contains("insertar")
-                                || item.ToLower().Contains("deslizar")
-                                || item.ToLower().Contains("acercar"))
+                            if (!item.ToLower().Contains("pago movil")
+                                && !item.ToLower().Contains("nfc")
+                                && !item.ToLower().Contains("qr"))
                             {
                                 formas.Add(new FormaPago
                                 {
                                     Forma = item,
                                     Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
-                                    Trama = string.Concat("R,", positiveResponse[1], ",R]"),
+                                    Trama = string.Concat("R,", positiveResponse[1], ",", indiceForma, "]"),
                                 });
                             }
                             //else if (item.ToLower().Equals("pago movil"))
@@ -795,13 +804,16 @@ namespace WPProcinal.Forms
                         //    //opciones.ShowDialog();
                         //    break;
                         case "AHORROS":
-                            ActionTPV(LRCPeticion, dataCard, "Digita la clave en el datáfono", "Hidden");
+                            dataCard.imagen = string.Empty;
+                            ActionTPV(LRCPeticion, dataCard, MensajeDebito, "Hidden");
                             break;
                         case "CORRIENTE":
-                            ActionTPV(LRCPeticion, dataCard, "Digita la clave en el datáfono", "Hidden");
+                            //dataCard.imagen = "/Images/NewDesing/Gif/clave.Gif";
+                            ActionTPV(LRCPeticion, dataCard, MensajeDebito, "Hidden");
 
                             break;
                         case "CREDITO":
+                            //dataCard.imagen = "/Images/NewDesing/Gif/clave.Gif";
                             ActionTPV(LRCPeticion, dataCard, "Cuatro últimos dígitos de la tarjeta", "Visible");
 
                             break;
@@ -899,6 +911,10 @@ namespace WPProcinal.Forms
             else if (error.ToLower().Contains("host"))
             {
                 error = "Señor usuario, No hay comunicación con el datáfono.";
+            }
+            else if (error.ToLower().Contains("PIN Incorrecto"))
+            {
+                error = "El pin es incorrecto, intente nuevamente por favor.";
             }
             return error;
         }

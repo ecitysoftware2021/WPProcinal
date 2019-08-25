@@ -162,7 +162,7 @@
                        Height="200"
                        Source="/Images/NewDesing/Buttons/b-efectivo.png" />
                     <Image x:Name="BtnCard"     
-                          Visibility="Hidden"
+                          Visibility="Visible"
                            Margin="0,-106,50,0"
                        PreviewStylusDown="BtnCard_PreviewStylusDown"
                            PreviewMouseDown="BtnCard_PreviewMouseDown"

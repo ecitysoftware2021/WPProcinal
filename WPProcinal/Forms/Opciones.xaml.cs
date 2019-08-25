@@ -22,9 +22,6 @@ namespace WPProcinal.Forms
         {
             InitializeComponent();
             _dataCard = dataCard;
-            //txtOpcion.Text = mensaje;
-            //txtultimosDigitos.MaxLength = maxlen;
-            //txtultimosDigitos.MinLines = minlen;
             TPV = new TPVOperation();
             _peticion = dataCard.peticion;
             _isCredit = dataCard.isCredit;

@@ -581,8 +581,6 @@ namespace WPProcinal.Forms
                 frmLoading.Show();
                 var responseSec = WCFServices.GetSecuence(dipMapCurrent);
 
-                //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > GetSecuence", responseSec.Result.ToString());
-
                 if (!responseSec.IsSuccess)
                 {
                     frmLoading.Close();
@@ -608,8 +606,7 @@ namespace WPProcinal.Forms
                 foreach (var item in SelectedTypeSeats)
                 {
                     var response = WCFServices.PostReserva(dipMapCurrent, item);
-                    //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > PostReserva > response.Result en frmSeat", response.Result.ToString());
-
+                   
                     if (!response.IsSuccess)
                     {
                         frmLoading.Close();
@@ -735,8 +732,8 @@ namespace WPProcinal.Forms
                 frmLoading.Show();
                 var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
                 frmLoading.Close();
-                frmLoading = new FrmLoading("¡Generando ticket, espere...!");
-                frmLoading.Show();
+                //frmLoading = new FrmLoading("¡Generando ticket, espere...!");
+                //frmLoading.Show();
                 //var responseDash = await utilities.CreatePrintDashboard();
                 frmLoading.Close();
                 Dispatcher.BeginInvoke((Action)delegate
@@ -794,36 +791,36 @@ namespace WPProcinal.Forms
                         LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
                         Utilities.controlStop = 0;
                         int i = 0;
-                        try
-                        {
-                            using (var conexion = new DBProcinalEntities())
-                            {
-                                foreach (var item in SelectedTypeSeats)
-                                {
-                                    conexion.RePrint.Add(new RePrint
-                                    {
-                                        Category = dipMapCurrent.Category,
-                                        Cinema = Utilities.GetConfiguration("NameCinema"),
-                                        Consecutivo = Utilities.DashboardPrint[i].RANGO_ACTUAL.ToString(),
-                                        Date = dipMapCurrent.Date,
-                                        FechaPago = DateTime.Now,
-                                        Formato = Utilities.MovieFormat,
-                                        Movie = dipMapCurrent.MovieName,
-                                        Room = dipMapCurrent.RoomName,
-                                        Seat = item.Name,
-                                        Secuencia = Utilities.Secuencia,
-                                        Time = dipMapCurrent.HourFunction,
-                                        Tramite = "Boleto de Cine",
-                                        Valor = item.Price,
-                                        IDTransaccion = Utilities.IDTransactionDB
-                                    });
-                                    conexion.SaveChanges();
-                                    i++;
-                                }
+                        //try
+                        //{
+                        //    using (var conexion = new DBProcinalEntities())
+                        //    {
+                        //        foreach (var item in SelectedTypeSeats)
+                        //        {
+                        //            conexion.RePrint.Add(new RePrint
+                        //            {
+                        //                Category = dipMapCurrent.Category,
+                        //                Cinema = Utilities.GetConfiguration("NameCinema"),
+                        //                //Consecutivo = Utilities.DashboardPrint[i].RANGO_ACTUAL.ToString(),
+                        //                Date = dipMapCurrent.Date,
+                        //                FechaPago = DateTime.Now,
+                        //                Formato = Utilities.MovieFormat,
+                        //                Movie = dipMapCurrent.MovieName,
+                        //                Room = dipMapCurrent.RoomName,
+                        //                Seat = item.Name,
+                        //                Secuencia = Utilities.Secuencia,
+                        //                Time = dipMapCurrent.HourFunction,
+                        //                Tramite = "Boleto de Cine",
+                        //                Valor = item.Price,
+                        //                IDTransaccion = Utilities.IDTransactionDB
+                        //            });
+                        //            conexion.SaveChanges();
+                        //            i++;
+                        //        }
 
-                            }
-                        }
-                        catch { }
+                        //    }
+                        //}
+                        //catch { }
 
                         frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
                         pay.Show();

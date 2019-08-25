@@ -41,7 +41,7 @@ namespace WPProcinal.Classes
 
         private string _AceptanceCoinOff = "OR:OFF:MA";//Cerrar Monedero Aceptance
 
-        private string _CoinAceptanceStatus = "OR:START";//Preguntar estado del aceptador
+        private string _CoinAceptanceStatus = "OR:ST:MA";//Preguntar estado del aceptador
 
         #endregion
 
@@ -384,7 +384,6 @@ namespace WPProcinal.Classes
                             LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del billetero: ", message);
                         }
                         catch { }
-                        Utilities.SendMailNotificationError(message);
                         ProcessER(response);
                         break;
                     case "UN":
@@ -468,7 +467,7 @@ namespace WPProcinal.Classes
                                 callbackToken?.Invoke(true);
                             }
                             break;
-                        case "MD":
+                        case "MA":
                             callbackStatusCoinAceptanceDispenser?.Invoke(true);
                             break;
                         default:
