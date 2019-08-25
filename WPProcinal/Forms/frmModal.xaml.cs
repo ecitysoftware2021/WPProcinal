@@ -12,19 +12,9 @@ namespace WPProcinal.Forms
         {
             InitializeComponent();
             LblMessage.Text = message;
-        }        
+        }
 
         private void BtnEnd_TouchDown(object sender, TouchEventArgs e)
-        {
-            DialogResult = true;
-        }
-
-        private void BtnEnd_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DialogResult = true;
-        }
-
-        private void BtnEnd_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
             DialogResult = true;
         }

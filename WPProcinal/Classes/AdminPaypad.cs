@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPProcinal.Classes.DBConnection;
 using WPProcinal.DataModel;
 using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
@@ -16,7 +15,6 @@ namespace WPProcinal.Classes
     {
         static ApiLocal api = new ApiLocal();
 
-        public static SqliteDataAccess consults = new SqliteDataAccess();
 
         public async void UpdatePeripherals()
         {
@@ -43,25 +41,24 @@ namespace WPProcinal.Classes
         {
             try
             {
-                Task.Run(async () =>
+                Task.Run(() =>
                 {
-                    //var data = consults.SaveLog(log, type);
                     object result = "false";
 
                     if (log != null)
                     {
                         if (type == ELogType.General)
                         {
-                            result = await api.CallApi("SaveLog", (RequestLog)log);
+                            api.CallApi("SaveLog", (RequestLog)log);
                         }
                         else if (type == ELogType.Error)
                         {
-                            result = await api.CallApi("SaveLogError", (ERROR_LOG)log);
+                            api.CallApi("SaveLogError", (ERROR_LOG)log);
                         }
                         else
                         {
                             var error = (RequestLogDevice)log;
-                            result = await api.CallApi("SaveLogDevice", error);
+                            api.CallApi("SaveLogDevice", error);
                             SaveErrorControl(error.Description, "", EError.Device, error.Level);
                         }
                     }
@@ -84,18 +81,20 @@ namespace WPProcinal.Classes
                         level = ELevelError.Strong;
                     }
 
-                    PAYPAD_CONSOLE_ERROR consoleError = new PAYPAD_CONSOLE_ERROR
+                    List<PAYPAD_CONSOLE_ERROR> consoleError = new List<PAYPAD_CONSOLE_ERROR>()
                     {
-                        PAYPAD_ID = Utilities.CorrespondentId,
+                        new PAYPAD_CONSOLE_ERROR
+                        {
+                            PAYPAD_ID = Utilities.CorrespondentId,
                         DATE = DateTime.Now,
-                        STATE = 0,
+                        STATE = 1,
                         DESCRIPTION = desciption,
                         OBSERVATION = observation,
                         ERROR_ID = (int)error,
                         ERROR_LEVEL_ID = (int)level
+                        }
                     };
-
-                    consults.InsetConsoleError(consoleError);
+                    api.CallApi("SaveErrorConsole", consoleError);
 
                 });
             }

@@ -38,7 +38,7 @@ namespace WPProcinal.Forms
                     {
                         try
                         {
-                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Petición al datáfono: ", _peticion);
+                            LogService.SaveRequestResponse(DateTime.Now + " :: Petición al datáfono: ", _peticion);
                         }
                         catch { }
                         var respuestaPeticion = TPV.EnviarPeticion(_peticion);
@@ -127,7 +127,7 @@ namespace WPProcinal.Forms
                 string peticion = TPV.CalculateLRC(string.Concat(_peticion, data, "]"));
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Petición al datáfono: ", peticion);
+                    LogService.SaveRequestResponse(DateTime.Now + " :: Petición al datáfono: ", peticion);
                 }
                 catch { }
                 var respuestaPeticion = TPV.EnviarPeticion(peticion);

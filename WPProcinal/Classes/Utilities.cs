@@ -242,7 +242,6 @@ namespace WPProcinal.Classes
             foreach (var typeSeat in typeSeatsCurrent)
             {
                 var response = WCFServices.PostDesAssingreserva(dipMapCurrent, typeSeat);
-                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostDesAssingreserva: ", response.Result.ToString());
                 if (!response.IsSuccess)
                 {
                     Utilities.SaveLogError(new LogError
@@ -450,7 +449,7 @@ namespace WPProcinal.Classes
             frmModal.ShowDialog();
         }
 
-        public void ImprimirComprobante(string Estado, List<TypeSeat> Seats, DipMap dipMap)
+        public void PrintTicket(string Estado, List<TypeSeat> Seats, DipMap dipMap)
         {
             try
             {
@@ -475,7 +474,7 @@ namespace WPProcinal.Classes
                         objPrint.Formato = MovieFormat;
                         objPrint.TipoSala = Utilities.TipoSala;
                         i++;
-                        objPrint.ImprimirComprobante();
+                        objPrint.PrintTickets();
                     }
                 }
             }
@@ -483,13 +482,16 @@ namespace WPProcinal.Classes
             {
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobante: ", ex.Message);
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                            "Error imprimiendo boletas",
+                            EError.Device,
+                            ELevelError.Strong);
                 }
                 catch { }
             }
         }
 
-        public static void ImprimirComprobanteForzado(int idTransaccion)
+        public static void ForcePrintTicket(int idTransaccion)
         {
             try
             {
@@ -521,7 +523,10 @@ namespace WPProcinal.Classes
             {
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ImprimirComprobanteForzado: ", ex.Message);
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                         "Error re imprimiendo boletas",
+                         EError.Device,
+                         ELevelError.Strong);
                 }
                 catch { }
             }

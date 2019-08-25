@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPProcinal.DataModel;
 
 namespace WPProcinal.Classes
 {
@@ -196,7 +197,9 @@ namespace WPProcinal.Classes
             catch { }
         }
 
-        public static void CreateLogsPeticionRespuestaDispositivos(string operacion, string mensaje)
+
+
+        public static void SaveRequestResponse(string operacion, string mensaje)
         {
             try
             {
@@ -208,6 +211,7 @@ namespace WPProcinal.Classes
             }
             catch { }
         }
+
         public static void CreateLogsPeticion(string operacion, string mensaje)
         {
             try

@@ -18,6 +18,7 @@ namespace WPProcinal.Forms
         Utilities util;
         int peripheralsValidated = 0;
         bool stateMoney = false;
+        bool statePrinter = true;
         public frmConfigurate()
         {
             InitializeComponent();
@@ -35,10 +36,7 @@ namespace WPProcinal.Forms
         {
             if (api != null)
             {
-                Task.Run(() =>
-                    {
-                        GetToken();
-                    });
+                GetToken();
             }
         }
 
@@ -106,7 +104,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                ShowModalError(ex.Message, ex.StackTrace);
+                ShowModalError(ex.Message);
             }
         }
 
@@ -179,11 +177,15 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    try
+                    if (statePrinter)
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta de la Impresora: ", Status.ERROR_MESSAGE);
+                        statePrinter = false;
+                        try
+                        {
+                            LogService.SaveRequestResponse(DateTime.Now + " :: Respuesta de la Impresora: ", Status.ERROR_MESSAGE);
+                        }
+                        catch { }
                     }
-                    catch { }
                 }
             };
         }
@@ -201,28 +203,13 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void ShowModalError(string description, string message = "")
-        {
-            Dispatcher.BeginInvoke((Action)delegate
-            {
-                frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description));
-                modal.ShowDialog();
-                if (modal.DialogResult.HasValue)
-                {
-                    GetToken();
-                }
-            });
-        }
         private void ShowModalError(string description)
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
                 frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description));
                 modal.ShowDialog();
-                if (modal.DialogResult.HasValue)
-                {
-                    Utilities.RestartApp();
-                }
+                Utilities.RestartApp();
             });
         }
     }

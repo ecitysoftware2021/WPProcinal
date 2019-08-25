@@ -276,6 +276,33 @@ namespace WPProcinal.Forms
 
         private void Movie_MouseDown(object sender, MouseButtonEventArgs e)
         {
+
+        }
+        
+        #endregion
+
+        private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+
+        }
+
+        private void btnAtras_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                btnAtras.IsEnabled = false;
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+            }
+            catch { }
+            //Utilities.ResetTimer();
+            frmCinema frmCinema = new frmCinema();
+            frmCinema.Show();
+            Close();
+        }
+
+        private void Grid_TouchDown(object sender, TouchEventArgs e)
+        {
             try
             {
                 SetCallBacksNull();
@@ -302,27 +329,6 @@ namespace WPProcinal.Forms
                 frmCinema.Show();
                 Close();
             }
-        }
-
-        private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                btnAtras.IsEnabled = false;
-                SetCallBacksNull();
-                timer.CallBackStop?.Invoke(1);
-            }
-            catch { }
-            //Utilities.ResetTimer();
-            frmCinema frmCinema = new frmCinema();
-            frmCinema.Show();
-            Close();
-        }
-        #endregion
-
-        private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-
         }
     }
 }

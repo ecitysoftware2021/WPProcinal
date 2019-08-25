@@ -170,7 +170,6 @@
     <Compile Include="Classes\ErrorCodes.cs" />
     <Compile Include="DataModel\ClasesUtiles.cs" />
     <Compile Include="Classes\ControlPeripherals.cs" />
-    <Compile Include="Classes\DBConnection\SqliteDataAccess.cs" />
     <Compile Include="Classes\DBProcinalController.cs" />
     <Compile Include="Classes\Enumerables.cs" />
     <Compile Include="Classes\ImpresionForzada.cs" />
@@ -560,7 +559,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\PaypadLocalModel.edmx.sql" />
     <Resource Include="Images\NewDesing\Gif\clave.gif" />
     <Resource Include="Images\NewDesing\Buttons\bad.png" />
     <Resource Include="Images\NewDesing\Buttons\ok.png" />

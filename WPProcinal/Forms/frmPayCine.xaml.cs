@@ -370,7 +370,7 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    objUtil.ImprimirComprobante("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    objUtil.PrintTicket("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
                     ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
@@ -453,7 +453,7 @@ namespace WPProcinal.Forms
                 {
                     payState = true;
 
-                    var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
+                    var response = WCFServices.PostBuy(Utilities.DipMapCurrent, Utilities.TypeSeats);
 
                     responseGlobal = response;
                     if (!response.IsSuccess)
@@ -532,7 +532,7 @@ namespace WPProcinal.Forms
 
                                 try
                                 {
-                                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: ActivateTimer: ", "Tiempo Transcurrido Inactividad Dispositivos");
+                                    LogService.SaveRequestResponse(DateTime.Now + " :: ActivateTimer: ", "Tiempo Transcurrido Inactividad Dispositivos");
                                 }
                                 catch { }
                                 controlInactividad = 1;

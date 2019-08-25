@@ -170,7 +170,7 @@ namespace WPProcinal.Classes
 
                 _serialPortCoins.DtrEnable = true;
                 _serialPortCoins.DiscardNull = true;
-                InitPortPurses();
+                InitPortCoins();
             }
         }
 
@@ -221,7 +221,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsPeticionRespuestaDispositivos("InitPortBills", ex.Message);
+                AdminPaypad.SaveErrorControl(ex.Message,
+                    "Iniciando el puerto de los billeteros",
+                    EError.Device,
+                    ELevelError.Strong);
                 callbackError?.Invoke(string.Concat("Billetero: ", ex.Message));
             }
         }
@@ -229,7 +232,7 @@ namespace WPProcinal.Classes
         /// <summary>
         ///  Método para inciar el puerto de los monederos
         /// </summary>
-        private void InitPortPurses()
+        private void InitPortCoins()
         {
             try
             {
@@ -247,7 +250,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsPeticionRespuestaDispositivos("InitPortPurses", ex.Message);
+                AdminPaypad.SaveErrorControl(ex.Message,
+                    "Iniciando el puerto de los monederos",
+                    EError.Device,
+                    ELevelError.Strong);
                 callbackError?.Invoke(string.Concat("Monedero: ", ex.Message));
             }
         }
@@ -271,7 +277,7 @@ namespace WPProcinal.Classes
                     Thread.Sleep(200);
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Mensaje al billetero: ", message);
+                        LogService.SaveRequestResponse(DateTime.Now + " :: Mensaje al billetero: ", message);
                     }
                     catch { }
                     log.SendMessage += string.Format("Billetero: {0}\n", message);
@@ -279,7 +285,11 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsPeticionRespuestaDispositivos("SendMessageBills", ex.Message);
+
+                AdminPaypad.SaveErrorControl(ex.Message,
+                    "Enviando mensaje a los billeteros",
+                    EError.Device,
+                    ELevelError.Strong);
                 callbackError?.Invoke(string.Concat("Billetero: ", ex.Message));
             }
         }
@@ -298,7 +308,7 @@ namespace WPProcinal.Classes
                     _serialPortCoins.Write(message);
                     try
                     {
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Mensaje al monedero: ", message);
+                        LogService.SaveRequestResponse(DateTime.Now + " :: Mensaje al monedero: ", message);
                     }
                     catch { }
                     log.SendMessage += string.Format("Monedero: {0}\n", message);
@@ -306,7 +316,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsPeticionRespuestaDispositivos("SendMessageCoins", ex.Message);
+                AdminPaypad.SaveErrorControl(ex.Message,
+                    "Enviando mensaje a los monederos",
+                    EError.Device,
+                    ELevelError.Strong);
                 callbackError?.Invoke(string.Concat("Monedero: ", ex.Message));
             }
         }
@@ -381,7 +394,10 @@ namespace WPProcinal.Classes
                     case "ER":
                         try
                         {
-                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del billetero: ", message);
+                            AdminPaypad.SaveErrorControl(message,
+                            "Respuesta de los billeteros",
+                            EError.Device,
+                            ELevelError.Strong);
                         }
                         catch { }
                         ProcessER(response);
@@ -420,7 +436,10 @@ namespace WPProcinal.Classes
                     case "ER":
                         try
                         {
-                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del monedero: ", message);
+                            AdminPaypad.SaveErrorControl(message,
+                            "Respuesta de los monederos",
+                            EError.Device,
+                            ELevelError.Strong);
                         }
                         catch { }
                         ProcessER(response);

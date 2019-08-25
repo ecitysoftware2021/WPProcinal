@@ -451,7 +451,14 @@ namespace WPProcinal.Forms
                 var response = WCFServices.GetPrices(dipMapCurrent);
                 if (!response.IsSuccess)
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SendData > GetPrices en frmSeat", response.Message);
+                    try
+                    {
+                        AdminPaypad.SaveErrorControl(response.Message,
+                                         "Respuesta de las tarifas de score",
+                                         EError.Device,
+                                         ELevelError.Medium);
+                    }
+                    catch { }
                     Utilities.ShowModal("No fúe posible obtener las tarífas, por favor intente de nuevo");
                     ReloadWindow();
                     return;
@@ -460,7 +467,14 @@ namespace WPProcinal.Forms
                 var plantillatmp = WCFServices.DeserealizeXML<Plantilla>(response.Result.ToString());
                 if (!string.IsNullOrEmpty(plantillatmp.Tarifas.Codigo.Error_en_Sistema))
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SendData > plantillatmp en frmSeat", plantillatmp.Tarifas.Codigo.Error_en_Sistema);
+                    try
+                    {
+                        AdminPaypad.SaveErrorControl(plantillatmp.Tarifas.Codigo.Error_en_Sistema,
+                                         "Error en la plantilla de score",
+                                         EError.Device,
+                                         ELevelError.Medium);
+                    }
+                    catch { }
                     Utilities.ShowModal(plantillatmp.Tarifas.Codigo.Error_en_Sistema.ToString());
                     ReloadWindow();
                 }
@@ -584,8 +598,15 @@ namespace WPProcinal.Forms
                 if (!responseSec.IsSuccess)
                 {
                     frmLoading.Close();
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve >  responseSec.Message en frmSeat", responseSec.Message);
-
+                   
+                    try
+                    {
+                        AdminPaypad.SaveErrorControl(responseSec.Message,
+                            "Error consultando la secuencia en score",
+                            EError.Device,
+                            ELevelError.Medium);
+                    }
+                    catch { }
                     Utilities.ShowModal("Lo sentimos, algo ha salido mal, por favor intenta nuevamente.");
                     ReloadWindow();
                 }
@@ -594,8 +615,15 @@ namespace WPProcinal.Forms
                 if (!string.IsNullOrEmpty(secuence.Error))
                 {
                     frmLoading.Close();
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve >  secuence.Error en frmSeat", secuence.Error);
-
+                    
+                    try
+                    {
+                        AdminPaypad.SaveErrorControl(secuence.Error,
+                            "Error deserializando la respuesta de la secuencia",
+                            EError.Device,
+                            ELevelError.Medium);
+                    }
+                    catch { }
                     Utilities.ShowModal("Lo sentimos, algo salió mal, intenta nuevamente por favor.");
                     ReloadWindow();
                 }
@@ -606,11 +634,10 @@ namespace WPProcinal.Forms
                 foreach (var item in SelectedTypeSeats)
                 {
                     var response = WCFServices.PostReserva(dipMapCurrent, item);
-                   
+
                     if (!response.IsSuccess)
                     {
                         frmLoading.Close();
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > response.Message en frmSeat", response.Message);
                         item.IsReserved = false;
 
                         Utilities.ShowModal("Lo sentimos, algo ha salido mal, por favor intenta nuevamente.");
@@ -620,7 +647,15 @@ namespace WPProcinal.Forms
                     if (!string.IsNullOrEmpty(reserve.Error_en_proceso))
                     {
                         frmLoading.Close();
-                        LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: SecuenceAndReserve > reserve.Error_en_proceso en frmSeat", reserve.Error_en_proceso);
+                        
+                        try
+                        {
+                            AdminPaypad.SaveErrorControl(reserve.Error_en_proceso,
+                                "Error en la compra",
+                                EError.Device,
+                                ELevelError.Medium);
+                        }
+                        catch { }
                         item.IsReserved = false;
                         Utilities.ShowModal(reserve.Error_en_proceso);
                     }
@@ -788,7 +823,7 @@ namespace WPProcinal.Forms
                         }
                         catch { }
 
-                        LogService.CreateLogsPeticionRespuestaDispositivos("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+                        LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
                         Utilities.controlStop = 0;
                         int i = 0;
                         //try

@@ -155,7 +155,7 @@ namespace WPProcinal.Forms
                         var LCRPeticion = TPV.CalculateLRC(TramaInicial);
                         try
                         {
-                            LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Petición al datáfono: ", LCRPeticion);
+                            LogService.SaveRequestResponse(DateTime.Now + " :: Petición al datáfono: ", LCRPeticion);
                         }
                         catch { }
                         //Envío la trama que intentará activar el datáfono
@@ -272,7 +272,7 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    objUtil.ImprimirComprobante("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    objUtil.PrintTicket("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
                     ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
@@ -403,7 +403,7 @@ namespace WPProcinal.Forms
             {
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta del datáfono: ", responseTPV);
+                    LogService.SaveRequestResponse(DateTime.Now + " :: Respuesta del datáfono: ", responseTPV);
                 }
                 catch { }
                 Dispatcher.BeginInvoke((Action)delegate

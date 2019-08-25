@@ -36,7 +36,7 @@ namespace WPProcinal.Forms
             {
                 return;
             }
-            Utilities.ImprimirComprobanteForzado(int.Parse(txtIDTransaccion.Text));
+            Utilities.ForcePrintTicket(int.Parse(txtIDTransaccion.Text));
         }
 
         private void TextBlock_PreviewStylusDown(object sender, StylusDownEventArgs e)

@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("datamodel/paypadlocalmodel.edmx.sql")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ado/procinal.context.tt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ado/procinal.tt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databases/dbprocinal.mdf")]

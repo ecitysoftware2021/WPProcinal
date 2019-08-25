@@ -11,9 +11,8 @@
         WindowState="Maximized"
         Height="2064.095" 
         Width="1250.599"
-        Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen">
-    <Grid PreviewMouseDown="BtnConsult_MouseDown" Name="gridPrincipal">
+    <Grid TouchDown="gridPrincipal_TouchDown" Name="gridPrincipal">
         <Grid.Background>
             <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"
                         Stretch="UniformToFill"/>

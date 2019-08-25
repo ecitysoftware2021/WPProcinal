@@ -38,7 +38,7 @@ namespace CEntidades
 
         //public string Consecutivo { get; set; }
 
-        public void ImprimirComprobante()
+        public void PrintTickets()
         {
             try
             {

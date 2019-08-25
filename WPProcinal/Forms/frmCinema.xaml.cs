@@ -135,51 +135,6 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void BtnConsult_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-
-                try
-                {
-                    ControlPeripheralsNotArduino.callbackStatusPrinter = Status =>
-                    {
-                        ControlPeripheralsNotArduino.callbackStatusPrinter = null;
-                        if (Status.STATUS == "OK")
-                        {
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                frmMovies frmMovies = new frmMovies();
-                                frmMovies.Show();
-                                Close();
-                            });
-                        }
-                        else
-                        {
-                            try
-                            {
-                                LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Respuesta de la Impresora: ", Status.ERROR_MESSAGE);
-                            }
-                            catch { }
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                frmModal modal = new frmModal(Status.ERROR_MESSAGE);
-                                modal.ShowDialog();
-                            });
-                        }
-                    };
-                    Utilities.PeripheralsNotArduino.InitPortPrinter();
-                    gridPrincipal.IsEnabled = false;
-                }
-                catch { }
-
-            }
-            catch (System.Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
-            }
-        }
-
         public void NotifyPending()
         {
             try
@@ -252,14 +207,57 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Image_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("ok");
+        }
+
+        private void gridPrincipal_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+
+                try
+                {
+                    ControlPeripheralsNotArduino.callbackStatusPrinter = Status =>
+                    {
+                        ControlPeripheralsNotArduino.callbackStatusPrinter = null;
+                        if (Status.STATUS == "OK")
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmMovies frmMovies = new frmMovies();
+                                frmMovies.Show();
+                                Close();
+                            });
+                        }
+                        else
+                        {
+                            try
+                            {
+                                AdminPaypad.SaveErrorControl(Status.ERROR_MESSAGE,
+                                    "Respuesta de la impresora",
+                                    EError.Device,
+                                    ELevelError.Medium);
+                            }
+                            catch { }
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmModal modal = new frmModal(Status.ERROR_MESSAGE);
+                                modal.ShowDialog();
+                            });
+                        }
+                    };
+                    Utilities.PeripheralsNotArduino.InitPortPrinter();
+                    gridPrincipal.IsEnabled = false;
+                }
+                catch { }
+
+            }
+            catch (System.Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
+            }
         }
     }
 }

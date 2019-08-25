@@ -280,15 +280,10 @@ namespace WPProcinal.Service
             }
         }
 
-        public static Response PostComprar(DipMap dipMap, List<TypeSeat> typeSeats)
+        public static Response PostBuy(DipMap dipMap, List<TypeSeat> typeSeats)
         {
             try
             {
-                //try
-                //{
-                //    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Peticion PostComprar: ", JsonConvert.SerializeObject(dipMap));
-                //}
-                //catch { }
                 WCFPcrint.ServiceSoapClient serviceSoapClient = new WCFPcrint.ServiceSoapClient();
                 var data = serviceSoapClient.comint(
                     teatro: dipMap.CinemaId,
@@ -308,7 +303,7 @@ namespace WPProcinal.Service
                     );
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar: ", JsonConvert.SerializeObject(data));
+                    LogService.SaveRequestResponse(DateTime.Now + " :: PostComprar: ", JsonConvert.SerializeObject(data));
                 }
                 catch { }
                 return new Response
@@ -321,7 +316,14 @@ namespace WPProcinal.Service
             {
                 try
                 {
-                    LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostComprar Excepcion: ", ex.Message);
+                    try
+                    {
+                        AdminPaypad.SaveErrorControl(ex.Message,
+                            "Error Confirmando la compra ante score",
+                            EError.Device,
+                            ELevelError.Medium);
+                    }
+                    catch { }
                 }
                 catch { }
                 return new Response
