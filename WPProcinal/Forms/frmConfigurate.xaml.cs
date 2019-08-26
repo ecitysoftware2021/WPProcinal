@@ -18,7 +18,7 @@ namespace WPProcinal.Forms
         Utilities util;
         int peripheralsValidated = 0;
         bool stateMoney = false;
-        bool statePrinter = true;
+        int PeripheralsToCheck = int.Parse(Utilities.GetConfiguration("PeripheralsToCheck"));
         public frmConfigurate()
         {
             InitializeComponent();
@@ -65,16 +65,14 @@ namespace WPProcinal.Forms
                         {
                             if (data.StateAceptance && data.StateDispenser)
                             {
-                                Dispatcher.BeginInvoke((Action)delegate
-                                {
-                                    stateMoney = true;
-                                });
+                                stateMoney = true;
                                 if (util == null)
                                 {
                                     util = new Utilities(1);
-                                    ChangeStatusPeripherals();
                                 }
-                                Dispatcher.BeginInvoke((Action)delegate
+                                ChangeStatusPeripherals();
+
+                                Task.Run(() =>
                                 {
                                     Utilities.control.OpenSerialPorts();
                                     Utilities.control.Start();
@@ -113,10 +111,7 @@ namespace WPProcinal.Forms
 
             if (stateMoney)
             {
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    peripheralsValidated++;
-                });
+                peripheralsValidated++;
             }
 
             Utilities.control.callbackError = error =>
@@ -167,7 +162,7 @@ namespace WPProcinal.Forms
 
             ControlPeripheralsNotArduino.callbackStatusPrinter = Status =>
             {
-                if (Status.STATUS == "OK")
+                if (Status.STATUS == "OK" || Status.STATUS == "ALERT")
                 {
                     ControlPeripheralsNotArduino.callbackStatusPrinter = null;
                     peripheralsValidated++;
@@ -177,22 +172,36 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    if (statePrinter)
+                    try
                     {
-                        statePrinter = false;
-                        try
-                        {
-                            LogService.SaveRequestResponse(DateTime.Now + " :: Respuesta de la Impresora: ", Status.ERROR_MESSAGE);
-                        }
-                        catch { }
+                        AdminPaypad.SaveErrorControl(Status.ERROR_MESSAGE,
+                            "Respuesta de la impresora",
+                            EError.Device,
+                            ELevelError.Medium);
                     }
+                    catch { }
+                    ShowModalError(Status.ERROR_MESSAGE);
                 }
             };
         }
 
+        void SetCallbackNull()
+        {
+            try
+            {
+                peripheralsValidated = 0;
+                ControlPeripheralsNotArduino.callbackStatusPrinter = null;
+                Utilities.control.callbackToken = null;
+                Utilities.control.callbackStatusCoinAceptanceDispenser = null;
+                Utilities.control.callbackStatusBillAceptance = null;
+                Utilities.control.callbackError = null;
+            }
+            catch { }
+        }
+
         private void CheckPeripheralsAndContinue()
         {
-            if (peripheralsValidated >= 5)
+            if (peripheralsValidated >= PeripheralsToCheck)
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
@@ -207,9 +216,10 @@ namespace WPProcinal.Forms
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
+                SetCallbackNull();
                 frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description));
                 modal.ShowDialog();
-                Utilities.RestartApp();
+                GetToken();
             });
         }
     }

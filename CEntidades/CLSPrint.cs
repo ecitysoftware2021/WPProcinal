@@ -23,7 +23,7 @@ namespace CEntidades
         public string Time { get; set; }
         public string Room { get; set; }
         public string Seat { get; set; }
-        public string Cinema { get; set; }
+        public string Cinema { get { return Dictionaries.Cinemas[GetConfiguration("CodCinema")]; } }
         public string Date { get; set; }
         public string Category { get; set; }
         public DateTime FechaPago { get; set; }
@@ -72,28 +72,34 @@ namespace CEntidades
             string RutaIMG = Path.Combine(Directory.GetCurrentDirectory(), "Salas_Formatos", "logo.png");
             g.DrawImage(Image.FromFile(RutaIMG), 40, 0);
 
-            //string RutaIMGBarra = Path.Combine(Directory.GetCurrentDirectory(), "BOLETA PROCINAL", "barra1.png");
             g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, 80);
             SpaceY += 10;
-            g.DrawString(Cinema, fBodySala, sb, 110, SpaceY);
-            SpaceY += 30;
-            //TODO: Solo para puerta del norte
-            //g.DrawString("Promotora Nacional de Cines S.A.S", fBodyTiulos, sb, 50, SpaceY - 10);
-            //SpaceY += 15;
-            // g.DrawString(GetConfiguration("NitPromotora"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
-            //TODO: Solo para los demas
-            g.DrawString("Colombia de Cines S.A", fBodyTiulos, sb, 50, SpaceY - 10);
-            SpaceY += 15;
-            g.DrawString(GetConfiguration("Nit"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+
+
+            if (GetConfiguration("CodCinema").Equals("304"))
+            {
+                //TODO: Solo para puerta del norte
+                g.DrawString(Cinema, fBodySala, sb, 70, SpaceY);
+                SpaceY += 30;
+                g.DrawString("Promotora Nacional de Cines S.A.S", fBodyTiulos, sb, 50, SpaceY - 10);
+                SpaceY += 15;
+                g.DrawString(GetConfiguration("NitPromotora"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+            }
+            else
+            {
+                g.DrawString(Cinema, fBodySala, sb, 110, SpaceY);
+                SpaceY += 30;
+                g.DrawString("Colombia de Cines S.A", fBodyTiulos, sb, 80, SpaceY - 10);
+                SpaceY += 15;
+                g.DrawString(GetConfiguration("Nit"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+            }
             SpaceY += 20;
             g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
             SpaceY += 20;
             g.DrawString(FormatName(Movie).ToUpper(), fBodyContenido, sb, 50, SpaceY - 20);
             SpaceY += 20;
-            //string RutaIMGSala = Path.Combine(Directory.GetCurrentDirectory(), "BOLETA PROCINAL", Room + ".png");
             g.DrawImage(Image.FromFile(GenerateTags(TipoSala)), SpaceX, SpaceY);
 
-            //string RutaIMGFormato = Path.Combine(Directory.GetCurrentDirectory(), "BOLETA PROCINAL", Formato + ".png");
             g.DrawImage(Image.FromFile(GenerateTags(Formato)), SpaceX + 130, SpaceY + 60);
 
             g.DrawString(Room, fBodySala, sb, SpaceX + 140, SpaceY + 90);

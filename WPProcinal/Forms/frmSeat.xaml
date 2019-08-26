@@ -179,13 +179,6 @@
                Width="144"/>
             <Image HorizontalAlignment="Left" 
                Height="53"          
-                   Name="ImgPreferencia"
-               Margin="250,50,0,20"
-               Source="../Images/preferencialv2.png"
-               VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
                    Name="ImgVibroSound"               
                    Margin="600,0,0,20"
                Source="../Images/vibrosoundv2.png"

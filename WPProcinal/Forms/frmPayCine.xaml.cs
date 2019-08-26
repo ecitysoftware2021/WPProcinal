@@ -58,7 +58,6 @@ namespace WPProcinal.Forms
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-
                 stateUpdate = true;
                 payState = true;
                 Utilities.control.StartValues();
@@ -80,7 +79,7 @@ namespace WPProcinal.Forms
                 {
                     if (payState)
                     {
-                        ActivateWallet();
+                        // ActivateWallet();
                     }
                 });
             }

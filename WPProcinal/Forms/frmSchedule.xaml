@@ -147,9 +147,7 @@
                                 <Grid x:Name="gridFechas" HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Margin="0,0,0,0"
-                                      
-                                      PreviewStylusDown="Grid_PreviewStylusDown"
-                              >
+                                      PreviewStylusDown="Grid_PreviewStylusDown">
                                     <Border 
                                         BorderBrush="White"
                                         Width="260"

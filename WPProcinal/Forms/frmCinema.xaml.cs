@@ -28,10 +28,10 @@ namespace WPProcinal.Forms
             {
                 SendPayments();
             });
-            Task.Run(() =>
-            {
-                DesReserve();
-            });
+            //Task.Run(() =>
+            //{
+            //    DesReserve();
+            //});
             Task.Run(() =>
             {
                 NotifyPending();
@@ -207,16 +207,10 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void Image_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("ok");
-        }
-
         private void gridPrincipal_TouchDown(object sender, TouchEventArgs e)
         {
             try
             {
-
                 try
                 {
                     ControlPeripheralsNotArduino.callbackStatusPrinter = Status =>
@@ -226,6 +220,17 @@ namespace WPProcinal.Forms
                         {
                             Dispatcher.BeginInvoke((Action)delegate
                             {
+                                frmMovies frmMovies = new frmMovies();
+                                frmMovies.Show();
+                                Close();
+                            });
+                        }
+                        else if (Status.STATUS == "ALERT")
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmModal modal = new frmModal(string.Concat("Alerta,", Environment.NewLine, "Impresora: ", Status.ERROR_MESSAGE));
+                                modal.ShowDialog();
                                 frmMovies frmMovies = new frmMovies();
                                 frmMovies.Show();
                                 Close();
@@ -243,13 +248,15 @@ namespace WPProcinal.Forms
                             catch { }
                             Dispatcher.BeginInvoke((Action)delegate
                             {
+                                gridPrincipal.IsEnabled = true;
                                 frmModal modal = new frmModal(Status.ERROR_MESSAGE);
                                 modal.ShowDialog();
                             });
                         }
                     };
-                    Utilities.PeripheralsNotArduino.InitPortPrinter();
                     gridPrincipal.IsEnabled = false;
+                    Utilities.PeripheralsNotArduino.InitPortPrinter();
+
                 }
                 catch { }
 

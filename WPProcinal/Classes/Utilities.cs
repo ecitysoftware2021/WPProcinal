@@ -304,19 +304,6 @@ namespace WPProcinal.Classes
         /// </summary>
         public static void GoToInicial(Window window)
         {
-            Task.Run(() =>
-            {
-                try
-                {
-                    CLSGrabador grabador = new CLSGrabador();
-                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
-                    {
-                        grabador.FinalizarGrabacion();
-                    }));
-
-                }
-                catch { }
-            });
             try
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
@@ -459,7 +446,7 @@ namespace WPProcinal.Classes
                     if (seat.Price != 0)
                     {
 
-                        objPrint.Cinema = GetConfiguration("NameCinema");
+                        //objPrint.Cinema = GetConfiguration("NameCinema");
                         objPrint.Movie = dipMap.MovieName;
                         objPrint.Time = dipMap.HourFunction;
                         objPrint.Room = dipMap.RoomName;

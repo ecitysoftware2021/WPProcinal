@@ -12,9 +12,11 @@ namespace WPProcinal.Forms
     /// </summary>
     public partial class frmConfirmationModal : Window
     {
+        int payCardState = int.Parse(Utilities.GetConfiguration("CardPayState"));
         public frmConfirmationModal(List<TypeSeat> typeSeats, DipMap dipMap)
         {
             InitializeComponent();
+            BtnCard.Visibility = payCardState == 1 ? Visibility.Visible : Visibility.Hidden;
             decimal totalModal = 0;
             decimal totalPago = 0;
             foreach (var seat in typeSeats)

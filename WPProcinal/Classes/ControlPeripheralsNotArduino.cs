@@ -39,10 +39,10 @@ namespace WPProcinal
 
         private void CheckStatusTick(object sender, ElapsedEventArgs e)
         {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
-            {
-                InitPortPrinter();
-            }));
+            //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+            //{
+            //    InitPortPrinter();
+            //}));
         }
 
         private void InitObjects()
@@ -58,9 +58,12 @@ namespace WPProcinal
         {
             try
             {
-                int statusCode = 0;
-                statusCode = GetPrinterCode();
-                ProcessResponsePrinter(statusCode);
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    int statusCode = 0;
+                    statusCode = GetPrinterCode();
+                    ProcessResponsePrinter(statusCode);
+                }));
             }
             catch (Exception ex)
             {
@@ -154,7 +157,7 @@ namespace WPProcinal
                     errorCodes.ERROR_MESSAGE = ErrorCodes.PRINTER_NO_PAPER_MESSAGE;
                     break;
                 case 8:
-                    errorCodes.STATUS = "ERROR";
+                    errorCodes.STATUS = "ALERT";
                     errorCodes.ERROR_CODE = code.ToString();
                     errorCodes.ERROR_MESSAGE = ErrorCodes.PRINTER_LOW_PAPER_MESSAGE;
                     break;

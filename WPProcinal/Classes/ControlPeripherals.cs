@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 
 namespace WPProcinal.Classes
@@ -41,7 +42,7 @@ namespace WPProcinal.Classes
 
         private string _AceptanceCoinOff = "OR:OFF:MA";//Cerrar Monedero Aceptance
 
-        private string _CoinAceptanceStatus = "OR:ST:MA";//Preguntar estado del aceptador
+        private string _CoinAceptanceStatus = ConfigurationManager.AppSettings["CheckStatusCoin"];//Preguntar estado del aceptador
 
         #endregion
 
@@ -121,6 +122,10 @@ namespace WPProcinal.Classes
         private int CoinsBaudRate = int.Parse(ConfigurationManager.AppSettings["CoinsBaudRate"]);//Denominacion cassete 3
         #endregion
 
+        #region Timer
+        System.Timers.Timer timerStatusCoin;
+        #endregion
+
         #endregion
 
         #region LoadMethods
@@ -145,12 +150,24 @@ namespace WPProcinal.Classes
                 {
                     log = new LogDispenser();
                 }
+                timerStatusCoin = new System.Timers.Timer();
+                timerStatusCoin.Interval = 10000;
+                timerStatusCoin.Elapsed += new System.Timers.ElapsedEventHandler(StatusCoinTick);
+
+
             }
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "Constructor en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
+
+        private void StatusCoinTick(object sender, ElapsedEventArgs e)
+        {
+            SendMessageCoins(_CoinAceptanceStatus);
+        }
+
+
 
         /// <summary>
         /// We open Bills and Coins Serial Ports
@@ -192,6 +209,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                timerStatusCoin.Start();
                 SendMessageCoins(_CoinAceptanceStatus);
             }
             catch (Exception ex)
@@ -486,7 +504,8 @@ namespace WPProcinal.Classes
                                 callbackToken?.Invoke(true);
                             }
                             break;
-                        case "MA":
+                        case "MD":
+                            timerStatusCoin.Stop();
                             callbackStatusCoinAceptanceDispenser?.Invoke(true);
                             break;
                         default:
@@ -526,7 +545,7 @@ namespace WPProcinal.Classes
                 }
                 else if (response[1] == "FATAL")
                 {
-                    Utilities.RestartApp();
+                    //Utilities.RestartApp();
                 }
             }
             catch (Exception ex)
@@ -831,36 +850,6 @@ namespace WPProcinal.Classes
                 {
                     callbackTotalOut?.Invoke(deliveryVal);
                 }
-            }
-        }
-
-        #endregion
-
-        #region Finish
-
-        /// <summary>
-        /// Cierra los puertos
-        /// </summary>
-        public void ClosePorts()
-        {
-            try
-            {
-                if (_serialPortBills.IsOpen)
-                {
-                    _serialPortBills.Close();
-                }
-
-                if (_serialPortCoins.IsOpen)
-                {
-                    _serialPortCoins.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ConfigDataDispenser");
             }
         }
 

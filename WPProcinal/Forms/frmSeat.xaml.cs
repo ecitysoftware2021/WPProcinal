@@ -70,7 +70,7 @@ namespace WPProcinal.Forms
                     Dispatcher.BeginInvoke((Action)delegate
                     {
                         tbTimer.Text = "Tiempo de transacción: " + response;
-                        tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("HH:mm:ss");
+                        tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("hh:MM:ss");
                     });
                 };
             }
@@ -91,7 +91,7 @@ namespace WPProcinal.Forms
                 ImgDiscapacitados.Visibility = Visibility.Hidden;
                 ImgDisponible.Visibility = Visibility.Visible;
                 ImgNoDisponible.Visibility = Visibility.Visible;
-                ImgPreferencia.Visibility = Visibility.Hidden;
+                //ImgPreferencia.Visibility = Visibility.Hidden;
                 ImgPuff.Visibility = Visibility.Hidden;
                 ImgSeleccionada.Visibility = Visibility.Visible;
                 ImgVibroSound.Visibility = Visibility.Hidden;
@@ -122,13 +122,13 @@ namespace WPProcinal.Forms
                 else if (dipMapCurrent.TypeZona == "V")
                 {
                     ImgDisponible.Visibility = Visibility.Visible;
-                    ImgPreferencia.Visibility = Visibility.Visible;
+                    //ImgPreferencia.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     ImgDisponible.Visibility = Visibility.Visible;
                     ImgVibroSound.Visibility = Visibility.Visible;
-                    ImgPreferencia.Visibility = Visibility.Visible;
+                    //ImgPreferencia.Visibility = Visibility.Visible;
                     vibraAvailable = true;
 
                 }
@@ -249,13 +249,6 @@ namespace WPProcinal.Forms
                 AdminPaypad.SaveErrorControl(ex.Message, "LoadSeats en frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
-
-        private void CloseApplication(Window form)
-        {
-            form.Close();
-            Utilities.GoToInicial(this);
-        }
-
 
         private void OrganizePositionOfSeats(List<SeatTmp> states,
             int positionX, List<string> FTDistinc,
@@ -415,7 +408,7 @@ namespace WPProcinal.Forms
             else if (ckeck == "M")
             {
                 icon = "silla-preferencialv2";
-                ImgPreferencia.Visibility = Visibility.Visible;
+                //ImgPreferencia.Visibility = Visibility.Visible;
             }
 
             BitmapImage logo = new BitmapImage();
@@ -598,7 +591,7 @@ namespace WPProcinal.Forms
                 if (!responseSec.IsSuccess)
                 {
                     frmLoading.Close();
-                   
+
                     try
                     {
                         AdminPaypad.SaveErrorControl(responseSec.Message,
@@ -615,7 +608,7 @@ namespace WPProcinal.Forms
                 if (!string.IsNullOrEmpty(secuence.Error))
                 {
                     frmLoading.Close();
-                    
+
                     try
                     {
                         AdminPaypad.SaveErrorControl(secuence.Error,
@@ -647,7 +640,7 @@ namespace WPProcinal.Forms
                     if (!string.IsNullOrEmpty(reserve.Error_en_proceso))
                     {
                         frmLoading.Close();
-                        
+
                         try
                         {
                             AdminPaypad.SaveErrorControl(reserve.Error_en_proceso,
@@ -770,13 +763,12 @@ namespace WPProcinal.Forms
                 //frmLoading = new FrmLoading("¡Generando ticket, espere...!");
                 //frmLoading.Show();
                 //var responseDash = await utilities.CreatePrintDashboard();
-                frmLoading.Close();
+                //frmLoading.Close();
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     this.IsEnabled = true;
                     btnAtras.IsEnabled = true;
                 });
-                //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: Transaction | PrintID > ", response + "|" + responseDash);
 
                 //if (!response || !responseDash)
                 if (!response)
@@ -809,10 +801,7 @@ namespace WPProcinal.Forms
                         });
                     }
 
-                    catch (Exception ex)
-                    {
-                        //AdminPaypad.SaveErrorControl(ex.Message, "Grabador en ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
-                    }
+                    catch { }
 
                     if (Utilities.MedioPago == 1)
                     {
@@ -930,8 +919,6 @@ namespace WPProcinal.Forms
                 AdminPaypad.SaveErrorControl(ex.Message, "ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
-
-        private void Window_PreviewStylusDown(object sender, StylusDownEventArgs e) => Utilities.time = TimeSpan.Parse(Utilities.Duration);
 
     }
 }

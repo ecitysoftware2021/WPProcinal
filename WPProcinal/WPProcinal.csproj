@@ -388,7 +388,6 @@
     <None Include="ADO\Procinal.edmx.diagram">
       <DependentUpon>Procinal.edmx</DependentUpon>
     </None>
-    <None Include="Configuracion\Configuration.config" />
     <None Include="Connected Services\WCFDesAssing\service.wsdl" />
     <None Include="Connected Services\WCFPcrest\Service.wsdl" />
     <None Include="Connected Services\WCFPcrfil2\service.wsdl" />

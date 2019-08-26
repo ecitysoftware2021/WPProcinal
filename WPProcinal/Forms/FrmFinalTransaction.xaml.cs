@@ -1,5 +1,5 @@
-﻿using System;
-using System.Configuration;
+﻿using Grabador.Transaccion;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,27 +16,22 @@ namespace WPProcinal.Forms
         public FrmFinalTransaction()
         {
             InitializeComponent();
-            string reiniciarAplicacion = ConfigurationManager.AppSettings["ReinicioAplicacion"];
+            Task.Run(() =>
+            {
+                try
+                {
+                    CLSGrabador grabador = new CLSGrabador();
+                    grabador.FinalizarGrabacion();
+                }
+                catch { }
+            });
+
             Task.Run(() =>
             {
                 Thread.Sleep(2000);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    //if (Utilities.IsRestart)
-                    //{
-                    //    Utilities.RestartApp();
-                    //}
-                    //else
-                    //{
-                    //    if (Utilities.CantidadTransacciones >= 20 && reiniciarAplicacion.Equals("true"))
-                    //    {
-                    //        Utilities.RestartApp();
-                    //    }
-                    //    else
-                    //    {
                     Utilities.GoToInicial(this);
-                    //    }
-                    //}
                 });
             });
         }
