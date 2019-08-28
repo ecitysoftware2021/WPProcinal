@@ -303,7 +303,10 @@ namespace WPProcinal.Service
                     );
                 try
                 {
-                    LogService.SaveRequestResponse(DateTime.Now + " :: PostComprar: ", JsonConvert.SerializeObject(data));
+                    AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(data),
+                          "Respuesta Confirmar Compra Score",
+                          EError.Customer,
+                          ELevelError.Mild);
                 }
                 catch { }
                 return new Response

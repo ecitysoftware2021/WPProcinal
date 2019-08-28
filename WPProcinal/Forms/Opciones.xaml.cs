@@ -109,21 +109,14 @@ namespace WPProcinal.Forms
             if (!txtultimosDigitos.Text.Equals("0"))
             {
                 FrmLoading frmLoading = new FrmLoading("Esperando confirmación del pago...");
-                string data;
-                if (txtultimosDigitos.Text.Contains("*"))
-                {
-                    data = txtultimosDigitos.Tag.ToString();
-                }
-                else
-                {
-                    data = txtultimosDigitos.Text;
-                }
+                string data = ValidateDataMasc();
                 if (txtultimosDigitos.Text.Length <= 2)
                 {
                     this.Hide();
                     frmLoading.Show();
                     TPVOperation.Quotas = int.Parse(data);
                 }
+
                 string peticion = TPV.CalculateLRC(string.Concat(_peticion, data, "]"));
                 try
                 {
@@ -148,9 +141,28 @@ namespace WPProcinal.Forms
 
         private void BotonAceptar_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
+            string data = ValidateDataMasc();
+            if (txtultimosDigitos.Text.Length <= 2 && int.Parse(data) == 0)
+            {
+                _dataCard.mensaje = "El número de cuotas debe ser mayor que 0.";
+                return;
+            }
             _dataCard.mensaje = "Esperando datáfono...";
             _dataCard.visible = "Hidden";
             AcceptButton();
+        }
+        string ValidateDataMasc()
+        {
+            string data;
+            if (txtultimosDigitos.Text.Contains("*"))
+            {
+                data = txtultimosDigitos.Tag.ToString();
+            }
+            else
+            {
+                data = txtultimosDigitos.Text;
+            }
+            return data;
         }
 
         private void ShowHide_PreviewStylusDown(object sender, StylusDownEventArgs e)

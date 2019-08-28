@@ -79,7 +79,7 @@ namespace WPProcinal.Forms
                 {
                     if (payState)
                     {
-                        // ActivateWallet();
+                         ActivateWallet();
                     }
                 });
             }

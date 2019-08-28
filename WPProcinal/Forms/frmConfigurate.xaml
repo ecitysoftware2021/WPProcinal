@@ -34,24 +34,22 @@
                        FontFamily="Gotham"
                    Grid.Row="1"
                    Grid.ColumnSpan="2"
-                       FontSize="60"
+                       FontSize="45"
                        Foreground="White"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
                        FontWeight="Bold"
                    Margin="40"/>
 
-        <TextBlock Text="COMUNICACIÓN SERVIDOR"
+        <TextBlock Text="Comunicación Servidor"
                    Grid.Row="2"
                    Grid.Column="0"
                        FontFamily="Gotham"
-                       FontSize="30"
+                       FontSize="45"
                        Foreground="White"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Right"
-                       FontWeight="Bold" 
-                   Height="36" 
-                   
+                       FontWeight="Bold"                    
                    Margin="0,30,0,0"/>
         <Image     x:Name="okServidor" 
                     Grid.Column="1"
@@ -75,17 +73,15 @@
                     Height="100"  />
 
 
-        <TextBlock Text="BILLETERO ACEPTADOR"
+        <TextBlock Text="Billetero Aceptador"
                    Grid.Row="2"
                    Grid.Column="0"
                        FontFamily="Gotham"
-                       FontSize="30"
+                       FontSize="45"
                        Foreground="White"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"
                        FontWeight="Bold" 
-                   Height="36" 
-                   
                    Margin="0,0,0,0"/>
         <Image     x:Name="okAceptadorBilletes" 
                     Grid.Column="1"
@@ -108,17 +104,16 @@
                     Visibility="Visible"
                     Height="100"  />
 
-        <TextBlock Text="BILLETERO DISPENSADOR"
+        <TextBlock Text="Billetero Dispensador"
                    Grid.Row="2"
                    Grid.Column="0"
                        FontFamily="Gotham"
-                       FontSize="30"
+                       FontSize="45"
                        Foreground="White"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Right"
                        FontWeight="Bold" 
-                   Margin="0,0,0,30"
-                   Height="36"/>
+                   Margin="0,0,0,30"/>
         <Image     x:Name="okDispensadorBilletes" 
                     Grid.Column="1"
                    Source="/Images/NewDesing/Buttons/ok.png"
@@ -138,18 +133,16 @@
                     Visibility="Visible"
                     Height="100"/>
 
-        <TextBlock Text="MONEDEROS"
+        <TextBlock Text="Monederos"
                    Grid.Row="3"
                    Grid.Column="0"
                        FontFamily="Gotham"
-                       FontSize="30"
+                       FontSize="45"
                        Foreground="White"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Right"
                        FontWeight="Bold" 
-                   Height="36"
-                   Margin="0,40,0,0"
-                   Width="188"/>
+                   Margin="0,40,0,0"/>
         <Image     x:Name="okMonederos" 
                     Grid.Column="1"
                    Source="/Images/NewDesing/Buttons/ok.png"
@@ -171,18 +164,16 @@
                     Visibility="Visible"
                     Height="100" />
 
-        <TextBlock Text="IMPRESORA"
+        <TextBlock Text="Impresora"
                    Grid.Row="3"
                    Grid.Column="0"
                        FontFamily="Gotham"
-                       FontSize="30"
+                       FontSize="45"
                        Foreground="White"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"
                        FontWeight="Bold" 
-                   Height="36" 
-                   Margin="0,0,0,0"
-                   Width="172"/>
+                   Margin="0,0,0,0"/>
         <Image     x:Name="okImpresora" 
                     Grid.Column="1"
                    Source="/Images/NewDesing/Buttons/ok.png"

@@ -343,44 +343,42 @@ namespace WPProcinal.Forms
         {
             try
             {
+
                 payState = true;
 
-                try
+                var response = WCFServices.PostBuy(Utilities.DipMapCurrent, Utilities.TypeSeats);
+                
+                if (!response.IsSuccess)
                 {
-                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    Utilities.SaveLogError(new LogError
+                    {
+                        Message = response.Message,
+                        Method = "WCFServices.PostComprar"
+                    });
                 }
-                catch { }
-                //var response = WCFServices.PostComprar(Utilities.DipMapCurrent, Utilities.TypeSeats);
-                //if (!response.IsSuccess)
-                //{
-                //    Utilities.SaveLogError(new LogError
-                //    {
-                //        Message = response.Message,
-                //        Method = "WCFServices.PostComprar"
-                //    });
-                //}
-                //var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                //if (transaccionCompra.Respuesta != "Exitosa")
-                //{
-                //    payState = false;
-                //    Utilities.SaveLogError(new LogError
-                //    {
-                //        Message = transaccionCompra.Respuesta,
-                //        Method = "WCFServices.PostComprar.Fallida"
-                //    });
-                //}
-                //else
-                //{
-                //    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
-                //    if (!response.IsSuccess)
-                //    {
-                //        Utilities.SaveLogError(new LogError
-                //        {
-                //            Message = responseDB.Message,
-                //            Method = "DBProcinalController.EditPaySeat"
-                //        });
-                //    }
-                //}
+
+                var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
+                if (transaccionCompra.Respuesta != "Exitosa")
+                {
+                    payState = false;
+                    Utilities.SaveLogError(new LogError
+                    {
+                        Message = transaccionCompra.Respuesta,
+                        Method = "WCFServices.PostComprar.Fallida"
+                    });
+                }
+                else
+                {
+                    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                    if (!response.IsSuccess)
+                    {
+                        Utilities.SaveLogError(new LogError
+                        {
+                            Message = responseDB.Message,
+                            Method = "DBProcinalController.EditPaySeat"
+                        });
+                    }
+                }
                 SavePay(payState);
             }
             catch (Exception ex)
