@@ -108,7 +108,7 @@ namespace WPProcinal.Forms
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     tbTimer.Text = "Tiempo de transacción: " + response;
-                    tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("hh:MM:ss");
+                    tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("hh:mm:ss");
                 });
             };
         }
@@ -403,20 +403,6 @@ namespace WPProcinal.Forms
             Close();
         }
 
-        private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                btnAtras.IsEnabled = false;
-                SetCallBacksNull();
-                timer.CallBackStop?.Invoke(1);
-            }
-            catch { }
-            frmMovies frmMovies = new frmMovies();
-            frmMovies.Show();
-            Close();
-        }
-
         #endregion
 
         #region Dias Disponibles
@@ -552,45 +538,7 @@ namespace WPProcinal.Forms
             }
         }
 
-        private async void lv_DateName_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            try
-            {
-                var service = (DateName)(sender as ListViewItem).Content;
-
-                FechaSelect = service.FechaOrigin;//poner la fecha en el formato xml
-                Utilities.FechaSeleccionada = FechaSelect;
-                GenerateFunctions();
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "lv_Datename_previewstylusDown en frmSchudele", EError.Aplication, ELevelError.Medium);
-            }
-        }
-
-        private void btnNext2_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            try
-            {
-                SetCallBacksNull();
-                ActivateTimer();
-                if (currentPageIndex2 < totalPage2 - 1)
-                {
-                    currentPageIndex2++;
-                    view2.View.Refresh();
-                }
-                if (currentPageIndex2 == totalPage2 - 1)
-                {
-                    btnNext2.Visibility = Visibility.Hidden;
-                }
-
-                btnPrev2.Visibility = Visibility.Visible;
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "btnNext en frmSchudele", EError.Aplication, ELevelError.Medium);
-            }
-        }
+        
 
         private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {
@@ -627,7 +575,50 @@ namespace WPProcinal.Forms
             catch { }
         }
 
-        private void btnPrev2_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        #endregion
+
+        #endregion
+
+        private void ListViewItem_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                var service = (DateName)(sender as ListViewItem).Content;
+
+                FechaSelect = service.FechaOrigin;//poner la fecha en el formato xml
+                Utilities.FechaSeleccionada = FechaSelect;
+                GenerateFunctions();
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "lv_Datename_previewstylusDown en frmSchudele", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        private void GridFechas_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                var childs = (sender as Grid).Children;
+                foreach (var item in childs)
+                {
+                    if (item is Border)
+                    {
+                        ClearHoursList();
+                        var border = item as Border;
+                        Color color2 = (Color)ColorConverter.ConvertFromString("#FFF89126");
+                        border.Background = new SolidColorBrush(color2);
+                        borders.Add(border);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "Grid_PreviewStylus en frmSchudele", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        private void BtnPrev2_TouchDown(object sender, TouchEventArgs e)
         {
             try
             {
@@ -651,9 +642,43 @@ namespace WPProcinal.Forms
                 AdminPaypad.SaveErrorControl(ex.Message, "btnPrev2 en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
-        #endregion
 
-        #endregion
+        private void BtnNext2_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                SetCallBacksNull();
+                ActivateTimer();
+                if (currentPageIndex2 < totalPage2 - 1)
+                {
+                    currentPageIndex2++;
+                    view2.View.Refresh();
+                }
+                if (currentPageIndex2 == totalPage2 - 1)
+                {
+                    btnNext2.Visibility = Visibility.Hidden;
+                }
 
+                btnPrev2.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "btnNext en frmSchudele", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        private void BtnAtras_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                btnAtras.IsEnabled = false;
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+            }
+            catch { }
+            frmMovies frmMovies = new frmMovies();
+            frmMovies.Show();
+            Close();
+        }
     }
 }

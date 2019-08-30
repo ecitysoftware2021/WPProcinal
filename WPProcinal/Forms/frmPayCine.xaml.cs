@@ -89,62 +89,6 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void btnCancelar_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-
-            try
-            {
-                this.Opacity = 0.3;
-                Utilities.Loading(frmLoading, true, this);
-
-                Utilities.control.StopAceptance();
-                Thread.Sleep(200);
-                Task.Run(() =>
-                {
-                    utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
-
-                    logError.Description = "\nSe cancelo una transaccion";
-                    logError.State = "Cancelada";
-                    Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
-
-                });
-                if (PaymentViewModel.ValorIngresado > 0)
-                {
-                    Utilities.DispenserVal = PaymentViewModel.ValorIngresado;
-                    Utilities.control.callbackTotalOut = totalOut =>
-                    {
-                        Utilities.control.callbackTotalOut = null;
-                        Cancelled("btnCancelar_PreviewStylusDown");
-                    };
-
-                    Utilities.control.callbackLog = log =>
-                    {
-                        utilities.ProccesValue(log, Utilities.IDTransactionDB);
-                    };
-
-                    Utilities.control.callbackOut = quiantityOut =>
-                    {
-                        Cancelled("btnCancelar_PreviewStylusDown");
-                    };
-
-                    Utilities.control.callbackError = error =>
-                    {
-                        Utilities.SaveLogDispenser(ControlPeripherals.log);
-
-                    };
-                    ActivateTimer(false);
-                    Utilities.control.StartDispenser(Utilities.DispenserVal);
-                }
-                else
-                {
-                    Cancelled("btnCancelar_PreviewStylusDown");
-                }
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "ActivateWallet en frmPayCine", EError.Aplication, ELevelError.Medium);
-            }
-        }
         #endregion
 
         #region Methods
@@ -572,5 +516,61 @@ namespace WPProcinal.Forms
             catch { }
         }
         #endregion
+
+        private void BtnCancelar_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                this.Opacity = 0.3;
+                Utilities.Loading(frmLoading, true, this);
+
+                Utilities.control.StopAceptance();
+                Thread.Sleep(200);
+                Task.Run(() =>
+                {
+                    utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
+
+                    logError.Description = "\nSe cancelo una transaccion";
+                    logError.State = "Cancelada";
+                    Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
+
+                });
+                if (PaymentViewModel.ValorIngresado > 0)
+                {
+                    Utilities.DispenserVal = PaymentViewModel.ValorIngresado;
+                    Utilities.control.callbackTotalOut = totalOut =>
+                    {
+                        Utilities.control.callbackTotalOut = null;
+                        Cancelled("btnCancelar_PreviewStylusDown");
+                    };
+
+                    Utilities.control.callbackLog = log =>
+                    {
+                        utilities.ProccesValue(log, Utilities.IDTransactionDB);
+                    };
+
+                    Utilities.control.callbackOut = quiantityOut =>
+                    {
+                        Cancelled("btnCancelar_PreviewStylusDown");
+                    };
+
+                    Utilities.control.callbackError = error =>
+                    {
+                        Utilities.SaveLogDispenser(ControlPeripherals.log);
+
+                    };
+                    ActivateTimer(false);
+                    Utilities.control.StartDispenser(Utilities.DispenserVal);
+                }
+                else
+                {
+                    Cancelled("btnCancelar_PreviewStylusDown");
+                }
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "ActivateWallet en frmPayCine", EError.Aplication, ELevelError.Medium);
+            }
+        }
     }
 }

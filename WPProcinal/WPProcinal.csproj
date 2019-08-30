@@ -558,6 +558,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\NewDesing\Gif\ACERCAR.gif" />
     <Resource Include="Images\NewDesing\Gif\clave.gif" />
     <Resource Include="Images\NewDesing\Buttons\bad.png" />
     <Resource Include="Images\NewDesing\Buttons\ok.png" />
@@ -659,6 +660,7 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="AppData\keysProcinal.txt" />
     <Content Include="DataBases\DBProcinal.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -16,12 +16,20 @@ namespace WPProcinal.Forms
         public FrmFinalTransaction()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             Task.Run(() =>
             {
                 try
                 {
-                    CLSGrabador grabador = new CLSGrabador();
-                    grabador.FinalizarGrabacion();
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        CLSGrabador grabador = new CLSGrabador();
+                        grabador.FinalizarGrabacion();
+                    });
+
                 }
                 catch { }
             });
@@ -34,10 +42,6 @@ namespace WPProcinal.Forms
                     Utilities.GoToInicial(this);
                 });
             });
-        }
-
-        private void BtnConsult_MouseDown(object sender, MouseButtonEventArgs e)
-        {
         }
     }
 }

@@ -247,44 +247,7 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void btnPrev_Click(object sender, RoutedEventArgs e)
-        {
-            SetCallBacksNull();
-            ActivateTimer();
-            // Display previous page
-            if (currentPageIndex > 0)
-            {
-                currentPageIndex--;
-                view.View.Refresh();
-            }
-
-            ShowCurrentPageIndex();
-        }
-
-        private void btnNext_Click(object sender, RoutedEventArgs e)
-        {
-            SetCallBacksNull();
-            ActivateTimer();
-            // Display next page
-            if (currentPageIndex < totalPage - 1)
-            {
-                currentPageIndex++;
-                view.View.Refresh();
-            }
-            ShowCurrentPageIndex();
-        }
-
-        private void Movie_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-        
         #endregion
-
-        private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-
-        }
 
         private void btnAtras_TouchDown(object sender, TouchEventArgs e)
         {
@@ -329,6 +292,33 @@ namespace WPProcinal.Forms
                 frmCinema.Show();
                 Close();
             }
+        }
+
+        private void BtnPrev_TouchDown(object sender, TouchEventArgs e)
+        {
+            SetCallBacksNull();
+            ActivateTimer();
+            // Display previous page
+            if (currentPageIndex > 0)
+            {
+                currentPageIndex--;
+                view.View.Refresh();
+            }
+
+            ShowCurrentPageIndex();
+        }
+
+        private void BtnNext_TouchDown(object sender, TouchEventArgs e)
+        {
+            SetCallBacksNull();
+            ActivateTimer();
+            // Display next page
+            if (currentPageIndex < totalPage - 1)
+            {
+                currentPageIndex++;
+                view.View.Refresh();
+            }
+            ShowCurrentPageIndex();
         }
     }
 }

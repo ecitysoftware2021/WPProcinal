@@ -194,6 +194,6 @@
                    Width="400"  
                    Source="/Images/cancelar-pago.png"
                    Grid.Row="3"
-                   PreviewStylusDown="btnCancelar_PreviewStylusDown"/>
+               TouchDown="BtnCancelar_TouchDown"/>
     </Grid>
 </Window>

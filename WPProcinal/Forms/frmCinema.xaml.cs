@@ -211,54 +211,51 @@ namespace WPProcinal.Forms
         {
             try
             {
-                try
-                {
-                    ControlPeripheralsNotArduino.callbackStatusPrinter = Status =>
-                    {
-                        ControlPeripheralsNotArduino.callbackStatusPrinter = null;
-                        if (Status.STATUS == "OK")
-                        {
+              
+                    //ControlPeripheralsNotArduino.callbackStatusPrinter = Status =>
+                    //{
+                    //    ControlPeripheralsNotArduino.callbackStatusPrinter = null;
+                    //    if (Status.STATUS == "OK")
+                    //    {
                             Dispatcher.BeginInvoke((Action)delegate
                             {
                                 frmMovies frmMovies = new frmMovies();
                                 frmMovies.Show();
                                 Close();
                             });
-                        }
-                        else if (Status.STATUS == "ALERT")
-                        {
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                frmModal modal = new frmModal(string.Concat("Alerta,", Environment.NewLine, "Impresora: ", Status.ERROR_MESSAGE));
-                                modal.ShowDialog();
-                                frmMovies frmMovies = new frmMovies();
-                                frmMovies.Show();
-                                Close();
-                            });
-                        }
-                        else
-                        {
-                            try
-                            {
-                                AdminPaypad.SaveErrorControl(Status.ERROR_MESSAGE,
-                                    "Respuesta de la impresora",
-                                    EError.Device,
-                                    ELevelError.Medium);
-                            }
-                            catch { }
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                gridPrincipal.IsEnabled = true;
-                                frmModal modal = new frmModal(Status.ERROR_MESSAGE);
-                                modal.ShowDialog();
-                            });
-                        }
-                    };
-                    gridPrincipal.IsEnabled = false;
-                    Utilities.PeripheralsNotArduino.InitPortPrinter();
+                        //}
+                        //else if (Status.STATUS == "ALERT")
+                        //{
+                        //    Dispatcher.BeginInvoke((Action)delegate
+                        //    {
+                        //        frmModal modal = new frmModal(string.Concat("Alerta,", Environment.NewLine, "Impresora: ", Status.ERROR_MESSAGE));
+                        //        modal.ShowDialog();
+                        //        frmMovies frmMovies = new frmMovies();
+                        //        frmMovies.Show();
+                        //        Close();
+                        //    });
+                        //}
+                        //else
+                        //{
+                        //    try
+                        //    {
+                        //        AdminPaypad.SaveErrorControl(Status.ERROR_MESSAGE,
+                        //            "Respuesta de la impresora",
+                        //            EError.Device,
+                        //            ELevelError.Medium);
+                        //    }
+                        //    catch { }
+                        //    Dispatcher.BeginInvoke((Action)delegate
+                        //    {
+                        //        gridPrincipal.IsEnabled = true;
+                        //        frmModal modal = new frmModal(Status.ERROR_MESSAGE);
+                        //        modal.ShowDialog();
+                        //    });
+                        //}
+                    //};
+                    //gridPrincipal.IsEnabled = false;
+                    //Utilities.PeripheralsNotArduino.InitPortPrinter();
 
-                }
-                catch { }
 
             }
             catch (System.Exception ex)
@@ -266,5 +263,5 @@ namespace WPProcinal.Forms
                 AdminPaypad.SaveErrorControl(ex.Message, "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
             }
         }
-    }
+}
 }

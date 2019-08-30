@@ -155,8 +155,7 @@
                     <Image x:Name="BtnYes"                        
                            
                            Margin="50,-106,0,0"
-                       PreviewStylusDown="BtnYes_PreviewStylusDown"
-                           PreviewMouseDown="BtnYes_PreviewMouseDown"
+                           TouchDown="BtnYes_TouchDown"
                        Width="200"
                        HorizontalAlignment="Left"
                        Height="200"
@@ -164,8 +163,7 @@
                     <Image x:Name="BtnCard"     
                           Visibility="Visible"
                            Margin="0,-106,50,0"
-                       PreviewStylusDown="BtnCard_PreviewStylusDown"
-                           PreviewMouseDown="BtnCard_PreviewMouseDown"
+                           TouchDown="BtnCard_TouchDown"
                        Width="200"
                        HorizontalAlignment="Right"
                        Height="200"
@@ -176,8 +174,7 @@
                        HorizontalAlignment="Center"
                            VerticalAlignment="Top"
                        Width="200" 
-                       PreviewStylusDown="BtnNo_PreviewStylusDown"
-                           PreviewMouseDown="BtnNo_PreviewMouseDown"
+                           TouchDown="BtnNo_TouchDown"
                        Margin="230,0,48,0" 
                        Source="/Images/salir2.png"/>
                 </Grid>

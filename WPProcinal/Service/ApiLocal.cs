@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -164,8 +165,8 @@ namespace WPProcinal.Service
         {
             try
             {
-                string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string[] text = System.IO.File.ReadAllLines(string.Format(@"{0}\keysProcinal.txt", path));
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "AppData", "keysProcinal.txt");
+                string[] text = System.IO.File.ReadAllLines(path);
                 if (text.Length > 0)
                 {
                     string[] line1 = text[0].Split(';');

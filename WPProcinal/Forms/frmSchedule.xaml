@@ -64,7 +64,7 @@
                    HorizontalAlignment="Left"
                    Height="130"
                    Name="btnAtras"
-                   PreviewMouseDown="Image_PreviewMouseDown"/>
+                  TouchDown="BtnAtras_TouchDown"/>
 
             <TextBlock x:Name="TxtDuracion"
                        FontSize="35"
@@ -119,9 +119,9 @@
                       >
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}" >
-                            <EventSetter Event="PreviewStylusDown"
+                            <EventSetter Event="TouchDown"
                                             
-                         Handler="lv_DateName_PreviewStylusDown" />
+                         Handler="ListViewItem_TouchDown" />
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListViewItem">
@@ -147,7 +147,7 @@
                                 <Grid x:Name="gridFechas" HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Margin="0,0,0,0"
-                                      PreviewStylusDown="Grid_PreviewStylusDown">
+                                      TouchDown="GridFechas_TouchDown">
                                     <Border 
                                         BorderBrush="White"
                                         Width="260"
@@ -218,7 +218,7 @@
                         Height="40"
                         Visibility="Hidden"
                         Source="../Images/anterior.png"
-                        PreviewStylusDown="btnPrev2_PreviewStylusDown"
+                    TouchDown="BtnPrev2_TouchDown"
                     />
                 <Image  Grid.Column="1"
                    
@@ -230,7 +230,7 @@
                         
                         Visibility="Visible"
                         Source="../Images/siguiente.png"
-                        PreviewStylusDown="btnNext2_PreviewStylusDown"
+                        TouchDown="BtnNext2_TouchDown"
                         />
             </Grid>
 

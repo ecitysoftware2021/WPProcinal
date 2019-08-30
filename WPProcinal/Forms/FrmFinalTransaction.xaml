@@ -10,8 +10,8 @@
         WindowState="Maximized"
         Height="2064.095" 
         Width="1250.599"
-        WindowStartupLocation="CenterScreen">
-    <Grid PreviewMouseDown="BtnConsult_MouseDown">
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-final.jpg"
                         Stretch="UniformToFill"/>

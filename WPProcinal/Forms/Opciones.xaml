@@ -84,7 +84,7 @@
                        Grid.ColumnSpan="2"
                        Name="ShowHide"
                        Tag="no"
-                       PreviewStylusDown="ShowHide_PreviewStylusDown"/>
+                       TouchDown="ShowHide_TouchDown"/>
 
                 <TextBlock Text="1"
                            Foreground="White"
@@ -95,8 +95,7 @@
                    Grid.Row="2"
                    Grid.Column="0"
                    Tag="1"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                           TouchDown="TextBlock_TouchDown"/>
                 <TextBlock Text="2"
                            FontFamily="Gotham"
                            Foreground="White"
@@ -106,8 +105,7 @@
                    Grid.Row="2"
                    Grid.Column="1"
                    Tag="2"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                           TouchDown="TextBlock_TouchDown"/>
                 <TextBlock Text="3"
                            FontFamily="Gotham"
                            Foreground="White"
@@ -117,8 +115,7 @@
                    Grid.Row="2"
                    Grid.Column="2"
                    Tag="3"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                           TouchDown="TextBlock_TouchDown"/>
                 <TextBlock Text="4"
                            FontFamily="Gotham"
                            Foreground="White"
@@ -127,9 +124,7 @@
                    HorizontalAlignment="Right"
                    Grid.Row="3"
                    Grid.Column="0"
-                   Tag="4"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   Tag="4" TouchDown="TextBlock_TouchDown"/>
                 <TextBlock Text="5"
                            Foreground="White"
                        FontWeight="Bold"
@@ -138,9 +133,7 @@
                    HorizontalAlignment="Center"
                    Grid.Row="3"
                    Grid.Column="1"
-                   Tag="5"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   Tag="5" TouchDown="TextBlock_TouchDown"/>
                 <TextBlock Text="6"
                            FontFamily="Gotham"
                            Foreground="White"
@@ -149,9 +142,7 @@
                    HorizontalAlignment="Left"
                    Grid.Row="3"
                    Grid.Column="2"
-                   Tag="6"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   Tag="6" TouchDown="TextBlock_TouchDown"/>
                 <TextBlock Text="7"
                            Foreground="White"
                            FontFamily="Gotham"
@@ -160,9 +151,8 @@
                    HorizontalAlignment="Right"
                    Grid.Row="4"
                    Grid.Column="0"
-                   Tag="7"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   Tag="7" 
+                           TouchDown="TextBlock_TouchDown"/>
                 <TextBlock Text="8"
                            Foreground="White"
                        FontWeight="Bold"
@@ -171,9 +161,8 @@
                    HorizontalAlignment="Center"
                    Grid.Row="4"
                    Grid.Column="1"
-                   Tag="8"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   Tag="8" 
+                           TouchDown="TextBlock_TouchDown"/>
                 <TextBlock Text="9"
                            Foreground="White"
                            FontFamily="Gotham"
@@ -182,9 +171,8 @@
                    HorizontalAlignment="Left"
                    Grid.Row="4"
                    Grid.Column="2"
-                   Tag="9"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   Tag="9" 
+                           TouchDown="TextBlock_TouchDown"/>
                 <TextBlock Text="Aceptar" Visibility="Hidden" Name="botonAceptar"
                    FontSize="40"
                            FontFamily="Gotham"
@@ -193,9 +181,8 @@
                    HorizontalAlignment="Right"
                    Grid.Row="5"
                    Grid.Column="0"
-                   Tag="x"
-                           PreviewStylusDown="BotonAceptar_PreviewStylusDown"
-                   PreviewMouseDown="BotonAceptar_PreviewMouseDown"/>
+                   Tag="x" 
+                           TouchDown="BotonAceptar_TouchDown"/>
                 <TextBlock Text="0"
                            FontFamily="Gotham"
                            Foreground="White"
@@ -204,9 +191,8 @@
                    HorizontalAlignment="Center"
                    Grid.Row="5"
                    Grid.Column="1"
-                   Tag="0"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   Tag="0" 
+                           TouchDown="TextBlock_TouchDown"/>
                 <TextBlock Text="&lt;"
                    FontSize="40"
                            FontFamily="Gotham"
@@ -215,9 +201,8 @@
                    HorizontalAlignment="Left"
                    Grid.Row="5"
                    Grid.Column="2"
-                   Tag="&lt;"
-                           PreviewStylusDown="TextBlock_PreviewStylusDown"
-                   PreviewMouseDown="TextBlock_PreviewMouseDown"/>
+                   Tag="&lt;" 
+                           TouchDown="TextBlock_TouchDown"/>
             </Grid>
 
             <Image gif:ImageBehavior.AnimatedSource="{Binding imagen}" 

@@ -35,50 +35,20 @@ namespace WPProcinal.Forms
             Utilities.PayVal = totalModal;
         }
 
-        private void BtnYes_MouseDown(object sender, MouseButtonEventArgs e)
+
+        private void BtnYes_TouchDown(object sender, TouchEventArgs e)
         {
             BtnYes.IsEnabled = false;
             Utilities.MedioPago = 1;
             DialogResult = true;
         }
 
-        private void BtnNo_MouseDown(object sender, MouseButtonEventArgs e)
+        private void BtnNo_TouchDown(object sender, TouchEventArgs e)
         {
             DialogResult = false;
         }
 
-        private void BtnYes_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            BtnYes.IsEnabled = false;
-            Utilities.MedioPago = 1;
-            DialogResult = true;
-        }
-
-        private void BtnNo_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            DialogResult = false;
-        }
-
-        private void BtnYes_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            BtnYes.IsEnabled = false;
-            Utilities.MedioPago = 1;
-            DialogResult = true;
-        }
-
-        private void BtnNo_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DialogResult = false;
-        }
-
-        private void BtnCard_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            BtnCard.IsEnabled = false;
-            Utilities.MedioPago = 2;
-            DialogResult = true;
-        }
-
-        private void BtnCard_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void BtnCard_TouchDown(object sender, TouchEventArgs e)
         {
             BtnCard.IsEnabled = false;
             Utilities.MedioPago = 2;

@@ -47,7 +47,7 @@
                    HorizontalAlignment="Left"
                    Height="130"
                    Name="btnAtras"
-                   PreviewMouseDown="Image_PreviewMouseDown"/>
+                   TouchDown="BtnAtras_TouchDown"/>
             <TextBlock 
                 x:Name="TxtTitle"
                 FontSize="50"
@@ -210,9 +210,8 @@
                Grid.Row="3" 
                Grid.Column="1"
                Name="Pay"
-               PreviewStylusDown="Pay_PreviewStylusDown"
+               TouchDown="Pay_TouchDown"
                Margin="0,110,0,0"
-               MouseDown="Pay_MouseDown"
                Source="../Images/pay.png"
                VerticalAlignment="Top"
                />

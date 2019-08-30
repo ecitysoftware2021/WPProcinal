@@ -62,10 +62,6 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //NumbersButtons(sender);
-        }
 
         private void NumbersButtons(object sender)
         {
@@ -96,11 +92,6 @@ namespace WPProcinal.Forms
             {
                 botonAceptar.Visibility = Visibility.Visible;
             }
-        }
-
-        private void BotonAceptar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //AcceptButton();
         }
 
         private void AcceptButton()
@@ -134,23 +125,6 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void TextBlock_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            NumbersButtons(sender);
-        }
-
-        private void BotonAceptar_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            string data = ValidateDataMasc();
-            if (txtultimosDigitos.Text.Length <= 2 && int.Parse(data) == 0)
-            {
-                _dataCard.mensaje = "El número de cuotas debe ser mayor que 0.";
-                return;
-            }
-            _dataCard.mensaje = "Esperando datáfono...";
-            _dataCard.visible = "Hidden";
-            AcceptButton();
-        }
         string ValidateDataMasc()
         {
             string data;
@@ -165,7 +139,26 @@ namespace WPProcinal.Forms
             return data;
         }
 
-        private void ShowHide_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        private ImageSource GetImage(string ckeck)
+        {
+            string icon = "img_show_hider";
+            if (ckeck == "no")
+            {
+                icon = "img_show_hider";
+            }
+            else if (ckeck == "yes")
+            {
+                icon = "img_show";
+            }
+
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri(string.Concat("/Images/NewDesing/Others/", icon, ".png"), UriKind.Relative);
+            logo.EndInit();
+            return logo;
+        }
+
+        private void ShowHide_TouchDown(object sender, TouchEventArgs e)
         {
             try
             {
@@ -190,23 +183,22 @@ namespace WPProcinal.Forms
             catch { }
         }
 
-        private ImageSource GetImage(string ckeck)
+        private void TextBlock_TouchDown(object sender, TouchEventArgs e)
         {
-            string icon = "img_show_hider";
-            if (ckeck == "no")
-            {
-                icon = "img_show_hider";
-            }
-            else if (ckeck == "yes")
-            {
-                icon = "img_show";
-            }
+            NumbersButtons(sender);
+        }
 
-            BitmapImage logo = new BitmapImage();
-            logo.BeginInit();
-            logo.UriSource = new Uri(string.Concat("/Images/NewDesing/Others/", icon, ".png"), UriKind.Relative);
-            logo.EndInit();
-            return logo;
+        private void BotonAceptar_TouchDown(object sender, TouchEventArgs e)
+        {
+            string data = ValidateDataMasc();
+            if (txtultimosDigitos.Text.Length <= 2 && int.Parse(data) == 0)
+            {
+                _dataCard.mensaje = "El número de cuotas debe ser mayor que 0.";
+                return;
+            }
+            _dataCard.mensaje = "Esperando datáfono...";
+            _dataCard.visible = "Hidden";
+            AcceptButton();
         }
     }
 }

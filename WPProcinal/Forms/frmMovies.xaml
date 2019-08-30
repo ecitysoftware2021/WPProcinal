@@ -58,7 +58,7 @@
                 Margin="30,100,0,0"
                 Height="161" 
                 Width="200"
-                PreviewMouseDown="btnPrev_Click"/>
+                        TouchDown="BtnPrev_TouchDown"/>
 
                     <Image  Grid.Column="1"
                     Source="..\Images\siguiente.png"
@@ -66,7 +66,7 @@
                     HorizontalAlignment="Right"
                     Name="btnNext" 
                     VerticalAlignment="Top"
-                    PreviewMouseDown="btnNext_Click"
+                            TouchDown="BtnNext_TouchDown"
                     Height="161" 
                     Width="200"
                     Grid.RowSpan="1"/>

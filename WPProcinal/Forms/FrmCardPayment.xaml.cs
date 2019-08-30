@@ -183,25 +183,7 @@ namespace WPProcinal.Forms
             };
         }
 
-        private void btnCancelar_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-            try
-            {
-                Task.Run(() =>
-                {
-                    utilities.UpdateTransaction(0, 3, 0);
-                    logError.Description = "\nSe cancelo una transaccion";
-                    logError.State = "Cancelada";
-                    Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
-                });
-
-                Cancelled();
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
+       
         /// <summary>
         /// Método encargado de actualizar la transacción a aprobada.
         /// Además inserta la información de la tarjeta
@@ -347,7 +329,7 @@ namespace WPProcinal.Forms
                 payState = true;
 
                 var response = WCFServices.PostBuy(Utilities.DipMapCurrent, Utilities.TypeSeats);
-                
+
                 if (!response.IsSuccess)
                 {
                     Utilities.SaveLogError(new LogError
@@ -917,6 +899,24 @@ namespace WPProcinal.Forms
             return error;
         }
 
+        private void BtnCancelar_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                Task.Run(() =>
+                {
+                    utilities.UpdateTransaction(0, 3, 0);
+                    logError.Description = "\nSe cancelo una transaccion";
+                    logError.State = "Cancelada";
+                    Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
+                });
+
+                Cancelled();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
     }
     public class FormaPago
     {

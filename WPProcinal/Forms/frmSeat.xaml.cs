@@ -70,7 +70,7 @@ namespace WPProcinal.Forms
                     Dispatcher.BeginInvoke((Action)delegate
                     {
                         tbTimer.Text = "Tiempo de transacción: " + response;
-                        tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("hh:MM:ss");
+                        tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("hh:mm:ss");
                     });
                 };
             }
@@ -309,9 +309,8 @@ namespace WPProcinal.Forms
                                     item.Type = type.Type;
                                     if (state.State == "S" && state.Type != "D")
                                     {
-                                        image.PreviewStylusDown += new StylusDownEventHandler((s, eh) =>
-                                                                                                        SelectSeats(s, eh, item));
-                                        //image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
+                                        //image.PreviewStylusDown += new StylusDownEventHandler((s, eh) => SelectSeats(s, eh, item));
+                                        image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
                                     }
 
 
@@ -416,12 +415,6 @@ namespace WPProcinal.Forms
             logo.UriSource = new Uri(string.Concat("../Images/", icon, ".png"), UriKind.Relative);
             logo.EndInit();
             return logo;
-        }
-
-        private void Pay_PreviewStylusDown(object sender, StylusDownEventArgs e)
-        {
-
-            SendData();
         }
 
         private void SendData()
@@ -871,7 +864,27 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+
+                    frmLoading.Show();
+                    LoadSeats();
+                    frmLoading.Close();
+                });
+
+                Utilities.DoEvents();
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        private void BtnAtras_TouchDown(object sender, TouchEventArgs e)
         {
 
             if (activePay)
@@ -895,30 +908,9 @@ namespace WPProcinal.Forms
             Close();
         }
 
-        private void Pay_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Pay_TouchDown(object sender, TouchEventArgs e)
         {
             SendData();
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-
-                    frmLoading.Show();
-                    LoadSeats();
-                    frmLoading.Close();
-                });
-
-                Utilities.DoEvents();
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
-            }
-        }
-
     }
 }
