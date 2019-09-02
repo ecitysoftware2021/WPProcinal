@@ -795,7 +795,7 @@ namespace WPProcinal.Forms
                     }
 
                     catch { }
-
+                    Utilities.ScorePayValue = Utilities.ValorPagarScore;
                     if (Utilities.MedioPago == 1)
                     {
                         try

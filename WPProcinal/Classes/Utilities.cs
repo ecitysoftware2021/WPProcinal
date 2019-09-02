@@ -59,6 +59,7 @@ namespace WPProcinal.Classes
 
         public static DataPaypad dataPaypad = new DataPaypad();
         public static int MedioPago { get; set; }
+        public static decimal ScorePayValue { get; set; }
 
         internal static DipMap ConvertDipMap(TblDipMap dipmap)
         {

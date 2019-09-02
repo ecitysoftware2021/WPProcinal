@@ -71,7 +71,6 @@ namespace WPProcinal.Forms
                                     util = new Utilities(1);
                                 }
 
-
                                 ChangeStatusPeripherals();
 
                                 Task.Run(() =>
