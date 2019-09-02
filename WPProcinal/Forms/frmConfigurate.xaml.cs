@@ -71,21 +71,16 @@ namespace WPProcinal.Forms
                                     util = new Utilities(1);
                                 }
 
-                                Dispatcher.BeginInvoke((Action)delegate
-                                {
-                                    frmCinema inicio = new frmCinema();
-                                    inicio.Show();
-                                    Close();
-                                });
-                                //ChangeStatusPeripherals();
 
-                                //Task.Run(() =>
-                                //{
-                                //    Utilities.control.OpenSerialPorts();
-                                //    Utilities.control.Start();
-                                //    Utilities.control.StartCoinAcceptorDispenser();
-                                //    Utilities.PeripheralsNotArduino.InitPortPrinter();
-                                //});
+                                ChangeStatusPeripherals();
+
+                                Task.Run(() =>
+                                {
+                                    Utilities.control.OpenSerialPorts();
+                                    Utilities.control.Start();
+                                    Utilities.control.StartCoinAcceptorDispenser();
+                                    Utilities.PeripheralsNotArduino.InitPortPrinter();
+                                });
                             }
                             else
                             {

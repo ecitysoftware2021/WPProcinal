@@ -284,6 +284,15 @@ namespace WPProcinal.Service
         {
             try
             {
+                try
+                {
+                    AdminPaypad.SaveErrorControl("dipMap: " + JsonConvert.SerializeObject(dipMap) + "typeSeats: " + JsonConvert.SerializeObject(typeSeats),
+                          "Peticion Confirmar Compra Score",
+                          EError.Customer,
+                          ELevelError.Mild);
+                }
+                catch { }
+
                 WCFPcrint.ServiceSoapClient serviceSoapClient = new WCFPcrint.ServiceSoapClient();
                 var data = serviceSoapClient.comint(
                     teatro: dipMap.CinemaId,

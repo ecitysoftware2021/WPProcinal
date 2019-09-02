@@ -505,6 +505,7 @@ namespace WPProcinal.Classes
                             }
                             break;
                         case "MA":
+                        case "MD":
                             timerStatusCoin.Stop();
                             callbackStatusCoinAceptanceDispenser?.Invoke(true);
                             break;

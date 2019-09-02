@@ -651,18 +651,18 @@ namespace WPProcinal.Classes
         /// <returns>Retorna un verdadero o un falso dependiendo el resultado del update</returns>
         public void UpdateTransaction(decimal Enter, int state, decimal Return = 0)
         {
-            Transaction Transaction = new Transaction
-            {
-                STATE_TRANSACTION_ID = state,
-                DATE_END = DateTime.Now,
-                INCOME_AMOUNT = Enter,
-                RETURN_AMOUNT = Return,
-                TRANSACTION_ID = IDTransactionDB,
-                PAYMENT_TYPE_ID = Utilities.MedioPago
-            };
-
             try
             {
+                Transaction Transaction = new Transaction
+                {
+                    STATE_TRANSACTION_ID = state,
+                    DATE_END = DateTime.Now,
+                    INCOME_AMOUNT = Enter,
+                    RETURN_AMOUNT = Return,
+                    TRANSACTION_ID = IDTransactionDB,
+                    PAYMENT_TYPE_ID = Utilities.MedioPago
+                };
+
                 ApiLocal api = new ApiLocal();
 
                 var response = api.GetResponse(new RequestApi
@@ -693,7 +693,14 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                SaveLocalPay(Transaction);
+                try
+                {
+                    AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
+                          "Error Actualizando la transacción",
+                          EError.Customer,
+                          ELevelError.Mild);
+                }
+                catch { }
             }
             //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: UpdateTransaction: ", "Salí");
 

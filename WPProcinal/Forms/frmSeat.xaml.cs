@@ -808,37 +808,7 @@ namespace WPProcinal.Forms
                         LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
                         Utilities.controlStop = 0;
                         int i = 0;
-                        //try
-                        //{
-                        //    using (var conexion = new DBProcinalEntities())
-                        //    {
-                        //        foreach (var item in SelectedTypeSeats)
-                        //        {
-                        //            conexion.RePrint.Add(new RePrint
-                        //            {
-                        //                Category = dipMapCurrent.Category,
-                        //                Cinema = Utilities.GetConfiguration("NameCinema"),
-                        //                //Consecutivo = Utilities.DashboardPrint[i].RANGO_ACTUAL.ToString(),
-                        //                Date = dipMapCurrent.Date,
-                        //                FechaPago = DateTime.Now,
-                        //                Formato = Utilities.MovieFormat,
-                        //                Movie = dipMapCurrent.MovieName,
-                        //                Room = dipMapCurrent.RoomName,
-                        //                Seat = item.Name,
-                        //                Secuencia = Utilities.Secuencia,
-                        //                Time = dipMapCurrent.HourFunction,
-                        //                Tramite = "Boleto de Cine",
-                        //                Valor = item.Price,
-                        //                IDTransaccion = Utilities.IDTransactionDB
-                        //            });
-                        //            conexion.SaveChanges();
-                        //            i++;
-                        //        }
-
-                        //    }
-                        //}
-                        //catch { }
-
+                       
                         frmPayCine pay = new frmPayCine(SelectedTypeSeats, dipMapCurrent);
                         pay.Show();
                         this.Close();

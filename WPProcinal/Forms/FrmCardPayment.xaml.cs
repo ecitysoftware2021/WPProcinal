@@ -33,6 +33,7 @@ namespace WPProcinal.Forms
         private bool payState;
         Utilities objUtil = new Utilities();
         TPVOperation TPV;
+        private int num = 1;
 
         #region Propiedades Tarjeta
 
@@ -86,7 +87,7 @@ namespace WPProcinal.Forms
                 frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
                 Modal.ShowDialog();
 
-                lblValorPagar.Content = Utilities.ValorPagarScore.ToString("$ #,##0");
+                lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
                 frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
                 frmLoading.Show();
 
@@ -137,7 +138,7 @@ namespace WPProcinal.Forms
                 {
                     if (payState)
                     {
-                        ValorTotal = Utilities.ValorPagarScore.ToString();
+                        ValorTotal = Utilities.PayVal.ToString();
                         NumeroTransaccion = Utilities.IDTransactionDB.ToString();
                         TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
                             TipoOperacion, Delimitador,
@@ -183,7 +184,7 @@ namespace WPProcinal.Forms
             };
         }
 
-       
+
         /// <summary>
         /// Método encargado de actualizar la transacción a aprobada.
         /// Además inserta la información de la tarjeta
@@ -196,7 +197,7 @@ namespace WPProcinal.Forms
                 {
                     Task.Run(() =>
                     {
-                        utilities.UpdateTransaction(Utilities.ValorPagarScore, 2, 0);
+                        utilities.UpdateTransaction(Utilities.PayVal, 2, 0);
                     });
                     utilities.SaveCardInformation(new RequestCardInformation
                     {
@@ -225,6 +226,7 @@ namespace WPProcinal.Forms
         {
             try
             {
+                num = 2;
                 if (!task)
                 {
                     try
@@ -239,17 +241,16 @@ namespace WPProcinal.Forms
                         await Dispatcher.BeginInvoke((Action)delegate
                         {
                             PaymentGrid.Opacity = 0.3;
-                            frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular la compra.");
+                            frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular el pago.");
                             modal.ShowDialog();
+
                         });
                         GC.Collect();
                     }
                     catch { }
 
                     utilities.UpdateTransaction(0, 3, 0);
-
-                    //ActivateTimer(false);
-                    //ReturnMoney(Utilities.PayVal, false);
+                    Utilities.GoToInicial(this);
 
                 }
                 else
@@ -275,6 +276,7 @@ namespace WPProcinal.Forms
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "SavePay en frmPayCine", EError.Aplication, ELevelError.Medium);
+                Utilities.GoToInicial(this);
             }
         }
 
@@ -325,43 +327,59 @@ namespace WPProcinal.Forms
         {
             try
             {
-
-                payState = true;
-
-                var response = WCFServices.PostBuy(Utilities.DipMapCurrent, Utilities.TypeSeats);
-
-                if (!response.IsSuccess)
+                if (num == 2)
                 {
-                    Utilities.SaveLogError(new LogError
-                    {
-                        Message = response.Message,
-                        Method = "WCFServices.PostComprar"
-                    });
+                    return;
                 }
 
-                var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                if (transaccionCompra.Respuesta != "Exitosa")
+                if (num == 1)
                 {
-                    payState = false;
-                    Utilities.SaveLogError(new LogError
-                    {
-                        Message = transaccionCompra.Respuesta,
-                        Method = "WCFServices.PostComprar.Fallida"
-                    });
-                }
-                else
-                {
-                    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                    payState = true;
+
+                    var response = WCFServices.PostBuy(Utilities.DipMapCurrent, Utilities.TypeSeats);
+
                     if (!response.IsSuccess)
                     {
                         Utilities.SaveLogError(new LogError
                         {
-                            Message = responseDB.Message,
-                            Method = "DBProcinalController.EditPaySeat"
+                            Message = response.Message,
+                            Method = "WCFServices.PostComprar"
                         });
                     }
+
+                    var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
+                    if (transaccionCompra.Respuesta != "Exitosa")
+                    {
+                        payState = false;
+                        Utilities.SaveLogError(new LogError
+                        {
+                            Message = transaccionCompra.Respuesta,
+                            Method = "WCFServices.PostComprar.Fallida"
+                        });
+                    }
+                    else
+                    {
+                        var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                        if (!response.IsSuccess)
+                        {
+                            Utilities.SaveLogError(new LogError
+                            {
+                                Message = responseDB.Message,
+                                Method = "DBProcinalController.EditPaySeat"
+                            });
+                        }
+                    }
                 }
-                SavePay(payState);
+
+                if (num == 2)
+                {
+                    return;
+                }
+
+                if (num == 1)
+                {
+                    SavePay(payState);
+                }
             }
             catch (Exception ex)
             {
