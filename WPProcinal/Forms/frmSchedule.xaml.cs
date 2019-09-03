@@ -213,7 +213,7 @@ namespace WPProcinal.Forms
                                             Room = string.Concat("Sala ", room.NumeroSala),
                                             Hours = horatmps,
                                             RutaTipoSala = ruta,
-                                            TipoSala= room.TipoSala,
+                                            TipoSala = room.TipoSala,
                                             RoomId = Convert.ToInt16(room.NumeroSala),
                                             UnivDate = function.Univ,
                                             MovieId = Convert.ToInt16(peli.Id),
@@ -357,7 +357,6 @@ namespace WPProcinal.Forms
                 Group = 1,
                 Login = "brandon-377@hotmail.com",
                 PointOfSale = 87,
-                PaymentMethod = "E",
                 TypeZona = schedule.TypeZona,
             };
 
@@ -366,7 +365,7 @@ namespace WPProcinal.Forms
         #endregion
 
         #region ButtonsEvents
-       
+
 
         #endregion
 
@@ -503,7 +502,7 @@ namespace WPProcinal.Forms
             }
         }
 
-        
+
 
         private void Grid_PreviewStylusDown(object sender, StylusDownEventArgs e)
         {

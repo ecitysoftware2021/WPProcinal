@@ -307,7 +307,7 @@ namespace WPProcinal.Service
                     monedapago: "COP",
                     fecha_funcion: dipMap.Date,
                     total_compra: double.Parse(Utilities.ScorePayValue.ToString()),
-                    med_pago: dipMap.PaymentMethod,
+                    med_pago: Utilities.MedioPago == 1 ? "E" : "T",
                     pun_ext_l: double.Parse(ConfigurationManager.AppSettings["Cinema"])
                     );
                 try
