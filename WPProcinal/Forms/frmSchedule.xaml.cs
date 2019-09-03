@@ -366,42 +366,7 @@ namespace WPProcinal.Forms
         #endregion
 
         #region ButtonsEvents
-        private void LvSchedule_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedSchedule = (HoraTMP)(sender as ListView).SelectedValue;
-            Schedule schedule = new Schedule
-            {
-                Category = selectedSchedule.DatosPelicula.Category,
-                Date = selectedSchedule.DatosPelicula.Date,
-                Duration = selectedSchedule.DatosPelicula.Duration,
-                FontS = 0,
-                Formato = selectedSchedule.DatosPelicula.Formato,
-                Gener = selectedSchedule.DatosPelicula.Gener,
-                Hour = selectedSchedule.DatosPelicula.Hour,
-                Id = selectedSchedule.DatosPelicula.Id,
-                Language = selectedSchedule.DatosPelicula.Language,
-                MilitarHour = selectedSchedule.Militar,
-                MovieId = selectedSchedule.DatosPelicula.MovieId,
-                Room = selectedSchedule.DatosPelicula.Room,
-                RoomId = selectedSchedule.DatosPelicula.RoomId,
-                //TipoSala=,
-                Title = selectedSchedule.DatosPelicula.Title,
-                TypeZona = selectedSchedule.TipoZona,
-                UnivDate = selectedSchedule.DatosPelicula.UnivDate,
-                Censura = selectedSchedule.DatosPelicula.Censura
-            };
-            //Schedule schedule = (Schedule)lvSchedule.SelectedItem;
-            Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;
-            Utilities.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
-            DipMap dipmap = SetProperties(schedule);
-
-            SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
-            //Utilities.ResetTimer();
-            frmSeat frmSeat = new frmSeat(dipmap);
-            frmSeat.Show();
-            Close();
-        }
+       
 
         #endregion
 
@@ -679,6 +644,60 @@ namespace WPProcinal.Forms
             frmMovies frmMovies = new frmMovies();
             frmMovies.Show();
             Close();
+        }
+
+        private void ListViewItem_TouchDown_1(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                var selectedSchedule = (HoraTMP)(sender as ListViewItem).Content;
+                Schedule schedule = new Schedule
+                {
+                    Category = selectedSchedule.DatosPelicula.Category,
+                    Date = selectedSchedule.DatosPelicula.Date,
+                    Duration = selectedSchedule.DatosPelicula.Duration,
+                    FontS = 0,
+                    Formato = selectedSchedule.DatosPelicula.Formato,
+                    Gener = selectedSchedule.DatosPelicula.Gener,
+                    Hour = selectedSchedule.DatosPelicula.Hour,
+                    Id = selectedSchedule.DatosPelicula.Id,
+                    Language = selectedSchedule.DatosPelicula.Language,
+                    MilitarHour = selectedSchedule.Militar,
+                    MovieId = selectedSchedule.DatosPelicula.MovieId,
+                    Room = selectedSchedule.DatosPelicula.Room,
+                    RoomId = selectedSchedule.DatosPelicula.RoomId,
+                    Title = selectedSchedule.DatosPelicula.Title,
+                    TypeZona = selectedSchedule.TipoZona,
+                    UnivDate = selectedSchedule.DatosPelicula.UnivDate,
+                    Censura = selectedSchedule.DatosPelicula.Censura
+                };
+
+                Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;
+                Utilities.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
+                DipMap dipmap = SetProperties(schedule);
+
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+                frmSeat frmSeat = new frmSeat(dipmap);
+                frmSeat.Show();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "Seleccionando el horario",
+                    EError.Aplication,
+                    ELevelError.Medium);
+                }
+                catch { }
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    frmModal modal = new frmModal("Lo sentimos, no se pudo seleccionar el horario, intente de nuevo por favor.");
+                    modal.ShowDialog();
+                });
+            }
         }
     }
 }

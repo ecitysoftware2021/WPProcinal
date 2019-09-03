@@ -72,7 +72,6 @@ namespace WPProcinal.Forms
                                 }
 
                                 ChangeStatusPeripherals();
-
                                 Task.Run(() =>
                                 {
                                     Utilities.control.OpenSerialPorts();

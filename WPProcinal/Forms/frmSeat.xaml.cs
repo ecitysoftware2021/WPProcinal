@@ -310,7 +310,8 @@ namespace WPProcinal.Forms
                                     if (state.State == "S" && state.Type != "D")
                                     {
                                         //image.PreviewStylusDown += new StylusDownEventHandler((s, eh) => SelectSeats(s, eh, item));
-                                        image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
+                                        //image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
+                                        image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, item));
                                     }
 
 
@@ -337,7 +338,7 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void MSelectedsetas(object sender, MouseButtonEventArgs eh, TypeSeat item)
+        private void MSelectedsetas(object sender, TouchEventArgs eh, TypeSeat item)
         {
             SelectedSeatsMethod(sender, item);
         }

@@ -305,6 +305,13 @@ namespace WPProcinal.Classes
         /// </summary>
         public static void GoToInicial(Window window)
         {
+
+            try
+            {
+                CLSGrabador grabador = new CLSGrabador();
+                grabador.FinalizarGrabacion();
+            }
+            catch { }
             try
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
