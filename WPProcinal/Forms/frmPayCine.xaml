@@ -11,6 +11,7 @@
         Height="2064.095" 
         Width="1250.599"
         WindowStyle="None"
+        Topmost="True"
         WindowStartupLocation="CenterScreen">
     
     <Grid Name="PaymentGrid">
