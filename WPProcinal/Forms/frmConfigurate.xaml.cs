@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using WPProcinal.Classes;
 using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
@@ -22,6 +23,7 @@ namespace WPProcinal.Forms
         public frmConfigurate()
         {
             InitializeComponent();
+            Switcher.Navigator = this;
             try
             {
                 api = new ApiLocal();
@@ -32,6 +34,14 @@ namespace WPProcinal.Forms
             }
         }
 
+        /// <summary>
+        /// Método que asigna esta ventana (Windows) como la principal para los usercontrol
+        /// </summary>
+        /// <param name="pagina"></param>
+        public void Navegar(UserControl newPage)
+        {
+            this.Content = newPage;
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (api != null)
