@@ -58,7 +58,7 @@ namespace WPProcinal.Forms
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-                
+
                 stateUpdate = true;
                 payState = true;
                 Utilities.control.StartValues();
@@ -490,7 +490,7 @@ namespace WPProcinal.Forms
                                 {
                                     frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador. Gracias");
                                     modal.ShowDialog();
-                                    Utilities.RestartApp();
+                                    Utilities.GoToInicial(this);
                                 }
 
                             }

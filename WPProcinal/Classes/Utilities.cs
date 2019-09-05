@@ -324,6 +324,14 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "Error en GoToInicial",
+                    EError.Aplication,
+                    ELevelError.Medium);
+                }
+                catch { }
                 RestartApp();
             }
         }
@@ -336,29 +344,19 @@ namespace WPProcinal.Classes
         {
             try
             {
-                CLSGrabador grabador = new CLSGrabador();
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
-                    grabador.FinalizarGrabacion();
+                    Process pc = new Process();
+                    Process pn = new Process();
+                    ProcessStartInfo si = new ProcessStartInfo();
+                    si.FileName = Path.Combine(Directory.GetCurrentDirectory(), "WPProcinal.exe");
+                    pn.StartInfo = si;
+                    pn.Start();
+                    pc = Process.GetCurrentProcess();
+                    pc.Kill();
                 }));
-
             }
-            catch
-            {
-            }
-            GC.Collect();
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
-            {
-                Process pc = new Process();
-                Process pn = new Process();
-                ProcessStartInfo si = new ProcessStartInfo();
-                si.FileName = Path.Combine(Directory.GetCurrentDirectory(), "WPProcinal.exe");
-                pn.StartInfo = si;
-                pn.Start();
-                pc = Process.GetCurrentProcess();
-                pc.Kill();
-            }));
-
+            catch { }
         }
 
         public static void DoEvents()

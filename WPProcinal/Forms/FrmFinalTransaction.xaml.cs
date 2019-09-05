@@ -22,20 +22,6 @@ namespace WPProcinal.Forms
         {
             Task.Run(() =>
             {
-                try
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        CLSGrabador grabador = new CLSGrabador();
-                        grabador.FinalizarGrabacion();
-                    });
-
-                }
-                catch { }
-            });
-
-            Task.Run(() =>
-            {
                 Thread.Sleep(2000);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
