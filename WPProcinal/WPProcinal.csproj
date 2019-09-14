@@ -173,7 +173,6 @@
     <Compile Include="Classes\ControlPeripherals.cs" />
     <Compile Include="Classes\DBProcinalController.cs" />
     <Compile Include="Classes\Enumerables.cs" />
-    <Compile Include="Classes\ImpresionForzada.cs" />
     <Compile Include="DataModel\Log.cs" />
     <Compile Include="DataModel\LogError.cs" />
     <Compile Include="DataModel\PaymentViewModel.cs" />
@@ -244,9 +243,6 @@
     <Compile Include="Forms\FrmFinalTransaction.xaml.cs">
       <DependentUpon>FrmFinalTransaction.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmImpresionForzada.xaml.cs">
-      <DependentUpon>frmImpresionForzada.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FrmLoading.xaml.cs">
       <DependentUpon>FrmLoading.xaml</DependentUpon>
     </Compile>
@@ -301,10 +297,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\FrmFinalTransaction.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\frmImpresionForzada.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

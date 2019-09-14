@@ -301,7 +301,7 @@ namespace WPProcinal.Forms
                 {
                     LogService.CreateLogsError(
                           string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                          ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
+                          ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled FrmCardPayment");
                 }
                 UnlockTPV();
                 Dispatcher.Invoke(() =>
@@ -315,7 +315,35 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en FrmCardPayment", EError.Aplication, ELevelError.Medium);
+            }
+            Utilities.Loading(frmLoading, false, this);
+            Utilities.GoToInicial(this);
+        }
+        private void CancelWithoutTPV()
+        {
+            try
+            {
+                try
+                {
+                    Task.Run(() =>
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                        });
+                    });
+                }
+                catch (Exception ex)
+                {
+                    LogService.CreateLogsError(
+                          string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+                          ex.InnerException, "---------- Trace: ", ex.StackTrace), "CancelWithoutTPV FrmCardPayment");
+                }
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "CancelWithoutTPV en FrmCardPayment", EError.Aplication, ELevelError.Medium);
             }
             Utilities.GoToInicial(this);
         }
@@ -335,42 +363,39 @@ namespace WPProcinal.Forms
                 if (num == 1)
                 {
                     payState = true;
-                    //TODO: eliminar
-                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                    //TODO: descomentar
-                    //var response = WCFServices.PostBuy(Utilities.DipMapCurrent, Utilities.TypeSeats);
+                    var response = WCFServices.PostBuy(Utilities.DipMapCurrent, Utilities.TypeSeats);
 
-                    //if (!response.IsSuccess)
-                    //{
-                    //    Utilities.SaveLogError(new LogError
-                    //    {
-                    //        Message = response.Message,
-                    //        Method = "WCFServices.PostComprar"
-                    //    });
-                    //}
+                    if (!response.IsSuccess)
+                    {
+                        Utilities.SaveLogError(new LogError
+                        {
+                            Message = response.Message,
+                            Method = "WCFServices.PostComprar"
+                        });
+                    }
 
-                    //var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                    //if (transaccionCompra.Respuesta != "Exitosa")
-                    //{
-                    //    payState = false;
-                    //    Utilities.SaveLogError(new LogError
-                    //    {
-                    //        Message = transaccionCompra.Respuesta,
-                    //        Method = "WCFServices.PostComprar.Fallida"
-                    //    });
-                    //}
-                    //else
-                    //{
-                    //    var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
-                    //    if (!response.IsSuccess)
-                    //    {
-                    //        Utilities.SaveLogError(new LogError
-                    //        {
-                    //            Message = responseDB.Message,
-                    //            Method = "DBProcinalController.EditPaySeat"
-                    //        });
-                    //    }
-                    //}
+                    var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
+                    if (transaccionCompra.Respuesta != "Exitosa")
+                    {
+                        payState = false;
+                        Utilities.SaveLogError(new LogError
+                        {
+                            Message = transaccionCompra.Respuesta,
+                            Method = "WCFServices.PostComprar.Fallida"
+                        });
+                    }
+                    else
+                    {
+                        var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                        if (!response.IsSuccess)
+                        {
+                            Utilities.SaveLogError(new LogError
+                            {
+                                Message = responseDB.Message,
+                                Method = "DBProcinalController.EditPaySeat"
+                            });
+                        }
+                    }
                 }
 
                 if (num == 2)
@@ -878,7 +903,7 @@ namespace WPProcinal.Forms
             }
             else
             {
-                Cancelled();
+                CancelWithoutTPV();
             }
         }
 
@@ -923,6 +948,8 @@ namespace WPProcinal.Forms
         {
             try
             {
+                frmLoading = new FrmLoading("Cancelando la transacción, espere por favor...");
+                Utilities.Loading(frmLoading, true, this);
                 Task.Run(() =>
                 {
                     utilities.UpdateTransaction(0, 3, 0);

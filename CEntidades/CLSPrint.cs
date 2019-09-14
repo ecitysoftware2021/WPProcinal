@@ -78,7 +78,6 @@ namespace CEntidades
 
             if (GetConfiguration("CodCinema").Equals("304"))
             {
-                //TODO: Solo para puerta del norte
                 g.DrawString(Cinema, fBodySala, sb, 70, SpaceY);
                 SpaceY += 30;
                 g.DrawString("Promotora Nacional de Cines S.A.S", fBodyTiulos, sb, 50, SpaceY - 10);

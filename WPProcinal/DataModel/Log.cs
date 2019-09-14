@@ -206,7 +206,7 @@ namespace WPProcinal.Classes
                 AdminPaypad.SaveLog(new RequestLog
                 {
                     Description = mensaje,
-                    Reference = Utilities.GetConfiguration("Sucursal") + " - " + operacion
+                    Reference = Dictionaries.Cinemas[Utilities.CinemaId] + " - " + operacion
                 }, ELogType.General);
             }
             catch { }

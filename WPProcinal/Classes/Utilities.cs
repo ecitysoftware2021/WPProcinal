@@ -484,47 +484,6 @@ namespace WPProcinal.Classes
             }
         }
 
-        public static void ForcePrintTicket(int idTransaccion)
-        {
-            try
-            {
-                ImpresionForzada forzada = new ImpresionForzada();
-                using (var conexion = new DBProcinalEntities())
-                {
-                    var data = conexion.RePrint.Where(re => re.IDTransaccion == idTransaccion).ToList();
-                    foreach (var seat in data)
-                    {
-
-                        forzada.Cinema = seat.Cinema;
-                        forzada.Movie = seat.Movie;
-                        forzada.Time = seat.Time;
-                        forzada.Room = seat.Room;
-                        forzada.Date = seat.Date;
-                        forzada.Seat = seat.Seat;
-                        forzada.FechaPago = seat.FechaPago.Value;
-                        forzada.Valor = seat.Valor.Value;
-                        forzada.Tramite = seat.Tramite;
-                        forzada.Category = seat.Category;
-                        forzada.Consecutivo = seat.Consecutivo;
-                        forzada.Secuencia = seat.Secuencia;
-                        forzada.Formato = seat.Formato;
-                        forzada.ImprimirComprobante();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                         "Error re imprimiendo boletas",
-                         EError.Device,
-                         ELevelError.Strong);
-                }
-                catch { }
-            }
-        }
-
         public static void SaveLogDispenser(LogDispenser log)
         {
             try

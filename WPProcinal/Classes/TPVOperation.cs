@@ -7,7 +7,7 @@ using trx;
 
 namespace WPProcinal.Classes
 {
-   public class TPVOperation
+    public class TPVOperation
     {
 
         #region Sección Datáfono
@@ -31,8 +31,8 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+                AdminPaypad.SaveErrorControl(ex.Message, "EnviarPeticion en TPVOperations", EError.Aplication, ELevelError.Medium);
                 return ex.Message;
-                //TODO: controlar error
             }
 
         }

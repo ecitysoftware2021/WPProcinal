@@ -27,6 +27,8 @@ namespace WPProcinal.Forms
         int cinemaId = Convert.ToInt16(Utilities.GetConfiguration("CodCinema"));
         Pelicula Movie = new Pelicula();
 
+        bool hourPresed = false;
+
         /*--LIST DATE--*/
         private DateTime FechaSelect = new DateTime();
         private List<DateName> dateName = new List<DateName>();
@@ -649,37 +651,41 @@ namespace WPProcinal.Forms
         {
             try
             {
-                var selectedSchedule = (HoraTMP)(sender as ListViewItem).Content;
-                Schedule schedule = new Schedule
+                if (!hourPresed)
                 {
-                    Category = selectedSchedule.DatosPelicula.Category,
-                    Date = selectedSchedule.DatosPelicula.Date,
-                    Duration = selectedSchedule.DatosPelicula.Duration,
-                    FontS = 0,
-                    Formato = selectedSchedule.DatosPelicula.Formato,
-                    Gener = selectedSchedule.DatosPelicula.Gener,
-                    Hour = selectedSchedule.DatosPelicula.Hour,
-                    Id = selectedSchedule.DatosPelicula.Id,
-                    Language = selectedSchedule.DatosPelicula.Language,
-                    MilitarHour = selectedSchedule.Militar,
-                    MovieId = selectedSchedule.DatosPelicula.MovieId,
-                    Room = selectedSchedule.DatosPelicula.Room,
-                    RoomId = selectedSchedule.DatosPelicula.RoomId,
-                    Title = selectedSchedule.DatosPelicula.Title,
-                    TypeZona = selectedSchedule.TipoZona,
-                    UnivDate = selectedSchedule.DatosPelicula.UnivDate,
-                    Censura = selectedSchedule.DatosPelicula.Censura
-                };
+                    hourPresed = true;
+                    var selectedSchedule = (HoraTMP)(sender as ListViewItem).Content;
+                    Schedule schedule = new Schedule
+                    {
+                        Category = selectedSchedule.DatosPelicula.Category,
+                        Date = selectedSchedule.DatosPelicula.Date,
+                        Duration = selectedSchedule.DatosPelicula.Duration,
+                        FontS = 0,
+                        Formato = selectedSchedule.DatosPelicula.Formato,
+                        Gener = selectedSchedule.DatosPelicula.Gener,
+                        Hour = selectedSchedule.DatosPelicula.Hour,
+                        Id = selectedSchedule.DatosPelicula.Id,
+                        Language = selectedSchedule.DatosPelicula.Language,
+                        MilitarHour = selectedSchedule.Militar,
+                        MovieId = selectedSchedule.DatosPelicula.MovieId,
+                        Room = selectedSchedule.DatosPelicula.Room,
+                        RoomId = selectedSchedule.DatosPelicula.RoomId,
+                        Title = selectedSchedule.DatosPelicula.Title,
+                        TypeZona = selectedSchedule.TipoZona,
+                        UnivDate = selectedSchedule.DatosPelicula.UnivDate,
+                        Censura = selectedSchedule.DatosPelicula.Censura
+                    };
 
-                Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;
-                Utilities.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
-                DipMap dipmap = SetProperties(schedule);
+                    Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;
+                    Utilities.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
+                    DipMap dipmap = SetProperties(schedule);
 
-                SetCallBacksNull();
-                timer.CallBackStop?.Invoke(1);
-                frmSeat frmSeat = new frmSeat(dipmap);
-                frmSeat.Show();
-                Close();
+                    SetCallBacksNull();
+                    timer.CallBackStop?.Invoke(1);
+                    frmSeat frmSeat = new frmSeat(dipmap);
+                    frmSeat.Show();
+                    Close(); 
+                }
             }
             catch (Exception ex)
             {
