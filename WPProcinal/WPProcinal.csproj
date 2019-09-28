@@ -256,6 +256,9 @@
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\User_Control\UCCinema.xaml.cs">
+      <DependentUpon>UCCinema.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Impresora\PrintProperties.cs" />
     <Compile Include="Models\ApiLocal\DataPaypad.cs" />
     <Compile Include="Models\ApiLocal\RequestAuth.cs" />
@@ -349,6 +352,10 @@
       <DependentUpon>frmSeat.xaml</DependentUpon>
     </Compile>
     <Page Include="Forms\Opciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\User_Control\UCCinema.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

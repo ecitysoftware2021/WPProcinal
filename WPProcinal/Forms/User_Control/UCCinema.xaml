@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="WPProcinal.Forms.User_Control.UCCinema"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPProcinal.Forms.User_Control"
+             mc:Ignorable="d" 
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             d:DesignHeight="2064.095" d:DesignWidth="1250.599">
+    <Grid TouchDown="gridPrincipal_TouchDown" Name="gridPrincipal">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"
+                        Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/procinal01.gif" 
+                   gif:ImageBehavior.AnimateInDesignMode="True"
+                   gif:ImageBehavior.AutoStart="True" 
+                    x:Name="GifLoad2" 
+                    Stretch="Fill"
+                    Margin="0,350,0,0" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Width="300" 
+                    Visibility="Visible"
+                    Height="300" 
+                    Grid.Column="1"/>
+
+    </Grid>
+</UserControl>

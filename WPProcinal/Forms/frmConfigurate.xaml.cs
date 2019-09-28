@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WPProcinal.Classes;
+using WPProcinal.Forms.User_Control;
 using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
 
@@ -215,9 +216,10 @@ namespace WPProcinal.Forms
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    frmCinema inicio = new frmCinema();
-                    inicio.Show();
-                    Close();
+                    Switcher.Navigate(new UCCinema());
+                    //frmCinema inicio = new frmCinema();
+                    //inicio.Show();
+                    //Close();
                 });
             }
         }

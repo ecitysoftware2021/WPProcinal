@@ -399,7 +399,6 @@ C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigura
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmCinema.g.cs
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.g.cs
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.g.cs
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmImpresionForzada.g.cs
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.g.cs
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.g.cs
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.g.cs
@@ -417,7 +416,6 @@ C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigura
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmCinema.baml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.baml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmFinalTransaction.baml
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmImpresionForzada.baml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.baml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.baml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmMovies.baml
@@ -495,3 +493,5 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CoreCompileInputs.cache
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCinema.g.cs
+C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCinema.baml
