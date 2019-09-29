@@ -29,7 +29,6 @@ namespace WPProcinal.ADO
         public virtual DbSet<TblDipMap> TblDipMap { get; set; }
         public virtual DbSet<TblPay> TblPay { get; set; }
         public virtual DbSet<TblTypeSeat> TblTypeSeat { get; set; }
-        public virtual DbSet<NotifyMoney> NotifyMoney { get; set; }
         public virtual DbSet<RePrint> RePrint { get; set; }
     }
 }

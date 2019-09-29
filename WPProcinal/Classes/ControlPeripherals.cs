@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 
+
 namespace WPProcinal.Classes
 {
     public class ControlPeripherals
@@ -260,6 +261,8 @@ namespace WPProcinal.Classes
                     _serialPortCoins.ReadTimeout = CoinsReadTime;
                     _serialPortCoins.WriteTimeout = CoinsWriteTimes;
                     _serialPortCoins.BaudRate = CoinsBaudRate;
+                    _serialPortCoins.DtrEnable = true;
+                    _serialPortCoins.RtsEnable = true;
                     _serialPortCoins.Open();
                     Thread.Sleep(1000);
                 }
@@ -292,12 +295,12 @@ namespace WPProcinal.Classes
                 {
 
                     _serialPortBills.Write(message);
-                    Thread.Sleep(200);
                     try
                     {
                         LogService.SaveRequestResponse(DateTime.Now + " :: Mensaje al billetero: ", message);
                     }
                     catch { }
+                    Thread.Sleep(1000);
                     log.SendMessage += string.Format("Billetero: {0}\n", message);
                 }
             }
@@ -322,13 +325,13 @@ namespace WPProcinal.Classes
             {
                 if (_serialPortCoins.IsOpen)
                 {
-                    Thread.Sleep(2000);
                     _serialPortCoins.Write(message);
                     try
                     {
                         LogService.SaveRequestResponse(DateTime.Now + " :: Mensaje al monedero: ", message);
                     }
                     catch { }
+                    Thread.Sleep(1000);
                     log.SendMessage += string.Format("Monedero: {0}\n", message);
                 }
             }
@@ -364,7 +367,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "_serialPortBillsDataReceived en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(ex.Message,
+                "_serialPortBillsDataReceived",
+                EError.Aplication,
+                ELevelError.Strong);
             }
         }
 
@@ -386,7 +392,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "_serialPortCoinsDataReceived en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(ex.Message,
+                "_serialPortCoinsDataReceived",
+                EError.Aplication,
+                ELevelError.Strong);
             }
         }
 
@@ -513,6 +522,19 @@ namespace WPProcinal.Classes
                             break;
                     }
                 }
+                else if (response[1] == "ON")
+                {
+                    switch (response[2])
+                    {
+                        case "MA":
+                        case "MD":
+                            timerStatusCoin.Stop();
+                            callbackStatusCoinAceptanceDispenser?.Invoke(true);
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -530,6 +552,7 @@ namespace WPProcinal.Classes
             {
                 if (response[1] == "MD")
                 {
+                    stateError = true;
                     Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
                     {
                         callbackError?.Invoke(deliveryValue.ToString());
@@ -537,6 +560,7 @@ namespace WPProcinal.Classes
                 }
                 if (response[1] == "DP")
                 {
+                    stateError = true;
                     //callbackError?.Invoke(string.Concat("Error, se alcanzó a entregar:", deliveryValue));
                 }
 
@@ -651,6 +675,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                stateError = false;
                 dispenserValue = valueDispenser;
                 ConfigurateDispenser();
             }
@@ -681,6 +706,16 @@ namespace WPProcinal.Classes
                                 if (Convert.ToInt32(Math.Floor(resta / _Casete1)) > 0)
                                 {
                                     newAmountBills += Convert.ToInt32(Math.Floor(resta / _Casete1)) * _Casete1;
+                                }
+                                else if (Convert.ToInt32(Math.Floor(resta / _Casete2)) > 0)
+                                {
+                                    newAmountBills += Convert.ToInt32(Math.Floor(resta / _Casete2)) * _Casete2;
+                                    Console.WriteLine(_Casete2 + ": " + Convert.ToInt32(Math.Floor(resta / _Casete2)));
+                                }
+                                else if (Convert.ToInt32(Math.Floor(resta / _Casete3)) > 0)
+                                {
+                                    newAmountBills += Convert.ToInt32(Math.Floor(resta / _Casete3)) * _Casete3;
+                                    Console.WriteLine(_Casete3 + ": " + Convert.ToInt32(Math.Floor(resta / _Casete3)));
                                 }
                             }
                             else if (Convert.ToInt32(Math.Floor(resta / _Casete2)) > 0)
@@ -770,13 +805,13 @@ namespace WPProcinal.Classes
             decimal enterVal = enterValue;
             if (enterValue >= payValue)
             {
-                if (Utilities.controlStop == 0)
+                StopAceptance();
+                Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
                 {
-                    StopAceptance();
-                    Utilities.controlStop++;
-                }
+
+                    callbackTotalIn?.Invoke(enterVal);
+                }));
                 enterValue = 0;
-                callbackTotalIn?.Invoke(enterVal);
             }
         }
 
@@ -804,14 +839,17 @@ namespace WPProcinal.Classes
         {
             try
             {
+
                 string[] values = data.Split(':')[1].Split(';');
                 if (isBX < 2)
                 {
                     foreach (var value in values)
                     {
+
                         int denominacion = int.Parse(value.Split('-')[0]);
                         int cantidad = int.Parse(value.Split('-')[1]);
                         deliveryVal += denominacion * cantidad;
+
                     }
                 }
 
@@ -819,6 +857,7 @@ namespace WPProcinal.Classes
                 {
 
                     LogMessage += string.Concat(data.Replace("\r", string.Empty), "!");
+
                     callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"));
 
                     ValidateFinal(isBX);
@@ -831,9 +870,12 @@ namespace WPProcinal.Classes
                 }
                 else
                 {
-                    if (isBX == 2)
+                    if (isBX == 2 || isBX == 0)
                     {
+
+
                         callbackOut?.Invoke(deliveryVal);
+
                     }
                 }
             }
@@ -841,11 +883,12 @@ namespace WPProcinal.Classes
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "ConfigDataDispenser en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
+
         }
 
         private void ValidateFinal(int isBX)
         {
-            if (RealdispenserValue == deliveryVal)
+            if (RealdispenserValue <= deliveryVal)
             {
                 if (isBX == 2 || isBX == 0)
                 {

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_PayPlus_LocalModelStoreContainer" CdmEntityContainer="DB_PayPlus_LocalEntities">
+    <EntitySetMapping Name="BackUpEcity">
+      <EntityTypeMapping TypeName="DB_PayPlus_LocalModel.BackUpEcity">
+        <MappingFragment StoreEntitySet="BackUpEcity">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BackUpMoney">
+      <EntityTypeMapping TypeName="DB_PayPlus_LocalModel.BackUpMoney">
+        <MappingFragment StoreEntitySet="BackUpMoney">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NotifyMoney">
+      <EntityTypeMapping TypeName="DB_PayPlus_LocalModel.NotifyMoney">
+        <MappingFragment StoreEntitySet="NotifyMoney">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TRANSACTION_ID" ColumnName="TRANSACTION_ID" />
+          <ScalarProperty Name="DENOMINATION" ColumnName="DENOMINATION" />
+          <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+          <ScalarProperty Name="OPERATION" ColumnName="OPERATION" />
+          <ScalarProperty Name="CODE" ColumnName="CODE" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="DATE" ColumnName="DATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

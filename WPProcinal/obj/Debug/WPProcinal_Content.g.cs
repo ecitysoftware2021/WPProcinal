@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("datamodel/payplusmodel.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("datamodel/payplusmodel.tt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ado/procinal.context.tt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ado/procinal.tt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databases/dbprocinal.mdf")]

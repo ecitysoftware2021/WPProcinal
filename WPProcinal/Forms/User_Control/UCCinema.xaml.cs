@@ -1,14 +1,15 @@
-﻿using PrinterValidator;
+﻿using Grabador.Transaccion;
+using PrinterValidator;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WPProcinal.ADO;
 using WPProcinal.Classes;
 using WPProcinal.Models;
-using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms.User_Control
@@ -20,57 +21,34 @@ namespace WPProcinal.Forms.User_Control
     {
         ApiLocal api;
         Utilities printService;
+        static CLSGrabador grabador = new CLSGrabador();
         public UCCinema()
         {
             InitializeComponent();
             printService = new Utilities();
             api = new ApiLocal();
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
-
+            try
+            {
+                grabador.FinalizarGrabacion();
+            }
+            catch { }
+            if (Utilities.LossConnection)
+            {
+                Utilities.RestartApp();
+            }
             Task.Run(() =>
             {
                 SendPayments();
             });
-            //Task.Run(() =>
-            //{
-            //    DesReserve();
-            //});
-            Task.Run(() =>
-            {
-                NotifyPending();
-            });
-            Task.Run(() =>
-            {
-                NotifyPendingMoney();
-            });
-            LoadData();
-        }
 
-        private void DesReserve()
-        {
             try
             {
-                var seats = DBProcinalController.GetSeatsreverve();
-                if (seats != null)
-                {
-                    var dipmaps = seats.Select(s => s.DipMapId).Distinct().ToList();
-                    foreach (var item in dipmaps)
-                    {
-                        var dipmap = DBProcinalController.GetDipMap2(item.Value);
-                        if (dipmap != null)
-                        {
-                            var dd = seats.Where(s => s.DipMapId == dipmap.DipMapId).ToList();
-                            var dipMap = Utilities.ConvertDipMap(dipmap);
-                            var seatst = Utilities.ConvertSeats(dd);
-                            Utilities.CancelAssing(seatst, dipMap);
-                        }
-                    }
-                }
+                Process.Start(Path.Combine(Directory.GetCurrentDirectory(), "Renotificar", "RenotifyConsole.exe"));
             }
-            catch (System.Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "DesReserve en frmCinema", EError.Aplication, ELevelError.Medium);
-            }
+            catch { }
+
+            LoadData();
         }
 
         private void SendPayments()
@@ -138,78 +116,6 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        public void NotifyPending()
-        {
-            try
-            {
-                using (var con = new DBProcinalEntities())
-                {
-                    var notifies = con.NotifyPay.ToList();
-
-                    foreach (var item in notifies)
-                    {
-                        Transaction Transaction = new Transaction
-                        {
-                            STATE_TRANSACTION_ID = item.STATE_TRANSACTION_ID.Value,
-                            DATE_END = item.DATE_END.Value,
-                            INCOME_AMOUNT = item.INCOME_AMOUNT.Value,
-                            RETURN_AMOUNT = item.RETURN_AMOUNT.Value,
-                            TRANSACTION_ID = item.TRANSACTION_ID.Value
-                        };
-
-                        var response = api.GetResponse(new Uptake.RequestApi()
-                        {
-                            Data = Transaction
-                        }, "UpdateTransaction");
-
-                        if (response != null)
-                        {
-                            if (response.Result.CodeError == 200)
-                            {
-                                con.NotifyPay.Remove(item);
-                                con.SaveChanges();
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "NotifyPending en frmCinema", EError.Aplication, ELevelError.Medium);
-            }
-        }
-
-        public void NotifyPendingMoney()
-        {
-            try
-            {
-                using (var con = new DBProcinalEntities())
-                {
-                    var notifies = con.NotifyMoney.ToList();
-
-                    foreach (var item in notifies)
-                    {
-                        if (item.DATE.Value.ToString("yyyyMMdd").Equals(DateTime.Now.ToString("yyyyMMdd")))
-                        {
-                            printService.ProccesValue(new DataMoneyNotification
-                            {
-                                enterValue = item.DENOMINATION.Value,
-                                opt = item.OPERATION.Value,
-                                quantity = item.QUANTITY.Value,
-                                idTransactionAPi = item.TRANSACTION_ID.Value
-                            });
-                        }
-                        con.NotifyMoney.Remove(item);
-                    }
-                    con.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "NotifyPending en frmCinema", EError.Aplication, ELevelError.Medium);
-            }
-        }
-
         private void gridPrincipal_TouchDown(object sender, TouchEventArgs e)
         {
             try
@@ -254,7 +160,7 @@ namespace WPProcinal.Forms.User_Control
                 };
 
                 Validator validator = new Validator();
-              
+
 
                 Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
 

@@ -69,20 +69,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="NotifyMoney">
-      <EntityTypeMapping TypeName="DBProcinalModel.NotifyMoney">
-        <MappingFragment StoreEntitySet="NotifyMoney">
-          <ScalarProperty Name="DATE" ColumnName="DATE" />
-          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
-          <ScalarProperty Name="CODE" ColumnName="CODE" />
-          <ScalarProperty Name="OPERATION" ColumnName="OPERATION" />
-          <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
-          <ScalarProperty Name="DENOMINATION" ColumnName="DENOMINATION" />
-          <ScalarProperty Name="TRANSACTION_ID" ColumnName="TRANSACTION_ID" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="RePrint">
       <EntityTypeMapping TypeName="DBProcinalModel.RePrint">
         <MappingFragment StoreEntitySet="RePrint">

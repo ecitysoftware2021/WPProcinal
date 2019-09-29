@@ -28,7 +28,7 @@ namespace WPProcinal.Forms.User_Control
         TimerTiempo timer;
         Response responseGlobal = new Response();
         Utilities objUtil = new Utilities();
-
+        private bool totalReturn = false;
         public UCPayCine(List<TypeSeat> Seats, DipMap dipMap)
         {
             InitializeComponent();
@@ -98,6 +98,17 @@ namespace WPProcinal.Forms.User_Control
                     if (enterValue > 0)
                     {
                         PaymentViewModel.ValorIngresado += enterValue;
+                        if (PaymentViewModel.ValorIngresado >= Utilities.PayVal)
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                btnCancelar.IsEnabled = false;
+                                //this.Opacity = 0.6;
+                                Utilities.Loading(frmLoading, true, this);
+                                Utilities.control.callbackValueIn = null;
+
+                            });
+                        }
                         utilities.ProccesValue(new DataMoneyNotification
                         {
                             enterValue = enterValue,
@@ -111,17 +122,9 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.control.callbackTotalIn = enterTotal =>
                 {
 
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        btnCancelar.IsEnabled = false;
-                    });
+
                     Utilities.control.callbackTotalIn = null;
-                    Thread.Sleep(200);
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        this.Opacity = 0.3;
-                        Utilities.Loading(frmLoading, true, this);
-                    });
+
 
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
                     Utilities.EnterTotal = enterTotal;
@@ -170,7 +173,7 @@ namespace WPProcinal.Forms.User_Control
                     Utilities.ValueDelivery = (long)totalOut;
 
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
-
+                    totalReturn = true;
                     if (state)
                     {
                         try
@@ -183,7 +186,7 @@ namespace WPProcinal.Forms.User_Control
                     }
                     else
                     {
-                        Cancelled("ReturnMoney(" + state + " > callbackTotalOut=" + totalOut);
+                        Cancelled();
                     }
                 };
 
@@ -191,19 +194,48 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Utilities.control.callbackError = null;
                     Utilities.SaveLogDispenser(ControlPeripherals.log);
-                    try
-                    {
-                        timer.CallBackStop?.Invoke(1);
-                        SetCallBacksNull();
-                    }
-                    catch { }
+                };
 
-                    if (PaymentViewModel.ValorIngresado >= Utilities.PayVal && state)
+                Utilities.control.callbackOut = delivery =>
+                {
+                    Utilities.control.callbackOut = null;
+                    if (!totalReturn)
                     {
-                        frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
-                        modal.ShowDialog();
-                        Buytickets();
-                        Utilities.Loading(frmLoading, false, this);
+                        Utilities.SaveLogDispenser(ControlPeripherals.log);
+
+                        try
+                        {
+                            timer.CallBackStop?.Invoke(1);
+                            SetCallBacksNull();
+                        }
+                        catch { }
+                        if (PaymentViewModel.ValorIngresado >= Utilities.PayVal && state)
+                        {
+                            if (delivery != returnValue)
+                            {
+                                Dispatcher.BeginInvoke((Action)delegate
+                                {
+                                    frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
+                                    modal.ShowDialog();
+                                    Buytickets();
+                                    Utilities.Loading(frmLoading, false, this);
+                                });
+                            }
+                            else
+                            {
+                                Buytickets();
+                                Utilities.Loading(frmLoading, false, this);
+                            }
+                        }
+                        else
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery));
+                                modal.ShowDialog();
+                                Cancelled();
+                            });
+                        }
                     }
                 };
 
@@ -211,7 +243,10 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "ReturnMoney en frmPayCine", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(ex.Message,
+                    "ReturnMoney en frmPayCine",
+                    EError.Aplication,
+                    ELevelError.Medium);
             }
         }
 
@@ -250,7 +285,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-                        utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 2, PaymentViewModel.ValorSobrante);
+                        Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 2, PaymentViewModel.ValorSobrante);
                     });
                 }
             }
@@ -298,7 +333,7 @@ namespace WPProcinal.Forms.User_Control
                     }
                     catch { }
 
-                    utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
+                    Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
 
                     ActivateTimer(false);
                     ReturnMoney(Utilities.PayVal, false);
@@ -328,7 +363,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void Cancelled(string llamada)
+        private void Cancelled()
         {
             if (controlCancel == 0)
             {
@@ -514,7 +549,7 @@ namespace WPProcinal.Forms.User_Control
                 Thread.Sleep(200);
                 Task.Run(() =>
                 {
-                    utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
+                    Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
 
                     logError.Description = "\nSe cancelo una transaccion";
                     logError.State = "Cancelada";
@@ -523,34 +558,12 @@ namespace WPProcinal.Forms.User_Control
                 });
                 if (PaymentViewModel.ValorIngresado > 0)
                 {
-                    Utilities.DispenserVal = PaymentViewModel.ValorIngresado;
-                    Utilities.control.callbackTotalOut = totalOut =>
-                    {
-                        Utilities.control.callbackTotalOut = null;
-                        Cancelled("btnCancelar_PreviewStylusDown");
-                    };
-
-                    Utilities.control.callbackLog = log =>
-                    {
-                        utilities.ProccesValue(log, Utilities.IDTransactionDB);
-                    };
-
-                    Utilities.control.callbackOut = quiantityOut =>
-                    {
-                        Cancelled("btnCancelar_PreviewStylusDown");
-                    };
-
-                    Utilities.control.callbackError = error =>
-                    {
-                        Utilities.SaveLogDispenser(ControlPeripherals.log);
-
-                    };
                     ActivateTimer(false);
-                    Utilities.control.StartDispenser(Utilities.DispenserVal);
+                    ReturnMoney(PaymentViewModel.ValorIngresado, false);
                 }
                 else
                 {
-                    Cancelled("btnCancelar_PreviewStylusDown");
+                    Cancelled();
                 }
             }
             catch (Exception ex)

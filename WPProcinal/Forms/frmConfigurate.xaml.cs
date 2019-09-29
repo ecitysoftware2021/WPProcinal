@@ -84,19 +84,25 @@ namespace WPProcinal.Forms
                                 {
                                     util = new Utilities(1);
                                 }
-                                Dispatcher.BeginInvoke((Action)delegate
+                                if (Utilities.GetConfiguration("Ambiente").Equals("Dllo"))
                                 {
-                                    Switcher.Navigate(new UCCinema());
-                                });
+                                    Dispatcher.BeginInvoke((Action)delegate
+                                    {
+                                        Switcher.Navigate(new UCCinema());
+                                    });
+                                }
+                                else
+                                {
+                                    ChangeStatusPeripherals();
+                                    Task.Run(() =>
+                                    {
+                                        Utilities.control.OpenSerialPorts();
+                                        Utilities.control.Start();
+                                        Utilities.control.StartCoinAcceptorDispenser();
+                                        Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
+                                    });
+                                }
 
-                                //ChangeStatusPeripherals();
-                                //Task.Run(() =>
-                                //{
-                                //    Utilities.control.OpenSerialPorts();
-                                //    Utilities.control.Start();
-                                //    Utilities.control.StartCoinAcceptorDispenser();
-                                //    Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
-                                //});
                             }
                             else
                             {

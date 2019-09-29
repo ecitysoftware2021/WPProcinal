@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,6 +37,7 @@ namespace WPProcinal.Classes
 
         public static List<Pelicula> Movies = new List<Pelicula>();
 
+        public static bool LossConnection { get; set; }
         public static string CinemaId { get; set; }
 
         public static DateTime FechaSeleccionada = DateTime.Today;
@@ -607,10 +609,13 @@ namespace WPProcinal.Classes
         /// <param name="state">Estaado por el cual se actualizará</param>
         /// <param name="Return">Valor a devolver, por defecto es 0 ya que hay transacciones donde no hay que devolver</param>
         /// <returns>Retorna un verdadero o un falso dependiendo el resultado del update</returns>
-        public void UpdateTransaction(decimal Enter, int state, decimal Return = 0)
+        public async static Task<bool> UpdateTransaction(decimal Enter,
+            int state,
+            decimal Return = 0)
         {
             try
             {
+                ApiLocal api = new ApiLocal();
                 Transaction Transaction = new Transaction
                 {
                     STATE_TRANSACTION_ID = state,
@@ -621,32 +626,30 @@ namespace WPProcinal.Classes
                     PAYMENT_TYPE_ID = Utilities.MedioPago
                 };
 
-                ApiLocal api = new ApiLocal();
+                    
 
-                var response = api.GetResponse(new RequestApi
+
+                var response = await api.GetResponse(new RequestApi
                 {
                     Data = Transaction
                 }, "UpdateTransaction");
-
+                var dataSerialized = JsonConvert.SerializeObject(Transaction);
                 if (response != null)
                 {
-                    if (response.Result.CodeError != 200)
+                    if (response.CodeError == 200)
                     {
-                        SaveLocalPay(Transaction);
-                        logError.Description = "\nNo fue posible actualizar esta transacción a aprobada";
-                        logError.State = "Iniciada";
-                        Utilities.SaveLogTransactions(logError, "LogTransacciones\\Iniciadas");
+                        return true;
                     }
                     else
                     {
-                        logError.Description = "\nTransacción Exitosa";
-                        logError.State = "Aprobada";
-                        Utilities.SaveLogTransactions(logError, "LogTransacciones\\Aprobadas");
+                        BackUpEcity(dataSerialized);
+                        return false;
                     }
                 }
                 else
                 {
-                    SaveLocalPay(Transaction);
+                    BackUpEcity(dataSerialized);
+                    return false;
                 }
             }
             catch (Exception ex)
@@ -659,9 +662,30 @@ namespace WPProcinal.Classes
                           ELevelError.Mild);
                 }
                 catch { }
+                return false;
             }
             //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: UpdateTransaction: ", "Salí");
 
+        }
+
+        public static void BackUpEcity(string data)
+        {
+            try
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    LossConnection = true;
+                    using (var con = new DB_PayPlus_LocalEntities())
+                    {
+                        con.BackUpEcity.Add(new DataModel.BackUpEcity
+                        {
+                            Data = data,
+                        });
+                        con.SaveChanges();
+                    }
+                }));
+            }
+            catch { }
         }
 
         public async Task<bool> SaveCardInformation(RequestCardInformation request)
@@ -695,72 +719,7 @@ namespace WPProcinal.Classes
                 return false;
             }
         }
-        public void SaveLocalPay(Transaction dataPay)
-        {
-            try
-            {
-
-                using (var con = new DBProcinalEntities())
-                {
-                    NotifyPay notify = new NotifyPay
-                    {
-                        TRANSACTION_ID = dataPay.TRANSACTION_ID,
-                        STATE_TRANSACTION_ID = dataPay.STATE_TRANSACTION_ID,
-                        INCOME_AMOUNT = dataPay.INCOME_AMOUNT,
-                        DATE_END = dataPay.DATE_END,
-                        RETURN_AMOUNT = dataPay.RETURN_AMOUNT
-                    };
-                    con.NotifyPay.Add(notify);
-                    con.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
-        //public async Task<bool> CreatePrintDashboard()
-        //{
-        //    try
-        //    {
-        //        DashboardPrint = new List<SP_GET_INVOICE_DATA_Result>();
-
-        //        ApiLocal api = new ApiLocal();
-
-        //        for (int i = 0; i < CantSeats; i++)
-        //        {
-        //            var response = await api.GetResponse(new RequestApi
-        //            {
-        //                Data = null
-        //            }, "GetInvoiceData");
-
-        //            if (response != null)
-        //            {
-        //                if (response.CodeError == 200)
-        //                {
-        //                    var responseApi = JsonConvert.DeserializeObject<SP_GET_INVOICE_DATA_Result>(response.Data.ToString());
-
-        //                    if (responseApi.IS_AVAILABLE == true)
-        //                    {
-        //                        DashboardPrint.Add(responseApi);
-        //                    }
-        //                }
-        //            }
-        //        }
-
-        //        if (DashboardPrint.Count() == CantSeats)
-        //        {
-        //            return true;
-        //        }
-
-        //        return false;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return false;
-        //    }
-        //}
-
+        
         public void ProccesValue(DataMoneyNotification data)
         {
             try
@@ -787,24 +746,19 @@ namespace WPProcinal.Classes
                         data.code = "MD";
                     }
                 }
-                Task.Run(() =>
+             
+                InsertLocalDBMoney(new RequestTransactionDetails
                 {
-                    SaveDetailsTransaction(new RequestTransactionDetails
-                    {
-                        Code = data.code,
-                        Denomination = Convert.ToInt32(data.enterValue),
-                        Operation = data.opt,
-                        Quantity = data.quantity,
-                        TransactionId = data.idTransactionAPi,
-                        Date = data.Date
-                    });
+                    Code = data.code,
+                    Denomination = Convert.ToInt32(data.enterValue),
+                    Operation = data.opt,
+                    Quantity = data.quantity,
+                    TransactionId = data.idTransactionAPi,
+                    Date = DateTime.Now
                 });
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProccesValue(decimal enterValue, int opt, int quantity, string code, int idTransactionAPi)");
 
             }
         }
@@ -813,30 +767,25 @@ namespace WPProcinal.Classes
         {
             try
             {
-                Task.Run(() =>
+                InsertLocalDBMoneyDispenser(new RequestTransactionDetails
                 {
-                    SaveDetailsTransaction(new RequestTransactionDetails
-                    {
-                        Description = messaje,
-                        TransactionId = idTransactionAPi
-                    });
+                    Description = messaje,
+                    TransactionId = idTransactionAPi,
+                    Date = DateTime.Now
                 });
             }
             catch (Exception ex)
             {
-                LogService.CreateLogsError(
-                string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                ex.InnerException, "---------- Trace: ", ex.StackTrace), "ProccesValue(string messaje, int idTransactionAPi)");
+
             }
         }
+
 
         public async static void SaveDetailsTransaction(RequestTransactionDetails detail)
         {
             try
             {
                 ApiLocal api = new ApiLocal();
-
-                var se = Utilities.Session;
                 if (detail != null)
                 {
                     var data = new TRANSACTION_DETAIL
@@ -849,43 +798,68 @@ namespace WPProcinal.Classes
                         DESCRIPTION = detail.Description
                     };
 
-                    var result = api.CallApi("SaveTransactionDetail", detail);
-                    if (result.Result == null)
+                    var result = await api.CallApi("SaveTransactionDetail", detail);
+                    int resultDb = 0;
+                    try
                     {
-                        using (var con = new DBProcinalEntities())
-                        {
-                            NotifyMoney notify = new NotifyMoney
-                            {
-                                CODE = detail.Code,
-                                DENOMINATION = detail.Denomination,
-                                DESCRIPTION = detail.Description,
-                                OPERATION = detail.Operation,
-                                QUANTITY = detail.Quantity,
-                                TRANSACTION_ID = detail.TransactionId,
-                                DATE = detail.Date
-                            };
-                            con.NotifyMoney.Add(notify);
-                            con.SaveChanges();
-                        }
+                        resultDb = Convert.ToInt32(result);
                     }
-                    else
+                    catch { }
+                    if (resultDb != 200 && detail.Description == null)
                     {
-
+                        InsertLocalDBMoney(detail);
                     }
-
+                    else if (resultDb != 200 && detail.Description != null)
+                    {
+                        InsertLocalDBMoneyDispenser(detail);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                //logErrors.Add(new LogError
-                //{
-                //    Fecha = DateTime.Now,
-                //    Operacion = "SaveDetailsTransaction",
-                //    Error = ex.Message,
-                //    Exception = ex
-                //});
-                //Utilities.CrearLogErrores(logErrors);
+
             }
+        }
+
+        private static void InsertLocalDBMoney(RequestTransactionDetails detail)
+        {
+            try
+            {
+                using (var con = new DB_PayPlus_LocalEntities())
+                {
+                    NotifyMoney notify = new NotifyMoney
+                    {
+                        CODE = detail.Code,
+                        DENOMINATION = detail.Denomination,
+                        DESCRIPTION = detail.Description,
+                        OPERATION = detail.Operation,
+                        QUANTITY = detail.Quantity,
+                        TRANSACTION_ID = detail.TransactionId,
+                        DATE = detail.Date
+                    };
+                    con.NotifyMoney.Add(notify);
+                    con.SaveChanges();
+                }
+            }
+            catch { }
+        }
+        private static void InsertLocalDBMoneyDispenser(RequestTransactionDetails detail)
+        {
+            try
+            {
+                using (var con = new DB_PayPlus_LocalEntities())
+                {
+                    BackUpMoney notify = new BackUpMoney
+                    {
+                        Data = detail.Description,
+                        TransactionID = detail.TransactionId,
+                        Date = detail.Date
+                    };
+                    con.BackUpMoney.Add(notify);
+                    con.SaveChanges();
+                }
+            }
+            catch { }
         }
 
     }

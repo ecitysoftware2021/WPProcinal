@@ -69,22 +69,8 @@
     <EntitySet Name="TblDipMap" EntityType="Self.TblDipMap" />
     <EntitySet Name="TblPay" EntityType="Self.TblPay" />
     <EntitySet Name="TblTypeSeat" EntityType="Self.TblTypeSeat" />
-    <EntitySet Name="NotifyMoney" EntityType="DBProcinalModel.NotifyMoney" />
     <EntitySet Name="RePrint" EntityType="DBProcinalModel.RePrint" />
   </EntityContainer>
-  <EntityType Name="NotifyMoney">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TRANSACTION_ID" Type="Int32" />
-    <Property Name="DENOMINATION" Type="Int32" />
-    <Property Name="QUANTITY" Type="Int32" />
-    <Property Name="OPERATION" Type="Int32" />
-    <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DESCRIPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DATE" Type="DateTime" Precision="0" />
-  </EntityType>
   <EntityType Name="RePrint">
     <Key>
       <PropertyRef Name="Id" />

@@ -135,9 +135,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ADO\NotifyMoney.cs">
-      <DependentUpon>Procinal.tt</DependentUpon>
-    </Compile>
     <Compile Include="ADO\NotifyPay.cs">
       <DependentUpon>Procinal.tt</DependentUpon>
     </Compile>
@@ -172,13 +169,37 @@
     <Compile Include="Classes\ControlPeripheralsNotArduino.cs" />
     <Compile Include="Classes\ErrorCodes.cs" />
     <Compile Include="Classes\Switcher.cs" />
+    <Compile Include="DataModel\BackUpEcity.cs">
+      <DependentUpon>PayPlusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\BackUpMoney.cs">
+      <DependentUpon>PayPlusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\ClasesUtiles.cs" />
     <Compile Include="Classes\ControlPeripherals.cs" />
     <Compile Include="Classes\DBProcinalController.cs" />
     <Compile Include="Classes\Enumerables.cs" />
     <Compile Include="DataModel\Log.cs" />
     <Compile Include="DataModel\LogError.cs" />
+    <Compile Include="DataModel\NotifyMoney.cs">
+      <DependentUpon>PayPlusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\PaymentViewModel.cs" />
+    <Compile Include="DataModel\PayPlusModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PayPlusModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\PayPlusModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PayPlusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\PayPlusModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PayPlusModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\PayViewModel.cs" />
     <Compile Include="DataModel\Response.cs" />
     <Compile Include="DataModel\Email.cs" />
@@ -393,6 +414,13 @@
     <None Include="Connected Services\WCFSecuencia\service.wsdl" />
     <None Include="Connected Services\WCFTarifas\service.wsdl" />
     <None Include="DataContext\DB_Local.db" />
+    <EntityDeploy Include="DataModel\PayPlusModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PayPlusModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataModel\PayPlusModel.edmx.diagram">
+      <DependentUpon>PayPlusModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -553,6 +581,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataModel\PayPlusModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PayPlusModel.edmx</DependentUpon>
+      <LastGenOutput>PayPlusModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModel\PayPlusModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PayPlusModel.edmx</DependentUpon>
+      <LastGenOutput>PayPlusModel.cs</LastGenOutput>
+    </Content>
     <Resource Include="Images\NewDesing\Gif\ACERCAR.gif" />
     <Resource Include="Images\NewDesing\Gif\clave.gif" />
     <Resource Include="Images\NewDesing\Buttons\bad.png" />
