@@ -553,10 +553,10 @@ namespace WPProcinal.Classes
                 if (response[1] == "MD")
                 {
                     stateError = true;
-                    Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
-                    {
-                        callbackError?.Invoke(deliveryValue.ToString());
-                    }));
+                    //Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
+                    //{
+                    //    callbackError?.Invoke(deliveryValue.ToString());
+                    //}));
                 }
                 if (response[1] == "DP")
                 {

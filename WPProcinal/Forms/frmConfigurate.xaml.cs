@@ -85,7 +85,7 @@ namespace WPProcinal.Forms
                                 {
                                     util = new Utilities(1);
                                 }
-                                if (Utilities.GetConfiguration("Ambiente").Equals("Dllo"))
+                                if (Utilities.GetConfiguration("ConfigurateActive").Equals("no"))
                                 {
                                     Dispatcher.BeginInvoke((Action)delegate
                                     {

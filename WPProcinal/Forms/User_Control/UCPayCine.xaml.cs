@@ -103,7 +103,6 @@ namespace WPProcinal.Forms.User_Control
                             Dispatcher.BeginInvoke((Action)delegate
                             {
                                 btnCancelar.IsEnabled = false;
-                                //this.Opacity = 0.6;
                                 Utilities.Loading(frmLoading, true, this);
                                 Utilities.control.callbackValueIn = null;
 
@@ -131,7 +130,9 @@ namespace WPProcinal.Forms.User_Control
                     if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                     {
                         ActivateTimer(true);
+
                         ReturnMoney(PaymentViewModel.ValorSobrante, true);
+
                     }
                     else
                     {
@@ -161,7 +162,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-
+                totalReturn = false;
                 Utilities.control.callbackLog = log =>
                 {
                     utilities.ProccesValue(log, Utilities.IDTransactionDB);
@@ -198,9 +199,11 @@ namespace WPProcinal.Forms.User_Control
 
                 Utilities.control.callbackOut = delivery =>
                 {
+
                     Utilities.control.callbackOut = null;
                     if (!totalReturn)
                     {
+                        Utilities.ValueDelivery = (long)delivery;
                         Utilities.SaveLogDispenser(ControlPeripherals.log);
 
                         try
@@ -215,7 +218,7 @@ namespace WPProcinal.Forms.User_Control
                             {
                                 Dispatcher.BeginInvoke((Action)delegate
                                 {
-                                    frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador y presione Salir para tomar sus boletas. Gracias");
+                                    frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
                                     modal.ShowDialog();
                                     Buytickets();
                                     Utilities.Loading(frmLoading, false, this);
@@ -231,7 +234,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             Dispatcher.BeginInvoke((Action)delegate
                             {
-                                frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery));
+                                frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0"));
                                 modal.ShowDialog();
                                 Cancelled();
                             });
@@ -285,6 +288,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
+
                         Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 2, PaymentViewModel.ValorSobrante);
                     });
                 }
@@ -333,8 +337,6 @@ namespace WPProcinal.Forms.User_Control
                     }
                     catch { }
 
-                    Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
-
                     ActivateTimer(false);
                     ReturnMoney(Utilities.PayVal, false);
 
@@ -365,6 +367,12 @@ namespace WPProcinal.Forms.User_Control
 
         private void Cancelled()
         {
+            try
+            {
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+            }
+            catch { }
             if (controlCancel == 0)
             {
                 controlCancel = 1;
@@ -386,12 +394,20 @@ namespace WPProcinal.Forms.User_Control
                               string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
                               ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
                     }
+                    Task.Run(() =>
+                    {
+                        Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, Utilities.ValueDelivery);
 
+                        logError.Description = "\nSe cancelo una transaccion";
+                        logError.State = "Cancelada";
+                        Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
+
+                    });
                     Dispatcher.Invoke(() =>
                     {
                         PaymentGrid.Opacity = 0.3;
                         Utilities.Loading(frmLoading, false, this);
-                        frmModal modal = new frmModal("Usuario su pago fue cancelado.");
+                        frmModal modal = new frmModal("Señor usuario, su compra fué cancelada.");
                         modal.ShowDialog();
                     });
                     GC.Collect();
@@ -415,41 +431,49 @@ namespace WPProcinal.Forms.User_Control
 
                 if (num == 1)
                 {
+
                     payState = true;
 
-                    var response = WCFServices.PostBuy(Utilities.DipMapCurrent, Utilities.TypeSeats);
+                    if (Utilities.GetConfiguration("Ambiente").Equals("Prd"))
+                    {
+                        var response = WCFServices.PostBuy(Utilities.DipMapCurrent, Utilities.TypeSeats);
 
-                    responseGlobal = response;
-                    if (!response.IsSuccess)
-                    {
-                        Utilities.SaveLogError(new LogError
-                        {
-                            Message = response.Message,
-                            Method = "WCFServices.PostComprar"
-                        });
-                    }
-
-                    var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                    if (transaccionCompra.Respuesta != "Exitosa")
-                    {
-                        payState = false;
-                        Utilities.SaveLogError(new LogError
-                        {
-                            Message = transaccionCompra.Respuesta,
-                            Method = "WCFServices.PostComprar.Fallida"
-                        });
-                    }
-                    else
-                    {
-                        var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                        responseGlobal = response;
                         if (!response.IsSuccess)
                         {
                             Utilities.SaveLogError(new LogError
                             {
-                                Message = responseDB.Message,
-                                Method = "DBProcinalController.EditPaySeat"
+                                Message = response.Message,
+                                Method = "WCFServices.PostComprar"
                             });
                         }
+
+                        var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
+                        if (transaccionCompra.Respuesta != "Exitosa")
+                        {
+                            payState = false;
+                            Utilities.SaveLogError(new LogError
+                            {
+                                Message = transaccionCompra.Respuesta,
+                                Method = "WCFServices.PostComprar.Fallida"
+                            });
+                        }
+                        else
+                        {
+                            var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
+                            if (!response.IsSuccess)
+                            {
+                                Utilities.SaveLogError(new LogError
+                                {
+                                    Message = responseDB.Message,
+                                    Method = "DBProcinalController.EditPaySeat"
+                                });
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
                     }
                 }
 
@@ -513,9 +537,10 @@ namespace WPProcinal.Forms.User_Control
                                 }
                                 else
                                 {
+                                    Utilities.Loading(frmLoading, false, this);
                                     frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador. Gracias");
                                     modal.ShowDialog();
-                                    Utilities.GoToInicial();
+                                    Cancelled();
                                 }
 
                             }
@@ -527,6 +552,7 @@ namespace WPProcinal.Forms.User_Control
                                     SetCallBacksNull();
                                 }
                                 catch { }
+                                Utilities.Loading(frmLoading, false, this);
                                 frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador. Gracias");
                                 modal.ShowDialog();
                                 Cancelled();
@@ -554,20 +580,11 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                //this.Opacity = 0.3;
                 Utilities.Loading(frmLoading, true, this);
 
                 Utilities.control.StopAceptance();
                 Thread.Sleep(200);
-                Task.Run(() =>
-                {
-                    Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, PaymentViewModel.ValorSobrante);
 
-                    logError.Description = "\nSe cancelo una transaccion";
-                    logError.State = "Cancelada";
-                    Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
-
-                });
                 if (PaymentViewModel.ValorIngresado > 0)
                 {
                     ActivateTimer(false);
