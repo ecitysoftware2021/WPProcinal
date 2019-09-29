@@ -495,5 +495,4 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Contro
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCFinalTransaction.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCFinalTransaction.baml
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\PrinterValidator.dll
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\PrinterValidator.pdb
