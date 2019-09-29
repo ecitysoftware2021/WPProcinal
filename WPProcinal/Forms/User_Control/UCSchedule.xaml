@@ -1,0 +1,346 @@
+﻿<UserControl x:Class="WPProcinal.Forms.User_Control.UCSchedule"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPProcinal.Forms.User_Control"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="2064.095" d:DesignWidth="1250.599" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush x:Name="imgBg"
+                        ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
+                        Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
+            <TextBlock x:Name="tbTimer"
+
+                       FontSize="35"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10,50,0,0" FontFamily="Gotham" FontWeight="Bold"/>
+
+            <TextBlock x:Name="tbHoraActual"
+                       FontSize="35"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10,100,0,0" FontFamily="Gotham" FontWeight="Bold"/>
+
+            <Border
+                BorderBrush="White" 
+                BorderThickness="3,3,3,3"
+                CornerRadius="10,10,10,10"
+                Width="300"
+                Height="400"
+                HorizontalAlignment="Right"
+                Margin="0,-50,80,0">
+                <Border.Background>
+                    <ImageBrush x:Name="imgBackground"
+                        Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+            <Image Source="/Images/NewDesing/buttons/b-atras.png" 
+                   Margin="50,150,0,0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Height="130"
+                   Name="btnAtras"
+                  TouchDown="BtnAtras_TouchDown"/>
+
+            <TextBlock x:Name="TxtDuracion"
+                       FontSize="35"
+                       FontFamily="Gotham"
+                       Text="Duraciòn: 135 min"                   
+                       FontWeight="Bold"
+                       Width="500"
+                       TextAlignment="Left"
+                       TextWrapping="Wrap"
+                       Foreground="Red"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" 
+                       Margin="190,-100,0,0"/>
+
+            <TextBlock x:Name="TxtTitle"
+                       FontSize="35"
+                       FontFamily="Gotham"
+                       Text="TÍTULO"                   
+                       FontWeight="Bold"
+                       Width="500"
+                       TextAlignment="Left"
+                       TextWrapping="Wrap"
+                       Foreground="Gray"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" 
+                       Margin="190,50,0,0"/>
+            <TextBlock x:Name="TxtDay"
+                       FontSize="40"
+                       FontFamily="Gotham"
+                       Text="24 Sábado"
+                       FontWeight="Bold"
+                       Foreground="Red"
+                       TextAlignment="Center"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left" 
+                       Margin="200,400,0,0"/>
+
+        </Grid>
+
+        <Grid x:Name="gridFechasPrincipal"  Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="Top" Margin="0,-170,0,0">
+
+
+            <ListView x:Name="lv_DateName"
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Top"
+                      ItemsSource="{Binding}"
+                      Margin="0,0,0,0"
+                      Height="170"
+                          Width="1300"
+                      Background="Transparent"
+                      BorderBrush="Transparent"
+                      >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}" >
+                        <EventSetter Event="TouchDown"
+                                            
+                         Handler="ListViewItem_TouchDown" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <ContentPresenter>
+                                    </ContentPresenter>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3"
+                                 HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel x:Name="panelData" Orientation="Horizontal"
+                                        Width="300"
+                                VerticalAlignment="Stretch" 
+                                HorizontalAlignment="Stretch">
+                            <Grid x:Name="gridFechas" HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Margin="0,0,0,0"
+                                      TouchDown="GridFechas_TouchDown">
+                                <Border 
+                                        BorderBrush="White"
+                                        Width="260"
+                                        Background="White"
+                                        BorderThickness="1,1,1,1"
+                                        CornerRadius="10,10,10,10"
+                                        >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="80"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock 
+                                            Grid.Column="0"
+                                            Grid.Row="0"
+                                                FontFamily="Gotham"
+                                            FontSize="30"
+                                            TextAlignment="Center"
+                                            TextWrapping="WrapWithOverflow"
+                                            Margin="10,0,0,40"
+                                            TextDecorations="Underline"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"
+                                            Foreground="Red"
+                                            Text="{Binding NombreDia}"
+                                        />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            FontSize="60"
+                                            TextAlignment="Center"
+                                            TextWrapping="WrapWithOverflow"
+                                            Margin="0,0,0,0"
+                                                FontFamily="Gotham"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Foreground="Gray"
+                                            Text="{Binding DiaNumero}"
+                                        />
+                                        <TextBlock 
+                                            Grid.Column="0"
+                                            FontSize="30"
+                                            TextAlignment="Center"
+                                                FontFamily="Gotham"
+                                            TextWrapping="WrapWithOverflow"
+                                            Margin="10,0,0,10"
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Left"
+                                            Foreground="Gray"
+                                            Text="{Binding Mes}"
+                                        />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Image
+                        Grid.Column="0"
+                
+                        HorizontalAlignment="Left" 
+                        Name="btnPrev2" 
+                        VerticalAlignment="Top"
+                        Margin="5,80,0,35"
+                        Height="40"
+                        Visibility="Hidden"
+                        Source="/Images/anterior.png"
+                    TouchDown="BtnPrev2_TouchDown"
+                    />
+            <Image  Grid.Column="1"
+                   
+                        Margin="5,80,0,35"
+                        HorizontalAlignment="Right"
+                        Name="btnNext2" 
+                        VerticalAlignment="Top"
+                        Height="40" 
+                        
+                        Visibility="Visible"
+                        Source="/Images/siguiente.png"
+                        TouchDown="BtnNext2_TouchDown"
+                        />
+        </Grid>
+
+
+        <materialDesign:TransitioningContent  
+            OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
+            Name="btnMapSeats" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <materialDesign:TransitioningContent.OpeningEffects>
+                <materialDesign:TransitionEffect Kind="SlideInFromLeft"  Duration="0:0:1.9"/>
+            </materialDesign:TransitioningContent.OpeningEffects>
+            <Grid >
+                <ListView x:Name="lvSchedule"
+                HorizontalAlignment="Center" 
+                      Width="850"
+                      Height="1900"
+                VerticalAlignment="Top"
+                Margin="-100,0,0,0"
+                ItemsSource="{Binding}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel  Orientation="Vertical" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="400"
+                                       Height="75"
+                                       Grid.Column="0"
+                                       Grid.Row="0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Margin="0,0,0,0"
+                                       Source="{Binding RutaTipoSala}"/>
+                                    <TextBlock
+                                    Text="{Binding Formato}"
+                                    FontSize="40"
+                                    FontFamily="Gotham"
+                                    Foreground="White"
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Margin="-350,10,0,0"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="Bold"/>
+                                    <TextBlock
+                                    Text="{Binding Language}"
+                                    FontSize="40"
+                                    Foreground="White"
+                                    Grid.Column="0"
+                                    FontFamily="Gotham"
+                                    Grid.Row="0"
+                                    Margin="0,10,280,0"
+                                    HorizontalAlignment="Right"
+                                    FontWeight="Bold"/>
+
+                                    <ListView x:Name="lvHours"
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center"
+                                          Grid.Row="1"
+                                        ItemsSource="{Binding Hours}"
+                                        >
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListViewItem}" >
+                                                <EventSetter Event="TouchDown"
+                                                    Handler="ListViewItem_TouchDown_1" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ListViewItem">
+                                                            <ContentPresenter>
+                                                            </ContentPresenter>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <UniformGrid Columns="6"
+                                             HorizontalAlignment="Center"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel  Orientation="Horizontal" 
+                                                VerticalAlignment="Stretch" 
+                                                HorizontalAlignment="Stretch">
+                                                    <Grid
+                                                    Margin="10">
+                                                        <materialDesign:Card
+                                                        Width="100"
+                                                        Height="50">
+                                                            <TextBlock Text="{Binding Horario}"
+                                                               FontSize="20"
+                                                                   FontFamily="Gotham"
+                                                               FontWeight="Bold"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center"
+                                                                   TextAlignment="Center"/>
+                                                        </materialDesign:Card>
+                                                    </Grid>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </materialDesign:TransitioningContent>
+    </Grid>
+</UserControl>

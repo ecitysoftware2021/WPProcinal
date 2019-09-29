@@ -25,7 +25,7 @@ namespace WPProcinal.Forms
                 Thread.Sleep(2000);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    Utilities.GoToInicial(this);
+                    //Utilities.GoToInicial(this);
                 });
             });
         }

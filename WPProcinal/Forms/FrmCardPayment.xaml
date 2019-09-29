@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:WPProcinal.Forms"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Loaded="Window_Loaded"
+        
         WindowState="Maximized"
         Height="2064.095" 
         Width="1250.599"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
 
-    <Grid Name="PaymentGrid">
+    <!--<Grid Name="PaymentGrid">
         <Grid.Background>
             <ImageBrush x:Name="imgBg"
                         ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
@@ -194,5 +194,5 @@
                    Grid.Row="3"
                TouchDown="BtnCancelar_TouchDown"/>
         
-    </Grid>
+    </Grid>-->
 </Window>

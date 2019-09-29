@@ -27,6 +27,7 @@ using static WPProcinal.Models.ApiLocal.Uptake;
 using trx;
 using WPProcinal.DataModel;
 using WPProcinal.Models.ApiLocal;
+using WPProcinal.Forms.User_Control;
 
 namespace WPProcinal.Classes
 {
@@ -203,7 +204,7 @@ namespace WPProcinal.Classes
         /// </summary>
         /// <param name="window">objeto de la clase FrmLoading  </param>
         /// <param name="state">para saber si se oculta o se muestra true:muestra, false: oculta</param>
-        public static void Loading(Window window, bool state, Window w)
+        public static void Loading(Window window, bool state, UserControl w)
         {
             try
             {
@@ -303,7 +304,7 @@ namespace WPProcinal.Classes
         /// <summary>
         /// Método que me redirecciona a la ventana de inicio
         /// </summary>
-        public static void GoToInicial(Window window)
+        public static void GoToInicial()
         {
 
             try
@@ -316,9 +317,7 @@ namespace WPProcinal.Classes
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
-                    frmCinema main = new frmCinema();
-                    main.Show();
-                    window.Close();
+                    Switcher.Navigate(new UCCinema());
                 }));
                 GC.Collect();
             }

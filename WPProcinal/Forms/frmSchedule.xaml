@@ -10,10 +10,10 @@
         Background="#f5f5dc"
         WindowStyle="None"
         WindowState="Maximized"
-        Loaded="Window_Loaded"
+        
         Height="2064.095" Width="1250.599"
         >
-    <Grid>
+    <!--<Grid>
         <Grid.Background>
             <ImageBrush x:Name="imgBg"
                         ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
@@ -348,5 +348,5 @@
                 </ListView>
             </Grid>
         </materialDesign:TransitioningContent>
-    </Grid>
+    </Grid>-->
 </Window>

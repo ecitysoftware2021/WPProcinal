@@ -1,0 +1,217 @@
+﻿<UserControl x:Class="WPProcinal.Forms.User_Control.UCSeat"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPProcinal.Forms.User_Control"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        mc:Ignorable="d"
+        Background="#f5f5dc"
+             d:DesignHeight="2064.095" d:DesignWidth="1250.599" Loaded="UserControl_Loaded">
+    <Grid Name="GridSeat">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
+                        Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="570" />
+            <RowDefinition Height="220" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="400" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
+            <TextBlock x:Name="tbTimer"
+                       FontSize="35"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10,50,0,0" FontFamily="Gotham" FontWeight="Bold"/>
+
+            <TextBlock x:Name="tbHoraActual"
+                       FontSize="35"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10,100,0,0" FontFamily="Gotham" FontWeight="Bold"/>
+
+            <Image Source="/Images/NewDesing/buttons/b-atras.png" 
+                   Margin="50,150,0,0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Height="130"
+                   Name="btnAtras"
+                   TouchDown="BtnAtras_TouchDown"/>
+            <TextBlock 
+                x:Name="TxtTitle"
+                FontSize="50"
+                FontFamily="Gotham"
+                Text="TÍTULO TÍTULO TÍTULO TÍTULO aaaaqaaaaa"
+                TextWrapping="Wrap"
+                FontWeight="Bold"
+                Width="600"
+                Foreground="Gray"
+                TextAlignment="Left"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                Margin="190,50,0,0" >
+            </TextBlock>
+            <TextBlock
+                FontFamily="Gotham"
+                x:Name="TxtSubTitle"
+                FontSize="30"
+                Text="2D HABLADA EN ESPAÑOLw"
+                FontWeight="Bold"                
+                TextAlignment="Center"
+                TextWrapping="Wrap"
+                Foreground="Gray"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right" 
+                Width="300"
+                Margin="0,100,50,0">
+            </TextBlock>
+            <TextBlock x:Name="TxtFormat"
+                       FontFamily="Gotham"
+                       FontSize="40"
+                       Text="2h 24min"
+                       FontWeight="Bold"
+                       TextWrapping="Wrap"
+                       TextAlignment="Right"
+                       Foreground="Red"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right" 
+                       Margin="0,200,50,0"
+                       />
+            <TextBlock x:Name="TxtDuracion"
+                       FontSize="35"
+                       FontFamily="Gotham"
+                       Text="Duraciòn: 135 min"                   
+                       FontWeight="Bold"
+                       Width="500"
+                       TextAlignment="Right"
+                       TextWrapping="Wrap"
+                       Foreground="Red"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right" 
+                       Margin="0,280,10,0"/>
+
+            <TextBlock x:Name="TxtDay"
+                       FontSize="40"
+                       Text="24 Sábado"
+                       FontFamily="Gotham"
+                       FontWeight="Bold"
+                       Foreground="Red"
+                       TextAlignment="Center"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left" 
+                        Margin="200,380,0,0"/>
+
+            <TextBlock x:Name="TxtHour"
+                       FontFamily="Gotham"
+                       FontSize="25"
+                       Text="4:30 PM"
+                       FontWeight="Bold"
+                       Foreground="#FFF"
+                       Width="150"
+                       TextAlignment="Center"                       
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center" 
+                       Margin="660,265,0,0"/>
+
+        </Grid>
+        <Grid Grid.Row="2" 
+              Grid.ColumnSpan="2"
+              Width="1030" Margin="-120,-190,-100,-150">
+            <Image HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Source="/Images/NewDesing/Backgrounds/pantalla.png"
+                   
+                   />
+        </Grid>
+        <Grid HorizontalAlignment="Center" 
+               Height="102"                
+               Grid.Row="3" 
+               Grid.ColumnSpan="2"
+               Margin="0,0,0,20"               
+               VerticalAlignment="Top"
+               Width="1000">
+
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgDisponible"
+               Margin="0,0,0,20"
+               Source="/Images/Disponiblev2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgNoDisponible"
+               Margin="200,0,0,20"
+               Source="/Images/NoDisponiblev2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgSeleccionada"
+               Margin="400,0,0,20"
+               Source="/Images/seleccionadav2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgPuff"
+               Margin="500,50,0,20"
+               Source="/Images/puffv2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgDiscapacitados"
+               Margin="800,0,0,20"
+               Source="/Images/discapacitadosv2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgVibroSound"               
+                   Margin="600,0,0,20"
+               Source="/Images/vibrosoundv2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+        </Grid>
+
+        <Image HorizontalAlignment="Left" 
+               Height="79"                
+               Grid.Row="3" 
+               Grid.ColumnSpan="2"
+               Margin="40,145,0,0"
+               Source="/Images/indicador-sillas.png"
+               VerticalAlignment="Top"
+               Width="393"/>
+        <Label Content="99" 
+               HorizontalAlignment="Left" 
+               Margin="80,160,0,0" 
+               Grid.Row="3" 
+               FontSize="30"
+               FontFamily="Gotham"
+               Name="LblNumSeats"
+               FontWeight="Bold"
+               Foreground="#FFF"
+               VerticalAlignment="Top" 
+               />
+        <Image HorizontalAlignment="Center" 
+               Height="200"                
+               Grid.Row="3" 
+               Grid.Column="1"
+               Name="Pay"
+               TouchDown="Pay_TouchDown"
+               Margin="0,110,0,0"
+               Source="/Images/pay.png"
+               VerticalAlignment="Top"
+               />
+
+    </Grid>
+</UserControl>

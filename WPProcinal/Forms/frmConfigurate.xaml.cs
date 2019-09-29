@@ -41,6 +41,7 @@ namespace WPProcinal.Forms
         /// <param name="pagina"></param>
         public void Navegar(UserControl newPage)
         {
+            this.Content = null;
             this.Content = newPage;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -81,15 +82,19 @@ namespace WPProcinal.Forms
                                 {
                                     util = new Utilities(1);
                                 }
-
-                                ChangeStatusPeripherals();
-                                Task.Run(() =>
+                                Dispatcher.BeginInvoke((Action)delegate
                                 {
-                                    Utilities.control.OpenSerialPorts();
-                                    Utilities.control.Start();
-                                    Utilities.control.StartCoinAcceptorDispenser();
-                                    Utilities.PeripheralsNotArduino.InitPortPrinter();
+                                    Switcher.Navigate(new UCCinema());
                                 });
+
+                                //ChangeStatusPeripherals();
+                                //Task.Run(() =>
+                                //{
+                                //    Utilities.control.OpenSerialPorts();
+                                //    Utilities.control.Start();
+                                //    Utilities.control.StartCoinAcceptorDispenser();
+                                //    Utilities.PeripheralsNotArduino.InitPortPrinter();
+                                //});
                             }
                             else
                             {

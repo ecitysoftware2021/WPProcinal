@@ -230,9 +230,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         Dispatcher.BeginInvoke((Action)delegate
                         {
-                            frmMovies frmMovies = new frmMovies();
-                            frmMovies.Show();
-                            //Close();
+                            Switcher.Navigate(new UCMovies());
                         });
                     }
                     else if (Status.STATUS == "ALERT")
@@ -241,9 +239,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             frmModal modal = new frmModal(string.Concat("Alerta,", Environment.NewLine, "Impresora: ", Status.ERROR_MESSAGE));
                             modal.ShowDialog();
-                            frmMovies frmMovies = new frmMovies();
-                            frmMovies.Show();
-                            //Close();
+                            Switcher.Navigate(new UCMovies());
                         });
                     }
                     else

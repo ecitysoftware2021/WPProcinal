@@ -9,9 +9,9 @@
         Background="#f5f5dc"
         WindowStyle="None"
         WindowState="Maximized"
-        Loaded="Window_Loaded"
+     
         Height="2064.095" Width="1250.599">
-    <Grid Name="GridSeat">
+    <!--<Grid Name="GridSeat">
         <Grid.Background>
             <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
                         Stretch="UniformToFill"/>
@@ -216,5 +216,5 @@
                VerticalAlignment="Top"
                />
        
-    </Grid>
+    </Grid>-->
 </Window>

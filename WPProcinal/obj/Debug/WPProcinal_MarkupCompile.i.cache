@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\
 WPProcinal
 none
 false
 DEBUG;TRACE
-C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\App.xaml
-13174908346
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\App.xaml
+192037243250
 41640633236
-961628383913
-36409610908
-Forms\FrmCardPayment.xaml;Forms\frmConfigurate.xaml;Forms\frmCinema.xaml;Forms\frmConfirmationModal.xaml;Forms\FrmFinalTransaction.xaml;Forms\FrmLoading.xaml;Forms\frmModal.xaml;Forms\frmMovies.xaml;Forms\frmPayCine.xaml;Forms\frmSchedule.xaml;Forms\frmSeat.xaml;Forms\Opciones.xaml;Forms\User_Control\UCCinema.xaml;
+99-1849370311
+36-575146471
+Forms\FrmCardPayment.xaml;Forms\frmConfigurate.xaml;Forms\frmCinema.xaml;Forms\frmConfirmationModal.xaml;Forms\FrmFinalTransaction.xaml;Forms\FrmLoading.xaml;Forms\frmModal.xaml;Forms\frmMovies.xaml;Forms\frmPayCine.xaml;Forms\frmSchedule.xaml;Forms\frmSeat.xaml;Forms\Opciones.xaml;Forms\User_Control\UCCardPayment.xaml;Forms\User_Control\UCCinema.xaml;Forms\User_Control\UCFinalTransaction.xaml;Forms\User_Control\UCMovies.xaml;Forms\User_Control\UCPayCine.xaml;Forms\User_Control\UCSchedule.xaml;Forms\User_Control\UCSeat.xaml;
 
 True
 

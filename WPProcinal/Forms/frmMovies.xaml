@@ -10,10 +10,10 @@
         Background="#f5f5dc"
         WindowStyle="None"
         WindowState="Maximized"
-        Loaded="Window_Loaded"
+     
         Height="2064.095" Width="1250.599"
         >
-    <Grid>
+    <!--<Grid>
         <Grid x:Name="TVGrid">
             <Grid.Background>
                 <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-cartelera.jpg" 
@@ -187,5 +187,5 @@
                    FontSize="50" />
             </Grid>
         </Border>
-    </Grid>
+    </Grid>-->
 </Window>

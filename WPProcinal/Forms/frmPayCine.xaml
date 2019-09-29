@@ -6,7 +6,8 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:WPProcinal.Forms"
         mc:Ignorable="d"
-        Title="frmPayCine" Loaded="Window_Loaded"
+        Title="frmPayCine" 
+        
         WindowState="Maximized"
         Height="2064.095" 
         Width="1250.599"
@@ -14,7 +15,7 @@
         Topmost="True"
         WindowStartupLocation="CenterScreen">
     
-    <Grid Name="PaymentGrid">
+    <!--<Grid Name="PaymentGrid">
         <Grid.Background>
             <ImageBrush x:Name="imgBg"
                         ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
@@ -196,5 +197,5 @@
                    Source="/Images/cancelar-pago.png"
                    Grid.Row="3"
                TouchDown="BtnCancelar_TouchDown"/>
-    </Grid>
+    </Grid>-->
 </Window>
