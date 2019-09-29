@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PrinterValidator;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -188,11 +189,14 @@ namespace WPProcinal.Forms
             {
                 if (Status.STATUS == "OK" || Status.STATUS == "ALERT")
                 {
-                    ControlPeripheralsNotArduino.callbackStatusPrinter = null;
-                    peripheralsValidated++;
-                    okImpresora.Visibility = Visibility.Visible;
-                    badImpresora.Visibility = Visibility.Hidden;
-                    CheckPeripheralsAndContinue();
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        ControlPeripheralsNotArduino.callbackStatusPrinter = null;
+                        peripheralsValidated++;
+                        okImpresora.Visibility = Visibility.Visible;
+                        badImpresora.Visibility = Visibility.Hidden;
+                        CheckPeripheralsAndContinue();
+                    });
                 }
                 else
                 {
@@ -227,12 +231,13 @@ namespace WPProcinal.Forms
         {
             if (peripheralsValidated >= PeripheralsToCheck)
             {
-                Dispatcher.BeginInvoke((Action)delegate
+                Task.Run(() =>
                 {
-                    Switcher.Navigate(new UCCinema());
-                    //frmCinema inicio = new frmCinema();
-                    //inicio.Show();
-                    //Close();
+                    Thread.Sleep(1000);
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        Switcher.Navigate(new UCCinema());
+                    });
                 });
             }
         }

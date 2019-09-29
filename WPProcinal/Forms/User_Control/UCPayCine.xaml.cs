@@ -519,6 +519,18 @@ namespace WPProcinal.Forms.User_Control
                                 }
 
                             }
+                            else
+                            {
+                                try
+                                {
+                                    timer.CallBackStop?.Invoke(1);
+                                    SetCallBacksNull();
+                                }
+                                catch { }
+                                frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador. Gracias");
+                                modal.ShowDialog();
+                                Cancelled();
+                            }
                         }
                     });
                     GC.Collect();
