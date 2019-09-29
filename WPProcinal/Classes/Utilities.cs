@@ -4,15 +4,10 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,14 +15,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using WPProcinal.ADO;
+using WPProcinal.DataModel;
 using WPProcinal.Forms;
+using WPProcinal.Forms.User_Control;
 using WPProcinal.Models;
+using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
 using static WPProcinal.Models.ApiLocal.Uptake;
-using trx;
-using WPProcinal.DataModel;
-using WPProcinal.Models.ApiLocal;
-using WPProcinal.Forms.User_Control;
 
 namespace WPProcinal.Classes
 {

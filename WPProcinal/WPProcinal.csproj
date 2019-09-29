@@ -92,6 +92,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\H81\Documents\PayPad.BilleteroV2.dll</HintPath>
     </Reference>
+    <Reference Include="PrinterValidator">
+      <HintPath>..\..\..\..\source\repos\PrinterValidator\PrinterValidator\bin\Debug\PrinterValidator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -234,14 +237,8 @@
     <Compile Include="DataModel\PAYPAD_CONSOLE_ERROR.cs" />
     <Compile Include="DataModel\PAYPAD_LOG.cs" />
     <Compile Include="DataModel\TRANSACTION_DETAIL.cs" />
-    <Compile Include="Forms\FrmCardPayment.xaml.cs">
-      <DependentUpon>FrmCardPayment.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmConfigurate.xaml.cs">
       <DependentUpon>frmConfigurate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmFinalTransaction.xaml.cs">
-      <DependentUpon>FrmFinalTransaction.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmLoading.xaml.cs">
       <DependentUpon>FrmLoading.xaml</DependentUpon>
@@ -250,9 +247,6 @@
       <DependentUpon>frmModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Schedule.cs" />
-    <Compile Include="Forms\frmPayCine.xaml.cs">
-      <DependentUpon>frmPayCine.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
     </Compile>
@@ -277,7 +271,6 @@
     <Compile Include="Forms\User_Control\UCSeat.xaml.cs">
       <DependentUpon>UCSeat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Impresora\PrintProperties.cs" />
     <Compile Include="Models\ApiLocal\DataPaypad.cs" />
     <Compile Include="Models\ApiLocal\RequestAuth.cs" />
     <Compile Include="Models\ApiLocal\ResponseAuth.cs" />
@@ -301,23 +294,11 @@
     <Compile Include="Service\ApiServices.cs" />
     <Compile Include="Service\Uptake.cs" />
     <Compile Include="Service\WCFServices.cs" />
-    <Page Include="Forms\FrmCardPayment.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Forms\frmConfigurate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\frmCinema.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Forms\frmConfirmationModal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\FrmFinalTransaction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -326,22 +307,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\frmModal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\frmMovies.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\frmPayCine.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\frmSchedule.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\frmSeat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -354,20 +319,8 @@
     <Compile Include="Classes\Dictionaries.cs" />
     <Compile Include="DataModel\SelectViewModel.cs" />
     <Compile Include="Classes\Utilities.cs" />
-    <Compile Include="Forms\frmCinema.xaml.cs">
-      <DependentUpon>frmCinema.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmConfirmationModal.xaml.cs">
       <DependentUpon>frmConfirmationModal.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmMovies.xaml.cs">
-      <DependentUpon>frmMovies.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmSchedule.xaml.cs">
-      <DependentUpon>frmSchedule.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmSeat.xaml.cs">
-      <DependentUpon>frmSeat.xaml</DependentUpon>
     </Compile>
     <Page Include="Forms\Opciones.xaml">
       <SubType>Designer</SubType>

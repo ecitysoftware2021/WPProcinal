@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Timers;
-using System.Windows;
-using System.Windows.Threading;
-using WP.Impresora;
 using WPProcinal.Classes;
 
 namespace WPProcinal
@@ -11,106 +7,19 @@ namespace WPProcinal
     {
         #region Callbacks
         public static Action<ErrorCodes> callbackStatusPrinter;//Calback printer status
-        public static Action<ErrorCodes> callbackStatusWebCam;//Calback webcam status
-        public static Action<string> callbackStatusClientWebCam;//Calback webcam status
-        public static Action<ErrorCodes> callbackStatusBarcode;//Calback barcode status
-
         #endregion
-
-        #region Objects
-
-        public static PrintProperties _PrintProperties;
-        #endregion
-
-        #region Timeouts
-
-        System.Timers.Timer TimerStatusPeripheral; //Timer para checar el estado de lo perifericos
-        #endregion
-
 
         public ControlPeripheralsNotArduino()
         {
-            TimerStatusPeripheral = new System.Timers.Timer();
-            TimerStatusPeripheral.Interval = 10000;
-            TimerStatusPeripheral.Elapsed += new System.Timers.ElapsedEventHandler(CheckStatusTick);
-            TimerStatusPeripheral.Start();
-            InitObjects();
+
         }
-
-        private void CheckStatusTick(object sender, ElapsedEventArgs e)
-        {
-            //Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
-            //{
-            //    InitPortPrinter();
-            //}));
-        }
-
-        private void InitObjects()
-        {
-            if (_PrintProperties == null)
-            {
-                _PrintProperties = new PrintProperties();
-            }
-        }
-
-        #region Print Message
-        public void InitPortPrinter()
-        {
-            try
-            {
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
-                {
-                    int statusCode = 0;
-                    statusCode = GetPrinterCode();
-                    ProcessResponsePrinter(statusCode);
-                }));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public static int GetPrinterCode()
-        {
-            try
-            {
-                _PrintProperties.ConfigurationPrinter(Utilities.GetConfiguration("PortPrinter"), Utilities.GetConfiguration("PrintBandrate"));
-                return StatusPrint();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public static int StatusPrint()
-        {
-            int status = 1;
-            try
-            {
-                if (_PrintProperties != null)
-                {
-                    status = _PrintProperties.GetPrintStatus();
-                }
-            }
-            catch (Exception EX)
-            {
-                throw EX;
-            }
-            return status;
-        }
-
-        #endregion
-
-
 
         #region ProccessResponse
         /// <summary>
         /// Método que procesa la respuesta de la impresora
         /// </summary>
         /// <param name="message">respuesta del puerto de los monederos</param>
-        private static void ProcessResponsePrinter(int code)
+        public void ProcessResponsePrinter(int code)
         {
 
             string message = string.Empty;

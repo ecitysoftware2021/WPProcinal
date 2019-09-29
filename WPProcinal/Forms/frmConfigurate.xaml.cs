@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PrinterValidator;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,6 +22,7 @@ namespace WPProcinal.Forms
         int peripheralsValidated = 0;
         bool stateMoney = false;
         int PeripheralsToCheck = int.Parse(Utilities.GetConfiguration("PeripheralsToCheck"));
+        Validator validator = new Validator();
         public frmConfigurate()
         {
             InitializeComponent();
@@ -93,7 +95,7 @@ namespace WPProcinal.Forms
                                 //    Utilities.control.OpenSerialPorts();
                                 //    Utilities.control.Start();
                                 //    Utilities.control.StartCoinAcceptorDispenser();
-                                //    Utilities.PeripheralsNotArduino.InitPortPrinter();
+                                //    Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
                                 //});
                             }
                             else

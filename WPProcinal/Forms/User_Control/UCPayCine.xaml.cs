@@ -365,7 +365,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
                 }
-                //Utilities.GoToInicial(this);
+                Utilities.GoToInicial();
             }
         }
 

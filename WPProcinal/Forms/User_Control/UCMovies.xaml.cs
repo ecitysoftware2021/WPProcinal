@@ -119,9 +119,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
-                        frmCinema main = new frmCinema();
-                        main.Show();
-                        //this.Close();
+                        Switcher.Navigate(new UCCinema());
                     });
                 };
                 timer.CallBackTimer = response =>

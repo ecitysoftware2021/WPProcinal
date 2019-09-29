@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PrinterValidator;
+using System;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WPProcinal.ADO;
 using WPProcinal.Classes;
 using WPProcinal.Models;
@@ -261,7 +253,10 @@ namespace WPProcinal.Forms.User_Control
                     }
                 };
 
-                Utilities.PeripheralsNotArduino.InitPortPrinter();
+                Validator validator = new Validator();
+              
+
+                Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
 
 
             }
