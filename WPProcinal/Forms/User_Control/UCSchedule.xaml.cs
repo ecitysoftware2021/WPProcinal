@@ -129,10 +129,10 @@ namespace WPProcinal.Forms.User_Control
                 {
 
                     //ListFechas(peli.DiasDisponiblesTodosCinemas);
-                    foreach (var Cinema in peli.Cinemas.Cinema.Where(cine => cine.Id == Utilities.CinemaId))
+                    foreach (var Cinema in peli.Cinemas.Where(cine => cine.Cinema.Id == Utilities.CinemaId))
                     {
                         //Se recorre cada sala del Cinema
-                        foreach (var room in Cinema.Salas.Sala)
+                        foreach (var room in Cinema.Cinema.Salas.Sala)
                         {
                             //Se arma una lista con las fechas de cada función y luego se recorre
                             var functions = room.Fecha.ToList();
@@ -143,6 +143,7 @@ namespace WPProcinal.Forms.User_Control
                                 var datetime = GetDateCorrectly(function.Univ);
                                 var fechaSeleccionada = GetDateCorrectly(Utilities.FechaSeleccionada.ToString("yyyyMMdd"));
                                 if (datetime == fechaSeleccionada)
+                                //if (datetime == fechaSeleccionada)
                                 {
 
                                     var schedules = function.Hora.OrderBy(h => h.Militar).ToList();
@@ -154,15 +155,16 @@ namespace WPProcinal.Forms.User_Control
                                     foreach (var item in schedules)
                                     {
 
-                                        if (fechaSeleccionada != DateTime.Today)
+                                        if (fechaSeleccionada == DateTime.Today)
+                                        //if (fechaSeleccionada != DateTime.Today)
                                         {
                                             horatmps.Add(new HoraTMP
                                             {
                                                 Horario = item.Horario,
                                                 IdFuncion = item.IdFuncion,
                                                 Militar = int.Parse(item.Militar),
-                                                Reservas = item.Reservas,
-                                                TipoZona = function.TipoZona[count]
+                                                //Reservas = item.Reservas,
+                                                TipoZona = item.TipoZona
                                             });
                                         }
                                         else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
@@ -172,8 +174,8 @@ namespace WPProcinal.Forms.User_Control
                                                 Horario = item.Horario,
                                                 IdFuncion = item.IdFuncion,
                                                 Militar = int.Parse(item.Militar),
-                                                Reservas = item.Reservas,
-                                                TipoZona = function.TipoZona[count]
+                                                //Reservas = item.Reservas,
+                                                TipoZona = item.TipoZona
                                             });
                                         }
                                         else
@@ -207,9 +209,9 @@ namespace WPProcinal.Forms.User_Control
                                             Hours = horatmps,
                                             RutaTipoSala = ruta,
                                             TipoSala = room.TipoSala,
-                                            RoomId = Convert.ToInt16(room.NumeroSala),
+                                            RoomId = int.Parse(room.NumeroSala),
                                             UnivDate = function.Univ,
-                                            MovieId = Convert.ToInt16(peli.Id),
+                                            MovieId = int.Parse(peli.Id),
                                             Formato = peli.Data.Formato,
                                             Censura = peli.Data.Censura
                                         });
@@ -228,11 +230,12 @@ namespace WPProcinal.Forms.User_Control
                                                 Hour = newHoras.Horario,
                                                 RutaTipoSala = ruta,
                                                 TipoSala = room.TipoSala,
-                                                RoomId = Convert.ToInt16(room.NumeroSala),
+                                                RoomId = int.Parse(room.NumeroSala),
                                                 UnivDate = function.Univ,
-                                                MovieId = Convert.ToInt16(peli.Id),
+                                                MovieId = int.Parse(peli.Id),
                                                 Formato = peli.Data.Formato,
-                                                Censura = peli.Data.Censura
+                                                Censura = peli.Data.Censura,
+                                                IdFuncion = int.Parse(newHoras.IdFuncion.Substring(newHoras.IdFuncion.Length - 2))
                                             };
                                         }
                                     }
@@ -349,10 +352,11 @@ namespace WPProcinal.Forms.User_Control
                 IsCard = "S",
                 Group = 1,
                 Login = "brandon-377@hotmail.com",
-                PointOfSale = 87,
+                PointOfSale = 77,
                 TypeZona = schedule.TypeZona,
+                IDFuncion = schedule.IdFuncion
             };
-
+            //TODO: PointOfSale = 87
             return map;
         }
         #endregion
@@ -376,7 +380,8 @@ namespace WPProcinal.Forms.User_Control
                     DateTime dt2 = DateTime.Parse(fechaCompuesta);
                     var datetime = GetDateCorrectly(item.Univ);
 
-                    if (datetime >= DateTime.Today)
+                    if (datetime != DateTime.Today)
+                    //if (datetime >= DateTime.Today)
                     {
                         string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
                         var exist = dateName.Where(dt => dt.Mes == dt2.ToString("MMM").ToUpper() && dt.DiaNumero == dt2.ToString("dd")).Count();
@@ -640,39 +645,36 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                if (!hourPresed)
+                var selectedSchedule = (HoraTMP)(sender as ListViewItem).Content;
+                Schedule schedule = new Schedule
                 {
-                    hourPresed = true;
-                    var selectedSchedule = (HoraTMP)(sender as ListViewItem).Content;
-                    Schedule schedule = new Schedule
-                    {
-                        Category = selectedSchedule.DatosPelicula.Category,
-                        Date = selectedSchedule.DatosPelicula.Date,
-                        Duration = selectedSchedule.DatosPelicula.Duration,
-                        FontS = 0,
-                        Formato = selectedSchedule.DatosPelicula.Formato,
-                        Gener = selectedSchedule.DatosPelicula.Gener,
-                        Hour = selectedSchedule.DatosPelicula.Hour,
-                        Id = selectedSchedule.DatosPelicula.Id,
-                        Language = selectedSchedule.DatosPelicula.Language,
-                        MilitarHour = selectedSchedule.Militar,
-                        MovieId = selectedSchedule.DatosPelicula.MovieId,
-                        Room = selectedSchedule.DatosPelicula.Room,
-                        RoomId = selectedSchedule.DatosPelicula.RoomId,
-                        Title = selectedSchedule.DatosPelicula.Title,
-                        TypeZona = selectedSchedule.TipoZona,
-                        UnivDate = selectedSchedule.DatosPelicula.UnivDate,
-                        Censura = selectedSchedule.DatosPelicula.Censura
-                    };
+                    Category = selectedSchedule.DatosPelicula.Category,
+                    Date = selectedSchedule.DatosPelicula.Date,
+                    Duration = selectedSchedule.DatosPelicula.Duration,
+                    FontS = 0,
+                    Formato = selectedSchedule.DatosPelicula.Formato,
+                    Gener = selectedSchedule.DatosPelicula.Gener,
+                    Hour = selectedSchedule.DatosPelicula.Hour,
+                    Id = selectedSchedule.DatosPelicula.Id,
+                    Language = selectedSchedule.DatosPelicula.Language,
+                    MilitarHour = selectedSchedule.Militar,
+                    MovieId = selectedSchedule.DatosPelicula.MovieId,
+                    Room = selectedSchedule.DatosPelicula.Room,
+                    RoomId = selectedSchedule.DatosPelicula.RoomId,
+                    Title = selectedSchedule.DatosPelicula.Title,
+                    TypeZona = selectedSchedule.TipoZona,
+                    UnivDate = selectedSchedule.DatosPelicula.UnivDate,
+                    Censura = selectedSchedule.DatosPelicula.Censura,
+                    IdFuncion = selectedSchedule.DatosPelicula.IdFuncion
+                };
 
-                    Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;
-                    Utilities.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
-                    DipMap dipmap = SetProperties(schedule);
+                Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;
+                Utilities.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
+                DipMap dipmap = SetProperties(schedule);
 
-                    SetCallBacksNull();
-                    timer.CallBackStop?.Invoke(1);
-                    Switcher.Navigate(new UCSeat(dipmap));
-                }
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+                Switcher.Navigate(new UCSeat(dipmap));
             }
             catch (Exception ex)
             {

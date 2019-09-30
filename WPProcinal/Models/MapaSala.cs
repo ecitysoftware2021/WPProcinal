@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace WPProcinal.Models
 {
@@ -23,5 +24,7 @@ namespace WPProcinal.Models
         [XmlAttribute(AttributeName = "xmlns")]
         public string Xmlns { get; set; }
     }
+
+   
 
 }

@@ -250,7 +250,7 @@ namespace WPProcinal.Classes
                     });
                 }
 
-                var desAssing = WCFServices.DeserealizeXML<DesAsignarReserva>(response.Result.ToString());
+                var desAssing = WCFServices41.DeserealizeXML<DesAsignarReserva>(response.Result.ToString());
                 if (!string.IsNullOrEmpty(desAssing.Error_en_proceso))
                 {
                     //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostDesAssingreserva > desAssing.Error_en_proceso ", desAssing.Error_en_proceso);
@@ -392,11 +392,13 @@ namespace WPProcinal.Classes
 
         public static void SaveFileXML(string content)
         {
-            if (!File.Exists(NameFile))
+            if (File.Exists(NameFile))
             {
-                var file = File.CreateText(NameFile);
-                file.Close();
+                File.Delete(NameFile);
             }
+
+            var file = File.CreateText(NameFile);
+            file.Close();
 
             using (StreamWriter sw = File.AppendText(NameFile))
             {

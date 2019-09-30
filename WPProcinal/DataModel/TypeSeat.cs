@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WPProcinal.Classes
+﻿namespace WPProcinal.Classes
 {
     public class TypeSeat
     {
+        public int RelativeColumn { get; set; }
+        public string RelativeRow { get; set; }
         public string Name { get; set; }
 
         public string Type { get; set; }
@@ -26,6 +22,7 @@ namespace WPProcinal.Classes
 
         public int TransactionId { get; set; }
     }
+
 
     public class SeatTmp
     {

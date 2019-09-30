@@ -23,6 +23,57 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="400" />
         </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Center" 
+               Height="102"                
+               Grid.Row="1" 
+               Grid.ColumnSpan="2"
+               Margin="0,-90,0,0"               
+               VerticalAlignment="Top"
+               Width="1000">
+
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgDisponible"
+               Margin="0,0,0,20"
+               Source="/Images/Disponiblev2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgNoDisponible"
+               Margin="200,0,0,20"
+               Source="/Images/NoDisponiblev2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgSeleccionada"
+               Margin="400,0,0,20"
+               Source="/Images/seleccionadav2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgPuff"
+               Margin="500,50,0,20"
+               Source="/Images/puffv2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgDiscapacitados"
+               Margin="800,0,0,20"
+               Source="/Images/discapacitadosv2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+            <Image HorizontalAlignment="Left" 
+               Height="53"          
+                   Name="ImgVibroSound"               
+                   Margin="600,0,0,20"
+               Source="/Images/vibrosoundv2.png"
+               VerticalAlignment="Top"
+               Width="144"/>
+        </Grid>
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
             <TextBlock x:Name="tbTimer"
                        FontSize="35"
@@ -122,66 +173,16 @@
                        Margin="660,265,0,0"/>
 
         </Grid>
-        <Grid Grid.Row="2" 
+        <Grid Grid.Row="1" Name="gridSillas" 
               Grid.ColumnSpan="2"
-              Width="1030" Margin="-120,-190,-100,-150">
-            <Image HorizontalAlignment="Center"
+               Margin="96,100,117,28" Grid.RowSpan="2">
+            <!--<Image HorizontalAlignment="Center"
                    VerticalAlignment="Top"
-                   Source="/Images/NewDesing/Backgrounds/pantalla.png"
+                   Source="../Images/NewDesing/Backgrounds/pantalla.png"
                    
-                   />
+                   />-->
         </Grid>
-        <Grid HorizontalAlignment="Center" 
-               Height="102"                
-               Grid.Row="3" 
-               Grid.ColumnSpan="2"
-               Margin="0,0,0,20"               
-               VerticalAlignment="Top"
-               Width="1000">
 
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgDisponible"
-               Margin="0,0,0,20"
-               Source="/Images/Disponiblev2.png"
-               VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgNoDisponible"
-               Margin="200,0,0,20"
-               Source="/Images/NoDisponiblev2.png"
-               VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgSeleccionada"
-               Margin="400,0,0,20"
-               Source="/Images/seleccionadav2.png"
-               VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgPuff"
-               Margin="500,50,0,20"
-               Source="/Images/puffv2.png"
-               VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgDiscapacitados"
-               Margin="800,0,0,20"
-               Source="/Images/discapacitadosv2.png"
-               VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgVibroSound"               
-                   Margin="600,0,0,20"
-               Source="/Images/vibrosoundv2.png"
-               VerticalAlignment="Top"
-               Width="144"/>
-        </Grid>
 
         <Image HorizontalAlignment="Left" 
                Height="79"                

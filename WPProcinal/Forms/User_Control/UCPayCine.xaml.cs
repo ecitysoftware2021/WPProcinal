@@ -436,40 +436,51 @@ namespace WPProcinal.Forms.User_Control
 
                     if (Utilities.GetConfiguration("Ambiente").Equals("Prd"))
                     {
-                        var response = WCFServices.PostBuy(Utilities.DipMapCurrent, Utilities.TypeSeats);
-
-                        responseGlobal = response;
-                        if (!response.IsSuccess)
+                        List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
+                        foreach (var item in Utilities.TypeSeats)
                         {
-                            Utilities.SaveLogError(new LogError
+                            ubicaciones.Add(new UbicacioneSCOINT
                             {
-                                Message = response.Message,
-                                Method = "WCFServices.PostComprar"
+                                Fila = item.Letter,
+                                Columna = int.Parse(item.Number),
+                                ColRelativa = item.RelativeColumn,
+                                FilRelativa = item.RelativeRow,
+                                Tarifa = int.Parse(item.Price.ToString())
                             });
                         }
 
-                        var transaccionCompra = WCFServices.DeserealizeXML<TransaccionCompra>(response.Result.ToString());
-                        if (transaccionCompra.Respuesta != "Exitosa")
+                        string year = Utilities.DipMapCurrent.Date.Substring(0, 4);
+                        string mount = Utilities.DipMapCurrent.Date.Substring(4, 2);
+                        string day = Utilities.DipMapCurrent.Date.Substring(6, 2);
+                        var response41 = WCFServices41.PostBuy(new SCOINT
                         {
-                            payState = false;
-                            Utilities.SaveLogError(new LogError
-                            {
-                                Message = transaccionCompra.Respuesta,
-                                Method = "WCFServices.PostComprar.Fallida"
-                            });
-                        }
-                        else
-                        {
-                            var responseDB = DBProcinalController.EditPaySeat(Utilities.DipMapCurrent.DipMapId);
-                            if (!response.IsSuccess)
-                            {
-                                Utilities.SaveLogError(new LogError
-                                {
-                                    Message = responseDB.Message,
-                                    Method = "DBProcinalController.EditPaySeat"
-                                });
-                            }
-                        }
+                            Accion = "V",
+                            Apellido = "Ecity",
+                            ClienteFrecuente = 0,
+                            CorreoCliente = "pruebacorreo@gmail.com",
+                            Cortesia = string.Empty,
+                            Direccion = "Cra 63A # 34-70",
+                            DocIdentidad = 811040812,
+                            Factura = Utilities.DipMapCurrent.Secuence,
+                            FechaFun = string.Concat(year, "-", mount, "-", day),
+                            Funcion = Utilities.DipMapCurrent.IDFuncion,
+                            InicioFun = Utilities.DipMapCurrent.HourFormat,
+                            Nombre = "Kiosko",
+                            PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ScorePayValue.ToString()),
+                            PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ScorePayValue.ToString()) : 0,
+                            PagoInterno = 0,
+                            Pelicula = Utilities.DipMapCurrent.MovieId,
+                            Productos = new List<Producto>(),
+                            PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
+                            Sala = Utilities.DipMapCurrent.RoomId,
+                            teatro = Utilities.DipMapCurrent.CinemaId,
+                            Telefono = 5803033,
+                            tercero = 1,
+                            TipoBono = 0,
+                            TotalVenta = int.Parse(Utilities.ScorePayValue.ToString()),
+                            Ubicaciones = ubicaciones
+                        });
+
                     }
                     else
                     {

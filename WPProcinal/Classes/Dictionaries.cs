@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace WPProcinal.Classes
 {
@@ -25,5 +21,21 @@ namespace WPProcinal.Classes
             {"323","Guacarí"},
             { "325","La Central"},
         };
+        public enum ECinemas
+        {
+            AvesMaria = 301,
+            PlazadelRio = 302,
+            Mayorca = 303,
+            PuertadelNorte = 304,
+            Monterrey = 305,
+            Americas = 306,
+            SanNicolás = 310,
+            Florida = 313,
+            SantaMarta = 315,
+            Aventura = 319,
+            LaCeja = 321,
+            Guacari = 323,
+            LaCentral = 325,
+        }
     }
 }

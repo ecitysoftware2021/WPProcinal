@@ -1,4 +1,6 @@
-﻿namespace WPProcinal.Models
+﻿using System.Collections.Generic;
+
+namespace WPProcinal.Models
 {
     public class DipMap
     {
@@ -26,7 +28,7 @@
 
         public int Secuence { get; set; }
 
-        public string IsCard { get; set; } 
+        public string IsCard { get; set; }
 
         public string Email { get; set; }
 
@@ -53,9 +55,10 @@
 
         public string Category { get; set; }
 
-        public string TypeZona { get; set; }
+        public List<TipoZona> TypeZona { get; set; }
 
         public int DipMapId { get; set; }
+        public int IDFuncion { get; set; }
         #endregion
     }
 }

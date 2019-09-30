@@ -34,4 +34,5 @@ namespace WPProcinal.Models
         [XmlElement(ElementName = "Num_Col")]
         public string Num_Col { get; set; }
     }
+   
 }

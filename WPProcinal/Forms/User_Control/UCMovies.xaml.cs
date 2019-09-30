@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using WPProcinal.Classes;
 using WPProcinal.Models;
+using WPProcinal.Service;
 
 namespace WPProcinal.Forms.User_Control
 {
@@ -66,9 +68,9 @@ namespace WPProcinal.Forms.User_Control
                 {
                     foreach (var pelicula in data.Pelicula)
                     {
-                        foreach (var Cinema in pelicula.Cinemas.Cinema)
+                        foreach (var Cinema in pelicula.Cinemas)
                         {
-                            if (Cinema.Id == Utilities.CinemaId)
+                            if (Cinema.Cinema.Id == Utilities.CinemaId)
                             {
                                 var peliculaExistente = Utilities.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
                                 if (peliculaExistente == 0)
@@ -92,12 +94,17 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                string ImagePath = string.Concat(Utilities.UrlImages, pelicula.Id, ".jpg");
                 string TagPath = string.Empty;
+                var status = WCFServices41.StateImage(pelicula.Data.Imagen);
 
+                string image = pelicula.Data.Imagen;
+                if (!status)
+                {
+                    image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "NotFound.jpg");
+                }
                 Utilities.LstMovies.Add(new MoviesViewModel
                 {
-                    ImageData = Utilities.LoadImage(ImagePath, true),
+                    ImageData = Utilities.LoadImage(image, true),
                     Tag = pelicula.Id,
                     Id = pelicula.Id,
                 });
@@ -261,8 +268,13 @@ namespace WPProcinal.Forms.User_Control
             {
                 Grid grid = (Grid)sender;
                 var movie = Utilities.Movies.Where(m => m.Id == grid.Tag.ToString()).FirstOrDefault();
-                string ImagePath = string.Concat(Utilities.UrlImages, movie.Id, ".jpg");
-                Utilities.ImageSelected = Utilities.LoadImage(ImagePath, true);
+                var status = WCFServices41.StateImage(movie.Data.Imagen);
+                string image = movie.Data.Imagen;
+                if (!status)
+                {
+                    image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "NotFound.jpg");
+                }
+                Utilities.ImageSelected = Utilities.LoadImage(image, true);
 
                 Switcher.Navigate(new UCSchedule(movie));
             }

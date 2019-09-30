@@ -19,14 +19,10 @@ namespace WPProcinal.Forms.User_Control
     /// </summary>
     public partial class UCCinema : UserControl
     {
-        ApiLocal api;
-        Utilities printService;
         static CLSGrabador grabador = new CLSGrabador();
         public UCCinema()
         {
             InitializeComponent();
-            printService = new Utilities();
-            api = new ApiLocal();
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
             try
             {
@@ -37,10 +33,6 @@ namespace WPProcinal.Forms.User_Control
             {
                 Utilities.RestartApp();
             }
-            Task.Run(() =>
-            {
-                SendPayments();
-            });
 
             try
             {
@@ -51,36 +43,6 @@ namespace WPProcinal.Forms.User_Control
             LoadData();
         }
 
-        private void SendPayments()
-        {
-            try
-            {
-                var notpayments = DBProcinalController.GetDipmapNotPay();
-                if (notpayments != null)
-                {
-                    foreach (var notpayment in notpayments)
-                    {
-                        var dipmap = DBProcinalController.GetDipMap2(notpayment.DipMapId.Value);
-                        if (dipmap != null)
-                        {
-                            var seats = DBProcinalController.GetSeats(dipmap.DipMapId);
-                            var total = seats.Select(s => s.Price).Sum();
-                            var response = WCFServices.PostComprar(dipmap, double.Parse(total.Value.ToString()), "E", seats.Count());
-                            if (response.IsSuccess)
-                            {
-                                var res = DBProcinalController.UpdateDipmapNotPay(dipmap.DipMapId);
-                                var res2 = DBProcinalController.UpdateDipMap(dipmap.DipMapId);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (System.Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "SendPayments en frmCinema", EError.Aplication, ELevelError.Medium);
-            }
-        }
-
         private void LoadData()
         {
             try
@@ -89,24 +51,19 @@ namespace WPProcinal.Forms.User_Control
                 this.Dispatcher.BeginInvoke(new ThreadStart(() =>
                 {
                     string dataXml = string.Empty;
-                    if (!Utilities.IfExistFileXML())
-                    {
-                        var response = WCFServices.DownloadData();
-                        if (!response.IsSuccess)
-                        {
-                            Utilities.ShowModal(response.Message);
-                            return;
-                        }
 
-                        Utilities.SaveFileXML(response.Result.ToString());
-                        dataXml = response.Result.ToString();
-                    }
-                    else
+                    var response = WCFServices41.DownloadData();
+                    if (!response.IsSuccess)
                     {
-                        dataXml = Utilities.GetFileXML();
+                        Utilities.ShowModal(response.Message);
+                        return;
                     }
 
-                    Peliculas data = WCFServices.DeserealizeXML<Peliculas>(dataXml);
+                    Utilities.SaveFileXML(response.Result.ToString());
+                    dataXml = response.Result.ToString();
+
+                    dataXml = Utilities.GetFileXML();
+                    Peliculas data = WCFServices41.DeserealizeXML<Peliculas>(dataXml);
                     Utilities.Peliculas = data;
                 }));
             }
