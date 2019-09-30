@@ -373,51 +373,51 @@ namespace WPProcinal.Forms.User_Control
                 timer.CallBackStop?.Invoke(1);
             }
             catch { }
-            if (controlCancel == 0)
-            {
-                controlCancel = 1;
-                try
-                {
-                    try
-                    {
-                        Task.Run(() =>
-                        {
-                            Dispatcher.Invoke(() =>
-                            {
-                                Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                            });
-                        });
-                    }
-                    catch (Exception ex)
-                    {
-                        LogService.CreateLogsError(
-                              string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                              ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
-                    }
-                    Task.Run(() =>
-                    {
-                        Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, Utilities.ValueDelivery);
+            //if (controlCancel == 0)
+            //{
+            //    controlCancel = 1;
+            //    try
+            //    {
+            //        try
+            //        {
+            //            Task.Run(() =>
+            //            {
+            //                Dispatcher.Invoke(() =>
+            //                {
+            //                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+            //                });
+            //            });
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            LogService.CreateLogsError(
+            //                  string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
+            //                  ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
+            //        }
+            //        Task.Run(() =>
+            //        {
+            //            Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, Utilities.ValueDelivery);
 
-                        logError.Description = "\nSe cancelo una transaccion";
-                        logError.State = "Cancelada";
-                        Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
+            //            logError.Description = "\nSe cancelo una transaccion";
+            //            logError.State = "Cancelada";
+            //            Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
 
-                    });
-                    Dispatcher.Invoke(() =>
-                    {
-                        PaymentGrid.Opacity = 0.3;
-                        Utilities.Loading(frmLoading, false, this);
-                        frmModal modal = new frmModal("Señor usuario, su compra fué cancelada.");
-                        modal.ShowDialog();
-                    });
-                    GC.Collect();
-                }
-                catch (Exception ex)
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
-                }
+            //        });
+            //        Dispatcher.Invoke(() =>
+            //        {
+            //            PaymentGrid.Opacity = 0.3;
+            //            Utilities.Loading(frmLoading, false, this);
+            //            frmModal modal = new frmModal("Señor usuario, su compra fué cancelada.");
+            //            modal.ShowDialog();
+            //        });
+            //        GC.Collect();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
+            //    }
                 Utilities.GoToInicial();
-            }
+            //}
         }
 
         private void Buytickets()

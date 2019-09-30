@@ -181,6 +181,110 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
+        //private void LoadSeats()
+        //{
+
+        //    try
+        //    {
+        //        var response41 = WCFServices41.GetDipMap(new SCOMAP
+        //        {
+        //            Sala = dipMapCurrent.RoomId,
+        //            teatro = dipMapCurrent.CinemaId,
+        //            tercero = "1"
+        //        });
+
+
+        //        {
+
+        //            var responseV241 = WCFServices41.GetStateRoom(new SCOEST
+        //            {
+        //                teatro = dipMapCurrent.CinemaId,
+        //                Sala = dipMapCurrent.RoomId,
+        //                FechaFuncion = dipMapCurrent.Date,
+        //                Correo = "pruebacorreo@gmail.com",
+        //                tercero = "1",
+        //                Funcion = dipMapCurrent.IDFuncion
+        //            });
+
+        //            //responseV241 = responseV241.ToArray().Reverse().ToList();
+
+
+        //            {
+        //                //var mapaSala = WCFServices.DeserealizeXML<MapaSala>(response.Result.ToString());
+        //                //var estadoSala = WCFServices.DeserealizeXML<EstadoSala>(responseV2.Result.ToString());
+
+        //                List<SeatTmp> states = new List<SeatTmp>();
+
+        //                foreach (var fila in responseV241)
+        //                {
+        //                    //fila.DescripcionSilla = fila.DescripcionSilla.ToArray().Reverse().ToList();
+        //                    //int i = 0;
+        //                    foreach (var item in fila.DescripcionSilla)
+        //                    {
+        //                        //if (!string.IsNullOrEmpty(item) && item != " ")
+        //                        //{
+        //                        states.Add(new SeatTmp
+        //                        {
+        //                            Name = string.Concat(fila.filRel, item.Columna),
+        //                            State = item.EstadoSilla,
+        //                            Type = item.TipoSilla,
+        //                        });
+        //                        //i += 2;
+        //                        //}
+        //                    }
+        //                }
+
+        //                var FTSplit = response41.FilaTotal;
+        //                int positionX = FTSplit.Distinct().Count() - 1;
+        //                var FTDistinc = FTSplit.Distinct().ToList();
+
+        //                var CTSplit = response41.ColumnaTotal;
+        //                int positionY = CTSplit.Distinct().Count() - 1;
+        //                var CTDistinc = CTSplit.Distinct();
+
+        //                var FRSplit = response41.FilaRelativa;
+        //                var FRDistinc = FRSplit.Distinct();
+
+        //                var CRSplit = response41.ColumnaRelativa;
+        //                var CRDistinc = CRSplit.Distinct();
+
+        //                var TSSplit = response41.TipoSilla;
+        //                var TSDistinc = TSSplit.Distinct();
+        //                int count = 0;
+
+        //                List<TypeSeat> typeSeats = new List<TypeSeat>();
+        //                List<SeatTmp> seatTmps = new List<SeatTmp>();
+        //                foreach (var item in FTSplit)
+        //                {
+        //                    if (!string.IsNullOrEmpty(item))
+        //                    {
+        //                        typeSeats.Add(new TypeSeat
+        //                        {
+        //                            Letter = item,
+        //                            Name = string.Format("{0}{1}", item, CTSplit[count]),
+        //                            Number = CTSplit[count].ToString()
+        //                        });
+
+        //                        seatTmps.Add(new SeatTmp
+        //                        {
+        //                            Name = string.Format("{0}{1}", item, CRSplit[count]),
+        //                            Type = TSSplit[count],
+        //                        });
+        //                    }
+
+        //                    count++;
+        //                }
+
+        //                OrganizePositionOfSeats(states,positionX,FTDistinc,positionY,typeSeats,seatTmps);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        AdminPaypad.SaveErrorControl(ex.Message, "LoadSeats en frmSeat", EError.Aplication, ELevelError.Medium);
+        //    }
+        //}
+
         private void OrganizePositionOfSeats(List<EstadoSala41> est)
         {
             try
@@ -225,7 +329,7 @@ namespace WPProcinal.Forms.User_Control
             int fila = 0;
             foreach (var filas in est)
             {
-
+                //filas.DescripcionSilla = filas.DescripcionSilla.ToArray().Reverse().ToList();
                 foreach (var item in filas.DescripcionSilla)
                 {
 
@@ -381,7 +485,7 @@ namespace WPProcinal.Forms.User_Control
         //    }
         //}
 
-        //private void OrganizePositionOfSeats(List<SeatTmp> states,  int positionX, List<string> FTDistinc, int positionY, List<TypeSeat> typeSeats, List<SeatTmp> seatTmps)
+        //private void OrganizePositionOfSeats(List<SeatTmp> states, int positionX, List<string> FTDistinc, int positionY, List<TypeSeat> typeSeats, List<SeatTmp> seatTmps)
         //{
         //    try
         //    {
@@ -439,9 +543,7 @@ namespace WPProcinal.Forms.User_Control
         //                                item.Type = type.Type;
         //                                if (state.State == "S" && state.Type != "Discapacitado")
         //                                {
-        //                                    //image.PreviewStylusDown += new StylusDownEventHandler((s, eh) => SelectSeats(s, eh, item));
-        //                                    //image.MouseDown += new MouseButtonEventHandler((s, eh) => MSelectedsetas(s, eh, item));
-        //                                    image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, item));
+        //                                  image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, item));
         //                                }
 
 
@@ -540,7 +642,7 @@ namespace WPProcinal.Forms.User_Control
 
             BitmapImage logo = new BitmapImage();
             logo.BeginInit();
-            logo.UriSource = new Uri(string.Concat("../Images/", icon, ".png"), UriKind.Relative);
+            logo.UriSource = new Uri(string.Concat("/Images/", icon, ".png"), UriKind.Relative);
             logo.EndInit();
             return logo;
         }
@@ -680,8 +782,8 @@ namespace WPProcinal.Forms.User_Control
                     ubicacione.Add(new Ubicacione
                     {
                         Columna = int.Parse(item.Number),
-                        Fila = item.Letter,
-                        Tarifa = Convert.ToInt32(item.Price)
+                        Fila = item.RelativeRow,
+                        Tarifa = Convert.ToInt32(item.CodTarifa)
                     });
                 }
 
