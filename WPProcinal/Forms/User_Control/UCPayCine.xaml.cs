@@ -406,7 +406,7 @@ namespace WPProcinal.Forms.User_Control
             //        Dispatcher.Invoke(() =>
             //        {
             //            PaymentGrid.Opacity = 0.3;
-            //            Utilities.Loading(frmLoading, false, this);
+                        Utilities.Loading(frmLoading, false, this);
             //            frmModal modal = new frmModal("Señor usuario, su compra fué cancelada.");
             //            modal.ShowDialog();
             //        });

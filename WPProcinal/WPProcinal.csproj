@@ -599,6 +599,7 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\NewDesing\Backgrounds\room.png" />
     <Resource Include="Images\NewDesing\Gif\ACERCAR.gif" />
     <Resource Include="Images\NewDesing\Gif\clave.gif" />
     <Resource Include="Images\NewDesing\Buttons\bad.png" />
@@ -637,7 +638,7 @@
     <Resource Include="Images\NewDesing\Seats\s-disponible.png" />
     <Resource Include="Images\NewDesing\Seats\s-ocupada.png" />
     <Resource Include="Images\NewDesing\Seats\s-puff.png" />
-    <Resource Include="Images\NewDesing\Seats\s-ruedas.png" />
+    <Resource Include="Images\s-ruedas.png" />
     <Resource Include="Images\NewDesing\Seats\s-seleccionada.png" />
     <Resource Include="Images\NewDesing\Buttons\b-atras.png" />
     <Resource Include="Images\NewDesing\Buttons\b-Cartelera.png" />

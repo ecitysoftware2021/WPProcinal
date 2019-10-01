@@ -143,7 +143,6 @@ namespace WPProcinal.Forms.User_Control
                                 var datetime = GetDateCorrectly(function.Univ);
                                 var fechaSeleccionada = GetDateCorrectly(Utilities.FechaSeleccionada.ToString("yyyyMMdd"));
                                 if (datetime == fechaSeleccionada)
-                                //if (datetime == fechaSeleccionada)
                                 {
 
                                     var schedules = function.Hora.OrderBy(h => h.Militar).ToList();
@@ -155,8 +154,8 @@ namespace WPProcinal.Forms.User_Control
                                     foreach (var item in schedules)
                                     {
 
-                                        if (fechaSeleccionada == DateTime.Today)
-                                        //if (fechaSeleccionada != DateTime.Today)
+                                        
+                                        if (fechaSeleccionada != DateTime.Today)
                                         {
                                             horatmps.Add(new HoraTMP
                                             {

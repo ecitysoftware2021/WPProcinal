@@ -175,12 +175,14 @@
         </Grid>
         <Grid Grid.Row="1" Name="gridSillas" 
               Grid.ColumnSpan="2"
-               Margin="96,100,117,28" Grid.RowSpan="2">
-            <!--<Image HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Source="../Images/NewDesing/Backgrounds/pantalla.png"
-                   
-                   />-->
+              Width="900"
+              Height="900"
+               Grid.RowSpan="4"
+              Margin="10,10,10,300">
+            <Grid.Background>
+                <ImageBrush  ImageSource="/Images/NewDesing/backgrounds/room.png"
+                        Stretch="UniformToFill"/>
+            </Grid.Background>
         </Grid>
 
 

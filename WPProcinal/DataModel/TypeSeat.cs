@@ -1,4 +1,6 @@
-﻿namespace WPProcinal.Classes
+﻿using System.Windows.Media;
+
+namespace WPProcinal.Classes
 {
     public class TypeSeat
     {
@@ -21,6 +23,9 @@
         public string NumSecuencia { get; set; }
 
         public int TransactionId { get; set; }
+        public ImageSource imageSource { get; set; }
+        public bool Available { get; set; }
+        public int Row { get; set; }
     }
 
 
