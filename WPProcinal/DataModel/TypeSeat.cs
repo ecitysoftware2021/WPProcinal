@@ -26,6 +26,7 @@ namespace WPProcinal.Classes
         public ImageSource imageSource { get; set; }
         public bool Available { get; set; }
         public int Row { get; set; }
+        public int maxCol { get; set; }
     }
 
 

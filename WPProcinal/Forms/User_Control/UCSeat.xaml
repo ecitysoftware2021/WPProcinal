@@ -179,10 +179,10 @@
               Height="900"
                Grid.RowSpan="4"
               Margin="10,10,10,300">
-            <Grid.Background>
+            <!--<Grid.Background>
                 <ImageBrush  ImageSource="/Images/NewDesing/backgrounds/room.png"
                         Stretch="UniformToFill"/>
-            </Grid.Background>
+            </Grid.Background>-->
         </Grid>
 
 

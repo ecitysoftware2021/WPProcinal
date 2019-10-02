@@ -164,6 +164,15 @@ namespace WPProcinal.Forms.User_Control
 
             try
             {
+                //var response41 = WCFServices41.GetDipMap(new SCOMAP
+                //{
+                //    Sala = dipMapCurrent.RoomId,
+                //    teatro = dipMapCurrent.CinemaId,
+                //    tercero = "1"
+                //});
+
+
+
                 var responseV241 = WCFServices41.GetStateRoom(new SCOEST
                 {
                     teatro = dipMapCurrent.CinemaId,
@@ -173,22 +182,85 @@ namespace WPProcinal.Forms.User_Control
                     tercero = "1",
                     Funcion = dipMapCurrent.IDFuncion
                 });
+                OrganizePositionOfSeats(responseV241);
+                //List<SeatTmp> states = new List<SeatTmp>();
+                //foreach (var fila in responseV241)
+                //{
+                //    var split = fila.DescripcionSilla;
+                //    foreach (var item in split)
+                //    {
+                //        states.Add(new SeatTmp
+                //        {
+                //            Name = string.Concat(fila.filRel, item.Columna),
+                //            State = item.EstadoSilla,
+                //            Type = item.TipoSilla,
+                //        });
+                //    }
+                //}
 
-                if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Monterrey)
-                {
-                    if (dipMapCurrent.RoomId == 4 || dipMapCurrent.RoomId == 5)
-                    {
-                        OrganizePositionOfSeats(responseV241);
-                    }
-                    else
-                    {
-                        OrganizedByRoomInvested(responseV241);
-                    }
-                }
-                else
-                {
-                    OrganizePositionOfSeats(responseV241);
-                }
+                //var FTSplit = response41.FilaTotal;
+                //int positionX = FTSplit.Distinct().Count() - 1;
+                //var FTDistinc = FTSplit.Distinct().ToList();
+
+                //var CTSplit = response41.ColumnaTotal;
+                //int positionY = CTSplit.Distinct().Count() - 1;
+                //var CTDistinc = CTSplit.Distinct().ToList();
+
+                //var FRSplit = response41.FilaRelativa;
+                //var FRDistinc = FRSplit.Distinct().ToList();
+
+                //var CRSplit = response41.ColumnaRelativa;
+                //var CRDistinc = CRSplit.Distinct().ToList();
+
+                //var TSSplit = response41.TipoSilla;
+                //var TSDistinc = TSSplit.Distinct().ToList();
+                //int count = 0;
+                //int countCR = 0;
+                //int positionXCR = FTSplit.Distinct().Count() - 1;
+
+                //List<TypeSeat> typeSeats = new List<TypeSeat>();
+                //List<SeatTmp> seatTmps = new List<SeatTmp>();
+                //foreach (var item in FTSplit)
+                //{
+                //    if (!string.IsNullOrEmpty(item))
+                //    {
+
+                //            typeSeats.Add(new TypeSeat
+                //            {
+                //                Letter = item,
+                //                Name = string.Format("{0}{1}", item, CTSplit[count]),
+                //                Number = CTSplit[count].ToString(),
+                //                RelativeColumn = int.Parse(CRSplit[count].ToString()),
+                //                RelativeRow = FRSplit[count]
+                //            });
+
+                //            seatTmps.Add(new SeatTmp
+                //            {
+                //                Name = string.Format("{0}{1}", item, CTSplit[count]),
+                //                Type = TSSplit[count],
+                //            });
+                //    }
+
+                //    count++;
+                //}
+
+
+                //if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Monterrey)
+                //{
+                //    if (dipMapCurrent.RoomId == 4 || dipMapCurrent.RoomId == 5)
+                //    {
+                //        //OrganizePositionOfSeats(responseV241);
+                //        OrganizePositionOfSeats(states, positionX, FTDistinc, positionY, typeSeats, seatTmps);
+                //    }
+                //    else
+                //    {
+                //        //OrganizedByRoomInvested(responseV241);
+                //    }
+                //}
+                //else
+                //{
+                //    //OrganizePositionOfSeats(responseV241);
+                //}
 
             }
             catch (Exception ex)
@@ -197,6 +269,104 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
+        //private void OrganizePositionOfSeats(List<SeatTmp> states,
+        //    int positionX, List<string> FTDistinc,
+        //    int positionY, List<TypeSeat>
+        //    typeSeats, List<SeatTmp> seatTmps)
+        //{
+        //    try
+        //    {
+        //        int left = 0;
+        //        int top = 0;
+        //        int sum = int.Parse((1020 / positionY).ToString());
+        //        int sum2 = int.Parse((700 / positionX).ToString());
+
+        //        for (int i = 0; i < FTDistinc.Count(); i++)
+        //        {
+        //            int topNew = i != 0 ? top + sum2 : top;
+        //            left = 35;
+        //            int count = 0;
+        //            foreach (var item in typeSeats)
+        //            {
+        //                try
+        //                {
+        //                    if (item.Letter.Equals(FTDistinc[i]))
+        //                    {
+        //                        if (!item.Name.ToCharArray()[1].ToString().Equals("0"))
+        //                        {
+        //                            int newleft = count != 0 ? left + sum : left;
+        //                            var type = seatTmps.Where(t => t.Name == item.Name).FirstOrDefault();
+        //                            if (type != null)
+        //                            {
+
+        //                                {
+        //                                    var state = states.Where(s => s.Name == item.Name).FirstOrDefault();
+        //                                    ImageSource imageSource = null;
+
+        //                                    if (type.Type == "General")
+        //                                    {
+        //                                        imageSource = (state.State == "B") ? GetImage(state.State) : GetImage(string.Empty);
+        //                                    }
+        //                                    else if (state.Type == "pasillo")
+        //                                    {
+        //                                        imageSource = GetImage(state.Type);
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        imageSource = (state.State == "B") ? GetImage(state.State) : GetImage(state.Type);
+        //                                    }
+
+
+        //                                    Image image = new Image
+        //                                    {
+        //                                        Source = imageSource,
+        //                                        Height = 26,
+        //                                        Width = 30,
+        //                                        VerticalAlignment = VerticalAlignment.Top,
+        //                                        HorizontalAlignment = HorizontalAlignment.Left,
+        //                                        Margin = new Thickness
+        //                                        {
+        //                                            Right = 0,
+        //                                            Bottom = 0,
+        //                                            Top = topNew,
+        //                                            Left = newleft,
+        //                                        },
+        //                                        Name = item.Name,
+        //                                        Tag = state.Type,
+        //                                    };
+
+        //                                    item.Type = type.Type;
+        //                                    if (state.State == "S" && state.Type != "Discapacitado" && state.Type != "pasillo")
+        //                                    {
+        //                                        image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, item));
+        //                                    }
+
+
+        //                                    GridSeat.Children.Add(image);
+        //                                    Grid.SetRow(image, 2);
+        //                                    Grid.SetColumn(image, 0);
+        //                                    Grid.SetColumnSpan(image, 2);
+        //                                }
+        //                            }
+
+        //                            left = newleft;
+        //                            count++;
+        //                            item.Type = type.Type;
+        //                        }
+        //                    }
+        //                }
+        //                catch { }
+        //            }
+
+        //            top = topNew;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        AdminPaypad.SaveErrorControl(ex.Message, "OrganizePositionOfSeats en frmSeat", EError.Aplication, ELevelError.Medium);
+        //    }
+        //}
+
         private void OrganizePositionOfSeats(List<EstadoSala41> est)
         {
             try
@@ -204,15 +374,17 @@ namespace WPProcinal.Forms.User_Control
                 int Height = est.Count();
                 int Width = Convert.ToInt32(est[0].maxCol);
 
-                for (int i = 0; i < Height; i++)
+                for (int i = 0; i <= Height; i++)
                 {
                     gridSillas.RowDefinitions.Add(new RowDefinition());
                 }
-                for (int i = 0; i < Width; i++)
+                for (int i = 0; i <= Width; i++)
                 {
                     gridSillas.ColumnDefinitions.Add(new ColumnDefinition());
                 }
                 int fila = 0;
+                int columnaUsuario = 0;
+                int columnaScore = Width - 1;
                 foreach (var filas in est)
                 {
                     //filas.DescripcionSilla = filas.DescripcionSilla.ToArray().Reverse().ToList();
@@ -235,59 +407,89 @@ namespace WPProcinal.Forms.User_Control
                             imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
                         }
 
-                        Image image = new Image
-                        {
-                            Source = imageSource,
-                            Height = 26,
-                            Width = 30,
-                            VerticalAlignment = VerticalAlignment.Top,
-                            HorizontalAlignment = HorizontalAlignment.Left,
-                            Margin = new Thickness
-                            {
-                                Right = 5,
-                                Bottom = 0,
-                                Top = -60,
-                                Left = 12,
-                            },
-                            Name = string.Concat(filas.filRel, item.Columna),
-                            Tag = item.TipoSilla,
-                        };
+                        //Image image = new Image
+                        //{
+                        //    Source = imageSource,
+                        //    Height = 26,
+                        //    Width = 30,
+                        //    VerticalAlignment = VerticalAlignment.Top,
+                        //    HorizontalAlignment = HorizontalAlignment.Left,
+                        //    Margin = new Thickness
+                        //    {
+                        //        Right = 5,
+                        //        Bottom = 0,
+                        //        Top = -60,
+                        //        Left = 12,
+                        //    },
+                        //    Name = string.Concat(filas.filRel, item.Columna),
+                        //    Tag = item.TipoSilla,
+                        //};
+
 
                         TypeSeat typeSeat = new TypeSeat
                         {
                             Letter = filas.filRel,
-                            Name = string.Concat(filas.filRel, item.Columna),
+                            Name = string.Concat("User: ", filas.filRel, item.Columna, " - Score: ", filas.filRel, (filas.maxCol - columnaScore)),
                             Number = item.Columna.ToString(),
                             Type = item.TipoSilla,
-                            RelativeColumn = Convert.ToInt32(filas.maxCol),
-                            RelativeRow = filas.filRel
+                            RelativeColumn = Convert.ToInt32(filas.maxCol - columnaScore),
+                            RelativeRow = filas.filRel,
                         };
-                        //Label labelSeat = new Label();
-                        //labelSeat.FontSize = 10;
-                        //labelSeat.FontWeight = FontWeights.Bold;
 
-                        //labelSeat.Content = string.Concat(filas.filRel, item.Columna, Environment.NewLine, "- Est: " + item.EstadoSilla);
 
-                        //labelSeat.Margin = new Thickness(12, -60, 5, 0);
-                        //labelSeat.Height = 40;
-                        //labelSeat.Background = Brushes.Blue;
-                        //labelSeat.Foreground = Brushes.White;
+                        Label labelSeat = new Label();
+                        labelSeat.FontSize = 10;
+                        labelSeat.FontWeight = FontWeights.Bold;
+                        labelSeat.Content = string.Concat(filas.filRel, item.Columna);
+                        labelSeat.Margin = new Thickness(0, 0, 0, 0);
+                        labelSeat.Height = 25;
+
+
+                        Label labelSeat2 = new Label();
+                        labelSeat2.FontSize = 10;
+                        labelSeat2.FontWeight = FontWeights.Bold;
+                        labelSeat2.Content = string.Concat(filas.filRel, Convert.ToInt32(filas.maxCol - columnaScore));
+                        labelSeat2.Margin = new Thickness(0, 0, 0, 0);
+                        labelSeat2.Height = 25;
+                        labelSeat2.Foreground = Brushes.Green;
+
+                        if (item.EstadoSilla != "S")
+                        {
+                            labelSeat.Foreground = Brushes.Black;
+                        }
+                        else
+                        {
+                            labelSeat.Foreground = Brushes.White;
+                        }
 
                         if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
                         {
-                            image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
+                            //image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
+                            labelSeat.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
                         }
 
-                        //gridSillas.Children.Add(labelSeat);
+                        if (item.TipoSilla != "pasillo")
+                        {
+                            gridSillas.Children.Add(labelSeat);
+                            Grid.SetColumn(labelSeat, columnaUsuario);
+                            Grid.SetRow(labelSeat, fila);
 
-                        //Grid.SetColumn(labelSeat, Convert.ToInt32(item.Columna));
-                        //Grid.SetRow(labelSeat, fila);
+                            gridSillas.Children.Add(labelSeat2);
+                            Grid.SetColumn(labelSeat2, columnaUsuario);
+                            Grid.SetRow(labelSeat2, fila);
+                            Grid.SetRowSpan(labelSeat2, 2);
 
-                        gridSillas.Children.Add(image);
+                        }
 
-                        Grid.SetColumn(image, Convert.ToInt32(filas.maxCol - item.Columna));
-                        Grid.SetRow(image, fila);
+                        //gridSillas.Children.Add(image);
+
+                        //Grid.SetColumn(image, Convert.ToInt32(filas.maxCol - item.Columna));
+                        //Grid.SetRow(image, fila);
+                        columnaUsuario++;
+                        columnaScore--;
                     }
+                    columnaUsuario = 0;
+                    columnaScore = Width - 1;
                     fila++;
                 }
 
@@ -302,147 +504,147 @@ namespace WPProcinal.Forms.User_Control
 
 
 
-        private void OrganizedByRoomInvested(List<EstadoSala41> est)
-        {
-            try
-            {
-                List<TypeSeat> typeSeats = new List<TypeSeat>();
-                List<int> columns = new List<int>();
-                int Height = est.Count();
-                int Width = Convert.ToInt32(est[0].maxCol);
+        //private void OrganizedByRoomInvested(List<EstadoSala41> est)
+        //{
+        //    try
+        //    {
+        //        List<TypeSeat> typeSeats = new List<TypeSeat>();
+        //        List<int> columns = new List<int>();
+        //        int Height = est.Count();
+        //        int Width = Convert.ToInt32(est[0].maxCol);
 
-                for (int i = 0; i < Height; i++)
-                {
-                    gridSillas.RowDefinitions.Add(new RowDefinition());
-                }
-                for (int i = 0; i < Width; i++)
-                {
-                    gridSillas.ColumnDefinitions.Add(new ColumnDefinition());
-                }
-                int filaAPI = 0;
-                int filaUser = est.Count;
+        //        for (int i = 0; i < Height; i++)
+        //        {
+        //            gridSillas.RowDefinitions.Add(new RowDefinition());
+        //        }
+        //        for (int i = 0; i < Width; i++)
+        //        {
+        //            gridSillas.ColumnDefinitions.Add(new ColumnDefinition());
+        //        }
+        //        int filaAPI = 0;
+        //        int filaUser = est.Count;
 
-                foreach (var filas in est)
-                {
+        //        foreach (var filas in est)
+        //        {
 
-                    foreach (var item in filas.DescripcionSilla)
-                    {
-
-
-                        ImageSource imageSource = null;
-                        if (item.TipoSilla == "General")
-                        {
-                            imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(string.Empty);
-                        }
-                        else if (item.TipoSilla == "pasillo")
-                        {
-                            imageSource = GetImage(item.TipoSilla);
-
-                        }
-                        else
-                        {
-                            imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
-                        }
+        //            foreach (var item in filas.DescripcionSilla)
+        //            {
 
 
+        //                ImageSource imageSource = null;
+        //                if (item.TipoSilla == "General")
+        //                {
+        //                    imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(string.Empty);
+        //                }
+        //                else if (item.TipoSilla == "pasillo")
+        //                {
+        //                    imageSource = GetImage(item.TipoSilla);
 
-                        TypeSeat typeSeat = new TypeSeat
-                        {
-                            Letter = filas.filRel,
-                            Name = string.Concat(filas.filRel, item.Columna),
-                            Number = item.Columna.ToString(),
-                            Type = item.TipoSilla,
-                            RelativeColumn = Convert.ToInt32(filas.maxCol),
-                            RelativeRow = filas.filRel,
-                            imageSource = imageSource,
-                            Row = filaAPI
-                        };
-
-                        if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
-                        {
-                            typeSeat.Available = true;
-                        }
-                        else
-                        {
-                            typeSeat.Available = false;
-                        }
-                        typeSeats.Add(typeSeat);
-                        columns.Add(int.Parse(item.Columna.ToString()));
-
-                    }
-                    filaAPI++;
-                    //filaUser--;
-                }
-                int rows = typeSeats.Count;
-                for (int i = typeSeats.Count - 1; i >= 0; i--)
-                {
-                    Image image = new Image
-                    {
-                        Source = typeSeats[i].imageSource,
-                        Height = 26,
-                        Width = 30,
-                        VerticalAlignment = VerticalAlignment.Top,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        Margin = new Thickness
-                        {
-                            Right = 5,
-                            Bottom = 0,
-                            Top = -60,
-                            Left = 12,
-                        },
-                        Name = string.Concat(typeSeats[i].Letter, typeSeats[i].Number),
-                        Tag = typeSeats[i].Type,
-                    };
-
-                    TypeSeat typeSeat = new TypeSeat
-                    {
-                        Letter = typeSeats[i].Letter,
-                        Name = string.Concat(typeSeats[rows - (i + 1)].Letter, typeSeats[i].Number),
-                        Number = typeSeats[i].Number.ToString(),
-                        Type = typeSeats[i].Type,
-                        RelativeColumn = typeSeats[i].RelativeColumn,
-                        RelativeRow = typeSeats[i].RelativeRow,
-                        imageSource = typeSeats[i].imageSource
-                    };
-
-                    //Label labelSeat = new Label();
-                    //labelSeat.FontSize = 10;
-                    //labelSeat.FontWeight = FontWeights.Bold;
-
-                    //labelSeat.Content = string.Concat(typeSeats[rows - (i + 1)].Letter, typeSeats[i].Number);
-
-                    //labelSeat.Margin = new Thickness(12, -60, 5, 0);
-                    //labelSeat.Height = 40;
-                    //if (typeSeats[i].Available)
-                    //{
-                    //    labelSeat.Foreground = Brushes.White;
-                    //}
-                    //else
-                    //{
-                    //    labelSeat.Foreground = Brushes.Black;
-                    //}
-
-                    if (typeSeats[i].Available)
-                    {
-                        image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
-                    }
-
-                    //gridSillas.Children.Add(labelSeat);
-                    //Grid.SetColumn(labelSeat, Convert.ToInt32(typeSeats[i].Number));
-                    //Grid.SetRow(labelSeat, typeSeats[i].Row);
-
-                    gridSillas.Children.Add(image);
-                    Grid.SetColumn(image, Convert.ToInt32(typeSeats[i].Number));
-                    Grid.SetRow(image, typeSeats[i].Row);
-                    //filaAPI++;
-                }
+        //                }
+        //                else
+        //                {
+        //                    imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
+        //                }
 
 
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+
+        //                TypeSeat typeSeat = new TypeSeat
+        //                {
+        //                    Letter = filas.filRel,
+        //                    Name = string.Concat(filas.filRel, item.Columna),
+        //                    Number = item.Columna.ToString(),
+        //                    Type = item.TipoSilla,
+        //                    RelativeColumn = Convert.ToInt32(filas.maxCol),
+        //                    RelativeRow = filas.filRel,
+        //                    imageSource = imageSource,
+        //                    Row = filaAPI
+        //                };
+
+        //                if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
+        //                {
+        //                    typeSeat.Available = true;
+        //                }
+        //                else
+        //                {
+        //                    typeSeat.Available = false;
+        //                }
+        //                typeSeats.Add(typeSeat);
+        //                columns.Add(int.Parse(item.Columna.ToString()));
+
+        //            }
+        //            filaAPI++;
+        //            //filaUser--;
+        //        }
+        //        int rows = typeSeats.Count;
+        //        for (int i = typeSeats.Count - 1; i >= 0; i--)
+        //        {
+        //            Image image = new Image
+        //            {
+        //                Source = typeSeats[i].imageSource,
+        //                Height = 26,
+        //                Width = 30,
+        //                VerticalAlignment = VerticalAlignment.Top,
+        //                HorizontalAlignment = HorizontalAlignment.Left,
+        //                Margin = new Thickness
+        //                {
+        //                    Right = 5,
+        //                    Bottom = 0,
+        //                    Top = -60,
+        //                    Left = 12,
+        //                },
+        //                Name = string.Concat(typeSeats[i].Letter, typeSeats[i].Number),
+        //                Tag = typeSeats[i].Type,
+        //            };
+
+        //            TypeSeat typeSeat = new TypeSeat
+        //            {
+        //                Letter = typeSeats[i].Letter,
+        //                Name = string.Concat(typeSeats[rows - (i + 1)].Letter, typeSeats[i].Number),
+        //                Number = typeSeats[i].Number.ToString(),
+        //                Type = typeSeats[i].Type,
+        //                RelativeColumn = typeSeats[i].RelativeColumn,
+        //                RelativeRow = typeSeats[i].RelativeRow,
+        //                imageSource = typeSeats[i].imageSource
+        //            };
+
+        //            //Label labelSeat = new Label();
+        //            //labelSeat.FontSize = 10;
+        //            //labelSeat.FontWeight = FontWeights.Bold;
+
+        //            //labelSeat.Content = string.Concat(typeSeats[rows - (i + 1)].Letter, typeSeats[i].Number);
+
+        //            //labelSeat.Margin = new Thickness(12, -60, 5, 0);
+        //            //labelSeat.Height = 40;
+        //            //if (typeSeats[i].Available)
+        //            //{
+        //            //    labelSeat.Foreground = Brushes.White;
+        //            //}
+        //            //else
+        //            //{
+        //            //    labelSeat.Foreground = Brushes.Black;
+        //            //}
+
+        //            if (typeSeats[i].Available)
+        //            {
+        //                image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
+        //            }
+
+        //            //gridSillas.Children.Add(labelSeat);
+        //            //Grid.SetColumn(labelSeat, Convert.ToInt32(typeSeats[i].Number));
+        //            //Grid.SetRow(labelSeat, typeSeats[i].Row);
+
+        //            gridSillas.Children.Add(image);
+        //            Grid.SetColumn(image, Convert.ToInt32(typeSeats[i].Number));
+        //            Grid.SetRow(image, typeSeats[i].Row);
+        //            //filaAPI++;
+        //        }
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
 
         private void MSelectedsetas(object sender, TouchEventArgs eh, TypeSeat item)
@@ -458,20 +660,36 @@ namespace WPProcinal.Forms.User_Control
                 ActivateTimer();
             }
             catch (Exception) { }
-            Image image = (Image)sender;
+            //Image image = (Image)sender;
+            //var seatcurrent = SelectedTypeSeats.Where(s => s.Name == item.Name).FirstOrDefault();
+            //if (seatcurrent == null)
+            //{
+            //    if (SelectedTypeSeats.Count < 10)
+            //    {
+            //        SelectedTypeSeats.Add(item);
+            //        image.Source = GetImage("R");
+            //    }
+            //}
+            //else
+            //{
+            //    SelectedTypeSeats.Remove(item);
+            //    image.Source = GetImage(image.Tag.ToString());
+            //}
+
+            Label image = (Label)sender;
             var seatcurrent = SelectedTypeSeats.Where(s => s.Name == item.Name).FirstOrDefault();
             if (seatcurrent == null)
             {
                 if (SelectedTypeSeats.Count < 10)
                 {
                     SelectedTypeSeats.Add(item);
-                    image.Source = GetImage("R");
+                    image.Foreground = Brushes.Black;
                 }
             }
             else
             {
                 SelectedTypeSeats.Remove(item);
-                image.Source = GetImage(image.Tag.ToString());
+                image.Foreground = Brushes.White;
             }
 
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
@@ -627,6 +845,7 @@ namespace WPProcinal.Forms.User_Control
         /// <summary>
         /// Reserva los puestos
         /// </summary>
+        /// 
         private void SecuenceAndReserve()
         {
             this.IsEnabled = false;
@@ -641,6 +860,8 @@ namespace WPProcinal.Forms.User_Control
                     timer.CallBackStop?.Invoke(1);
                 }
                 catch { }
+
+                frmLoading.Show();
                 var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
                 {
                     Punto = dipMapCurrent.PointOfSale,
@@ -656,37 +877,12 @@ namespace WPProcinal.Forms.User_Control
                 List<Ubicacione> ubicacione = new List<Ubicacione>();
                 foreach (var item in SelectedTypeSeats)
                 {
-                    if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Monterrey)
+                    ubicacione.Add(new Ubicacione
                     {
-                        if (dipMapCurrent.RoomId == 4 || dipMapCurrent.RoomId == 5)
-                        {
-                            ubicacione.Add(new Ubicacione
-                            {
-                                Columna = item.RelativeColumn - int.Parse(item.Number),
-                                Fila = item.RelativeRow,
-                                Tarifa = Convert.ToInt32(item.CodTarifa)
-                            });
-                        }
-                        else
-                        {
-                            ubicacione.Add(new Ubicacione
-                            {
-                                Columna = int.Parse(item.Number),
-                                Fila = item.RelativeRow,
-                                Tarifa = Convert.ToInt32(item.CodTarifa)
-                            });
-                        }
-                    }
-                    else
-                    {
-                        ubicacione.Add(new Ubicacione
-                        {
-                            Columna = item.RelativeColumn - int.Parse(item.Number),
-                            Fila = item.RelativeRow,
-                            Tarifa = Convert.ToInt32(item.CodTarifa)
-                        });
-                    }
-
+                        Columna = item.RelativeColumn,
+                        Fila = item.RelativeRow,
+                        Tarifa = Convert.ToInt32(item.CodTarifa)
+                    });
                 }
 
                 var response41 = WCFServices41.PostReserva(new SCOGRU
@@ -727,6 +923,7 @@ namespace WPProcinal.Forms.User_Control
                         }
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -735,6 +932,115 @@ namespace WPProcinal.Forms.User_Control
             }
             frmLoading.Close();
         }
+
+        //private void SecuenceAndReserve()
+        //{
+        //    this.IsEnabled = false;
+        //    activePay = true;
+        //    this.Opacity = 0.3;
+        //    frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
+        //    try
+        //    {
+        //        try
+        //        {
+        //            SetCallBacksNull();
+        //            timer.CallBackStop?.Invoke(1);
+        //        }
+        //        catch { }
+        //        var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
+        //        {
+        //            Punto = dipMapCurrent.PointOfSale,
+        //            teatro = dipMapCurrent.CinemaId,
+        //            tercero = "1"
+        //        });
+        //        foreach (var item in responseSec41)
+        //        {
+        //            dipMapCurrent.Secuence = int.Parse(item.Secuencia.ToString());
+        //            Utilities.Secuencia = item.Secuencia.ToString();
+        //        }
+
+        //        List<Ubicacione> ubicacione = new List<Ubicacione>();
+        //        foreach (var item in SelectedTypeSeats)
+        //        {
+        //            if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Monterrey)
+        //            {
+        //                if (dipMapCurrent.RoomId == 4 || dipMapCurrent.RoomId == 5)
+        //                {
+        //                    ubicacione.Add(new Ubicacione
+        //                    {
+        //                        Columna = item.RelativeColumn - int.Parse(item.Number),
+        //                        Fila = item.RelativeRow,
+        //                        Tarifa = Convert.ToInt32(item.CodTarifa)
+        //                    });
+        //                }
+        //                else
+        //                {
+        //                    ubicacione.Add(new Ubicacione
+        //                    {
+        //                        Columna = int.Parse(item.Number),
+        //                        Fila = item.RelativeRow,
+        //                        Tarifa = Convert.ToInt32(item.CodTarifa)
+        //                    });
+        //                }
+        //            }
+        //            else
+        //            {
+        //                ubicacione.Add(new Ubicacione
+        //                {
+        //                    Columna = item.RelativeColumn - int.Parse(item.Number),
+        //                    Fila = item.RelativeRow,
+        //                    Tarifa = Convert.ToInt32(item.CodTarifa)
+        //                });
+        //            }
+
+        //        }
+
+        //        var response41 = WCFServices41.PostReserva(new SCOGRU
+        //        {
+        //            Apellido = "Ecity",
+        //            Descripcion = dipMapCurrent.MovieName,
+        //            FechaFuncion = dipMapCurrent.Date,
+        //            HoraFuncion = dipMapCurrent.Hour,
+        //            InicioFuncion = dipMapCurrent.HourFormat,
+        //            Nombre = "Kiosko",
+        //            Pelicula = dipMapCurrent.MovieId,
+        //            PuntoVenta = dipMapCurrent.PointOfSale,
+        //            Sala = dipMapCurrent.RoomId,
+        //            Secuencia = dipMapCurrent.Secuence,
+        //            teatro = dipMapCurrent.CinemaId,
+        //            Telefono = 5803033,
+        //            tercero = 1,
+        //            Ubicaciones = ubicacione
+        //        });
+        //        if (response41 != null)
+        //        {
+        //            foreach (var item in response41)
+        //            {
+        //                if (item.Respuesta.Contains("exitoso"))
+        //                {
+        //                    SaveDataBaseLocal();
+        //                    if (_ErrorTransaction)
+        //                    {
+        //                        frmLoading.Close();
+        //                        ShowPay();
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    frmLoading.Close();
+        //                    Utilities.ShowModal("Lo sentimos, algo ha salido mal, por favor intenta nuevamente.");
+        //                    ReloadWindow();
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        frmLoading.Close();
+        //        AdminPaypad.SaveErrorControl(ex.Message, "SecueceAndReserve en frmSeat", EError.Aplication, ELevelError.Medium);
+        //    }
+        //    frmLoading.Close();
+        //}
 
         private void SaveDataBaseLocal()
         {
