@@ -69,6 +69,8 @@ namespace WPProcinal.Service
         public static MapaSala41 GetDipMap(SCOMAP data)
         {
             ServerCertificateValidationCallback();
+
+            string decryptData = string.Empty;
             try
             {
                 //Data convertida a formato json
@@ -94,12 +96,13 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                var decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
                 var map = JsonConvert.DeserializeObject<MapaSala41>(decryptData);
                 return map;
             }
             catch (Exception ex)
             {
+                Utilities.ResponseError = JsonConvert.DeserializeObject<List<RESPONSEERROR>>(decryptData);
                 return null;
             }
         }
@@ -109,6 +112,8 @@ namespace WPProcinal.Service
         #region SCOEST
         public static List<EstadoSala41> GetStateRoom(SCOEST data)
         {
+
+            string decryptData = string.Empty;
             try
             {
                 //Data convertida a formato json
@@ -134,13 +139,15 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                var decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
                 var est = JsonConvert.DeserializeObject<List<EstadoSala41>>(decryptData);
                 return est;
 
             }
             catch (Exception ex)
             {
+                Utilities.ResponseError = JsonConvert.DeserializeObject<List<RESPONSEERROR>>(decryptData);
+
                 return null;
             }
         }
@@ -150,6 +157,7 @@ namespace WPProcinal.Service
         #region SCOPLA
         public static List<ResponseTarifa> GetPrices(SCOPLA data)
         {
+            string decryptData = string.Empty;
             try
             {
                 //Data convertida a formato json
@@ -175,13 +183,15 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                var decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
                 var est = JsonConvert.DeserializeObject<List<ResponseTarifa>>(decryptData);
                 return est;
 
             }
             catch (Exception ex)
             {
+                Utilities.ResponseError = JsonConvert.DeserializeObject<List<RESPONSEERROR>>(decryptData);
+
                 return null;
             }
         }
@@ -190,6 +200,8 @@ namespace WPProcinal.Service
         #region SCOSEC
         public static List<ResponseSec> GetSecuence(SCOSEC data)
         {
+
+            string decryptData = string.Empty;
             try
             {
                 //Data convertida a formato json
@@ -215,13 +227,14 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                var decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
                 var est = JsonConvert.DeserializeObject<List<ResponseSec>>(decryptData);
                 return est;
 
             }
             catch (Exception ex)
             {
+                Utilities.ResponseError = JsonConvert.DeserializeObject<List<RESPONSEERROR>>(decryptData);
                 return null;
             }
         }
@@ -231,6 +244,7 @@ namespace WPProcinal.Service
         public static List<ResponseScogru> PostReserva(SCOGRU data)
         {
 
+            string decryptData = string.Empty;
             try
             {
                 //Data convertida a formato json
@@ -256,13 +270,15 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                var decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
                 var est = JsonConvert.DeserializeObject<List<ResponseScogru>>(decryptData);
                 return est;
 
             }
             catch (Exception ex)
             {
+
+                Utilities.ResponseError = JsonConvert.DeserializeObject<List<RESPONSEERROR>>(decryptData);
                 return null;
             }
         }
@@ -305,7 +321,7 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
-                var est = JsonConvert.DeserializeObject<List<RESPONSEERROR>>(decryptData);
+                Utilities.ResponseError = JsonConvert.DeserializeObject<List<RESPONSEERROR>>(decryptData);
                 return null;
             }
         }

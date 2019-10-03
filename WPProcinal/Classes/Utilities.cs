@@ -31,6 +31,8 @@ namespace WPProcinal.Classes
 
         public static string Duration = GetConfiguration("Duration");
 
+        public static List<RESPONSEERROR> ResponseError { get; set; }
+
         public static TimeSpan time;
 
         public static DispatcherTimer timer;
@@ -573,7 +575,7 @@ namespace WPProcinal.Classes
                     PAYMENT_TYPE_ID = Utilities.MedioPago
                 };
 
-                    
+
 
 
                 var response = await api.GetResponse(new RequestApi
@@ -666,7 +668,7 @@ namespace WPProcinal.Classes
                 return false;
             }
         }
-        
+
         public void ProccesValue(DataMoneyNotification data)
         {
             try
@@ -693,7 +695,7 @@ namespace WPProcinal.Classes
                         data.code = "MD";
                     }
                 }
-             
+
                 InsertLocalDBMoney(new RequestTransactionDetails
                 {
                     Code = data.code,

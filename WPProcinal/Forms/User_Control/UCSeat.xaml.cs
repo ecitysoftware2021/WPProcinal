@@ -36,9 +36,9 @@ namespace WPProcinal.Forms.User_Control
             frmLoading = new FrmLoading("¡Cargando la sala!");
             dipMapCurrent = dipMap;
             TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
-            //TODO: eliminar y descomentar linea de abajo
-            TxtDay.Text = dipMap.RoomName;
-            //TxtDay.Text = dipMap.Day;
+            ////TODO: eliminar y descomentar linea de abajo
+            //TxtDay.Text = dipMap.RoomName;
+            TxtDay.Text = dipMap.Day;
             TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
             TxtHour.Text = dipMap.HourFunction;
             TxtSubTitle.Text = dipMap.Language;
@@ -56,7 +56,7 @@ namespace WPProcinal.Forms.User_Control
                 this.Dispatcher.Invoke(() =>
                 {
 
-                    //frmLoading.Show();
+                    frmLoading.Show();
                     LoadSeats();
                     frmLoading.Close();
                 });
@@ -164,29 +164,41 @@ namespace WPProcinal.Forms.User_Control
 
             try
             {
-                var responseV241 = WCFServices41.GetStateRoom(new SCOEST
+                var response41 = WCFServices41.GetStateRoom(new SCOEST
                 {
-                    teatro = dipMapCurrent.CinemaId,
+                    teatro = dipMapCurrent.CinemaId+1,
                     Sala = dipMapCurrent.RoomId,
                     FechaFuncion = dipMapCurrent.Date,
                     Correo = "pruebacorreo@gmail.com",
                     tercero = "1",
                     Funcion = dipMapCurrent.IDFuncion
                 });
+                if (response41 == null)
+                {
+                    try
+                    {
+                        SetCallBacksNull();
+                        timer.CallBackStop?.Invoke(1);
+                    }
+                    catch { }
+                    Utilities.ShowModal("Lo sentimos, el servicio no se encuentra disponible, Mensaje: " + Utilities.ResponseError[0].Respuesta);
+                    Switcher.Navigate(new UCCinema());
+                    return;
+                }
                 if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Monterrey)
                 {
                     if (dipMapCurrent.RoomId == 4 || dipMapCurrent.RoomId == 5)
                     {
-                        OrganizePositionOfSeats(responseV241);
+                        OrganizePositionOfSeats(response41);
                     }
                     else
                     {
-                        OrganizePositionOfSeatsInverted(responseV241);
+                        OrganizePositionOfSeatsInverted(response41);
                     }
                 }
                 else
                 {
-                    OrganizePositionOfSeats(responseV241);
+                    OrganizePositionOfSeats(response41);
                 }
 
             }
