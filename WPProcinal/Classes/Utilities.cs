@@ -235,61 +235,6 @@ namespace WPProcinal.Classes
             return new BitmapImage(new Uri(string.Concat(filename), UriKind.Relative));
         }
 
-        public static void CancelAssing(List<TypeSeat> typeSeatsCurrent, DipMap dipMapCurrent)
-        {
-            foreach (var typeSeat in typeSeatsCurrent)
-            {
-                var response = WCFServices.PostDesAssingreserva(dipMapCurrent, typeSeat);
-                if (!response.IsSuccess)
-                {
-                    Utilities.SaveLogError(new LogError
-                    {
-                        Message = response.Message,
-                        Method = "CancelAssing",
-                        Error = response.Result
-                    });
-                }
-
-                var desAssing = WCFServices41.DeserealizeXML<DesAsignarReserva>(response.Result.ToString());
-                if (!string.IsNullOrEmpty(desAssing.Error_en_proceso))
-                {
-                    //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: PostDesAssingreserva > desAssing.Error_en_proceso ", desAssing.Error_en_proceso);
-                    SaveLogError(new LogError
-                    {
-                        Message = desAssing.Error_en_proceso,
-                        Method = "CancelAssing",
-                        Error = response.Result
-                    });
-
-                    if (desAssing.Error_en_proceso == "Error en proceso - 7")
-                    {
-                        var responseDb = DBProcinalController.EditSeatDesAssingReserve(dipMapCurrent.DipMapId);
-                        if (!response.IsSuccess)
-                        {
-                            SaveLogError(new LogError
-                            {
-                                Message = responseDb.Message,
-                                Method = "EditSeatDesAssingReserve",
-                            });
-                        }
-                    }
-                }
-                else
-                {
-                    var responseDb = DBProcinalController.EditSeatDesAssingReserve(dipMapCurrent.DipMapId);
-                    if (!response.IsSuccess)
-                    {
-                        SaveLogError(new LogError
-                        {
-                            Message = responseDb.Message,
-                            Method = "EditSeatDesAssingReserve",
-                        });
-                    }
-                }
-            }
-        }
-
-
         public static decimal RoundValue(decimal valor)
         {
             decimal roundVal = (Math.Ceiling(valor / 100)) * 100;

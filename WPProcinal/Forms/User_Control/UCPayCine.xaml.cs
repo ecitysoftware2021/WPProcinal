@@ -55,10 +55,10 @@ namespace WPProcinal.Forms.User_Control
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-
-                stateUpdate = true;
-                payState = true;
-                Utilities.control.StartValues();
+                Buytickets();
+                //stateUpdate = true;
+                //payState = true;
+                //Utilities.control.StartValues();
             }
             catch (Exception ex)
             {
@@ -316,7 +316,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             Dispatcher.Invoke(() =>
                             {
-                                Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                                WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
                             });
                         });
                     }
@@ -406,7 +406,7 @@ namespace WPProcinal.Forms.User_Control
             //        Dispatcher.Invoke(() =>
             //        {
             //            PaymentGrid.Opacity = 0.3;
-                        Utilities.Loading(frmLoading, false, this);
+            Utilities.Loading(frmLoading, false, this);
             //            frmModal modal = new frmModal("Señor usuario, su compra fué cancelada.");
             //            modal.ShowDialog();
             //        });
@@ -416,7 +416,7 @@ namespace WPProcinal.Forms.User_Control
             //    {
             //        AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
             //    }
-                Utilities.GoToInicial();
+            Utilities.GoToInicial();
             //}
         }
 
@@ -424,79 +424,65 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                if (num == 2)
+                if (Utilities.GetConfiguration("Ambiente").Equals("Prd"))
                 {
-                    return;
-                }
-
-                if (num == 1)
-                {
-
-                    payState = true;
-
-                    if (Utilities.GetConfiguration("Ambiente").Equals("Prd"))
+                    List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
+                    foreach (var item in Utilities.TypeSeats)
                     {
-                        List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
-                        foreach (var item in Utilities.TypeSeats)
+                        ubicaciones.Add(new UbicacioneSCOINT
                         {
-                            ubicaciones.Add(new UbicacioneSCOINT
-                            {
-                                Fila = item.Letter,
-                                Columna = int.Parse(item.Number),
-                                ColRelativa = item.RelativeColumn,
-                                FilRelativa = item.RelativeRow,
-                                Tarifa = int.Parse(item.Price.ToString())
-                            });
-                        }
-
-                        string year = Utilities.DipMapCurrent.Date.Substring(0, 4);
-                        string mount = Utilities.DipMapCurrent.Date.Substring(4, 2);
-                        string day = Utilities.DipMapCurrent.Date.Substring(6, 2);
-                        var response41 = WCFServices41.PostBuy(new SCOINT
-                        {
-                            Accion = "V",
-                            Apellido = "Ecity",
-                            ClienteFrecuente = 0,
-                            CorreoCliente = "pruebacorreo@gmail.com",
-                            Cortesia = string.Empty,
-                            Direccion = "Cra 63A # 34-70",
-                            DocIdentidad = 811040812,
-                            Factura = Utilities.DipMapCurrent.Secuence,
-                            FechaFun = string.Concat(year, "-", mount, "-", day),
-                            Funcion = Utilities.DipMapCurrent.IDFuncion,
-                            InicioFun = Utilities.DipMapCurrent.HourFormat,
-                            Nombre = "Kiosko",
-                            PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ScorePayValue.ToString()),
-                            PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ScorePayValue.ToString()) : 0,
-                            PagoInterno = 0,
-                            Pelicula = Utilities.DipMapCurrent.MovieId,
-                            Productos = new List<Producto>(),
-                            PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
-                            Sala = Utilities.DipMapCurrent.RoomId,
-                            teatro = Utilities.DipMapCurrent.CinemaId,
-                            Telefono = 5803033,
-                            tercero = 1,
-                            TipoBono = 0,
-                            TotalVenta = int.Parse(Utilities.ScorePayValue.ToString()),
-                            Ubicaciones = ubicaciones
+                            Fila = item.RelativeRow,
+                            Columna = item.RelativeColumn,
+                            ColRelativa = int.Parse(item.Number),
+                            FilRelativa = item.Letter,
+                            Tarifa = int.Parse(item.CodTarifa.ToString())
                         });
-
                     }
-                    else
+
+                    string year = Utilities.DipMapCurrent.Date.Substring(0, 4);
+                    string mount = Utilities.DipMapCurrent.Date.Substring(4, 2);
+                    string day = Utilities.DipMapCurrent.Date.Substring(6, 2);
+                    var response41 = WCFServices41.PostBuy(new SCOINT
                     {
-                        Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                        Accion = "V",
+                        Apellido = "Ecity",
+                        ClienteFrecuente = 0,
+                        CorreoCliente = "pruebacorreo@gmail.com",
+                        Cortesia = string.Empty,
+                        Direccion = "Cra 63A # 34-70",
+                        DocIdentidad = 811040812,
+                        Factura = Utilities.DipMapCurrent.Secuence,
+                        FechaFun = string.Concat(year, "-", mount, "-", day),
+                        Funcion = Utilities.DipMapCurrent.IDFuncion,
+                        InicioFun = Utilities.DipMapCurrent.HourFormat,
+                        Nombre = "Kiosko",
+                        PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ScorePayValue.ToString()),
+                        PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ScorePayValue.ToString()) : 0,
+                        PagoInterno = 0,
+                        Pelicula = Utilities.DipMapCurrent.MovieId,
+                        Productos = new List<Producto>(),
+                        PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
+                        Sala = Utilities.DipMapCurrent.RoomId,
+                        teatro = Utilities.DipMapCurrent.CinemaId,
+                        Telefono = 5803033,
+                        tercero = 1,
+                        TipoBono = 0,
+                        TotalVenta = int.Parse(Utilities.ScorePayValue.ToString()),
+                        Ubicaciones = ubicaciones
+                    });
+                    foreach (var item in response41)
+                    {
+                        if (item.Respuesta.Contains("exitoso"))
+                        {
+                            payState = true;
+                        }
                     }
                 }
-
-                if (num == 2)
+                else
                 {
-                    return;
+                    WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
                 }
-
-                if (num == 1)
-                {
-                    SavePay(payState);
-                }
+                SavePay(payState);
             }
             catch (Exception ex)
             {

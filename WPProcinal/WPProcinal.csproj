@@ -321,7 +321,6 @@
     <Compile Include="Service\ApiLocal.cs" />
     <Compile Include="Service\ApiServices.cs" />
     <Compile Include="Service\Uptake.cs" />
-    <Compile Include="Service\WCFServices.cs" />
     <Compile Include="Service\WCFServices41.cs" />
     <Page Include="Forms\frmConfigurate.xaml">
       <SubType>Designer</SubType>

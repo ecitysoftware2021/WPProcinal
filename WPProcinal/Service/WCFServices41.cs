@@ -10,6 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml.Serialization;
 using WPProcinal.Classes;
+using WPProcinal.Models;
 
 namespace WPProcinal.Service
 {
@@ -271,6 +272,7 @@ namespace WPProcinal.Service
         public static List<EsponseScoint> PostBuy(SCOINT data)
         {
 
+            string decryptData = string.Empty;
             try
             {
                 //Data convertida a formato json
@@ -296,13 +298,14 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                var decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
                 var est = JsonConvert.DeserializeObject<List<EsponseScoint>>(decryptData);
                 return est;
 
             }
             catch (Exception ex)
             {
+                var est = JsonConvert.DeserializeObject<List<RESPONSEERROR>>(decryptData);
                 return null;
             }
         }
@@ -335,16 +338,82 @@ namespace WPProcinal.Service
             }
         }
         #endregion
+
+        #region SCOSIL
+        public static void PostDesAssingreserva(List<TypeSeat> typeSeatsCurrent, DipMap dipMapCurrent)
+        {
+            string decryptData = string.Empty;
+            try
+            {
+                foreach (var item in typeSeatsCurrent)
+                {
+                    SCOSIL data = new SCOSIL
+                    {
+                        Columna = item.RelativeColumn,
+                        FechaFuncion = dipMapCurrent.Date,
+                        Fila = item.RelativeRow,
+                        Funcion = dipMapCurrent.IDFuncion,
+                        Sala = dipMapCurrent.RoomId,
+                        teatro = dipMapCurrent.CinemaId,
+                        tercero = "1",
+                        Usuario = 777
+                    };
+
+                    //Data convertida a formato json
+                    var seria = JsonConvert.SerializeObject(data);
+
+                    //Data encriptada con la llave de score
+                    var encryptData = dataEncrypt.Encrypt(seria, "tHIrd!sc0R3Is.00");
+
+
+                    var client = new RestClient("http://scorecoorp.procinal.com/ThirdParty/api/SCOact/scosil/");
+                    var request = new RestRequest(Method.POST);
+                    request.AddHeader("cache-control", "no-cache");
+                    request.AddHeader("Connection", "keep-alive");
+                    request.AddHeader("Content-Length", "66");
+                    request.AddHeader("Accept-Encoding", "gzip, deflate");
+                    request.AddHeader("Host", "scorecoorp.procinal.com");
+                    request.AddHeader("Cache-Control", "no-cache");
+                    request.AddHeader("Accept", "*/*");
+                    request.AddHeader("Content-Type", "application/json");
+                    request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                    IRestResponse response = client.Execute(request);
+
+
+                    var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                    decryptData = dataEncrypt.Decrypt(dataResponse[0].request, "tHIrd!sc0R3Is.00");
+                    var est = JsonConvert.DeserializeObject<List<EsponseScoint>>(decryptData);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var est = JsonConvert.DeserializeObject<List<RESPONSEERROR>>(decryptData);
+            }
+        }
+        #endregion
+
     }
 
-    #region SCOFIL
-    public class SCOFIL
+    #region ERROR
+    public class RESPONSEERROR
     {
-        public int Sala { get; set; }
+        public string Respuesta { get; set; }
+    }
+    #endregion
+
+
+    #region SCOSIL
+    public class SCOSIL
+    {
         public string FechaFuncion { get; set; }
+        public int Sala { get; set; }
         public int Funcion { get; set; }
         public string Fila { get; set; }
-        public string Correo { get; set; }
+        public int Columna { get; set; }
+        public int Usuario { get; set; }
         public int teatro { get; set; }
         public string tercero { get; set; }
     }
