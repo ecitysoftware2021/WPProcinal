@@ -499,3 +499,5 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EncryptAndDecrypt
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\RestSharp.dll
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EncryptAndDecryptDLL.pdb
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\RestSharp.xml
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmStoryBoard.g.cs
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmStoryBoard.baml

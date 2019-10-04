@@ -37,6 +37,20 @@ namespace WPProcinal.Classes
             set { this._Tag = value; }
         }
 
+        private BitmapImage _ImageMovieType;
+        public BitmapImage ImageMovieType
+        {
+            get { return this._ImageMovieType; }
+            set { this._ImageMovieType = value; }
+        }
+
+        private BitmapImage _ImageTriller;
+        public BitmapImage ImageTriller
+        {
+            get { return this._ImageTriller; }
+            set { this._ImageTriller = value; }
+        }
+
         public string Id { get; set; }
 
 

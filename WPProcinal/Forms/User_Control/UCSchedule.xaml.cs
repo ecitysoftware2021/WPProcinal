@@ -65,7 +65,7 @@ namespace WPProcinal.Forms.User_Control
 
             var time = TimeSpan.FromMinutes(double.Parse(Movie.Data.Duracion));
             TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
-
+            TxtGender.Text = string.Concat("Género: ", Movie.Data.Genero);
             DateTime fechaActual = Utilities.FechaSeleccionada;
 
             TxtDay.Text = string.Format("{0} {1}, {2}", fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
@@ -153,8 +153,16 @@ namespace WPProcinal.Forms.User_Control
 
                                     foreach (var item in schedules)
                                     {
+                                        string tipoZona = "General";
+                                        if (item.TipoZona.Count > 1)
+                                        {
+                                            tipoZona = item.TipoZona[1].TipoSilla.NombreTipoSilla;
+                                        }
+                                        else
+                                        {
+                                            tipoZona = item.TipoZona[0].TipoSilla.NombreTipoSilla;
+                                        }
 
-                                        
                                         if (fechaSeleccionada != DateTime.Today)
                                         {
                                             horatmps.Add(new HoraTMP
@@ -163,7 +171,7 @@ namespace WPProcinal.Forms.User_Control
                                                 IdFuncion = item.IdFuncion,
                                                 Militar = int.Parse(item.Militar),
                                                 //Reservas = item.Reservas,
-                                                TipoZona = item.TipoZona
+                                                TipoZona = tipoZona
                                             });
                                         }
                                         else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
@@ -174,7 +182,7 @@ namespace WPProcinal.Forms.User_Control
                                                 IdFuncion = item.IdFuncion,
                                                 Militar = int.Parse(item.Militar),
                                                 //Reservas = item.Reservas,
-                                                TipoZona = item.TipoZona
+                                                TipoZona = tipoZona
                                             });
                                         }
                                         else
@@ -268,18 +276,19 @@ namespace WPProcinal.Forms.User_Control
                 case "4DX":
                     return "/Images/Tags/cartel-4dx.png";
                 case "2D":
+                case "GENERAL":
                     return "/Images/Tags/cartel-2d.png";
                 case "3D":
                     return "/Images/Tags/cartel-3d.png";
-                case "Vibrasound":
+                case "VIBRASOUND":
                     return "/Images/Tags/cartel-vibra.png";
-                case "Supernova":
+                case "SUPERNOVA":
                     return "/Images/Tags/cartel-supernova.png";
-                case "Star Kids":
+                case "STAR KIDS":
                     return "/Images/Tags/cartel-starkids.png";
-                case "Cine Arte":
+                case "CINE ARTE":
                     return "/Images/Tags/cartel-cinearte.png";
-                case "Black Star":
+                case "BLACK STAR":
                     return "/Images/Tags/cartel-blackstar.png";
                 default:
                     return string.Empty;
@@ -637,6 +646,7 @@ namespace WPProcinal.Forms.User_Control
                 timer.CallBackStop?.Invoke(1);
             }
             catch { }
+            
             Switcher.Navigate(new UCMovies());
         }
 
@@ -666,8 +676,15 @@ namespace WPProcinal.Forms.User_Control
                     Censura = selectedSchedule.DatosPelicula.Censura,
                     IdFuncion = selectedSchedule.DatosPelicula.IdFuncion
                 };
-
-                Utilities.MovieFormat = selectedSchedule.DatosPelicula.Formato;
+                var formato = selectedSchedule.DatosPelicula.Formato.Split(' ');
+                if (formato.Length > 1)
+                {
+                    Utilities.MovieFormat = formato[1];
+                }
+                else
+                {
+                    Utilities.MovieFormat = formato[0];
+                }
                 Utilities.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
                 DipMap dipmap = SetProperties(schedule);
 

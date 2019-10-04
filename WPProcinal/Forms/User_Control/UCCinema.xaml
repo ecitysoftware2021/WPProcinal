@@ -7,13 +7,31 @@
              mc:Ignorable="d" 
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
              d:DesignHeight="2064.095" d:DesignWidth="1250.599">
-    <Grid TouchDown="gridPrincipal_TouchDown" Name="gridPrincipal">
+    <Grid >
         <Grid.Background>
             <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/procinal01.gif" 
+            <Image Source="/Images/NewDesing/Buttons/ok.png" Name="efectivo" TouchDown="Efectivo_TouchDown"/>
+            <Image Source="/Images/NewDesing/Buttons/ok.png" Grid.Column="1" Name="debito" TouchDown="Debito_TouchDown"/>
+            <Image Source="/Images/NewDesing/Buttons/ok.png" Grid.Column="2" Name="credito" TouchDown="Credito_TouchDown"/>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            TouchDown="gridPrincipal_TouchDown" Name="gridPrincipal">
+            
+            <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/procinal01.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
                     x:Name="GifLoad2" 
@@ -25,6 +43,8 @@
                     Visibility="Visible"
                     Height="300" 
                     Grid.Column="1"/>
+
+        </Grid>
 
     </Grid>
 </UserControl>

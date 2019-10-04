@@ -55,7 +55,7 @@ namespace WPProcinal.Models
 
         public string Category { get; set; }
 
-        public List<TipoZona> TypeZona { get; set; }
+        public string TypeZona { get; set; }
 
         public int DipMapId { get; set; }
         public int IDFuncion { get; set; }

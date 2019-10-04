@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using WPProcinal.Classes;
 using WPProcinal.Models;
 using WPProcinal.Service;
@@ -96,6 +97,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 string TagPath = string.Empty;
                 var status = WCFServices41.StateImage(pelicula.Data.Imagen);
+                var movieType = GetTypeImage(pelicula.Tipo);
 
                 string image = pelicula.Data.Imagen;
                 if (!status)
@@ -107,13 +109,31 @@ namespace WPProcinal.Forms.User_Control
                     ImageData = Utilities.LoadImage(image, true),
                     Tag = pelicula.Id,
                     Id = pelicula.Id,
+                    ImageMovieType = movieType,
                 });
-
             }
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "LoadMovies en frmMovies", EError.Aplication, ELevelError.Medium);
             }
+        }
+
+        BitmapImage GetTypeImage(string type)
+        {
+            string image = string.Empty;
+            if (type.Equals("Estreno"))
+            {
+                image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "estrenos.png");
+            }
+            else if (type.Equals("Próximo Estreno"))
+            {
+                image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "pre-ventas.png");
+            }
+            else
+            {
+                image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "carteleras.png");
+            }
+            return new BitmapImage(new Uri(image));
         }
 
         void ActivateTimer()

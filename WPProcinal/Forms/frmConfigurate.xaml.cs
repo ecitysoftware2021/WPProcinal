@@ -145,6 +145,7 @@ namespace WPProcinal.Forms
                 {
                     Utilities.control.callbackError = null;
                 });
+                //Utilities.SendMailNotificationError(error);
                 ShowModalError(error);
             };
 

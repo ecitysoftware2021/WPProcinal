@@ -99,6 +99,7 @@ namespace WPProcinal.Classes
 
         public static LogDispenser log;//Log del dispenser
 
+        public int WaitForCoins = 0;
         #endregion
 
         #region Casettes
@@ -123,9 +124,6 @@ namespace WPProcinal.Classes
         private int CoinsBaudRate = int.Parse(ConfigurationManager.AppSettings["CoinsBaudRate"]);//Denominacion cassete 3
         #endregion
 
-        #region Timer
-        System.Timers.Timer timerStatusCoin;
-        #endregion
 
         #endregion
 
@@ -151,21 +149,12 @@ namespace WPProcinal.Classes
                 {
                     log = new LogDispenser();
                 }
-                timerStatusCoin = new System.Timers.Timer();
-                timerStatusCoin.Interval = 10000;
-                timerStatusCoin.Elapsed += new System.Timers.ElapsedEventHandler(StatusCoinTick);
-
 
             }
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "Constructor en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
-        }
-
-        private void StatusCoinTick(object sender, ElapsedEventArgs e)
-        {
-            SendMessageCoins(_CoinAceptanceStatus);
         }
 
 
@@ -210,7 +199,6 @@ namespace WPProcinal.Classes
         {
             try
             {
-                timerStatusCoin.Start();
                 SendMessageCoins(_CoinAceptanceStatus);
             }
             catch (Exception ex)
@@ -515,7 +503,6 @@ namespace WPProcinal.Classes
                             break;
                         case "MA":
                         case "MD":
-                            timerStatusCoin.Stop();
                             callbackStatusCoinAceptanceDispenser?.Invoke(true);
                             break;
                         default:
@@ -528,7 +515,6 @@ namespace WPProcinal.Classes
                     {
                         case "MA":
                         case "MD":
-                            timerStatusCoin.Stop();
                             callbackStatusCoinAceptanceDispenser?.Invoke(true);
                             break;
                         default:
@@ -675,6 +661,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                WaitForCoins = 0;
                 stateError = false;
                 dispenserValue = valueDispenser;
                 ConfigurateDispenser();
@@ -697,6 +684,7 @@ namespace WPProcinal.Classes
                 {
                     decimal newAmountBills = 0;
                     decimal resta = dispenserValue;
+
                     if (dispenserValue >= 2000)
                     {
                         do
@@ -736,12 +724,18 @@ namespace WPProcinal.Classes
 
                         if (dispenserValue > 0)
                         {
+                            WaitForCoins = 2;
                             SendMessageCoins(_DispenserCoinOn + (dispenserValue / _hundred));
                             Thread.Sleep(200);
+                        }
+                        else
+                        {
+                            WaitForCoins = 1;
                         }
                     }
                     else
                     {
+                        WaitForCoins = 1;
                         SendMessageCoins(_DispenserCoinOn + (dispenserValue / _hundred));
                         Thread.Sleep(200);
                     }
@@ -861,6 +855,7 @@ namespace WPProcinal.Classes
                     callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"));
 
                     ValidateFinal(isBX);
+                    WaitForCoins--;
                 }
 
                 if (!stateError)
@@ -870,10 +865,8 @@ namespace WPProcinal.Classes
                 }
                 else
                 {
-                    if (isBX == 2 || isBX == 0)
+                    if (WaitForCoins == 0)
                     {
-
-
                         callbackOut?.Invoke(deliveryVal);
 
                     }
@@ -890,7 +883,7 @@ namespace WPProcinal.Classes
         {
             if (RealdispenserValue <= deliveryVal)
             {
-                if (isBX == 2 || isBX == 0)
+                if (WaitForCoins == 0)
                 {
                     callbackTotalOut?.Invoke(deliveryVal);
                 }

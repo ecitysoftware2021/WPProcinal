@@ -235,7 +235,6 @@ namespace WPProcinal.Forms.User_Control
 
                         await Dispatcher.BeginInvoke((Action)delegate
                         {
-                            PaymentGrid.Opacity = 0.3;
                             frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular el pago.");
                             modal.ShowDialog();
 
@@ -245,7 +244,7 @@ namespace WPProcinal.Forms.User_Control
                     catch { }
 
                     Utilities.UpdateTransaction(0, 3, 0);
-                    //Utilities.GoToInicial(this);
+                    Utilities.GoToInicial();
 
                 }
                 else
@@ -255,7 +254,6 @@ namespace WPProcinal.Forms.User_Control
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
-                        this.Opacity = 1;
                         Utilities.Loading(frmLoading, false, this);
                     });
 
@@ -269,7 +267,7 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "SavePay en frmPayCine", EError.Aplication, ELevelError.Medium);
-                //Utilities.GoToInicial(this);
+                Utilities.GoToInicial();
             }
         }
 
@@ -299,7 +297,6 @@ namespace WPProcinal.Forms.User_Control
                 UnlockTPV();
                 Dispatcher.Invoke(() =>
                 {
-                    PaymentGrid.Opacity = 0.3;
                     Utilities.Loading(frmLoading, false, this);
                     frmModal modal = new frmModal("Usuario su pago fue cancelado.");
                     modal.ShowDialog();
@@ -404,7 +401,10 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    Task.Run(() =>
+                    {
+                        WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    });
                 }
                 SavePay(payState);
             }
@@ -431,10 +431,6 @@ namespace WPProcinal.Forms.User_Control
                     LogService.SaveRequestResponse(DateTime.Now + " :: Respuesta del datáfono: ", responseTPV);
                 }
                 catch { }
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    this.Opacity = 1;
-                });
                 /**
                  * Todas las respuestas correctas tienen mas de 4 caracteres
                  * **/
@@ -442,7 +438,6 @@ namespace WPProcinal.Forms.User_Control
                 {
                     frmLoading.Close();
 
-                    this.IsEnabled = true;
                     SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
                 }
                 else
@@ -766,7 +761,10 @@ namespace WPProcinal.Forms.User_Control
 
         private void UnlockTPV()
         {
-            TPV.EnviarPeticion("[R,61,0]38");
+            Task.Run(() =>
+            {
+                TPV.EnviarPeticion("[R,61,0]38");
+            });
         }
 
         #endregion
@@ -875,8 +873,6 @@ namespace WPProcinal.Forms.User_Control
 
         private void RetryPayment()
         {
-            this.Opacity = 0.3;
-
             frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(Utilities.TypeSeats, Utilities.DipMapCurrent);
             _frmConfirmationModal.ShowDialog();
             if (_frmConfirmationModal.DialogResult.HasValue &&

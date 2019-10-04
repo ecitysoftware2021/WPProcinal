@@ -18,6 +18,7 @@ namespace CEntidades
 
         public string Movie { get; set; }
         public string Secuencia { get; set; }
+        public string IDTransaccion { get; set; }
         public string Formato { get; set; }
         public string Tramite { get; set; }
         public string Time { get; set; }
@@ -122,6 +123,11 @@ namespace CEntidades
             g.DrawString("Tarifa:", fBodyTiulos, sb, 10, SpaceY);
             g.DrawString(Valor.ToString("$ #,##0"), fBodyTiulos, sb, SpaceX, SpaceY);
             SpaceY += 20;
+
+            g.DrawString("Compra:", fBodyTiulos, sb, 10, SpaceY);
+            g.DrawString(IDTransaccion, fBodyTiulos, sb, SpaceX, SpaceY);
+            SpaceY += 20;
+
             g.DrawString("Fecha de venta:", fBodyTiulos, sb, 10, SpaceY);
             g.DrawString(FechaPago.ToString("dd/MM/yyyy hh:mm:ss"), fBodyFecha, sb, SpaceX + 30, SpaceY);
             SpaceY += 30;

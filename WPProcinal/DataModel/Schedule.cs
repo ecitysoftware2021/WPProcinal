@@ -24,7 +24,7 @@ namespace WPProcinal.Classes
         public string UnivDate { get; set; }
         public int MilitarHour { get; set; }
         public int MovieId { get; set; }
-        public List<TipoZona> TypeZona { get; set; }
+        public string TypeZona { get; set; }
         public string RutaTipoSala { get; set; }
         public string TipoSala { get; set; }
         public string Formato { get; set; }
@@ -37,7 +37,7 @@ namespace WPProcinal.Classes
         public string Horario { get; set; }
         public string Reservas { get; set; }
         public int Militar { get; set; }
-        public List<TipoZona> TipoZona { get; set; }
+        public string TipoZona { get; set; }
         public Schedule DatosPelicula { get; set; }
     }
 }

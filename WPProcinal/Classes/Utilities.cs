@@ -30,6 +30,8 @@ namespace WPProcinal.Classes
     {
 
         public static string Duration = GetConfiguration("Duration");
+        public static string APISCORE = GetConfiguration("ScoreService");
+        public static string SCOREKEY = GetConfiguration("ScoreKey");
 
         public static List<RESPONSEERROR> ResponseError { get; set; }
 
@@ -410,6 +412,8 @@ namespace WPProcinal.Classes
                         objPrint.Secuencia = Secuencia;
                         objPrint.Formato = MovieFormat;
                         objPrint.TipoSala = Utilities.TipoSala;
+                        objPrint.IDTransaccion = Utilities.IDTransactionDB.ToString();
+
                         i++;
                         objPrint.PrintTickets();
                     }

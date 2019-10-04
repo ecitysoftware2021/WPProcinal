@@ -95,6 +95,13 @@
                                         Stretch="Uniform" />
                                         </Grid.Background>
 
+                                        <Image Source="{Binding ImageMovieType}" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Margin="5,0,10,0"
+                                   Width="100"
+                                   Height="100"
+                                   Stretch="Uniform"/>
                                         <Image Source="{Binding ImageTag}" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -102,7 +109,6 @@
                                    Width="100"
                                    Height="100"
                                    Stretch="Uniform"/>
-
                                     </Grid>
                                 </StackPanel>
                             </DataTemplate>

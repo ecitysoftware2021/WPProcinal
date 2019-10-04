@@ -215,51 +215,6 @@
     <Compile Include="Classes\TPVOperation.cs" />
     <Compile Include="DataModel\Transaction.cs" />
     <Compile Include="DataModel\TypeSeat.cs" />
-    <Compile Include="Connected Services\WCFDesAssing\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\WCFPcrest\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\WCFPcrfil2\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\WCFPcrint\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\WCFPcrmap\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\WCFReembolso\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\WCFReserva\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\WCFSecuencia\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\WCFTarifas\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\DEVICE_LOG.cs" />
     <Compile Include="DataModel\ERROR_LOG.cs" />
     <Compile Include="DataModel\PAYPAD_CONSOLE_ERROR.cs" />
@@ -275,6 +230,9 @@
       <DependentUpon>frmModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Schedule.cs" />
+    <Compile Include="Forms\frmStoryBoard.xaml.cs">
+      <DependentUpon>frmStoryBoard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
     </Compile>
@@ -350,6 +308,10 @@
     <Compile Include="Forms\frmConfirmationModal.xaml.cs">
       <DependentUpon>frmConfirmationModal.xaml</DependentUpon>
     </Compile>
+    <Page Include="Forms\frmStoryBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Opciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -411,15 +373,6 @@
     <None Include="ADO\Procinal.edmx.diagram">
       <DependentUpon>Procinal.edmx</DependentUpon>
     </None>
-    <None Include="Connected Services\WCFDesAssing\service.wsdl" />
-    <None Include="Connected Services\WCFPcrest\Service.wsdl" />
-    <None Include="Connected Services\WCFPcrfil2\service.wsdl" />
-    <None Include="Connected Services\WCFPcrint\service.wsdl" />
-    <None Include="Connected Services\WCFPcrmap\service.wsdl" />
-    <None Include="Connected Services\WCFReembolso\service.wsdl" />
-    <None Include="Connected Services\WCFReserva\service.wsdl" />
-    <None Include="Connected Services\WCFSecuencia\service.wsdl" />
-    <None Include="Connected Services\WCFTarifas\service.wsdl" />
     <None Include="DataContext\DB_Local.db" />
     <EntityDeploy Include="DataModel\PayPlusModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -487,107 +440,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\WCFDesAssing\" />
-    <WCFMetadataStorage Include="Connected Services\WCFPcrest\" />
-    <WCFMetadataStorage Include="Connected Services\WCFPcrfil2\" />
-    <WCFMetadataStorage Include="Connected Services\WCFPcrint\" />
-    <WCFMetadataStorage Include="Connected Services\WCFPcrmap\" />
-    <WCFMetadataStorage Include="Connected Services\WCFReembolso\" />
-    <WCFMetadataStorage Include="Connected Services\WCFReserva\" />
-    <WCFMetadataStorage Include="Connected Services\WCFSecuencia\" />
-    <WCFMetadataStorage Include="Connected Services\WCFTarifas\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFPcrmap\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFPcrmap\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFPcrmap\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFPcrfil2\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFPcrfil2\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFPcrfil2\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFPcrest\Service.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFPcrest\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFPcrest\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFPcrest\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFTarifas\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFTarifas\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFTarifas\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFReserva\service.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFReserva\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFReserva\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFReserva\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFSecuencia\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFSecuencia\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFSecuencia\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFDesAssing\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFDesAssing\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\WCFDesAssing\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="DataModel\PayPlusModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
@@ -598,6 +450,9 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Tags\carteleras.png" />
+    <Resource Include="Images\Tags\estrenos.png" />
+    <Resource Include="Images\Tags\pre-ventas.png" />
     <Resource Include="Images\NewDesing\Backgrounds\room.png" />
     <Resource Include="Images\NewDesing\Gif\ACERCAR.gif" />
     <Resource Include="Images\NewDesing\Gif\clave.gif" />
@@ -679,18 +534,6 @@
     <Resource Include="Images\Tags\cartel-2d.png" />
     <Resource Include="Images\Tags\cartel-3d.png" />
     <Resource Include="Images\loadder.gif" />
-    <None Include="Connected Services\WCFPcrint\configuration91.svcinfo" />
-    <None Include="Connected Services\WCFPcrint\configuration.svcinfo" />
-    <None Include="Connected Services\WCFPcrint\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Connected Services\WCFReembolso\configuration91.svcinfo" />
-    <None Include="Connected Services\WCFReembolso\configuration.svcinfo" />
-    <None Include="Connected Services\WCFReembolso\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="ADO\Procinal.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Procinal.edmx</DependentUpon>
