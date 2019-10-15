@@ -450,6 +450,7 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\NewDesing\Backgrounds\f-seats.png" />
     <Resource Include="Images\Tags\carteleras.png" />
     <Resource Include="Images\Tags\estrenos.png" />
     <Resource Include="Images\Tags\pre-ventas.png" />

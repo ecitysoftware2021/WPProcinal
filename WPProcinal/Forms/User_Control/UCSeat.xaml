@@ -10,7 +10,7 @@
              d:DesignHeight="2064.095" d:DesignWidth="1250.599" Loaded="UserControl_Loaded">
     <Grid Name="GridSeat">
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
+            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/f-seats.png"
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>

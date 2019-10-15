@@ -388,8 +388,8 @@ namespace WPProcinal.Forms.User_Control
                     DateTime dt2 = DateTime.Parse(fechaCompuesta);
                     var datetime = GetDateCorrectly(item.Univ);
 
-                    if (datetime != DateTime.Today)
-                    //if (datetime >= DateTime.Today)
+                    //if (datetime != DateTime.Today)
+                    if (datetime >= DateTime.Today)
                     {
                         string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
                         var exist = dateName.Where(dt => dt.Mes == dt2.ToString("MMM").ToUpper() && dt.DiaNumero == dt2.ToString("dd")).Count();

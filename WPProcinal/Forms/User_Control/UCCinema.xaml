@@ -23,9 +23,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Image Source="/Images/NewDesing/Buttons/ok.png" Name="efectivo" TouchDown="Efectivo_TouchDown"/>
-            <Image Source="/Images/NewDesing/Buttons/ok.png" Grid.Column="1" Name="debito" TouchDown="Debito_TouchDown"/>
-            <Image Source="/Images/NewDesing/Buttons/ok.png" Grid.Column="2" Name="credito" TouchDown="Credito_TouchDown"/>
+            <Image Source="/Images/NewDesing/Buttons/ok.png" Visibility="Hidden" Name="efectivo" TouchDown="Efectivo_TouchDown"/>
+            <Image Source="/Images/NewDesing/Buttons/ok.png" Visibility="Hidden" Grid.Column="1" Name="debito" TouchDown="Debito_TouchDown"/>
+            <Image Source="/Images/NewDesing/Buttons/ok.png" Visibility="Hidden" Grid.Column="2" Name="credito" TouchDown="Credito_TouchDown"/>
         </Grid>
         <Grid
             Grid.Row="1"

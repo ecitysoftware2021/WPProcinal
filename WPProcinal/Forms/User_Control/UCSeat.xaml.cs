@@ -278,12 +278,12 @@ namespace WPProcinal.Forms.User_Control
                         };
 
 
-                        //Label labelSeat = new Label();
-                        //labelSeat.FontSize = 10;
-                        //labelSeat.FontWeight = FontWeights.Bold;
-                        //labelSeat.Content = string.Concat(filas.filRel, item.Columna);
-                        //labelSeat.Margin = new Thickness(0, 0, 0, 0);
-                        //labelSeat.Height = 25;
+                        Label labelSeat = new Label();
+                        labelSeat.FontSize = 10;
+                        labelSeat.FontWeight = FontWeights.Bold;
+                        labelSeat.Content = string.Concat(filas.filRel, item.Columna);
+                        labelSeat.Margin = new Thickness(0, 0, 0, 0);
+                        labelSeat.Height = 25;
 
 
                         //Label labelSeat2 = new Label();
@@ -311,9 +311,9 @@ namespace WPProcinal.Forms.User_Control
 
                         if (item.TipoSilla != "pasillo")
                         {
-                            //gridSillas.Children.Add(labelSeat);
-                            //Grid.SetColumn(labelSeat, columnaUsuario);
-                            //Grid.SetRow(labelSeat, fila);
+                            gridSillas.Children.Add(labelSeat);
+                            Grid.SetColumn(labelSeat, columnaUsuario);
+                            Grid.SetRow(labelSeat, fila);
 
                             //gridSillas.Children.Add(labelSeat2);
                             //Grid.SetColumn(labelSeat2, columnaUsuario);
@@ -329,6 +329,7 @@ namespace WPProcinal.Forms.User_Control
                         columnaUsuario++;
                         columnaScore--;
                     }
+
                     columnaUsuario = 0;
                     columnaScore = Width - 1;
                     fila++;
@@ -420,12 +421,12 @@ namespace WPProcinal.Forms.User_Control
                         };
 
 
-                        //Label labelSeat = new Label();
-                        //labelSeat.FontSize = 10;
-                        //labelSeat.FontWeight = FontWeights.Bold;
-                        //labelSeat.Content = string.Concat(est[filaScore].filRel, item.Columna);
-                        //labelSeat.Margin = new Thickness(0, 0, 0, 0);
-                        //labelSeat.Height = 25;
+                        Label labelSeat = new Label();
+                        labelSeat.FontSize = 10;
+                        labelSeat.FontWeight = FontWeights.Bold;
+                        labelSeat.Content = string.Concat(est[filaScore].filRel, item.Columna);
+                        labelSeat.Margin = new Thickness(0, 0, 0, 0);
+                        labelSeat.Height = 25;
 
 
                         //Label labelSeat2 = new Label();
@@ -453,9 +454,9 @@ namespace WPProcinal.Forms.User_Control
 
                         if (item.TipoSilla != "pasillo")
                         {
-                            //gridSillas.Children.Add(labelSeat);
-                            //Grid.SetColumn(labelSeat, columnaUsuario);
-                            //Grid.SetRow(labelSeat, fila);
+                            gridSillas.Children.Add(labelSeat);
+                            Grid.SetColumn(labelSeat, columnaUsuario);
+                            Grid.SetRow(labelSeat, fila);
 
                             //gridSillas.Children.Add(labelSeat2);
                             //Grid.SetColumn(labelSeat2, columnaUsuario);
