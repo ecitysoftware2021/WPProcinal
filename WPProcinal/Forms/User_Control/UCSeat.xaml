@@ -27,7 +27,7 @@
                Height="102"                
                Grid.Row="1" 
                Grid.ColumnSpan="2"
-               Margin="0,-90,0,0"               
+               Margin="0,-10,0,0"               
                VerticalAlignment="Top"
                Width="1000">
 
