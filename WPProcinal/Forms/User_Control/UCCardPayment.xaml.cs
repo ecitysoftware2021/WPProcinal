@@ -79,6 +79,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
 
+
                 frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
                 Modal.ShowDialog();
 
@@ -118,6 +119,9 @@ namespace WPProcinal.Forms.User_Control
 
                 stateUpdate = true;
                 payState = true;
+
+
+                //Buytickets();
                 Activar();
             }
             catch (Exception ex)
@@ -368,7 +372,7 @@ namespace WPProcinal.Forms.User_Control
                         Accion = "V",
                         Apellido = "Ecity",
                         ClienteFrecuente = 0,
-                        CorreoCliente = "pruebacorreo@gmail.com",
+                        CorreoCliente = "prueba@prueba.com",
                         Cortesia = string.Empty,
                         Direccion = "Cra 63A # 34-70",
                         DocIdentidad = 811040812,
@@ -396,6 +400,10 @@ namespace WPProcinal.Forms.User_Control
                         if (item.Respuesta.Contains("exitoso"))
                         {
                             payState = true;
+                        }
+                        else
+                        {
+                            payState = false;
                         }
                     }
                 }

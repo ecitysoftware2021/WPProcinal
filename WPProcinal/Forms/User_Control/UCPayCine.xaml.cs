@@ -312,13 +312,13 @@ namespace WPProcinal.Forms.User_Control
                 {
                     try
                     {
-                        Task.Run(() =>
-                        {
-                            Dispatcher.Invoke(() =>
-                            {
-                                WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                            });
-                        });
+                        //Task.Run(() =>
+                        //{
+                        //    Dispatcher.Invoke(() =>
+                        //    {
+                        WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                        //    });
+                        //});
                     }
                     catch { }
 
@@ -441,7 +441,7 @@ namespace WPProcinal.Forms.User_Control
                         Accion = "V",
                         Apellido = "Ecity",
                         ClienteFrecuente = 0,
-                        CorreoCliente = "pruebacorreo@gmail.com",
+                        CorreoCliente = "prueba@prueba.com",
                         Cortesia = string.Empty,
                         Direccion = "Cra 63A # 34-70",
                         DocIdentidad = 811040812,
@@ -469,6 +469,10 @@ namespace WPProcinal.Forms.User_Control
                         if (item.Respuesta.Contains("exitoso"))
                         {
                             payState = true;
+                        }
+                        else
+                        {
+                            payState = false;
                         }
                     }
                 }

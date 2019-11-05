@@ -36,7 +36,7 @@
                     CornerRadius="0,0,0,0"/>
             <Border Grid.Column="0" Grid.ColumnSpan="2"
                     
-                    BorderThickness="3,0,3,0" Margin="0,110,0,219" Grid.RowSpan="2">
+                    BorderThickness="3,0,3,0" Margin="0,112,0,217" Grid.RowSpan="2">
                 <Grid Grid.ColumnSpan="2" Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -49,32 +49,52 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
+                    <Image HorizontalAlignment="Center"
+                        Source="/Images/NewDesing/Others/gafa.jpg"
+                        VerticalAlignment="Top"/>
+
+
+                    <TextBlock 
+                        FontSize="20"
+                               FontFamily="Gotham"
+                        TextWrapping="Wrap" 
+                        Text="$ 1.500" 
+                        FontWeight="Bold"
+                               Grid.Row="0"
+                        Margin="10,0,40,0"
+                               HorizontalAlignment="Right"
+                        VerticalAlignment="Center"/>
+                    <CheckBox Grid.Column="1" IsChecked="True">
+                        <TextBlock Text="Comprar Gafa" />
+                    </CheckBox>
                     <TextBlock HorizontalAlignment="Center"
                         FontSize="20"
                                FontFamily="Gotham"
                         TextWrapping="Wrap" 
                         Text="PELÍCULA:" 
                         FontWeight="Bold"
-                        VerticalAlignment="Center"/>
+                               Grid.Row="1"
+                        VerticalAlignment="Top"/>
                     <TextBlock HorizontalAlignment="Left"
                         FontSize="20"
                                FontFamily="Gotham"
                         TextWrapping="Wrap" 
                        Text="WONDER WOMAN" 
                        Grid.Column="1"
+                               Grid.Row="1"
                            Name="TxtTitle"
                         FontWeight="Bold"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Top"/>
                     <TextBlock HorizontalAlignment="Center"
-                       Grid.Row="1"
+                       Grid.Row="2"
                        FontSize="20"
                                FontFamily="Gotham"
                         TextWrapping="Wrap" 
                        Text="SALA:" 
                         FontWeight="Bold"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Top"/>
                     <TextBlock HorizontalAlignment="Left"
-                       Grid.Row="1"
+                       Grid.Row="2"
                        Grid.Column="1"
                         FontSize="20"
                                FontFamily="Gotham"
@@ -82,7 +102,7 @@
                         TextWrapping="Wrap" 
                        Text="SALA 1" 
                         FontWeight="Bold"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Top"/>
                     <TextBlock HorizontalAlignment="Center"
                     FontSize="20"
                                FontFamily="Gotham"
@@ -91,7 +111,7 @@
                        Grid.Column="0"
                        Text="FECHA:" 
                         FontWeight="Bold"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Bottom"/>
                     <TextBlock HorizontalAlignment="Left"
                        FontSize="20"
                                FontFamily="Gotham"
@@ -101,7 +121,7 @@
                           Name="TxtDate"
                        Text="Sábado 24 de Mayo a las 4:30Pm" 
                         FontWeight="Bold"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Bottom"/>
                     <TextBlock HorizontalAlignment="Center"
                         FontSize="20"
                                FontFamily="Gotham"

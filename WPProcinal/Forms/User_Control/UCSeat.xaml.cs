@@ -108,7 +108,7 @@ namespace WPProcinal.Forms.User_Control
                 ImgDiscapacitados.Visibility = Visibility.Hidden;
                 ImgDisponible.Visibility = Visibility.Visible;
                 ImgNoDisponible.Visibility = Visibility.Visible;
-                //ImgPreferencia.Visibility = Visibility.Hidden;
+                ImgBlack.Visibility = Visibility.Hidden;
                 ImgPuff.Visibility = Visibility.Hidden;
                 ImgSeleccionada.Visibility = Visibility.Visible;
                 ImgVibroSound.Visibility = Visibility.Hidden;
@@ -168,7 +168,7 @@ namespace WPProcinal.Forms.User_Control
                     teatro = dipMapCurrent.CinemaId,
                     Sala = dipMapCurrent.RoomId,
                     FechaFuncion = dipMapCurrent.Date,
-                    Correo = "pruebacorreo@gmail.com",
+                    Correo = "prueba@prueba.com",
                     tercero = "1",
                     Funcion = dipMapCurrent.IDFuncion
                 });
@@ -592,7 +592,12 @@ namespace WPProcinal.Forms.User_Control
             else if (ckeck == "M")
             {
                 icon = "silla-preferencialv2";
-                //ImgPreferencia.Visibility = Visibility.Visible;
+
+            }
+            else if (ckeck == "Black Star")
+            {
+                icon = "silla-no-disponible";
+                ImgBlack.Visibility = Visibility.Visible;
             }
             else if (ckeck == "pasillo")
             {
@@ -639,15 +644,8 @@ namespace WPProcinal.Forms.User_Control
                 foreach (var selectedTypeSeat in SelectedTypeSeats)
                 {
                     var tarifa = new ResponseTarifa();
+                    tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
 
-                    if (selectedTypeSeat.Type == "General")
-                    {
-                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
-                    }
-                    else if (selectedTypeSeat.Type == "Vibrasound")
-                    {
-                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
-                    }
                     if (tarifa.silla != null)
                     {
                         selectedTypeSeat.Price = Convert.ToDecimal(tarifa.valor);
@@ -679,15 +677,18 @@ namespace WPProcinal.Forms.User_Control
                 }
 
                 frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
+                this.Opacity = 0.3;
                 _frmConfirmationModal.ShowDialog();
                 if (_frmConfirmationModal.DialogResult.HasValue &&
                     _frmConfirmationModal.DialogResult.Value)
                 {
                     Pay.IsEnabled = false;
+                    this.Opacity = 1;
                     SecuenceAndReserve();
                 }
                 else
                 {
+                    this.Opacity = 1;
                     if (controlReinicio == 0)
                     {
                         ActivateTimer();

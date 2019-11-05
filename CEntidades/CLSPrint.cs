@@ -234,7 +234,7 @@ namespace CEntidades
                 foreach (var item in text.Split(' '))
                 {
                     message += string.Concat(item, " ");
-                    if (i % 3 == 0)
+                    if (i % 2 == 0)
                     {
                         message += Environment.NewLine;
                     }

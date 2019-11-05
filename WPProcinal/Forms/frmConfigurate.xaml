@@ -11,6 +11,7 @@
         WindowState="Maximized"
         Height="2064.095"
         Width="1250.599"
+        Background="Gray"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded">
     <Grid>
