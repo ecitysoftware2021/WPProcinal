@@ -10,7 +10,7 @@
     <Grid Name="PaymentGrid">
         <Grid.Background>
             <ImageBrush x:Name="imgBg"
-                        ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
+                        ImageSource="/Images/backgrounds/p-fondo-pelicula.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.RowDefinitions>
@@ -109,7 +109,7 @@
                 Margin="0,-500,0,0">
                 <Border.Background>
                     <ImageBrush x:Name="imgBackground"
-                                ImageSource="/Images/NewDesing/Others/v-inserte-tarjeta.png"
+                                ImageSource="/Images/Backgrounds/v-inserte-tarjeta.png"
                                 Stretch="UniformToFill"/>
                 </Border.Background>
             </Border>

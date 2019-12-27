@@ -3,9 +3,7 @@ using PrinterValidator;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPProcinal.Classes;
@@ -129,24 +127,5 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void Efectivo_TouchDown(object sender, TouchEventArgs e)
-        {
-            frmStoryBoard storyBoard = new frmStoryBoard("PagoEfectivo.mp4");
-            storyBoard.ShowDialog();
-        }
-
-        private void Debito_TouchDown(object sender, TouchEventArgs e)
-        {
-
-            frmStoryBoard storyBoard = new frmStoryBoard("PagoDebito.mp4");
-            storyBoard.ShowDialog();
-        }
-
-        private void Credito_TouchDown(object sender, TouchEventArgs e)
-        {
-
-            frmStoryBoard storyBoard = new frmStoryBoard("PagoCredito.mp4");
-            storyBoard.ShowDialog();
-        }
     }
 }

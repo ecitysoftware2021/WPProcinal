@@ -11,7 +11,7 @@
     <Grid>
         <Grid x:Name="TVGrid">
             <Grid.Background>
-                <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-cartelera.jpg" 
+                <ImageBrush ImageSource="/Images/backgrounds/p-fondo-cartelera.jpg" 
                         Stretch="UniformToFill"/>
             </Grid.Background>
 
@@ -29,7 +29,7 @@
                        VerticalAlignment="Top"
                        Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
             />
-                <Image Source="/Images/NewDesing/buttons/b-atras.png" 
+                <Image Source="/Images/buttons/b-atras.png" 
                        Height="110"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"

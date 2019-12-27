@@ -10,7 +10,7 @@
     <Grid>
         <Grid.Background>
             <ImageBrush x:Name="imgBg"
-                        ImageSource="/Images/NewDesing/backgrounds/p-fondo-pelicula.jpg"
+                        ImageSource="/Images/backgrounds/p-fondo-pelicula.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
@@ -52,7 +52,7 @@
                         Stretch="UniformToFill"/>
                 </Border.Background>
             </Border>
-            <Image Source="/Images/NewDesing/buttons/b-atras.png" 
+            <Image Source="/Images/buttons/b-atras.png" 
                    Margin="50,150,0,0"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"

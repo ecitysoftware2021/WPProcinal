@@ -9,29 +9,13 @@
              d:DesignHeight="2064.095" d:DesignWidth="1250.599">
     <Grid >
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"
+            <ImageBrush ImageSource="/Images/backgrounds/p-fondo-pay.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="10*"/>
-        </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <Image Source="/Images/NewDesing/Buttons/ok.png" Visibility="Hidden" Name="efectivo" TouchDown="Efectivo_TouchDown"/>
-            <Image Source="/Images/NewDesing/Buttons/ok.png" Visibility="Hidden" Grid.Column="1" Name="debito" TouchDown="Debito_TouchDown"/>
-            <Image Source="/Images/NewDesing/Buttons/ok.png" Visibility="Hidden" Grid.Column="2" Name="credito" TouchDown="Credito_TouchDown"/>
-        </Grid>
-        <Grid
-            Grid.Row="1"
-            TouchDown="gridPrincipal_TouchDown" Name="gridPrincipal">
+        <Grid  TouchDown="gridPrincipal_TouchDown" Name="gridPrincipal">
             
-            <Image gif:ImageBehavior.AnimatedSource="/Images/NewDesing/Gif/procinal01.gif" 
+            <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/procinal01.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
                     x:Name="GifLoad2" 

@@ -8,7 +8,7 @@
              d:DesignHeight="2064.095" d:DesignWidth="1250.599" Loaded="UserControl_Loaded">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-final.jpg"
+            <ImageBrush ImageSource="/Images/backgrounds/p-fondo-final.jpg"
                         Stretch="UniformToFill"/>
         </Grid.Background>
     </Grid>

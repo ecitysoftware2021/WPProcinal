@@ -10,7 +10,7 @@
              d:DesignHeight="2064.095" d:DesignWidth="1250.599" Loaded="UserControl_Loaded">
     <Grid Name="GridSeat">
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/f-seats.png"
+            <ImageBrush ImageSource="/Images/backgrounds/f-seats.png"
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
@@ -30,56 +30,39 @@
                Margin="0,-10,0,0"               
                VerticalAlignment="Top"
                Width="1000">
-
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgDisponible"
-               Margin="0,0,0,20"
-               Source="/Images/Disponiblev2.png"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Name="ImgDisponible"
+               Source="/Images/Seats/disponible.png"
                VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgNoDisponible"
-               Margin="150,4,0,0"
-               Source="/Images/NoDisponiblev2.png"
+                   Grid.Column="0"/>
+            <Image Name="ImgNoDisponible"
+               Source="/Images/Seats/NoDisponible.png"
                VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
+                   Grid.Column="1"/>
+            <Image           
                    Name="ImgSeleccionada"
-               Margin="300,2,0,0"
-               Source="/Images/seleccionadav2.png"
+               Source="/Images/Seats/seleccionada.png"
                VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="50"          
-                   Name="ImgPuff"
-               Margin="440,0,0,0"
-               Source="/Images/puffv2.png"
+                   Grid.Column="2"/>
+            <Image Name="ImgVibroSound"               
+                   Source="/Images/Seats/vibrosound.png"
                VerticalAlignment="Top"
-               Width="130"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgVibroSound"               
-                   Margin="530,0,0,20"
-               Source="/Images/vibrosoundv2.png"
+               Grid.Column="3"/>
+            <Image  Name="ImgBlack"
+               Source="/Images/Seats/Black-Star.png"
                VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgBlack"
-               Margin="670,0,0,0"
-               Source="/Images/discapacitadosv2.png"
+               Grid.Column="4"/>
+            <Image Name="ImgDiscapacitados"
+               Source="/Images/Seats/discapacitados.png"
                VerticalAlignment="Top"
-               Width="144"/>
-            <Image HorizontalAlignment="Left" 
-               Height="53"          
-                   Name="ImgDiscapacitados"
-               Margin="830,0,0,0"
-               Source="/Images/discapacitadosv2.png"
-               VerticalAlignment="Top"
-               Width="144"/>
+               Grid.Column="5"/>
             
         </Grid>
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
