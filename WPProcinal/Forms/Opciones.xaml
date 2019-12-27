@@ -22,7 +22,7 @@
             BorderThickness="3,3,3,3"
             CornerRadius="20,20,20,20">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/Backgrounds/p-fondo-general.jpg"
+            <ImageBrush ImageSource="/Images/Backgrounds/p-fondo-general.jpg"
                         Stretch="Fill"/>
         </Border.Background>
         <Grid x:Name="gridOperaciones" DataContext="{Binding}">
@@ -75,7 +75,7 @@
                  Height="50" 
                  Grid.Column="1"
                  Grid.Row="1"/>
-                <Image Source="/Images/NewDesing/Others/img_show.png"
+                <Image Source="/Images/Buttons/img_show.png"
                        Grid.Column="1"
                        Grid.Row="1"
                        HorizontalAlignment="Left" 

@@ -38,6 +38,7 @@ namespace WPProcinal.Classes
         public string Reservas { get; set; }
         public int Militar { get; set; }
         public string TipoZona { get; set; }
+        public string Validaciones { get; set; }
         public Schedule DatosPelicula { get; set; }
     }
 }

@@ -20,7 +20,7 @@
             BorderThickness="3,3,3,3"
             CornerRadius="20,20,20,20">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/Backgrounds/fondoModal.jpg"
+            <ImageBrush ImageSource="/Images/Backgrounds/fondoModal.jpg"
                         Stretch="Fill"/>
         </Border.Background>
         <Grid Margin="-2,-2,2,2">

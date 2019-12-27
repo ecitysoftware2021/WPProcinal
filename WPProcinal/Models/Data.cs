@@ -129,6 +129,8 @@ namespace WPProcinal.Models
         public string Capacidad { get; set; }
         [XmlAttribute(AttributeName = "disponibilidad")]
         public string Disponibilidad { get; set; }
+        [XmlAttribute(AttributeName = "validaciones")]
+        public string Validaciones { get; set; }
     }
 
     [XmlRoot(ElementName = "Fecha")]

@@ -24,7 +24,7 @@
         <Grid>
             <Grid.Background>
                 <ImageBrush x:Name="imgBackground"
-                        ImageSource="../Images/NewDesing/backgrounds/fondo-modal.jpg" 
+                        ImageSource="../Images/backgrounds/fondo-modal.jpg" 
                         Stretch="UniformToFill"/>
             </Grid.Background>
             <TextBlock

@@ -230,9 +230,6 @@
       <DependentUpon>frmModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Schedule.cs" />
-    <Compile Include="Forms\frmStoryBoard.xaml.cs">
-      <DependentUpon>frmStoryBoard.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
     </Compile>
@@ -308,10 +305,6 @@
     <Compile Include="Forms\frmConfirmationModal.xaml.cs">
       <DependentUpon>frmConfirmationModal.xaml</DependentUpon>
     </Compile>
-    <Page Include="Forms\frmStoryBoard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Forms\Opciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -347,7 +340,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CinemaMovies.cs" />
-    <Compile Include="Models\City.cs" />
     <Compile Include="Models\Movies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -398,43 +390,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\siguiente.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\indicador-sillas.png" />
-    <Resource Include="Images\silla-disponible.png" />
-    <Resource Include="Images\silla-no-disponible.png" />
-    <Resource Include="Images\silla-selecionada.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\logo-header.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\cancelar.png" />
-    <Resource Include="Images\Disponible.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\info-pelicula.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\pay.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CEntidades\CEntidades.csproj">
       <Project>{bb4249cc-e2fd-4ffb-822d-23d764200580}</Project>
       <Name>CEntidades</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\salir2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\atras.png" />
-    <Resource Include="Images\cancelar-pago.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\left.png" />
-    <Resource Include="Images\right.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -450,93 +409,6 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Images\NewDesing\Others\gafa.jpg" />
-    <Resource Include="Images\black.png" />
-    <Resource Include="Images\NewDesing\Backgrounds\f-seats.png" />
-    <Resource Include="Images\Tags\carteleras.png" />
-    <Resource Include="Images\Tags\estrenos.png" />
-    <Resource Include="Images\Tags\pre-ventas.png" />
-    <Resource Include="Images\NewDesing\Backgrounds\room.png" />
-    <Resource Include="Images\NewDesing\Gif\ACERCAR.gif" />
-    <Resource Include="Images\NewDesing\Gif\clave.gif" />
-    <Resource Include="Images\NewDesing\Buttons\bad.png" />
-    <Resource Include="Images\NewDesing\Buttons\ok.png" />
-    <Resource Include="Images\NewDesing\Others\img_show.png" />
-    <Resource Include="Images\NewDesing\Others\img_show_hider.png" />
-    <Resource Include="Images\NewDesing\Others\disview.png" />
-    <Resource Include="Images\NewDesing\Others\view.png" />
-    <Resource Include="Images\NewDesing\Gif\DESLIZAR.gif" />
-    <Resource Include="Images\NewDesing\Gif\INSERTAR.gif" />
-    <Resource Include="Images\NewDesing\Gif\PAGO MOVIL.gif" />
-    <Resource Include="Images\NewDesing\Gif\QR.gif" />
-    <Resource Include="Images\NewDesing\Buttons\QR.png" />
-    <Resource Include="Images\NewDesing\Buttons\ACERCAR.png" />
-    <Resource Include="Images\NewDesing\Buttons\AHORROS.png" />
-    <Resource Include="Images\NewDesing\Buttons\CORRIENTE.png" />
-    <Resource Include="Images\NewDesing\Buttons\CREDITO.png" />
-    <Resource Include="Images\NewDesing\Buttons\DESLIZAR.png" />
-    <Resource Include="Images\NewDesing\Buttons\INSERTAR.png" />
-    <Resource Include="Images\NewDesing\Buttons\PAGO MOVIL.png" />
-    <Resource Include="Images\NewDesing\Gif\Procinal1.gif" />
-    <Resource Include="Images\NewDesing\Others\v-inserte-tarjeta.png" />
-    <Resource Include="Images\Tags\cartel-4dx.png" />
-    <Resource Include="Images\Tags\cartel-blackstar.png" />
-    <Resource Include="Images\Tags\cartel-cinearte.png" />
-    <Resource Include="Images\Tags\cartel-starkids.png" />
-    <Resource Include="Images\Tags\cartel-supernova.png" />
-    <Resource Include="Images\Tags\cartel-vibra.png" />
-    <Resource Include="Images\NewDesing\Backgrounds\v-metodo-pago.png" />
-    <Resource Include="Images\NewDesing\Others\v-inserte-villete.png" />
-    <Resource Include="Images\NewDesing\Backgrounds\fondoModal.jpg" />
-    <Resource Include="Images\NewDesing\Backgrounds\fondo-modal.jpg" />
-    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-pay.jpg" />
-    <Resource Include="Images\NewDesing\Backgrounds\pantalla.png" />
-    <Resource Include="Images\NewDesing\Seats\s-bloqueada.png" />
-    <Resource Include="Images\NewDesing\Seats\s-disponible.png" />
-    <Resource Include="Images\NewDesing\Seats\s-ocupada.png" />
-    <Resource Include="Images\NewDesing\Seats\s-puff.png" />
-    <Resource Include="Images\s-ruedas.png" />
-    <Resource Include="Images\NewDesing\Seats\s-seleccionada.png" />
-    <Resource Include="Images\NewDesing\Buttons\b-atras.png" />
-    <Resource Include="Images\NewDesing\Buttons\b-Cartelera.png" />
-    <Resource Include="Images\NewDesing\Buttons\b-efectivo.png" />
-    <Resource Include="Images\NewDesing\Buttons\b-pagar.png" />
-    <Resource Include="Images\NewDesing\Buttons\b-Preventa.png" />
-    <Resource Include="Images\NewDesing\Buttons\b-tarjeta.png" />
-    <Resource Include="Images\NewDesing\Buttons\descado-carteleras.png" />
-    <Resource Include="Images\NewDesing\Buttons\descado-estrenos.png" />
-    <Resource Include="Images\NewDesing\Buttons\descado-pre-ventas.png" />
-    <Resource Include="Images\NewDesing\Gif\procinal01.gif" />
-    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-cartelera.jpg" />
-    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-final.jpg" />
-    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-general.jpg" />
-    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-inicio.jpg" />
-    <Resource Include="Images\NewDesing\Backgrounds\p-fondo-pelicula.jpg" />
-    <Resource Include="Images\loadingbar.gif" />
-    <Resource Include="Images\vibrosoundv2.png" />
-    <Resource Include="Images\discapacitadosv2.png" />
-    <Resource Include="Images\NoDisponiblev2.png" />
-    <Resource Include="Images\puffv2.png" />
-    <Resource Include="Images\seleccionadav2.png" />
-    <Resource Include="Images\disponiblev2.png" />
-    <Resource Include="Images\silla-preferencialv2.png" />
-    <Resource Include="Images\silla-puffv2.png" />
-    <Resource Include="Images\silla-discapacitadosv2.png" />
-    <Resource Include="Images\silla-selecionadav2.png" />
-    <Resource Include="Images\silla-no-disponiblev2.png" />
-    <Resource Include="Images\silla-disponiblev2.png" />
-    <Resource Include="Images\discapacitados.png" />
-    <Resource Include="Images\puff.png" />
-    <Resource Include="Images\vibrosound.png" />
-    <Resource Include="Images\silla-discapacitados.png" />
-    <Resource Include="Images\silla-preferencial.png" />
-    <Resource Include="Images\silla-puff.png" />
-    <Resource Include="Images\silla-vibrasound.png" />
-    <Resource Include="Images\anterior.png" />
-    <Resource Include="Images\cargando.gif" />
-    <Resource Include="Images\Tags\cartel-2d.png" />
-    <Resource Include="Images\Tags\cartel-3d.png" />
-    <Resource Include="Images\loadder.gif" />
     <Content Include="ADO\Procinal.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Procinal.edmx</DependentUpon>
@@ -547,6 +419,82 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Buttons\img_show.png" />
+    <Resource Include="Images\Buttons\img_show_hider.png" />
+    <Resource Include="Images\Seats\s-black.png" />
+    <Resource Include="Images\anterior.png" />
+    <Resource Include="Images\atras.png" />
+    <Resource Include="Images\Backgrounds\f-seats.png" />
+    <Resource Include="Images\Backgrounds\fondo-modal.jpg" />
+    <Resource Include="Images\Backgrounds\fondoModal.jpg" />
+    <Resource Include="Images\Backgrounds\p-fondo-cartelera.jpg" />
+    <Resource Include="Images\Backgrounds\p-fondo-final.jpg" />
+    <Resource Include="Images\Backgrounds\p-fondo-general.jpg" />
+    <Resource Include="Images\Backgrounds\p-fondo-pay.jpg" />
+    <Resource Include="Images\Backgrounds\p-fondo-pelicula.jpg" />
+    <Resource Include="Images\Backgrounds\room.png" />
+    <Resource Include="Images\Backgrounds\v-inserte-tarjeta.png" />
+    <Resource Include="Images\Backgrounds\v-inserte-villete.png" />
+    <Resource Include="Images\Backgrounds\v-metodo-pago.png" />
+    <Resource Include="Images\Buttons\ACERCAR.png" />
+    <Resource Include="Images\Buttons\AHORROS.png" />
+    <Resource Include="Images\Buttons\b-atras.png" />
+    <Resource Include="Images\Buttons\b-Cartelera.png" />
+    <Resource Include="Images\Buttons\b-efectivo.png" />
+    <Resource Include="Images\Buttons\b-pagar.png" />
+    <Resource Include="Images\Buttons\b-Preventa.png" />
+    <Resource Include="Images\Buttons\b-tarjeta.png" />
+    <Resource Include="Images\Buttons\bad.png" />
+    <Resource Include="Images\Buttons\CORRIENTE.png" />
+    <Resource Include="Images\Buttons\CREDITO.png" />
+    <Resource Include="Images\Buttons\descado-carteleras.png" />
+    <Resource Include="Images\Buttons\descado-estrenos.png" />
+    <Resource Include="Images\Buttons\descado-pre-ventas.png" />
+    <Resource Include="Images\Buttons\DESLIZAR.png" />
+    <Resource Include="Images\Buttons\INSERTAR.png" />
+    <Resource Include="Images\Buttons\ok.png" />
+    <Resource Include="Images\Buttons\PAGO MOVIL.png" />
+    <Resource Include="Images\Buttons\QR.png" />
+    <Resource Include="Images\cancelar-pago.png" />
+    <Resource Include="Images\cargando.gif" />
+    <Resource Include="Images\Gif\ACERCAR.gif" />
+    <Resource Include="Images\Gif\clave.gif" />
+    <Resource Include="Images\Gif\DESLIZAR.gif" />
+    <Resource Include="Images\Gif\INSERTAR.gif" />
+    <Resource Include="Images\Gif\PAGO MOVIL.gif" />
+    <Resource Include="Images\Gif\procinal01.gif" />
+    <Resource Include="Images\Gif\QR.gif" />
+    <Resource Include="Images\indicador-sillas.png" />
+    <Resource Include="Images\info-pelicula.png" />
+    <Resource Include="Images\loadder.gif" />
+    <Resource Include="Images\loadingbar.gif" />
+    <Resource Include="Images\logo-header.png" />
+    <Resource Include="Images\pay.png" />
+    <Resource Include="Images\salir2.png" />
+    <Resource Include="Images\Seats\black-star.png" />
+    <Resource Include="Images\Seats\discapacitado.png" />
+    <Resource Include="Images\Seats\discapacitados.png" />
+    <Resource Include="Images\Seats\disponible.png" />
+    <Resource Include="Images\Seats\NoDisponible.png" />
+    <Resource Include="Images\Seats\s-bloqueada.png" />
+    <Resource Include="Images\Seats\s-disponible.png" />
+    <Resource Include="Images\Seats\s-ocupada.png" />
+    <Resource Include="Images\Seats\s-seleccionada.png" />
+    <Resource Include="Images\Seats\seleccionada.png" />
+    <Resource Include="Images\Seats\vibrosound.png" />
+    <Resource Include="Images\siguiente.png" />
+    <Resource Include="Images\Tags\cartel-2d.png" />
+    <Resource Include="Images\Tags\cartel-3d.png" />
+    <Resource Include="Images\Tags\cartel-4dx.png" />
+    <Resource Include="Images\Tags\cartel-blackstar.png" />
+    <Resource Include="Images\Tags\cartel-cinearte.png" />
+    <Resource Include="Images\Tags\cartel-starkids.png" />
+    <Resource Include="Images\Tags\cartel-supernova.png" />
+    <Resource Include="Images\Tags\cartel-vibra.png" />
+    <Resource Include="Images\Tags\carteleras.png" />
+    <Resource Include="Images\Tags\estrenos.png" />
+    <Resource Include="Images\Tags\pre-ventas.png" />
+    <Resource Include="Images\Tags\Ted.jpg" />
     <Resource Include="AppData\keysProcinal.txt" />
     <Content Include="DataBases\DBProcinal.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

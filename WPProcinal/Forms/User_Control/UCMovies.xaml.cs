@@ -96,14 +96,14 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 string TagPath = string.Empty;
-                var status = WCFServices41.StateImage(pelicula.Data.Imagen);
+                //var status = WCFServices41.StateImage(pelicula.Data.Imagen);
                 var movieType = GetTypeImage(pelicula.Tipo);
 
                 string image = pelicula.Data.Imagen;
-                if (!status)
-                {
-                    image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "NotFound.jpg");
-                }
+                //if (!status)
+                //{
+                // //   image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "NotFound.jpg");
+                //}
                 Utilities.LstMovies.Add(new MoviesViewModel
                 {
                     ImageData = Utilities.LoadImage(image, true),
@@ -288,12 +288,12 @@ namespace WPProcinal.Forms.User_Control
             {
                 Grid grid = (Grid)sender;
                 var movie = Utilities.Movies.Where(m => m.Id == grid.Tag.ToString()).FirstOrDefault();
-                var status = WCFServices41.StateImage(movie.Data.Imagen);
+                //var status = WCFServices41.StateImage(movie.Data.Imagen);
                 string image = movie.Data.Imagen;
-                if (!status)
-                {
-                    image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "NotFound.jpg");
-                }
+                //if (!status)
+                //{
+                //    image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "NotFound.jpg");
+                //}
                 Utilities.ImageSelected = Utilities.LoadImage(image, true);
 
                 Switcher.Navigate(new UCSchedule(movie));

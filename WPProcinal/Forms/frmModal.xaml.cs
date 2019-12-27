@@ -16,6 +16,7 @@ namespace WPProcinal.Forms
 
         private void BtnEnd_TouchDown(object sender, TouchEventArgs e)
         {
+            BtnEnd.IsEnabled = false;
             DialogResult = true;
         }
     }

@@ -62,7 +62,10 @@
             <Image Name="ImgDiscapacitados"
                Source="/Images/Seats/discapacitados.png"
                VerticalAlignment="Top"
-               Grid.Column="5"/>
+               Grid.Column="5"
+                   HorizontalAlignment="Left"
+                   Width="155"
+                   Margin="-20,0,0,0"/>
             
         </Grid>
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
@@ -80,7 +83,7 @@
                        VerticalAlignment="Top"
                        Margin="10,100,0,0" FontFamily="Gotham" FontWeight="Bold"/>
 
-            <Image Source="/Images/NewDesing/buttons/b-atras.png" 
+            <Image Source="/Images/buttons/b-atras.png" 
                    Margin="50,150,0,0"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
@@ -170,10 +173,6 @@
               Height="900"
                Grid.RowSpan="4"
               Margin="10,10,10,300">
-            <!--<Grid.Background>
-                <ImageBrush  ImageSource="/Images/NewDesing/backgrounds/room.png"
-                        Stretch="UniformToFill"/>
-            </Grid.Background>-->
         </Grid>
 
 

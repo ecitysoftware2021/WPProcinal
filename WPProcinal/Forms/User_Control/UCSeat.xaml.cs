@@ -109,7 +109,6 @@ namespace WPProcinal.Forms.User_Control
                 ImgDisponible.Visibility = Visibility.Visible;
                 ImgNoDisponible.Visibility = Visibility.Visible;
                 ImgBlack.Visibility = Visibility.Hidden;
-                ImgPuff.Visibility = Visibility.Hidden;
                 ImgSeleccionada.Visibility = Visibility.Visible;
                 ImgVibroSound.Visibility = Visibility.Hidden;
 
@@ -270,7 +269,6 @@ namespace WPProcinal.Forms.User_Control
                         {
                             Letter = filas.filRel,
                             Name = string.Concat(filas.filRel, item.Columna),
-                            //Name = string.Concat("User: ", filas.filRel, item.Columna, " - Score: ", filas.filRel, (filas.maxCol - columnaScore)),
                             Number = item.Columna.ToString(),
                             Type = item.TipoSilla,
                             RelativeColumn = Convert.ToInt32(filas.maxCol - columnaScore),
@@ -282,31 +280,12 @@ namespace WPProcinal.Forms.User_Control
                         labelSeat.FontSize = 10;
                         labelSeat.FontWeight = FontWeights.Bold;
                         labelSeat.Content = string.Concat(filas.filRel, item.Columna);
-                        labelSeat.Margin = new Thickness(0, 0, 0, 0);
+                        labelSeat.Margin = new Thickness(0, 10, 0, 0);
                         labelSeat.Height = 25;
-
-
-                        //Label labelSeat2 = new Label();
-                        //labelSeat2.FontSize = 10;
-                        //labelSeat2.FontWeight = FontWeights.Bold;
-                        //labelSeat2.Content = string.Concat(filas.filRel, Convert.ToInt32(filas.maxCol - columnaScore));
-                        //labelSeat2.Margin = new Thickness(0, 0, 0, 0);
-                        //labelSeat2.Height = 25;
-                        //labelSeat2.Foreground = Brushes.Green;
-
-                        //if (item.EstadoSilla != "S")
-                        //{
-                        //    labelSeat.Foreground = Brushes.Black;
-                        //}
-                        //else
-                        //{
-                        //    labelSeat.Foreground = Brushes.White;
-                        //}
 
                         if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
                         {
                             image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
-                            //labelSeat.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
                         }
 
                         if (item.TipoSilla != "pasillo")
@@ -314,11 +293,6 @@ namespace WPProcinal.Forms.User_Control
                             gridSillas.Children.Add(labelSeat);
                             Grid.SetColumn(labelSeat, columnaUsuario);
                             Grid.SetRow(labelSeat, fila);
-
-                            //gridSillas.Children.Add(labelSeat2);
-                            //Grid.SetColumn(labelSeat2, columnaUsuario);
-                            //Grid.SetRow(labelSeat2, fila);
-                            //Grid.SetRowSpan(labelSeat2, 2);
 
                             gridSillas.Children.Add(image);
                             Grid.SetColumn(image, columnaUsuario);
@@ -413,7 +387,6 @@ namespace WPProcinal.Forms.User_Control
                         {
                             Letter = est[filaScore].filRel,
                             Name = string.Concat(est[filaScore].filRel, item.Columna),
-                            //Name = string.Concat("User: ", est[filaScore].filRel, item.Columna, " - Score: ", filas.filRel, Convert.ToInt32(filas.maxCol - columnaScore)),
                             Number = item.Columna.ToString(),
                             Type = item.TipoSilla,
                             RelativeColumn = Convert.ToInt32(filas.maxCol - columnaScore),
@@ -425,31 +398,12 @@ namespace WPProcinal.Forms.User_Control
                         labelSeat.FontSize = 10;
                         labelSeat.FontWeight = FontWeights.Bold;
                         labelSeat.Content = string.Concat(est[filaScore].filRel, item.Columna);
-                        labelSeat.Margin = new Thickness(0, 0, 0, 0);
+                        labelSeat.Margin = new Thickness(0, 10, 0, 0);
                         labelSeat.Height = 25;
-
-
-                        //Label labelSeat2 = new Label();
-                        //labelSeat2.FontSize = 10;
-                        //labelSeat2.FontWeight = FontWeights.Bold;
-                        //labelSeat2.Content = string.Concat(filas.filRel, Convert.ToInt32(filas.maxCol - columnaScore));
-                        //labelSeat2.Margin = new Thickness(0, 0, 0, 0);
-                        //labelSeat2.Height = 25;
-                        //labelSeat2.Foreground = Brushes.Green;
-
-                        //if (item.EstadoSilla != "S")
-                        //{
-                        //    labelSeat.Foreground = Brushes.Black;
-                        //}
-                        //else
-                        //{
-                        //    labelSeat.Foreground = Brushes.White;
-                        //}
 
                         if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
                         {
                             image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
-                            //labelSeat.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
                         }
 
                         if (item.TipoSilla != "pasillo")
@@ -457,11 +411,6 @@ namespace WPProcinal.Forms.User_Control
                             gridSillas.Children.Add(labelSeat);
                             Grid.SetColumn(labelSeat, columnaUsuario);
                             Grid.SetRow(labelSeat, fila);
-
-                            //gridSillas.Children.Add(labelSeat2);
-                            //Grid.SetColumn(labelSeat2, columnaUsuario);
-                            //Grid.SetRow(labelSeat2, fila);
-                            //Grid.SetRowSpan(labelSeat2, 2);
 
                             gridSillas.Children.Add(image);
                             Grid.SetColumn(image, columnaUsuario);
@@ -562,31 +511,30 @@ namespace WPProcinal.Forms.User_Control
 
         private ImageSource GetImage(string ckeck)
         {
-            string icon = "silla-disponiblev2";
+            string icon = "s-disponible";
             if (ckeck == "R")
             {
-                icon = "silla-selecionadav2";
+                icon = "s-seleccionada";
             }
             else if (ckeck == "B")
             {
-                icon = "silla-no-disponiblev2";
+                icon = "s-bloqueada";
                 ImgNoDisponible.Visibility = Visibility.Visible;
             }
             else if (ckeck == "Discapacitado")
             {
-                icon = "silla-discapacitadosv2";
+                icon = "discapacitado";
                 ImgDiscapacitados.Visibility = Visibility.Visible;
             }
             else if (ckeck == "F")
             {
                 icon = "silla-puffv2";
-                ImgPuff.Visibility = Visibility.Visible;
             }
             else if (ckeck == "Vibrasound")
             {
                 if (vibraAvailable)
                 {
-                    icon = "silla-vibrasound";
+                    icon = "s-ocupada";
                 }
             }
             else if (ckeck == "M")
@@ -596,7 +544,7 @@ namespace WPProcinal.Forms.User_Control
             }
             else if (ckeck == "Black Star")
             {
-                icon = "silla-no-disponible";
+                icon = "s-black";
                 ImgBlack.Visibility = Visibility.Visible;
             }
             else if (ckeck == "pasillo")
@@ -606,7 +554,7 @@ namespace WPProcinal.Forms.User_Control
 
             BitmapImage logo = new BitmapImage();
             logo.BeginInit();
-            logo.UriSource = new Uri(string.Concat("/Images/", icon, ".png"), UriKind.Relative);
+            logo.UriSource = new Uri(string.Concat("/Images/Seats/", icon, ".png"), UriKind.Relative);
             logo.EndInit();
             return logo;
         }

@@ -16,7 +16,7 @@
         Loaded="Window_Loaded">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/NewDesing/backgrounds/p-fondo-pay.jpg"/>
+            <ImageBrush ImageSource="/Images/backgrounds/p-fondo-pay.jpg"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -55,7 +55,7 @@
         <Image     x:Name="okServidor" 
                     Grid.Column="1"
                    Grid.Row="2"
-                   Source="/Images/NewDesing/Buttons/ok.png"
+                   Source="/Images/Buttons/ok.png"
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Center" 
                     Width="100" 
@@ -66,7 +66,7 @@
                     Grid.Column="1"
                    Grid.Row="2"
                    Margin="0,0,0,220"
-                   Source="/Images/NewDesing/Buttons/bad.png"
+                   Source="/Images/Buttons/bad.png"
                     VerticalAlignment="Bottom" 
                     HorizontalAlignment="Center" 
                     Width="100" 
@@ -87,7 +87,7 @@
         <Image     x:Name="okAceptadorBilletes" 
                     Grid.Column="1"
                    Grid.Row="2"
-                   Source="/Images/NewDesing/Buttons/ok.png"
+                   Source="/Images/Buttons/ok.png"
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Center" 
                     Width="100" 
@@ -98,7 +98,7 @@
                     Grid.Column="1"
                    Grid.Row="2"
                    Margin="0,10,0,0"
-                   Source="/Images/NewDesing/Buttons/bad.png"
+                   Source="/Images/Buttons/bad.png"
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Center" 
                     Width="100" 
@@ -117,7 +117,7 @@
                    Margin="0,0,0,30"/>
         <Image     x:Name="okDispensadorBilletes" 
                     Grid.Column="1"
-                   Source="/Images/NewDesing/Buttons/ok.png"
+                   Source="/Images/Buttons/ok.png"
                     Grid.Row="2"
                     VerticalAlignment="Bottom" 
                     HorizontalAlignment="Center" 
@@ -126,7 +126,7 @@
                     Height="100" />
         <Image     x:Name="badDispensadorBilletes" 
                     Grid.Column="1"
-                   Source="/Images/NewDesing/Buttons/bad.png"
+                   Source="/Images/Buttons/bad.png"
                     Grid.Row="2"
                     VerticalAlignment="Bottom" 
                     HorizontalAlignment="Center" 
@@ -146,7 +146,7 @@
                    Margin="0,40,0,0"/>
         <Image     x:Name="okMonederos" 
                     Grid.Column="1"
-                   Source="/Images/NewDesing/Buttons/ok.png"
+                   Source="/Images/Buttons/ok.png"
                     Grid.Row="3"
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Center" 
@@ -156,7 +156,7 @@
                     Height="100" />
         <Image     x:Name="badMonederos" 
                     Grid.Column="1"
-                   Source="/Images/NewDesing/Buttons/bad.png"
+                   Source="/Images/Buttons/bad.png"
                     Grid.Row="3"
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Center" 
@@ -177,7 +177,7 @@
                    Margin="0,0,0,0"/>
         <Image     x:Name="okImpresora" 
                     Grid.Column="1"
-                   Source="/Images/NewDesing/Buttons/ok.png"
+                   Source="/Images/Buttons/ok.png"
                     Grid.Row="3"
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Center" 
@@ -187,7 +187,7 @@
                     Height="100" />
         <Image     x:Name="badImpresora" 
                     Grid.Column="1"
-                   Source="/Images/NewDesing/Buttons/bad.png"
+                   Source="/Images/Buttons/bad.png"
                     Grid.Row="3"
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Center" 

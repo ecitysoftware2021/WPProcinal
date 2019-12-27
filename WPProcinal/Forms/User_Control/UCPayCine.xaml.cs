@@ -55,10 +55,10 @@ namespace WPProcinal.Forms.User_Control
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-                Buytickets();
-                //stateUpdate = true;
-                //payState = true;
-                //Utilities.control.StartValues();
+                //Buytickets();
+                stateUpdate = true;
+                payState = true;
+                Utilities.control.StartValues();
             }
             catch (Exception ex)
             {

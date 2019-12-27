@@ -171,7 +171,8 @@ namespace WPProcinal.Forms.User_Control
                                                 IdFuncion = item.IdFuncion,
                                                 Militar = int.Parse(item.Militar),
                                                 //Reservas = item.Reservas,
-                                                TipoZona = tipoZona
+                                                TipoZona = tipoZona,
+                                                Validaciones = item.Validaciones
                                             });
                                         }
                                         else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
@@ -182,7 +183,8 @@ namespace WPProcinal.Forms.User_Control
                                                 IdFuncion = item.IdFuncion,
                                                 Militar = int.Parse(item.Militar),
                                                 //Reservas = item.Reservas,
-                                                TipoZona = tipoZona
+                                                TipoZona = tipoZona,
+                                                Validaciones = item.Validaciones
                                             });
                                         }
                                         else
@@ -408,8 +410,6 @@ namespace WPProcinal.Forms.User_Control
                     }
 
                 }
-
-
                 Utilities.FechaSeleccionada = dateName[0].FechaOrigin;
 
 
@@ -646,7 +646,7 @@ namespace WPProcinal.Forms.User_Control
                 timer.CallBackStop?.Invoke(1);
             }
             catch { }
-            
+
             Switcher.Navigate(new UCMovies());
         }
 

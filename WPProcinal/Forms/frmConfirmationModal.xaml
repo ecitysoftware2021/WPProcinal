@@ -18,7 +18,7 @@
             BorderThickness="3,3,3,3">
         <Grid>
             <Grid.Background>
-                <ImageBrush ImageSource="/Images/NewDesing/Backgrounds/v-metodo-pago.png"/>
+                <ImageBrush ImageSource="/Images/Backgrounds/v-metodo-pago.png"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -49,24 +49,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <Image HorizontalAlignment="Center"
-                        Source="/Images/NewDesing/Others/gafa.jpg"
-                        VerticalAlignment="Top"/>
 
-
-                    <TextBlock 
-                        FontSize="20"
-                               FontFamily="Gotham"
-                        TextWrapping="Wrap" 
-                        Text="$ 1.500" 
-                        FontWeight="Bold"
-                               Grid.Row="0"
-                        Margin="10,0,40,0"
-                               HorizontalAlignment="Right"
-                        VerticalAlignment="Center"/>
-                    <CheckBox Grid.Column="1" IsChecked="True">
-                        <TextBlock Text="Comprar Gafa" />
-                    </CheckBox>
                     <TextBlock HorizontalAlignment="Center"
                         FontSize="20"
                                FontFamily="Gotham"
@@ -179,7 +162,7 @@
                        Width="200"
                        HorizontalAlignment="Left"
                        Height="200"
-                       Source="/Images/NewDesing/Buttons/b-efectivo.png" />
+                       Source="/Images/Buttons/b-efectivo.png" />
                     <Image x:Name="BtnCard"     
                           Visibility="Visible"
                            Margin="0,-106,50,0"
@@ -188,7 +171,7 @@
                        HorizontalAlignment="Right"
                        Height="200"
                            Grid.ColumnSpan="2"
-                       Source="/Images/NewDesing/Buttons/b-tarjeta.png"/>
+                       Source="/Images/Buttons/b-tarjeta.png"/>
 
                     <Image x:Name="BtnNo"
                        HorizontalAlignment="Center"
