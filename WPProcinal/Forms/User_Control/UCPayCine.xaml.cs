@@ -581,6 +581,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
+                this.IsEnabled = false;
                 Utilities.Loading(frmLoading, true, this);
 
                 Utilities.control.StopAceptance();

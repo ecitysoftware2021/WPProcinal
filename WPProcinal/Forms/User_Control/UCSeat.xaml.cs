@@ -883,7 +883,7 @@ namespace WPProcinal.Forms.User_Control
 
         private void BtnAtras_TouchDown(object sender, TouchEventArgs e)
         {
-
+            this.IsEnabled = false;
             if (activePay)
             {
                 List<TypeSeat> lista = new List<TypeSeat>();

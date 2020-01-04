@@ -883,10 +883,10 @@ namespace WPProcinal.Classes
         {
             if (RealdispenserValue <= deliveryVal)
             {
-                if (WaitForCoins == 0)
-                {
+                //if (WaitForCoins == 0)
+                //{
                     callbackTotalOut?.Invoke(deliveryVal);
-                }
+                //}
             }
         }
 

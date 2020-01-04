@@ -267,7 +267,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                btnAtras.IsEnabled = false;
+               this.IsEnabled = false;
                 SetCallBacksNull();
                 timer.CallBackStop?.Invoke(1);
             }

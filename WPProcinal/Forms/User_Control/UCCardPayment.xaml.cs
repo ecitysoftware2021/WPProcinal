@@ -948,6 +948,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
+                this.IsEnabled = false;
                 frmLoading = new FrmLoading("Cancelando la transacción, espere por favor...");
                 Utilities.Loading(frmLoading, true, this);
                 Task.Run(() =>

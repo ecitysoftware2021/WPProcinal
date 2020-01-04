@@ -21,7 +21,7 @@ namespace WPProcinal.Forms.User_Control
         {
             Task.Run(() =>
             {
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     Utilities.GoToInicial();
