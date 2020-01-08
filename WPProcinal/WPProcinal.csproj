@@ -230,6 +230,9 @@
       <DependentUpon>frmModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Schedule.cs" />
+    <Compile Include="Forms\frmPointsConfirmation.xaml.cs">
+      <DependentUpon>frmPointsConfirmation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
     </Compile>
@@ -238,6 +241,9 @@
     </Compile>
     <Compile Include="Forms\User_Control\UCCinema.xaml.cs">
       <DependentUpon>UCCinema.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\User_Control\UCDatos.xaml.cs">
+      <DependentUpon>UCDatos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\User_Control\UCFinalTransaction.xaml.cs">
       <DependentUpon>UCFinalTransaction.xaml</DependentUpon>
@@ -254,11 +260,14 @@
     <Compile Include="Forms\User_Control\UCSeat.xaml.cs">
       <DependentUpon>UCSeat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Keyboard\TouchScreenKeyboard.cs" />
+    <Compile Include="Keyboard\TouchScreenKeyNumeric.cs" />
     <Compile Include="Models\ApiLocal\DataPaypad.cs" />
     <Compile Include="Models\ApiLocal\RequestAuth.cs" />
     <Compile Include="Models\ApiLocal\ResponseAuth.cs" />
     <Compile Include="Models\ApiLocal\Uptake.cs" />
     <Compile Include="Models\Data.cs" />
+    <Compile Include="Models\DataDocument.cs" />
     <Compile Include="Models\DateName.cs" />
     <Compile Include="Models\DesAsignarReserva.cs" />
     <Compile Include="Models\DipMap.cs" />
@@ -305,6 +314,10 @@
     <Compile Include="Forms\frmConfirmationModal.xaml.cs">
       <DependentUpon>frmConfirmationModal.xaml</DependentUpon>
     </Compile>
+    <Page Include="Forms\frmPointsConfirmation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Opciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -314,6 +327,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\User_Control\UCCinema.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\User_Control\UCDatos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -336,6 +353,10 @@
     <Page Include="Forms\User_Control\UCSeat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -419,6 +440,11 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Buttons\backspace.png" />
+    <Resource Include="Images\Buttons\x.png" />
+    <Resource Include="Images\Backgrounds\f-data.png" />
+    <Resource Include="Images\Buttons\btnNot.png" />
+    <Resource Include="Images\Buttons\btnYes.png" />
     <Resource Include="Images\Buttons\img_show.png" />
     <Resource Include="Images\Buttons\img_show_hider.png" />
     <Resource Include="Images\Seats\s-black.png" />

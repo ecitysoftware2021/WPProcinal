@@ -35,7 +35,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 ValidatePayPad();
             });
-            var frmLoading = new FrmLoading("¡Cargando peliculas!");
+            var frmLoading = new FrmLoading("¡Cargando peliculas...!");
             frmLoading.Show();
             try
             {
@@ -267,7 +267,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-               this.IsEnabled = false;
+                this.IsEnabled = false;
                 SetCallBacksNull();
                 timer.CallBackStop?.Invoke(1);
             }

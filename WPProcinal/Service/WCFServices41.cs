@@ -514,6 +514,81 @@ namespace WPProcinal.Service
         }
         #endregion
 
+        /// <summary>
+        /// SERVICIO PARA VISUALIZAR LISTA DE COMBOS Y PRECIOS CONFIGURADOS
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        #region SCOPRE
+        public static List<EstadoSala41> GetCombos(SCOPRE data)
+        {
+
+            string decryptData = string.Empty;
+            try
+            {
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(data);
+                try
+                {
+                    AdminPaypad.SaveErrorControl(seria,
+                    "GetStateRoom Request",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+
+
+                var client = new RestClient(Utilities.APISCORE + "/scopre/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+
+                var est = JsonConvert.DeserializeObject<List<EstadoSala41>>(decryptData);
+                //if (est.Count < 2)
+                //{
+                //    try
+                //    {
+                //        AdminPaypad.SaveErrorControl(decryptData,
+                //        "GetStateRoom Response",
+                //        EError.Customer,
+                //        ELevelError.Mild);
+                //    }
+                //    catch { }
+                //    return null;
+                //}
+                return est;
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "GetStateRoom catch",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                return null;
+            }
+        }
+
+        #endregion
+
     }
 
     #region ERROR
@@ -723,6 +798,14 @@ namespace WPProcinal.Service
         public int Sala { get; set; }
         public int InicioFuncion { get; set; }
         public int teatro { get; set; }
+        public string tercero { get; set; }
+    }
+    #endregion
+
+    #region SCOPRE
+    public class SCOPRE
+    {
+        public string teatro { get; set; }
         public string tercero { get; set; }
     }
     #endregion

@@ -204,7 +204,7 @@
                Margin="0,110,0,0"
                Source="/Images/pay.png"
                VerticalAlignment="Top"
-               />
+        />
 
     </Grid>
 </UserControl>

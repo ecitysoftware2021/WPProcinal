@@ -28,6 +28,12 @@ namespace WPProcinal.Forms
         {
             InitializeComponent();
             Switcher.Navigator = this;
+
+            WCFServices41.GetCombos(new SCOPRE
+            {
+                teatro = "302",
+                tercero = "1"
+            });
             try
             {
                 api = new ApiLocal();
