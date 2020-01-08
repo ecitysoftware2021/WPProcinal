@@ -468,6 +468,7 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigur
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.g.cs
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalPuntos.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCardPayment.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCinema.g.cs
@@ -476,8 +477,10 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Contro
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSchedule.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSeat.g.cs
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UDDatos.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\App.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_Content.g.cs
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.cache
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.lref
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\App.baml
@@ -485,6 +488,7 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigur
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.baml
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalPuntos.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCardPayment.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCinema.baml
@@ -493,10 +497,11 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Contro
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSchedule.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSeat.baml
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UDDatos.baml
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Themes\Generic.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.g.resources
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.Properties.Resources.resources
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.GenerateResource.cache
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CoreCompileInputs.cache
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
