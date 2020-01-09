@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPProcinal.Classes;
@@ -38,10 +37,8 @@ namespace WPProcinal.Forms.User_Control
                 Process.Start(Path.Combine(Directory.GetCurrentDirectory(), "Renotificar", "RenotifyConsole.exe"));
             }
             catch { }
-            Task.Run(() => Dispatcher.BeginInvoke((Action)delegate
-             {
-                 LoadData();
-             }));
+
+            LoadData();
         }
 
         private void LoadData()
@@ -49,32 +46,24 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 Utilities.LstMovies.Clear();
-
-                string dataXml = string.Empty;
-
-                //WCFServices41.GetCombos(new SCOPRE
-                //{
-                //    teatro = "304",
-                //    tercero = "1"
-                //});
-                this.IsEnabled = false;
-                var frmLoading = new FrmLoading("¡Descargando Información...!");
-                frmLoading.Show();
-                var response = WCFServices41.DownloadData();
-                if (!response.IsSuccess)
+                this.Dispatcher.BeginInvoke(new ThreadStart(() =>
                 {
-                    Utilities.ShowModal(response.Message);
-                    return;
-                }
+                    string dataXml = string.Empty;
 
-                Utilities.SaveFileXML(response.Result.ToString());
-                dataXml = response.Result.ToString();
+                    var response = WCFServices41.DownloadData();
+                    if (!response.IsSuccess)
+                    {
+                        Utilities.ShowModal(response.Message);
+                        return;
+                    }
 
-                dataXml = Utilities.GetFileXML();
-                Peliculas data = WCFServices41.DeserealizeXML<Peliculas>(dataXml);
-                Utilities.Peliculas = data;
-                this.IsEnabled = true;
-                frmLoading.Close();
+                    Utilities.SaveFileXML(response.Result.ToString());
+                    dataXml = response.Result.ToString();
+
+                    dataXml = Utilities.GetFileXML();
+                    Peliculas data = WCFServices41.DeserealizeXML<Peliculas>(dataXml);
+                    Utilities.Peliculas = data;
+                }));
             }
             catch (System.Exception ex)
             {

@@ -97,11 +97,10 @@ namespace WPProcinal.Forms
                                     ChangeStatusPeripherals();
                                     Task.Run(() =>
                                     {
-                                        Utilities.control.OpenSerialPorts();
-                                        Utilities.control.Start();
-                                        Utilities.control.StartCoinAcceptorDispenser();
-                                        Utilities.PeripheralsNotArduino.ProcessResponsePrinter(0);
-                                        //Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
+                                        //Utilities.control.OpenSerialPorts();
+                                        //Utilities.control.Start();
+                                        //Utilities.control.StartCoinAcceptorDispenser();
+                                        Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
                                     });
                                 }
 

@@ -37,8 +37,6 @@ namespace WPProcinal.Classes
 
         public static TimeSpan time;
 
-        public static DataDocument dataDocument;
-
         public static DispatcherTimer timer;
 
         public static List<Pelicula> Movies = new List<Pelicula>();
@@ -126,8 +124,9 @@ namespace WPProcinal.Classes
         public static string MovieFormat { get; set; }
         public static string TipoSala { get; set; }
 
+        public static string NamePath = GetConfiguration("NamePath");
 
-        public static string NameFile = string.Format("{0}\\Cinema.txt", Directory.GetCurrentDirectory());
+        public static string NameFile = string.Format("{0}\\Cinema-{1}.txt", NamePath, DateTime.Now.ToString("yyyyMMdd"));
 
         public static string NamePathLog = GetConfiguration("NamePathLog");
 
@@ -325,13 +324,23 @@ namespace WPProcinal.Classes
             return reader.GetValue(key, typeof(String)).ToString();
         }
 
+        public static bool IfExistFileXML()
+        {
+            if (!Directory.Exists(NamePath))
+            {
+                Directory.CreateDirectory(NamePath);
+            }
+
+            if (!File.Exists(NameFile))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public static void SaveFileXML(string content)
         {
-            if (!Directory.Exists("Procinal"))
-            {
-                Directory.CreateDirectory("Procinal");
-                Directory.CreateDirectory(Path.Combine("Procinal", "XmlCinema"));
-            }
             if (File.Exists(NameFile))
             {
                 File.Delete(NameFile);
@@ -560,7 +569,6 @@ namespace WPProcinal.Classes
             try
             {
                 ApiLocal api = new ApiLocal();
-
                 Transaction Transaction = new Transaction
                 {
                     STATE_TRANSACTION_ID = state,
@@ -568,27 +576,11 @@ namespace WPProcinal.Classes
                     INCOME_AMOUNT = Enter,
                     RETURN_AMOUNT = Return,
                     TRANSACTION_ID = IDTransactionDB,
-                    PAYMENT_TYPE_ID = Utilities.MedioPago,
-
+                    PAYMENT_TYPE_ID = Utilities.MedioPago
                 };
-                if (dataDocument != null)
-                {
-                    if (dataDocument.Document != null)
-                    {
-                        Transaction.payer = new PAYER();
-                        Transaction.payer.IDENTIFICATION = dataDocument.Document;
-                        Transaction.payer.NAME = dataDocument.FirstName;
-                        Transaction.payer.LAST_NAME = dataDocument.LastName;
-                        Transaction.payer.BIRTHDAY = dataDocument.Date;
 
-                        var resultPayer = await api.CallApi("SavePayer", Transaction.payer);
 
-                        if (resultPayer != null)
-                        {
-                            Transaction.payer.PAYER_ID = JsonConvert.DeserializeObject<int>(resultPayer.ToString());
-                        }
-                    }
-                }
+
 
                 var response = await api.GetResponse(new RequestApi
                 {
@@ -823,103 +815,6 @@ namespace WPProcinal.Classes
             catch { }
         }
 
-
-        public static DataDocument ProccesDocument(string data)
-        {
-            DataDocument documentDataReturn = new DataDocument();
-
-            try
-            {
-                if (!string.IsNullOrEmpty(data))
-                {
-                    data = data.Remove(0, data.IndexOf("PubDSK_1") + 6);
-
-                    string date = string.Empty;
-                    string documentData = string.Empty;
-                    string gender = string.Empty;
-                    string name = string.Empty;
-                    string document = string.Empty;
-
-                    if (data.IndexOf("0M") > 0)
-                    {
-                        gender = "Masculino";
-                        date = data.Substring(data.IndexOf("0M") + 2, 8);
-                        documentData = data.Substring(0, data.IndexOf("0M"));
-                    }
-                    else
-                    {
-                        documentData = data.Substring(0, data.IndexOf("0F"));
-                        date = data.Substring(data.IndexOf("0F") + 2, 8);
-                        gender = "Femenino";
-                    }
-
-                    char[] cedulaNombreChar = documentData.ToCharArray();
-
-                    foreach (var item in cedulaNombreChar)
-                    {
-
-                        if (char.IsLetter(item) || char.IsWhiteSpace(item) || item.Equals('\0'))
-                        {
-                            name += item;
-                            name = name.Replace("\0", " ");
-                        }
-                        else
-                        {
-                            document += item;
-                        }
-                    }
-                    name = name.TrimStart();
-                    name = name.TrimEnd();
-
-                    var nuevaCedula = document.Replace("\0", string.Empty).Replace(" ", string.Empty);
-                    document = nuevaCedula.Substring(nuevaCedula.Length - 10, 10);
-
-                    documentDataReturn.Date = date;
-                    documentDataReturn.Document = document;
-                    documentDataReturn.Gender = gender;
-                    var fullName = FormatName(name);
-                    documentDataReturn.FirstName = fullName[2];
-                    if (fullName.Count() > 3)
-                    {
-                        documentDataReturn.SecondName = fullName[3];
-                    }
-                    documentDataReturn.LastName = fullName[0];
-                    documentDataReturn.SecondLastName = fullName[1];
-                }
-
-                return documentDataReturn;
-            }
-            catch (Exception ex)
-            {
-                //Error.SaveLogError(MethodBase.GetCurrentMethod().Name, "Utilities", ex, EError.Aplication, MessageResource.StandarError);
-                return null;
-            }
-        }
-
-        public static string[] FormatName(string nameClient)
-        {
-            try
-            {
-                string message = string.Empty;
-                foreach (var item in nameClient.Split(' '))
-                {
-                    if (!string.IsNullOrEmpty(item))
-                    {
-                        if (item.Length > 1)
-                        {
-                            message += string.Concat(item, " ");
-                        }
-                    }
-                }
-
-                return message.Split(' ');
-            }
-            catch (Exception ex)
-            {
-                //Error.SaveLogError(MethodBase.GetCurrentMethod().Name, "Utilities", ex, EError.Aplication, MessageResource.StandarError);
-                return null;
-            }
-        }
     }
     public class DataMoneyNotification
     {

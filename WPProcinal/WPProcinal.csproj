@@ -230,9 +230,6 @@
       <DependentUpon>frmModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Schedule.cs" />
-    <Compile Include="Forms\frmModalPuntos.xaml.cs">
-      <DependentUpon>frmModalPuntos.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
     </Compile>
@@ -257,17 +254,11 @@
     <Compile Include="Forms\User_Control\UCSeat.xaml.cs">
       <DependentUpon>UCSeat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\User_Control\UDDatos.xaml.cs">
-      <DependentUpon>UDDatos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Keyboard\TouchScreenKeyboard.cs" />
-    <Compile Include="Keyboard\TouchScreenKeyNumeric.cs" />
     <Compile Include="Models\ApiLocal\DataPaypad.cs" />
     <Compile Include="Models\ApiLocal\RequestAuth.cs" />
     <Compile Include="Models\ApiLocal\ResponseAuth.cs" />
     <Compile Include="Models\ApiLocal\Uptake.cs" />
     <Compile Include="Models\Data.cs" />
-    <Compile Include="Models\DataDocument.cs" />
     <Compile Include="Models\DateName.cs" />
     <Compile Include="Models\DesAsignarReserva.cs" />
     <Compile Include="Models\DipMap.cs" />
@@ -284,7 +275,7 @@
     <Compile Include="Models\TransaccionCompra.cs" />
     <Compile Include="Service\ApiLocal.cs" />
     <Compile Include="Service\ApiServices.cs" />
-    <Compile Include="Forms\Uptake.cs" />
+    <Compile Include="Service\Uptake.cs" />
     <Compile Include="Service\WCFServices41.cs" />
     <Page Include="Forms\frmConfigurate.xaml">
       <SubType>Designer</SubType>
@@ -314,10 +305,6 @@
     <Compile Include="Forms\frmConfirmationModal.xaml.cs">
       <DependentUpon>frmConfirmationModal.xaml</DependentUpon>
     </Compile>
-    <Page Include="Forms\frmModalPuntos.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Forms\Opciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -349,14 +336,6 @@
     <Page Include="Forms\User_Control\UCSeat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\User_Control\UDDatos.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -440,11 +419,6 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
-    <Resource Include="Images\Buttons\btnYes.png" />
-    <Resource Include="Images\Buttons\btnNot.png" />
-    <Resource Include="Images\Backgrounds\dataUser.png" />
-    <Resource Include="Images\Buttons\x.png" />
-    <Resource Include="Images\Buttons\backspace.png" />
     <Resource Include="Images\Buttons\img_show.png" />
     <Resource Include="Images\Buttons\img_show_hider.png" />
     <Resource Include="Images\Seats\s-black.png" />

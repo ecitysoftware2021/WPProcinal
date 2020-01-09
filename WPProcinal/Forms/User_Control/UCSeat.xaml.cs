@@ -573,9 +573,6 @@ namespace WPProcinal.Forms.User_Control
                     return;
                 }
 
-                this.IsEnabled = false;
-                var frmLoading = new FrmLoading("¡Descargando precios...!");
-                frmLoading.Show();
                 var response41 = WCFServices41.GetPrices(new SCOPLA
                 {
                     FechaFuncion = dipMapCurrent.Date,
@@ -585,8 +582,6 @@ namespace WPProcinal.Forms.User_Control
                     teatro = dipMapCurrent.CinemaId,
                     tercero = "1"
                 });
-                this.IsEnabled = true;
-                frmLoading.Close();
                 if (response41 == null)
                 {
                     Utilities.ShowModal("Lo sentimos, no fué posible consultar las tarifas, por favor intente de nuevo.");
@@ -851,45 +846,32 @@ namespace WPProcinal.Forms.User_Control
                     }
                     catch { }
                     Utilities.ScorePayValue = Utilities.ValorPagarScore;
-
-                    frmModalPuntos _frmModalPuntos = new frmModalPuntos();
-                    this.Opacity = 0.3;
-                    _frmModalPuntos.ShowDialog();
-                    if (_frmModalPuntos.DialogResult.HasValue && _frmModalPuntos.DialogResult.Value)
+                    if (Utilities.MedioPago == 1)
                     {
+                        try
+                        {
+                            SetCallBacksNull();
+                            timer.CallBackStop?.Invoke(1);
+                        }
+                        catch { }
 
-                        SetCallBacksNull();
-                        timer.CallBackStop?.Invoke(1);
-                        Switcher.Navigate(new UDDatos(SelectedTypeSeats, dipMapCurrent));
+                        LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+                        Utilities.controlStop = 0;
+                        int i = 0;
+
+                        Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
                     }
                     else
                     {
-                        if (Utilities.MedioPago == 1)
+                        try
                         {
-                            try
-                            {
-                                SetCallBacksNull();
-                                timer.CallBackStop?.Invoke(1);
-                            }
-                            catch { }
-
-                            LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-                            Utilities.controlStop = 0;
-                            int i = 0;
-
-                            Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
+                            SetCallBacksNull();
+                            timer.CallBackStop?.Invoke(1);
                         }
-                        else
-                        {
-                            try
-                            {
-                                SetCallBacksNull();
-                                timer.CallBackStop?.Invoke(1);
-                            }
-                            catch { }
-                            Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
-                        }
+                        catch { }
+                        Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
                     }
+
                 }
             }
             catch (Exception ex)
@@ -913,6 +895,7 @@ namespace WPProcinal.Forms.User_Control
             }
             try
             {
+                btnAtras.IsEnabled = false;
                 SetCallBacksNull();
                 timer.CallBackStop?.Invoke(1);
             }

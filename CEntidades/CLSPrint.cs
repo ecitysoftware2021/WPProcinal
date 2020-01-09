@@ -15,7 +15,7 @@ namespace CEntidades
         Font fBodyAvisos = new Font("myriam pro", 8, FontStyle.Bold);
         Font fBodySala = new Font("myriam pro", 14, FontStyle.Bold);
         Font fBodyFecha = new Font("myriam pro", 8, FontStyle.Bold);
-        Font fBody1Vertical = new Font("Arial", 6, FontStyle.Bold);
+
         public string Movie { get; set; }
         public string Secuencia { get; set; }
         public string IDTransaccion { get; set; }
@@ -101,14 +101,6 @@ namespace CEntidades
             g.DrawImage(Image.FromFile(GenerateTags(TipoSala)), SpaceX, SpaceY);
 
             g.DrawImage(Image.FromFile(GenerateTags(Formato)), SpaceX + 130, SpaceY + 60);
-
-            PointF pointF = new PointF(0, 200);
-            StringFormat stringFormat = new StringFormat();
-            SolidBrush solidBrush = new SolidBrush(Color.FromArgb(255, 0, 0, 255));
-            stringFormat.FormatFlags = StringFormatFlags.DirectionVertical;
-
-            string verticalData = string.Concat(Room, " - Silla: ", Seat, " - Hora: ", Time);
-            g.DrawString(verticalData, fBody1Vertical, solidBrush, pointF, stringFormat);
 
             g.DrawString(Room, fBodySala, sb, SpaceX + 140, SpaceY + 90);
 

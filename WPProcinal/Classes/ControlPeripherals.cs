@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
-using WPProcinal.Models;
+
 
 namespace WPProcinal.Classes
 {
@@ -22,8 +22,6 @@ namespace WPProcinal.Classes
         private SerialPort _serialPortBills;//Puerto billeteros
 
         private SerialPort _serialPortCoins;//Puerto Monederos
-
-        private SerialPort _BarcodeReader;//Puerto Huellero
 
         #endregion
 
@@ -71,7 +69,6 @@ namespace WPProcinal.Classes
         public Action<bool> callbackStatusBillAceptance;//Calback de mensaje
         public Action<bool> callbackStatusCoinAceptanceDispenser;//Calback de mensaje
 
-        public Action<DataDocument> callbackDocument;//Calback de la lectura de la cedula
 
         #endregion
 
@@ -147,10 +144,7 @@ namespace WPProcinal.Classes
                 {
                     _serialPortCoins = new SerialPort();
                 }
-                if (_BarcodeReader == null)
-                {
-                    _BarcodeReader = new SerialPort();
-                }
+
                 if (log == null)
                 {
                     log = new LogDispenser();
@@ -273,29 +267,6 @@ namespace WPProcinal.Classes
             }
         }
 
-        /// <summary>
-        ///  Método para inciar el puerto del scanner
-        /// </summary>
-        public void InitializePortScanner(string portName)
-        {
-            try
-            {
-                if (!_BarcodeReader.IsOpen)
-                {
-                    _BarcodeReader.PortName = portName;
-                    _BarcodeReader.BaudRate = 57600;
-                    _BarcodeReader.Open();
-                    _BarcodeReader.ReadTimeout = 200;
-                    _BarcodeReader.DtrEnable = true;
-                    _BarcodeReader.RtsEnable = true;
-                    _BarcodeReader.DataReceived += new SerialDataReceivedEventHandler(Scanner_DataReceived);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
         #endregion
 
         #region SendMessage
@@ -413,33 +384,6 @@ namespace WPProcinal.Classes
                 "_serialPortCoinsDataReceived",
                 EError.Aplication,
                 ELevelError.Strong);
-            }
-        }
-
-        public int num = 0;
-        /// <summary>
-        /// Método que escucha la respuesta del puerto del scanner
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Scanner_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            try
-            {
-                if (num == 0)
-                {
-                    num = 1;
-                    Thread.Sleep(1000);
-                    var data = _BarcodeReader.ReadExisting();
-                    var response = Utilities.ProccesDocument(data);
-                    callbackDocument?.Invoke(response);
-                    //_BarcodeReader.DiscardInBuffer();
-                    //_BarcodeReader.DiscardOutBuffer();
-                }
-            }
-            catch (Exception ex)
-            {
-                //callbackError?.Invoke(Tuple.Create("AP", "Error, ha ocurrido una exepcion " + ex));
             }
         }
 
@@ -947,23 +891,6 @@ namespace WPProcinal.Classes
         }
 
         #endregion
-
-        public void ClosePortScanner()
-        {
-            try
-            {
-                if (_BarcodeReader.IsOpen)
-                {
-                    _BarcodeReader.DiscardInBuffer();
-                    _BarcodeReader.DiscardOutBuffer();
-                    _BarcodeReader.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                //callbackError?.Invoke(Tuple.Create("AP", "Error, ClosePortsScanner ha ocurrido una exepcion " + ex));
-            }
-        }
     }
 }
 

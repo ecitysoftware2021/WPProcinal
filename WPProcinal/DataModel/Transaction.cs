@@ -20,8 +20,6 @@ namespace WPProcinal.Classes
         public int PAYMENT_TYPE_ID { get; set; }
         public int PAYER_ID { get; set; }
         public int STATE_TRANSACTION_ID { get; set; }
-        public PAYER payer { get; set; }
-
         public List<TRANSACTION_DESCRIPTION> TRANSACTION_DESCRIPTION = new List<TRANSACTION_DESCRIPTION>();
     }
 
@@ -50,22 +48,4 @@ namespace WPProcinal.Classes
         public string Receipt_number { get; set; }
         public string RRN { get; set; }
     }
-
-    public class PAYER
-    {
-        public int PAYER_ID { get; set; }
-        public string IDENTIFICATION { get; set; }
-        public string LAST_NAME { get; set; }
-        public string PHONE { get; set; }
-        public string EMAIL { get; set; }
-        public string ADDRESS { get; set; }
-        public string NAME { get; set; }
-        public string TYPE_PAYER { get; set; }
-        public string TYPE_IDENTIFICATION { get; set; }
-        public string BLOOD_TYPE { get; set; }
-        public string GENDER { get; set; }
-        public string NATIONALITY { get; set; }
-        public string BIRTHDAY { get; set; }
-    }
-
 }
