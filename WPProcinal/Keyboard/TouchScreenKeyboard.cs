@@ -14,7 +14,7 @@ namespace WPProcinal.Keyboard
 
         private static bool isRun = false;
 
-        static UserControl window;
+        static Window window;
 
         private static int _position;
 
@@ -279,7 +279,7 @@ namespace WPProcinal.Keyboard
             {
                 //if (window == null)
                 //{
-                window = (UserControl)Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive).Content;
+                window = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
                 //}
 
                 window.IsEnabled = false;

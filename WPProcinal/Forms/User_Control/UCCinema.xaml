@@ -8,11 +8,11 @@
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              d:DesignHeight="2064.095" d:DesignWidth="1250.599">
     <Grid TouchDown="gridPrincipal_TouchDown" Name="gridPrincipal">
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/backgrounds/p-fondo-pay.jpg"
-                        Stretch="UniformToFill"/>
-        </Grid.Background>
-
+        
+            <Grid.Background>
+                <ImageBrush ImageSource="{Binding sourse}"  Stretch="Fill"/>
+            </Grid.Background>
+        
         <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/procinal01.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 

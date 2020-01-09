@@ -196,7 +196,7 @@
                     Visibility="Visible"
                     Height="100"  />
 
-        
+
         <TextBlock Text="Espera mientras se configura el dispositivo para iniciar"
                        FontFamily="Gotham"
                        Grid.Row="4"

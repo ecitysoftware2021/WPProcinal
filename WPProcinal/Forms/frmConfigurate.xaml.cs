@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using WPProcinal.Classes;
 using WPProcinal.Forms.User_Control;
+using WPProcinal.Models;
 using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
 
@@ -29,14 +30,10 @@ namespace WPProcinal.Forms
             InitializeComponent();
             Switcher.Navigator = this;
 
-            WCFServices41.GetCombos(new SCOPRE
-            {
-                teatro = "302",
-                tercero = "1"
-            });
             try
             {
                 api = new ApiLocal();
+
             }
             catch (Exception ex)
             {
@@ -93,9 +90,10 @@ namespace WPProcinal.Forms
                                 }
                                 if (Utilities.GetConfiguration("ConfigurateActive").Equals("no"))
                                 {
+                                    //Utilities.LoadData();
                                     Dispatcher.BeginInvoke((Action)delegate
                                     {
-                                        Switcher.Navigate(new UCCinema());
+                                        Switcher.Navigate(new UCConfectionery());
                                     });
                                 }
                                 else
@@ -103,10 +101,12 @@ namespace WPProcinal.Forms
                                     ChangeStatusPeripherals();
                                     Task.Run(() =>
                                     {
-                                        //Utilities.control.OpenSerialPorts();
-                                        //Utilities.control.Start();
-                                        //Utilities.control.StartCoinAcceptorDispenser();
-                                        Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
+                                        Utilities.control.OpenSerialPorts();
+                                        Utilities.control.Start();
+                                        Utilities.control.StartCoinAcceptorDispenser();
+                                        Utilities.PeripheralsNotArduino.ProcessResponsePrinter(0);
+                                        //Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
+                                        Utilities.LoadData();
                                     });
                                 }
 
@@ -218,6 +218,7 @@ namespace WPProcinal.Forms
                     ShowModalError(Status.ERROR_MESSAGE);
                 }
             };
+
         }
 
         void SetCallbackNull()
@@ -248,6 +249,7 @@ namespace WPProcinal.Forms
                 });
             }
         }
+
 
         private void ShowModalError(string description)
         {

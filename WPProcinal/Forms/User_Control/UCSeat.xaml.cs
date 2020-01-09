@@ -744,7 +744,7 @@ namespace WPProcinal.Forms.User_Control
                     //        //SaveDataBaseLocal();
                     //        if (_ErrorTransaction)
                     //        {
-                                ShowPay();
+                    ShowPay();
                     //        }
                     //    }
                     //    else
@@ -852,43 +852,32 @@ namespace WPProcinal.Forms.User_Control
                     catch { }
                     Utilities.ScorePayValue = Utilities.ValorPagarScore;
 
-                    frmPointsConfirmation _frmModalPuntos = new frmPointsConfirmation();
-                    this.Opacity = 0.3;
-                    _frmModalPuntos.ShowDialog();
-                    if (_frmModalPuntos.DialogResult.HasValue && _frmModalPuntos.DialogResult.Value)
+                    if (Utilities.MedioPago == 1)
                     {
-                        SetCallBacksNull();
-                        timer.CallBackStop?.Invoke(1);
-                        Switcher.Navigate(new UCDatos(SelectedTypeSeats, dipMapCurrent));
+                        try
+                        {
+                            SetCallBacksNull();
+                            timer.CallBackStop?.Invoke(1);
+                        }
+                        catch { }
+
+                        LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+                        Utilities.controlStop = 0;
+                        int i = 0;
+
+                        Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
                     }
                     else
                     {
-                        if (Utilities.MedioPago == 1)
+                        try
                         {
-                            try
-                            {
-                                SetCallBacksNull();
-                                timer.CallBackStop?.Invoke(1);
-                            }
-                            catch { }
-
-                            LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-                            Utilities.controlStop = 0;
-                            int i = 0;
-
-                            Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
+                            SetCallBacksNull();
+                            timer.CallBackStop?.Invoke(1);
                         }
-                        else
-                        {
-                            try
-                            {
-                                SetCallBacksNull();
-                                timer.CallBackStop?.Invoke(1);
-                            }
-                            catch { }
-                            Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
-                        }
+                        catch { }
+                        Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
                     }
+
                 }
             }
             catch (Exception ex)

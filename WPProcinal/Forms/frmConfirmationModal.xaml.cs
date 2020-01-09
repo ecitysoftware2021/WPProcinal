@@ -54,5 +54,10 @@ namespace WPProcinal.Forms
             Utilities.MedioPago = 2;
             DialogResult = true;
         }
+
+        private void BtnMenuCombo_TouchDown(object sender, TouchEventArgs e)
+        {
+
+        }
     }
 }

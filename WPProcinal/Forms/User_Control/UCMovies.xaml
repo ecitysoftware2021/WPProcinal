@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
-             d:DesignHeight="2064.095" d:DesignWidth="1250.599">
+             d:DesignHeight="2064.095" d:DesignWidth="1250.599" Loaded="UserControl_Loaded">
     <Grid>
         <Grid x:Name="TVGrid">
             <Grid.Background>
@@ -128,16 +128,30 @@
                        VerticalAlignment="Center"
                        Margin="0,170,0,0"/>
             <TextBlock
+                       Name="txtNameUser"
                        FontSize="50"
-                       Text="Seleccione una película" 
+                       Visibility="Hidden"
                        FontWeight="Bold"
-                FontFamily="Gotham"
+                       FontFamily="Gotham"
                        Foreground="White"
                        TextWrapping="Wrap"
                        TextAlignment="Center"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Margin="0,600,0,0"/>
+                       Margin="0,480,0,0"
+            />
+            <TextBlock
+                       FontSize="50"
+                       Text="Seleccione una película" 
+                       FontWeight="Bold"
+                       FontFamily="Gotham"
+                       Foreground="White"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0,600,0,0"
+            />
         </Grid>
         <Grid>
             <Image gif:ImageBehavior.AnimatedSource="/Images/cargando.gif" 

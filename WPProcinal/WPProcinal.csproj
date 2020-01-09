@@ -175,6 +175,7 @@
     <Compile Include="Classes\AdminPaypad.cs" />
     <Compile Include="Classes\ControlPeripheralsNotArduino.cs" />
     <Compile Include="Classes\ErrorCodes.cs" />
+    <Compile Include="Classes\ImagesSleader.cs" />
     <Compile Include="Classes\Switcher.cs" />
     <Compile Include="DataModel\BackUpEcity.cs">
       <DependentUpon>PayPlusModel.tt</DependentUpon>
@@ -230,8 +231,8 @@
       <DependentUpon>frmModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Schedule.cs" />
-    <Compile Include="Forms\frmPointsConfirmation.xaml.cs">
-      <DependentUpon>frmPointsConfirmation.xaml</DependentUpon>
+    <Compile Include="Forms\frmModalCineFan.xaml.cs">
+      <DependentUpon>frmModalCineFan.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
@@ -241,6 +242,9 @@
     </Compile>
     <Compile Include="Forms\User_Control\UCCinema.xaml.cs">
       <DependentUpon>UCCinema.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\User_Control\UCConfectionery.xaml.cs">
+      <DependentUpon>UCConfectionery.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\User_Control\UCDatos.xaml.cs">
       <DependentUpon>UCDatos.xaml</DependentUpon>
@@ -314,7 +318,7 @@
     <Compile Include="Forms\frmConfirmationModal.xaml.cs">
       <DependentUpon>frmConfirmationModal.xaml</DependentUpon>
     </Compile>
-    <Page Include="Forms\frmPointsConfirmation.xaml">
+    <Page Include="Forms\frmModalCineFan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -327,6 +331,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\User_Control\UCCinema.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\User_Control\UCConfectionery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -440,6 +448,16 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Buttons\+.png" />
+    <Resource Include="Images\Buttons\-.png" />
+    <Resource Include="Images\Backgrounds\p-fondo-eat.jpg" />
+    <Resource Include="Images\Confectionery\temporada.jpg" />
+    <Resource Include="Images\Confectionery\Combo1_Confiteria.jpg" />
+    <Resource Include="Images\Confectionery\Combo2_Confiteria.jpg" />
+    <Resource Include="Images\Confectionery\Combo3_Confiteria.jpg" />
+    <Resource Include="Images\Confectionery\Combo4_Confiteria.jpg" />
+    <Resource Include="Images\Confectionery\Combo5_Confiteria.jpg" />
+    <Resource Include="Images\Confectionery\ComboHamburguesa.jpg" />
     <Resource Include="Images\Buttons\backspace.png" />
     <Resource Include="Images\Buttons\x.png" />
     <Resource Include="Images\Backgrounds\f-data.png" />

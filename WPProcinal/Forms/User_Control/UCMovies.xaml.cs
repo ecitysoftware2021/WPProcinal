@@ -332,5 +332,38 @@ namespace WPProcinal.Forms.User_Control
             }
             ShowCurrentPageIndex();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Task.Run(() =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    SetCallBacksNull();
+                    timer.CallBackStop?.Invoke(1);
+
+                    this.Opacity = 0.3;
+                    frmModalCineFan modalCineFan = new frmModalCineFan();
+                    modalCineFan.ShowDialog();
+
+                    this.Opacity = 1;
+                    ActivateTimer();
+
+                    if (modalCineFan.DialogResult.HasValue &&
+                    modalCineFan.DialogResult.Value)
+                    {
+                        if (!string.IsNullOrEmpty(Utilities.dataDocument.FirstName))
+                        {
+                            txtNameUser.Text = "Bienvenid@ "+Utilities.dataDocument.FirstName;
+                            txtNameUser.Visibility = Visibility.Visible;
+                        }
+                    }
+                    else
+                    {
+                        //Utilities.GoToInicial();
+                    }
+                });
+            });
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace WPProcinal.Keyboard
         #region Property & Variable & Constructorç
         private static bool isRun = false;
 
-        static UserControl window;
+        static Window window;
 
         private static int _position;
 
@@ -33,7 +33,7 @@ namespace WPProcinal.Keyboard
 
         private static int _positionX = 0;
 
-        static int PositionX
+        public static int PositionX
         {
             get { return _positionX; }
             set { _positionX = value; }
@@ -282,7 +282,7 @@ namespace WPProcinal.Keyboard
                 {
                     //if (window == null)
                     //{
-                    window = (UserControl)Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive).Content;
+                    window = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
                     //}
 
                     window.IsEnabled = false;

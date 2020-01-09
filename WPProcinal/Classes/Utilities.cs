@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,11 +39,15 @@ namespace WPProcinal.Classes
 
         public static TimeSpan time;
 
+        public static List<string> Imagenes = new List<string>();
+
         public static DispatcherTimer timer;
 
         public static List<Pelicula> Movies = new List<Pelicula>();
 
         public static DataDocument dataDocument;
+
+        public static Action<bool> CallBackPublicity;
 
         public static bool LossConnection { get; set; }
         public static string CinemaId { get; set; }
@@ -58,6 +63,8 @@ namespace WPProcinal.Classes
         public static string Secuencia { get; set; }
 
         public static int controlStop = 0;
+
+        public static string path;
 
         private LogErrorGeneral logError;
 
@@ -318,6 +325,7 @@ namespace WPProcinal.Classes
             {3,"Jueves"},
             {4,"Viernes"},
         };
+
 
         public static string GetConfiguration(string key)
         {
@@ -930,6 +938,57 @@ namespace WPProcinal.Classes
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        public static void LoadData()
+        {
+            try
+            {
+
+                string dataXml = string.Empty;
+
+                var response = WCFServices41.DownloadData();
+                if (!response.IsSuccess)
+                {
+
+                    return;
+                }
+
+                Utilities.SaveFileXML(response.Result.ToString());
+                dataXml = response.Result.ToString();
+
+                dataXml = Utilities.GetFileXML();
+                Peliculas data = WCFServices41.DeserealizeXML<Peliculas>(dataXml);
+                Utilities.Peliculas = data;
+                Utilities.AddImageList();
+            }
+            catch (System.Exception ex)
+            {
+                //AdminPaypad.SaveErrorControl(ex.Message, "LoadData en frmCinema", EError.Aplication, ELevelError.Medium);
+            }
+        }
+        public static void AddImageList()
+        {
+            foreach (var item in Peliculas.Pelicula)
+            {
+                if (WCFServices41.StateImage(item.Data.Imagen))
+                {
+                    if (!Directory.Exists("Slider"))
+                    {
+                        Directory.CreateDirectory("Slider");
+                    }
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "Slider");
+                    using (WebClient client = new WebClient())
+                    {
+                        var fileName = string.Concat(path, "\\", item.Nombre + ".jpg");
+                        if (!File.Exists(fileName))
+                        {
+                            client.DownloadFile(new Uri(item.Data.Imagen), fileName);
+                        }
+                    }
+                }
+                Imagenes.Add(item.Data.Imagen);
             }
         }
     }

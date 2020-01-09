@@ -433,7 +433,6 @@ namespace WPProcinal.Service
                 request.AddHeader("Connection", "keep-alive");
                 request.AddHeader("Accept-Encoding", "gzip, deflate");
                 request.AddHeader("Host", "www.pantallasprocinal.com");
-                request.AddHeader("Postman-Token", "8c312204-ba23-4857-9742-751c11ab942c,2b81a37c-5ec3-429b-8a81-b8dafc41ef38");
                 request.AddHeader("Cache-Control", "no-cache");
                 request.AddHeader("Accept", "*/*");
                 IRestResponse response = client.Execute(request);

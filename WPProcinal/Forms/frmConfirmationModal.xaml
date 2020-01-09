@@ -11,7 +11,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         Title="Confirmación" 
-        Height="900.325"
+        Height="1000"
         Width="761.433">
     <Border
             
@@ -30,54 +30,77 @@
             </Grid.RowDefinitions>
             <!--Titulo-->
             <Border  
-                     
                     Grid.ColumnSpan="2"
                     BorderThickness="3,3,3,.5"
-                    CornerRadius="0,0,0,0"/>
+                    CornerRadius="0,0,0,0">
+                <Grid>
+                    <TextBlock 
+                        HorizontalAlignment="Center"
+                        FontSize="40"
+                        TextAlignment="Center"
+                        FontFamily="Gotham"
+                        Foreground="White"
+                        TextWrapping="Wrap" 
+                        Text="Completa tu orden con nuestros productos de confiteria" 
+                        FontWeight="Bold"
+                        Margin="0,10,0,0"
+                        VerticalAlignment="Top"/>
+                </Grid>
+            </Border>
             <Border Grid.Column="0" Grid.ColumnSpan="2"
-                    
                     BorderThickness="3,0,3,0" Margin="0,112,0,217" Grid.RowSpan="2">
-                <Grid Grid.ColumnSpan="2" Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="50" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock HorizontalAlignment="Center"
+                <Grid>
+                        <Grid Grid.ColumnSpan="2" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Image 
+                       x:Name="BtnMenuCombo"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Width="200" 
+                       Grid.ColumnSpan="2"
+                       TouchDown="BtnMenuCombo_TouchDown"
+                       Margin="0,0,0,0" 
+                       Source="/Images/salir2.png"
+                    />
+                            <TextBlock HorizontalAlignment="Center"
                         FontSize="20"
                                FontFamily="Gotham"
                         TextWrapping="Wrap" 
                         Text="PELÍCULA:" 
                         FontWeight="Bold"
-                               Grid.Row="1"
+                               Grid.Row="2"
                         VerticalAlignment="Top"/>
-                    <TextBlock HorizontalAlignment="Left"
+                            <TextBlock HorizontalAlignment="Left"
                         FontSize="20"
                                FontFamily="Gotham"
                         TextWrapping="Wrap" 
                        Text="WONDER WOMAN" 
                        Grid.Column="1"
-                               Grid.Row="1"
+                               Grid.Row="2"
                            Name="TxtTitle"
                         FontWeight="Bold"
                         VerticalAlignment="Top"/>
-                    <TextBlock HorizontalAlignment="Center"
-                       Grid.Row="2"
+                            <TextBlock HorizontalAlignment="Center"
+                       Grid.Row="3"
                        FontSize="20"
                                FontFamily="Gotham"
                         TextWrapping="Wrap" 
                        Text="SALA:" 
                         FontWeight="Bold"
                         VerticalAlignment="Top"/>
-                    <TextBlock HorizontalAlignment="Left"
-                       Grid.Row="2"
+                            <TextBlock HorizontalAlignment="Left"
+                       Grid.Row="3"
                        Grid.Column="1"
                         FontSize="20"
                                FontFamily="Gotham"
@@ -86,64 +109,65 @@
                        Text="SALA 1" 
                         FontWeight="Bold"
                         VerticalAlignment="Top"/>
-                    <TextBlock HorizontalAlignment="Center"
+                            <TextBlock HorizontalAlignment="Center"
                     FontSize="20"
                                FontFamily="Gotham"
                     TextWrapping="Wrap" 
-                     Grid.Row="2"
+                     Grid.Row="3"
                        Grid.Column="0"
                        Text="FECHA:" 
                         FontWeight="Bold"
                         VerticalAlignment="Bottom"/>
-                    <TextBlock HorizontalAlignment="Left"
+                            <TextBlock HorizontalAlignment="Left"
                        FontSize="20"
                                FontFamily="Gotham"
                         TextWrapping="Wrap" 
-                        Grid.Row="2"
+                        Grid.Row="3"
                        Grid.Column="1"
                           Name="TxtDate"
                        Text="Sábado 24 de Mayo a las 4:30Pm" 
                         FontWeight="Bold"
                         VerticalAlignment="Bottom"/>
-                    <TextBlock HorizontalAlignment="Center"
+                            <TextBlock HorizontalAlignment="Center"
                         FontSize="20"
                                FontFamily="Gotham"
                         TextWrapping="Wrap" 
-                        Grid.Row="3"
+                        Grid.Row="4"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
                        Text="Sillas Seleccionadas" 
                         FontWeight="Bold"
                         VerticalAlignment="Top"/>
-                    <ListView x:Name="lvListSeats" Grid.Row="3" Margin="0,20,0,0" Grid.ColumnSpan="2" FontSize="15">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Width="200" DisplayMemberBinding="{Binding FieldNull}"  />
-                                <GridViewColumn Header="Silla" Width="200" DisplayMemberBinding="{Binding Name}" />
-                                <GridViewColumn Header="Precio" Width="200" DisplayMemberBinding="{Binding Price, StringFormat='$ 0,0'}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <TextBlock HorizontalAlignment="Center"
+                            <ListView x:Name="lvListSeats" Grid.Row="4" Margin="0,20,0,0" Grid.ColumnSpan="2" FontSize="15">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="200" DisplayMemberBinding="{Binding FieldNull}"  />
+                                        <GridViewColumn Header="Silla" Width="200" DisplayMemberBinding="{Binding Name}" />
+                                        <GridViewColumn Header="Precio" Width="200" DisplayMemberBinding="{Binding Price, StringFormat='$ 0,0'}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <TextBlock HorizontalAlignment="Center"
                     FontSize="20"
                                FontFamily="Gotham"
                     TextWrapping="Wrap" 
-                     Grid.Row="4"
+                     Grid.Row="5"
                        Grid.Column="0"
                        Text="TOTAL:" 
                         FontWeight="Bold"
                         VerticalAlignment="Center"/>
-                    <TextBlock HorizontalAlignment="Center"
+                            <TextBlock HorizontalAlignment="Center"
                         FontSize="20"
                                FontFamily="Gotham"
                         TextWrapping="Wrap" 
-                        Grid.Row="4"
+                        Grid.Row="5"
                        Grid.Column="1"
                            Name="TxtTotal"
                        Text="$ 15.000" 
                         FontWeight="Bold"
                         VerticalAlignment="Center"/>
-                </Grid>
+                        </Grid>
+                    </Grid>
             </Border>
             <Border 
                     Grid.ColumnSpan="2" 
@@ -157,7 +181,7 @@
                     </Grid.ColumnDefinitions>
                     <Image x:Name="BtnYes"                        
                            
-                           Margin="50,-106,0,0"
+                           Margin="50,-26,0,0"
                            TouchDown="BtnYes_TouchDown"
                        Width="200"
                        HorizontalAlignment="Left"
@@ -165,7 +189,7 @@
                        Source="/Images/Buttons/b-efectivo.png" />
                     <Image x:Name="BtnCard"     
                           Visibility="Visible"
-                           Margin="0,-106,50,0"
+                           Margin="0,-26,50,0"
                            TouchDown="BtnCard_TouchDown"
                        Width="200"
                        HorizontalAlignment="Right"

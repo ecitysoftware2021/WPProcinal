@@ -20,9 +20,12 @@ namespace WPProcinal.Forms.User_Control
     {
         static CLSGrabador grabador = new CLSGrabador();
         private FrmLoading frmLoading;
+        private ImageSleader _imageSleader;
+
         public UCCinema()
         {
             InitializeComponent();
+            ConfiguratePublish();
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
             try
             {
@@ -40,7 +43,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch { }
             frmLoading = new FrmLoading("¡Descargando información...!");
-            
+
 
             Task.Run(() => Dispatcher.BeginInvoke((Action)delegate
             {
@@ -48,6 +51,29 @@ namespace WPProcinal.Forms.User_Control
                 LoadData();
             }));
 
+        }
+
+        private void ConfiguratePublish()
+        {
+            try
+            {
+                if (_imageSleader == null)
+                {
+                    _imageSleader = new ImageSleader(Utilities.path);
+
+                    this.DataContext = _imageSleader.imageModel;
+
+                    _imageSleader.time = 3;
+
+                    _imageSleader.isRotate = true;
+
+                    _imageSleader.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                //Error.SaveLogError(MethodBase.GetCurrentMethod().Name, this.GetType().Name, ex, MessageResource.StandarError);
+            }
         }
 
         private void LoadData()
@@ -85,50 +111,8 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 gridPrincipal.IsEnabled = false;
-                ControlPeripheralsNotArduino.callbackStatusPrinter = Status =>
-                {
-                    ControlPeripheralsNotArduino.callbackStatusPrinter = null;
-                    if (Status.STATUS == "OK")
-                    {
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            Switcher.Navigate(new UCMovies());
-                        });
-                    }
-                    else if (Status.STATUS == "ALERT")
-                    {
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            frmModal modal = new frmModal(string.Concat("Alerta,", Environment.NewLine, "Impresora: ", Status.ERROR_MESSAGE));
-                            modal.ShowDialog();
-                            Switcher.Navigate(new UCMovies());
-                        });
-                    }
-                    else
-                    {
-                        try
-                        {
-                            AdminPaypad.SaveErrorControl(Status.ERROR_MESSAGE,
-                                "Respuesta de la impresora",
-                                EError.Device,
-                                ELevelError.Medium);
-                        }
-                        catch { }
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            gridPrincipal.IsEnabled = true;
-                            frmModal modal = new frmModal(Status.ERROR_MESSAGE);
-                            modal.ShowDialog();
-                        });
-                    }
-                };
-
-                Validator validator = new Validator();
-
-
-                Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
-
-
+                _imageSleader.Stop();
+                Switcher.Navigate(new UCMovies());
             }
             catch (System.Exception ex)
             {
