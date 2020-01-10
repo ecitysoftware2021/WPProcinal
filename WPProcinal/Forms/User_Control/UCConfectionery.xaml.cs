@@ -47,7 +47,7 @@ namespace WPProcinal.Forms.User_Control
         #region "Eventos"
 
         /// <summary>
-        /// Evento para eliminar cantidades
+        /// Evento para agregar cantidades
         /// 0= Temporada, 1= Combo1, 2=Combo2, 3=Combo3, 4=Combo4
         /// 5=Combo5, 6=Combo Hamburguesa
         /// </summary>
@@ -62,159 +62,25 @@ namespace WPProcinal.Forms.User_Control
                 switch (tag)
                 {
                     case 0:
-                        cantActual = int.Parse(C0.Text);
-                        cantActual++;
-                        if (cantActual <= 9)
-                        {
-                            C0.Text = cantActual.ToString();
-                            var cant = _Seats.Where(cb => cb.Name == "Combo Jumanji").FirstOrDefault();
-                            if (cant != null)
-                            {
-                                cant.Quantity++;
-                                cant.Price += 1000;
-                            }
-                            else
-                            {
-                                _Seats.Add(new TypeSeat
-                                {
-                                    Name = "Combo Jumanji",
-                                    Quantity = 1,
-                                    Price = 1000
-                                });
-                            }
-                        }
+                        AddCombo("Combo Jumanji", 1000, C0);
                         break;
                     case 1:
-                        cantActual = int.Parse(C1.Text);
-                        if (cantActual <= 9)
-                        {
-                            C1.Text = (cantActual + 1).ToString();
-                            var cant = _Seats.Where(cb => cb.Name == "Combo 1").FirstOrDefault();
-                            if (cant != null)
-                            {
-                                cant.Quantity++;
-                                cant.Price = cant.Quantity * cant.Price;
-                            }
-                            else
-                            {
-                                _Seats.Add(new TypeSeat
-                                {
-                                    Name = "Combo 1",
-                                    Quantity = 1,
-                                    Price = 2000
-                                });
-                            }
-                        }
+                        AddCombo("Combo 1", 1000, C1);
                         break;
                     case 2:
-                        cantActual = int.Parse(C2.Text);
-                        if (cantActual <= 9)
-                        {
-                            C2.Text = (cantActual + 1).ToString();
-                            var cant = _Seats.Where(cb => cb.Name == "Combo 2").FirstOrDefault();
-                            if (cant != null)
-                            {
-                                cant.Quantity++;
-                                cant.Price = cant.Quantity * cant.Price;
-                            }
-                            else
-                            {
-                                _Seats.Add(new TypeSeat
-                                {
-                                    Name = "Combo 2",
-                                    Quantity = 1,
-                                    Price = 2000
-                                });
-                            }
-                        }
+                        AddCombo("Combo 2", 1000, C2);
                         break;
                     case 3:
-                        cantActual = int.Parse(C3.Text);
-                        if (cantActual <= 9)
-                        {
-                            C3.Text = (cantActual + 1).ToString();
-                            var cant = _Seats.Where(cb => cb.Name == "Combo 3").FirstOrDefault();
-                            if (cant != null)
-                            {
-                                cant.Quantity++;
-                                cant.Price = cant.Quantity * cant.Price;
-                            }
-                            else
-                            {
-                                _Seats.Add(new TypeSeat
-                                {
-                                    Name = "Combo 3",
-                                    Quantity = 1,
-                                    Price = 2000
-                                });
-                            }
-                        }
+                        AddCombo("Combo 3", 1000, C3);
                         break;
                     case 4:
-                        cantActual = int.Parse(C4.Text);
-                        if (cantActual <= 9)
-                        {
-                            C4.Text = (cantActual + 1).ToString();
-                            var cant = _Seats.Where(cb => cb.Name == "Combo 4").FirstOrDefault();
-                            if (cant != null)
-                            {
-                                cant.Quantity++;
-                                cant.Price = cant.Quantity * cant.Price;
-                            }
-                            else
-                            {
-                                _Seats.Add(new TypeSeat
-                                {
-                                    Name = "Combo 4",
-                                    Quantity = 1,
-                                    Price = 2000
-                                });
-                            }
-                        }
+                        AddCombo("Combo 4", 1000, C4);
                         break;
                     case 5:
-                        cantActual = int.Parse(C5.Text);
-                        if (cantActual <= 9)
-                        {
-                            C5.Text = (cantActual + 1).ToString();
-                            var cant = _Seats.Where(cb => cb.Name == "Combo 5").FirstOrDefault();
-                            if (cant != null)
-                            {
-                                cant.Quantity++;
-                                cant.Price = cant.Quantity * cant.Price;
-                            }
-                            else
-                            {
-                                _Seats.Add(new TypeSeat
-                                {
-                                    Name = "Combo 5",
-                                    Quantity = 1,
-                                    Price = 2000
-                                });
-                            }
-                        }
+                        AddCombo("Combo 5", 1000, C5);
                         break;
                     case 6:
-                        cantActual = int.Parse(C6.Text);
-                        if (cantActual <= 9)
-                        {
-                            C6.Text = (cantActual + 1).ToString();
-                            var cant = _Seats.Where(cb => cb.Name == "Combo Hamburguesa").FirstOrDefault();
-                            if (cant != null)
-                            {
-                                cant.Quantity++;
-                                cant.Price = cant.Quantity * cant.Price;
-                            }
-                            else
-                            {
-                                _Seats.Add(new TypeSeat
-                                {
-                                    Name = "Combo Hamburguesa",
-                                    Quantity = 1,
-                                    Price = 2000
-                                });
-                            }
-                        }
+                        AddCombo("Combo Hamburguesa", 1000, C6);
                         break;
                 }
             }
@@ -223,6 +89,32 @@ namespace WPProcinal.Forms.User_Control
 
             }
         }
+
+        private void AddCombo(string comboName, decimal comboPrice, TextBlock textBlock)
+        {
+            int cantActual = int.Parse(textBlock.Text);
+            cantActual++;
+            if (cantActual <= 9)
+            {
+                textBlock.Text = cantActual.ToString();
+                var cant = _Seats.Where(cb => cb.Name == comboName).FirstOrDefault();
+                if (cant != null)
+                {
+                    cant.Quantity++;
+                    cant.Price += comboPrice;
+                }
+                else
+                {
+                    _Seats.Add(new TypeSeat
+                    {
+                        Name = comboName,
+                        Quantity = 1,
+                        Price = comboPrice
+                    });
+                }
+            }
+        }
+
 
         /// <summary>
         /// Evento para eliminar cantidades
@@ -236,53 +128,52 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 int tag = int.Parse((sender as Image).Tag.ToString());
-                int cantActual = 0;
+
                 switch (tag)
                 {
                     case 0:
-                        cantActual = int.Parse(C0.Text);
-                        C0.Text = cantActual != 0 ? (cantActual - 1).ToString() : "0";
-                        var cant = _Seats.Where(cb => cb.Name == "Combo Jumanji").FirstOrDefault();
-                        if (cant != null)
-                        {
-
-                            cant.Quantity--;
-                            cant.Price = cant.Quantity * cant.Price;
-                            if (cant.Quantity == 0)
-                            {
-                                _Seats.Remove(cant);
-                            }
-                        }
+                        DeleteCombo("Combo Jumanji", 1000, C0);
                         break;
                     case 1:
-                        cantActual = int.Parse(C1.Text);
-                        C1.Text = cantActual != 0 ? (cantActual - 1).ToString() : "0";
+                        DeleteCombo("Combo 1", 1000, C1);
                         break;
                     case 2:
-                        cantActual = int.Parse(C2.Text);
-                        C2.Text = cantActual != 0 ? (cantActual - 1).ToString() : "0";
+                        DeleteCombo("Combo 2", 1000, C2);
                         break;
                     case 3:
-                        cantActual = int.Parse(C3.Text);
-                        C3.Text = cantActual != 0 ? (cantActual - 1).ToString() : "0";
+                        DeleteCombo("Combo 3", 1000, C3);
                         break;
                     case 4:
-                        cantActual = int.Parse(C4.Text);
-                        C4.Text = cantActual != 0 ? (cantActual - 1).ToString() : "0";
+                        DeleteCombo("Combo 4", 1000, C4);
                         break;
                     case 5:
-                        cantActual = int.Parse(C5.Text);
-                        C5.Text = cantActual != 0 ? (cantActual - 1).ToString() : "0";
+                        DeleteCombo("Combo 5", 1000, C5);
                         break;
                     case 6:
-                        cantActual = int.Parse(C6.Text);
-                        C6.Text = cantActual != 0 ? (cantActual - 1).ToString() : "0";
+                        DeleteCombo("Combo Hamburguesa", 1000, C6);
                         break;
                 }
             }
             catch (Exception ex)
             {
 
+            }
+        }
+
+        private void DeleteCombo(string comboName, decimal comboPrice, TextBlock textBlock)
+        {
+            int cantActual = int.Parse(textBlock.Text);
+            textBlock.Text = cantActual != 0 ? (cantActual - 1).ToString() : "0";
+            var cant = _Seats.Where(cb => cb.Name == comboName).FirstOrDefault();
+            if (cant != null)
+            {
+
+                cant.Quantity--;
+                cant.Price -= comboPrice;
+                if (cant.Quantity == 0)
+                {
+                    _Seats.Remove(cant);
+                }
             }
         }
 
