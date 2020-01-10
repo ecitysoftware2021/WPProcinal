@@ -25,10 +25,12 @@ namespace WPProcinal.Forms
             decimal totalPago = 0;
             foreach (var seat in typeSeats)
             {
+
                 totalPago += seat.Price;
                 seat.Price = Utilities.RoundValue(seat.Price);
                 totalModal += seat.Price;
             }
+
 
             TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
             TxtRoom.Text = dipMap.RoomName;

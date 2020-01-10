@@ -27,6 +27,8 @@ namespace WPProcinal.Classes
         public bool Available { get; set; }
         public int Row { get; set; }
         public int maxCol { get; set; }
+        public int Quantity { get; set; }
+
     }
 
 
@@ -37,5 +39,7 @@ namespace WPProcinal.Classes
         public string Type { get; set; }
 
         public string State { get; set; }
+
     }
+
 }

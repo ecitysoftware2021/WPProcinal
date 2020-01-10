@@ -629,24 +629,24 @@ namespace WPProcinal.Forms.User_Control
                     return;
                 }
 
-                frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent, true);
-                this.Opacity = 0.3;
-                _frmConfirmationModal.ShowDialog();
-                if (_frmConfirmationModal.DialogResult.HasValue &&
-                    _frmConfirmationModal.DialogResult.Value)
-                {
-                    Pay.IsEnabled = false;
-                    this.Opacity = 1;
+                //frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent, true);
+                //this.Opacity = 0.3;
+                //_frmConfirmationModal.ShowDialog();
+                //if (_frmConfirmationModal.DialogResult.HasValue &&
+                //    _frmConfirmationModal.DialogResult.Value)
+                //{
+                //    Pay.IsEnabled = false;
+                //    this.Opacity = 1;
                     SecuenceAndReserve();
-                }
-                else
-                {
-                    this.Opacity = 1;
-                    if (controlReinicio == 0)
-                    {
-                        ActivateTimer();
-                    }
-                }
+                //}
+                //else
+                //{
+                //    this.Opacity = 1;
+                //    if (controlReinicio == 0)
+                //    {
+                //        ActivateTimer();
+                //    }
+                //}
             }
             catch (Exception ex)
             {
@@ -810,68 +810,68 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 btnAtras.IsEnabled = false;
-                FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
-                frmLoading.Show();
-                var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
-                frmLoading.Close();
+                //FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
+                //frmLoading.Show();
+                //var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
+                //frmLoading.Close();
 
-                Dispatcher.BeginInvoke((Action)delegate
+                //Dispatcher.BeginInvoke((Action)delegate
+                //{
+                //    this.IsEnabled = true;
+                //    btnAtras.IsEnabled = true;
+                //});
+
+                //if (!response)
+                //{
+                //    List<TypeSeat> lista = new List<TypeSeat>();
+                //    foreach (var item in SelectedTypeSeats)
+                //    {
+                //        lista.Add(item);
+                //    }
+                //    WCFServices41.PostDesAssingreserva(lista, dipMapCurrent);
+
+                //    await Dispatcher.BeginInvoke((Action)delegate
+                //    {
+                //        this.Opacity = 0.3;
+                //        Pay.IsEnabled = true;
+                //        this.IsEnabled = true;
+                //        Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
+                //        this.Opacity = 1;
+                //    });
+                //    GC.Collect();
+                //}
+                //else
+                //{
+                //    try
+                //    {
+                //        Task.Run(() =>
+                //        {
+                //            grabador.Grabar(Utilities.IDTransactionDB);
+                //        });
+                //    }
+                //    catch { }
+                //    Utilities.ScorePayValue = Utilities.ValorPagarScore;
+
+                //    SetCallBacksNull();
+                //    timer.CallBackStop?.Invoke(1);
+
+                //    LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+                //    Utilities.controlStop = 0;
+
+                if (Utilities.MedioPago == 1)
                 {
-                    this.IsEnabled = true;
-                    btnAtras.IsEnabled = true;
-                });
-
-                if (!response)
+                    Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
+                }
+                else if (Utilities.MedioPago == 2)
                 {
-                    List<TypeSeat> lista = new List<TypeSeat>();
-                    foreach (var item in SelectedTypeSeats)
-                    {
-                        lista.Add(item);
-                    }
-                    WCFServices41.PostDesAssingreserva(lista, dipMapCurrent);
-
-                    await Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        this.Opacity = 0.3;
-                        Pay.IsEnabled = true;
-                        this.IsEnabled = true;
-                        Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
-                        this.Opacity = 1;
-                    });
-                    GC.Collect();
+                    Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
                 }
                 else
                 {
-                    try
-                    {
-                        Task.Run(() =>
-                        {
-                            grabador.Grabar(Utilities.IDTransactionDB);
-                        });
-                    }
-                    catch { }
-                    Utilities.ScorePayValue = Utilities.ValorPagarScore;
-
-                    SetCallBacksNull();
-                    timer.CallBackStop?.Invoke(1);
-
-                    LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-                    Utilities.controlStop = 0;
-
-                    if (Utilities.MedioPago == 1)
-                    {
-                        Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
-                    }
-                    else if (Utilities.MedioPago == 2)
-                    {
-                        Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
-                    }
-                    else
-                    {
-                        Switcher.Navigate(new UCConfectionery(SelectedTypeSeats, dipMapCurrent));
-                    }
-
+                    Switcher.Navigate(new UCConfectionery(SelectedTypeSeats, dipMapCurrent));
                 }
+
+                //}
             }
             catch (Exception ex)
             {
