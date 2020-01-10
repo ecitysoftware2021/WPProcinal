@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WPProcinal.Forms.User_Control"
              mc:Ignorable="d" 
           d:DesignHeight="2064.095" d:DesignWidth="1250.599">
-        <Grid>
+    <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Images/backgrounds/p-fondo-eat.jpg" 
                         Stretch="UniformToFill"/>
@@ -63,15 +63,16 @@
                 <Image 
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Grid.ColumnSpan="2"
                     Grid.Row="0"
                     Margin="0,0,110,150"
                     Width="70"
                     Stretch="Uniform"
+                    Tag="0"
                     Source="/Images/Buttons/+.png"
                     TouchDown="BtnPlusTemp_TouchDown"
                 />
                 <TextBlock
+                    Name="C0"
                     FontSize="50"
                     Text="0" 
                     FontWeight="Bold"
@@ -88,6 +89,7 @@
                     Margin="0,150,110,0"
                     Width="70"
                     Stretch="Uniform"
+                    Tag="0"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
@@ -110,10 +112,12 @@
                     Margin="0,0,50,150"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="1"
                     Source="/Images/Buttons/+.png"
                     TouchDown="BtnPlusTemp_TouchDown"
                 />
                 <TextBlock
+                    Name="C1"
                     FontSize="50"
                     Text="0" 
                     FontWeight="Bold"
@@ -130,6 +134,7 @@
                     Margin="0,150,50,0"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="1"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
@@ -152,10 +157,12 @@
                     Margin="0,0,50,150"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="2"
                     Source="/Images/Buttons/+.png"
                     TouchDown="BtnPlusTemp_TouchDown"
                 />
                 <TextBlock
+                    Name="C2"
                     FontSize="50"
                     Text="0" 
                     FontWeight="Bold"
@@ -172,6 +179,7 @@
                     Margin="0,150,50,0"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="2"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
@@ -193,10 +201,12 @@
                     Margin="0,0,50,150"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="3"
                     Source="/Images/Buttons/+.png"
                     TouchDown="BtnPlusTemp_TouchDown"
                 />
                 <TextBlock
+                    x:Name="C3"
                     FontSize="50"
                     Text="0" 
                     FontWeight="Bold"
@@ -213,6 +223,7 @@
                     Margin="0,150,50,0"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="3"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
@@ -233,10 +244,12 @@
                     Margin="0,0,50,150"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="4"
                     Source="/Images/Buttons/+.png"
                     TouchDown="BtnPlusTemp_TouchDown"
                 />
                 <TextBlock
+                    Name="C4"
                     FontSize="50"
                     Text="0" 
                     FontWeight="Bold"
@@ -253,6 +266,7 @@
                     Margin="0,150,50,0"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="4"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
@@ -273,10 +287,12 @@
                     Margin="0,0,50,150"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="5"
                     Source="/Images/Buttons/+.png"
                     TouchDown="BtnPlusTemp_TouchDown"
                 />
                 <TextBlock
+                    x:Name="C5"
                     FontSize="50"
                     Text="0" 
                     FontWeight="Bold"
@@ -293,6 +309,7 @@
                     Margin="0,150,50,0"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="5"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
@@ -313,10 +330,12 @@
                     Margin="0,0,50,150"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="6"
                     Source="/Images/Buttons/+.png"
                     TouchDown="BtnPlusTemp_TouchDown"
                 />
                 <TextBlock
+                    x:Name="C6"
                     FontSize="50"
                     Text="0" 
                     FontWeight="Bold"
@@ -333,14 +352,15 @@
                     Margin="0,150,50,0"
                     Width="50"
                     Stretch="Uniform"
+                    Tag="6"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
             </Grid>
         </Grid>
-        
 
-        
+
+
         <Grid Grid.Row="2">
             <Image 
                 HorizontalAlignment="Right"

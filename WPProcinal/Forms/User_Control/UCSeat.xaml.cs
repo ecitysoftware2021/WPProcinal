@@ -629,7 +629,7 @@ namespace WPProcinal.Forms.User_Control
                     return;
                 }
 
-                frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
+                frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent, true);
                 this.Opacity = 0.3;
                 _frmConfirmationModal.ShowDialog();
                 if (_frmConfirmationModal.DialogResult.HasValue &&
@@ -852,30 +852,23 @@ namespace WPProcinal.Forms.User_Control
                     catch { }
                     Utilities.ScorePayValue = Utilities.ValorPagarScore;
 
+                    SetCallBacksNull();
+                    timer.CallBackStop?.Invoke(1);
+
+                    LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+                    Utilities.controlStop = 0;
+
                     if (Utilities.MedioPago == 1)
                     {
-                        try
-                        {
-                            SetCallBacksNull();
-                            timer.CallBackStop?.Invoke(1);
-                        }
-                        catch { }
-
-                        LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-                        Utilities.controlStop = 0;
-                        int i = 0;
-
                         Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
+                    }
+                    else if (Utilities.MedioPago == 2)
+                    {
+                        Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
                     }
                     else
                     {
-                        try
-                        {
-                            SetCallBacksNull();
-                            timer.CallBackStop?.Invoke(1);
-                        }
-                        catch { }
-                        Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
+                        Switcher.Navigate(new UCConfectionery(SelectedTypeSeats, dipMapCurrent));
                     }
 
                 }

@@ -28,4 +28,6 @@ namespace WPProcinal.Classes
         Medium = 2,
         Strong = 1,
     }
+
+    
 }

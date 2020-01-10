@@ -13,10 +13,14 @@ namespace WPProcinal.Forms
     public partial class frmConfirmationModal : Window
     {
         int payCardState = int.Parse(Utilities.GetConfiguration("CardPayState"));
-        public frmConfirmationModal(List<TypeSeat> typeSeats, DipMap dipMap)
+        int payCashState = int.Parse(Utilities.GetConfiguration("CashPayState"));
+        public frmConfirmationModal(List<TypeSeat> typeSeats, DipMap dipMap, bool visibleCombo = false)
         {
             InitializeComponent();
             BtnCard.Visibility = payCardState == 1 ? Visibility.Visible : Visibility.Hidden;
+            BtnCash.Visibility = payCashState == 1 ? Visibility.Visible : Visibility.Hidden;
+            BtnMenuCombo.Visibility = visibleCombo ? Visibility.Visible : Visibility.Hidden;
+
             decimal totalModal = 0;
             decimal totalPago = 0;
             foreach (var seat in typeSeats)
@@ -36,12 +40,6 @@ namespace WPProcinal.Forms
         }
 
 
-        private void BtnYes_TouchDown(object sender, TouchEventArgs e)
-        {
-            BtnYes.IsEnabled = false;
-            Utilities.MedioPago = 1;
-            DialogResult = true;
-        }
 
         private void BtnNo_TouchDown(object sender, TouchEventArgs e)
         {
@@ -50,14 +48,23 @@ namespace WPProcinal.Forms
 
         private void BtnCard_TouchDown(object sender, TouchEventArgs e)
         {
-            BtnCard.IsEnabled = false;
+            this.IsEnabled = false;
             Utilities.MedioPago = 2;
             DialogResult = true;
         }
 
         private void BtnMenuCombo_TouchDown(object sender, TouchEventArgs e)
         {
+            this.IsEnabled = false;
+            Utilities.MedioPago = 3;
+            DialogResult = true;
+        }
 
+        private void BtnCash_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.IsEnabled = false;
+            Utilities.MedioPago = 1;
+            DialogResult = true;
         }
     }
 }

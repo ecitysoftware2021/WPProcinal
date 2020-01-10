@@ -90,10 +90,10 @@ namespace WPProcinal.Forms
                                 }
                                 if (Utilities.GetConfiguration("ConfigurateActive").Equals("no"))
                                 {
-                                    //Utilities.LoadData();
+                                    Utilities.LoadData();
                                     Dispatcher.BeginInvoke((Action)delegate
                                     {
-                                        Switcher.Navigate(new UCConfectionery());
+                                        Switcher.Navigate(new UCCinema());
                                     });
                                 }
                                 else
