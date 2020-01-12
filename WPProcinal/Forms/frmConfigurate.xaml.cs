@@ -29,7 +29,7 @@ namespace WPProcinal.Forms
         {
             InitializeComponent();
             Switcher.Navigator = this;
-
+            
             try
             {
                 api = new ApiLocal();

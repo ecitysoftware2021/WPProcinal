@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -55,10 +56,10 @@ namespace WPProcinal.Forms.User_Control
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-                //Buytickets();
-                stateUpdate = true;
-                payState = true;
-                Utilities.control.StartValues();
+                Buytickets();
+                //stateUpdate = true;
+                //payState = true;
+                //Utilities.control.StartValues();
             }
             catch (Exception ex)
             {
@@ -433,6 +434,15 @@ namespace WPProcinal.Forms.User_Control
                         });
                     }
 
+                    List<Producto> productos = new List<Producto>();
+
+                    foreach (var item in Utilities._Combos)
+                    {
+                        var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+                        productos.Add(combo);
+                    }
+
+
                     string year = Utilities.DipMapCurrent.Date.Substring(0, 4);
                     string mount = Utilities.DipMapCurrent.Date.Substring(4, 2);
                     string day = Utilities.DipMapCurrent.Date.Substring(6, 2);
@@ -450,11 +460,11 @@ namespace WPProcinal.Forms.User_Control
                         Funcion = Utilities.DipMapCurrent.IDFuncion,
                         InicioFun = Utilities.DipMapCurrent.HourFormat,
                         Nombre = "Kiosko",
-                        PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ScorePayValue.ToString()),
-                        PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ScorePayValue.ToString()) : 0,
+                        PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
+                        PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
                         PagoInterno = 0,
                         Pelicula = Utilities.DipMapCurrent.MovieId,
-                        Productos = new List<Producto>(),
+                        Productos = productos,
                         PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
                         Sala = Utilities.DipMapCurrent.RoomId,
                         teatro = Utilities.DipMapCurrent.CinemaId,
@@ -466,14 +476,22 @@ namespace WPProcinal.Forms.User_Control
                     });
                     foreach (var item in response41)
                     {
-                        if (item.Respuesta.Contains("exitoso"))
+                        if (item.Respuesta != null)
                         {
-                            payState = true;
+                            if (item.Respuesta.Contains("exitoso"))
+                            {
+                                payState = true;
+                            }
+                            else
+                            {
+                                payState = false;
+                            }
                         }
                         else
                         {
                             payState = false;
                         }
+
                     }
                 }
                 else

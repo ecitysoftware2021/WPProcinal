@@ -881,6 +881,7 @@ namespace WPProcinal.Forms.User_Control
 
         private void RetryPayment()
         {
+
             frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(Utilities.TypeSeats, Utilities.DipMapCurrent);
             _frmConfirmationModal.ShowDialog();
             if (_frmConfirmationModal.DialogResult.HasValue &&

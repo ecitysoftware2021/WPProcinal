@@ -65,7 +65,7 @@ namespace WPProcinal.Service
             return mapaSala;
         }
 
-       
+
         /// <summary>
         /// TRAER LA SALA PARA PINTAR
         /// </summary>
@@ -519,7 +519,7 @@ namespace WPProcinal.Service
         /// <param name="data"></param>
         /// <returns></returns>
         #region SCOPRE
-        public static List<EstadoSala41> GetCombos(SCOPRE data)
+        public static Confiteria GetCombos(SCOPRE data)
         {
 
             string decryptData = string.Empty;
@@ -530,7 +530,7 @@ namespace WPProcinal.Service
                 try
                 {
                     AdminPaypad.SaveErrorControl(seria,
-                    "GetStateRoom Request",
+                    "GetCombos Request",
                     EError.Aplication,
                     ELevelError.Mild);
                 }
@@ -556,19 +556,19 @@ namespace WPProcinal.Service
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
 
-                var est = JsonConvert.DeserializeObject<List<EstadoSala41>>(decryptData);
-                //if (est.Count < 2)
-                //{
-                //    try
-                //    {
-                //        AdminPaypad.SaveErrorControl(decryptData,
-                //        "GetStateRoom Response",
-                //        EError.Customer,
-                //        ELevelError.Mild);
-                //    }
-                //    catch { }
-                //    return null;
-                //}
+                var est = JsonConvert.DeserializeObject<Confiteria>(decryptData);
+                if (est.ListaProductos.Count < 6)
+                {
+                    try
+                    {
+                        AdminPaypad.SaveErrorControl(decryptData,
+                        "GetCombos Response",
+                        EError.Customer,
+                        ELevelError.Mild);
+                    }
+                    catch { }
+                    return null;
+                }
                 return est;
 
             }
@@ -577,7 +577,7 @@ namespace WPProcinal.Service
                 try
                 {
                     AdminPaypad.SaveErrorControl(ex.Message,
-                    "GetStateRoom catch",
+                    "GetCombos catch",
                     EError.Aplication,
                     ELevelError.Mild);
                 }
@@ -586,6 +586,132 @@ namespace WPProcinal.Service
             }
         }
 
+        #endregion
+
+        /// <summary>
+        /// Servicio para consultar la clave de un usuario
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        #region SCOCSN
+        public static string GetUserKey(SCOCSN data)
+        {
+
+            string decryptData = string.Empty;
+            try
+            {
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(data);
+                try
+                {
+                    AdminPaypad.SaveErrorControl(seria,
+                    "GetUserKey Request",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+
+
+                var client = new RestClient(Utilities.APISCORE + "/scocsn/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+
+                var est = JsonConvert.DeserializeObject<SCOCSNResponse[]>(decryptData);
+
+                return est[0].Valor;
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "GetUserKey catch",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                return null;
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Servicio para consultar un cliente y el estado de la membresia
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        #region SCOLOG
+        public static string GetClientData(SCOLOG data)
+        {
+
+            string decryptData = string.Empty;
+            try
+            {
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(data);
+                try
+                {
+                    AdminPaypad.SaveErrorControl(seria,
+                    "GetClientData Request",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+
+
+                var client = new RestClient(Utilities.APISCORE + "/scocsn/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+
+                var est = JsonConvert.DeserializeObject<SCOCSNResponse[]>(decryptData);
+
+                return est[0].Valor;
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "GetClientData catch",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                return null;
+            }
+        }
         #endregion
 
     }
@@ -619,32 +745,6 @@ namespace WPProcinal.Service
         public string FilRelativa { get; set; }
         public int ColRelativa { get; set; }
         public int Tarifa { get; set; }
-    }
-
-    public class Receta2
-    {
-        public int Codigo { get; set; }
-        public string Descripcion { get; set; }
-        public string Tipo { get; set; }
-        public int Cantidad { get; set; }
-    }
-
-    public class Receta
-    {
-        public int Codigo { get; set; }
-        public string Descripcion { get; set; }
-        public string Tipo { get; set; }
-        public int Cantidad { get; set; }
-        public List<Receta2> _Receta { get; set; }
-    }
-
-    public class Producto
-    {
-        public int Codigo { get; set; }
-        public string Descripcion { get; set; }
-        public string Tipo { get; set; }
-        public int Precio { get; set; }
-        public List<Receta> Receta { get; set; }
     }
 
     public class SCOINT
@@ -807,7 +907,85 @@ namespace WPProcinal.Service
         public string teatro { get; set; }
         public string tercero { get; set; }
     }
+
+    public class Confiteria
+    {
+        [JsonProperty("Lista_Productos")]
+        public List<Producto> ListaProductos { get; set; }
+    }
+
+    public class Producto
+    {
+        public string Codigo { get; set; }
+
+        public string Descripcion { get; set; }
+
+        public string Tipo { get; set; }
+
+        public List<Receta> Receta { get; set; }
+    }
+
+    public class Precio
+    {
+        public string General { get; set; }
+
+        public string OtroPago { get; set; }
+
+        public string PagoInterno { get; set; }
+
+        public string PrecioAtencion { get; set; }
+
+        public string HorasDias { get; set; }
+    }
+
+    public class Receta
+    {
+        public string Codigo { get; set; }
+
+        public string Descripcion { get; set; }
+
+        public string Tipo { get; set; }
+
+        public string Cantidad { get; set; }
+
+        public List<Precio> Precios { get; set; }
+
+        [JsonProperty("Receta", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Receta> RecetaReceta { get; set; }
+    }
+
+
     #endregion
+
+    #region SCOCSN
+    public class SCOCSN
+    {
+        public string Correo { get; set; }
+        public string teatro { get; set; }
+        public string tercero { get; set; }
+    }
+    public class SCOCSNResponse
+    {
+        public string Valor { get; set; }
+    }
+    #endregion
+
+    #region SCOLOG
+    public class SCOLOG
+    {
+        public string Correo { get; set; }
+        public string Clave { get; set; }
+        public string teatro { get; set; }
+        public string tercero { get; set; }
+    }
+    #endregion
+    public class Combos
+    {
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+        public string Code { get; set; }
+    }
 
     public class Request41
     {

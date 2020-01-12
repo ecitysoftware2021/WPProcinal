@@ -41,7 +41,16 @@ namespace WPProcinal.Classes
 
         public static List<string> Imagenes = new List<string>();
 
-        public static DispatcherTimer timer;
+        /// <summary>
+        /// Lista global para registrar los productos que se seleccionen
+        /// en la pantalla de confiteria
+        /// </summary>
+        public static List<Combos> _Combos;
+
+        /// <summary>
+        /// Lista global para almacenar los productos que devuelva  el servicio SCOPRE
+        /// </summary>
+        public static List<Producto> _Productos;
 
         public static List<Pelicula> Movies = new List<Pelicula>();
 
@@ -58,15 +67,11 @@ namespace WPProcinal.Classes
 
         public static List<CLSDatos> LDatos = new List<CLSDatos>();
 
-        public static List<SP_GET_INVOICE_DATA_Result> DashboardPrint;
-
         public static string Secuencia { get; set; }
 
         public static int controlStop = 0;
 
         public static string path;
-
-        private LogErrorGeneral logError;
 
         public static DataPaypad dataPaypad = new DataPaypad();
         public static int MedioPago { get; set; }
@@ -194,16 +199,6 @@ namespace WPProcinal.Classes
 
         public Utilities()
         {
-            try
-            {
-                logError = new LogErrorGeneral
-                {
-                    Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                    IDCorresponsal = Utilities.CorrespondentId,
-                    IdTransaction = Utilities.IDTransactionDB,
-                };
-            }
-            catch { }
         }
 
 

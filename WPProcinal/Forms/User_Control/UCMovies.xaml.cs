@@ -22,7 +22,7 @@ namespace WPProcinal.Forms.User_Control
         #region Reference
         CollectionViewSource view = new CollectionViewSource();
         int currentPageIndex = 0;
-        int itemPerPage = 6;
+        int itemPerPage = 20;
         int totalPage = 0;
 
         TimerTiempo timer;

@@ -467,6 +467,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     if (SelectedTypeSeats.Count < 10)
                     {
+                        item.Quantity = 1;
                         SelectedTypeSeats.Add(item);
                         image.Source = GetImage("R");
                     }
@@ -476,22 +477,6 @@ namespace WPProcinal.Forms.User_Control
                     SelectedTypeSeats.Remove(item);
                     image.Source = GetImage(image.Tag.ToString());
                 }
-
-                //Label image = (Label)sender;
-                //var seatcurrent = SelectedTypeSeats.Where(s => s.Name == item.Name).FirstOrDefault();
-                //if (seatcurrent == null)
-                //{
-                //    if (SelectedTypeSeats.Count < 10)
-                //    {
-                //        SelectedTypeSeats.Add(item);
-                //        image.Foreground = Brushes.Black;
-                //    }
-                //}
-                //else
-                //{
-                //    SelectedTypeSeats.Remove(item);
-                //    image.Foreground = Brushes.White;
-                //}
 
                 LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
                 Utilities.CantSeats = SelectedTypeSeats.Count;
@@ -637,7 +622,7 @@ namespace WPProcinal.Forms.User_Control
                 //{
                 //    Pay.IsEnabled = false;
                 //    this.Opacity = 1;
-                    SecuenceAndReserve();
+                SecuenceAndReserve();
                 //}
                 //else
                 //{
@@ -737,23 +722,23 @@ namespace WPProcinal.Forms.User_Control
                 frmLoading.Close();
                 if (response41 != null)
                 {
-                    //foreach (var item in response41)
-                    //{
-                    //    if (item.Respuesta.Contains("exitoso"))
-                    //    {
-                    //        //SaveDataBaseLocal();
-                    //        if (_ErrorTransaction)
-                    //        {
-                    ShowPay();
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
-                    //        ReloadWindow();
-                    //        break;
-                    //    }
-                    //}
+                    foreach (var item in response41)
+                    {
+                        if (item.Respuesta.Contains("exitoso"))
+                        {
+                            //SaveDataBaseLocal();
+                            if (_ErrorTransaction)
+                            {
+                                ShowPay();
+                            }
+                        }
+                        else
+                        {
+                            Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                            ReloadWindow();
+                            break;
+                        }
+                    }
                 }
                 else
                 {

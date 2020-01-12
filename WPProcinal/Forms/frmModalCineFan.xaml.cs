@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPProcinal.Classes;
 using WPProcinal.Keyboard;
+using WPProcinal.Service;
 
 namespace WPProcinal.Forms
 {
@@ -99,7 +100,11 @@ namespace WPProcinal.Forms
                 {
                     Utilities.dataDocument.Email = txtEmail.Text;
                     Utilities.dataDocument.Phone = txtPhone.Text;
-                    DialogResult = true;
+
+                    if (ValidateCineFan(txtEmail.Text))
+                    {
+                        DialogResult = true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -162,7 +167,11 @@ namespace WPProcinal.Forms
                     Utilities.dataDocument.Document = txtId.Text;
                     Utilities.dataDocument.FirstName = txtNombre.Text;
                     Utilities.dataDocument.LastName = txtLastName.Text;
-                    DialogResult = true;
+                    if (ValidateCineFan(txtEmail2.Text))
+                    {
+                        DialogResult = true;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -344,6 +353,26 @@ namespace WPProcinal.Forms
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        private bool ValidateCineFan(string mail)
+        {
+            var response = WCFServices41.GetUserKey(new SCOCSN
+            {
+                Correo = mail,
+                teatro = Utilities.GetConfiguration("CodCinema"),
+                tercero = "1"
+            });
+            if (response.Split(' ').Count() > 1)
+            {
+                TxtErrorEmail.Text = response;
+                TxtErrorEmail2.Text = response;
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
         #endregion

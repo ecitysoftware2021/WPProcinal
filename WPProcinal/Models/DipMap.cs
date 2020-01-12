@@ -61,16 +61,7 @@ namespace WPProcinal.Models
         public int IDFuncion { get; set; }
         #endregion
 
-        #region Combos Data
-        public List<Combos> combos { get; set; }
-
-        #endregion
     }
 
-    public class Combos
-    {
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
-    }
+    
 }
