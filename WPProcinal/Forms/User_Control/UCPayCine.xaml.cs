@@ -44,9 +44,10 @@ namespace WPProcinal.Forms.User_Control
 
                 TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
                 TxtDay.Text = dipMap.Day;
+                TxtRoom.Text = dipMap.RoomName;
                 TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
-                TxtHour.Text = dipMap.HourFunction;
-                TxtSubTitle.Text = dipMap.Language;
+                TxtHour.Text = "Hora Función: " + dipMap.HourFunction;
+                TxtSubTitle.Text = "Idioma: " + dipMap.Language;
                 var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
                 TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
 
@@ -56,10 +57,10 @@ namespace WPProcinal.Forms.User_Control
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-                Buytickets();
-                //stateUpdate = true;
-                //payState = true;
-                //Utilities.control.StartValues();
+                //Buytickets();
+                stateUpdate = true;
+                payState = true;
+                Utilities.control.StartValues();
             }
             catch (Exception ex)
             {

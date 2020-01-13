@@ -26,18 +26,25 @@
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
             <TextBlock x:Name="tbTimer"
 
-                       FontSize="35"
+                       FontSize="30"
                        Foreground="White"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        Margin="10,50,0,0" FontFamily="Gotham" FontWeight="Bold"/>
 
-            <TextBlock x:Name="tbHoraActual"
-                       FontSize="35"
+            <TextBlock x:Name="tbDiaActual"
+                       FontSize="30"
                        Foreground="White"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        Margin="10,100,0,0" FontFamily="Gotham" FontWeight="Bold"/>
+            <TextBlock x:Name="tbHoraActual"
+                       FontSize="30"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10,150,0,0" FontFamily="Gotham" FontWeight="Bold"/>
+
 
             <Border
                 BorderBrush="White" 
@@ -53,26 +60,14 @@
                 </Border.Background>
             </Border>
             <Image Source="/Images/buttons/b-atras.png" 
-                   Margin="50,150,0,0"
+                   Margin="50,50,0,0"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Height="130"
                    Name="btnAtras"
                   TouchDown="BtnAtras_TouchDown"/>
 
-            <TextBlock x:Name="TxtDuracion"
-                       FontSize="30"
-                       FontFamily="Gotham"
-                       Text="Duraciòn: 135 min"                   
-                       FontWeight="Bold"
-                       Width="500"
-                       TextAlignment="Left"
-                       TextWrapping="Wrap"
-                       Foreground="Red"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left" 
-                       Margin="190,-100,0,0"/>
-
+           
             <TextBlock x:Name="TxtTitle"
                        FontSize="30"
                        FontFamily="Gotham"
@@ -84,27 +79,20 @@
                        Foreground="Gray"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left" 
-                       Margin="190,10,0,0"/>
-            <TextBlock x:Name="TxtDay"
+                       Margin="190,0,0,0"/>
+
+            <TextBlock x:Name="TxtDuracion"
                        FontSize="30"
                        FontFamily="Gotham"
-                       Text="24 Sábado"
+                       Text="Duración: 135 min"                   
                        FontWeight="Bold"
+                       Width="500"
+                       TextAlignment="Left"
+                       TextWrapping="Wrap"
                        Foreground="Red"
-                       TextAlignment="Center"
-                       VerticalAlignment="Top"
+                       VerticalAlignment="Center"
                        HorizontalAlignment="Left" 
-                       Margin="190,370,0,0"/>
-            <TextBlock x:Name="TxtGender"
-                       FontSize="30"
-                       FontFamily="Gotham"
-                       Text="24 Sábado"
-                       FontWeight="Bold"
-                       Foreground="Red"
-                       TextAlignment="Center"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Left" 
-                       Margin="190,410,0,0"/>
+                       Margin="190,150,0,0"/>
 
         </Grid>
 

@@ -367,21 +367,11 @@
                 HorizontalAlignment="Right"
                 Name="BtnComprar"
                 VerticalAlignment="Center"
-                Width="100"
+                Width="400"
                 Margin="0,0,100,0"
                 Stretch="Uniform"
-                Source="/Images/buttons/btnyes.png"
+                Source="/Images/buttons/continuar.png"
                 TouchDown="BtnComprar_TouchDown"
-            />
-            <Image 
-                HorizontalAlignment="Left"
-                Name="BtnSalir"
-                VerticalAlignment="Center"
-                Width="100"
-                Margin="100,0,0,0"
-                Stretch="Uniform"
-                Source="/Images/buttons/btnyes.png"
-                TouchDown="BtnSalir_TouchDown"
             />
         </Grid>
     </Grid>

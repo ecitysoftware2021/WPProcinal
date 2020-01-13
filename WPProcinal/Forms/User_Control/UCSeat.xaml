@@ -76,12 +76,18 @@
                        VerticalAlignment="Top"
                        Margin="10,50,0,0" FontFamily="Gotham" FontWeight="Bold"/>
 
-            <TextBlock x:Name="tbHoraActual"
-                       FontSize="35"
+            <TextBlock x:Name="tbDiaActual"
+                       FontSize="30"
                        Foreground="White"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        Margin="10,100,0,0" FontFamily="Gotham" FontWeight="Bold"/>
+            <TextBlock x:Name="tbHoraActual"
+                       FontSize="30"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10,150,0,0" FontFamily="Gotham" FontWeight="Bold"/>
 
             <Image Source="/Images/buttons/b-atras.png" 
                    Margin="50,150,0,0"
@@ -90,9 +96,11 @@
                    Height="130"
                    Name="btnAtras"
                    TouchDown="BtnAtras_TouchDown"/>
-            <TextBlock 
+            <Grid>
+
+                <TextBlock 
                 x:Name="TxtTitle"
-                FontSize="50"
+                FontSize="30"
                 FontFamily="Gotham"
                 Text="TÍTULO TÍTULO TÍTULO TÍTULO aaaaqaaaaa"
                 TextWrapping="Wrap"
@@ -102,46 +110,8 @@
                 TextAlignment="Left"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left" 
-                Margin="190,50,0,0" >
-            </TextBlock>
-            <TextBlock
-                FontFamily="Gotham"
-                x:Name="TxtSubTitle"
-                FontSize="30"
-                Text="2D HABLADA EN ESPAÑOLw"
-                FontWeight="Bold"                
-                TextAlignment="Center"
-                TextWrapping="Wrap"
-                Foreground="Gray"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Right" 
-                Width="300"
-                Margin="0,100,50,0">
-            </TextBlock>
-            <TextBlock x:Name="TxtFormat"
-                       FontFamily="Gotham"
-                       FontSize="40"
-                       Text="2h 24min"
-                       FontWeight="Bold"
-                       TextWrapping="Wrap"
-                       TextAlignment="Right"
-                       Foreground="Red"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Right" 
-                       Margin="0,200,50,0"
-                       />
-            <TextBlock x:Name="TxtDuracion"
-                       FontSize="35"
-                       FontFamily="Gotham"
-                       Text="Duraciòn: 135 min"                   
-                       FontWeight="Bold"
-                       Width="500"
-                       TextAlignment="Right"
-                       TextWrapping="Wrap"
-                       Foreground="Red"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Right" 
-                       Margin="0,280,10,0"/>
+                Margin="190,100,0,0" />
+
 
             <TextBlock x:Name="TxtDay"
                        FontSize="40"
@@ -152,19 +122,75 @@
                        TextAlignment="Center"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left" 
-                        Margin="200,380,0,0"/>
+                        Margin="190,380,0,0"/>
+            </Grid>
+            <Grid>
 
-            <TextBlock x:Name="TxtHour"
+                <TextBlock x:Name="TxtRoom"
                        FontFamily="Gotham"
-                       FontSize="25"
-                       Text="4:30 PM"
+                       FontSize="30"
+                       Text="Sala 1"
                        FontWeight="Bold"
-                       Foreground="#FFF"
-                       Width="150"
-                       TextAlignment="Center"                       
+                       Foreground="Red"
                        VerticalAlignment="Top"
-                       HorizontalAlignment="Center" 
-                       Margin="660,265,0,0"/>
+                       HorizontalAlignment="Right" 
+                       Width="350"
+                       Margin="0,250,0,0"/>
+
+                <TextBlock x:Name="TxtHour"
+                       FontFamily="Gotham"
+                       FontSize="30"
+                       Text="Hora Función: 4:30 PM"
+                       FontWeight="Bold"
+                       Foreground="Red"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Right" 
+                       Width="350"
+                       Margin="0,290,0,0"/>
+
+                
+                <TextBlock
+                FontFamily="Gotham"
+                x:Name="TxtSubTitle"
+                FontSize="30"
+                Text="Idioma: ESPAÑOL"
+                FontWeight="Bold"                
+                TextWrapping="Wrap"
+                Foreground="Red"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right" 
+                Width="350"
+                Margin="0,130,0,0">
+            </TextBlock>
+
+
+            <TextBlock x:Name="TxtFormat"
+                       FontFamily="Gotham"
+                       FontSize="30"
+                       Text="Formato: 3D"
+                       FontWeight="Bold"
+                       TextWrapping="Wrap"
+                       Foreground="Red"
+                       Width="350"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right" 
+                       Margin="0,220,0,0"
+                       />
+
+            <TextBlock x:Name="TxtDuracion"
+                       FontSize="30"
+                       FontFamily="Gotham"
+                       Text="Duración: 135 min"                   
+                       FontWeight="Bold"
+                       Width="350"
+                       TextWrapping="Wrap"
+                       Foreground="Red"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right" 
+                       Margin="0,300,0,0"/>
+            </Grid>
+
+
 
         </Grid>
         <Grid Grid.Row="1" Name="gridSillas" 

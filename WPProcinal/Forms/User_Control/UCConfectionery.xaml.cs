@@ -228,10 +228,6 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
-        {
-
-        }
         #endregion
 
         #region "Métodos"

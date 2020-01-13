@@ -36,12 +36,13 @@ namespace WPProcinal.Forms.User_Control
             frmLoading = new FrmLoading("¡Cargando la sala!");
             dipMapCurrent = dipMap;
             TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
-            ////TODO: eliminar y descomentar linea de abajo
-            //TxtDay.Text = dipMap.RoomName;
+            TxtRoom.Text = dipMap.RoomName;
             TxtDay.Text = dipMap.Day;
             TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
-            TxtHour.Text = dipMap.HourFunction;
-            TxtSubTitle.Text = dipMap.Language;
+            TxtHour.Text = "Hora Función: " + dipMap.HourFunction;
+            TxtSubTitle.Text = "Idioma: " + dipMap.Language;
+            tbDiaActual.Text = "Fecha Actual: " + DateTime.Now.ToLongDateString();
+
             var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
             TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
 

@@ -471,7 +471,10 @@ namespace WPProcinal.Classes
                             ELevelError.Strong);
                         }
                         catch { }
-                        ProcessER(response);
+                        if (!message.ToLower().Contains("abnormal"))
+                        {
+                            ProcessER(response);
+                        }
                         break;
                     case "UN":
                         ProcessUN(response);
@@ -942,7 +945,6 @@ namespace WPProcinal.Classes
                     if (WaitForCoins == 0)
                     {
                         callbackOut?.Invoke(deliveryVal);
-
                     }
                 }
             }
@@ -959,7 +961,7 @@ namespace WPProcinal.Classes
             {
                 //if (WaitForCoins == 0)
                 //{
-                    callbackTotalOut?.Invoke(deliveryVal);
+                callbackTotalOut?.Invoke(deliveryVal);
                 //}
             }
         }

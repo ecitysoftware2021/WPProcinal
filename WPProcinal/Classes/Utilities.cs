@@ -393,7 +393,6 @@ namespace WPProcinal.Classes
                     if (seat.Price != 0)
                     {
 
-                        //objPrint.Cinema = GetConfiguration("NameCinema");
                         objPrint.Movie = dipMap.MovieName;
                         objPrint.Time = dipMap.HourFunction;
                         objPrint.Room = dipMap.RoomName;
@@ -403,7 +402,6 @@ namespace WPProcinal.Classes
                         objPrint.Valor = seat.Price;
                         objPrint.Tramite = "Boleto de Cine";
                         objPrint.Category = dipMap.Category;
-                        //objPrint.Consecutivo = DashboardPrint[i].RANGO_ACTUAL.ToString();
                         objPrint.Secuencia = Secuencia;
                         objPrint.Formato = MovieFormat;
                         objPrint.TipoSala = Utilities.TipoSala;

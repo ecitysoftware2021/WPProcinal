@@ -62,13 +62,13 @@ namespace WPProcinal.Forms.User_Control
             imgBackground.ImageSource = Utilities.ImageSelected;
             MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
             TxtTitle.Text = MovieName;
-
+            tbDiaActual.Text = "Fecha Actual: " + DateTime.Now.ToLongDateString();
             var time = TimeSpan.FromMinutes(double.Parse(Movie.Data.Duracion));
             TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
-            TxtGender.Text = string.Concat("Género: ", Movie.Data.Genero);
+            //TxtGender.Text = string.Concat("Género: ", Movie.Data.Genero);
             DateTime fechaActual = Utilities.FechaSeleccionada;
 
-            TxtDay.Text = string.Format("{0} {1}, {2}", fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
+            //TxtDay.Text = string.Format("{0} {1}, {2}", fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
 
             if (Movie.Data.TituloOriginal.Length <= 15)
             {
