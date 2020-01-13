@@ -22,7 +22,7 @@
             BorderThickness="3,3,3,3"
             CornerRadius="20,20,20,20">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/Backgrounds/v-inserte-tarjeta.png"
+            <ImageBrush ImageSource="/Images/Backgrounds/fondoCineFan2.jpg"
                         Stretch="Fill"/>
         </Border.Background>
         <Grid>
@@ -32,38 +32,40 @@
                     <ColumnDefinition Width="0*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="120" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="20" />
                     <RowDefinition Height="100" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="150" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock x:Name="LblMessage" 
+                <Grid Grid.Row="0" Margin="0,0,0,0">
+                    <Image 
+                    HorizontalAlignment="Center"
+                    Width="500"
+                    VerticalAlignment="Center"
+                    Source="../Images/buttons/tituloCineFan.png"
+                />
+                    <Image  
                     HorizontalAlignment="Center"
                     Margin="0,0,0,0" 
-                    FontFamily="Gotham"
-                    FontSize="40" 
-                    FontWeight="Bold"
-                    Width="360"
-                    Text="¿Eres un CineFan?"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap"
-                    VerticalAlignment="Center"
-                    Foreground="White" 
+                    Width="500"
+                    VerticalAlignment="Bottom"
+                           Source="../Images/buttons/no-si.png"
                 />
-                </Grid>
-                <Grid Grid.Row="4">
                     <Image HorizontalAlignment="Left"
                        Name="BtnSalir"
                        VerticalAlignment="Center"
-                       Width="100"
-                       Opacity="0.3"
-                       Margin="100,0,0,0"
-                       Stretch="Uniform"
+                       Width="220"
+                       Height="70"
+                       Opacity="0"
+                       Margin="120,220,0,0"
+                       Stretch="Fill"
                        Source="../Images/buttons/btnnot.png"
                        TouchDown="BtnSalir_TouchDown"
                     />
+                </Grid>
+                <Grid Grid.Row="4">
+                    
                     <Image HorizontalAlignment="Right"
                        Name="BtnManual"
                        VerticalAlignment="Center"
@@ -76,22 +78,14 @@
                     />
                 </Grid>
                 <Grid Grid.Row="2">
-                    <TextBlock  
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,0" 
-                    FontFamily="Gotham"
-                    FontSize="30" 
-                    Width="360"
-                    Text="Escanea el código de tu cédula en el lector"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap"
-                    VerticalAlignment="Center"
-                    FontWeight="Normal" 
-                    Foreground="Black" 
+                    <Image  
+                    HorizontalAlignment="Center" 
+                    Width="400"
+                        Source="../Images/buttons/tituloCineFan2.png"
                 />
                 </Grid>
                 <Grid Grid.Row="3">
-                    <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/procinal01.gif" 
+                    <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/gifCedula.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
                     x:Name="GifLoad2" 
@@ -99,9 +93,9 @@
                     Margin="0,0,0,0" 
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Center" 
-                    Width="300" 
+                    Width="250" 
                     Visibility="Visible"
-                    Height="300" 
+                    Height="250" 
                     Grid.Column="1"/>
                 </Grid>
             </Grid>
@@ -127,7 +121,7 @@
                     TextAlignment="Center"
                     TextWrapping="Wrap"
                     VerticalAlignment="Center"
-                    Foreground="White" 
+                    Foreground="#c2161b" 
                 />
                 </Grid>
                 <Grid Grid.Row="1">
@@ -179,7 +173,7 @@
                         <Grid>
                             <TextBox Name="txtPhone"
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
+                                VerticalAlignment="Top"
                                 Margin="0,0,0,0"
                                 TextAlignment="Center"
                                 FontSize="30"
@@ -196,7 +190,7 @@
                             <TextBox  Width="0" Height="0" TabIndex="5"  IsTabStop="False"/>
                             <TextBlock
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
+                                VerticalAlignment="Center"
                                 Margin="0,0,0,30"
                                 TextAlignment="Center"
                                 FontSize="20"
@@ -214,7 +208,7 @@
                         Width="230"
                         Margin="0,0,50,0"
                         Stretch="Uniform"
-                        Source="../Images/salir2.png"
+                        Source="../Images/Buttons/continuar.png"
                         TouchDown="BtnAceptar_TouchDown"
                     />
                     <Image HorizontalAlignment="Left"
@@ -249,7 +243,7 @@
                     TextAlignment="Center"
                     TextWrapping="Wrap"
                     VerticalAlignment="Center"
-                    Foreground="White" 
+                    Foreground="#c2161b" 
                 />
                 </Grid>
                 <Grid Grid.Row="1">
@@ -452,7 +446,7 @@
                         Width="230"
                         Margin="0,0,50,0"
                         Stretch="Uniform"
-                        Source="../Images/salir2.png"
+                        Source="../Images/Buttons/continuar.png"
                         TouchDown="BtnAceptar2_TouchDown"
                     />
                         <Image HorizontalAlignment="Left"

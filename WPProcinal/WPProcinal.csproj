@@ -448,6 +448,14 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Buttons\verHorarios.png" />
+    <Resource Include="Images\Buttons\continuar.png" />
+    <Resource Include="Images\Buttons\no-si.png" />
+    <Resource Include="Images\Buttons\tituloCineFan.png" />
+    <Resource Include="Images\Buttons\tituloCineFan2.png" />
+    <Resource Include="Images\Backgrounds\fondoCineFan2.jpg" />
+    <Resource Include="Images\Gif\gifCedula.gif" />
+    <Resource Include="Images\Backgrounds\fondoCineFan.jpg" />
     <Resource Include="Images\Buttons\+.png" />
     <Resource Include="Images\Buttons\-.png" />
     <Resource Include="Images\Backgrounds\p-fondo-eat.jpg" />

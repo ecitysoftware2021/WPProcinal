@@ -372,7 +372,33 @@ namespace WPProcinal.Forms
             }
             else
             {
-                return true;
+                var responseClient = WCFServices41.GetClientData(new SCOLOG
+                {
+                    Clave = response,
+                    Correo = mail,
+                    teatro = Utilities.GetConfiguration("CodCinema"),
+                    tercero = "1"
+                });
+                if (responseClient != null)
+                {
+                    if (responseClient.Estado.ToLower().Equals("Usuario con tarjeta activa"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TxtErrorEmail.Text = responseClient.Estado;
+                        TxtErrorEmail2.Text = responseClient.Estado;
+                        return false;
+                    }
+                }
+                else
+                {
+                    TxtErrorEmail.Text = "No se pudo validar la informacion.";
+                    TxtErrorEmail2.Text = "No se pudo validar la informacion.";
+
+                    return false;
+                }
             }
         }
         #endregion

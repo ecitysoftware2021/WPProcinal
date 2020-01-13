@@ -68,8 +68,9 @@
                     <ListView x:Name="lvMovies" 
                   HorizontalAlignment="Center" 
                   VerticalAlignment="Center"
+                              Height="1050"
                     ItemsSource="{Binding}"
-                  Margin="0,160,0,0">
+                  Margin="0,50,0,0">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="3"
@@ -84,11 +85,10 @@
                                     <Grid 
                                 HorizontalAlignment="Center"
                                    VerticalAlignment="Top"
-                                   Tag="{Binding Tag}"
                                    Margin="0,10,10,0"
                                    Width="325"
                                    Height="500"
-                                        TouchDown="Grid_TouchDown">
+                                        >
                                         <Grid.Background>
                                             <ImageBrush 
                                         ImageSource="{Binding ImageData}"
@@ -109,6 +109,15 @@
                                    Width="100"
                                    Height="100"
                                    Stretch="Uniform"/>
+                                        <Image Source="/Images/Buttons/verHorarios.png" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Bottom"
+                                   Margin="50,0,0,0"
+                                   Width="200"
+                                   Height="100"
+                                   Stretch="Uniform"
+                                               Tag="{Binding Tag}"
+                                    TouchDown="TouchImage_TouchDown"/>
                                     </Grid>
                                 </StackPanel>
                             </DataTemplate>

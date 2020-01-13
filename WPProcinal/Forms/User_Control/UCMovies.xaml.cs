@@ -202,7 +202,7 @@ namespace WPProcinal.Forms.User_Control
                 Thread.Sleep(1000);
                 view.Source = Utilities.LstMovies;
                 view.Filter += new FilterEventHandler(View_Filter);
-                lvMovies.DataContext = view;
+                this.DataContext = view;
                 ShowCurrentPageIndex();
                 tbTotalPage.Text = totalPage.ToString();
 
@@ -275,7 +275,7 @@ namespace WPProcinal.Forms.User_Control
             Switcher.Navigate(new UCCinema());
         }
 
-        private void Grid_TouchDown(object sender, TouchEventArgs e)
+        private void TouchImage_TouchDown(object sender, TouchEventArgs e)
         {
             try
             {
@@ -286,8 +286,8 @@ namespace WPProcinal.Forms.User_Control
 
             if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
             {
-                Grid grid = (Grid)sender;
-                var movie = Utilities.Movies.Where(m => m.Id == grid.Tag.ToString()).FirstOrDefault();
+                Image TocuhImage = (Image)sender;
+                var movie = Utilities.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
                 //var status = WCFServices41.StateImage(movie.Data.Imagen);
                 string image = movie.Data.Imagen;
                 //if (!status)
@@ -354,7 +354,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         if (!string.IsNullOrEmpty(Utilities.dataDocument.FirstName))
                         {
-                            txtNameUser.Text = "Bienvenid@ "+Utilities.dataDocument.FirstName;
+                            txtNameUser.Text = "Bienvenid@ " + Utilities.dataDocument.FirstName;
                             txtNameUser.Visibility = Visibility.Visible;
                         }
                     }

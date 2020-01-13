@@ -657,7 +657,7 @@ namespace WPProcinal.Service
         /// <param name="data"></param>
         /// <returns></returns>
         #region SCOLOG
-        public static string GetClientData(SCOLOG data)
+        public static SCOLOGResponse GetClientData(SCOLOG data)
         {
 
             string decryptData = string.Empty;
@@ -677,7 +677,7 @@ namespace WPProcinal.Service
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scocsn/");
+                var client = new RestClient(Utilities.APISCORE + "/scolog/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -694,9 +694,9 @@ namespace WPProcinal.Service
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
 
-                var est = JsonConvert.DeserializeObject<SCOCSNResponse[]>(decryptData);
+                var est = JsonConvert.DeserializeObject<SCOLOGResponse[]>(decryptData);
 
-                return est[0].Valor;
+                return est[0];
 
             }
             catch (Exception ex)
@@ -977,6 +977,31 @@ namespace WPProcinal.Service
         public string Clave { get; set; }
         public string teatro { get; set; }
         public string tercero { get; set; }
+    }
+
+    public class SCOLOGResponse
+    {
+        public string Valor { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string Estado { get; set; }
+        public string Login { get; set; }
+        public string Sexo { get; set; }
+        public int Edad { get; set; }
+        public string Cinema { get; set; }
+        public string Genero { get; set; }
+        public string Documento { get; set; }
+        public string Reservas { get; set; }
+        public string Noticias { get; set; }
+        public string Cartelera { get; set; }
+        public string Direccion { get; set; }
+        public string Celular { get; set; }
+        public string Otras_Salas { get; set; }
+        public string Barrio { get; set; }
+        public string Municipio { get; set; }
+        public string Clave { get; set; }
+        public string Telefono { get; set; }
+        public string Fecha_Nacimiento { get; set; }
     }
     #endregion
     public class Combos
