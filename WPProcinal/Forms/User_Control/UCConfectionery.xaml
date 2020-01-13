@@ -364,13 +364,23 @@
 
         <Grid Grid.Row="2">
             <Image 
+                HorizontalAlignment="Left"
+                Name="BtnSalir"
+                VerticalAlignment="Center"
+                Width="400"
+                Margin="0,0,100,0"
+                Stretch="Uniform"
+                Source="/Images/salir2.png"
+                TouchDown="BtnSalir_TouchDown"
+            />
+            <Image 
                 HorizontalAlignment="Right"
                 Name="BtnComprar"
                 VerticalAlignment="Center"
                 Width="400"
                 Margin="0,0,100,0"
                 Stretch="Uniform"
-                Source="/Images/buttons/continuar.png"
+                Source="/Images/buttons/omitir.png"
                 TouchDown="BtnComprar_TouchDown"
             />
         </Grid>

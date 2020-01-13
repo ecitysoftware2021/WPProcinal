@@ -448,6 +448,7 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Buttons\omitir.png" />
     <Resource Include="Images\Buttons\verHorarios.png" />
     <Resource Include="Images\Buttons\continuar.png" />
     <Resource Include="Images\Buttons\no-si.png" />

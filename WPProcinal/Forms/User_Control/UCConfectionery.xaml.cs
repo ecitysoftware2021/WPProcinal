@@ -29,13 +29,13 @@ namespace WPProcinal.Forms.User_Control
         DipMap _DipMap;
 
         #region Precios Combos
-        private int _ComboTemporada = int.Parse(Utilities.GetConfiguration("0"));
-        private int _Combo1 = int.Parse(Utilities.GetConfiguration("1"));
-        private int _Combo2 = int.Parse(Utilities.GetConfiguration("2"));
-        private int _Combo3 = int.Parse(Utilities.GetConfiguration("3"));
-        private int _Combo4 = int.Parse(Utilities.GetConfiguration("4"));
-        private int _Combo5 = int.Parse(Utilities.GetConfiguration("5"));
-        private int _ComboHamburguesa = int.Parse(Utilities.GetConfiguration("6"));
+        private int _ComboTemporadaPrice = int.Parse(Utilities.GetConfiguration("0"));
+        private int _Combo1Price = int.Parse(Utilities.GetConfiguration("1"));
+        private int _Combo2Price = int.Parse(Utilities.GetConfiguration("2"));
+        private int _Combo3Price = int.Parse(Utilities.GetConfiguration("3"));
+        private int _Combo4Price = int.Parse(Utilities.GetConfiguration("4"));
+        private int _Combo5Price = int.Parse(Utilities.GetConfiguration("5"));
+        private int _ComboHamburguesaPrice = int.Parse(Utilities.GetConfiguration("6"));
         #endregion
 
         #endregion
@@ -75,25 +75,25 @@ namespace WPProcinal.Forms.User_Control
                 switch (tag)
                 {
                     case 0:
-                        AddCombo(comboName: "Combo Jumanji", comboPrice: _ComboTemporada, textBlock: C0, code: "609.0");
+                        AddCombo(comboName: "Combo Jumanji", comboPrice: _ComboTemporadaPrice, textBlock: C0, code: "609.0");
                         break;
                     case 1:
-                        AddCombo("Combo 1", _Combo1, C1, "251.0");
+                        AddCombo("Combo 1", _Combo1Price, C1, "251.0");
                         break;
                     case 2:
-                        AddCombo("Combo 2", _Combo2, C2, "252.0");
+                        AddCombo("Combo 2", _Combo2Price, C2, "252.0");
                         break;
                     case 3:
-                        AddCombo("Combo 3", _Combo3, C3, "253.0");
+                        AddCombo("Combo 3", _Combo3Price, C3, "253.0");
                         break;
                     case 4:
-                        AddCombo("Combo 4", _Combo4, C4, "254.0");
+                        AddCombo("Combo 4", _Combo4Price, C4, "254.0");
                         break;
                     case 5:
-                        AddCombo("Combo 5", _Combo5, C5, "256.0");
+                        AddCombo("Combo 5", _Combo5Price, C5, "256.0");
                         break;
                     case 6:
-                        AddCombo(comboName: "Combo Hamburguesa", comboPrice: _ComboHamburguesa, textBlock: C6, code: "423.0");
+                        AddCombo(comboName: "Combo Hamburguesa", comboPrice: _ComboHamburguesaPrice, textBlock: C6, code: "423.0");
                         break;
                 }
             }
@@ -101,6 +101,7 @@ namespace WPProcinal.Forms.User_Control
             {
 
             }
+            ChangeImageBuy();
         }
 
         private void AddCombo(string comboName, decimal comboPrice, TextBlock textBlock, string code)
@@ -148,25 +149,25 @@ namespace WPProcinal.Forms.User_Control
                 switch (tag)
                 {
                     case 0:
-                        DeleteCombo("Combo Jumanji", _ComboTemporada, C0);
+                        DeleteCombo("Combo Jumanji", _ComboTemporadaPrice, C0);
                         break;
                     case 1:
-                        DeleteCombo("Combo 1", _Combo1, C1);
+                        DeleteCombo("Combo 1", _Combo1Price, C1);
                         break;
                     case 2:
-                        DeleteCombo("Combo 2", _Combo2, C2);
+                        DeleteCombo("Combo 2", _Combo2Price, C2);
                         break;
                     case 3:
-                        DeleteCombo("Combo 3", _Combo3, C3);
+                        DeleteCombo("Combo 3", _Combo3Price, C3);
                         break;
                     case 4:
-                        DeleteCombo("Combo 4", _Combo4, C4);
+                        DeleteCombo("Combo 4", _Combo4Price, C4);
                         break;
                     case 5:
-                        DeleteCombo("Combo 5", _Combo5, C5);
+                        DeleteCombo("Combo 5", _Combo5Price, C5);
                         break;
                     case 6:
-                        DeleteCombo("Combo Hamburguesa", _ComboHamburguesa, C6);
+                        DeleteCombo("Combo Hamburguesa", _ComboHamburguesaPrice, C6);
                         break;
                 }
             }
@@ -174,6 +175,7 @@ namespace WPProcinal.Forms.User_Control
             {
 
             }
+            ChangeImageBuy();
         }
 
         private void DeleteCombo(string comboName, decimal comboPrice, TextBlock textBlock)
@@ -190,6 +192,18 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Utilities._Combos.Remove(existsCombo);
                 }
+            }
+        }
+
+        private void ChangeImageBuy()
+        {
+            if (Utilities._Combos.Count > 0)
+            {
+                BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/continuar.png", UriKind.Relative));
+            }
+            else
+            {
+                BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/omitir.png", UriKind.Relative));
             }
         }
 
@@ -217,14 +231,6 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Switcher.Navigate(new UCCardPayment(_Seats, _DipMap));
                 }
-            }
-            else
-            {
-                Task.Run(() =>
-                {
-                    WCFServices41.PostDesAssingreserva(_Seats, _DipMap);
-                });
-                Switcher.Navigate(new UCCinema());
             }
         }
 
@@ -306,6 +312,16 @@ namespace WPProcinal.Forms.User_Control
                 });
             });
 
+        }
+
+        private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
+        {
+
+            Task.Run(() =>
+            {
+                WCFServices41.PostDesAssingreserva(_Seats, _DipMap);
+            });
+            Switcher.Navigate(new UCCinema());
         }
     }
 }
