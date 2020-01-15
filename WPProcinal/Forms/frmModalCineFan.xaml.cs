@@ -31,43 +31,17 @@ namespace WPProcinal.Forms
             InitializeComponent();
             TouchScreenKeyboard.PositionX = 90;
             TouchScreenKeyboard.PositionY = 0;
-            TouchScreenKeyNumeric.PositionX = -50;
             Utilities.dataDocument = new Models.DataDocument();
+            Utilities.dataUser = new SCOLOGResponse();
         }
         #endregion
 
         #region "Eventos"
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Utilities.control.callbackDocument = Document => Dispatcher.BeginInvoke((Action)delegate
-                {
-                    if (!string.IsNullOrEmpty(Document.Document))
-                    {
-                        Utilities.dataDocument = Document;
-                        Utilities.control.callbackDocument = null;
-                        Utilities.control.ClosePortScanner();
-
-                        grdScanner.Visibility = Visibility.Hidden;
-                        grdData.Visibility = Visibility.Visible;
-                    }
-                });
-
-                Utilities.control.num = 0;
-                Utilities.control.InitializePortScanner(Utilities.GetConfiguration("PortScanner"));
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
         {
             DialogResult = false;
         }
 
-        //Proceso Automatico
         private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -91,143 +65,18 @@ namespace WPProcinal.Forms
             }
         }
 
-        //Proceso Automatico
-        private void BtnAceptar_TouchDown(object sender, TouchEventArgs e)
+        private void BtnContinuar_TouchDown(object sender, TouchEventArgs e)
         {
             try
             {
-                if (ValidarCampos(0))
+                if (ValidarCampos())
                 {
                     Utilities.dataDocument.Email = txtEmail.Text;
-                    Utilities.dataDocument.Phone = txtPhone.Text;
 
                     if (ValidateCineFan(txtEmail.Text))
                     {
                         DialogResult = true;
                     }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
-        //Proceso Automatico
-        private void BtnCancelar_TouchDown(object sender, TouchEventArgs e)
-        {
-            Utilities.control.callbackDocument = null;
-            Utilities.control.ClosePortScanner();
-            DialogResult = false;
-        }
-
-        //Proceso Automatico
-        private void txtPhone_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                EmptyData();
-
-                TextBox txt = (TextBox)sender;
-
-                if (txt.Text.Length == 1 && txt.Text == "0")
-                {
-                    txt.Text = string.Empty;
-                }
-
-                if (txt.Text.Length > 10)
-                {
-                    txt.Text = txt.Text.Remove(10, 1);
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
-        //Proceso Manual
-        private void BtnManual_TouchDown(object sender, TouchEventArgs e)
-        {
-            Utilities.control.callbackDocument = null;
-            Utilities.control.ClosePortScanner();
-            grdScanner.Visibility = Visibility.Hidden;
-            grdData.Visibility = Visibility.Hidden;
-            grdManual.Visibility = Visibility.Visible;
-        }
-
-        //Proceso Manual
-        private void BtnAceptar2_TouchDown(object sender, TouchEventArgs e)
-        {
-            try
-            {
-                if (ValidarCampos(1))
-                {
-                    Utilities.dataDocument.Email = txtEmail2.Text;
-                    Utilities.dataDocument.Phone = txtPhone2.Text;
-                    Utilities.dataDocument.Document = txtId.Text;
-                    Utilities.dataDocument.FirstName = txtNombre.Text;
-                    Utilities.dataDocument.LastName = txtLastName.Text;
-                    if (ValidateCineFan(txtEmail2.Text))
-                    {
-                        DialogResult = true;
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
-        //Proceso Manual
-        private void BtnCancelar2_TouchDown(object sender, TouchEventArgs e)
-        {
-            DialogResult = false;
-        }
-
-        //Proceso Automatico
-        private void txtChar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                EmptyData();
-
-                TextBox txt = (TextBox)sender;
-
-                if (txt.Text.Length == 1 && txt.Text == "0")
-                {
-                    txt.Text = string.Empty;
-                }
-
-                if (txt.Text.Length > txt.MaxLength)
-                {
-                    txt.Text = txt.Text.Remove(txt.MaxLength, 1);
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
-        //Proceso Automatico
-        private void txtId_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                EmptyData();
-
-                TextBox txt = (TextBox)sender;
-
-                if (txt.Text.Length == 1 && txt.Text == "0")
-                {
-                    txt.Text = string.Empty;
-                }
-
-                if (txtId.Text.Length > txt.MaxLength)
-                {
-                    txtId.Text = txtId.Text.Remove(txt.MaxLength, 1);
-                    return;
                 }
             }
             catch (Exception ex)
@@ -242,112 +91,27 @@ namespace WPProcinal.Forms
             try
             {
                 TxtErrorEmail.Text = string.Empty;
-                TxtErrorEmail2.Text = string.Empty;
-                TxtErrorPhone.Text = string.Empty;
-                TxtErrorPhone2.Text = string.Empty;
-                TxtErrorLastName.Text = string.Empty;
-                TxtErrorName.Text = string.Empty;
-                TxtErrorId.Text = string.Empty;
             }
             catch (Exception ex)
             {
             }
         }
 
-        private bool ValidarCampos(int num)
+        private bool ValidarCampos()
         {
             try
             {
-                switch (num)
+                if (string.IsNullOrEmpty(txtEmail.Text))
                 {
-                    case 0:
-                        if (string.IsNullOrEmpty(txtEmail.Text))
-                        {
-                            TxtErrorEmail.Text = "Debe ingresar un correo electrónico";
-                            return false;
-                        }
-                        else
-                        if (!Utilities.IsValidEmailAddress(txtEmail.Text))
-                        {
-                            TxtErrorEmail.Text = "No se indicó un correo válido";
-                            return false;
-                        }
-                        else
-                        if (string.IsNullOrEmpty(txtPhone.Text))
-                        {
-                            TxtErrorPhone.Text = "Debe ingresar un teléfono";
-                            return false;
-                        }
-                        else
-                        if (txtPhone.Text.Length < 7)
-                        {
-                            TxtErrorPhone.Text = "Debe ingresar un teléfono válido";
-                            return false;
-                        }
-                        break;
-                    case 1:
-                        if (string.IsNullOrEmpty(txtId.Text))
-                        {
-                            TxtErrorId.Text = "Debe ingresar una identificación";
-                            return false;
-                        }
-                        if (txtId.Text.Length < 7)
-                        {
-                            TxtErrorId.Text = "Debe ingresar una identificación válida";
-                            return false;
-                        }
-                        else
-                        if (string.IsNullOrEmpty(txtNombre.Text))
-                        {
-                            TxtErrorName.Text = "Debe ingresar su nombre";
-                            return false;
-                        }
-                        if (txtNombre.Text.Length < 3)
-                        {
-                            TxtErrorName.Text = "Debe ingresar un nombre válido";
-                            return false;
-                        }
-                        else
-                        if (string.IsNullOrEmpty(txtLastName.Text))
-                        {
-                            TxtErrorLastName.Text = "Debe ingresar su apellido";
-                            return false;
-                        }
-                        if (txtLastName.Text.Length < 7)
-                        {
-                            TxtErrorLastName.Text = "Debe ingresar un apellido válido";
-                            return false;
-                        }
-                        else
-                        if (string.IsNullOrEmpty(txtEmail2.Text))
-                        {
-                            TxtErrorEmail2.Text = "Debe ingresar un correo electrónico";
-                            return false;
-                        }
-                        else
-                        if (!Utilities.IsValidEmailAddress(txtEmail2.Text))
-                        {
-                            TxtErrorEmail2.Text = "No se indicó un correo válido";
-                            return false;
-                        }
-                        else
-                        if (string.IsNullOrEmpty(txtPhone2.Text))
-                        {
-                            TxtErrorPhone2.Text = "Debe ingresar un teléfono";
-                            return false;
-                        }
-                        else
-                        if (txtPhone2.Text.Length < 7)
-                        {
-                            TxtErrorPhone2.Text = "Debe ingresar un teléfono válido";
-                            return false;
-                        }
-                        break;
-                    default:
-                        break;
+                    TxtErrorEmail.Text = "Debe ingresar un correo electrónico";
+                    return false;
                 }
-
-
+                else
+                if (!Utilities.IsValidEmailAddress(txtEmail.Text))
+                {
+                    TxtErrorEmail.Text = "No se indicó un correo válido";
+                    return false;
+                }
                 return true;
             }
             catch (Exception ex)
@@ -367,7 +131,6 @@ namespace WPProcinal.Forms
             if (response.Split(' ').Count() > 1)
             {
                 TxtErrorEmail.Text = response;
-                TxtErrorEmail2.Text = response;
                 return false;
             }
             else
@@ -381,26 +144,26 @@ namespace WPProcinal.Forms
                 });
                 if (responseClient != null)
                 {
-                    if (responseClient.Estado.ToLower().Equals("Usuario con tarjeta activa"))
+                    if (responseClient.Tarjeta != null)
                     {
+                        Utilities.dataUser = responseClient;
                         return true;
                     }
                     else
                     {
                         TxtErrorEmail.Text = responseClient.Estado;
-                        TxtErrorEmail2.Text = responseClient.Estado;
                         return false;
                     }
                 }
                 else
                 {
                     TxtErrorEmail.Text = "No se pudo validar la informacion.";
-                    TxtErrorEmail2.Text = "No se pudo validar la informacion.";
 
                     return false;
                 }
             }
         }
         #endregion
+
     }
 }

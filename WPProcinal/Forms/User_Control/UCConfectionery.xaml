@@ -9,11 +9,11 @@
              Loaded="UserControl_Loaded">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/backgrounds/p-fondo-eat.jpg" 
+            <ImageBrush ImageSource="/Images/backgrounds/fondoConfiteria.jpg" 
                         Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="410" />
+            <RowDefinition Height="130" />
             <RowDefinition Height="*" />
             <RowDefinition Height="300" />
         </Grid.RowDefinitions>
@@ -26,18 +26,18 @@
                     VerticalAlignment="Top"
                     Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
                 />
-            <TextBlock
+            <!--<TextBlock
                        FontSize="50"
                        Text="Selecciona tu combo preferido:" 
                        FontWeight="Bold"
                        FontFamily="Gotham"
-                       Foreground="White"
+                       Foreground="Red"
                        TextWrapping="Wrap"
                        TextAlignment="Center"
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Bottom"
-                       Margin="0,0,0,0"
-            />
+                       VerticalAlignment="Top"
+                       Margin="0,140,0,0"
+            />-->
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -51,22 +51,24 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.ColumnSpan="2" Grid.Row="0">
+            <!--Temporada-->
+            <Grid Grid.ColumnSpan="2" Grid.Row="1">
                 <Image 
                 Name="BtnTemporada"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Margin="0,20,0,20"
-                Width="650"
-                Stretch="Fill"
-                Source="/Images/Confectionery/temporada.jpg"
+                Margin="0,0,0,90"
+                Width="940"
+                Height="170"
+                Stretch="UniformToFill"
+                Source="/Images/Confectionery/temporada3.jpg"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Grid.Row="0"
-                    Margin="0,0,110,150"
-                    Width="70"
+                    Margin="150,0,0,40"
+                    Width="60"
                     Stretch="Uniform"
                     Tag="0"
                     Source="/Images/Buttons/+.png"
@@ -74,44 +76,46 @@
                 />
                 <TextBlock
                     Name="C0"
-                    FontSize="50"
+                    FontSize="60"
                     Text="0" 
                     FontWeight="Bold"
                     Foreground="Black"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,130,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,0,40"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Grid.ColumnSpan="2"
                     Grid.Row="0"
-                    Margin="0,150,110,0"
-                    Width="70"
+                    Margin="0,0,150,40"
+                    Width="60"
                     Stretch="Uniform"
                     Tag="0"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
             </Grid>
-            <Grid Grid.Column="0" Grid.Row="1">
+            
+            <!--Combo 1-->
+            <Grid Grid.Column="0" Grid.Row="0">
                 <Image 
                     Name="BtnCombo1"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Width="450"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Width="580"
                     Margin="0,0,0,0"
                     Stretch="Uniform"
-                    Source="/Images/Confectionery/Combo1_confiteria.jpg"
+                    Source="/Images/Confectionery/Combo1_confiteria.png"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Grid.ColumnSpan="2"
                     Grid.Row="0"
-                    Margin="0,0,50,150"
-                    Width="50"
+                    Margin="0,0,0,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="1"
                     Source="/Images/Buttons/+.png"
@@ -119,44 +123,46 @@
                 />
                 <TextBlock
                     Name="C1"
-                    FontSize="50"
+                    FontSize="40"
                     Text="0" 
                     FontWeight="Bold"
                     Foreground="Black"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,60,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,100,0"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Grid.ColumnSpan="2"
                     Grid.Row="0"
-                    Margin="0,150,50,0"
-                    Width="50"
+                    Margin="0,0,200,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="1"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
             </Grid>
-            <Grid Grid.Column="1" Grid.Row="1">
+
+            <!--Combo 2-->
+            <Grid Grid.Column="1" Grid.Row="0">
                 <Image 
                     Name="BtnCombo2"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
                     Margin="0,0,0,0"
-                    Width="450"
+                    Width="580"
                     Stretch="Uniform"
-                    Source="/Images/Confectionery/Combo2_confiteria.jpg"
+                    Source="/Images/Confectionery/Combo2_confiteria.png"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Grid.ColumnSpan="2"
                     Grid.Row="0"
-                    Margin="0,0,50,150"
-                    Width="50"
+                    Margin="0,0,0,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="2"
                     Source="/Images/Buttons/+.png"
@@ -164,86 +170,94 @@
                 />
                 <TextBlock
                     Name="C2"
-                    FontSize="50"
+                    FontSize="40"
                     Text="0" 
                     FontWeight="Bold"
                     Foreground="Black"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,60,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,100,0"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Grid.ColumnSpan="2"
                     Grid.Row="0"
-                    Margin="0,150,50,0"
-                    Width="50"
+                    Margin="0,0,200,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="2"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
             </Grid>
+
+            <!--Combo 3-->
             <Grid Grid.Column="0" Grid.Row="2">
                 <Image 
                     Name="BtnCombo3"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Width="450"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Width="580"
                     Grid.Row="2"
                     Margin="0,0,0,0"
                     Stretch="Uniform"
-                    Source="/Images/Confectionery/Combo3_confiteria.jpg"
+                    Source="/Images/Confectionery/Combo3_confiteria.png"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,50,150"
-                    Width="50"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="0"
+                    Margin="0,0,0,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="3"
                     Source="/Images/Buttons/+.png"
                     TouchDown="BtnPlusTemp_TouchDown"
                 />
                 <TextBlock
-                    x:Name="C3"
-                    FontSize="50"
+                    Name="C3"
+                    FontSize="40"
                     Text="0" 
                     FontWeight="Bold"
                     Foreground="Black"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,60,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,100,0"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Grid.ColumnSpan="2"
                     Grid.Row="0"
-                    Margin="0,150,50,0"
-                    Width="50"
+                    Margin="0,0,200,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="3"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
             </Grid>
+
+            <!--Combo 4-->
             <Grid Grid.Column="1" Grid.Row="2">
                 <Image 
                     Name="BtnCombo4"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Width="450"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Width="580"
                     Margin="0,0,0,0"
                     Stretch="Uniform"
-                    Source="/Images/Confectionery/Combo4_confiteria.jpg"
+                    Source="/Images/Confectionery/Combo4_confiteria.png"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,50,150"
-                    Width="50"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="0"
+                    Margin="0,0,0,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="4"
                     Source="/Images/Buttons/+.png"
@@ -251,107 +265,115 @@
                 />
                 <TextBlock
                     Name="C4"
-                    FontSize="50"
+                    FontSize="40"
                     Text="0" 
                     FontWeight="Bold"
                     Foreground="Black"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,60,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,100,0"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Grid.ColumnSpan="2"
                     Grid.Row="0"
-                    Margin="0,150,50,0"
-                    Width="50"
+                    Margin="0,0,200,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="4"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
             </Grid>
+
+            <!--Combo 5-->
             <Grid  Grid.Column="0" Grid.Row="3">
                 <Image 
                     Name="BtnCombo5"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Width="450"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Width="580"
                     Margin="0,0,0,0"
                     Stretch="Uniform"
-                    Source="/Images/Confectionery/Combo5_confiteria.jpg"
+                    Source="/Images/Confectionery/Combo5_confiteria.png"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,50,150"
-                    Width="50"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="0"
+                    Margin="0,0,0,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="5"
                     Source="/Images/Buttons/+.png"
                     TouchDown="BtnPlusTemp_TouchDown"
                 />
                 <TextBlock
-                    x:Name="C5"
-                    FontSize="50"
+                    Name="C5"
+                    FontSize="40"
                     Text="0" 
                     FontWeight="Bold"
                     Foreground="Black"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,60,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,100,0"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Grid.ColumnSpan="2"
                     Grid.Row="0"
-                    Margin="0,150,50,0"
-                    Width="50"
+                    Margin="0,0,200,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="5"
                     Source="/Images/Buttons/-.png"
                     TouchDown="BtnLessTemp_TouchDown"
                 />
             </Grid>
+
+            <!--Combo Hamburguesa-->
             <Grid  Grid.Column="1" Grid.Row="3">
                 <Image 
                     Name="BtnCombo6"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Width="450"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Width="580"
                     Margin="0,0,0,0"
                     Stretch="Uniform"
-                    Source="/Images/Confectionery/ComboHamburguesa.jpg"
+                    Source="/Images/Confectionery/ComboHamburguesa.png"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,50,150"
-                    Width="50"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="0"
+                    Margin="0,0,0,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="6"
                     Source="/Images/Buttons/+.png"
                     TouchDown="BtnPlusTemp_TouchDown"
                 />
                 <TextBlock
-                    x:Name="C6"
-                    FontSize="50"
+                    Name="C6"
+                    FontSize="40"
                     Text="0" 
                     FontWeight="Bold"
                     Foreground="Black"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,60,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,100,0"
                 />
                 <Image 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Grid.ColumnSpan="2"
                     Grid.Row="0"
-                    Margin="0,150,50,0"
-                    Width="50"
+                    Margin="0,0,200,0"
+                    Width="40"
                     Stretch="Uniform"
                     Tag="6"
                     Source="/Images/Buttons/-.png"
@@ -360,15 +382,13 @@
             </Grid>
         </Grid>
 
-
-
         <Grid Grid.Row="2">
             <Image 
                 HorizontalAlignment="Left"
                 Name="BtnSalir"
                 VerticalAlignment="Center"
-                Width="400"
-                Margin="0,0,100,0"
+                Width="300"
+                Margin="200,0,0,0"
                 Stretch="Uniform"
                 Source="/Images/salir2.png"
                 TouchDown="BtnSalir_TouchDown"
@@ -377,8 +397,8 @@
                 HorizontalAlignment="Right"
                 Name="BtnComprar"
                 VerticalAlignment="Center"
-                Width="400"
-                Margin="0,0,100,0"
+                Width="300"
+                Margin="0,0,200,0"
                 Stretch="Uniform"
                 Source="/Images/buttons/omitir.png"
                 TouchDown="BtnComprar_TouchDown"

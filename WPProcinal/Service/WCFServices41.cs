@@ -916,11 +916,13 @@ namespace WPProcinal.Service
 
     public class Producto
     {
-        public string Codigo { get; set; }
+        public long Codigo { get; set; }
 
         public string Descripcion { get; set; }
 
         public string Tipo { get; set; }
+
+        public int Precio { get { return 1; } }
 
         public List<Receta> Receta { get; set; }
     }
@@ -940,18 +942,16 @@ namespace WPProcinal.Service
 
     public class Receta
     {
-        public string Codigo { get; set; }
+        public long Codigo { get; set; }
 
         public string Descripcion { get; set; }
 
         public string Tipo { get; set; }
 
-        public string Cantidad { get; set; }
+        public long Cantidad { get; set; }
 
-        public List<Precio> Precios { get; set; }
-
-        [JsonProperty("Receta", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Receta> RecetaReceta { get; set; }
+        //[JsonProperty("Receta", NullValueHandling = NullValueHandling.Ignore)]
+        //public List<Receta> RecetaReceta { get; set; }
     }
 
 
@@ -982,6 +982,8 @@ namespace WPProcinal.Service
     public class SCOLOGResponse
     {
         public string Valor { get; set; }
+        [JsonProperty(PropertyName = "No. Tarjeta")]
+        public string Tarjeta { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Estado { get; set; }
@@ -1002,6 +1004,7 @@ namespace WPProcinal.Service
         public string Clave { get; set; }
         public string Telefono { get; set; }
         public string Fecha_Nacimiento { get; set; }
+
     }
     #endregion
     public class Combos
@@ -1009,7 +1012,7 @@ namespace WPProcinal.Service
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-        public string Code { get; set; }
+        public long Code { get; set; }
     }
 
     public class Request41

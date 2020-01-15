@@ -30,6 +30,7 @@ namespace WPProcinal.Forms.User_Control
         Response responseGlobal = new Response();
         Utilities objUtil = new Utilities();
         private bool totalReturn = false;
+        List<Producto> productos;
         public UCPayCine(List<TypeSeat> Seats, DipMap dipMap)
         {
             InitializeComponent();
@@ -57,10 +58,10 @@ namespace WPProcinal.Forms.User_Control
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-                //Buytickets();
-                stateUpdate = true;
-                payState = true;
-                Utilities.control.StartValues();
+                Buytickets();
+                //stateUpdate = true;
+                //payState = true;
+                //Utilities.control.StartValues();
             }
             catch (Exception ex)
             {
@@ -345,6 +346,7 @@ namespace WPProcinal.Forms.User_Control
                 else
                 {
                     objUtil.PrintTicket("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    
                     ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
@@ -435,7 +437,7 @@ namespace WPProcinal.Forms.User_Control
                         });
                     }
 
-                    List<Producto> productos = new List<Producto>();
+                    productos = new List<Producto>();
 
                     foreach (var item in Utilities._Combos)
                     {
@@ -447,20 +449,24 @@ namespace WPProcinal.Forms.User_Control
                     string year = Utilities.DipMapCurrent.Date.Substring(0, 4);
                     string mount = Utilities.DipMapCurrent.Date.Substring(4, 2);
                     string day = Utilities.DipMapCurrent.Date.Substring(6, 2);
+
+                    var dataClient = GetDataClient();
+
+
                     var response41 = WCFServices41.PostBuy(new SCOINT
                     {
                         Accion = "V",
-                        Apellido = "Ecity",
-                        ClienteFrecuente = 0,
-                        CorreoCliente = "prueba@prueba.com",
+                        Apellido = dataClient.Apellido,
+                        ClienteFrecuente = int.Parse(dataClient.Tarjeta),
+                        CorreoCliente = dataClient.Login,
                         Cortesia = string.Empty,
-                        Direccion = "Cra 63A # 34-70",
-                        DocIdentidad = 811040812,
+                        Direccion = dataClient.Direccion,
+                        DocIdentidad = int.Parse(dataClient.Documento),
                         Factura = Utilities.DipMapCurrent.Secuence,
                         FechaFun = string.Concat(year, "-", mount, "-", day),
                         Funcion = Utilities.DipMapCurrent.IDFuncion,
                         InicioFun = Utilities.DipMapCurrent.HourFormat,
-                        Nombre = "Kiosko",
+                        Nombre = dataClient.Nombre,
                         PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
                         PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
                         PagoInterno = 0,
@@ -469,10 +475,10 @@ namespace WPProcinal.Forms.User_Control
                         PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
                         Sala = Utilities.DipMapCurrent.RoomId,
                         teatro = Utilities.DipMapCurrent.CinemaId,
-                        Telefono = 5803033,
+                        Telefono = int.Parse(dataClient.Telefono),
                         tercero = 1,
                         TipoBono = 0,
-                        TotalVenta = int.Parse(Utilities.ScorePayValue.ToString()),
+                        TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
                         Ubicaciones = ubicaciones
                     });
                     foreach (var item in response41)
@@ -512,6 +518,36 @@ namespace WPProcinal.Forms.User_Control
                 payState = false;
                 SavePay(payState);
                 AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        SCOLOGResponse GetDataClient()
+        {
+            if (Utilities.dataUser.Tarjeta != null)
+            {
+                return new SCOLOGResponse
+                {
+                    Apellido = Utilities.dataUser.Apellido,
+                    Tarjeta = Utilities.dataUser.Tarjeta,
+                    Login = Utilities.dataUser.Login,
+                    Direccion = Utilities.dataUser.Direccion,
+                    Documento = Utilities.dataUser.Documento,
+                    Nombre = Utilities.dataUser.Nombre,
+                    Telefono = Utilities.dataUser.Telefono
+                };
+            }
+            else
+            {
+                return new SCOLOGResponse
+                {
+                    Apellido = "Ecity",
+                    Tarjeta = "0",
+                    Login = "prueba@prueba.com",
+                    Direccion = "Cra 63A # 34-70",
+                    Documento = "811040812",
+                    Nombre = "Kiosko",
+                    Telefono = "5803033"
+                };
             }
         }
         #endregion

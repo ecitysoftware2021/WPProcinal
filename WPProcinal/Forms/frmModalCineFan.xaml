@@ -16,7 +16,7 @@
         Top="140"
         ShowInTaskbar="False" 
         Height="900" 
-        Width="700" Loaded="Window_Loaded">
+        Width="700">
     <Border 
             BorderBrush="Transparent" 
             BorderThickness="3,3,3,3"
@@ -65,400 +65,56 @@
                     />
                 </Grid>
                 <Grid Grid.Row="4">
-                    
                     <Image HorizontalAlignment="Right"
-                       Name="BtnManual"
+                       Name="BtnContinuar"
                        VerticalAlignment="Center"
-                       Width="100"
-                       Opacity="1"
+                       Width="200"
                        Margin="0,0,100,0"
                        Stretch="Uniform"
-                       Source="../Images/buttons/btnyes.png"
-                       TouchDown="BtnManual_TouchDown"
+                       Source="../Images/Buttons/continuar.png"
+                       TouchDown="BtnContinuar_TouchDown"
                     />
                 </Grid>
                 <Grid Grid.Row="2">
-                    <Image  
-                    HorizontalAlignment="Center" 
-                    Width="400"
-                        Source="../Images/buttons/tituloCineFan2.png"
-                />
+                    <TextBlock Text="Ingresa tu correo registrado"
+                       FontFamily="Arial"
+                       FontSize="40"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="#FFC2171C"
+                       Margin="0,0,0,0"
+                       FontWeight="Bold"
+                    />
                 </Grid>
                 <Grid Grid.Row="3">
-                    <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/gifCedula.gif" 
-                   gif:ImageBehavior.AnimateInDesignMode="True"
-                   gif:ImageBehavior.AutoStart="True" 
-                    x:Name="GifLoad2" 
-                    Stretch="Fill"
-                    Margin="0,0,0,0" 
-                    VerticalAlignment="Center" 
-                    HorizontalAlignment="Center" 
-                    Width="250" 
-                    Visibility="Visible"
-                    Height="250" 
-                    Grid.Column="1"/>
-                </Grid>
-            </Grid>
-            <Grid Name="grdData" Margin="-2,-2,2,2"  Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="0*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="120" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="200" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock 
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,0" 
-                    FontFamily="Gotham"
-                    FontSize="40" 
-                    FontWeight="Bold"
-                    Text="Completa tus datos"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap"
-                    VerticalAlignment="Center"
-                    Foreground="#c2161b" 
-                />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <materialDesign:TransitioningContent  
-            OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
-            Name="btnMapSeats" Grid.Row="1">
-                        <materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:TransitionEffect Kind="SlideInFromBottom"  Duration="0:0:1.9"/>
-                        </materialDesign:TransitioningContent.OpeningEffects>
-                        <Grid>
-                            <TextBox Name="txtEmail"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Margin="0,0,0,0"
-                                TextAlignment="Center"
-                                FontSize="30"
-                                Foreground="Black"
-                                materialDesign:HintAssist.FloatingScale="0.3"
-                                materialDesign:HintAssist.IsFloating="True"
-                                materialDesign:HintAssist.Hint="Ingresa tu correo electrónico"
-                                Width="500" 
-                                MaxLength="15"
-                                IsTabStop="False"
-                                TextChanged="txtEmail_TextChanged"
-                                TextWrapping="Wrap"
-                                k:TouchScreenKeyboard.TouchScreenKeyboard="true"
-                            />
-                            <TextBox Width="1" Height="1"/>
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,30"
-                                TextAlignment="Center"
-                                FontSize="20"
-                                FontWeight="Bold"   
-                                Foreground="Red"
-                                Name="TxtErrorEmail"
-                            />
-                        </Grid>
-                    </materialDesign:TransitioningContent>
-                </Grid>
-                <Grid Grid.Row="2">
-                    <materialDesign:TransitioningContent  
-            OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
-             Grid.Row="1">
-                        <materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:TransitionEffect Kind="SlideInFromBottom"  Duration="0:0:1.9"/>
-                        </materialDesign:TransitioningContent.OpeningEffects>
-                        <Grid>
-                            <TextBox Name="txtPhone"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Margin="0,0,0,0"
-                                TextAlignment="Center"
-                                FontSize="30"
-                                Foreground="Black"
-                                materialDesign:HintAssist.FloatingScale="0.3"
-                                materialDesign:HintAssist.IsFloating="True"
-                                materialDesign:HintAssist.Hint="Ingresa tu número de celular"
-                                Width="500" 
-                                IsTabStop="False"
-                                TextWrapping="Wrap"
-                                TextChanged="txtPhone_TextChanged"
-                                k:TouchScreenKeyNumeric.TouchScreenKeyNumeric="true"
-                            />
-                            <TextBox  Width="0" Height="0" TabIndex="5"  IsTabStop="False"/>
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Margin="0,0,0,30"
-                                TextAlignment="Center"
-                                FontSize="20"
-                                FontWeight="Bold"   
-                                Foreground="Red"
-                                Name="TxtErrorPhone"
-                            />
-                        </Grid>
-                    </materialDesign:TransitioningContent>
-                </Grid>
-                <Grid Grid.Row="3">
-                    <Image HorizontalAlignment="Right"
-                        Name="BtnAceptar"
+                    <TextBox Name="txtEmail"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Width="230"
-                        Margin="0,0,50,0"
-                        Stretch="Uniform"
-                        Source="../Images/Buttons/continuar.png"
-                        TouchDown="BtnAceptar_TouchDown"
+                        Margin="0,0,0,100"
+                        TextAlignment="Center"
+                        FontSize="30"
+                        Foreground="Black"
+                        materialDesign:HintAssist.FloatingScale="0.3"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:HintAssist.Hint="Ingresa tu correo electrónico"
+                        Width="500" 
+                        MaxLength="50"
+                        IsTabStop="False"
+                        TextChanged="txtEmail_TextChanged"
+                        TextWrapping="Wrap"
+                        k:TouchScreenKeyboard.TouchScreenKeyboard="true"
                     />
-                    <Image HorizontalAlignment="Left"
-                        Name="BtnCancelar"
+                    <TextBox Width="1" Height="1"/>
+                    <TextBlock
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Width="230"
-                        Margin="50,0,0,0"
-                        Stretch="Uniform"
-                        Source="../Images/salir2.png"
-                        TouchDown="BtnCancelar_TouchDown"
+                        Margin="0,30,0,0"
+                        TextAlignment="Center"
+                        FontSize="25"
+                        FontWeight="Bold"   
+                        Foreground="Red"
+                        Name="TxtErrorEmail"
                     />
-                </Grid>
-            </Grid>
-            <Grid Name="grdManual" Margin="-2,-2,2,2" Visibility="Hidden">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="120" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="200" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock 
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,0" 
-                    FontFamily="Gotham"
-                    FontSize="40" 
-                    FontWeight="Bold"
-                    Text="Completa tus datos"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap"
-                    VerticalAlignment="Center"
-                    Foreground="#c2161b" 
-                />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <materialDesign:TransitioningContent  
-            OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
-             Grid.Row="1">
-                        <materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:TransitionEffect Kind="SlideInFromBottom"  Duration="0:0:1.9"/>
-                        </materialDesign:TransitioningContent.OpeningEffects>
-                        <Grid>
-                            <TextBox Name="txtId"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Margin="0,0,0,0"
-                                TextAlignment="Center"
-                                FontSize="30"
-                                TextChanged="txtId_TextChanged"
-                                Foreground="Black"
-                                materialDesign:HintAssist.FloatingScale="0.3"
-                                materialDesign:HintAssist.IsFloating="True"
-                                materialDesign:HintAssist.Hint="Ingresa tu número de cédula"
-                                Width="500" 
-                                MaxLength="11"
-                                IsTabStop="False"
-                                TextWrapping="Wrap"
-                                k:TouchScreenKeyNumeric.TouchScreenKeyNumeric="true"
-                            />
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,0"
-                                TextAlignment="Center"
-                                FontSize="20"
-                                FontWeight="Bold"   
-                                Foreground="Red"
-                                Name="TxtErrorId"
-                            />
-                        </Grid>
-                    </materialDesign:TransitioningContent>
-                </Grid>
-                <Grid Grid.Row="2">
-                    <materialDesign:TransitioningContent  
-            OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
-             Grid.Row="1">
-                        <materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:TransitionEffect Kind="SlideInFromBottom"  Duration="0:0:1.9"/>
-                        </materialDesign:TransitioningContent.OpeningEffects>
-                        <Grid>
-                            <TextBox Name="txtNombre"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Margin="0,0,0,0"
-                                TextAlignment="Center"
-                                FontSize="30"
-                                Foreground="Black"
-                                TextChanged="txtChar_TextChanged"
-                                materialDesign:HintAssist.FloatingScale="0.3"
-                                materialDesign:HintAssist.IsFloating="True"
-                                materialDesign:HintAssist.Hint="Ingresa tu nombre"
-                                Width="500" 
-                                MaxLength="30"
-                                IsTabStop="False"
-                                TextWrapping="Wrap"
-                                k:TouchScreenKeyboard.TouchScreenKeyboard="true"
-                            />
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,0"
-                                TextAlignment="Center"
-                                FontSize="20"
-                                FontWeight="Bold"   
-                                Foreground="Red"
-                                Name="TxtErrorName"
-                            />
-                        </Grid>
-                    </materialDesign:TransitioningContent>
-                </Grid>
-                <Grid Grid.Row="3">
-                    <materialDesign:TransitioningContent  
-            OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
-             Grid.Row="1">
-                        <materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:TransitionEffect Kind="SlideInFromBottom"  Duration="0:0:1.9"/>
-                        </materialDesign:TransitioningContent.OpeningEffects>
-                        <Grid>
-                            <TextBox Name="txtLastName"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Margin="0,0,0,0"
-                                Tag="1"
-                                TextAlignment="Center"
-                                FontSize="30"
-                                Foreground="Black"
-                                materialDesign:HintAssist.FloatingScale="0.3"
-                                materialDesign:HintAssist.IsFloating="True"
-                                materialDesign:HintAssist.Hint="Ingresa tus apellidos"
-                                Width="500" 
-                                MaxLength="30"
-                                IsTabStop="False"
-                                TextChanged="txtChar_TextChanged"
-                                TextWrapping="Wrap"
-                                k:TouchScreenKeyboard.TouchScreenKeyboard="true"
-                            />
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,0"
-                                TextAlignment="Center"
-                                FontSize="20"
-                                FontWeight="Bold"   
-                                Foreground="Red"
-                                Name="TxtErrorLastName"
-                            />
-                        </Grid>
-                    </materialDesign:TransitioningContent>
-                </Grid>
-                <Grid Grid.Row="4">
-                    <materialDesign:TransitioningContent  
-            OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
-             Grid.Row="1">
-                        <materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:TransitionEffect Kind="SlideInFromBottom"  Duration="0:0:1.9"/>
-                        </materialDesign:TransitioningContent.OpeningEffects>
-                        <Grid>
-                            <TextBox Name="txtEmail2"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Margin="0,0,0,0"
-                                TextAlignment="Center"
-                                FontSize="30"
-                                Foreground="Black"
-                                     TextChanged="txtEmail_TextChanged"
-                                materialDesign:HintAssist.FloatingScale="0.3"
-                                materialDesign:HintAssist.IsFloating="True"
-                                materialDesign:HintAssist.Hint="Ingresa tu correo electrónico"
-                                Width="500" 
-                                MaxLength="50"
-                                IsTabStop="False"
-                                TextWrapping="Wrap"
-                                k:TouchScreenKeyboard.TouchScreenKeyboard="true"
-                            />
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,0"
-                                TextAlignment="Center"
-                                FontSize="20"
-                                FontWeight="Bold"   
-                                Foreground="Red"
-                                Name="TxtErrorEmail2"
-                            />
-                        </Grid>
-                    </materialDesign:TransitioningContent>
-                </Grid>
-                <Grid Grid.Row="5">
-                    <materialDesign:TransitioningContent  
-            OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
-             Grid.Row="1">
-                        <materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:TransitionEffect Kind="SlideInFromBottom"  Duration="0:0:1.9"/>
-                        </materialDesign:TransitioningContent.OpeningEffects>
-                        <Grid>
-                            <TextBox Name="txtPhone2"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Margin="0,0,0,0"
-                                Tag="1"
-                                TextAlignment="Center"
-                                FontSize="30"
-                                Foreground="Black"
-                                TextChanged="txtPhone_TextChanged"
-                                materialDesign:HintAssist.FloatingScale="0.3"
-                                materialDesign:HintAssist.IsFloating="True"
-                                materialDesign:HintAssist.Hint="Ingresa tu número de celular"
-                                Width="500" 
-                                MaxLength="10"
-                                IsTabStop="False"
-                                TextWrapping="Wrap"
-                                k:TouchScreenKeyNumeric.TouchScreenKeyNumeric="true"
-                            />
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,0"
-                                TextAlignment="Center"
-                                FontSize="20"
-                                FontWeight="Bold"   
-                                Foreground="Red"
-                                Name="TxtErrorPhone2"
-                            />
-                        </Grid>
-                    </materialDesign:TransitioningContent>
-                </Grid>
-                <Grid Grid.Row="6">
-                    <Grid Grid.Row="6">
-                        <Image HorizontalAlignment="Right"
-                        Name="BtnAceptar2"
-                        VerticalAlignment="Center"
-                        Width="230"
-                        Margin="0,0,50,0"
-                        Stretch="Uniform"
-                        Source="../Images/Buttons/continuar.png"
-                        TouchDown="BtnAceptar2_TouchDown"
-                    />
-                        <Image HorizontalAlignment="Left"
-                        Name="BtnCancelar2"
-                        VerticalAlignment="Center"
-                        Width="230"
-                        Margin="50,0,0,0"
-                        Stretch="Uniform"
-                        Source="../Images/salir2.png"
-                        TouchDown="BtnCancelar2_TouchDown"
-                    />
-                    </Grid>
                 </Grid>
             </Grid>
         </Grid>

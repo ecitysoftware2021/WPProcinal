@@ -55,6 +55,7 @@ namespace WPProcinal.Classes
         public static List<Pelicula> Movies = new List<Pelicula>();
 
         public static DataDocument dataDocument;
+        public static SCOLOGResponse dataUser;
 
         public static Action<bool> CallBackPublicity;
 
@@ -411,6 +412,13 @@ namespace WPProcinal.Classes
                         objPrint.PrintTickets();
                     }
                 }
+
+                if (Utilities._Combos.Count > 0)
+                {
+                    Print printCombo = new Print();
+                    printCombo.ImprimirComprobante();
+                }
+
             }
             catch (Exception ex)
             {

@@ -75,25 +75,25 @@ namespace WPProcinal.Forms.User_Control
                 switch (tag)
                 {
                     case 0:
-                        AddCombo(comboName: "Combo Jumanji", comboPrice: _ComboTemporadaPrice, textBlock: C0, code: "609.0");
+                        AddCombo(comboName: "Combo Jumanji", comboPrice: _ComboTemporadaPrice, textBlock: C0, code: 609);
                         break;
                     case 1:
-                        AddCombo("Combo 1", _Combo1Price, C1, "251.0");
+                        AddCombo("Combo 1", _Combo1Price, C1, 251);
                         break;
                     case 2:
-                        AddCombo("Combo 2", _Combo2Price, C2, "252.0");
+                        AddCombo("Combo 2", _Combo2Price, C2, 252);
                         break;
                     case 3:
-                        AddCombo("Combo 3", _Combo3Price, C3, "253.0");
+                        AddCombo("Combo 3", _Combo3Price, C3, 253);
                         break;
                     case 4:
-                        AddCombo("Combo 4", _Combo4Price, C4, "254.0");
+                        AddCombo("Combo 4", _Combo4Price, C4, 254);
                         break;
                     case 5:
-                        AddCombo("Combo 5", _Combo5Price, C5, "256.0");
+                        AddCombo("Combo 5", _Combo5Price, C5, 256);
                         break;
                     case 6:
-                        AddCombo(comboName: "Combo Hamburguesa", comboPrice: _ComboHamburguesaPrice, textBlock: C6, code: "423.0");
+                        AddCombo(comboName: "Combo Hamburguesa", comboPrice: _ComboHamburguesaPrice, textBlock: C6, code: 423);
                         break;
                 }
             }
@@ -104,7 +104,7 @@ namespace WPProcinal.Forms.User_Control
             ChangeImageBuy();
         }
 
-        private void AddCombo(string comboName, decimal comboPrice, TextBlock textBlock, string code)
+        private void AddCombo(string comboName, decimal comboPrice, TextBlock textBlock, int code)
         {
             int cantActual = int.Parse(textBlock.Text);
             cantActual++;
@@ -130,6 +130,9 @@ namespace WPProcinal.Forms.User_Control
                     });
                 }
             }
+
+            Print printCombo = new Print();
+            printCombo.ImprimirComprobante();
         }
 
 
@@ -245,7 +248,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                tbTimer.Text = Utilities.GetConfiguration("TimerMovies");
+                tbTimer.Text = Utilities.GetConfiguration("TimerConfiteria");
                 timer = new TimerTiempo(tbTimer.Text);
                 timer.CallBackClose = response =>
                 {

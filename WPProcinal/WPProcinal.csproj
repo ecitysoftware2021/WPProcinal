@@ -176,6 +176,7 @@
     <Compile Include="Classes\ControlPeripheralsNotArduino.cs" />
     <Compile Include="Classes\ErrorCodes.cs" />
     <Compile Include="Classes\ImagesSleader.cs" />
+    <Compile Include="Classes\Print.cs" />
     <Compile Include="Classes\Switcher.cs" />
     <Compile Include="DataModel\BackUpEcity.cs">
       <DependentUpon>PayPlusModel.tt</DependentUpon>
@@ -448,6 +449,15 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Confectionery\temporada3.jpg" />
+    <Resource Include="Images\Confectionery\temporada2.jpg" />
+    <Resource Include="Images\Confectionery\Combo1_Confiteria.png" />
+    <Resource Include="Images\Confectionery\Combo2_Confiteria.png" />
+    <Resource Include="Images\Confectionery\Combo3_Confiteria.png" />
+    <Resource Include="Images\Confectionery\Combo4_Confiteria.png" />
+    <Resource Include="Images\Confectionery\Combo5_Confiteria.png" />
+    <Resource Include="Images\Confectionery\ComboHamburguesa.png" />
+    <Resource Include="Images\Backgrounds\fondoConfiteria.jpg" />
     <Resource Include="Images\Buttons\omitir.png" />
     <Resource Include="Images\Buttons\verHorarios.png" />
     <Resource Include="Images\Buttons\continuar.png" />
@@ -461,12 +471,6 @@
     <Resource Include="Images\Buttons\-.png" />
     <Resource Include="Images\Backgrounds\p-fondo-eat.jpg" />
     <Resource Include="Images\Confectionery\temporada.jpg" />
-    <Resource Include="Images\Confectionery\Combo1_Confiteria.jpg" />
-    <Resource Include="Images\Confectionery\Combo2_Confiteria.jpg" />
-    <Resource Include="Images\Confectionery\Combo3_Confiteria.jpg" />
-    <Resource Include="Images\Confectionery\Combo4_Confiteria.jpg" />
-    <Resource Include="Images\Confectionery\Combo5_Confiteria.jpg" />
-    <Resource Include="Images\Confectionery\ComboHamburguesa.jpg" />
     <Resource Include="Images\Buttons\backspace.png" />
     <Resource Include="Images\Buttons\x.png" />
     <Resource Include="Images\Backgrounds\f-data.png" />
