@@ -54,6 +54,7 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.DoEvents();
 
                 ActivateTimer();
+
             }
             catch (Exception ex)
             {
@@ -345,6 +346,7 @@ namespace WPProcinal.Forms.User_Control
                     this.Opacity = 0.3;
                     frmModalCineFan modalCineFan = new frmModalCineFan();
                     modalCineFan.ShowDialog();
+                    Utilities.Speack("Selecciona una película para continuar.");
 
                     this.Opacity = 1;
                     ActivateTimer();

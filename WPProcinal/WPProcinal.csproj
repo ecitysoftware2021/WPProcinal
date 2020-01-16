@@ -118,6 +118,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
@@ -247,9 +248,6 @@
     <Compile Include="Forms\User_Control\UCConfectionery.xaml.cs">
       <DependentUpon>UCConfectionery.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\User_Control\UCDatos.xaml.cs">
-      <DependentUpon>UCDatos.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\User_Control\UCFinalTransaction.xaml.cs">
       <DependentUpon>UCFinalTransaction.xaml</DependentUpon>
     </Compile>
@@ -336,10 +334,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\User_Control\UCConfectionery.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\User_Control\UCDatos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -449,6 +443,7 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Backgrounds\modalCineFan.png" />
     <Resource Include="Images\Confectionery\temporada3.jpg" />
     <Resource Include="Images\Confectionery\temporada2.jpg" />
     <Resource Include="Images\Confectionery\Combo1_Confiteria.png" />

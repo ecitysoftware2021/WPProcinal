@@ -15,6 +15,7 @@ namespace WPProcinal.Forms.User_Control
         public UCFinalTransaction()
         {
             InitializeComponent();
+            Utilities.Speack("Gracias por tu compra, retira tus boletas.");
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

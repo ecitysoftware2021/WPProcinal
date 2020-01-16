@@ -594,7 +594,7 @@ namespace WPProcinal.Service
         /// <param name="data"></param>
         /// <returns></returns>
         #region SCOCSN
-        public static string GetUserKey(SCOCSN data)
+        public static string GetUserKey(SCOCED data)
         {
 
             string decryptData = string.Empty;
@@ -614,7 +614,7 @@ namespace WPProcinal.Service
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scocsn/");
+                var client = new RestClient(Utilities.APISCORE + "/scoced/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -657,7 +657,7 @@ namespace WPProcinal.Service
         /// <param name="data"></param>
         /// <returns></returns>
         #region SCOLOG
-        public static SCOLOGResponse GetClientData(SCOLOG data)
+        public static SCOLOGResponse GetClientData(SCOCED data)
         {
 
             string decryptData = string.Empty;
@@ -677,7 +677,7 @@ namespace WPProcinal.Service
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scolog/");
+                var client = new RestClient(Utilities.APISCORE + "/scoced/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -958,10 +958,9 @@ namespace WPProcinal.Service
     #endregion
 
     #region SCOCSN
-    public class SCOCSN
+    public class SCOCED
     {
-        public string Correo { get; set; }
-        public string teatro { get; set; }
+        public long Documento { get; set; }
         public string tercero { get; set; }
     }
     public class SCOCSNResponse

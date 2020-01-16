@@ -10,8 +10,8 @@ namespace WPProcinal.Classes
         #region Confiteria
 
         SolidBrush sb = new SolidBrush(Color.Black);
-        Font fBodyTiulos = new Font("myriam pro", 8, FontStyle.Bold);
-        Font fBodySala = new Font("myriam pro", 14, FontStyle.Bold);
+        Font fBodyTiulos = new Font("myriam pro", 8, FontStyle.Regular);
+        Font fBodySala = new Font("myriam pro", 9.5f, FontStyle.Bold);
 
 
         public decimal Valor { get; set; }
@@ -93,11 +93,26 @@ namespace WPProcinal.Classes
                 }
 
                 g.DrawString("========================================", fBodyTiulos, sb, 10, SpaceY);
+
                 SpaceY += 20;
-                g.DrawString("Valor Total:", fBodyTiulos, sb, 60, SpaceY);
-                g.DrawString(Valor.ToString("$ #,#00"), fBodyTiulos, sb, 150, SpaceY);
+                g.DrawString("Base IMP al Consumo 8%", fBodyTiulos, sb, 40, SpaceY);
+                var baseIMP = double.Parse(Valor.ToString()) / 1.08;
+                g.DrawString(baseIMP.ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
+
                 SpaceY += 20;
-                g.DrawString("RECLAMA TU COMBO EN LA CONFITERÍA", fBodyTiulos, sb, 30, SpaceY);
+                g.DrawString("Subtotal", fBodyTiulos, sb, 40, SpaceY);
+                g.DrawString(baseIMP.ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
+                SpaceY += 20;
+                var IMP = double.Parse(baseIMP.ToString()) * 0.08;
+                g.DrawString("IMP al Consumo 8%", fBodyTiulos, sb, 40, SpaceY);
+                g.DrawString(IMP.ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
+
+
+                SpaceY += 20;
+                g.DrawString("Valor Total:", fBodyTiulos, sb, 40, SpaceY);
+                g.DrawString((baseIMP + IMP).ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
+                SpaceY += 20;
+                g.DrawString("RECLAMA TU COMBO EN LA CONFITERÍA", fBodySala, sb, 0, SpaceY);
                 SpaceY += 20;
                 g.DrawString("Venta realizada en el Kiosko Digital", fBodyTiulos, sb, 50, SpaceY);
                 SpaceY += 15;

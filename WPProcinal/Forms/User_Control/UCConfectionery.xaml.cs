@@ -50,6 +50,8 @@ namespace WPProcinal.Forms.User_Control
                 _Seats = Seats;
                 _DipMap = dipMap;
                 ActivateTimer();
+
+                Utilities.Speack("Puedes comprar tu combo y reclamarlo en la confitería.");
             }
             catch (Exception ex)
             {
@@ -130,9 +132,6 @@ namespace WPProcinal.Forms.User_Control
                     });
                 }
             }
-
-            Print printCombo = new Print();
-            printCombo.ImprimirComprobante();
         }
 
 

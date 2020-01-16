@@ -30,6 +30,7 @@ namespace WPProcinal.Forms.User_Control
         TimerTiempo timer;
         int controlReinicio = 0;
         bool activePay = false;
+        ApiLocal api;
         public UCSeat(DipMap dipMap)
         {
             InitializeComponent();
@@ -49,6 +50,9 @@ namespace WPProcinal.Forms.User_Control
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
             HideImages();
             ActivateTimer();
+            api = new ApiLocal();
+            Utilities.Speack("Elige tus ubicaciones y presiona comprar.");
+
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -795,69 +799,66 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                btnAtras.IsEnabled = false;
-                //FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
-                //frmLoading.Show();
-                //var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
-                //frmLoading.Close();
+                FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
+                frmLoading.Show();
+                var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
+                frmLoading.Close();
 
-                //Dispatcher.BeginInvoke((Action)delegate
-                //{
-                //    this.IsEnabled = true;
-                //    btnAtras.IsEnabled = true;
-                //});
 
-                //if (!response)
-                //{
-                //    List<TypeSeat> lista = new List<TypeSeat>();
-                //    foreach (var item in SelectedTypeSeats)
-                //    {
-                //        lista.Add(item);
-                //    }
-                //    WCFServices41.PostDesAssingreserva(lista, dipMapCurrent);
+                this.IsEnabled = true;
 
-                //    await Dispatcher.BeginInvoke((Action)delegate
-                //    {
-                //        this.Opacity = 0.3;
-                //        Pay.IsEnabled = true;
-                //        this.IsEnabled = true;
-                //        Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
-                //        this.Opacity = 1;
-                //    });
-                //    GC.Collect();
-                //}
-                //else
-                //{
-                //    try
-                //    {
-                //        Task.Run(() =>
-                //        {
-                //            grabador.Grabar(Utilities.IDTransactionDB);
-                //        });
-                //    }
-                //    catch { }
-                //    Utilities.ScorePayValue = Utilities.ValorPagarScore;
-
-                //    SetCallBacksNull();
-                //    timer.CallBackStop?.Invoke(1);
-
-                //    LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-                //    Utilities.controlStop = 0;
-
-                if (Utilities.MedioPago == 1)
+                if (!response)
                 {
-                    Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
-                }
-                else if (Utilities.MedioPago == 2)
-                {
-                    Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
+                    List<TypeSeat> lista = new List<TypeSeat>();
+                    foreach (var item in SelectedTypeSeats)
+                    {
+                        lista.Add(item);
+                    }
+                    WCFServices41.PostDesAssingreserva(lista, dipMapCurrent);
+
+
+                    this.Opacity = 0.3;
+                    Pay.IsEnabled = true;
+                    Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
+
+                    frmLoading = new FrmLoading("¡Reconectando...!");
+                    frmLoading.Show();
+                    await api.SecurityToken();
+                    frmLoading.Close();
+                    this.Opacity = 1;
+                    this.IsEnabled = true;
                 }
                 else
                 {
-                    Switcher.Navigate(new UCConfectionery(SelectedTypeSeats, dipMapCurrent));
-                }
+                    try
+                    {
+                        Task.Run(() =>
+                        {
+                            grabador.Grabar(Utilities.IDTransactionDB);
+                        });
+                    }
+                    catch { }
+                    Utilities.ScorePayValue = Utilities.ValorPagarScore;
 
-                //}
+                    SetCallBacksNull();
+                    timer.CallBackStop?.Invoke(1);
+
+                    LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+
+                    if (Utilities.MedioPago == 1)
+                    {
+                        Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
+                    }
+                    else if (Utilities.MedioPago == 2)
+                    {
+                        Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
+                    }
+                    else
+                    {
+                        Switcher.Navigate(new UCConfectionery(SelectedTypeSeats, dipMapCurrent));
+                    }
+
+                }
             }
             catch (Exception ex)
             {

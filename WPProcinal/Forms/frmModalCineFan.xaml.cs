@@ -33,134 +33,114 @@ namespace WPProcinal.Forms
             TouchScreenKeyboard.PositionY = 0;
             Utilities.dataDocument = new Models.DataDocument();
             Utilities.dataUser = new SCOLOGResponse();
+
+            Utilities.Speack("Bienvenido, si eres un cinefán, escanea tu cédula en el lector!");
         }
         #endregion
 
         #region "Eventos"
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Utilities.control.callbackDocument = Document =>
+                {
+                    if (!string.IsNullOrEmpty(Document.Document))
+                    {
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            Utilities.dataDocument = Document;
+                            Validate();
+                        });
+
+                        Utilities.control.callbackDocument = null;
+                        Utilities.control.ClosePortScanner();
+                    }
+                };
+
+                Utilities.control.num = 0;
+                Utilities.control.InitializePortScanner(Utilities.GetConfiguration("PortScanner"));
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
         {
+            Utilities.control.callbackDocument = null;
+            Utilities.control.ClosePortScanner();
             DialogResult = false;
-        }
-
-        private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                EmptyData();
-
-                TextBox textBox = (TextBox)sender;
-                string text = textBox.Text;
-                int length = text.Length;
-                if (length <= 47)
-                {
-
-                }
-                else
-                {
-                    textBox.Text = text.Remove(text.Length - 1);
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
-        private void BtnContinuar_TouchDown(object sender, TouchEventArgs e)
-        {
-            try
-            {
-                if (ValidarCampos())
-                {
-                    Utilities.dataDocument.Email = txtEmail.Text;
-
-                    if (ValidateCineFan(txtEmail.Text))
-                    {
-                        DialogResult = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
         }
         #endregion
 
         #region "Métodos"
-        private void EmptyData()
+        private async void Validate()
         {
             try
             {
-                TxtErrorEmail.Text = string.Empty;
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
-        private bool ValidarCampos()
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(txtEmail.Text))
+                Dispatcher.BeginInvoke((Action)delegate
                 {
-                    TxtErrorEmail.Text = "Debe ingresar un correo electrónico";
-                    return false;
-                }
-                else
-                if (!Utilities.IsValidEmailAddress(txtEmail.Text))
-                {
-                    TxtErrorEmail.Text = "No se indicó un correo válido";
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        private bool ValidateCineFan(string mail)
-        {
-            var response = WCFServices41.GetUserKey(new SCOCSN
-            {
-                Correo = mail,
-                teatro = Utilities.GetConfiguration("CodCinema"),
-                tercero = "1"
-            });
-            if (response.Split(' ').Count() > 1)
-            {
-                TxtErrorEmail.Text = response;
-                return false;
-            }
-            else
-            {
-                var responseClient = WCFServices41.GetClientData(new SCOLOG
-                {
-                    Clave = response,
-                    Correo = mail,
-                    teatro = Utilities.GetConfiguration("CodCinema"),
-                    tercero = "1"
+                    BtnSalir.IsEnabled = false;
                 });
-                if (responseClient != null)
+
+                Task.Run(() =>
                 {
-                    if (responseClient.Tarjeta != null)
+                    if (ValidateCineFan(Utilities.dataDocument.Document))
                     {
-                        Utilities.dataUser = responseClient;
-                        return true;
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            DialogResult = true;
+                        });
+                    }
+                });
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private bool ValidateCineFan(string cedula)
+        {
+            try
+            {
+                {
+                    var responseClient = WCFServices41.GetClientData(new SCOCED
+                    {
+                        Documento = long.Parse(cedula),
+                        tercero = "1"
+                    });
+                    if (responseClient != null)
+                    {
+                        if (responseClient.Tarjeta != null)
+                        {
+                            Utilities.dataUser = responseClient;
+                            return true;
+                        }
+                        else
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                txtError.Text = responseClient.Estado;
+                            });
+                            return false;
+                        }
                     }
                     else
                     {
-                        TxtErrorEmail.Text = responseClient.Estado;
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            txtError.Text = "No se pudo validar la informacion.";
+                        });
                         return false;
                     }
                 }
-                else
-                {
-                    TxtErrorEmail.Text = "No se pudo validar la informacion.";
-
-                    return false;
-                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
         #endregion

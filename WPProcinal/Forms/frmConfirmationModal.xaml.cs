@@ -76,7 +76,7 @@ namespace WPProcinal.Forms
             lvListSeats.ItemsSource = _View.OrderBy(s => s.Name);
             Utilities.ValorPagarScore = totalPago;
             Utilities.PayVal = totalModal;
-
+            Utilities.Speack("Elige el modo como deseas realizar el pago.");
         }
 
         /// <summary>
@@ -97,7 +97,6 @@ namespace WPProcinal.Forms
         {
             BtnCard.Visibility = payCardState == 1 ? Visibility.Visible : Visibility.Hidden;
             BtnCash.Visibility = payCashState == 1 ? Visibility.Visible : Visibility.Hidden;
-            BtnMenuCombo.Visibility = _visibleCombo ? Visibility.Visible : Visibility.Hidden;
         }
 
 
@@ -110,13 +109,6 @@ namespace WPProcinal.Forms
         {
             this.IsEnabled = false;
             Utilities.MedioPago = 2;
-            DialogResult = true;
-        }
-
-        private void BtnMenuCombo_TouchDown(object sender, TouchEventArgs e)
-        {
-            this.IsEnabled = false;
-            Utilities.MedioPago = 3;
             DialogResult = true;
         }
 

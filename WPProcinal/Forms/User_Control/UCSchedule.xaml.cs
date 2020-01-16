@@ -56,6 +56,8 @@ namespace WPProcinal.Forms.User_Control
                 ListFechas(peli.DiasDisponiblesTodosCinemas);
             }
             InitView2();
+            Utilities.Speack("Selecciona la fecha y el horario para continuar.");
+
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {

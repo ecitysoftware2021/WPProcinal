@@ -62,6 +62,8 @@ namespace WPProcinal.Forms.User_Control
                 //stateUpdate = true;
                 //payState = true;
                 //Utilities.control.StartValues();
+                Utilities.Speack("Por favor, ingresa el dinero");
+
             }
             catch (Exception ex)
             {
@@ -165,6 +167,8 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
+                Utilities.Speack("Estamos contando el dinero, espera un momento por favor.");
+
                 totalReturn = false;
                 Utilities.control.callbackLog = log =>
                 {
@@ -346,7 +350,7 @@ namespace WPProcinal.Forms.User_Control
                 else
                 {
                     objUtil.PrintTicket("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
-                    
+
                     ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
@@ -441,8 +445,12 @@ namespace WPProcinal.Forms.User_Control
 
                     foreach (var item in Utilities._Combos)
                     {
-                        var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
-                        productos.Add(combo);
+                        for (int i = 0; i < item.Quantity; i++)
+                        {
+
+                            var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+                            productos.Add(combo);
+                        }
                     }
 
 

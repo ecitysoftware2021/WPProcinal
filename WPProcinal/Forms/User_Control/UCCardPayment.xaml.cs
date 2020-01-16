@@ -120,9 +120,8 @@ namespace WPProcinal.Forms.User_Control
                 stateUpdate = true;
                 payState = true;
 
-
-                //Buytickets();
                 Activar();
+                Utilities.Speack("Estableciendo conexión con el datáfono, espera por favor.");
             }
             catch (Exception ex)
             {
@@ -470,6 +469,7 @@ namespace WPProcinal.Forms.User_Control
                              */
                             if (dataResponse[3].ToLower().Contains("pin"))
                             {
+                                Utilities.Speack("Digita la clave en el datáfono y presiona el boton verde");
                                 MensajeDebito = "Digita la clave en el datáfono y presiona el botón verde";
                                 ProcessDebitOperation(MensajeDebito);
                             }
@@ -483,6 +483,8 @@ namespace WPProcinal.Forms.User_Control
                             //Procesa  todas las tramas con error del datáfono
                             if (dataResponse[3].ToLower().Contains("pin"))
                             {
+                                Utilities.Speack("Clave incorrecta, intenta nuevamente y presiona el boton verde.");
+
                                 MensajeDebito = "Pin incorrecto, intente nuevamente y presiona el botón verde.";
                                 ProcessDebitOperation(MensajeDebito);
                             }
@@ -540,6 +542,8 @@ namespace WPProcinal.Forms.User_Control
                     //Si la trama respondida por el datáfono contiene Ult. se trata de la peticion de los 4 últimos dígitos de la tarjeta al usuario
                     if (response[3].Contains("Ult."))
                     {
+                        Utilities.Speack("Escribe los ultimos cuatro digitos de tu tarjeta.");
+
                         Dispatcher.BeginInvoke((Action)delegate
                         {
                             this.Opacity = 0.3;
@@ -560,6 +564,8 @@ namespace WPProcinal.Forms.User_Control
                     }
                     else if (response[3].Contains("Cuotas"))//Si contiene Cuotas entonces se trata de la solicitud del número de cueotas para la compra al usuario
                     {
+                        Utilities.Speack("Escribe el numero de cuotas para el pago.");
+
                         Dispatcher.BeginInvoke((Action)delegate
                         {
                             this.Opacity = 0.3;
@@ -633,6 +639,8 @@ namespace WPProcinal.Forms.User_Control
                     List<FormaPago> formas = new List<FormaPago>();
                     //Este índice le da a cada opción su valor segun la trama del datáfono
                     int indiceForma = 1;
+                    Utilities.Speack("Selecciona una opcion para continuar.");
+
                     foreach (var item in opcionesTransaccionales)
                     {
                         if (!string.IsNullOrEmpty(item))

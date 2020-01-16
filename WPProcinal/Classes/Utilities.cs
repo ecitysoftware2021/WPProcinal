@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Speech.Synthesis;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,13 +32,8 @@ namespace WPProcinal.Classes
     public class Utilities
     {
 
-        public static string Duration = GetConfiguration("Duration");
         public static string APISCORE = GetConfiguration("ScoreService");
         public static string SCOREKEY = GetConfiguration("ScoreKey");
-
-        public static List<RESPONSEERROR> ResponseError { get; set; }
-
-        public static TimeSpan time;
 
         public static List<string> Imagenes = new List<string>();
 
@@ -55,7 +51,11 @@ namespace WPProcinal.Classes
         public static List<Pelicula> Movies = new List<Pelicula>();
 
         public static DataDocument dataDocument;
+
         public static SCOLOGResponse dataUser;
+
+
+        public static SpeechSynthesizer speech;
 
         public static Action<bool> CallBackPublicity;
 
@@ -66,76 +66,13 @@ namespace WPProcinal.Classes
 
         public static decimal ValorPagarScore { get; set; }
 
-        public static List<CLSDatos> LDatos = new List<CLSDatos>();
-
         public static string Secuencia { get; set; }
-
-        public static int controlStop = 0;
 
         public static string path;
 
         public static DataPaypad dataPaypad = new DataPaypad();
         public static int MedioPago { get; set; }
         public static decimal ScorePayValue { get; set; }
-
-        internal static DipMap ConvertDipMap(TblDipMap dipmap)
-        {
-            return new DipMap
-            {
-                Category = dipmap.Category,
-                CinemaId = dipmap.CinemaId.Value,
-                Date = dipmap.Date,
-                DateFormat = dipmap.DateFormat,
-                Day = dipmap.Day,
-                DipMapId = dipmap.DipMapId,
-                Duration = dipmap.Duration,
-                Gener = dipmap.Gener,
-                Group = dipmap.Group.Value,
-                Hour = dipmap.Hour.Value,
-                HourFormat = dipmap.HourFormat.Value,
-                HourFunction = dipmap.HourFunction,
-                IsCard = dipmap.IsCard,
-                Language = dipmap.Language,
-                Letter = dipmap.Letter,
-                Login = dipmap.Login,
-                MovieId = dipmap.MovieId.Value,
-                MovieName = dipmap.MovieName,
-                PointOfSale = dipmap.PointOfSale.Value,
-                RoomId = dipmap.RoomId.Value,
-                Secuence = dipmap.Secuence.Value,
-                RoomName = dipmap.RoomName,
-            };
-        }
-
-        internal static List<TypeSeat> ConvertSeats(List<TblTypeSeat> tblTypeSeats)
-        {
-            try
-            {
-                List<TypeSeat> typeSeats = new List<TypeSeat>();
-                foreach (var item in tblTypeSeats)
-                {
-                    typeSeats.Add(new TypeSeat
-                    {
-                        CodTarifa = item.CodTarifa,
-                        IsReserved = item.IsReserved.Value,
-                        Letter = item.Letter,
-                        Name = item.Name,
-                        Number = item.Number,
-                        NumSecuencia = item.NumSecuencia,
-                        Price = item.Price.Value,
-                        Type = item.Type
-                    });
-                }
-
-                return typeSeats;
-            }
-            catch (Exception ex)
-            {
-                return new List<TypeSeat>();
-            }
-        }
-
-        public static int CantidadTransacciones = 0;
 
         public static string MovieFormat { get; set; }
         public static string TipoSala { get; set; }
@@ -145,8 +82,6 @@ namespace WPProcinal.Classes
         public static string NamePathLog = GetConfiguration("NamePathLog");
 
         public static string NameFileLog = string.Format("{0}\\Error-{1}.json", NamePathLog, DateTime.Now.ToString("yyyyMMdd"));
-
-        public static string UrlImages = Utilities.GetConfiguration("UrlImages");
 
         public static Pelicula Movie;
 
@@ -160,15 +95,12 @@ namespace WPProcinal.Classes
 
         CLSPrint objPrint = new CLSPrint();
 
-        public static List<int> IDTransaccionDBs = new List<int>();
-
         public static List<TypeSeat> TypeSeats = new List<TypeSeat>();
 
         public static DipMap DipMapCurrent = new DipMap();
 
-        public static Receipt Receipt = new Receipt();
-
         public static ControlPeripherals control;
+
         public static ControlPeripheralsNotArduino PeripheralsNotArduino;
         public static string TOKEN { get; set; }
         public static int Session { get; set; }
@@ -179,10 +111,6 @@ namespace WPProcinal.Classes
 
         public static decimal EnterTotal;
         public static long ValueDelivery { get; set; }
-        public static decimal DispenserVal { get; set; }
-        public bool StatePrint { get; private set; }
-
-        public static bool IsRestart = false;
 
         public Utilities(int i)
         {
@@ -313,15 +241,28 @@ namespace WPProcinal.Classes
                 new Action(delegate { }));
         }
 
-        public static Dictionary<int, string> Days = new Dictionary<int, string>()
-        {
-            {0,"Lunes"},
-            {1,"Martes"},
-            {2,"Miércoles"},
-            {3,"Jueves"},
-            {4,"Viernes"},
-        };
+        #region SPEAK
 
+        public static void Speack(string text)
+        {
+            try
+            {
+                if (GetConfiguration("Speack").Equals("1"))
+                {
+                    if (speech == null)
+                    {
+                        speech = new SpeechSynthesizer();
+                    }
+                    speech.SpeakAsyncCancelAll();
+                    speech.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Child);
+                    speech.SpeakAsync(text);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        #endregion
 
         public static string GetConfiguration(string key)
         {
@@ -348,27 +289,6 @@ namespace WPProcinal.Classes
             using (StreamWriter sw = File.AppendText(NameFile))
             {
                 sw.WriteLine(content);
-            }
-        }
-
-        public static void SaveLogError(LogError logError)
-        {
-            if (!Directory.Exists(NamePathLog))
-            {
-                Directory.CreateDirectory(NamePathLog);
-            }
-
-            if (!File.Exists(NameFileLog))
-            {
-                var file = File.CreateText(NameFileLog);
-                file.Close();
-            }
-
-            var serializar = JsonConvert.SerializeObject(logError);
-
-            using (StreamWriter sw = File.AppendText(NameFileLog))
-            {
-                sw.WriteLine(serializar);
             }
         }
 
@@ -485,7 +405,7 @@ namespace WPProcinal.Classes
                     TYPE_TRANSACTION_ID = 14,
                     STATE_TRANSACTION_ID = 1,
                     PAYER_ID = 477,
-                    PAYMENT_TYPE_ID = Utilities.MedioPago
+                    PAYMENT_TYPE_ID = 1
                 };
 
                 foreach (var item in Seats)
@@ -527,34 +447,6 @@ namespace WPProcinal.Classes
                 return false;
             }
         }
-
-        public static async void SendMailNotificationError(string message)
-        {
-            try
-            {
-                ApiLocal api = new ApiLocal();
-
-                Email mail = new Email
-                {
-                    Body = message,
-                    paypad_id = Utilities.CorrespondentId,
-                    Subject = "Error Pay+"
-                };
-
-                Task.Run(() =>
-                {
-                    var response = api.GetResponse(new RequestApi
-                    {
-                        Data = mail
-                    }, "SendEmail");
-                });
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
 
         /// <summary>
         /// Mètodo para actualizar la transacción en base de datos por el estado que coorresponda
@@ -744,47 +636,6 @@ namespace WPProcinal.Classes
                     TransactionId = idTransactionAPi,
                     Date = DateTime.Now
                 });
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-
-        public async static void SaveDetailsTransaction(RequestTransactionDetails detail)
-        {
-            try
-            {
-                ApiLocal api = new ApiLocal();
-                if (detail != null)
-                {
-                    var data = new TRANSACTION_DETAIL
-                    {
-                        TRANSACTION_ID = detail.TransactionId,
-                        DENOMINATION = detail.Denomination,
-                        QUANTITY = detail.Quantity,
-                        OPERATION = detail.Operation,
-                        CODE = detail.Code,
-                        DESCRIPTION = detail.Description
-                    };
-
-                    var result = await api.CallApi("SaveTransactionDetail", detail);
-                    int resultDb = 0;
-                    try
-                    {
-                        resultDb = Convert.ToInt32(result);
-                    }
-                    catch { }
-                    if (resultDb != 200 && detail.Description == null)
-                    {
-                        InsertLocalDBMoney(detail);
-                    }
-                    else if (resultDb != 200 && detail.Description != null)
-                    {
-                        InsertLocalDBMoneyDispenser(detail);
-                    }
-                }
             }
             catch (Exception ex)
             {
