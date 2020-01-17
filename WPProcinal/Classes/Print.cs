@@ -55,9 +55,10 @@ namespace WPProcinal.Classes
                 SpaceY += 10;
 
 
-                if (Utilities.GetConfiguration("CodCinema").Equals("304"))
+                if (Utilities.GetConfiguration("CodCinema").Equals("304")
+                    || Utilities.GetConfiguration("CodCinema").Equals("302"))
                 {
-                    g.DrawString(Cinema, fBodySala, sb, 70, SpaceY);
+                    g.DrawString(Cinema, fBodySala, sb, 90, SpaceY);
                     SpaceY += 30;
                     g.DrawString("Promotora Nacional de Cines S.A.S", fBodyTiulos, sb, 50, SpaceY - 10);
                     SpaceY += 15;

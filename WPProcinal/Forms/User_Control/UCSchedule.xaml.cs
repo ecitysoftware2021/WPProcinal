@@ -364,7 +364,7 @@ namespace WPProcinal.Forms.User_Control
                 IsCard = "S",
                 Group = 1,
                 Login = "brandon-377@hotmail.com",
-                PointOfSale = 77,
+                PointOfSale = int.Parse(Utilities.GetConfiguration("Cinema")),
                 TypeZona = schedule.TypeZona,
                 IDFuncion = schedule.IdFuncion
             };

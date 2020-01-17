@@ -964,8 +964,8 @@ namespace WPProcinal.Service
 
         public long Cantidad { get; set; }
 
-        //[JsonProperty("Receta", NullValueHandling = NullValueHandling.Ignore)]
-        //public List<Receta> RecetaReceta { get; set; }
+        [JsonProperty("Receta", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Receta> RecetaReceta { get; set; }
     }
 
 

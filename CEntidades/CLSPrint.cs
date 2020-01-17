@@ -77,7 +77,8 @@ namespace CEntidades
             SpaceY += 10;
 
 
-            if (GetConfiguration("CodCinema").Equals("304"))
+            if (GetConfiguration("CodCinema").Equals("304")
+                || GetConfiguration("CodCinema").Equals("302"))
             {
                 g.DrawString(Cinema, fBodySala, sb, 70, SpaceY);
                 SpaceY += 30;
