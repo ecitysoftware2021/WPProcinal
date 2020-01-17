@@ -64,11 +64,11 @@ namespace WPProcinal.Forms.User_Control
 
         private void DownloadData(Peliculas data)
         {
-            try
+            if (data != null)
             {
-                if (data != null)
+                foreach (var pelicula in data.Pelicula)
                 {
-                    foreach (var pelicula in data.Pelicula)
+                    try
                     {
                         foreach (var Cinema in pelicula.Cinemas)
                         {
@@ -80,16 +80,15 @@ namespace WPProcinal.Forms.User_Control
                                     Utilities.Movies.Add(pelicula);
                                     LoadMovies(pelicula);
                                 }
-
                             }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                    }
                 }
             }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "DownloadData en frmMovies", EError.Aplication, ELevelError.Medium);
-            }
+
         }
 
         public void LoadMovies(Pelicula pelicula)
