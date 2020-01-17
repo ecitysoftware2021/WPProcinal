@@ -23,6 +23,7 @@ namespace WPProcinal.Forms
     public partial class frmModalCineFan : Window
     {
         #region "Referencias"
+        FrmLoading frmLoading;
         #endregion
 
         #region "Constructor"
@@ -53,8 +54,6 @@ namespace WPProcinal.Forms
                             Validate();
                         });
 
-                        Utilities.control.callbackDocument = null;
-                        Utilities.control.ClosePortScanner();
                     }
                 };
 
@@ -79,18 +78,23 @@ namespace WPProcinal.Forms
         {
             try
             {
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    BtnSalir.IsEnabled = false;
-                });
-
                 Task.Run(() =>
                 {
                     if (ValidateCineFan(Utilities.dataDocument.Document))
                     {
                         Dispatcher.BeginInvoke((Action)delegate
                         {
+
+                            Utilities.control.callbackDocument = null;
+                            Utilities.control.ClosePortScanner();
                             DialogResult = true;
+                        });
+                    }
+                    else
+                    {
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            Utilities.control.num = 0;
                         });
                     }
                 });
@@ -105,38 +109,45 @@ namespace WPProcinal.Forms
         {
             try
             {
+
+                Dispatcher.BeginInvoke((Action)delegate
                 {
-                    var responseClient = WCFServices41.GetClientData(new SCOCED
+                    frmLoading = new FrmLoading("¡Consultando información...!");
+                    frmLoading.Show();
+                });
+                var responseClient = WCFServices41.GetClientData(new SCOCED
+                {
+                    Documento = long.Parse(cedula),
+                    tercero = "1"
+                });
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    frmLoading.Close();
+                });
+                if (responseClient != null)
+                {
+                    if (responseClient.Tarjeta != null)
                     {
-                        Documento = long.Parse(cedula),
-                        tercero = "1"
-                    });
-                    if (responseClient != null)
-                    {
-                        if (responseClient.Tarjeta != null)
-                        {
-                            Utilities.dataUser = responseClient;
-                            return true;
-                        }
-                        else
-                        {
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                txtError.Text = responseClient.Estado;
-                            });
-                            return false;
-                        }
+                        Utilities.dataUser = responseClient;
+                        return true;
                     }
                     else
                     {
                         Dispatcher.BeginInvoke((Action)delegate
                         {
-                            txtError.Text = "No se pudo validar la informacion.";
+                            txtError.Text = responseClient.Estado;
                         });
                         return false;
                     }
                 }
-                return false;
+                else
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        txtError.Text = "No se pudo validar la informacion.";
+                    });
+                    return false;
+                }
             }
             catch (Exception ex)
             {

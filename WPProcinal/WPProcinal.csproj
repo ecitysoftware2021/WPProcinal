@@ -257,6 +257,9 @@
     <Compile Include="Forms\User_Control\UCPayCine.xaml.cs">
       <DependentUpon>UCPayCine.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\User_Control\UCPoints.xaml.cs">
+      <DependentUpon>UCPoints.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\User_Control\UCSchedule.xaml.cs">
       <DependentUpon>UCSchedule.xaml</DependentUpon>
     </Compile>
@@ -346,6 +349,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\User_Control\UCPayCine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\User_Control\UCPoints.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -443,6 +450,8 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Gif\confetti.gif" />
+    <Resource Include="Images\Seats\s-preferencial.png" />
     <Resource Include="Images\Backgrounds\modalCineFan.png" />
     <Resource Include="Images\Confectionery\temporada3.jpg" />
     <Resource Include="Images\Confectionery\temporada2.jpg" />

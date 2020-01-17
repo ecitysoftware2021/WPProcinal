@@ -22,15 +22,14 @@ namespace WPProcinal.Forms.User_Control
     {
         List<TypeSeat> SelectedTypeSeats = new List<TypeSeat>();
         DipMap dipMapCurrent = new DipMap();
-        CLSGrabador grabador = new CLSGrabador();
+
         bool _ErrorTransaction = true;
-        Utilities utilities = new Utilities();
+
         FrmLoading frmLoading;
         bool vibraAvailable = false;
         TimerTiempo timer;
-        int controlReinicio = 0;
         bool activePay = false;
-        ApiLocal api;
+
         public UCSeat(DipMap dipMap)
         {
             InitializeComponent();
@@ -50,7 +49,7 @@ namespace WPProcinal.Forms.User_Control
             LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
             HideImages();
             ActivateTimer();
-            api = new ApiLocal();
+
             Utilities.Speack("Elige tus ubicaciones y presiona comprar.");
 
         }
@@ -529,7 +528,7 @@ namespace WPProcinal.Forms.User_Control
             }
             else if (ckeck == "M")
             {
-                icon = "silla-preferencialv2";
+                icon = "s-preferencial";
 
             }
             else if (ckeck == "Black Star")
@@ -731,11 +730,8 @@ namespace WPProcinal.Forms.User_Control
                     {
                         if (item.Respuesta.Contains("exitoso"))
                         {
-                            //SaveDataBaseLocal();
-                            if (_ErrorTransaction)
-                            {
-                                ShowPay();
-                            }
+                            ShowPay();
+                            break;
                         }
                         else
                         {
@@ -761,36 +757,6 @@ namespace WPProcinal.Forms.User_Control
             frmLoading.Close();
         }
 
-        private void SaveDataBaseLocal()
-        {
-            try
-            {
-                _ErrorTransaction = true;
-                var response = DBProcinalController.SaveDipMap(dipMapCurrent);
-                if (!response.IsSuccess)
-                {
-                    Utilities.ShowModal(response.Message);
-                    _ErrorTransaction = false;
-                    return;
-                }
-
-                int dipMap = int.Parse(response.Result.ToString());
-                dipMapCurrent.DipMapId = dipMap;
-                var responseSeat = DBProcinalController.SaveTypeSeats(SelectedTypeSeats, dipMap);
-                if (!responseSeat.IsSuccess)
-                {
-                    Utilities.ShowModal(responseSeat.Message);
-                    _ErrorTransaction = false;
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "SaveDataBaseLocal en frmSeat", EError.Aplication, ELevelError.Medium);
-            }
-        }
-
-
 
         /// <summary>
         /// Envía al formulario de pagos
@@ -799,66 +765,9 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
-                frmLoading.Show();
-                var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
-                frmLoading.Close();
-
-
-                this.IsEnabled = true;
-
-                if (!response)
-                {
-                    List<TypeSeat> lista = new List<TypeSeat>();
-                    foreach (var item in SelectedTypeSeats)
-                    {
-                        lista.Add(item);
-                    }
-                    WCFServices41.PostDesAssingreserva(lista, dipMapCurrent);
-
-
-                    this.Opacity = 0.3;
-                    Pay.IsEnabled = true;
-                    Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
-
-                    frmLoading = new FrmLoading("¡Reconectando...!");
-                    frmLoading.Show();
-                    await api.SecurityToken();
-                    frmLoading.Close();
-                    this.Opacity = 1;
-                    this.IsEnabled = true;
-                }
-                else
-                {
-                    try
-                    {
-                        Task.Run(() =>
-                        {
-                            grabador.Grabar(Utilities.IDTransactionDB);
-                        });
-                    }
-                    catch { }
-                    Utilities.ScorePayValue = Utilities.ValorPagarScore;
-
-                    SetCallBacksNull();
-                    timer.CallBackStop?.Invoke(1);
-
-                    LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-
-                    if (Utilities.MedioPago == 1)
-                    {
-                        Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
-                    }
-                    else if (Utilities.MedioPago == 2)
-                    {
-                        Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
-                    }
-                    else
-                    {
-                        Switcher.Navigate(new UCConfectionery(SelectedTypeSeats, dipMapCurrent));
-                    }
-
-                }
+                SetCallBacksNull();
+                timer.CallBackStop?.Invoke(1);
+                Switcher.Navigate(new UCConfectionery(SelectedTypeSeats, dipMapCurrent));
             }
             catch (Exception ex)
             {

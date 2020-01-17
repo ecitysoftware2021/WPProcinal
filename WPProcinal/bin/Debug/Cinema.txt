@@ -52,7 +52,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001163020116" horario="4:25 pm" reservasONline="true" ventasONline="true" militar="1625" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="10">
+              <hora idFuncion="202001163020116" horario="4:25 pm" reservasONline="true" ventasONline="true" militar="1625" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="20">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -73,7 +73,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001163020121" horario="9:35 pm" reservasONline="true" ventasONline="true" militar="2135" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="0">
+              <hora idFuncion="202001163020121" horario="9:35 pm" reservasONline="true" ventasONline="true" militar="2135" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="4">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -573,7 +573,7 @@
         <salas>
           <sala numeroSala="1" tipoSala="GENERAL">
             <Fecha dia="Jue, Ene 16 2020" univ="20200116">
-              <hora idFuncion="202001163020119" horario="7:00 pm" reservasONline="true" ventasONline="true" militar="1900" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="0">
+              <hora idFuncion="202001163020119" horario="7:00 pm" reservasONline="true" ventasONline="true" militar="1900" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="9">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="2" nombreTarifa="3D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11100,0000" />
@@ -795,6 +795,24 @@
       </cinema>
     </cinemas>
   </pelicula>
+  <pelicula id="12651121" nombre="CATS BS 2D GNR DOB" tipo="Estreno">
+    <sinopsis>
+    </sinopsis>
+    <data TituloOriginal="CATS" Imagen="https://www.pantallasprocinal.com/img/peliculas/CATS.jpg" Censura="Todos" idioma="DOBLADA" genero="FANTASÍA" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Mie, Ene 1 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
+    <DiasDisponiblesTodosCinemas>
+      <dia fecha="Jue, Ene 16 2020" univ="20200116" />
+    </DiasDisponiblesTodosCinemas>
+    <cinemas />
+  </pelicula>
+  <pelicula id="12811111" nombre="NO ANDABA MUERTO ESTABA DE PARRANDA GEN 2D GNR ORI" tipo="Estreno">
+    <sinopsis>
+    </sinopsis>
+    <data TituloOriginal="NO ANDABA MUERTO ESTABA DE PARRANDA" Imagen="https://www.pantallasprocinal.com/img/peliculas/NO ANDABA MUERTO ESTABA DE PARRANDA.jpg" Censura="12 Años" idioma="HABLADA" genero="COMEDIA" pais="COLOMBIA" duracion="90" medio="digital" formato="Digital 2D" versión="ORIGINAL" trailer1="" trailer2="" fechaEstreno="Mie, Ene 1 2020" reparto="" director="" distribuidor="CINE COLOMBIA S.A" />
+    <DiasDisponiblesTodosCinemas>
+      <dia fecha="Jue, Ene 16 2020" univ="20200116" />
+    </DiasDisponiblesTodosCinemas>
+    <cinemas />
+  </pelicula>
   <pelicula id="12911121" nombre="ANGELES DE CHARLIE GEN 2D GNR DOB" tipo="Estreno">
     <sinopsis>
     </sinopsis>
@@ -840,7 +858,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001163020319" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="0">
+              <hora idFuncion="202001163020319" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="6">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -1425,7 +1443,7 @@
         <salas>
           <sala numeroSala="2" tipoSala="BLACK STAR">
             <Fecha dia="Jue, Ene 16 2020" univ="20200116">
-              <hora idFuncion="202001163020218" horario="6:40 pm" reservasONline="true" ventasONline="true" militar="1840" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="4">
+              <hora idFuncion="202001163020218" horario="6:40 pm" reservasONline="true" ventasONline="true" militar="1840" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="22">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="176" nombreTarifa="3D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11100,0000" />
@@ -1441,7 +1459,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001163020220" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="3">
+              <hora idFuncion="202001163020220" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="17">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="176" nombreTarifa="3D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11100,0000" />
@@ -1698,7 +1716,7 @@
         <salas>
           <sala numeroSala="3" tipoSala="GENERAL">
             <Fecha dia="Jue, Ene 16 2020" univ="20200116">
-              <hora idFuncion="202001163020317" horario="5:10 pm" reservasONline="true" ventasONline="true" militar="1710" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="0">
+              <hora idFuncion="202001163020317" horario="5:10 pm" reservasONline="true" ventasONline="true" militar="1710" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="6">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -1713,7 +1731,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001163020321" horario="9:40 pm" reservasONline="true" ventasONline="true" militar="2140" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="0">
+              <hora idFuncion="202001163020321" horario="9:40 pm" reservasONline="true" ventasONline="true" militar="2140" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="4">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -1917,6 +1935,15 @@
         </salas>
       </cinema>
     </cinemas>
+  </pelicula>
+  <pelicula id="13511321" nombre="BAD BOYS PARA SIEMPRE GEN 2D VIB DOB" tipo="Estreno">
+    <sinopsis>
+    </sinopsis>
+    <data TituloOriginal="BAD BOYS PARA SIEMPRE" Imagen="https://www.pantallasprocinal.com/img/peliculas/BAD BOYS PARA SIEMPRE.jpg" Censura="12 Años" idioma="DOBLADA" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="125" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Ene 23 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
+    <DiasDisponiblesTodosCinemas>
+      <dia fecha="Jue, Ene 16 2020" univ="20200116" />
+    </DiasDisponiblesTodosCinemas>
+    <cinemas />
   </pelicula>
   <pelicula id="132" nombre="LOS MUERTOS NO MUEREN" tipo="Próximo Estreno">
     <sinopsis>

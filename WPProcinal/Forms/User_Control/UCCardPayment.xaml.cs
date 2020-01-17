@@ -31,7 +31,7 @@ namespace WPProcinal.Forms.User_Control
         Utilities objUtil = new Utilities();
         TPVOperation TPV;
         private int num = 1;
-
+        List<Producto> productos;
         #region Propiedades Tarjeta
 
         private string TramaCancelar;
@@ -119,9 +119,8 @@ namespace WPProcinal.Forms.User_Control
 
                 stateUpdate = true;
                 payState = true;
-
-                Activar();
                 Utilities.Speack("Estableciendo conexión con el datáfono, espera por favor.");
+                Activar();
             }
             catch (Exception ex)
             {
@@ -260,11 +259,15 @@ namespace WPProcinal.Forms.User_Control
                         Utilities.Loading(frmLoading, false, this);
                     });
 
-                    await Dispatcher.BeginInvoke((Action)delegate
+                    if (Utilities.dataUser.Tarjeta != null)
+                    {
+                        Switcher.Navigate(new UCPoints());
+                    }
+                    else
                     {
                         Switcher.Navigate(new UCFinalTransaction());
-                    });
-                    GC.Collect();
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -363,54 +366,83 @@ namespace WPProcinal.Forms.User_Control
                         });
                     }
 
+                    productos = new List<Producto>();
+
+                    foreach (var item in Utilities._Combos)
+                    {
+                        for (int i = 0; i < item.Quantity; i++)
+                        {
+
+                            var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+                            productos.Add(combo);
+                        }
+                    }
+
+
                     string year = Utilities.DipMapCurrent.Date.Substring(0, 4);
                     string mount = Utilities.DipMapCurrent.Date.Substring(4, 2);
                     string day = Utilities.DipMapCurrent.Date.Substring(6, 2);
-                    var response41 = WCFServices41.PostBuy(new SCOINT
-                    {
-                        Accion = "V",
-                        Apellido = "Ecity",
-                        ClienteFrecuente = 0,
-                        CorreoCliente = "prueba@prueba.com",
-                        Cortesia = string.Empty,
-                        Direccion = "Cra 63A # 34-70",
-                        DocIdentidad = 811040812,
-                        Factura = Utilities.DipMapCurrent.Secuence,
-                        FechaFun = string.Concat(year, "-", mount, "-", day),
-                        Funcion = Utilities.DipMapCurrent.IDFuncion,
-                        InicioFun = Utilities.DipMapCurrent.HourFormat,
-                        Nombre = "Kiosko",
-                        PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ScorePayValue.ToString()),
-                        PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ScorePayValue.ToString()) : 0,
-                        PagoInterno = 0,
-                        Pelicula = Utilities.DipMapCurrent.MovieId,
-                        Productos = new List<Producto>(),
-                        PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
-                        Sala = Utilities.DipMapCurrent.RoomId,
-                        teatro = Utilities.DipMapCurrent.CinemaId,
-                        Telefono = 5803033,
-                        tercero = 1,
-                        TipoBono = 0,
-                        TotalVenta = int.Parse(Utilities.ScorePayValue.ToString()),
-                        Ubicaciones = ubicaciones
-                    });
-                    foreach (var item in response41)
-                    {
-                        if (item.Respuesta.Contains("exitoso"))
-                        {
-                            payState = true;
-                        }
-                        else
-                        {
-                            payState = false;
-                        }
-                    }
+
+                    var dataClient = GetDataClient();
+
+
+                    //var response41 = WCFServices41.PostBuy(new SCOINT
+                    //{
+                    //    Accion = "V",
+                    //    Apellido = dataClient.Apellido,
+                    //    ClienteFrecuente = int.Parse(dataClient.Tarjeta),
+                    //    CorreoCliente = dataClient.Login,
+                    //    Cortesia = string.Empty,
+                    //    Direccion = dataClient.Direccion,
+                    //    DocIdentidad = int.Parse(dataClient.Documento),
+                    //    Factura = Utilities.DipMapCurrent.Secuence,
+                    //    FechaFun = string.Concat(year, "-", mount, "-", day),
+                    //    Funcion = Utilities.DipMapCurrent.IDFuncion,
+                    //    InicioFun = Utilities.DipMapCurrent.HourFormat,
+                    //    Nombre = dataClient.Nombre,
+                    //    PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
+                    //    PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
+                    //    PagoInterno = 0,
+                    //    Pelicula = Utilities.DipMapCurrent.MovieId,
+                    //    Productos = productos,
+                    //    PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
+                    //    Sala = Utilities.DipMapCurrent.RoomId,
+                    //    teatro = Utilities.DipMapCurrent.CinemaId,
+                    //    Telefono = int.Parse(dataClient.Telefono),
+                    //    tercero = 1,
+                    //    TipoBono = 0,
+                    //    TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
+                    //    Ubicaciones = ubicaciones
+                    //});
+                    //foreach (var item in response41)
+                    //{
+                    //    if (item.Respuesta != null)
+                    //    {
+                    //        if (item.Respuesta.Contains("exitoso"))
+                    //        {
+                    payState = true;
+                    //        }
+                    //        else
+                    //        {
+                    //            payState = false;
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        payState = false;
+                    //    }
+
+                    //}
+                    WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
                 }
                 else
                 {
                     Task.Run(() =>
                     {
-                        WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                        Dispatcher.Invoke(() =>
+                        {
+                            WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                        });
                     });
                 }
                 SavePay(payState);
@@ -422,6 +454,37 @@ namespace WPProcinal.Forms.User_Control
                 AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
+
+        SCOLOGResponse GetDataClient()
+        {
+            if (Utilities.dataUser.Tarjeta != null)
+            {
+                return new SCOLOGResponse
+                {
+                    Apellido = Utilities.dataUser.Apellido,
+                    Tarjeta = Utilities.dataUser.Tarjeta,
+                    Login = Utilities.dataUser.Login,
+                    Direccion = Utilities.dataUser.Direccion,
+                    Documento = Utilities.dataUser.Documento,
+                    Nombre = Utilities.dataUser.Nombre,
+                    Telefono = Utilities.dataUser.Telefono
+                };
+            }
+            else
+            {
+                return new SCOLOGResponse
+                {
+                    Apellido = "Ecity",
+                    Tarjeta = "0",
+                    Login = "prueba@prueba.com",
+                    Direccion = "Cra 63A # 34-70",
+                    Documento = "811040812",
+                    Nombre = "Kiosko",
+                    Telefono = "5803033"
+                };
+            }
+        }
+
 
         #region TransactionalMethods
 

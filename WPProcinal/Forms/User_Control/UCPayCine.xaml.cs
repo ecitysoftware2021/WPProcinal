@@ -58,10 +58,11 @@ namespace WPProcinal.Forms.User_Control
                     IDCorresponsal = Utilities.CorrespondentId,
                     IdTransaction = Utilities.IDTransactionDB,
                 };
-                Buytickets();
-                //stateUpdate = true;
-                //payState = true;
-                //Utilities.control.StartValues();
+                stateUpdate = true;
+                payState = true;
+
+                //Buytickets();
+                Utilities.control.StartValues();
                 Utilities.Speack("Por favor, ingresa el dinero");
 
             }
@@ -319,13 +320,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     try
                     {
-                        //Task.Run(() =>
-                        //{
-                        //    Dispatcher.Invoke(() =>
-                        //    {
                         WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                        //    });
-                        //});
                     }
                     catch { }
 
@@ -357,12 +352,14 @@ namespace WPProcinal.Forms.User_Control
                     {
                         Utilities.Loading(frmLoading, false, this);
                     });
-
-                    Dispatcher.BeginInvoke((Action)delegate
+                    if (Utilities.dataUser.Tarjeta != null)
+                    {
+                        Switcher.Navigate(new UCPoints());
+                    }
+                    else
                     {
                         Switcher.Navigate(new UCFinalTransaction());
-                    });
-                    GC.Collect();
+                    }
                 }
             }
             catch (Exception ex)
@@ -461,53 +458,54 @@ namespace WPProcinal.Forms.User_Control
                     var dataClient = GetDataClient();
 
 
-                    var response41 = WCFServices41.PostBuy(new SCOINT
-                    {
-                        Accion = "V",
-                        Apellido = dataClient.Apellido,
-                        ClienteFrecuente = int.Parse(dataClient.Tarjeta),
-                        CorreoCliente = dataClient.Login,
-                        Cortesia = string.Empty,
-                        Direccion = dataClient.Direccion,
-                        DocIdentidad = int.Parse(dataClient.Documento),
-                        Factura = Utilities.DipMapCurrent.Secuence,
-                        FechaFun = string.Concat(year, "-", mount, "-", day),
-                        Funcion = Utilities.DipMapCurrent.IDFuncion,
-                        InicioFun = Utilities.DipMapCurrent.HourFormat,
-                        Nombre = dataClient.Nombre,
-                        PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
-                        PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
-                        PagoInterno = 0,
-                        Pelicula = Utilities.DipMapCurrent.MovieId,
-                        Productos = productos,
-                        PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
-                        Sala = Utilities.DipMapCurrent.RoomId,
-                        teatro = Utilities.DipMapCurrent.CinemaId,
-                        Telefono = int.Parse(dataClient.Telefono),
-                        tercero = 1,
-                        TipoBono = 0,
-                        TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
-                        Ubicaciones = ubicaciones
-                    });
-                    foreach (var item in response41)
-                    {
-                        if (item.Respuesta != null)
-                        {
-                            if (item.Respuesta.Contains("exitoso"))
-                            {
-                                payState = true;
-                            }
-                            else
-                            {
-                                payState = false;
-                            }
-                        }
-                        else
-                        {
-                            payState = false;
-                        }
+                    //var response41 = WCFServices41.PostBuy(new SCOINT
+                    //{
+                    //    Accion = "V",
+                    //    Apellido = dataClient.Apellido,
+                    //    ClienteFrecuente = int.Parse(dataClient.Tarjeta),
+                    //    CorreoCliente = dataClient.Login,
+                    //    Cortesia = string.Empty,
+                    //    Direccion = dataClient.Direccion,
+                    //    DocIdentidad = int.Parse(dataClient.Documento),
+                    //    Factura = Utilities.DipMapCurrent.Secuence,
+                    //    FechaFun = string.Concat(year, "-", mount, "-", day),
+                    //    Funcion = Utilities.DipMapCurrent.IDFuncion,
+                    //    InicioFun = Utilities.DipMapCurrent.HourFormat,
+                    //    Nombre = dataClient.Nombre,
+                    //    PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
+                    //    PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
+                    //    PagoInterno = 0,
+                    //    Pelicula = Utilities.DipMapCurrent.MovieId,
+                    //    Productos = productos,
+                    //    PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
+                    //    Sala = Utilities.DipMapCurrent.RoomId,
+                    //    teatro = Utilities.DipMapCurrent.CinemaId,
+                    //    Telefono = int.Parse(dataClient.Telefono),
+                    //    tercero = 1,
+                    //    TipoBono = 0,
+                    //    TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
+                    //    Ubicaciones = ubicaciones
+                    //});
+                    //foreach (var item in response41)
+                    //{
+                    //    if (item.Respuesta != null)
+                    //    {
+                    //        if (item.Respuesta.Contains("exitoso"))
+                    //        {
+                    payState = true;
+                    //        }
+                    //        else
+                    //        {
+                    //            payState = false;
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        payState = false;
+                    //    }
 
-                    }
+                    //}
+                    WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
                 }
                 else
                 {

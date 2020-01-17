@@ -423,6 +423,38 @@ namespace WPProcinal.Classes
                     transaction.TRANSACTION_DESCRIPTION.Add(details);
                 }
 
+                foreach (var item in _Combos)
+                {
+                    var details = new TRANSACTION_DESCRIPTION
+                    {
+                        AMOUNT = item.Price,
+                        TRANSACTION_ID = IDTransactionDB,
+                        REFERENCE = item.Name,
+                        OBSERVATION = item.Quantity.ToString(),
+                        TRANSACTION_DESCRIPTION_ID = 0,
+                        STATE = true
+                    };
+
+                    transaction.TRANSACTION_DESCRIPTION.Add(details);
+                }
+                if (dataDocument != null)
+                {
+                    if (dataDocument.Document != null)
+                    {
+                        transaction.payer = new PAYER();
+                        transaction.payer.IDENTIFICATION = dataDocument.Document;
+                        transaction.payer.NAME = dataDocument.FirstName;
+                        transaction.payer.LAST_NAME = dataDocument.LastName;
+                        transaction.payer.BIRTHDAY = dataDocument.Date;
+
+                        var resultPayer = await api.CallApi("SavePayer", transaction.payer);
+
+                        if (resultPayer != null)
+                        {
+                            transaction.PAYER_ID = JsonConvert.DeserializeObject<int>(resultPayer.ToString());
+                        }
+                    }
+                }
                 var response = await api.GetResponse(new RequestApi
                 {
                     Data = transaction
@@ -471,26 +503,6 @@ namespace WPProcinal.Classes
                     TRANSACTION_ID = IDTransactionDB,
                     PAYMENT_TYPE_ID = Utilities.MedioPago
                 };
-
-                if (dataDocument != null)
-                {
-                    if (dataDocument.Document != null)
-                    {
-                        Transaction.payer = new PAYER();
-                        Transaction.payer.IDENTIFICATION = dataDocument.Document;
-                        Transaction.payer.NAME = dataDocument.FirstName;
-                        Transaction.payer.LAST_NAME = dataDocument.LastName;
-                        Transaction.payer.BIRTHDAY = dataDocument.Date;
-
-                        var resultPayer = await api.CallApi("SavePayer", Transaction.payer);
-
-                        if (resultPayer != null)
-                        {
-                            Transaction.payer.PAYER_ID = JsonConvert.DeserializeObject<int>(resultPayer.ToString());
-                        }
-                    }
-                }
-
 
                 var response = await api.GetResponse(new RequestApi
                 {

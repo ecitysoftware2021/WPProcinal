@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grabador.Transaccion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,9 @@ namespace WPProcinal.Forms.User_Control
         TimerTiempo timer;
         List<TypeSeat> _Seats;
         DipMap _DipMap;
+        ApiLocal api;
+        CLSGrabador grabador;
+        Utilities utilities;
 
         #region Precios Combos
         private int _ComboTemporadaPrice = int.Parse(Utilities.GetConfiguration("0"));
@@ -50,7 +54,9 @@ namespace WPProcinal.Forms.User_Control
                 _Seats = Seats;
                 _DipMap = dipMap;
                 ActivateTimer();
-
+                api = new ApiLocal();
+                utilities = new Utilities();
+                grabador = new CLSGrabador();
                 Utilities.Speack("Puedes comprar tu combo y reclamarlo en la confitería.");
             }
             catch (Exception ex)
@@ -211,6 +217,7 @@ namespace WPProcinal.Forms.User_Control
 
         private void BtnComprar_TouchDown(object sender, TouchEventArgs e)
         {
+            this.IsEnabled = false;
             SetCallBacksNull();
             timer.CallBackStop?.Invoke(1);
             ShowDetailModal();
@@ -225,6 +232,49 @@ namespace WPProcinal.Forms.User_Control
             if (_frmConfirmationModal.DialogResult.HasValue &&
                 _frmConfirmationModal.DialogResult.Value)
             {
+
+                GoToPay();
+
+            }
+            else
+            {
+                this.IsEnabled = true;
+            }
+        }
+
+        #endregion
+
+        #region "Métodos"
+        private async void GoToPay()
+        {
+            FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
+            frmLoading.Show();
+            var response = await utilities.CreateTransaction("Cine ", _DipMap, _Seats);
+            frmLoading.Close();
+
+            if(!response)
+            {
+                Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
+
+                frmLoading = new FrmLoading("¡Reconectando...!");
+                frmLoading.Show();
+                await api.SecurityToken();
+                frmLoading.Close();
+                this.IsEnabled = true;
+            }
+            else
+            {
+                try
+                {
+                    Task.Run(() =>
+                    {
+                        grabador.Grabar(Utilities.IDTransactionDB);
+                    });
+                }
+                catch { }
+
+                LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+
                 if (Utilities.MedioPago == 1)
                 {
                     Switcher.Navigate(new UCPayCine(_Seats, _DipMap));
@@ -234,12 +284,9 @@ namespace WPProcinal.Forms.User_Control
                     Switcher.Navigate(new UCCardPayment(_Seats, _DipMap));
                 }
             }
+
+
         }
-
-        #endregion
-
-        #region "Métodos"
-
         #endregion
 
         #region "Timer"
