@@ -220,7 +220,56 @@ namespace WPProcinal.Forms.User_Control
             this.IsEnabled = false;
             SetCallBacksNull();
             timer.CallBackStop?.Invoke(1);
+            ChangePrices();
             ShowDetailModal();
+
+        }
+
+        public void ChangePrices()
+        {
+            List<Producto> productos = new List<Producto>();
+            decimal precio = 0;
+            foreach (var item in Utilities._Combos)
+            {
+                for (int i = 0; i < item.Quantity; i++)
+                {
+                    var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+                    foreach (var receta in combo.Receta)
+                    {
+                        if (receta.Precios != null)
+                        {
+                            if (Utilities.dataUser.Tarjeta != null)
+                            {
+                                precio += decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                            }
+                            else
+                            {
+                                precio += decimal.Parse(receta.Precios.FirstOrDefault().General.Split('.')[0]);
+                            }
+                        }
+                        if (receta.RecetaReceta != null)
+                        {
+                            receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                            foreach (var preciosReceta in receta.RecetaReceta)
+                            {
+                                if (preciosReceta.Precios != null)
+                                {
+                                    if (Utilities.dataUser.Tarjeta != null)
+                                    {
+                                        precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                    }
+                                    else
+                                    {
+                                        precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().General.Split('.')[0]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    productos.Add(combo);
+                }
+                item.Price = precio;
+            }
         }
 
         private void ShowDetailModal()
@@ -252,7 +301,7 @@ namespace WPProcinal.Forms.User_Control
             var response = await utilities.CreateTransaction("Cine ", _DipMap, _Seats);
             frmLoading.Close();
 
-            if(!response)
+            if (!response)
             {
                 Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
 

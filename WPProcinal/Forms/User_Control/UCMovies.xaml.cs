@@ -353,9 +353,9 @@ namespace WPProcinal.Forms.User_Control
                     if (modalCineFan.DialogResult.HasValue &&
                     modalCineFan.DialogResult.Value)
                     {
-                        if (!string.IsNullOrEmpty(Utilities.dataDocument.FirstName))
+                        if (!string.IsNullOrEmpty(Utilities.dataUser.Nombre))
                         {
-                            txtNameUser.Text = "Bienvenid@ " + Utilities.dataDocument.FirstName;
+                            txtNameUser.Text = "Bienvenid@ " + Utilities.dataUser.Nombre.ToUpperInvariant();
                             txtNameUser.Visibility = Visibility.Visible;
                         }
                     }

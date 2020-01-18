@@ -61,7 +61,7 @@ namespace WPProcinal.Forms.User_Control
                 stateUpdate = true;
                 payState = true;
 
-                Buytickets();
+                //Buytickets();
                 Utilities.control.StartValues();
                 Utilities.Speack("Por favor, ingresa el dinero");
 
@@ -351,15 +351,16 @@ namespace WPProcinal.Forms.User_Control
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
                         Utilities.Loading(frmLoading, false, this);
+
+                        if (Utilities.dataUser.Tarjeta != null)
+                        {
+                            Switcher.Navigate(new UCPoints());
+                        }
+                        else
+                        {
+                            Switcher.Navigate(new UCFinalTransaction());
+                        }
                     });
-                    if (Utilities.dataUser.Tarjeta != null)
-                    {
-                        Switcher.Navigate(new UCPoints());
-                    }
-                    else
-                    {
-                        Switcher.Navigate(new UCFinalTransaction());
-                    }
                 }
             }
             catch (Exception ex)
@@ -453,6 +454,7 @@ namespace WPProcinal.Forms.User_Control
                                     receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
                                 }
                             }
+                            combo.Precio = Utilities.dataUser.Tarjeta != null ? 2 : 1;
                             productos.Add(combo);
                         }
                     }
@@ -513,7 +515,6 @@ namespace WPProcinal.Forms.User_Control
                         }
 
                     }
-                    //WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
                 }
                 else
                 {

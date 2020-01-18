@@ -936,7 +936,8 @@ namespace WPProcinal.Service
 
         public string Tipo { get; set; }
 
-        public int Precio { get { return 1; } }
+        public int Precio { get; set; }
+
 
         public List<Receta> Receta { get; set; }
     }
@@ -964,6 +965,8 @@ namespace WPProcinal.Service
 
         public long Cantidad { get; set; }
 
+
+        public List<Precio> Precios { get; set; }
         [JsonProperty("Receta", NullValueHandling = NullValueHandling.Ignore)]
         public List<Receta> RecetaReceta { get; set; }
     }

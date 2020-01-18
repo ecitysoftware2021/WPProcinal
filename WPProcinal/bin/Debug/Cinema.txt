@@ -24,7 +24,7 @@
         <salas>
           <sala numeroSala="1" tipoSala="GENERAL">
             <Fecha dia="Vie, Ene 17 2020" univ="20200117">
-              <hora idFuncion="202001173020113" horario="1:50 pm" reservasONline="true" ventasONline="true" militar="1350" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="0">
+              <hora idFuncion="202001173020113" horario="1:50 pm" reservasONline="true" ventasONline="true" militar="1350" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="1">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="17" nombreTarifa="2D TP Gral Semana" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
@@ -48,7 +48,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001173020116" horario="4:25 pm" reservasONline="true" ventasONline="true" militar="1625" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="0">
+              <hora idFuncion="202001173020116" horario="4:25 pm" reservasONline="true" ventasONline="true" militar="1625" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="7">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
@@ -92,7 +92,7 @@
               </hora>
             </Fecha>
             <Fecha dia="Sab, Ene 18 2020" univ="20200118">
-              <hora idFuncion="202001183020111" horario="11:20 am" reservasONline="true" ventasONline="true" militar="1120" validaciones="No" cortoNacional="" capacidad="186" disponibilidad="0">
+              <hora idFuncion="202001183020111" horario="11:20 am" reservasONline="true" ventasONline="true" militar="1120" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="0">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="17" nombreTarifa="2D TP Gral Semana" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
@@ -499,7 +499,7 @@
         <salas>
           <sala numeroSala="1" tipoSala="GENERAL">
             <Fecha dia="Vie, Ene 17 2020" univ="20200117">
-              <hora idFuncion="202001173020119" horario="7:00 pm" reservasONline="true" ventasONline="true" militar="1900" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="0">
+              <hora idFuncion="202001173020119" horario="7:00 pm" reservasONline="true" ventasONline="true" militar="1900" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="14">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="11" nombreTarifa="3D Boleta Corporativ" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="18200,0000" />
@@ -725,7 +725,7 @@
         <salas>
           <sala numeroSala="3" tipoSala="GENERAL">
             <Fecha dia="Vie, Ene 17 2020" univ="20200117">
-              <hora idFuncion="202001173020314" horario="2:40 pm" reservasONline="true" ventasONline="true" militar="1440" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="0">
+              <hora idFuncion="202001173020314" horario="2:40 pm" reservasONline="true" ventasONline="true" militar="1440" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="6">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="17" nombreTarifa="2D TP Gral Semana" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
@@ -743,7 +743,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001173020319" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="2">
+              <hora idFuncion="202001173020319" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="18">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
@@ -950,7 +950,7 @@
         <salas>
           <sala numeroSala="2" tipoSala="BLACK STAR">
             <Fecha dia="Vie, Ene 17 2020" univ="20200117">
-              <hora idFuncion="202001173020213" horario="1:20 pm" reservasONline="true" ventasONline="true" militar="1320" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+              <hora idFuncion="202001173020213" horario="1:20 pm" reservasONline="true" ventasONline="true" militar="1320" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="2">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
@@ -969,7 +969,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001173020215" horario="3:30 pm" reservasONline="true" ventasONline="true" militar="1530" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+              <hora idFuncion="202001173020215" horario="3:30 pm" reservasONline="true" ventasONline="true" militar="1530" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="9">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
@@ -990,7 +990,7 @@
               </hora>
             </Fecha>
             <Fecha dia="Sab, Ene 18 2020" univ="20200118">
-              <hora idFuncion="202001183020211" horario="11:10 am" reservasONline="true" ventasONline="true" militar="1110" validaciones="No" cortoNacional="" capacidad="138" disponibilidad="0">
+              <hora idFuncion="202001183020211" horario="11:10 am" reservasONline="true" ventasONline="true" militar="1110" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
@@ -1249,7 +1249,7 @@
         <salas>
           <sala numeroSala="2" tipoSala="BLACK STAR">
             <Fecha dia="Vie, Ene 17 2020" univ="20200117">
-              <hora idFuncion="202001173020218" horario="6:40 pm" reservasONline="true" ventasONline="true" militar="1840" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+              <hora idFuncion="202001173020218" horario="6:40 pm" reservasONline="true" ventasONline="true" militar="1840" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="6">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="180" nombreTarifa="3D BS Gen Fs Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13700,0000" />
@@ -1265,7 +1265,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001173020220" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+              <hora idFuncion="202001173020220" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="12">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="180" nombreTarifa="3D BS Gen Fs Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13700,0000" />
@@ -1486,7 +1486,7 @@
         <salas>
           <sala numeroSala="3" tipoSala="GENERAL">
             <Fecha dia="Vie, Ene 17 2020" univ="20200117">
-              <hora idFuncion="202001173020317" horario="5:10 pm" reservasONline="true" ventasONline="true" militar="1710" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="0">
+              <hora idFuncion="202001173020317" horario="5:10 pm" reservasONline="true" ventasONline="true" militar="1710" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="5">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
@@ -1501,7 +1501,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001173020321" horario="9:40 pm" reservasONline="true" ventasONline="true" militar="2140" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="0">
+              <hora idFuncion="202001173020321" horario="9:40 pm" reservasONline="true" ventasONline="true" militar="2140" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="2">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
