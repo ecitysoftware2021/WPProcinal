@@ -260,6 +260,9 @@
     <Compile Include="Forms\User_Control\UCPoints.xaml.cs">
       <DependentUpon>UCPoints.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\User_Control\UCRefound.xaml.cs">
+      <DependentUpon>UCRefound.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\User_Control\UCSchedule.xaml.cs">
       <DependentUpon>UCSchedule.xaml</DependentUpon>
     </Compile>
@@ -353,6 +356,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\User_Control\UCPoints.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\User_Control\UCRefound.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
