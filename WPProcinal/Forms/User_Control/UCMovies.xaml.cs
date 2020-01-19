@@ -53,8 +53,6 @@ namespace WPProcinal.Forms.User_Control
                 }));
                 Utilities.DoEvents();
 
-                ActivateTimer();
-
             }
             catch (Exception ex)
             {
@@ -339,8 +337,6 @@ namespace WPProcinal.Forms.User_Control
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    SetCallBacksNull();
-                    timer.CallBackStop?.Invoke(1);
 
                     this.Opacity = 0.3;
                     frmModalCineFan modalCineFan = new frmModalCineFan();

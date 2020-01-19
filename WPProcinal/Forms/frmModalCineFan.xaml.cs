@@ -69,7 +69,7 @@ namespace WPProcinal.Forms
         {
             Utilities.control.callbackDocument = null;
             Utilities.control.ClosePortScanner();
-            DialogResult = ValidateCineFan("43261286");
+            DialogResult = false;
         }
         #endregion
 

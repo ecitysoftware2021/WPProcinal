@@ -267,7 +267,6 @@ namespace WPProcinal.Forms.User_Control
                     {
                         Switcher.Navigate(new UCFinalTransaction());
                     }
-
                 }
             }
             catch (Exception ex)
@@ -374,6 +373,14 @@ namespace WPProcinal.Forms.User_Control
                         {
 
                             var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+                            foreach (var receta in combo.Receta)
+                            {
+                                if (receta.RecetaReceta != null)
+                                {
+                                    receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                                }
+                            }
+                            combo.Precio = Utilities.dataUser.Tarjeta != null ? 2 : 1;
                             productos.Add(combo);
                         }
                     }
@@ -386,54 +393,54 @@ namespace WPProcinal.Forms.User_Control
                     var dataClient = GetDataClient();
 
 
-                    //var response41 = WCFServices41.PostBuy(new SCOINT
-                    //{
-                    //    Accion = "V",
-                    //    Apellido = dataClient.Apellido,
-                    //    ClienteFrecuente = int.Parse(dataClient.Tarjeta),
-                    //    CorreoCliente = dataClient.Login,
-                    //    Cortesia = string.Empty,
-                    //    Direccion = dataClient.Direccion,
-                    //    DocIdentidad = int.Parse(dataClient.Documento),
-                    //    Factura = Utilities.DipMapCurrent.Secuence,
-                    //    FechaFun = string.Concat(year, "-", mount, "-", day),
-                    //    Funcion = Utilities.DipMapCurrent.IDFuncion,
-                    //    InicioFun = Utilities.DipMapCurrent.HourFormat,
-                    //    Nombre = dataClient.Nombre,
-                    //    PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
-                    //    PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
-                    //    PagoInterno = 0,
-                    //    Pelicula = Utilities.DipMapCurrent.MovieId,
-                    //    Productos = productos,
-                    //    PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
-                    //    Sala = Utilities.DipMapCurrent.RoomId,
-                    //    teatro = Utilities.DipMapCurrent.CinemaId,
-                    //    Telefono = int.Parse(dataClient.Telefono),
-                    //    tercero = 1,
-                    //    TipoBono = 0,
-                    //    TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
-                    //    Ubicaciones = ubicaciones
-                    //});
-                    //foreach (var item in response41)
-                    //{
-                    //    if (item.Respuesta != null)
-                    //    {
-                    //        if (item.Respuesta.Contains("exitoso"))
-                    //        {
-                    payState = true;
-                    //        }
-                    //        else
-                    //        {
-                    //            payState = false;
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        payState = false;
-                    //    }
+                    var response41 = WCFServices41.PostBuy(new SCOINT
+                    {
+                        Accion = "V",
+                        Apellido = dataClient.Apellido,
+                        ClienteFrecuente = int.Parse(dataClient.Tarjeta),
+                        CorreoCliente = dataClient.Login,
+                        Cortesia = string.Empty,
+                        Direccion = dataClient.Direccion,
+                        DocIdentidad = int.Parse(dataClient.Documento),
+                        Factura = Utilities.DipMapCurrent.Secuence,
+                        FechaFun = string.Concat(year, "-", mount, "-", day),
+                        Funcion = Utilities.DipMapCurrent.IDFuncion,
+                        InicioFun = Utilities.DipMapCurrent.HourFormat,
+                        Nombre = dataClient.Nombre,
+                        PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
+                        PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
+                        PagoInterno = 0,
+                        Pelicula = Utilities.DipMapCurrent.MovieId,
+                        Productos = productos,
+                        PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
+                        Sala = Utilities.DipMapCurrent.RoomId,
+                        teatro = Utilities.DipMapCurrent.CinemaId,
+                        Telefono = int.Parse(dataClient.Telefono),
+                        tercero = 1,
+                        TipoBono = 0,
+                        TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
+                        Ubicaciones = ubicaciones
+                    });
+                    foreach (var item in response41)
+                    {
+                        if (item.Respuesta != null)
+                        {
+                            if (item.Respuesta.Contains("exitoso"))
+                            {
+                                payState = true;
+                                break;
+                            }
+                            else
+                            {
+                                payState = false;
+                            }
+                        }
+                        else
+                        {
+                            payState = false;
+                        }
 
-                    //}
-                    WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    }
                 }
                 else
                 {
@@ -667,7 +674,7 @@ namespace WPProcinal.Forms.User_Control
             lvOpciones.Visibility = Visibility.Hidden;
             DataCardTransaction dataCard = new DataCardTransaction
             {
-                imagen = "/Images/NewDesing/Gif/clave.Gif",
+                imagen = "/Images/Gif/clave.Gif",
                 isCredit = false,
                 maxlen = 1,
                 mensaje = message,
@@ -678,6 +685,10 @@ namespace WPProcinal.Forms.User_Control
 
             FrmOciones = new Opciones(dataCard);
             FrmOciones.ShowDialog();
+            Dispatcher.BeginInvoke((Action)delegate
+            {
+                this.Opacity = 1;
+            });
         }
 
         /// <summary>
@@ -715,7 +726,7 @@ namespace WPProcinal.Forms.User_Control
                                 formas.Add(new FormaPago
                                 {
                                     Forma = item,
-                                    Imagen = string.Concat("/Images/NewDesing/Buttons/", item, ".png"),
+                                    Imagen = string.Concat("/Images/Buttons/", item, ".png"),
                                     Trama = string.Concat("R,", positiveResponse[1], ",", indiceForma, "]"),
                                 });
                             }
@@ -944,10 +955,11 @@ namespace WPProcinal.Forms.User_Control
         {
             dataCard.mensaje = message;
             dataCard.peticion = LRCPeticion;
-            dataCard.imagen = string.Concat("/Images/NewDesing/Gif/", datos.Forma, ".Gif");
+            dataCard.imagen = string.Concat("/Images/Gif/", datos.Forma, ".Gif");
             this.Opacity = 0.3;
             FrmOciones = new Opciones(dataCard);
             FrmOciones.ShowDialog();
+            this.Opacity = 1;
         }
 
         private void RetryPayment()

@@ -624,25 +624,7 @@ namespace WPProcinal.Forms.User_Control
                     ReloadWindow();
                     return;
                 }
-
-                //frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent, true);
-                //this.Opacity = 0.3;
-                //_frmConfirmationModal.ShowDialog();
-                //if (_frmConfirmationModal.DialogResult.HasValue &&
-                //    _frmConfirmationModal.DialogResult.Value)
-                //{
-                //    Pay.IsEnabled = false;
-                //    this.Opacity = 1;
                 SecuenceAndReserve();
-                //}
-                //else
-                //{
-                //    this.Opacity = 1;
-                //    if (controlReinicio == 0)
-                //    {
-                //        ActivateTimer();
-                //    }
-                //}
             }
             catch (Exception ex)
             {
@@ -713,20 +695,24 @@ namespace WPProcinal.Forms.User_Control
 
                 frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
                 frmLoading.Show();
+
+                var dataClient = GetDataClient();
+
+
                 var response41 = WCFServices41.PostPreventa(new SCOGRU
                 {
-                    Apellido = "Ecity",
+                    Apellido = dataClient.Apellido,
                     Descripcion = dipMapCurrent.MovieName,
                     FechaFuncion = dipMapCurrent.Date,
                     HoraFuncion = dipMapCurrent.Hour,
                     InicioFuncion = dipMapCurrent.HourFormat,
-                    Nombre = "Kiosko",
+                    Nombre = dataClient.Nombre,
                     Pelicula = dipMapCurrent.MovieId,
                     PuntoVenta = dipMapCurrent.PointOfSale,
                     Sala = dipMapCurrent.RoomId,
                     Secuencia = dipMapCurrent.Secuence,
                     teatro = dipMapCurrent.CinemaId,
-                    Telefono = 5803033,
+                    Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? int.Parse(dataClient.Telefono) : 0,
                     tercero = 1,
                     Ubicaciones = ubicacione
                 });
@@ -763,6 +749,37 @@ namespace WPProcinal.Forms.User_Control
             }
             frmLoading.Close();
         }
+
+        SCOLOGResponse GetDataClient()
+        {
+            if (Utilities.dataUser.Tarjeta != null)
+            {
+                return new SCOLOGResponse
+                {
+                    Apellido = Utilities.dataUser.Apellido,
+                    Tarjeta = Utilities.dataUser.Tarjeta,
+                    Login = Utilities.dataUser.Login,
+                    Direccion = Utilities.dataUser.Direccion,
+                    Documento = Utilities.dataUser.Documento,
+                    Nombre = Utilities.dataUser.Nombre,
+                    Telefono = Utilities.dataUser.Telefono
+                };
+            }
+            else
+            {
+                return new SCOLOGResponse
+                {
+                    Apellido = "Ecity",
+                    Tarjeta = "0",
+                    Login = "prueba@prueba.com",
+                    Direccion = "Cra 63A # 34-70",
+                    Documento = "811040812",
+                    Nombre = "Kiosko",
+                    Telefono = "5803033"
+                };
+            }
+        }
+
 
 
         /// <summary>

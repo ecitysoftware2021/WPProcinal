@@ -231,6 +231,7 @@ namespace WPProcinal.Forms.User_Control
             decimal precio = 0;
             foreach (var item in Utilities._Combos)
             {
+                precio = 0;
                 for (int i = 0; i < item.Quantity; i++)
                 {
                     var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
@@ -281,9 +282,7 @@ namespace WPProcinal.Forms.User_Control
             if (_frmConfirmationModal.DialogResult.HasValue &&
                 _frmConfirmationModal.DialogResult.Value)
             {
-
                 GoToPay();
-
             }
             else
             {

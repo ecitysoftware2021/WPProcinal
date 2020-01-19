@@ -489,7 +489,7 @@ namespace WPProcinal.Forms.User_Control
                         PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
                         Sala = Utilities.DipMapCurrent.RoomId,
                         teatro = Utilities.DipMapCurrent.CinemaId,
-                        Telefono = int.Parse(dataClient.Telefono),
+                        Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? int.Parse(dataClient.Telefono) : 0,
                         tercero = 1,
                         TipoBono = 0,
                         TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),

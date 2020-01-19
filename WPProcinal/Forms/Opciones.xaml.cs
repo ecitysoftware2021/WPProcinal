@@ -153,7 +153,7 @@ namespace WPProcinal.Forms
 
             BitmapImage logo = new BitmapImage();
             logo.BeginInit();
-            logo.UriSource = new Uri(string.Concat("/Images/Buttons/", icon, ".png"), UriKind.Relative);
+            logo.UriSource = new Uri(string.Concat("/Images/", icon, ".png"), UriKind.Relative);
             logo.EndInit();
             return logo;
         }
