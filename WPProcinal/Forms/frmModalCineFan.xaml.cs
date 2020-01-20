@@ -70,7 +70,7 @@ namespace WPProcinal.Forms
             Utilities.control.callbackDocument = null;
             Utilities.control.ClosePortScanner();
             DialogResult = false;
-            //DialogResult = ValidateCineFan("71252125");
+            //DialogResult = ValidateCineFan("8321698");
         }
         #endregion
 
@@ -108,7 +108,7 @@ namespace WPProcinal.Forms
                 frmLoading.Show();
                 var responseClient = WCFServices41.GetClientData(new SCOCED
                 {
-                    Documento = long.Parse(cedula),
+                    Documento = cedula,
                     tercero = "1"
                 });
                 frmLoading.Close();

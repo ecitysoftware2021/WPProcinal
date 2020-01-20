@@ -430,6 +430,70 @@ namespace WPProcinal.Service
                 return null;
             }
         }
+
+
+        public static List<EsponseScoint> ConsultResolution(SCOINT data)
+        {
+
+            string decryptData = string.Empty;
+            try
+            {
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(data);
+                try
+                {
+                    AdminPaypad.SaveErrorControl(seria,
+                          "ConsultResolution Request",
+                          EError.Customer,
+                          ELevelError.Mild);
+                }
+                catch { }
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+
+                var client = new RestClient(Utilities.APISCORE + "/scores/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Content-Length", "66");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+
+                try
+                {
+                    AdminPaypad.SaveErrorControl(decryptData,
+                    "ConsultResolution Response",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                var est = JsonConvert.DeserializeObject<List<EsponseScoint>>(decryptData);
+                return est;
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "ConsultResolution catch",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                return null;
+            }
+        }
         public static bool StateImage(string image)
         {
             try
@@ -977,7 +1041,7 @@ namespace WPProcinal.Service
     #region SCOCSN
     public class SCOCED
     {
-        public long Documento { get; set; }
+        public string Documento { get; set; }
         public string tercero { get; set; }
     }
     public class SCOCSNResponse
