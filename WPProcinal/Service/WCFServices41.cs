@@ -432,14 +432,22 @@ namespace WPProcinal.Service
         }
 
 
-        public static List<EsponseScoint> ConsultResolution(SCOINT data)
+        public static ResponseScores ConsultResolution(SCORES data)
         {
 
             string decryptData = string.Empty;
             try
             {
+                SCORES sCOCED = new SCORES
+                {
+                    Punto = 51,
+                    Secuencial = 187,
+                    teatro = 302,
+                    tercero = 1
+                };
+
                 //Data convertida a formato json
-                var seria = JsonConvert.SerializeObject(data);
+                var seria = JsonConvert.SerializeObject(sCOCED);
                 try
                 {
                     AdminPaypad.SaveErrorControl(seria,
@@ -477,7 +485,7 @@ namespace WPProcinal.Service
                     ELevelError.Mild);
                 }
                 catch { }
-                var est = JsonConvert.DeserializeObject<List<EsponseScoint>>(decryptData);
+                var est = JsonConvert.DeserializeObject<ResponseScores>(decryptData);
                 return est;
 
             }
@@ -494,6 +502,7 @@ namespace WPProcinal.Service
                 return null;
             }
         }
+
         public static bool StateImage(string image)
         {
             try
@@ -798,6 +807,28 @@ namespace WPProcinal.Service
     public class RESPONSEERROR
     {
         public string Respuesta { get; set; }
+    }
+    #endregion
+
+    #region SCORES
+    public class SCORES
+    {
+        public int Punto { get; set; }
+        public int Secuencial { get; set; }
+        public int teatro { get; set; }
+        public int tercero { get; set; }
+    }
+
+    public class ResponseScores
+    {
+        public int Factura { get; set; }
+        public string Prefijo { get; set; }
+
+        [JsonProperty("Resolución", NullValueHandling = NullValueHandling.Ignore)]
+        public double Resolucion { get; set; }
+        public double Inicio { get; set; }
+        public double Fin { get; set; }
+        public DateTime Vencimiento { get; set; }
     }
     #endregion
 

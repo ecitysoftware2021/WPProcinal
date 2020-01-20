@@ -53,7 +53,7 @@ namespace WPProcinal.Forms.User_Control
 
         }
 
-        private void ConfiguratePublish()
+        private async void ConfiguratePublish()
         {
             try
             {
@@ -69,6 +69,10 @@ namespace WPProcinal.Forms.User_Control
 
                     _imageSleader.Start();
                 }
+
+                //WCFServices41 a = new WCFServices41();
+
+               //WCFServices41.ConsultResolution(null);
             }
             catch (Exception ex)
             {

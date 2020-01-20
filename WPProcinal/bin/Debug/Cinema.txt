@@ -4,7 +4,6 @@
     </sinopsis>
     <data TituloOriginal="JUMANJI EL SIGUIENTE NIVEL" Imagen="https://www.pantallasprocinal.com/img/peliculas/JUMANJI EL SIGUIENTE NIVEL.jpg" Censura="7 Años" idioma="DOBLADA" genero="AVENTURA" pais="ESTADOS UNIDOS" duracion="125" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Dic 26 2019" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Dom, Ene 19 2020" univ="20200119" />
       <dia fecha="Lun, Ene 20 2020" univ="20200120" />
       <dia fecha="Mar, Ene 21 2020" univ="20200121" />
       <dia fecha="Mie, Ene 22 2020" univ="20200122" />
@@ -12,107 +11,14 @@
     <cinemas>
       <cinema id="302" nombre="plazario" ciudad="Apartadó                                          ">
         <DiasDisponiblesCinema>
-          <dia fecha="Dom, Ene 19 2020" univ="20200119" />
           <dia fecha="Lun, Ene 20 2020" univ="20200120" />
           <dia fecha="Mar, Ene 21 2020" univ="20200121" />
           <dia fecha="Mie, Ene 22 2020" univ="20200122" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="1" tipoSala="GENERAL">
-            <Fecha dia="Dom, Ene 19 2020" univ="20200119">
-              <hora idFuncion="202001193020111" horario="11:20 am" reservasONline="true" ventasONline="true" militar="1120" validaciones="No" cortoNacional="" capacidad="186" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="17" nombreTarifa="2D TP Gral Semana" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
-                    <Tarifa codigoTarifa="37" nombreTarifa="2D Gral Hora Feliz" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                    <Tarifa codigoTarifa="42" nombreTarifa="2D TP Hora Feliz" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="48" nombreTarifa="2D FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
-                    <Tarifa codigoTarifa="85" nombreTarifa="2D StarKids" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="87" nombreTarifa="Comfama Tarifa A" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="88" nombreTarifa="Comfama Tarifa B" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="89" nombreTarifa="Comfama Tarifa C" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                  </TipoSilla>
-                  <TipoSilla nombreTipoSilla="Discapacitado" idTipoSilla="2">
-                    <Tarifa codigoTarifa="38" nombreTarifa="Discapacitados" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                  </TipoSilla>
-                </TipoZona>
-                <TipoZona nombreZona="VIBRASOUND" idZona="1">
-                  <TipoSilla nombreTipoSilla="Vibrasound" idTipoSilla="3">
-                    <Tarifa codigoTarifa="43" nombreTarifa="2D Vibrosound HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8000,0000" />
-                    <Tarifa codigoTarifa="44" nombreTarifa="2D TP Vibrosound HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-              <hora idFuncion="202001193020113" horario="1:50 pm" reservasONline="true" ventasONline="true" militar="1350" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="16">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="17" nombreTarifa="2D TP Gral Semana" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
-                    <Tarifa codigoTarifa="37" nombreTarifa="2D Gral Hora Feliz" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                    <Tarifa codigoTarifa="42" nombreTarifa="2D TP Hora Feliz" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="48" nombreTarifa="2D FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
-                    <Tarifa codigoTarifa="85" nombreTarifa="2D StarKids" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="87" nombreTarifa="Comfama Tarifa A" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="88" nombreTarifa="Comfama Tarifa B" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="89" nombreTarifa="Comfama Tarifa C" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                  </TipoSilla>
-                  <TipoSilla nombreTipoSilla="Discapacitado" idTipoSilla="2">
-                    <Tarifa codigoTarifa="38" nombreTarifa="Discapacitados" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                  </TipoSilla>
-                </TipoZona>
-                <TipoZona nombreZona="VIBRASOUND" idZona="1">
-                  <TipoSilla nombreTipoSilla="Vibrasound" idTipoSilla="3">
-                    <Tarifa codigoTarifa="43" nombreTarifa="2D Vibrosound HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8000,0000" />
-                    <Tarifa codigoTarifa="44" nombreTarifa="2D TP Vibrosound HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-              <hora idFuncion="202001193020116" horario="4:25 pm" reservasONline="true" ventasONline="true" militar="1625" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="35">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                    <Tarifa codigoTarifa="48" nombreTarifa="2D FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
-                    <Tarifa codigoTarifa="50" nombreTarifa="2D TP FS  Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
-                    <Tarifa codigoTarifa="87" nombreTarifa="Comfama Tarifa A" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="88" nombreTarifa="Comfama Tarifa B" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="89" nombreTarifa="Comfama Tarifa C" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                  </TipoSilla>
-                  <TipoSilla nombreTipoSilla="Discapacitado" idTipoSilla="2">
-                    <Tarifa codigoTarifa="38" nombreTarifa="Discapacitados" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                  </TipoSilla>
-                </TipoZona>
-                <TipoZona nombreZona="VIBRASOUND" idZona="1">
-                  <TipoSilla nombreTipoSilla="Vibrasound" idTipoSilla="3">
-                    <Tarifa codigoTarifa="49" nombreTarifa="2D Vib FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
-                    <Tarifa codigoTarifa="51" nombreTarifa="2D Vib TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="9700,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-              <hora idFuncion="202001193020121" horario="9:35 pm" reservasONline="true" ventasONline="true" militar="2135" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="8">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                    <Tarifa codigoTarifa="48" nombreTarifa="2D FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
-                    <Tarifa codigoTarifa="50" nombreTarifa="2D TP FS  Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
-                    <Tarifa codigoTarifa="87" nombreTarifa="Comfama Tarifa A" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="88" nombreTarifa="Comfama Tarifa B" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="89" nombreTarifa="Comfama Tarifa C" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                  </TipoSilla>
-                  <TipoSilla nombreTipoSilla="Discapacitado" idTipoSilla="2">
-                    <Tarifa codigoTarifa="38" nombreTarifa="Discapacitados" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                  </TipoSilla>
-                </TipoZona>
-                <TipoZona nombreZona="VIBRASOUND" idZona="1">
-                  <TipoSilla nombreTipoSilla="Vibrasound" idTipoSilla="3">
-                    <Tarifa codigoTarifa="49" nombreTarifa="2D Vib FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
-                    <Tarifa codigoTarifa="51" nombreTarifa="2D Vib TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="9700,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
             <Fecha dia="Lun, Ene 20 2020" univ="20200120">
-              <hora idFuncion="202001203020113" horario="1:50 pm" reservasONline="true" ventasONline="true" militar="1350" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="0">
+              <hora idFuncion="202001203020113" horario="1:50 pm" reservasONline="true" ventasONline="true" militar="1350" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="1">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -138,7 +44,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001203020116" horario="4:25 pm" reservasONline="true" ventasONline="true" militar="1625" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="0">
+              <hora idFuncion="202001203020116" horario="4:25 pm" reservasONline="true" ventasONline="true" militar="1625" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="5">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -159,7 +65,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001203020121" horario="9:35 pm" reservasONline="true" ventasONline="true" militar="2135" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="0">
+              <hora idFuncion="202001203020121" horario="9:35 pm" reservasONline="true" ventasONline="true" militar="2135" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="1">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -315,7 +221,6 @@
     </sinopsis>
     <data TituloOriginal="JUMANJI EL SIGUIENTE NIVEL" Imagen="https://www.pantallasprocinal.com/img/peliculas/JUMANJI EL SIGUIENTE NIVEL.jpg" Censura="7 Años" idioma="DOBLADA" genero="AVENTURA" pais="ESTADOS UNIDOS" duracion="125" medio="digital" formato="Digital 3D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Dic 26 2019" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Dom, Ene 19 2020" univ="20200119" />
       <dia fecha="Lun, Ene 20 2020" univ="20200120" />
       <dia fecha="Mar, Ene 21 2020" univ="20200121" />
       <dia fecha="Mie, Ene 22 2020" univ="20200122" />
@@ -323,37 +228,14 @@
     <cinemas>
       <cinema id="302" nombre="plazario" ciudad="Apartadó                                          ">
         <DiasDisponiblesCinema>
-          <dia fecha="Dom, Ene 19 2020" univ="20200119" />
           <dia fecha="Lun, Ene 20 2020" univ="20200120" />
           <dia fecha="Mar, Ene 21 2020" univ="20200121" />
           <dia fecha="Mie, Ene 22 2020" univ="20200122" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="1" tipoSala="GENERAL">
-            <Fecha dia="Dom, Ene 19 2020" univ="20200119">
-              <hora idFuncion="202001193020119" horario="7:00 pm" reservasONline="true" ventasONline="true" militar="1900" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="17">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="26" nombreTarifa="3D Gral FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13700,0000" />
-                    <Tarifa codigoTarifa="66" nombreTarifa="3D Gral TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11500,0000" />
-                    <Tarifa codigoTarifa="83" nombreTarifa="3D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6800,0000" />
-                  </TipoSilla>
-                  <TipoSilla nombreTipoSilla="Discapacitado" idTipoSilla="2">
-                    <Tarifa codigoTarifa="82" nombreTarifa="3D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="10800,0000" />
-                  </TipoSilla>
-                </TipoZona>
-                <TipoZona nombreZona="VIBRASOUND" idZona="1">
-                  <TipoSilla nombreTipoSilla="Vibrasound" idTipoSilla="3">
-                    <Tarifa codigoTarifa="16" nombreTarifa="3D Vibrosound Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12100,0000" />
-                    <Tarifa codigoTarifa="64" nombreTarifa="3D TP Vibrosound" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10300,0000" />
-                    <Tarifa codigoTarifa="65" nombreTarifa="3D Vib FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14700,0000" />
-                    <Tarifa codigoTarifa="67" nombreTarifa="3D Vib TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12500,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
             <Fecha dia="Lun, Ene 20 2020" univ="20200120">
-              <hora idFuncion="202001203020119" horario="7:00 pm" reservasONline="true" ventasONline="true" militar="1900" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="1">
+              <hora idFuncion="202001203020119" horario="7:00 pm" reservasONline="true" ventasONline="true" militar="1900" validaciones="Si" cortoNacional="" capacidad="186" disponibilidad="4">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="2" nombreTarifa="3D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11100,0000" />
@@ -421,51 +303,11 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="12511121" nombre="ESPIAS A ESCONDIDAS GEN 2D GNR DOB" tipo="Estreno">
-    <sinopsis>
-    </sinopsis>
-    <data TituloOriginal="ESPIAS A ESCONDIDAS" Imagen="https://www.pantallasprocinal.com/img/peliculas/ESPIAS A ESCONDIDAS.jpg" Censura="7 Años" idioma="DOBLADA" genero="ANIMADA" pais="ESTADOS UNIDOS" duracion="100" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Dic 26 2019" reparto="" director="" distribuidor="CINE COLOMBIA S.A" />
-    <DiasDisponiblesTodosCinemas>
-      <dia fecha="Dom, Ene 19 2020" univ="20200119" />
-    </DiasDisponiblesTodosCinemas>
-    <cinemas>
-      <cinema id="302" nombre="plazario" ciudad="Apartadó                                          ">
-        <DiasDisponiblesCinema>
-          <dia fecha="Dom, Ene 19 2020" univ="20200119" />
-        </DiasDisponiblesCinema>
-        <salas>
-          <sala numeroSala="3" tipoSala="GENERAL">
-            <Fecha dia="Dom, Ene 19 2020" univ="20200119">
-              <hora idFuncion="202001193020312" horario="12:30 pm" reservasONline="true" ventasONline="true" militar="1230" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="7">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="17" nombreTarifa="2D TP Gral Semana" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
-                    <Tarifa codigoTarifa="37" nombreTarifa="2D Gral Hora Feliz" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                    <Tarifa codigoTarifa="42" nombreTarifa="2D TP Hora Feliz" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="48" nombreTarifa="2D FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
-                    <Tarifa codigoTarifa="85" nombreTarifa="2D StarKids" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="87" nombreTarifa="Comfama Tarifa A" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="88" nombreTarifa="Comfama Tarifa B" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="89" nombreTarifa="Comfama Tarifa C" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                  </TipoSilla>
-                  <TipoSilla nombreTipoSilla="Discapacitado" idTipoSilla="2">
-                    <Tarifa codigoTarifa="38" nombreTarifa="Discapacitados" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-          </sala>
-        </salas>
-      </cinema>
-    </cinemas>
-  </pelicula>
   <pelicula id="12911121" nombre="ANGELES DE CHARLIE GEN 2D GNR DOB" tipo="Estreno">
     <sinopsis>
     </sinopsis>
     <data TituloOriginal="ANGELES DE CHARLIE" Imagen="https://www.pantallasprocinal.com/img/peliculas/ANGELES DE CHARLIE.jpg" Censura="12 Años" idioma="DOBLADA" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="120" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Ene 9 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Dom, Ene 19 2020" univ="20200119" />
       <dia fecha="Lun, Ene 20 2020" univ="20200120" />
       <dia fecha="Mar, Ene 21 2020" univ="20200121" />
       <dia fecha="Mie, Ene 22 2020" univ="20200122" />
@@ -473,48 +315,12 @@
     <cinemas>
       <cinema id="302" nombre="plazario" ciudad="Apartadó                                          ">
         <DiasDisponiblesCinema>
-          <dia fecha="Dom, Ene 19 2020" univ="20200119" />
           <dia fecha="Lun, Ene 20 2020" univ="20200120" />
           <dia fecha="Mar, Ene 21 2020" univ="20200121" />
           <dia fecha="Mie, Ene 22 2020" univ="20200122" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="3" tipoSala="GENERAL">
-            <Fecha dia="Dom, Ene 19 2020" univ="20200119">
-              <hora idFuncion="202001193020314" horario="2:40 pm" reservasONline="true" ventasONline="true" militar="1440" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="13">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="17" nombreTarifa="2D TP Gral Semana" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
-                    <Tarifa codigoTarifa="37" nombreTarifa="2D Gral Hora Feliz" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                    <Tarifa codigoTarifa="42" nombreTarifa="2D TP Hora Feliz" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="48" nombreTarifa="2D FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
-                    <Tarifa codigoTarifa="85" nombreTarifa="2D StarKids" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="87" nombreTarifa="Comfama Tarifa A" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="88" nombreTarifa="Comfama Tarifa B" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="89" nombreTarifa="Comfama Tarifa C" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                  </TipoSilla>
-                  <TipoSilla nombreTipoSilla="Discapacitado" idTipoSilla="2">
-                    <Tarifa codigoTarifa="38" nombreTarifa="Discapacitados" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-              <hora idFuncion="202001193020319" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="17">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                    <Tarifa codigoTarifa="48" nombreTarifa="2D FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
-                    <Tarifa codigoTarifa="50" nombreTarifa="2D TP FS  Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
-                    <Tarifa codigoTarifa="87" nombreTarifa="Comfama Tarifa A" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="88" nombreTarifa="Comfama Tarifa B" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="89" nombreTarifa="Comfama Tarifa C" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                  </TipoSilla>
-                  <TipoSilla nombreTipoSilla="Discapacitado" idTipoSilla="2">
-                    <Tarifa codigoTarifa="38" nombreTarifa="Discapacitados" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
             <Fecha dia="Lun, Ene 20 2020" univ="20200120">
               <hora idFuncion="202001203020314" horario="2:40 pm" reservasONline="true" ventasONline="true" militar="1440" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="0">
                 <TipoZona nombreZona="GENERAL" idZona="0">
@@ -534,7 +340,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001203020319" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="0">
+              <hora idFuncion="202001203020319" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="8">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -616,7 +422,6 @@
     </sinopsis>
     <data TituloOriginal="DOLITTLE" Imagen="https://www.pantallasprocinal.com/img/peliculas/DOLITTLE.jpg" Censura="Todos" idioma="DOBLADA" genero="AVENTURA" pais="ESTADOS UNIDOS" duracion="100" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Ene 16 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Dom, Ene 19 2020" univ="20200119" />
       <dia fecha="Lun, Ene 20 2020" univ="20200120" />
       <dia fecha="Mar, Ene 21 2020" univ="20200121" />
       <dia fecha="Mie, Ene 22 2020" univ="20200122" />
@@ -624,72 +429,12 @@
     <cinemas>
       <cinema id="302" nombre="plazario" ciudad="Apartadó                                          ">
         <DiasDisponiblesCinema>
-          <dia fecha="Dom, Ene 19 2020" univ="20200119" />
           <dia fecha="Lun, Ene 20 2020" univ="20200120" />
           <dia fecha="Mar, Ene 21 2020" univ="20200121" />
           <dia fecha="Mie, Ene 22 2020" univ="20200122" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="2" tipoSala="BLACK STAR">
-            <Fecha dia="Dom, Ene 19 2020" univ="20200119">
-              <hora idFuncion="202001193020211" horario="11:10 am" reservasONline="true" ventasONline="true" militar="1110" validaciones="No" cortoNacional="" capacidad="138" disponibilidad="1">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="169" nombreTarifa="2D BlackSt Gen TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                  </TipoSilla>
-                </TipoZona>
-                <TipoZona nombreZona="Black Star" idZona="2">
-                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
-                    <Tarifa codigoTarifa="6" nombreTarifa="2D BlackStar HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12000,0000" />
-                    <Tarifa codigoTarifa="22" nombreTarifa="2D Black Star TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-              <hora idFuncion="202001193020213" horario="1:20 pm" reservasONline="true" ventasONline="true" militar="1320" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="9">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="169" nombreTarifa="2D BlackSt Gen TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                  </TipoSilla>
-                </TipoZona>
-                <TipoZona nombreZona="Black Star" idZona="2">
-                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
-                    <Tarifa codigoTarifa="6" nombreTarifa="2D BlackStar HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12000,0000" />
-                    <Tarifa codigoTarifa="22" nombreTarifa="2D Black Star TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-              <hora idFuncion="202001193020215" horario="3:30 pm" reservasONline="true" ventasONline="true" militar="1530" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="39">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="169" nombreTarifa="2D BlackSt Gen TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
-                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                  </TipoSilla>
-                </TipoZona>
-                <TipoZona nombreZona="Black Star" idZona="2">
-                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
-                    <Tarifa codigoTarifa="6" nombreTarifa="2D BlackStar HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12000,0000" />
-                    <Tarifa codigoTarifa="22" nombreTarifa="2D Black Star TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
             <Fecha dia="Lun, Ene 20 2020" univ="20200120">
               <hora idFuncion="202001203020213" horario="1:20 pm" reservasONline="true" ventasONline="true" militar="1320" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
                 <TipoZona nombreZona="GENERAL" idZona="0">
@@ -710,7 +455,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001203020215" horario="3:30 pm" reservasONline="true" ventasONline="true" militar="1530" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+              <hora idFuncion="202001203020215" horario="3:30 pm" reservasONline="true" ventasONline="true" militar="1530" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="12">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
@@ -812,7 +557,6 @@
     </sinopsis>
     <data TituloOriginal="DOLITTLE" Imagen="https://www.pantallasprocinal.com/img/peliculas/DOLITTLE.jpg" Censura="Todos" idioma="DOBLADA" genero="AVENTURA" pais="ESTADOS UNIDOS" duracion="100" medio="digital" formato="Digital 3D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Ene 16 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Dom, Ene 19 2020" univ="20200119" />
       <dia fecha="Lun, Ene 20 2020" univ="20200120" />
       <dia fecha="Mar, Ene 21 2020" univ="20200121" />
       <dia fecha="Mie, Ene 22 2020" univ="20200122" />
@@ -820,49 +564,14 @@
     <cinemas>
       <cinema id="302" nombre="plazario" ciudad="Apartadó                                          ">
         <DiasDisponiblesCinema>
-          <dia fecha="Dom, Ene 19 2020" univ="20200119" />
           <dia fecha="Lun, Ene 20 2020" univ="20200120" />
           <dia fecha="Mar, Ene 21 2020" univ="20200121" />
           <dia fecha="Mie, Ene 22 2020" univ="20200122" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="2" tipoSala="BLACK STAR">
-            <Fecha dia="Dom, Ene 19 2020" univ="20200119">
-              <hora idFuncion="202001193020218" horario="6:40 pm" reservasONline="true" ventasONline="true" militar="1840" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="41">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="180" nombreTarifa="3D BS Gen Fs Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13700,0000" />
-                    <Tarifa codigoTarifa="181" nombreTarifa="3D BS Gen TP Fs Noch" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11500,0000" />
-                    <Tarifa codigoTarifa="197" nombreTarifa="3D BS Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="10125,0000" />
-                    <Tarifa codigoTarifa="199" nombreTarifa="3D BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6750,0000" />
-                  </TipoSilla>
-                </TipoZona>
-                <TipoZona nombreZona="Black Star" idZona="2">
-                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
-                    <Tarifa codigoTarifa="107" nombreTarifa="3D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="19000,0000" />
-                    <Tarifa codigoTarifa="108" nombreTarifa="3D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="16500,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-              <hora idFuncion="202001193020220" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="16">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="180" nombreTarifa="3D BS Gen Fs Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13700,0000" />
-                    <Tarifa codigoTarifa="181" nombreTarifa="3D BS Gen TP Fs Noch" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11500,0000" />
-                    <Tarifa codigoTarifa="197" nombreTarifa="3D BS Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="10125,0000" />
-                    <Tarifa codigoTarifa="199" nombreTarifa="3D BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6750,0000" />
-                  </TipoSilla>
-                </TipoZona>
-                <TipoZona nombreZona="Black Star" idZona="2">
-                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
-                    <Tarifa codigoTarifa="107" nombreTarifa="3D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="19000,0000" />
-                    <Tarifa codigoTarifa="108" nombreTarifa="3D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="16500,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
             <Fecha dia="Lun, Ene 20 2020" univ="20200120">
-              <hora idFuncion="202001203020218" horario="6:40 pm" reservasONline="true" ventasONline="true" militar="1840" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+              <hora idFuncion="202001203020218" horario="6:40 pm" reservasONline="true" ventasONline="true" militar="1840" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="9">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="176" nombreTarifa="3D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11100,0000" />
@@ -913,7 +622,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001213020220" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="1">
+              <hora idFuncion="202001213020220" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="182" nombreTarifa="3D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="6800,0000" />
@@ -949,7 +658,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001223020220" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="1">
+              <hora idFuncion="202001223020220" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="182" nombreTarifa="3D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="6800,0000" />
@@ -977,7 +686,6 @@
     </sinopsis>
     <data TituloOriginal="LA POSESION DE MARY" Imagen="https://www.pantallasprocinal.com/img/peliculas/LA POSESION DE MARY.jpg" Censura="12 Años" idioma="DOBLADA" genero="TERROR" pais="ESTADOS UNIDOS" duracion="85" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Ene 16 2020" reparto="" director="" distribuidor="CINE COLOMBIA S.A" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Dom, Ene 19 2020" univ="20200119" />
       <dia fecha="Lun, Ene 20 2020" univ="20200120" />
       <dia fecha="Mar, Ene 21 2020" univ="20200121" />
       <dia fecha="Mie, Ene 22 2020" univ="20200122" />
@@ -985,47 +693,14 @@
     <cinemas>
       <cinema id="302" nombre="plazario" ciudad="Apartadó                                          ">
         <DiasDisponiblesCinema>
-          <dia fecha="Dom, Ene 19 2020" univ="20200119" />
           <dia fecha="Lun, Ene 20 2020" univ="20200120" />
           <dia fecha="Mar, Ene 21 2020" univ="20200121" />
           <dia fecha="Mie, Ene 22 2020" univ="20200122" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="3" tipoSala="GENERAL">
-            <Fecha dia="Dom, Ene 19 2020" univ="20200119">
-              <hora idFuncion="202001193020317" horario="5:10 pm" reservasONline="true" ventasONline="true" militar="1710" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="9">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                    <Tarifa codigoTarifa="48" nombreTarifa="2D FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
-                    <Tarifa codigoTarifa="50" nombreTarifa="2D TP FS  Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
-                    <Tarifa codigoTarifa="87" nombreTarifa="Comfama Tarifa A" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="88" nombreTarifa="Comfama Tarifa B" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="89" nombreTarifa="Comfama Tarifa C" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                  </TipoSilla>
-                  <TipoSilla nombreTipoSilla="Discapacitado" idTipoSilla="2">
-                    <Tarifa codigoTarifa="38" nombreTarifa="Discapacitados" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-              <hora idFuncion="202001193020321" horario="9:40 pm" reservasONline="true" ventasONline="true" militar="2140" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="1">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
-                    <Tarifa codigoTarifa="48" nombreTarifa="2D FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
-                    <Tarifa codigoTarifa="50" nombreTarifa="2D TP FS  Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
-                    <Tarifa codigoTarifa="87" nombreTarifa="Comfama Tarifa A" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="88" nombreTarifa="Comfama Tarifa B" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                    <Tarifa codigoTarifa="89" nombreTarifa="Comfama Tarifa C" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
-                  </TipoSilla>
-                  <TipoSilla nombreTipoSilla="Discapacitado" idTipoSilla="2">
-                    <Tarifa codigoTarifa="38" nombreTarifa="Discapacitados" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
             <Fecha dia="Lun, Ene 20 2020" univ="20200120">
-              <hora idFuncion="202001203020317" horario="5:10 pm" reservasONline="true" ventasONline="true" militar="1710" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="0">
+              <hora idFuncion="202001203020317" horario="5:10 pm" reservasONline="true" ventasONline="true" militar="1710" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="6">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -1040,7 +715,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001203020321" horario="9:40 pm" reservasONline="true" ventasONline="true" militar="2140" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="0">
+              <hora idFuncion="202001203020321" horario="9:40 pm" reservasONline="true" ventasONline="true" militar="2140" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="1">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="1" nombreTarifa="2D General Semana" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -1117,9 +792,552 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="135" nombre="BAD BOYS PARA SIEMPRE" tipo="Próximo Estreno">
+  <pelicula id="13551121" nombre="BAD BOYS PARA SIEMPRE BS 2D GNR DOB" tipo="Preventa">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="BAD BOYS PARA SIEMPRE" Imagen="https://www.pantallasprocinal.com/img/peliculas/BAD BOYS PARA SIEMPRE.jpg" Censura="12 Años" idioma="DOBLADA" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="125" medio="digital" trailer1="" trailer2="" fechaEstreno="Jue, Ene 23 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
+    <data TituloOriginal="BAD BOYS PARA SIEMPRE" Imagen="https://www.pantallasprocinal.com/img/peliculas/BAD BOYS PARA SIEMPRE.jpg" Censura="12 Años" idioma="DOBLADA" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="125" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Ene 23 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
+    <DiasDisponiblesTodosCinemas>
+      <dia fecha="Jue, Ene 23 2020" univ="20200123" />
+      <dia fecha="Vie, Ene 24 2020" univ="20200124" />
+      <dia fecha="Sab, Ene 25 2020" univ="20200125" />
+      <dia fecha="Dom, Ene 26 2020" univ="20200126" />
+      <dia fecha="Lun, Ene 27 2020" univ="20200127" />
+      <dia fecha="Mar, Ene 28 2020" univ="20200128" />
+      <dia fecha="Mie, Ene 29 2020" univ="20200129" />
+    </DiasDisponiblesTodosCinemas>
+    <cinemas>
+      <cinema id="302" nombre="plazario" ciudad="Apartadó                                          ">
+        <DiasDisponiblesCinema>
+          <dia fecha="Jue, Ene 23 2020" univ="20200123" />
+          <dia fecha="Vie, Ene 24 2020" univ="20200124" />
+          <dia fecha="Sab, Ene 25 2020" univ="20200125" />
+          <dia fecha="Dom, Ene 26 2020" univ="20200126" />
+          <dia fecha="Lun, Ene 27 2020" univ="20200127" />
+          <dia fecha="Mar, Ene 28 2020" univ="20200128" />
+          <dia fecha="Mie, Ene 29 2020" univ="20200129" />
+        </DiasDisponiblesCinema>
+        <salas>
+          <sala numeroSala="2" tipoSala="BLACK STAR">
+            <Fecha dia="Jue, Ene 23 2020" univ="20200123">
+              <hora idFuncion="202001233020214" horario="2:00 pm" reservasONline="true" ventasONline="true" militar="1400" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
+                    <Tarifa codigoTarifa="169" nombreTarifa="2D BlackSt Gen TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="6" nombreTarifa="2D BlackStar HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12000,0000" />
+                    <Tarifa codigoTarifa="22" nombreTarifa="2D Black Star TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001233020216" horario="4:35 pm" reservasONline="true" ventasONline="true" militar="1635" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="172" nombreTarifa="2D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
+                    <Tarifa codigoTarifa="173" nombreTarifa="2D BS Gen TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="101" nombreTarifa="2D BlackStar Sem Noc" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13400,0000" />
+                    <Tarifa codigoTarifa="102" nombreTarifa="2D BlackS TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001233020219" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="2">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="172" nombreTarifa="2D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
+                    <Tarifa codigoTarifa="173" nombreTarifa="2D BS Gen TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="101" nombreTarifa="2D BlackStar Sem Noc" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13400,0000" />
+                    <Tarifa codigoTarifa="102" nombreTarifa="2D BlackS TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001233020221" horario="9:45 pm" reservasONline="true" ventasONline="true" militar="2145" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="172" nombreTarifa="2D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
+                    <Tarifa codigoTarifa="173" nombreTarifa="2D BS Gen TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="101" nombreTarifa="2D BlackStar Sem Noc" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13400,0000" />
+                    <Tarifa codigoTarifa="102" nombreTarifa="2D BlackS TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Vie, Ene 24 2020" univ="20200124">
+              <hora idFuncion="202001243020214" horario="2:00 pm" reservasONline="true" ventasONline="true" militar="1400" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
+                    <Tarifa codigoTarifa="169" nombreTarifa="2D BlackSt Gen TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="6" nombreTarifa="2D BlackStar HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12000,0000" />
+                    <Tarifa codigoTarifa="22" nombreTarifa="2D Black Star TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001243020216" horario="4:35 pm" reservasONline="true" ventasONline="true" militar="1635" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="178" nombreTarifa="2D BlackSt Gen Noch" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
+                    <Tarifa codigoTarifa="179" nombreTarifa="2D BlackSt Gen TP No" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="105" nombreTarifa="2D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="16000,0000" />
+                    <Tarifa codigoTarifa="106" nombreTarifa="2D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="13800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001243020219" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="178" nombreTarifa="2D BlackSt Gen Noch" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
+                    <Tarifa codigoTarifa="179" nombreTarifa="2D BlackSt Gen TP No" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="105" nombreTarifa="2D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="16000,0000" />
+                    <Tarifa codigoTarifa="106" nombreTarifa="2D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="13800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001243020221" horario="9:45 pm" reservasONline="true" ventasONline="true" militar="2145" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="178" nombreTarifa="2D BlackSt Gen Noch" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
+                    <Tarifa codigoTarifa="179" nombreTarifa="2D BlackSt Gen TP No" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="105" nombreTarifa="2D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="16000,0000" />
+                    <Tarifa codigoTarifa="106" nombreTarifa="2D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="13800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Sab, Ene 25 2020" univ="20200125">
+              <hora idFuncion="202001253020214" horario="2:00 pm" reservasONline="true" ventasONline="true" militar="1400" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
+                    <Tarifa codigoTarifa="169" nombreTarifa="2D BlackSt Gen TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="6" nombreTarifa="2D BlackStar HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12000,0000" />
+                    <Tarifa codigoTarifa="22" nombreTarifa="2D Black Star TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001253020216" horario="4:35 pm" reservasONline="true" ventasONline="true" militar="1635" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="178" nombreTarifa="2D BlackSt Gen Noch" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
+                    <Tarifa codigoTarifa="179" nombreTarifa="2D BlackSt Gen TP No" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="105" nombreTarifa="2D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="16000,0000" />
+                    <Tarifa codigoTarifa="106" nombreTarifa="2D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="13800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001253020219" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="178" nombreTarifa="2D BlackSt Gen Noch" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
+                    <Tarifa codigoTarifa="179" nombreTarifa="2D BlackSt Gen TP No" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="105" nombreTarifa="2D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="16000,0000" />
+                    <Tarifa codigoTarifa="106" nombreTarifa="2D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="13800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001253020221" horario="9:45 pm" reservasONline="true" ventasONline="true" militar="2145" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="178" nombreTarifa="2D BlackSt Gen Noch" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
+                    <Tarifa codigoTarifa="179" nombreTarifa="2D BlackSt Gen TP No" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="105" nombreTarifa="2D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="16000,0000" />
+                    <Tarifa codigoTarifa="106" nombreTarifa="2D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="13800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Dom, Ene 26 2020" univ="20200126">
+              <hora idFuncion="202001263020214" horario="2:00 pm" reservasONline="true" ventasONline="true" militar="1400" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
+                    <Tarifa codigoTarifa="169" nombreTarifa="2D BlackSt Gen TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="6" nombreTarifa="2D BlackStar HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12000,0000" />
+                    <Tarifa codigoTarifa="22" nombreTarifa="2D Black Star TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001263020216" horario="4:35 pm" reservasONline="true" ventasONline="true" militar="1635" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="178" nombreTarifa="2D BlackSt Gen Noch" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
+                    <Tarifa codigoTarifa="179" nombreTarifa="2D BlackSt Gen TP No" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="105" nombreTarifa="2D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="16000,0000" />
+                    <Tarifa codigoTarifa="106" nombreTarifa="2D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="13800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001263020219" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="178" nombreTarifa="2D BlackSt Gen Noch" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
+                    <Tarifa codigoTarifa="179" nombreTarifa="2D BlackSt Gen TP No" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="105" nombreTarifa="2D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="16000,0000" />
+                    <Tarifa codigoTarifa="106" nombreTarifa="2D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="13800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001263020221" horario="9:45 pm" reservasONline="true" ventasONline="true" militar="2145" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="178" nombreTarifa="2D BlackSt Gen Noch" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="10900,0000" />
+                    <Tarifa codigoTarifa="179" nombreTarifa="2D BlackSt Gen TP No" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8700,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="105" nombreTarifa="2D Black FS Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="16000,0000" />
+                    <Tarifa codigoTarifa="106" nombreTarifa="2D Black TP FS Noche" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="13800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Lun, Ene 27 2020" univ="20200127">
+              <hora idFuncion="202001273020214" horario="2:00 pm" reservasONline="true" ventasONline="true" militar="1400" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="168" nombreTarifa="2D BlackStar Gen HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7000,0000" />
+                    <Tarifa codigoTarifa="169" nombreTarifa="2D BlackSt Gen TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7000,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="6" nombreTarifa="2D BlackStar HF" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12000,0000" />
+                    <Tarifa codigoTarifa="22" nombreTarifa="2D Black Star TP HF" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001273020216" horario="4:35 pm" reservasONline="true" ventasONline="true" militar="1635" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="172" nombreTarifa="2D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
+                    <Tarifa codigoTarifa="173" nombreTarifa="2D BS Gen TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="101" nombreTarifa="2D BlackStar Sem Noc" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13400,0000" />
+                    <Tarifa codigoTarifa="102" nombreTarifa="2D BlackS TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001273020219" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="172" nombreTarifa="2D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
+                    <Tarifa codigoTarifa="173" nombreTarifa="2D BS Gen TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="101" nombreTarifa="2D BlackStar Sem Noc" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13400,0000" />
+                    <Tarifa codigoTarifa="102" nombreTarifa="2D BlackS TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001273020221" horario="9:45 pm" reservasONline="true" ventasONline="true" militar="2145" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="172" nombreTarifa="2D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
+                    <Tarifa codigoTarifa="173" nombreTarifa="2D BS Gen TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7600,0000" />
+                    <Tarifa codigoTarifa="186" nombreTarifa="Comfama A Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="187" nombreTarifa="Comfama B Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
+                    <Tarifa codigoTarifa="188" nombreTarifa="Comfama C Black Star" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="6000,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="101" nombreTarifa="2D BlackStar Sem Noc" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="13400,0000" />
+                    <Tarifa codigoTarifa="102" nombreTarifa="2D BlackS TP Sem Noc" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="12500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Mar, Ene 28 2020" univ="20200128">
+              <hora idFuncion="202001283020214" horario="2:00 pm" reservasONline="true" ventasONline="true" militar="1400" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="171" nombreTarifa="2D Black Gen M y M T" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="109" nombreTarifa="2D Black Mar y Mier" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="110" nombreTarifa="2D Black TP M y M" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="111" nombreTarifa="2D Black Kiosco M y" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001283020216" horario="4:35 pm" reservasONline="true" ventasONline="true" militar="1635" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="171" nombreTarifa="2D Black Gen M y M T" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="109" nombreTarifa="2D Black Mar y Mier" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="110" nombreTarifa="2D Black TP M y M" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="111" nombreTarifa="2D Black Kiosco M y" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001283020219" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="171" nombreTarifa="2D Black Gen M y M T" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="109" nombreTarifa="2D Black Mar y Mier" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="110" nombreTarifa="2D Black TP M y M" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="111" nombreTarifa="2D Black Kiosco M y" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001283020221" horario="9:45 pm" reservasONline="true" ventasONline="true" militar="2145" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="171" nombreTarifa="2D Black Gen M y M T" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="109" nombreTarifa="2D Black Mar y Mier" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="110" nombreTarifa="2D Black TP M y M" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="111" nombreTarifa="2D Black Kiosco M y" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Mie, Ene 29 2020" univ="20200129">
+              <hora idFuncion="202001293020214" horario="2:00 pm" reservasONline="true" ventasONline="true" militar="1400" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="171" nombreTarifa="2D Black Gen M y M T" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="109" nombreTarifa="2D Black Mar y Mier" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="110" nombreTarifa="2D Black TP M y M" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="111" nombreTarifa="2D Black Kiosco M y" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001293020216" horario="4:35 pm" reservasONline="true" ventasONline="true" militar="1635" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="171" nombreTarifa="2D Black Gen M y M T" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="109" nombreTarifa="2D Black Mar y Mier" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="110" nombreTarifa="2D Black TP M y M" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="111" nombreTarifa="2D Black Kiosco M y" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001293020219" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="171" nombreTarifa="2D Black Gen M y M T" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="109" nombreTarifa="2D Black Mar y Mier" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="110" nombreTarifa="2D Black TP M y M" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="111" nombreTarifa="2D Black Kiosco M y" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202001293020221" horario="9:45 pm" reservasONline="true" ventasONline="true" militar="2145" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="171" nombreTarifa="2D Black Gen M y M T" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="5400,0000" />
+                    <Tarifa codigoTarifa="196" nombreTarifa="2D Discapacidad" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8200,0000" />
+                    <Tarifa codigoTarifa="198" nombreTarifa="2d BS Fuerzas Milita" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
+                  </TipoSilla>
+                </TipoZona>
+                <TipoZona nombreZona="Black Star" idZona="2">
+                  <TipoSilla nombreTipoSilla="Black Star" idTipoSilla="6">
+                    <Tarifa codigoTarifa="109" nombreTarifa="2D Black Mar y Mier" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="110" nombreTarifa="2D Black TP M y M" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="8000,0000" />
+                    <Tarifa codigoTarifa="111" nombreTarifa="2D Black Kiosco M y" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7800,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+          </sala>
+        </salas>
+      </cinema>
+    </cinemas>
+  </pelicula>
+  <pelicula id="137" nombre="LOCO POR VOS" tipo="Próximo Estreno">
+    <sinopsis>
+    </sinopsis>
+    <data TituloOriginal="LOCO POR VOS" Imagen="https://www.pantallasprocinal.com/img/peliculas/LOCO POR VOS.jpg" Censura="12 Años" idioma="HABLADA" genero="COMEDIA" pais="ESTADOS UNIDOS" duracion="120" medio="digital" trailer1="" trailer2="" fechaEstreno="Jue, Ene 23 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
   </pelicula>
 </Peliculas>
