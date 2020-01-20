@@ -457,6 +457,7 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Tags\cartel-general.png" />
     <Resource Include="Images\Gif\confetti.gif" />
     <Resource Include="Images\Seats\s-preferencial.png" />
     <Resource Include="Images\Backgrounds\modalCineFan.png" />

@@ -70,6 +70,7 @@ namespace WPProcinal.Forms
             Utilities.control.callbackDocument = null;
             Utilities.control.ClosePortScanner();
             DialogResult = false;
+            //DialogResult = ValidateCineFan("71252125");
         }
         #endregion
 
@@ -78,26 +79,19 @@ namespace WPProcinal.Forms
         {
             try
             {
-                Task.Run(() =>
+                Task.Run(() => Dispatcher.BeginInvoke((Action)delegate
                 {
                     if (ValidateCineFan(Utilities.dataDocument.Document))
                     {
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-
-                            Utilities.control.callbackDocument = null;
-                            Utilities.control.ClosePortScanner();
-                            DialogResult = true;
-                        });
+                        Utilities.control.callbackDocument = null;
+                        Utilities.control.ClosePortScanner();
+                        DialogResult = true;
                     }
                     else
                     {
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            Utilities.control.num = 0;
-                        });
+                        Utilities.control.num = 0;
                     }
-                });
+                }));
 
             }
             catch (Exception ex)
@@ -110,20 +104,14 @@ namespace WPProcinal.Forms
             try
             {
 
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    frmLoading = new FrmLoading("¡Consultando información...!");
-                    frmLoading.Show();
-                });
+                frmLoading = new FrmLoading("¡Consultando información...!");
+                frmLoading.Show();
                 var responseClient = WCFServices41.GetClientData(new SCOCED
                 {
                     Documento = long.Parse(cedula),
                     tercero = "1"
                 });
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    frmLoading.Close();
-                });
+                frmLoading.Close();
                 if (responseClient != null)
                 {
                     if (responseClient.Tarjeta != null)
@@ -133,24 +121,28 @@ namespace WPProcinal.Forms
                     }
                     else
                     {
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            txtError.Text = responseClient.Estado;
-                        });
+                        txtError.Text = responseClient.Estado != null ? responseClient.Estado : "Usuario no registrado en el sistema.";
                         return false;
                     }
                 }
                 else
                 {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        txtError.Text = "No se pudo validar la informacion.";
-                    });
+                    txtError.Text = "No se pudo validar la información.";
                     return false;
                 }
             }
             catch (Exception ex)
             {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "ValidateCineFan en frmModalCineFan",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                txtError.Text = "No se pudo validar la información.";
+                frmLoading.Close();
                 return false;
             }
         }

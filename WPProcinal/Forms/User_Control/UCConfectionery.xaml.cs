@@ -53,7 +53,6 @@ namespace WPProcinal.Forms.User_Control
                 Utilities._Combos = new List<Combos>();
                 _Seats = Seats;
                 _DipMap = dipMap;
-                ActivateTimer();
                 api = new ApiLocal();
                 utilities = new Utilities();
                 grabador = new CLSGrabador();
@@ -286,6 +285,7 @@ namespace WPProcinal.Forms.User_Control
             }
             else
             {
+                ActivateTimer();
                 this.IsEnabled = true;
             }
         }
@@ -404,6 +404,8 @@ namespace WPProcinal.Forms.User_Control
 
                 Dispatcher.BeginInvoke((Action)delegate
                 {
+
+                    ActivateTimer();
                     frmLoading.Close();
                     this.IsEnabled = true;
                 });
@@ -414,6 +416,8 @@ namespace WPProcinal.Forms.User_Control
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
         {
 
+            SetCallBacksNull();
+            timer.CallBackStop?.Invoke(1);
             Task.Run(() =>
             {
                 WCFServices41.PostDesAssingreserva(_Seats, _DipMap);

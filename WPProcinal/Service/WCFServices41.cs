@@ -766,7 +766,7 @@ namespace WPProcinal.Service
         public int PuntoVenta { get; set; }
         public int Factura { get; set; }
         public string CorreoCliente { get; set; }
-        public int DocIdentidad { get; set; }
+        public long DocIdentidad { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public long Telefono { get; set; }
@@ -780,7 +780,7 @@ namespace WPProcinal.Service
         public List<Producto> Productos { get; set; }
         public string Cortesia { get; set; }
         public int TipoBono { get; set; }
-        public int ClienteFrecuente { get; set; }
+        public long ClienteFrecuente { get; set; }
         public int TotalVenta { get; set; }
         public int PagoInterno { get; set; }
         public int PagoCredito { get; set; }
@@ -814,7 +814,7 @@ namespace WPProcinal.Service
         public int InicioFuncion { get; set; }
         public int PuntoVenta { get; set; }
         public int Secuencia { get; set; }
-        public int Telefono { get; set; }
+        public long Telefono { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public List<Ubicacione> Ubicaciones { get; set; }

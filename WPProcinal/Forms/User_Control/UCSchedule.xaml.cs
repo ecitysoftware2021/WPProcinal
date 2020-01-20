@@ -281,7 +281,7 @@ namespace WPProcinal.Forms.User_Control
                     return "/Images/Tags/cartel-4dx.png";
                 case "2D":
                 case "GENERAL":
-                    return "/Images/Tags/cartel-2d.png";
+                    return "/Images/Tags/cartel-general.png";
                 case "3D":
                     return "/Images/Tags/cartel-3d.png";
                 case "VIBRASOUND":

@@ -30,28 +30,44 @@ namespace WPProcinal.Forms.User_Control
         TimerTiempo timer;
         bool activePay = false;
 
+        ApiLocal api;
+        CLSGrabador grabador;
+        Utilities utilities;
+
         public UCSeat(DipMap dipMap)
         {
             InitializeComponent();
-            frmLoading = new FrmLoading("¡Cargando la sala!");
-            dipMapCurrent = dipMap;
-            TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
-            TxtRoom.Text = dipMap.RoomName;
-            TxtDay.Text = dipMap.Day;
-            TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
-            TxtHour.Text = "Hora Función: " + dipMap.HourFunction;
-            TxtSubTitle.Text = "Idioma: " + dipMap.Language;
-            tbDiaActual.Text = "Fecha Actual: " + DateTime.Now.ToLongDateString();
+            try
+            {
 
-            var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
-            TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
+                api = new ApiLocal();
+                utilities = new Utilities();
+                grabador = new CLSGrabador();
+                Utilities._Combos = new List<Combos>();
+                frmLoading = new FrmLoading("¡Cargando la sala!");
+                dipMapCurrent = dipMap;
+                TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
+                TxtRoom.Text = dipMap.RoomName;
+                TxtDay.Text = dipMap.Day;
+                TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
+                TxtHour.Text = "Hora Función: " + dipMap.HourFunction;
+                TxtSubTitle.Text = "Idioma: " + dipMap.Language;
+                tbDiaActual.Text = "Fecha Actual: " + DateTime.Now.ToLongDateString();
 
-            LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
-            HideImages();
-            ActivateTimer();
+                var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
+                TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
 
-            Utilities.Speack("Elige tus ubicaciones y presiona comprar.");
+                LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
+                HideImages();
+                ActivateTimer();
 
+                Utilities.Speack("Elige tus ubicaciones y presiona comprar.");
+
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "UCSeat en frmSeat", EError.Aplication, ELevelError.Medium);
+            }
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -69,7 +85,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(ex.Message, "UserControl_Loaded en frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -215,7 +231,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 int Height = est.Count();
-                int Width = Convert.ToInt32(est[0].maxCol);
+                int Width = int.Parse(est[0].maxCol.ToString());
 
                 for (int i = 0; i <= Height; i++)
                 {
@@ -275,7 +291,7 @@ namespace WPProcinal.Forms.User_Control
                             Name = string.Concat(filas.filRel, item.Columna),
                             Number = item.Columna.ToString(),
                             Type = item.TipoSilla,
-                            RelativeColumn = Convert.ToInt32(filas.maxCol - columnaScore),
+                            RelativeColumn = int.Parse((filas.maxCol - columnaScore).ToString()),
                             RelativeRow = filas.filRel,
                         };
 
@@ -333,7 +349,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 int Height = est.Count();
-                int Width = Convert.ToInt32(est[0].maxCol);
+                int Width = int.Parse(est[0].maxCol.ToString());
 
                 for (int i = 0; i <= Height; i++)
                 {
@@ -393,7 +409,7 @@ namespace WPProcinal.Forms.User_Control
                             Name = string.Concat(est[filaScore].filRel, item.Columna),
                             Number = item.Columna.ToString(),
                             Type = item.TipoSilla,
-                            RelativeColumn = Convert.ToInt32(filas.maxCol - columnaScore),
+                            RelativeColumn = int.Parse((filas.maxCol - columnaScore).ToString()),
                             RelativeRow = filas.filRel,
                         };
 
@@ -457,12 +473,6 @@ namespace WPProcinal.Forms.User_Control
 
         private void SelectedSeatsMethod(object sender, TypeSeat item)
         {
-            try
-            {
-                SetCallBacksNull();
-                ActivateTimer();
-            }
-            catch (Exception) { }
             try
             {
                 Image image = (Image)sender;
@@ -562,39 +572,107 @@ namespace WPProcinal.Forms.User_Control
                     return;
                 }
 
-                this.IsEnabled = false;
-                var frmLoading = new FrmLoading("¡Descargando precios...!");
-                frmLoading.Show();
-                var response41 = WCFServices41.GetPrices(new SCOPLA
+                if (GetPrices())
                 {
-                    FechaFuncion = dipMapCurrent.Date,
-                    InicioFuncion = dipMapCurrent.HourFormat,
-                    Pelicula = dipMapCurrent.MovieId,
-                    Sala = dipMapCurrent.RoomId,
-                    teatro = dipMapCurrent.CinemaId,
-                    tercero = "1"
-                });
-                this.IsEnabled = true;
-                frmLoading.Close();
-                if (response41 == null)
-                {
-                    Utilities.ShowModal("Lo sentimos, no fué posible consultar las tarifas, por favor intente de nuevo.");
-                    ReloadWindow();
-                    return;
-                }
-                List<string> sinTarifa = new List<string>();
-                foreach (var selectedTypeSeat in SelectedTypeSeats)
-                {
-                    var tarifa = new ResponseTarifa();
-                    if (Utilities.dataUser.Tarjeta != null)
+
+
+
+                    if (Utilities.FechaSeleccionada != DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy")))
                     {
-                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                        frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
+                        this.Opacity = 0.3;
+                        _frmConfirmationModal.ShowDialog();
+                        this.Opacity = 1;
+                        if (_frmConfirmationModal.DialogResult.HasValue &&
+                            _frmConfirmationModal.DialogResult.Value)
+                        {
+                            List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
+                            GetSecuence();
+                            List<ResponseScogru> responseReserve = Reserve(ubicacione);
+                            if (responseReserve != null)
+                            {
+                                foreach (var item in responseReserve)
+                                {
+                                    if (item.Respuesta.Contains("exitoso"))
+                                    {
+                                        ShowPay();
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                                        ReloadWindow();
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                                ReloadWindow();
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            ActivateTimer();
+                        }
                     }
                     else
                     {
-                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
+                        SecuenceAndReserve();
                     }
+                }
+                else
+                {
+                    ReloadWindow();
+                }
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "SendData en frmSeat", EError.Aplication, ELevelError.Medium);
 
+                Utilities.ShowModal("Lo sentimos, no fué posible consultar las tarifas, por favor intente de nuevo.");
+                ReloadWindow();
+            }
+        }
+
+        private bool GetPrices()
+        {
+            this.IsEnabled = false;
+            frmLoading = new FrmLoading("¡Descargando precios...!");
+            frmLoading.Show();
+            var response41 = WCFServices41.GetPrices(new SCOPLA
+            {
+                FechaFuncion = dipMapCurrent.Date,
+                InicioFuncion = dipMapCurrent.HourFormat,
+                Pelicula = dipMapCurrent.MovieId,
+                Sala = dipMapCurrent.RoomId,
+                teatro = dipMapCurrent.CinemaId,
+                tercero = "1"
+            });
+            this.IsEnabled = true;
+            frmLoading.Close();
+            if (response41 == null)
+            {
+                Utilities.ShowModal("Lo sentimos, no fué posible consultar las tarifas, por favor intente de nuevo.");
+                return false;
+            }
+            List<string> sinTarifa = new List<string>();
+            foreach (var selectedTypeSeat in SelectedTypeSeats)
+            {
+                var tarifa = new ResponseTarifa();
+                if (Utilities.dataUser.Tarjeta != null)
+                {
+                    tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                }
+                else
+                {
+                    tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
+                }
+
+                if (tarifa != null)
+                {
                     if (tarifa.silla != null)
                     {
                         selectedTypeSeat.Price = Convert.ToDecimal(tarifa.valor);
@@ -605,31 +683,31 @@ namespace WPProcinal.Forms.User_Control
                         sinTarifa.Add(selectedTypeSeat.Name);
                     }
                 }
-
-                var stringerror = new StringBuilder();
-                stringerror.Append("No se encontraron tarifas para los puestos: ");
-                stringerror.AppendLine();
-                foreach (var item in sinTarifa)
+                else
                 {
-                    stringerror.Append(item);
-                    stringerror.Append(", ");
-
+                    sinTarifa.Add(selectedTypeSeat.Name);
                 }
-                stringerror.AppendLine();
-                stringerror.Append("Por favor vuelva a intentarlo o seleccione un horario diferente.");
-
-                if (sinTarifa.Count > 0)
-                {
-                    Utilities.ShowModal(stringerror.ToString());
-                    ReloadWindow();
-                    return;
-                }
-                SecuenceAndReserve();
             }
-            catch (Exception ex)
+
+            var stringerror = new StringBuilder();
+            stringerror.Append("No se encontraron tarifas para los puestos: ");
+            stringerror.AppendLine();
+            foreach (var item in sinTarifa)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "SendData en frmSeat", EError.Aplication, ELevelError.Medium);
+                stringerror.Append(item);
+                stringerror.Append(", ");
+
             }
+            stringerror.AppendLine();
+            stringerror.Append("Por favor vuelva a intentarlo o seleccione un horario diferente.");
+
+            if (sinTarifa.Count > 0)
+            {
+                Utilities.ShowModal(stringerror.ToString());
+                return false;
+            }
+            return true;
+
         }
 
         /// <summary>
@@ -649,81 +727,27 @@ namespace WPProcinal.Forms.User_Control
         /// 
         private void SecuenceAndReserve()
         {
+            SetCallBacksNull();
+            timer.CallBackStop?.Invoke(1);
+
             this.IsEnabled = false;
             activePay = true;
-            frmLoading = new FrmLoading("¡Generando secuencia de compra!");
             try
             {
-                try
-                {
-                    SetCallBacksNull();
-                    timer.CallBackStop?.Invoke(1);
-                }
-                catch { }
-
-                frmLoading.Show();
-                var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
-                {
-                    Punto = dipMapCurrent.PointOfSale,
-                    teatro = dipMapCurrent.CinemaId,
-                    tercero = "1"
-                });
-                frmLoading.Close();
-                if (responseSec41 == null)
-                {
-                    Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
-                    ReloadWindow();
-                    return;
-                }
-
-                foreach (var item in responseSec41)
-                {
-                    dipMapCurrent.Secuence = int.Parse(item.Secuencia.ToString());
-                    Utilities.Secuencia = item.Secuencia.ToString();
-                }
-
-                List<Ubicacione> ubicacione = new List<Ubicacione>();
-                foreach (var item in SelectedTypeSeats)
-                {
-                    ubicacione.Add(new Ubicacione
-                    {
-                        Columna = item.RelativeColumn,
-                        Fila = item.RelativeRow,
-                        Tarifa = Convert.ToInt32(item.CodTarifa)
-                    });
-                }
-
-                frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
-                frmLoading.Show();
-
-                var dataClient = GetDataClient();
 
 
-                var response41 = WCFServices41.PostPreventa(new SCOGRU
-                {
-                    Apellido = dataClient.Apellido,
-                    Descripcion = dipMapCurrent.MovieName,
-                    FechaFuncion = dipMapCurrent.Date,
-                    HoraFuncion = dipMapCurrent.Hour,
-                    InicioFuncion = dipMapCurrent.HourFormat,
-                    Nombre = dataClient.Nombre,
-                    Pelicula = dipMapCurrent.MovieId,
-                    PuntoVenta = dipMapCurrent.PointOfSale,
-                    Sala = dipMapCurrent.RoomId,
-                    Secuencia = dipMapCurrent.Secuence,
-                    teatro = dipMapCurrent.CinemaId,
-                    Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? int.Parse(dataClient.Telefono) : 0,
-                    tercero = 1,
-                    Ubicaciones = ubicacione
-                });
-                frmLoading.Close();
+                GetSecuence();
+                List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
+
+
+                List<ResponseScogru> response41 = Reserve(ubicacione);
                 if (response41 != null)
                 {
                     foreach (var item in response41)
                     {
                         if (item.Respuesta.Contains("exitoso"))
                         {
-                            ShowPay();
+                            NavigateToConfectionery();
                             break;
                         }
                         else
@@ -744,10 +768,92 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                this.IsEnabled = true;
                 frmLoading.Close();
                 AdminPaypad.SaveErrorControl(ex.Message, "SecueceAndReserve en frmSeat", EError.Aplication, ELevelError.Medium);
+
+                Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                ReloadWindow();
             }
             frmLoading.Close();
+        }
+
+        private List<Ubicacione> OrganizeSeatsTuReserve()
+        {
+            List<Ubicacione> ubicacione = new List<Ubicacione>();
+            foreach (var item in SelectedTypeSeats)
+            {
+                ubicacione.Add(new Ubicacione
+                {
+                    Columna = item.RelativeColumn,
+                    Fila = item.RelativeRow,
+                    Tarifa = int.Parse(item.CodTarifa)
+                });
+            }
+
+            return ubicacione;
+        }
+
+        private List<ResponseScogru> Reserve(List<Ubicacione> ubicacione)
+        {
+            var dataClient = GetDataClient();
+            frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
+            frmLoading.Show();
+
+            var response41 = WCFServices41.PostPreventa(new SCOGRU
+            {
+                Apellido = dataClient.Apellido,
+                Descripcion = dipMapCurrent.MovieName,
+                FechaFuncion = dipMapCurrent.Date,
+                HoraFuncion = dipMapCurrent.Hour,
+                InicioFuncion = dipMapCurrent.HourFormat,
+                Nombre = dataClient.Nombre,
+                Pelicula = dipMapCurrent.MovieId,
+                PuntoVenta = dipMapCurrent.PointOfSale,
+                Sala = dipMapCurrent.RoomId,
+                Secuencia = dipMapCurrent.Secuence,
+                teatro = dipMapCurrent.CinemaId,
+                Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
+                tercero = 1,
+                Ubicaciones = ubicacione
+            });
+            frmLoading.Close();
+            return response41;
+        }
+
+        private void GetSecuence()
+        {
+            try
+            {
+                frmLoading = new FrmLoading("¡Generando secuencia de compra!");
+                frmLoading.Show();
+
+                var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
+                {
+                    Punto = dipMapCurrent.PointOfSale,
+                    teatro = dipMapCurrent.CinemaId,
+                    tercero = "1"
+                });
+
+                frmLoading.Close();
+                if (responseSec41 == null)
+                {
+                    Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
+                    ReloadWindow();
+                    return;
+                }
+
+                foreach (var item in responseSec41)
+                {
+                    dipMapCurrent.Secuence = int.Parse(item.Secuencia.ToString());
+                    Utilities.Secuencia = item.Secuencia.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
+                ReloadWindow();
+            }
         }
 
         SCOLOGResponse GetDataClient()
@@ -780,7 +886,10 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-
+        private void NavigateToConfectionery()
+        {
+            Switcher.Navigate(new UCConfectionery(SelectedTypeSeats, dipMapCurrent));
+        }
 
         /// <summary>
         /// Envía al formulario de pagos
@@ -791,13 +900,60 @@ namespace WPProcinal.Forms.User_Control
             {
                 SetCallBacksNull();
                 timer.CallBackStop?.Invoke(1);
-                Switcher.Navigate(new UCConfectionery(SelectedTypeSeats, dipMapCurrent));
+
+                FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
+                frmLoading.Show();
+                var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
+                frmLoading.Close();
+
+                if (!response)
+                {
+                    List<TypeSeat> lista = new List<TypeSeat>();
+                    foreach (var item in SelectedTypeSeats)
+                    {
+                        lista.Add(item);
+                    }
+                    WCFServices41.PostDesAssingreserva(lista, dipMapCurrent);
+
+                    Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
+
+                    frmLoading = new FrmLoading("¡Reconectando...!");
+                    frmLoading.Show();
+                    await api.SecurityToken();
+                    frmLoading.Close();
+                    ReloadWindow();
+                }
+                else
+                {
+                    try
+                    {
+                        Task.Run(() =>
+                        {
+                            grabador.Grabar(Utilities.IDTransactionDB);
+                        });
+                    }
+                    catch { }
+
+                    LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
+
+                    if (Utilities.MedioPago == 1)
+                    {
+                        Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
+                    }
+                    else if (Utilities.MedioPago == 2)
+                    {
+                        Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
+                    }
+                }
+
+
             }
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
+
 
 
         private void BtnAtras_TouchDown(object sender, TouchEventArgs e)
