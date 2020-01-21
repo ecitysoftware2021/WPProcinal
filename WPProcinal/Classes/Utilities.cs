@@ -42,6 +42,7 @@ namespace WPProcinal.Classes
         /// en la pantalla de confiteria
         /// </summary>
         public static List<Combos> _Combos;
+        public static ResponseScores _DataResolution;
 
         /// <summary>
         /// Lista global para almacenar los productos que devuelva  el servicio SCOPRE
@@ -313,7 +314,6 @@ namespace WPProcinal.Classes
                 {
                     if (seat.Price != 0)
                     {
-
                         objPrint.Movie = dipMap.MovieName;
                         objPrint.Time = dipMap.HourFunction;
                         objPrint.Room = dipMap.RoomName;
@@ -328,6 +328,15 @@ namespace WPProcinal.Classes
                         objPrint.TipoSala = Utilities.TipoSala;
                         objPrint.IDTransaccion = Utilities.IDTransactionDB.ToString();
 
+                        if (Utilities.dataUser != null && Utilities.dataUser.Puntos != null)
+                        {
+                            objPrint.Puntos = Utilities.dataUser.Puntos.ToString();
+                        }
+                        else
+                        {
+                            objPrint.Puntos = "0";
+                        }
+
                         i++;
                         objPrint.PrintTickets();
                     }
@@ -335,6 +344,8 @@ namespace WPProcinal.Classes
 
                 if (Utilities._Combos.Count > 0)
                 {
+                    _DataResolution = WCFServices41.ConsultResolution();
+
                     Print printCombo = new Print();
                     printCombo.ImprimirComprobante();
                 }

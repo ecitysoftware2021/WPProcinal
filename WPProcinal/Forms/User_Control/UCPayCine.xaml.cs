@@ -61,7 +61,8 @@ namespace WPProcinal.Forms.User_Control
                 stateUpdate = true;
                 payState = true;
 
-                Buytickets();
+                
+                //Buytickets();
                 //Utilities.control.StartValues();
                 Utilities.Speack("Por favor, ingresa el dinero");
 

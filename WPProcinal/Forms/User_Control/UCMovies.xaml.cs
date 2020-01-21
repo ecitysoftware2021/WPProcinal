@@ -342,7 +342,7 @@ namespace WPProcinal.Forms.User_Control
                     frmModalCineFan modalCineFan = new frmModalCineFan();
                     modalCineFan.ShowDialog();
                     Utilities.Speack("Selecciona una película para continuar.");
-
+                    
                     this.Opacity = 1;
                     ActivateTimer();
 

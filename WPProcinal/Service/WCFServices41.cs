@@ -431,78 +431,6 @@ namespace WPProcinal.Service
             }
         }
 
-
-        public static ResponseScores ConsultResolution(SCORES data)
-        {
-
-            string decryptData = string.Empty;
-            try
-            {
-                SCORES sCOCED = new SCORES
-                {
-                    Punto = 51,
-                    Secuencial = 187,
-                    teatro = 302,
-                    tercero = 1
-                };
-
-                //Data convertida a formato json
-                var seria = JsonConvert.SerializeObject(sCOCED);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                          "ConsultResolution Request",
-                          EError.Customer,
-                          ELevelError.Mild);
-                }
-                catch { }
-                //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
-
-                var client = new RestClient(Utilities.APISCORE + "/scores/");
-                var request = new RestRequest(Method.POST);
-                request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
-                request.AddHeader("Content-Type", "application/json");
-                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
-                IRestResponse response = client.Execute(request);
-
-
-                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
-
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
-
-                try
-                {
-                    AdminPaypad.SaveErrorControl(decryptData,
-                    "ConsultResolution Response",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
-                var est = JsonConvert.DeserializeObject<ResponseScores>(decryptData);
-                return est;
-
-            }
-            catch (Exception ex)
-            {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "ConsultResolution catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
-                return null;
-            }
-        }
-
         public static bool StateImage(string image)
         {
             try
@@ -801,12 +729,268 @@ namespace WPProcinal.Service
         }
         #endregion
 
+        /// <summary>
+        /// Servicio para consultar los datos de la impresión de los combos
+        /// </summary>
+        /// <returns></returns>
+        #region "SCORES"
+        public static ResponseScores ConsultResolution()
+        {
+
+            string decryptData = string.Empty;
+            try
+            {
+                SCORES sCOCED = new SCORES
+                {
+                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                    Secuencial = Convert.ToInt32(Utilities.Secuencia),
+                    teatro = Utilities.DipMapCurrent.CinemaId,
+                    tercero = 1
+                };
+
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(sCOCED);
+                try
+                {
+                    AdminPaypad.SaveErrorControl(seria,
+                          "ConsultResolution Request",
+                          EError.Customer,
+                          ELevelError.Mild);
+                }
+                catch { }
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+
+                var client = new RestClient(Utilities.APISCORE + "/scores/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Content-Length", "66");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+
+                try
+                {
+                    AdminPaypad.SaveErrorControl(decryptData,
+                    "ConsultResolution Response",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                var est = JsonConvert.DeserializeObject<ResponseScores>(decryptData);
+                return est;
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "ConsultResolution catch",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                return null;
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Servicio para consultar los puntos del cliente
+        /// </summary>
+        /// <returns></returns>
+        #region "SCOMOV"
+        public static double ConsultPoints()
+        {
+
+            string decryptData = string.Empty;
+            try
+            {
+                SCOMOV sCOMOV = new SCOMOV
+                {
+                    Correo = Utilities.dataUser.Login,
+                    Clave = Utilities.dataUser.Clave,
+                    tercero = 1
+                };
+
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(sCOMOV);
+                try
+                {
+                    AdminPaypad.SaveErrorControl(seria,
+                          "ConsultPoints Request",
+                          EError.Customer,
+                          ELevelError.Mild);
+                }
+                catch { }
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+
+                var client = new RestClient(Utilities.APISCORE + "/scomov/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Content-Length", "66");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+
+                try
+                {
+                    AdminPaypad.SaveErrorControl(decryptData,
+                    "ConsultPoints Response",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                var est = JsonConvert.DeserializeObject<List<ResponseScomov>>(decryptData);
+                return est[0].puntos_acumulados;
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "ConsultPoints catch",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                return 0;
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Servicio para realizar la anulación de una venta
+        /// </summary>
+        /// <returns></returns>
+        #region "SCORET"
+        public static double CancelSale()
+        {
+
+            string decryptData = string.Empty;
+            try
+            {
+                SCORET sCORET = new SCORET
+                {
+                };
+
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(sCORET);
+                try
+                {
+                    AdminPaypad.SaveErrorControl(seria,
+                          "CancelSale Request",
+                          EError.Customer,
+                          ELevelError.Mild);
+                }
+                catch { }
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+
+                var client = new RestClient(Utilities.APISCORE + "/scoret/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Content-Length", "66");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+
+                try
+                {
+                    AdminPaypad.SaveErrorControl(decryptData,
+                    "CancelSale Response",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                var est = JsonConvert.DeserializeObject<List<ResponseScoret>>(decryptData);
+                return 0;
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "CancelSale catch",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                return 0;
+            }
+        }
+        #endregion
     }
 
     #region ERROR
     public class RESPONSEERROR
     {
         public string Respuesta { get; set; }
+    }
+    #endregion
+
+    #region SCORET
+    public class SCORET
+    {
+        public int Punto { get; set; }
+        public int Pedido { get; set; }
+        public string teatro { get; set; }
+        public string tercero { get; set; }
+    }
+
+    public class ResponseScoret
+    {
+    }
+    #endregion
+
+    #region SCOMOV
+    public class SCOMOV
+    {
+        public string Correo { get; set; }
+        public string Clave { get; set; }
+        public int tercero { get; set; }
+    }
+
+    public class ResponseScomov
+    {
+        public double puntos_acumulados { get; set; }
+        public double puntos_redimidos { get; set; }
+        public double puntos_vencidos { get; set; }
+        public double puntos_disponibles { get; set; }
     }
     #endregion
 
@@ -1115,6 +1299,7 @@ namespace WPProcinal.Service
         public string Clave { get; set; }
         public string Telefono { get; set; }
         public string Fecha_Nacimiento { get; set; }
+        public double Puntos { get; set; }
 
     }
     #endregion

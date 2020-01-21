@@ -27,6 +27,7 @@ namespace CEntidades
         public string Seat { get; set; }
         public string Cinema { get { return Dictionaries.Cinemas[GetConfiguration("CodCinema")]; } }
         public string Date { get; set; }
+        public string Puntos { get; set; }
         public string Category { get; set; }
         public DateTime FechaPago { get; set; }
         public int SpaceY { get; set; }
@@ -38,7 +39,7 @@ namespace CEntidades
 
         public decimal Valor { get; set; }
 
-        
+
         public void PrintTickets()
         {
             try
@@ -132,6 +133,10 @@ namespace CEntidades
             SpaceY += 20;
             g.DrawString("Tarifa:", fBodyTiulos, sb, 10, SpaceY);
             g.DrawString(Valor.ToString("$ #,##0"), fBodyTiulos, sb, SpaceX, SpaceY);
+            SpaceY += 20;
+
+            g.DrawString("Puntos:", fBodyTiulos, sb, 10, SpaceY);
+            g.DrawString(Puntos, fBodyTiulos, sb, SpaceX, SpaceY);
             SpaceY += 20;
 
             g.DrawString("Compra:", fBodyTiulos, sb, 10, SpaceY);

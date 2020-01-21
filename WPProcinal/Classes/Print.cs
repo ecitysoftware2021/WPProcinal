@@ -75,6 +75,34 @@ namespace WPProcinal.Classes
                 SpaceY += 20;
                 g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
                 SpaceY += 20;
+
+                if (Utilities._DataResolution != null)
+                {
+                    var data = Utilities._DataResolution;
+
+                    g.DrawString("Factura ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(data.Factura.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                    g.DrawString("Prefijo ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(data.Prefijo.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                    g.DrawString("Resolución ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(data.Resolucion.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                    g.DrawString("Inicio ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(data.Inicio.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                    g.DrawString("Fin ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(data.Fin.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                    g.DrawString("Vencimiento ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(data.Vencimiento.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                }
+
+                SpaceY += 20;
+                g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
+                SpaceY += 20;
                 g.DrawString("Factura de Compra", fBodyTiulos, sb, 90, SpaceY);
                 SpaceY += 35;
                 g.DrawString("Producto ", fBodyTiulos, sb, 10, SpaceY);
