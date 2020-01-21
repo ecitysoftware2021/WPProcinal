@@ -42,7 +42,7 @@ namespace WPProcinal.Classes
         /// en la pantalla de confiteria
         /// </summary>
         public static List<Combos> _Combos;
-        public static ResponseScores _DataResolution;
+        public static List<ResponseScores> _DataResolution;
 
         /// <summary>
         /// Lista global para almacenar los productos que devuelva  el servicio SCOPRE

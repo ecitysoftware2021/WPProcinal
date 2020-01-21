@@ -62,7 +62,7 @@ namespace WPProcinal.Forms.User_Control
                 payState = true;
 
                 
-                //Buytickets();
+                Buytickets();
                 //Utilities.control.StartValues();
                 Utilities.Speack("Por favor, ingresa el dinero");
 
@@ -351,16 +351,18 @@ namespace WPProcinal.Forms.User_Control
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
-                        Utilities.Loading(frmLoading, false, this);
+                        //Utilities.Loading(frmLoading, false, this);
 
-                        if (Utilities.dataUser.Tarjeta != null)
-                        {
-                            Switcher.Navigate(new UCPoints());
-                        }
-                        else
-                        {
-                            Switcher.Navigate(new UCFinalTransaction());
-                        }
+                        //if (Utilities.dataUser.Tarjeta != null)
+                        //{
+                        //    Switcher.Navigate(new UCPoints());
+                        //}
+                        //else
+                        //{
+                        //    Switcher.Navigate(new UCFinalTransaction());
+                        //}
+                        WCFServices41.CancelSale();
+
                     });
                 }
             }

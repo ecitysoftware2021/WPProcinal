@@ -734,7 +734,7 @@ namespace WPProcinal.Service
         /// </summary>
         /// <returns></returns>
         #region "SCORES"
-        public static ResponseScores ConsultResolution()
+        public static List<ResponseScores> ConsultResolution()
         {
 
             string decryptData = string.Empty;
@@ -787,7 +787,7 @@ namespace WPProcinal.Service
                     ELevelError.Mild);
                 }
                 catch { }
-                var est = JsonConvert.DeserializeObject<ResponseScores>(decryptData);
+                var est = JsonConvert.DeserializeObject<List<ResponseScores>>(decryptData);
                 return est;
 
             }
@@ -887,7 +887,7 @@ namespace WPProcinal.Service
         /// </summary>
         /// <returns></returns>
         #region "SCORET"
-        public static double CancelSale()
+        public static void CancelSale()
         {
 
             string decryptData = string.Empty;
@@ -895,6 +895,10 @@ namespace WPProcinal.Service
             {
                 SCORET sCORET = new SCORET
                 {
+                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                    Pedido = Convert.ToInt32(Utilities.Secuencia),
+                    teatro = Utilities.DipMapCurrent.CinemaId.ToString(),
+                    tercero = "1"
                 };
 
                 //Data convertida a formato json
@@ -937,8 +941,18 @@ namespace WPProcinal.Service
                 }
                 catch { }
                 var est = JsonConvert.DeserializeObject<List<ResponseScoret>>(decryptData);
-                return 0;
 
+                if (!est[0].Respuesta.Contains("Proceso exitoso"))
+                {
+                    try
+                    {
+                        AdminPaypad.SaveErrorControl(seria,
+                        "CancelSale No se cancelo.",
+                        EError.Aplication,
+                        ELevelError.Mild);
+                    }
+                    catch { }
+                }
             }
             catch (Exception ex)
             {
@@ -950,7 +964,6 @@ namespace WPProcinal.Service
                     ELevelError.Mild);
                 }
                 catch { }
-                return 0;
             }
         }
         #endregion
@@ -974,6 +987,7 @@ namespace WPProcinal.Service
 
     public class ResponseScoret
     {
+         public string Respuesta { get; set; } 
     }
     #endregion
 
