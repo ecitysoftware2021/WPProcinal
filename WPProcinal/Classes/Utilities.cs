@@ -347,7 +347,14 @@ namespace WPProcinal.Classes
                     _DataResolution = WCFServices41.ConsultResolution();
 
                     Print printCombo = new Print();
-                    printCombo.ImprimirComprobante();
+                    printCombo.ImprimirComprobante(0);
+
+                    var ComboTemporada = Utilities._Combos.Where(x => x.Name == "Combo Jumanji").FirstOrDefault();
+
+                    if (ComboTemporada != null)
+                    {
+                        printCombo.ImprimirComprobante(1);
+                    }
                 }
 
             }

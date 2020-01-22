@@ -347,7 +347,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     objUtil.PrintTicket("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
 
-                    ApproveTrans();
+                    //ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {

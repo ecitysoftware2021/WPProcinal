@@ -21,7 +21,7 @@ namespace WPProcinal.Classes
         public int SpaceX { get; set; }
         public string Cinema { get { return Dictionaries.Cinemas[Utilities.GetConfiguration("CodCinema")]; } }
 
-        public void ImprimirComprobante()
+        public void ImprimirComprobante(int type)
         {
             try
             {
@@ -30,7 +30,14 @@ namespace WPProcinal.Classes
                 pd.PrintController = printcc;
                 PaperSize ps = new PaperSize("Recibo Pago", 475, 470);
 
-                pd.PrintPage += new PrintPageEventHandler(PrintPageCombos);
+                if (type == 0)
+                {
+                    pd.PrintPage += new PrintPageEventHandler(PrintPageCombos);
+                }
+                else
+                {
+                    pd.PrintPage += new PrintPageEventHandler(PrintPageComboTemporada);
+                }
 
                 pd.Print();
             }
@@ -143,6 +150,88 @@ namespace WPProcinal.Classes
                 g.DrawString((baseIMP + IMP).ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
                 SpaceY += 20;
                 g.DrawString("RECLAMA TU COMBO EN LA CONFITERÍA", fBodySala, sb, 0, SpaceY);
+                SpaceY += 20;
+                g.DrawString("Venta realizada en el Kiosko Digital", fBodyTiulos, sb, 50, SpaceY);
+                SpaceY += 15;
+                g.DrawString("Por E-city software.", fBodyTiulos, sb, 90, SpaceY);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+
+        private void PrintPageComboTemporada(object sender, PrintPageEventArgs e)
+        {
+            try
+            {
+                Graphics g = e.Graphics;
+                SpaceY = 100;
+                SpaceX = 70;
+
+                string RutaIMG = Path.Combine(Directory.GetCurrentDirectory(), "Salas_Formatos", "logo.png");
+                g.DrawImage(Image.FromFile(RutaIMG), 40, 0);
+
+                g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, 80);
+                SpaceY += 10;
+
+
+                if (Utilities.GetConfiguration("CodCinema").Equals("304")
+                    || Utilities.GetConfiguration("CodCinema").Equals("302"))
+                {
+                    g.DrawString(Cinema, fBodySala, sb, 90, SpaceY);
+                    SpaceY += 30;
+                    g.DrawString("Promotora Nacional de Cines S.A.S", fBodyTiulos, sb, 50, SpaceY - 10);
+                    SpaceY += 15;
+                    g.DrawString(Utilities.GetConfiguration("NitPromotora"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+                }
+                else
+                {
+                    g.DrawString(Cinema, fBodySala, sb, 90, SpaceY);
+                    SpaceY += 30;
+                    g.DrawString("Colombia de Cines S.A", fBodyTiulos, sb, 80, SpaceY - 10);
+                    SpaceY += 15;
+                    g.DrawString(Utilities.GetConfiguration("Nit"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+                }
+                SpaceY += 20;
+                g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
+                SpaceY += 10;
+                g.DrawString("COMPROBANTE DE SOLICITUD DE DATOS", fBodyTiulos, sb, 15, SpaceY - 10);
+                SpaceY += 20;
+
+                g.DrawString("Producto comprado", fBodyTiulos, sb, 10, SpaceY - 10);
+                SpaceY += 15;
+
+                g.DrawString("Combo Jumanji", fBodySala, sb, 20, SpaceY - 10);
+
+                SpaceY += 20;
+                g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
+                SpaceY += 10;
+
+                g.DrawString("Nombre:", fBodyTiulos, sb, 10, SpaceY);
+                g.DrawString("-".PadRight(40, '-'), fBodySala, sb, 60, SpaceY);
+                SpaceY += 15;
+                g.DrawString("Cédula:", fBodyTiulos, sb, 10, SpaceY);
+                g.DrawString("-".PadRight(40, '-'), fBodySala, sb, 60, SpaceY);
+                SpaceY += 15;
+                g.DrawString("Teléfono Fijo:", fBodyTiulos, sb, 10, SpaceY);
+                g.DrawString("-".PadRight(35, '-'), fBodySala, sb, 85, SpaceY);
+                SpaceY += 15;
+                g.DrawString("Celular:", fBodyTiulos, sb, 10, SpaceY);
+                g.DrawString("-".PadRight(40, '-'), fBodySala, sb, 60, SpaceY);
+                SpaceY += 15;
+                g.DrawString("Correo:", fBodyTiulos, sb, 10, SpaceY);
+                g.DrawString("-".PadRight(40, '-'), fBodySala, sb, 60, SpaceY);
+                SpaceY += 15;
+                g.DrawString("Ciudad:", fBodyTiulos, sb, 10, SpaceY);
+                g.DrawString("-".PadRight(40, '-'), fBodySala, sb, 60, SpaceY);
+                SpaceY += 15;
+                g.DrawString("Dirección:", fBodyTiulos, sb, 10, SpaceY);
+                g.DrawString("-".PadRight(40, '-'), fBodySala, sb, 60, SpaceY);
+                SpaceY += 20;
+
+                SpaceY += 20;
+                g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
                 SpaceY += 20;
                 g.DrawString("Venta realizada en el Kiosko Digital", fBodyTiulos, sb, 50, SpaceY);
                 SpaceY += 15;
