@@ -240,11 +240,11 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (Utilities.dataUser.Tarjeta != null)
                             {
-                                precio += decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                precio += decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0] ) * receta.Cantidad;
                             }
                             else
                             {
-                                precio += decimal.Parse(receta.Precios.FirstOrDefault().General.Split('.')[0]);
+                                precio += decimal.Parse(receta.Precios.FirstOrDefault().General.Split('.')[0]) * receta.Cantidad;
                             }
                         }
                         if (receta.RecetaReceta != null)

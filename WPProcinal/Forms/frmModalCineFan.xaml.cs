@@ -117,7 +117,6 @@ namespace WPProcinal.Forms
                     if (responseClient.Tarjeta != null)
                     {
                         Utilities.dataUser = responseClient;
-                        Utilities.dataUser.Puntos = WCFServices41.ConsultPoints();
                         return true;
                     }
                     else

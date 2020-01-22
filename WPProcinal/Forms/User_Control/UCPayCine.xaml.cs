@@ -347,22 +347,22 @@ namespace WPProcinal.Forms.User_Control
                 {
                     objUtil.PrintTicket("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
 
-                    //ApproveTrans();
+                    ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
-                        //Utilities.Loading(frmLoading, false, this);
+                        Utilities.Loading(frmLoading, false, this);
 
-                        //if (Utilities.dataUser.Tarjeta != null)
-                        //{
-                        //    Switcher.Navigate(new UCPoints());
-                        //}
-                        //else
-                        //{
-                        //    Switcher.Navigate(new UCFinalTransaction());
-                        //}
                         WCFServices41.CancelSale();
 
+                        if (Utilities.dataUser.Tarjeta != null)
+                        {
+                            Switcher.Navigate(new UCPoints());
+                        }
+                        else
+                        {
+                            Switcher.Navigate(new UCFinalTransaction());
+                        }
                     });
                 }
             }
@@ -504,6 +504,8 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (item.Respuesta.Contains("exitoso"))
                             {
+                                Thread.Sleep(3000);
+                                Utilities.dataUser.Puntos = WCFServices41.ConsultPoints();
                                 payState = true;
                                 break;
                             }
