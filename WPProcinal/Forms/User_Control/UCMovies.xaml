@@ -36,6 +36,15 @@
                        Margin="20,70,0,0"
                        Name="btnAtras"
                        TouchDown="btnAtras_TouchDown"/>
+
+                <Image Source="/Images/buttons/b-atras.png" 
+                       Height="110"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       Margin="0,0,0,0"
+                       Opacity="0"
+                       Name="btnLogin"
+                       TouchDown="BtnLogin_TouchDown"/>
             </Grid>
             <materialDesign:TransitioningContent  
             OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 

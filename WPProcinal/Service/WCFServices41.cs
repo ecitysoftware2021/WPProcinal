@@ -887,7 +887,7 @@ namespace WPProcinal.Service
         /// </summary>
         /// <returns></returns>
         #region "SCORET"
-        public static void CancelSale()
+        public static int CancelSale(int secuencia)
         {
 
             string decryptData = string.Empty;
@@ -896,7 +896,8 @@ namespace WPProcinal.Service
                 SCORET sCORET = new SCORET
                 {
                     Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
-                    Pedido = Convert.ToInt32(Utilities.Secuencia),
+                    //Pedido = Convert.ToInt32(Utilities.Secuencia),
+                    Pedido = secuencia,
                     teatro = Utilities.DipMapCurrent.CinemaId.ToString(),
                     tercero = "1"
                 };
@@ -953,6 +954,10 @@ namespace WPProcinal.Service
                     }
                     catch { }
                 }
+                else
+                {
+                    return 1;
+                }
             }
             catch (Exception ex)
             {
@@ -965,6 +970,8 @@ namespace WPProcinal.Service
                 }
                 catch { }
             }
+
+            return 0;
         }
         #endregion
     }

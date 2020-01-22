@@ -69,8 +69,8 @@ namespace WPProcinal.Forms
         {
             Utilities.control.callbackDocument = null;
             Utilities.control.ClosePortScanner();
-            //DialogResult = false;
-            DialogResult = ValidateCineFan("8321698");
+            DialogResult = false;
+            //DialogResult = ValidateCineFan("8321698");
         }
         #endregion
 

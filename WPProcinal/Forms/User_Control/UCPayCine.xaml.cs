@@ -62,8 +62,8 @@ namespace WPProcinal.Forms.User_Control
                 payState = true;
 
                 
-                Buytickets();
-                //Utilities.control.StartValues();
+                //Buytickets();
+                Utilities.control.StartValues();
                 Utilities.Speack("Por favor, ingresa el dinero");
 
             }
@@ -352,8 +352,6 @@ namespace WPProcinal.Forms.User_Control
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
                         Utilities.Loading(frmLoading, false, this);
-
-                        WCFServices41.CancelSale();
 
                         if (Utilities.dataUser.Tarjeta != null)
                         {

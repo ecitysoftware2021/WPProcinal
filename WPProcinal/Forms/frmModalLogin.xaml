@@ -1,0 +1,86 @@
+﻿<Window x:Class="WPProcinal.Forms.frmModalLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPProcinal.Forms"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        KeyDown="Window_KeyDown"
+        Title="WLogin" Height="880" Width="900">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="../Images/Backgrounds/login.png"
+                        Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Column="0"
+                 Grid.Row="1"
+                 VerticalAlignment="Bottom"
+                 HorizontalAlignment="Center"
+                 Height="60"
+                 Grid.ColumnSpan="3"
+                 Width="400"
+                 FontSize="30"
+                 md:HintAssist.Hint="Usuario"
+                 md:HintAssist.IsFloating="True"
+                 md:HintAssist.FloatingScale="0.5"
+                 HorizontalContentAlignment="Left"
+                 MaxLength="30"
+                 Name="txtUser"/>
+
+        <PasswordBox Grid.Column="0"
+                 Grid.Row="2"
+                 VerticalAlignment="Top"
+                 HorizontalAlignment="Center"
+                     Margin="0,30,0,0"
+                 Height="60"
+                 Grid.ColumnSpan="3"
+                 Width="400"
+                 FontSize="35"
+                 md:HintAssist.Hint="Contraseña"
+                 md:HintAssist.IsFloating="True"
+                 md:HintAssist.FloatingScale="0.5"
+                 HorizontalContentAlignment="Left"
+                     MaxLength="50"
+                 Name="txtPassword"/>
+
+        <Button  Grid.Row="2"
+                 Grid.Column="0"
+                 Content="Ingresar"
+                 Grid.ColumnSpan="2"
+                 VerticalAlignment="Bottom"
+                 Width="220"
+                 Height="60"
+                 Margin="70,0,0,20"
+                 Opacity="0"
+                 TouchDown="BtIngresar_TouchDown"
+                 Name="btIngresar"/>
+        <Button  Grid.Row="2"
+                 Grid.Column="1"
+                 Content="Salir"
+                 Grid.ColumnSpan="2"
+                 VerticalAlignment="Bottom"
+                 HorizontalAlignment="Left"
+                 Width="190"
+                 Height="60"
+                 Margin="160,0,0,20"
+                 Opacity="0"
+                 TouchDown="BtSalir_TouchDown"
+                 Name="btSalir"/>
+    </Grid>
+</Window>
+

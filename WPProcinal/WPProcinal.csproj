@@ -177,6 +177,7 @@
     <Compile Include="Classes\ControlPeripheralsNotArduino.cs" />
     <Compile Include="Classes\ErrorCodes.cs" />
     <Compile Include="Classes\ImagesSleader.cs" />
+    <Compile Include="Classes\Login.cs" />
     <Compile Include="Classes\Print.cs" />
     <Compile Include="Classes\Switcher.cs" />
     <Compile Include="DataModel\BackUpEcity.cs">
@@ -236,6 +237,12 @@
     <Compile Include="Forms\frmModalCineFan.xaml.cs">
       <DependentUpon>frmModalCineFan.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmModalDeletePay.xaml.cs">
+      <DependentUpon>FrmModalDeletePay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmModalLogin.xaml.cs">
+      <DependentUpon>frmModalLogin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
     </Compile>
@@ -268,6 +275,9 @@
     </Compile>
     <Compile Include="Forms\User_Control\UCSeat.xaml.cs">
       <DependentUpon>UCSeat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WModal.xaml.cs">
+      <DependentUpon>WModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Keyboard\TouchScreenKeyboard.cs" />
     <Compile Include="Keyboard\TouchScreenKeyNumeric.cs" />
@@ -327,6 +337,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\FrmModalDeletePay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmModalLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Opciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -368,6 +386,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\User_Control\UCSeat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\WModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -457,6 +479,10 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Backgrounds\loginDelete2.png" />
+    <Resource Include="Images\Backgrounds\loginDelete.png" />
+    <Resource Include="Images\Gif\gif-cargando.gif" />
+    <Resource Include="Images\Backgrounds\login.png" />
     <Resource Include="Images\Tags\cartel-general.png" />
     <Resource Include="Images\Gif\confetti.gif" />
     <Resource Include="Images\Seats\s-preferencial.png" />

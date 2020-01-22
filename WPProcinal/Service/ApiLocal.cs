@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -228,6 +229,70 @@ namespace WPProcinal.Service
             }
 
             return null;
+        }
+
+        public static async Task<UserSession2> Login(string username, string password)
+        {
+            try
+            {
+                var reques = new RequestAuthentication2
+                {
+                    Password = password,
+                    Type = 2,
+                    UserName = username
+                };
+
+                ServicePointManager.Expect100Continue = false;
+                var json = JsonConvert.SerializeObject(reques);
+                var content = new StringContent(json, Encoding.UTF8, "Application/json");
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocal"));
+                var url = "Users/Login";
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
+                var response = client.PostAsync(url, content).Result;
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var responseApi = JsonConvert.DeserializeObject<Response2>(result);
+                if (responseApi.CodeError != 200)
+                {
+                    return null;
+                }
+
+                var user = JsonConvert.DeserializeObject<UserViewModel2>(responseApi.Data.ToString());
+                var userSession = new UserSession2
+                {
+                    CUSTOMER_ID = user.CUSTOMER_ID,
+                    EMAIL = user.EMAIL,
+                    IDENTIFICATION = user.IDENTIFICATION,
+                    IMAGE = user.IMAGE,
+                    NAME = user.NAME,
+                    PASSWORD = user.PASSWORD,
+                    PHONE = user.PHONE,
+                    STATE = user.STATE,
+                    USERNAME = user.USERNAME,
+                    USER_ID = user.USER_ID,
+                    Roles = new List<Role2>()
+                    {
+                        new Role2
+                        {
+                            DESCRIPTION = user.ROL_NAME,
+                            ROLE_ID = user.ROLE_ID
+                        }
+                    },
+
+                };
+
+                return userSession;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         #endregion
     }

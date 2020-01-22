@@ -24,6 +24,7 @@ namespace WPProcinal.Forms.User_Control
         int currentPageIndex = 0;
         int itemPerPage = 20;
         int totalPage = 0;
+        int login = 0;
 
         TimerTiempo timer;
 
@@ -361,6 +362,31 @@ namespace WPProcinal.Forms.User_Control
                     }
                 });
             });
+        }
+
+        private void BtnLogin_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                login += 1;
+
+                if (login == 5)
+                {
+                    this.Opacity = 0.3;
+                    frmModalLogin modalLogin = new frmModalLogin();
+                    modalLogin.ShowDialog();
+                    if (modalLogin.DialogResult.HasValue &&
+                    modalLogin.DialogResult.Value)
+                    {
+                        FrmModalDeletePay modalDeletePay = new FrmModalDeletePay();
+                        modalDeletePay.ShowDialog();
+                    }
+                    this.Opacity = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }
