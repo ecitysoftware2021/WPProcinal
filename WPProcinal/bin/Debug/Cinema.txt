@@ -113,7 +113,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001223020221" horario="9:10 pm" reservasONline="true" ventasONline="true" militar="2110" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="4">
+              <hora idFuncion="202001223020221" horario="9:10 pm" reservasONline="true" ventasONline="true" militar="2110" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="9">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
@@ -164,7 +164,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001223020319" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="2">
+              <hora idFuncion="202001223020319" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="5">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
@@ -215,7 +215,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001223020219" horario="7:00 pm" reservasONline="true" ventasONline="true" militar="1900" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="14">
+              <hora idFuncion="202001223020219" horario="7:00 pm" reservasONline="true" ventasONline="true" militar="1900" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="27">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
@@ -253,7 +253,7 @@
         <salas>
           <sala numeroSala="3" tipoSala="GENERAL">
             <Fecha dia="Mie, Ene 22 2020" univ="20200122">
-              <hora idFuncion="202001223020317" horario="5:10 pm" reservasONline="true" ventasONline="true" militar="1710" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="8">
+              <hora idFuncion="202001223020317" horario="5:10 pm" reservasONline="true" ventasONline="true" militar="1710" validaciones="No" cortoNacional="" capacidad="189" disponibilidad="14">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />
@@ -350,7 +350,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001233020219" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="7">
+              <hora idFuncion="202001233020219" horario="7:10 pm" reservasONline="true" ventasONline="true" militar="1910" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="11">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="172" nombreTarifa="2D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />
@@ -369,7 +369,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202001233020221" horario="9:45 pm" reservasONline="true" ventasONline="true" militar="2145" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="2">
+              <hora idFuncion="202001233020221" horario="9:45 pm" reservasONline="true" ventasONline="true" militar="2145" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="12">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="172" nombreTarifa="2D BS Gen Sem Noche" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="8400,0000" />

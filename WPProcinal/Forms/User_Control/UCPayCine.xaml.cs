@@ -502,8 +502,11 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (item.Respuesta.Contains("exitoso"))
                             {
-                                Thread.Sleep(3000);
-                                Utilities.dataUser.Puntos = WCFServices41.ConsultPoints();
+                                if (Utilities.dataUser.Tarjeta != null)
+                                {
+                                    Thread.Sleep(3000);
+                                    Utilities.dataUser.Puntos = WCFServices41.ConsultPoints();
+                                }
                                 payState = true;
                                 break;
                             }
