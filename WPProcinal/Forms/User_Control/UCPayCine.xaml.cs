@@ -62,8 +62,8 @@ namespace WPProcinal.Forms.User_Control
                 payState = true;
 
                 
-                //Buytickets();
-                Utilities.control.StartValues();
+                Buytickets();
+                //Utilities.control.StartValues();
                 Utilities.Speack("Por favor, ingresa el dinero");
 
             }
@@ -347,7 +347,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     objUtil.PrintTicket("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
 
-                    ApproveTrans();
+                    //ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
@@ -504,8 +504,7 @@ namespace WPProcinal.Forms.User_Control
                             {
                                 if (Utilities.dataUser.Tarjeta != null)
                                 {
-                                    Thread.Sleep(3000);
-                                    Utilities.dataUser.Puntos = WCFServices41.ConsultPoints();
+                                    Utilities.dataUser.Puntos = Convert.ToDouble(Math.Floor(Utilities.PayVal / 1000)) + Utilities.dataUser.Puntos;
                                 }
                                 payState = true;
                                 break;

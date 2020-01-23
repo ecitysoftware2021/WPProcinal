@@ -372,16 +372,21 @@ namespace WPProcinal.Forms.User_Control
 
                 if (login == 5)
                 {
+                    SetCallBacksNull();
+                    timer.CallBackStop?.Invoke(1);
+
                     this.Opacity = 0.3;
                     frmModalLogin modalLogin = new frmModalLogin();
                     modalLogin.ShowDialog();
-                    if (modalLogin.DialogResult.HasValue &&
-                    modalLogin.DialogResult.Value)
+
+                    if (modalLogin.DialogResult.HasValue && modalLogin.DialogResult.Value)
                     {
                         FrmModalDeletePay modalDeletePay = new FrmModalDeletePay();
                         modalDeletePay.ShowDialog();
                     }
+
                     this.Opacity = 1;
+                    ActivateTimer();
                 }
             }
             catch (Exception ex)

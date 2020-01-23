@@ -328,7 +328,7 @@ namespace WPProcinal.Classes
                         objPrint.TipoSala = Utilities.TipoSala;
                         objPrint.IDTransaccion = Utilities.IDTransactionDB.ToString();
 
-                        if (Utilities.dataUser.Tarjeta != null && Utilities.dataUser.Puntos != null)
+                        if (Utilities.dataUser.Tarjeta != null && Utilities.dataUser.Puntos > 0)
                         {
                             objPrint.Puntos = Utilities.dataUser.Puntos.ToString();
                         }
