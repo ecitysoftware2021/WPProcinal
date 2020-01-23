@@ -251,6 +251,17 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
+                    try
+                    {
+                        if (Utilities.dataUser.Tarjeta != null)
+                        {
+                            Utilities.dataUser.Puntos = Convert.ToDouble(Math.Floor(Utilities.PayVal / 1000)) + Utilities.dataUser.Puntos;
+                        }
+                    }
+                    catch 
+                    {
+                    }
+
                     objUtil.PrintTicket("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
                     ApproveTrans();
 
