@@ -240,7 +240,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (Utilities.dataUser.Tarjeta != null)
                             {
-                                precio += decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0] ) * receta.Cantidad;
+                                precio += decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]) * receta.Cantidad;
                             }
                             else
                             {
@@ -249,7 +249,23 @@ namespace WPProcinal.Forms.User_Control
                         }
                         if (receta.RecetaReceta != null)
                         {
-                            receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                            List<Receta> recetaAux = new List<Receta>();
+                            for (int e = 0; e < int.Parse(receta.Cantidad.ToString()); e++)
+                            {
+                                var responseRecetaReceta = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("gaseosa")).FirstOrDefault();
+                                if (responseRecetaReceta != null)
+                                {
+                                    recetaAux.Add(responseRecetaReceta);
+                                }
+                            }
+                            if (recetaAux.Count != 0)
+                            {
+                                receta.RecetaReceta = recetaAux;
+                            }
+                            else
+                            {
+                                receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                            }
                             foreach (var preciosReceta in receta.RecetaReceta)
                             {
                                 if (preciosReceta.Precios != null)

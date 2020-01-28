@@ -71,6 +71,9 @@ namespace WPProcinal.Forms
             Utilities.control.ClosePortScanner();
             DialogResult = false;
             //DialogResult = ValidateCineFan("1028040734");
+            //DialogResult = ValidateCineFan("43261286");
+            //DialogResult = ValidateCineFan("0071949041");
+            //DialogResult = ValidateCineFan("27955585");
         }
         #endregion
 
@@ -103,6 +106,8 @@ namespace WPProcinal.Forms
         {
             try
             {
+
+                cedula = long.Parse(cedula).ToString();
 
                 frmLoading = new FrmLoading("¡Consultando información...!");
                 frmLoading.Show();
