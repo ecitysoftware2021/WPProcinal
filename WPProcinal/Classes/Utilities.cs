@@ -299,6 +299,12 @@ namespace WPProcinal.Classes
             return file;
         }
 
+        public static string GetFileCombos()
+        {
+            var file = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Confiteria", "Confiteria.txt"));
+            return file;
+        }
+
         public static void ShowModal(string message)
         {
             frmModal frmModal = new frmModal(message);
@@ -349,9 +355,9 @@ namespace WPProcinal.Classes
                     Print printCombo = new Print();
                     printCombo.ImprimirComprobante(0);
 
-                    var ComboTemporada = Utilities._Combos.Where(x => x.Name == "Combo Jumanji").FirstOrDefault();
+                    var ComboTemporada = Utilities._Combos.Where(x => x.Name == Utilities.GetConfiguration("0NAME")).FirstOrDefault();
 
-                    if (ComboTemporada != null)
+                    if (ComboTemporada != null && Utilities.GetConfiguration("0Cupon").Equals("1"))
                     {
                         printCombo.ImprimirComprobante(1);
                     }
@@ -730,7 +736,7 @@ namespace WPProcinal.Classes
 
         public static DataDocument ProccesDocument(string data)
         {
-         
+
             DataDocument documentDataReturn = new DataDocument();
 
             try

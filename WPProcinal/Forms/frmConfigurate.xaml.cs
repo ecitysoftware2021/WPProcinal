@@ -93,7 +93,7 @@ namespace WPProcinal.Forms
                                     Utilities.LoadData();
                                     Dispatcher.BeginInvoke((Action)delegate
                                     {
-                                        Switcher.Navigate(new UCCinema());
+                                        Switcher.Navigate(new UCConfectionery(null,null));
                                     });
                                 }
                                 else

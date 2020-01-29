@@ -133,7 +133,7 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    txtError.Text = "No se pudo validar la información.";
+                    txtError.Text = "No se pudo validar la información, intenta de nuevo.";
                     return false;
                 }
             }
@@ -147,7 +147,7 @@ namespace WPProcinal.Forms
                     ELevelError.Mild);
                 }
                 catch { }
-                txtError.Text = "No se pudo validar la información.";
+                txtError.Text = "No se pudo validar la información, intenta de nuevo.";
                 frmLoading.Close();
                 return false;
             }

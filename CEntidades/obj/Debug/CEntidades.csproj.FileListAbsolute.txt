@@ -46,3 +46,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj
 C:\Users\H-81\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.dll
 C:\Users\H-81\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.pdb
 C:\Users\H-81\Documents\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csprojAssemblyReference.cache
+D:\GitHub\WPProcinal\CEntidades\bin\Debug\Newtonsoft.Json.dll
+D:\GitHub\WPProcinal\CEntidades\bin\Debug\Newtonsoft.Json.xml
+D:\GitHub\WPProcinal\CEntidades\obj\Debug\CEntidades.csproj.CopyComplete

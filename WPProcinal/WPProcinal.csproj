@@ -177,6 +177,7 @@
     <Compile Include="Classes\ControlPeripheralsNotArduino.cs" />
     <Compile Include="Classes\ErrorCodes.cs" />
     <Compile Include="Classes\ImagesSleader.cs" />
+    <Compile Include="Classes\LocalConfectionery.cs" />
     <Compile Include="Classes\Login.cs" />
     <Compile Include="Classes\Print.cs" />
     <Compile Include="Classes\Switcher.cs" />
@@ -266,9 +267,6 @@
     </Compile>
     <Compile Include="Forms\User_Control\UCPoints.xaml.cs">
       <DependentUpon>UCPoints.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\User_Control\UCRefound.xaml.cs">
-      <DependentUpon>UCRefound.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\User_Control\UCSchedule.xaml.cs">
       <DependentUpon>UCSchedule.xaml</DependentUpon>
@@ -374,10 +372,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\User_Control\UCPoints.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\User_Control\UCRefound.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

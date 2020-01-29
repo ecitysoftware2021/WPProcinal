@@ -32,14 +32,34 @@ namespace WPProcinal.Forms.User_Control
         CLSGrabador grabador;
         Utilities utilities;
 
-        #region Precios Combos
+        #region Información Combos
         private int _ComboTemporadaPrice = int.Parse(Utilities.GetConfiguration("0"));
+        private int _ComboTemporadaCode = int.Parse(Utilities.GetConfiguration("0Code"));
+        private string _ComboTemporadaName = Utilities.GetConfiguration("0NAME");
+
         private int _Combo1Price = int.Parse(Utilities.GetConfiguration("1"));
+        private int _Combo1Code = int.Parse(Utilities.GetConfiguration("1Code"));
+        private string _Combo1Name = Utilities.GetConfiguration("1NAME");
+
         private int _Combo2Price = int.Parse(Utilities.GetConfiguration("2"));
+        private int _Combo2Code = int.Parse(Utilities.GetConfiguration("2Code"));
+        private string _Combo2Name = Utilities.GetConfiguration("2NAME");
+
         private int _Combo3Price = int.Parse(Utilities.GetConfiguration("3"));
+        private int _Combo3Code = int.Parse(Utilities.GetConfiguration("3Code"));
+        private string _Combo3Name = Utilities.GetConfiguration("3NAME");
+
         private int _Combo4Price = int.Parse(Utilities.GetConfiguration("4"));
+        private int _Combo4Code = int.Parse(Utilities.GetConfiguration("4Code"));
+        private string _Combo4Name = Utilities.GetConfiguration("4NAME");
+
         private int _Combo5Price = int.Parse(Utilities.GetConfiguration("5"));
+        private int _Combo5Code = int.Parse(Utilities.GetConfiguration("5Code"));
+        private string _Combo5Name = Utilities.GetConfiguration("5NAME");
+
         private int _ComboHamburguesaPrice = int.Parse(Utilities.GetConfiguration("6"));
+        private int _ComboHamburguesaCode = int.Parse(Utilities.GetConfiguration("6Code"));
+        private string _ComboHamburguesaName = Utilities.GetConfiguration("6NAME");
         #endregion
 
         #endregion
@@ -51,17 +71,67 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 Utilities._Combos = new List<Combos>();
+                plusTemp.IsEnabled = Utilities.GetConfiguration("0Disponible").Equals("1") ? true : false;
+                lessTemp.IsEnabled = Utilities.GetConfiguration("0Disponible").Equals("1") ? true : false;
+
                 _Seats = Seats;
                 _DipMap = dipMap;
                 api = new ApiLocal();
                 utilities = new Utilities();
                 grabador = new CLSGrabador();
+
                 Utilities.Speack("Puedes comprar tu combo y reclamarlo en la confitería.");
             }
             catch (Exception ex)
             {
             }
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            var frmLoading = new FrmLoading("¡Cargando confiteria...!");
+
+            frmLoading.Show();
+            this.IsEnabled = false;
+            Task.Run(() =>
+            {
+                var combos = WCFServices41.GetCombos(new SCOPRE
+                {
+                    teatro = Utilities.GetConfiguration("CodCinema"),
+                    tercero = "1"
+                });
+
+                if (combos != null)
+                {
+                    Utilities._Productos = combos.ListaProductos;
+                }
+                else
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+
+                        SetCallBacksNull();
+                        timer.CallBackStop?.Invoke(1);
+                        frmModal frmModal = new frmModal("No se pudo descargar la confitería, continúa el pago de tus boletas!");
+                        frmModal.ShowDialog();
+                        ShowDetailModal();
+                    });
+                }
+
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+
+                    ActivateTimer();
+                    frmLoading.Close();
+                    this.IsEnabled = true;
+                });
+                //AddCombo("Combo Hamburguesa", _ComboHamburguesaPrice, C6, 423);
+                //ChangePrices();
+            });
+
+        }
+
         #endregion
 
         #region "Eventos"
@@ -82,25 +152,25 @@ namespace WPProcinal.Forms.User_Control
                 switch (tag)
                 {
                     case 0:
-                        AddCombo(comboName: "Combo Jumanji", comboPrice: _ComboTemporadaPrice, textBlock: C0, code: 609);
+                        AddCombo(comboName: _ComboTemporadaName, comboPrice: _ComboTemporadaPrice, textBlock: C0, code: _ComboTemporadaCode);
                         break;
                     case 1:
-                        AddCombo("Combo 1", _Combo1Price, C1, 251);
+                        AddCombo(_Combo1Name, _Combo1Price, C1, _Combo1Code);
                         break;
                     case 2:
-                        AddCombo("Combo 2", _Combo2Price, C2, 252);
+                        AddCombo(_Combo2Name, _Combo2Price, C2, _Combo2Code);
                         break;
                     case 3:
-                        AddCombo("Combo 3", _Combo3Price, C3, 253);
+                        AddCombo(_Combo3Name, _Combo3Price, C3, _Combo3Code);
                         break;
                     case 4:
-                        AddCombo("Combo 4", _Combo4Price, C4, 254);
+                        AddCombo(_Combo4Name, _Combo4Price, C4, _Combo4Code);
                         break;
                     case 5:
-                        AddCombo("Combo 5", _Combo5Price, C5, 256);
+                        AddCombo(_Combo5Name, _Combo5Price, C5, _Combo5Code);
                         break;
                     case 6:
-                        AddCombo(comboName: "Combo Hamburguesa", comboPrice: _ComboHamburguesaPrice, textBlock: C6, code: 423);
+                        AddCombo(comboName: _ComboHamburguesaName, comboPrice: _ComboHamburguesaPrice, textBlock: C6, code: _ComboHamburguesaCode);
                         break;
                 }
             }
@@ -227,6 +297,7 @@ namespace WPProcinal.Forms.User_Control
         public void ChangePrices()
         {
             List<Producto> productos = new List<Producto>();
+            Utilities.dataUser = new SCOLOGResponse();
             decimal precio = 0;
             foreach (var item in Utilities._Combos)
             {
@@ -252,11 +323,23 @@ namespace WPProcinal.Forms.User_Control
                             List<Receta> recetaAux = new List<Receta>();
                             for (int e = 0; e < int.Parse(receta.Cantidad.ToString()); e++)
                             {
-                                var responseRecetaReceta = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("gaseosa")).FirstOrDefault();
-                                if (responseRecetaReceta != null)
+
+                                var responseRecetaBebida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("gaseosa")).FirstOrDefault();
+                                Receta responseRecetaComida = null;
+                                //Si el combo es el combo 4, solo tomamos por defecto las gaseosas, las comidas se dejan tal cual
+                                if (item.Code != _Combo4Code)
                                 {
-                                    recetaAux.Add(responseRecetaReceta);
+                                    responseRecetaComida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("perro")).FirstOrDefault();
                                 }
+                                if (responseRecetaBebida != null)
+                                {
+                                    recetaAux.Add(responseRecetaBebida);
+                                }
+                                else if (responseRecetaComida != null)
+                                {
+                                    recetaAux.Add(responseRecetaComida);
+                                }
+
                             }
                             if (recetaAux.Count != 0)
                             {
@@ -386,48 +469,6 @@ namespace WPProcinal.Forms.User_Control
 
         #endregion
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-            var frmLoading = new FrmLoading("¡Cargando confiteria...!");
-
-            frmLoading.Show();
-            this.IsEnabled = false;
-            Task.Run(() =>
-            {
-                var combos = WCFServices41.GetCombos(new SCOPRE
-                {
-                    teatro = Utilities.GetConfiguration("CodCinema"),
-                    tercero = "1"
-                });
-
-                if (combos != null)
-                {
-                    Utilities._Productos = combos.ListaProductos;
-                }
-                else
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-
-                        SetCallBacksNull();
-                        timer.CallBackStop?.Invoke(1);
-                        frmModal frmModal = new frmModal("No se pudo descargar la confitería, continúa el pago de tus boletas!");
-                        frmModal.ShowDialog();
-                        ShowDetailModal();
-                    });
-                }
-
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-
-                    ActivateTimer();
-                    frmLoading.Close();
-                    this.IsEnabled = true;
-                });
-            });
-
-        }
 
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
         {

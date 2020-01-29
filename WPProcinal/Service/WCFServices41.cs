@@ -1324,6 +1324,7 @@ namespace WPProcinal.Service
 
     }
     #endregion
+
     public class Combos
     {
         public string Name { get; set; }
@@ -1336,6 +1337,7 @@ namespace WPProcinal.Service
     {
         public string details { get; set; }
     }
+
     public class Response41
     {
 

@@ -63,7 +63,7 @@
                 Stretch="UniformToFill"
                 Source="/Images/Confectionery/temporada3.jpg"
                 />
-                <Image 
+                <Image  Name="plusTemp"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Grid.Row="0"
@@ -84,7 +84,7 @@
                     VerticalAlignment="Bottom"
                     Margin="0,0,0,40"
                 />
-                <Image 
+                <Image  Name="lessTemp"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Grid.ColumnSpan="2"
