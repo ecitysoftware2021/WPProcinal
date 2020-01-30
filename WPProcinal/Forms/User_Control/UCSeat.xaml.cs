@@ -574,9 +574,6 @@ namespace WPProcinal.Forms.User_Control
 
                 if (GetPrices())
                 {
-
-
-
                     if (Utilities.FechaSeleccionada != DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy")))
                     {
                         frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
