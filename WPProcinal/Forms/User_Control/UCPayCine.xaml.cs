@@ -25,7 +25,7 @@ namespace WPProcinal.Forms.User_Control
         int controlInactividad = 0;
         int controlCancel = 0;
         private bool payState;
-        private int num = 1;
+        private bool state;
         TimerTiempo timer;
         Response responseGlobal = new Response();
         Utilities objUtil = new Utilities();
@@ -39,6 +39,7 @@ namespace WPProcinal.Forms.User_Control
                 OrganizeValues();
                 frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();
+                state = true;
                 Utilities.TypeSeats = Seats;
                 Utilities.DipMapCurrent = dipMap;
                 Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.ValorPagarScore);
@@ -143,7 +144,11 @@ namespace WPProcinal.Forms.User_Control
                     }
                     else
                     {
-                        Buytickets();
+                        if (state)
+                        {
+                            state = false;
+                            Buytickets();
+                        }
                     }
                 };
 
@@ -313,8 +318,6 @@ namespace WPProcinal.Forms.User_Control
 
         private async void SavePay(bool task)
         {
-            num = 2;
-
             try
             {
                 if (!task)
