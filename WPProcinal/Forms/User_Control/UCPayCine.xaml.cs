@@ -62,7 +62,7 @@ namespace WPProcinal.Forms.User_Control
                 stateUpdate = true;
                 payState = true;
 
-                
+
                 //Buytickets();
                 Utilities.control.StartValues();
                 Utilities.Speack("Por favor, ingresa el dinero");
@@ -303,7 +303,7 @@ namespace WPProcinal.Forms.User_Control
                     Task.Run(() =>
                     {
 
-                        Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 2, PaymentViewModel.ValorSobrante);
+                        Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Aproved, PaymentViewModel.ValorSobrante);
                     });
                 }
             }
@@ -401,7 +401,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 Task.Run(() =>
                 {
-                    Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, 3, Utilities.ValueDelivery);
+                    Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Canceled, Utilities.ValueDelivery);
 
                     logError.Description = "\nSe cancelo una transaccion";
                     logError.State = "Cancelada";

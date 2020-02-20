@@ -187,7 +187,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-                        Utilities.UpdateTransaction(Utilities.PayVal, 2, 0);
+                        Utilities.UpdateTransaction(Utilities.PayVal, (int)ETransactionState.Aproved, 0);
                     });
                     utilities.SaveCardInformation(new RequestCardInformation
                     {
@@ -251,7 +251,7 @@ namespace WPProcinal.Forms.User_Control
                             Utilities.dataUser.Puntos = Convert.ToDouble(Math.Floor(Utilities.PayVal / 1000)) + Utilities.dataUser.Puntos;
                         }
                     }
-                    catch 
+                    catch
                     {
                     }
 
@@ -1041,7 +1041,7 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.Loading(frmLoading, true, this);
                 Task.Run(() =>
                 {
-                    Utilities.UpdateTransaction(0, 3, 0);
+                    Utilities.UpdateTransaction(0, (int)ETransactionState.Canceled, 0);
                     logError.Description = "\nSe cancelo una transaccion";
                     logError.State = "Cancelada";
                     Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");

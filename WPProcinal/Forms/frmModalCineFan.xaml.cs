@@ -106,7 +106,6 @@ namespace WPProcinal.Forms
         {
             try
             {
-
                 cedula = long.Parse(cedula).ToString();
 
                 frmLoading = new FrmLoading("¡Consultando información...!");
@@ -117,17 +116,31 @@ namespace WPProcinal.Forms
                     tercero = "1"
                 });
                 frmLoading.Close();
+                bool isCineFan = false;
+                string error = string.Empty;
                 if (responseClient != null)
                 {
-                    if (responseClient.Tarjeta != null)
+                    foreach (var item in responseClient)
                     {
-                        Utilities.dataUser = responseClient;
-                        Utilities.dataUser.Puntos = WCFServices41.ConsultPoints();
+                        if (item.Tarjeta != null)
+                        {
+                            Utilities.dataUser = item;
+                            Utilities.dataUser.Puntos = WCFServices41.ConsultPoints();
+                            isCineFan = true;
+                            break;
+                        }
+                        else
+                        {
+                            error = item.Estado != null ? item.Estado : "Usuario no registrado en el sistema.";
+                        }
+                    }
+                    if (isCineFan)
+                    {
                         return true;
                     }
                     else
                     {
-                        txtError.Text = responseClient.Estado != null ? responseClient.Estado : "Usuario no registrado en el sistema.";
+                        txtError.Text = error;
                         return false;
                     }
                 }

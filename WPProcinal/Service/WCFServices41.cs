@@ -4,6 +4,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -672,7 +673,7 @@ namespace WPProcinal.Service
         /// <param name="data"></param>
         /// <returns></returns>
         #region SCOLOG
-        public static SCOLOGResponse GetClientData(SCOCED data)
+        public static List<SCOLOGResponse> GetClientData(SCOCED data)
         {
 
             string decryptData = string.Empty;
@@ -704,15 +705,10 @@ namespace WPProcinal.Service
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
 
-
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
-
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
-
-                var est = JsonConvert.DeserializeObject<SCOLOGResponse[]>(decryptData);
-
-                return est[0];
-
+                var clientdata = JsonConvert.DeserializeObject<List<SCOLOGResponse>>(decryptData);
+                return clientdata;
             }
             catch (Exception ex)
             {
@@ -994,7 +990,7 @@ namespace WPProcinal.Service
 
     public class ResponseScoret
     {
-         public string Respuesta { get; set; } 
+        public string Respuesta { get; set; }
     }
     #endregion
 

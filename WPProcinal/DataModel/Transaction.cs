@@ -19,6 +19,7 @@ namespace WPProcinal.Classes
         public string DESCRIPTION { get; set; }
         public int PAYMENT_TYPE_ID { get; set; }
         public int PAYER_ID { get; set; }
+        public string TRANSACTION_REFERENCE { get; set; }
         public int STATE_TRANSACTION_ID { get; set; }
         public PAYER payer { get; set; }
         public List<TRANSACTION_DESCRIPTION> TRANSACTION_DESCRIPTION = new List<TRANSACTION_DESCRIPTION>();
@@ -26,11 +27,12 @@ namespace WPProcinal.Classes
 
     public class TRANSACTION_DESCRIPTION
     {
-        public int TRANSACTION_ID { get; set; }
         public int TRANSACTION_DESCRIPTION_ID { get; set; }
-        public string REFERENCE { get; set; }
+        public Nullable<int> TRANSACTION_ID { get; set; }
+        public int TRANSACTION_PRODUCT_ID { get; set; }
         public Nullable<decimal> AMOUNT { get; set; }
-        public string OBSERVATION { get; set; }
+        public string DESCRIPTION { get; set; }
+        public string EXTRA_DATA { get; set; }
         public Nullable<bool> STATE { get; set; }
     }
 

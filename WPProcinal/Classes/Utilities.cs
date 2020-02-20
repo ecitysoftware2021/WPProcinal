@@ -426,10 +426,11 @@ namespace WPProcinal.Classes
                     TOTAL_AMOUNT = Utilities.PayVal,
                     DATE_BEGIN = DateTime.Now,
                     DESCRIPTION = "Se inició la transacción para: " + name,
-                    TYPE_TRANSACTION_ID = 14,
-                    STATE_TRANSACTION_ID = 1,
+                    TYPE_TRANSACTION_ID = (int)ETransactionType.Buy,
+                    STATE_TRANSACTION_ID = (int)ETransactionState.Initital,
+                    TRANSACTION_REFERENCE = Utilities.Secuencia,
                     PAYER_ID = 477,
-                    PAYMENT_TYPE_ID = 1
+                    PAYMENT_TYPE_ID = (int)EPaymentType.Cash
                 };
 
                 foreach (var item in Seats)
@@ -438,10 +439,9 @@ namespace WPProcinal.Classes
                     {
                         AMOUNT = item.Price,
                         TRANSACTION_ID = transaction.TRANSACTION_ID,
-                        REFERENCE = Utilities.Secuencia,
-                        OBSERVATION = movie.MovieName + " - " + item.Name,
-                        TRANSACTION_DESCRIPTION_ID = 0,
-                        STATE = true
+                        TRANSACTION_PRODUCT_ID = (int)ETransactionProducto.Ticket,
+                        DESCRIPTION = movie.MovieName + " - " + item.Name,
+                        EXTRA_DATA = Utilities.Secuencia
                     };
 
                     transaction.TRANSACTION_DESCRIPTION.Add(details);
@@ -449,17 +449,18 @@ namespace WPProcinal.Classes
 
                 foreach (var item in _Combos)
                 {
-                    var details = new TRANSACTION_DESCRIPTION
+                    for (int i = 0; i < item.Quantity; i++)
                     {
-                        AMOUNT = item.Price,
-                        TRANSACTION_ID = IDTransactionDB,
-                        REFERENCE = item.Name,
-                        OBSERVATION = item.Quantity.ToString(),
-                        TRANSACTION_DESCRIPTION_ID = 0,
-                        STATE = true
-                    };
-
-                    transaction.TRANSACTION_DESCRIPTION.Add(details);
+                        var details = new TRANSACTION_DESCRIPTION
+                        {
+                            AMOUNT = item.Price / item.Quantity,
+                            TRANSACTION_ID = IDTransactionDB,
+                            TRANSACTION_PRODUCT_ID = (int)ETransactionProducto.Confectionery,
+                            DESCRIPTION = item.Name,
+                            EXTRA_DATA = Utilities.Secuencia
+                        };
+                        transaction.TRANSACTION_DESCRIPTION.Add(details);
+                    }
                 }
                 if (dataDocument != null)
                 {

@@ -29,5 +29,35 @@ namespace WPProcinal.Classes
         Strong = 1,
     }
 
-    
+    public enum ETransactionProducto
+    {
+        Ticket = 1,
+        Confectionery = 2
+    }
+
+    public enum ETransactionType
+    {
+        Pay = 1,
+        Buy = 2,
+        Deposit = 3,
+        Whitdraw = 4,
+        Search = 5
+    }
+
+    public enum ETransactionState
+    {
+        Initital = 1,
+        Aproved = 2,
+        Canceled = 3,
+        WithoutNotifying = 4,
+        WithError = 5
+    }
+
+    public enum EPaymentType
+    {
+        Cash = 1,
+        Card = 2
+    }
+
+
 }
