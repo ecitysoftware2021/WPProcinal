@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms
@@ -37,20 +28,29 @@ namespace WPProcinal.Forms
             {
                 int secuenca = Convert.ToInt32(txtSecuencia.Text);
 
-                int num = WCFServices41.CancelSale(secuenca);
-
-                if (num == 1)
+                var response = WCFServices41.CancelSale(secuenca);
+                if (response != null)
                 {
-                    txtMs.Text = "Compra eliminada";
-
-                    Task.Run(() =>
+                    if (response[0].Respuesta != null)
                     {
-                        Thread.Sleep(3000);
-                        Dispatcher.BeginInvoke((Action)delegate
+                        if (response[0].Respuesta.ToLower().Contains("proceso exitoso"))
                         {
-                            DialogResult = true;
-                        });
-                    });
+                            txtMs.Text = "Compra eliminada";
+
+                            Task.Run(() =>
+                            {
+                                Thread.Sleep(3000);
+                                Dispatcher.BeginInvoke((Action)delegate
+                                {
+                                    DialogResult = true;
+                                });
+                            });
+                        }
+                    }
+                    else
+                    {
+                        txtMs.Text = response[0].Validacion;
+                    }
                 }
                 else
                 {
