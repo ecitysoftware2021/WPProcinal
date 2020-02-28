@@ -901,7 +901,9 @@ namespace WPProcinal.Classes
                 {
                     mm.Subject = "Alerta";
                     mm.SubjectEncoding = System.Text.Encoding.UTF8;
-                    mm.Body = "No se pudo descargar la imagen de: "+data;
+                    mm.Body = "No se pudo descargar la imagen de: "+data+
+                        " Por favor revisar en el repositorio donde se suben las imagenes Url(http://pantallasprocinal.com/img/peliculas/)"+
+                        "Nota: revisar que el nombre de la película este bien escrito o que la imagen si exista.";
                     mm.BodyEncoding = System.Text.Encoding.UTF8;
                     mm.IsBodyHtml = true;
                     //mm.Attachments.Add(new Attachment(new MemoryStream(CreatePDF()), "NotificacionKiosko.pdf"));
