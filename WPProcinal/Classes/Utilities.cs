@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Speech.Synthesis;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -880,6 +881,10 @@ namespace WPProcinal.Classes
                             }
                         }
                     }
+                    else
+                    {
+                        Send(item.Nombre);
+                    }
                     Imagenes.Add(item.Data.Imagen);
                 }
             }
@@ -887,6 +892,36 @@ namespace WPProcinal.Classes
             {
             }
         }
+
+        public static void Send(string data)
+        {
+            try
+            {
+                using (MailMessage mm = new MailMessage("ecitysoftware@gmail.com", "jhonaxe2011@hotmail.com"))
+                {
+                    mm.Subject = "Alerta";
+                    mm.SubjectEncoding = System.Text.Encoding.UTF8;
+                    mm.Body = "No se pudo descargar la imagen de: "+data;
+                    mm.BodyEncoding = System.Text.Encoding.UTF8;
+                    mm.IsBodyHtml = true;
+                    //mm.Attachments.Add(new Attachment(new MemoryStream(CreatePDF()), "NotificacionKiosko.pdf"));
+
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.EnableSsl = true;
+                    NetworkCredential NetworkCred = new NetworkCredential("ecitysoftware@gmail.com", "3C1ty2019$/*");
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = NetworkCred;
+                    smtp.Port = 587;
+                    smtp.Send(mm);
+                }
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
     }
     public class DataMoneyNotification
     {
