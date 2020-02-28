@@ -98,35 +98,52 @@
                                    Width="325"
                                    Height="500"
                                         >
-                                        <Grid.Background>
-                                            <ImageBrush 
-                                        ImageSource="{Binding ImageData}"
-                                        Stretch="Uniform" />
-                                        </Grid.Background>
-
-                                        <Image Source="{Binding ImageMovieType}" 
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Margin="5,0,10,0"
-                                   Width="100"
-                                   Height="100"
-                                   Stretch="Uniform"/>
-                                        <Image Source="{Binding ImageTag}" 
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Margin="0,15,10,0"
-                                   Width="100"
-                                   Height="100"
-                                   Stretch="Uniform"/>
-                                        <Image Source="/Images/Buttons/verHorarios.png" 
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Bottom"
-                                   Margin="50,0,0,0"
-                                   Width="200"
-                                   Height="100"
-                                   Stretch="Uniform"
-                                               Tag="{Binding Tag}"
-                                    TouchDown="TouchImage_TouchDown"/>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="70" />
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <Grid.Background>
+                                                    <ImageBrush 
+                                                        ImageSource="{Binding ImageData}"
+                                                        Stretch="Uniform" />
+                                                </Grid.Background>
+                                                <Image Source="{Binding ImageMovieType}" 
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Top"
+                                                       Margin="5,0,10,0"
+                                                       Width="100"
+                                                       Height="100"
+                                                       Stretch="Uniform"/>
+                                                <Image Source="{Binding ImageTag}" 
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Top"
+                                                       Margin="0,15,10,0"
+                                                       Width="100"
+                                                       Height="100"
+                                                       Stretch="Uniform"/>
+                                                <Image Source="/Images/Buttons/verHorarios.png" 
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Bottom"
+                                                       Margin="50,0,0,0"
+                                                       Width="200"
+                                                       Height="100"
+                                                       Stretch="Uniform"
+                                                       Tag="{Binding Tag}"
+                                                       TouchDown="TouchImage_TouchDown"/>
+                                            </Grid>
+                                            <Grid Grid.Row="1">
+                                                <TextBlock
+                                                    Text="{Binding Nombre}"
+                                                    FontSize="20"
+                                                    TextWrapping="Wrap"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0,0,0,0"
+                                                />
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
                                 </StackPanel>
                             </DataTemplate>

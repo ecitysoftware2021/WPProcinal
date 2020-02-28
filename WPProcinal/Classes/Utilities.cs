@@ -860,25 +860,31 @@ namespace WPProcinal.Classes
         }
         public static void AddImageList()
         {
-            foreach (var item in Peliculas.Pelicula)
+            try
             {
-                if (WCFServices41.StateImage(item.Data.Imagen))
+                foreach (var item in Peliculas.Pelicula)
                 {
-                    if (!Directory.Exists("Slider"))
+                    if (WCFServices41.StateImage(item.Data.Imagen))
                     {
-                        Directory.CreateDirectory("Slider");
-                    }
-                    path = Path.Combine(Directory.GetCurrentDirectory(), "Slider");
-                    using (WebClient client = new WebClient())
-                    {
-                        var fileName = string.Concat(path, "\\", item.Nombre + ".jpg");
-                        if (!File.Exists(fileName))
+                        if (!Directory.Exists("Slider"))
                         {
-                            client.DownloadFile(new Uri(item.Data.Imagen), fileName);
+                            Directory.CreateDirectory("Slider");
+                        }
+                        path = Path.Combine(Directory.GetCurrentDirectory(), "Slider");
+                        using (WebClient client = new WebClient())
+                        {
+                            var fileName = string.Concat(path, "\\", item.Nombre + ".jpg");
+                            if (!File.Exists(fileName))
+                            {
+                                client.DownloadFile(new Uri(item.Data.Imagen), fileName);
+                            }
                         }
                     }
+                    Imagenes.Add(item.Data.Imagen);
                 }
-                Imagenes.Add(item.Data.Imagen);
+            }
+            catch (Exception ex)
+            {
             }
         }
     }

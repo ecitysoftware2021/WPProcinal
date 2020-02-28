@@ -473,6 +473,7 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\NotFound.png" />
     <Resource Include="Images\Backgrounds\loginDelete2.png" />
     <Resource Include="Images\Backgrounds\loginDelete.png" />
     <Resource Include="Images\Gif\gif-cargando.gif" />
