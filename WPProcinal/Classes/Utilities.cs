@@ -881,10 +881,7 @@ namespace WPProcinal.Classes
                             }
                         }
                     }
-                    else
-                    {
-                        Send(item.Nombre);
-                    }
+                   
                     Imagenes.Add(item.Data.Imagen);
                 }
             }
