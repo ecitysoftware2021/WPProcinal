@@ -885,7 +885,7 @@ namespace WPProcinal.Forms.User_Control
 
         private void NavigateToConfectionery()
         {
-            Switcher.Navigate(new UCConfectionery(SelectedTypeSeats, dipMapCurrent));
+            Switcher.Navigate(new UCProductsCombos(SelectedTypeSeats, dipMapCurrent));
         }
 
         /// <summary>

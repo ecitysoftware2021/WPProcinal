@@ -289,8 +289,9 @@ namespace WPProcinal.Forms.User_Control
             }
             catch { }
 
-            if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
-            {
+            //TODO: descomentar
+            //if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
+            //{
                 Image TocuhImage = (Image)sender;
                 var movie = Utilities.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
                 //var status = WCFServices41.StateImage(movie.Data.Imagen);
@@ -302,13 +303,13 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.ImageSelected = Utilities.LoadImage(image, true);
 
                 Switcher.Navigate(new UCSchedule(movie));
-            }
-            else
-            {
-                frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeSinDinero"));
-                modal.ShowDialog();
-                Switcher.Navigate(new UCCinema());
-            }
+            //}
+            //else
+            //{
+            //    frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeSinDinero"));
+            //    modal.ShowDialog();
+            //    Switcher.Navigate(new UCCinema());
+            //}
         }
 
         private void BtnPrev_TouchDown(object sender, TouchEventArgs e)

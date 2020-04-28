@@ -251,13 +251,22 @@ namespace WPProcinal.Forms
 
         private void ShowModalError(string description)
         {
+            if (util == null)
+            {
+                util = new Utilities(1);
+            }
+            Utilities.LoadData();
             Dispatcher.BeginInvoke((Action)delegate
             {
-                SetCallbackNull();
-                frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description));
-                modal.ShowDialog();
-                GetToken();
+                Switcher.Navigate(new UCCinema());
             });
+            //Dispatcher.BeginInvoke((Action)delegate
+            //{
+            //    SetCallbackNull();
+            //    frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description));
+            //    modal.ShowDialog();
+            //    GetToken();
+            //});
         }
     }
 }

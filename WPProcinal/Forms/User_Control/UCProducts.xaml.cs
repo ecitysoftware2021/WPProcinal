@@ -127,7 +127,7 @@ namespace WPProcinal.Forms.User_Control
         {
             SetCallBacksNull();
             timer.CallBackStop?.Invoke(1);
-            Switcher.Navigate(new UCConfectionery(_Seats, _DipMap));
+            Switcher.Navigate(new UCProductsCombos(_Seats, _DipMap));
         }
 
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)

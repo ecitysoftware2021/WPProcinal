@@ -44,8 +44,6 @@ namespace WPProcinal.Forms.User_Control
             this.view = new CollectionViewSource();
             this.lstPager = new ObservableCollection<Producto>();
             ActivateTimer();
-            InitView();
-            PaintDataCombo();
         }
         #endregion
 
@@ -57,26 +55,29 @@ namespace WPProcinal.Forms.User_Control
                 foreach (var product in Utilities._Productos)
                 {
 
-                    if (product.Tipo.ToUpper() == "P")
+                    if (product.Tipo.ToUpper() == "C")
                     {
-                        if (product.Precios.Count() > 0)
-                        {
-                            decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
-                            decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
+                        //if (product.Precios.Count() > 0)
+                        //{
+                        //    decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
+                        //    decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
                             product.Imagen = $"http://localhost/Procinal/images/{product.Codigo}.jpg";
-                            if (General > 0 && OtroPago > 0)
-                            {
-                                product.Precios[0].auxGeneral = General;
-                                product.Precios[0].auxOtroPago = OtroPago;
+                            //if (General > 0 && OtroPago > 0)
+                            //{
+                            //    product.Precios[0].auxGeneral = General;
+                            //    product.Precios[0].auxOtroPago = OtroPago;
 
                                 lstPager.Add(product);
-                            }
-                        }
+                            //}
+                        //}
                     }
                 }
 
-                view.Source = lstPager;
-                lv_Products.DataContext = view;
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    view.Source = lstPager;
+                    lv_Products.DataContext = view;
+                });
             }
             catch (Exception ex)
             {
@@ -106,15 +107,15 @@ namespace WPProcinal.Forms.User_Control
                     {
                         Name = data.Descripcion,
                         Code = Convert.ToInt32(data.Codigo),
-                        Price = Utilities.dataUser.Tarjeta != null ? data.Precios[0].auxOtroPago : data.Precios[0].auxGeneral,
+                        Price = 0,
                         dataProduct = data,
-                        isCombo = false,
+                        isCombo = true,
 
                     });
                 }
                 else
                 {
-                    Utilities.DeleteCombo(comboName: data.Descripcion, comboPrice: data.Precios[0].auxOtroPago, dataProduct: data);
+                    Utilities.DeleteCombo(comboName: data.Descripcion, comboPrice: 0, dataProduct: data);
                 }
 
                 ChangeImageBuy();
@@ -128,7 +129,7 @@ namespace WPProcinal.Forms.User_Control
         {
             SetCallBacksNull();
             timer.CallBackStop?.Invoke(1);
-            Switcher.Navigate(new UCConfectionery(_Seats, _DipMap));
+            Switcher.Navigate(new UCProducts(_Seats, _DipMap));
         }
 
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
@@ -187,29 +188,35 @@ namespace WPProcinal.Forms.User_Control
 
         private void PaintDataCombo()
         {
-            List<long> codesOk = new List<long>();
-
-            foreach (var item in Utilities._Combos)
+            try
             {
-                if (!item.isCombo)
+                List<long> codesOk = new List<long>();
+
+                foreach (var item in Utilities._Combos)
                 {
-                    foreach (var list in lstPager)
+                    if (!item.isCombo)
                     {
-                        if (item.Code == list.Codigo)
+                        foreach (var list in lstPager)
                         {
-                            list.Value = item.Quantity;
-                            lv_Products.Items.Refresh();
-                            codesOk.Add(list.Codigo);
+                            if (item.Code == list.Codigo)
+                            {
+                                list.Value = item.Quantity;
+                                lv_Products.Items.Refresh();
+                                codesOk.Add(list.Codigo);
+                            }
                         }
                     }
                 }
-            }
-            foreach (var item in lstPager)
-            {
-                if (codesOk.IndexOf(item.Codigo) < 0)
+                foreach (var item in lstPager)
                 {
-                    item.Value = 0;
+                    if (codesOk.IndexOf(item.Codigo) < 0)
+                    {
+                        item.Value = 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
             }
         }
         public void ChangePrices()
@@ -383,5 +390,52 @@ namespace WPProcinal.Forms.User_Control
             timer.CallBackTimer = null;
         }
         #endregion
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var frmLoading = new FrmLoading("¡Cargando confiteria...!");
+
+            frmLoading.Show();
+            this.IsEnabled = false;
+            Task.Run(() =>
+            {
+                var combos = WCFServices41.GetCombos(new SCOPRE
+                {
+                    teatro = Utilities.GetConfiguration("CodCinema"),
+                    tercero = "1"
+                });
+
+                if (combos != null)
+                {
+                    Utilities._Productos = combos.ListaProductos;
+                    InitView();
+                    //PaintDataCombo();
+                }
+                else
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+
+                        SetCallBacksNull();
+                        timer.CallBackStop?.Invoke(1);
+                        frmModal frmModal = new frmModal("No se pudo descargar la confitería, continúa el pago de tus boletas!");
+                        frmModal.ShowDialog();
+                        ShowDetailModal();
+                    });
+                }
+
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+
+                    ActivateTimer();
+                    frmLoading.Close();
+                    this.IsEnabled = true;
+                });
+                //AddCombo("Combo Hamburguesa", _ComboHamburguesaPrice, C6, 423);
+                //ChangePrices();
+            });
+
+
+        }
     }
 }
