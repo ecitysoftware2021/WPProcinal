@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Controls;
 using WPProcinal.Classes;
 using WPProcinal.Models;
 using WPProcinal.Service;
+using System;
 
 namespace WPProcinal.Forms
 {
@@ -49,7 +51,8 @@ namespace WPProcinal.Forms
                     {
                         Name = item.Name,
                         Price = item.Price,
-                        Quantity = item.Quantity
+                        Quantity = item.Quantity,
+                        Code = item.Code
                     });
                 }
             }
@@ -63,7 +66,15 @@ namespace WPProcinal.Forms
                     Quantity = item.Quantity
                 });
             }
+            OrganizeValues();
+            Utilities.Speack("Elige el modo como deseas realizar el pago.");
+        }
 
+        private void OrganizeValues()
+        {
+
+            totalPago = 0;
+            totalModal = 0;
             foreach (var item in _View)
             {
                 totalPago += item.Price;
@@ -76,9 +87,7 @@ namespace WPProcinal.Forms
             lvListSeats.ItemsSource = _View.OrderBy(s => s.Name);
             Utilities.ValorPagarScore = totalPago;
             Utilities.PayVal = totalModal;
-            Utilities.Speack("Elige el modo como deseas realizar el pago.");
         }
-
         /// <summary>
         /// Asigno los textos a cada variable de la vista
         /// </summary>
@@ -117,6 +126,43 @@ namespace WPProcinal.Forms
             this.IsEnabled = false;
             Utilities.MedioPago = 1;
             DialogResult = true;
+        }
+
+        private void BtnDelete_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                var combo = ((sender as Image).DataContext as Combos);
+                if (combo.Code > 0)
+                {
+                    DeleteCombo(combo);
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        _View.Remove(combo);
+                        lvListSeats.ItemsSource = _View;
+                        lvListSeats.Items.Refresh();
+                        OrganizeValues();
+                    });
+                }
+            }
+            catch (System.Exception ex)
+            {
+            }
+        }
+        private void DeleteCombo(Combos combo)
+        {
+            try
+            {
+                var dataToDelete = Utilities._Combos.Where(com => com.Code == combo.Code).FirstOrDefault();
+                if (dataToDelete != null)
+                {
+                    Utilities._Combos.Remove(dataToDelete);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }

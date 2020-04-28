@@ -111,11 +111,11 @@ namespace WPProcinal.Forms.User_Control
                     ImageMovieType = movieType,
                     Nombre = pelicula.Nombre
                 });
-
-                if (!WCFServices41.StateImage(image))
-                {
-                    Utilities.Send(pelicula.Nombre+" "+ image);
-                }
+                //TODO: desconemndar
+                //if (!WCFServices41.StateImage(image))
+                //{
+                //    Utilities.Send(pelicula.Nombre+" "+ image);
+                //}
             }
             catch (Exception ex)
             {

@@ -863,27 +863,27 @@ namespace WPProcinal.Classes
         {
             try
             {
-                foreach (var item in Peliculas.Pelicula)
-                {
-                    if (WCFServices41.StateImage(item.Data.Imagen))
-                    {
-                        if (!Directory.Exists("Slider"))
-                        {
-                            Directory.CreateDirectory("Slider");
-                        }
-                        path = Path.Combine(Directory.GetCurrentDirectory(), "Slider");
-                        using (WebClient client = new WebClient())
-                        {
-                            var fileName = string.Concat(path, "\\", item.Nombre + ".jpg");
-                            if (!File.Exists(fileName))
-                            {
-                                client.DownloadFile(new Uri(item.Data.Imagen), fileName);
-                            }
-                        }
-                    }
-                   
-                    Imagenes.Add(item.Data.Imagen);
-                }
+                //foreach (var item in Peliculas.Pelicula)
+                //{
+                //    if (WCFServices41.StateImage(item.Data.Imagen))
+                //    {
+                //        if (!Directory.Exists("Slider"))
+                //        {
+                //            Directory.CreateDirectory("Slider");
+                //        }
+                //        path = Path.Combine(Directory.GetCurrentDirectory(), "Slider");
+                //        using (WebClient client = new WebClient())
+                //        {
+                //            var fileName = string.Concat(path, "\\", item.Nombre + ".jpg");
+                //            if (!File.Exists(fileName))
+                //            {
+                //                client.DownloadFile(new Uri(item.Data.Imagen), fileName);
+                //            }
+                //        }
+                //    }
+
+                //    Imagenes.Add(item.Data.Imagen);
+                //}
             }
             catch (Exception ex)
             {
@@ -905,7 +905,7 @@ namespace WPProcinal.Classes
                         mm.Subject = "Alerta";
                         mm.SubjectEncoding = System.Text.Encoding.UTF8;
                         mm.Body = "No se pudo descargar la imagen de: " + data +
-                            " Por favor revisar en el repositorio donde se suben las imagenes Url (http://pantallasprocinal.com/img/peliculas/)"+Environment.NewLine+ 
+                            " Por favor revisar en el repositorio donde se suben las imagenes Url (http://pantallasprocinal.com/img/peliculas/)" + Environment.NewLine +
                             "Nota: revisar que el nombre de la película este bien escrito o que la imagen si exista.";
                         mm.BodyEncoding = System.Text.Encoding.UTF8;
                         mm.IsBodyHtml = true;
@@ -924,6 +924,53 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+            }
+        }
+
+        public static void DeleteCombo(string comboName, decimal comboPrice, Producto dataProduct)
+        {
+            int cantActual = dataProduct.Value;
+            dataProduct.Value = cantActual != 0 ? (cantActual - 1) : 0;
+            var existsCombo = Utilities._Combos.Where(cb => cb.Name == comboName).FirstOrDefault();
+            if (existsCombo != null)
+            {
+
+                existsCombo.Quantity--;
+                existsCombo.Price -= comboPrice;
+                if (existsCombo.Quantity == 0)
+                {
+                    Utilities._Combos.Remove(existsCombo);
+                }
+            }
+        }
+
+        public static void AddCombo(Combos data)
+        {
+            int cantActual = data.dataProduct.Value;
+            cantActual++;
+            if (cantActual <= 9)
+            {
+                data.dataProduct.Value = cantActual;
+                var existsCombo = Utilities._Combos.Where(cb => cb.Name == data.Name).FirstOrDefault();
+
+                if (existsCombo != null)
+                {
+                    existsCombo.Quantity++;
+                    existsCombo.Price += data.Price;
+
+                }
+                else
+                {
+                    Utilities._Combos.Add(new Combos
+                    {
+                        Name = data.Name,
+                        Quantity = 1,
+                        Price = data.Price,
+                        Code = data.Code,
+                        dataProduct = data.dataProduct,
+                        isCombo = data.isCombo
+                    });
+                }
             }
         }
 

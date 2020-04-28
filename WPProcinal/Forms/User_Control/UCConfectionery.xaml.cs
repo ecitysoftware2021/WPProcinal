@@ -70,7 +70,7 @@ namespace WPProcinal.Forms.User_Control
             InitializeComponent();
             try
             {
-                Utilities._Combos = new List<Combos>();
+
                 plusTemp.IsEnabled = Utilities.GetConfiguration("0Disponible").Equals("1") ? true : false;
                 lessTemp.IsEnabled = Utilities.GetConfiguration("0Disponible").Equals("1") ? true : false;
 
@@ -79,7 +79,7 @@ namespace WPProcinal.Forms.User_Control
                 api = new ApiLocal();
                 utilities = new Utilities();
                 grabador = new CLSGrabador();
-
+                //PaintDataCombo();
                 Utilities.Speack("Puedes comprar tu combo y reclamarlo en la confitería.");
             }
             catch (Exception ex)
@@ -149,30 +149,79 @@ namespace WPProcinal.Forms.User_Control
             {
                 int tag = int.Parse((sender as Image).Tag.ToString());
                 int cantActual = 0;
-                switch (tag)
-                {
-                    case 0:
-                        AddCombo(comboName: _ComboTemporadaName, comboPrice: _ComboTemporadaPrice, textBlock: C0, code: _ComboTemporadaCode);
-                        break;
-                    case 1:
-                        AddCombo(_Combo1Name, _Combo1Price, C1, _Combo1Code);
-                        break;
-                    case 2:
-                        AddCombo(_Combo2Name, _Combo2Price, C2, _Combo2Code);
-                        break;
-                    case 3:
-                        AddCombo(_Combo3Name, _Combo3Price, C3, _Combo3Code);
-                        break;
-                    case 4:
-                        AddCombo(_Combo4Name, _Combo4Price, C4, _Combo4Code);
-                        break;
-                    case 5:
-                        AddCombo(_Combo5Name, _Combo5Price, C5, _Combo5Code);
-                        break;
-                    case 6:
-                        AddCombo(comboName: _ComboHamburguesaName, comboPrice: _ComboHamburguesaPrice, textBlock: C6, code: _ComboHamburguesaCode);
-                        break;
-                }
+                //switch (tag)
+                //{
+                //    case 0:
+                //        Utilities.AddCombo(new Combos
+                //        {
+                //            Name = _ComboTemporadaName,
+                //            Code = _ComboTemporadaCode,
+                //            Price = _ComboTemporadaPrice,
+                //            textBlock = C0,
+                //            isCombo = true
+                //        });
+                //        break;
+                //    case 1:
+                //        Utilities.AddCombo(new Combos
+                //        {
+                //            Name = _Combo1Name,
+                //            Code = _Combo1Code,
+                //            Price = _Combo1Price,
+                //            textBlock = C1,
+                //            isCombo = true
+                //        });
+                //        break;
+                //    case 2:
+                //        Utilities.AddCombo(new Combos
+                //        {
+                //            Name = _Combo2Name,
+                //            Code = _Combo2Code,
+                //            Price = _Combo2Price,
+                //            textBlock = C2,
+                //            isCombo = true
+                //        });
+                //        break;
+                //    case 3:
+                //        Utilities.AddCombo(new Combos
+                //        {
+                //            Name = _Combo3Name,
+                //            Code = _Combo3Code,
+                //            Price = _Combo3Price,
+                //            textBlock = C3,
+                //            isCombo = true
+                //        });
+                //        break;
+                //    case 4:
+                //        Utilities.AddCombo(new Combos
+                //        {
+                //            Name = _Combo4Name,
+                //            Code = _Combo4Code,
+                //            Price = _Combo4Price,
+                //            textBlock = C4,
+                //            isCombo = true
+                //        });
+                //        break;
+                //    case 5:
+                //        Utilities.AddCombo(new Combos
+                //        {
+                //            Name = _Combo5Name,
+                //            Code = _Combo5Code,
+                //            Price = _Combo5Price,
+                //            textBlock = C5,
+                //            isCombo = true
+                //        });
+                //        break;
+                //    case 6:
+                //        Utilities.AddCombo(new Combos
+                //        {
+                //            Name = _ComboHamburguesaName,
+                //            Code = _ComboHamburguesaCode,
+                //            Price = _ComboHamburguesaPrice,
+                //            textBlock = C6,
+                //            isCombo = true
+                //        });
+                //        break;
+                //}
             }
             catch (Exception ex)
             {
@@ -181,33 +230,7 @@ namespace WPProcinal.Forms.User_Control
             ChangeImageBuy();
         }
 
-        private void AddCombo(string comboName, decimal comboPrice, TextBlock textBlock, int code)
-        {
-            int cantActual = int.Parse(textBlock.Text);
-            cantActual++;
-            if (cantActual <= 9)
-            {
-                textBlock.Text = cantActual.ToString();
-                var existsCombo = Utilities._Combos.Where(cb => cb.Name == comboName).FirstOrDefault();
 
-                if (existsCombo != null)
-                {
-                    existsCombo.Quantity++;
-                    existsCombo.Price += comboPrice;
-
-                }
-                else
-                {
-                    Utilities._Combos.Add(new Combos
-                    {
-                        Name = comboName,
-                        Quantity = 1,
-                        Price = comboPrice,
-                        Code = code
-                    });
-                }
-            }
-        }
 
 
         /// <summary>
@@ -223,30 +246,30 @@ namespace WPProcinal.Forms.User_Control
             {
                 int tag = int.Parse((sender as Image).Tag.ToString());
 
-                switch (tag)
-                {
-                    case 0:
-                        DeleteCombo("Combo Jumanji", _ComboTemporadaPrice, C0);
-                        break;
-                    case 1:
-                        DeleteCombo("Combo 1", _Combo1Price, C1);
-                        break;
-                    case 2:
-                        DeleteCombo("Combo 2", _Combo2Price, C2);
-                        break;
-                    case 3:
-                        DeleteCombo("Combo 3", _Combo3Price, C3);
-                        break;
-                    case 4:
-                        DeleteCombo("Combo 4", _Combo4Price, C4);
-                        break;
-                    case 5:
-                        DeleteCombo("Combo 5", _Combo5Price, C5);
-                        break;
-                    case 6:
-                        DeleteCombo("Combo Hamburguesa", _ComboHamburguesaPrice, C6);
-                        break;
-                }
+                //switch (tag)
+                //{
+                //    case 0:
+                //        Utilities.DeleteCombo("Combo Jumanji", _ComboTemporadaPrice, C0);
+                //        break;
+                //    case 1:
+                //        Utilities.DeleteCombo("Combo 1", _Combo1Price, C1);
+                //        break;
+                //    case 2:
+                //        Utilities.DeleteCombo("Combo 2", _Combo2Price, C2);
+                //        break;
+                //    case 3:
+                //        Utilities.DeleteCombo("Combo 3", _Combo3Price, C3);
+                //        break;
+                //    case 4:
+                //        Utilities.DeleteCombo("Combo 4", _Combo4Price, C4);
+                //        break;
+                //    case 5:
+                //        Utilities.DeleteCombo("Combo 5", _Combo5Price, C5);
+                //        break;
+                //    case 6:
+                //        Utilities.DeleteCombo("Combo Hamburguesa", _ComboHamburguesaPrice, C6);
+                //        break;
+                //}
             }
             catch (Exception ex)
             {
@@ -255,22 +278,7 @@ namespace WPProcinal.Forms.User_Control
             ChangeImageBuy();
         }
 
-        private void DeleteCombo(string comboName, decimal comboPrice, TextBlock textBlock)
-        {
-            int cantActual = int.Parse(textBlock.Text);
-            textBlock.Text = cantActual != 0 ? (cantActual - 1).ToString() : "0";
-            var existsCombo = Utilities._Combos.Where(cb => cb.Name == comboName).FirstOrDefault();
-            if (existsCombo != null)
-            {
 
-                existsCombo.Quantity--;
-                existsCombo.Price -= comboPrice;
-                if (existsCombo.Quantity == 0)
-                {
-                    Utilities._Combos.Remove(existsCombo);
-                }
-            }
-        }
 
         private void ChangeImageBuy()
         {
@@ -297,7 +305,9 @@ namespace WPProcinal.Forms.User_Control
         public void ChangePrices()
         {
             List<Producto> productos = new List<Producto>();
-            Utilities.dataUser = new SCOLOGResponse();
+            //Utilities.dataUser = new SCOLOGResponse();
+            List<Combos> combosMalos = new List<Combos>();
+
             decimal precio = 0;
             foreach (var item in Utilities._Combos)
             {
@@ -305,69 +315,83 @@ namespace WPProcinal.Forms.User_Control
                 for (int i = 0; i < item.Quantity; i++)
                 {
                     var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
-                    foreach (var receta in combo.Receta)
+                    if (combo != null)
                     {
-                        if (receta.Precios != null)
+                        foreach (var receta in combo.Receta)
                         {
-                            if (Utilities.dataUser.Tarjeta != null)
+                            if (receta.Precios != null)
                             {
-                                precio += decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]) * receta.Cantidad;
+                                if (Utilities.dataUser.Tarjeta != null)
+                                {
+                                    precio += decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]) * receta.Cantidad;
+                                }
+                                else
+                                {
+                                    precio += decimal.Parse(receta.Precios.FirstOrDefault().General.Split('.')[0]) * receta.Cantidad;
+                                }
                             }
-                            else
+                            if (receta.RecetaReceta != null)
                             {
-                                precio += decimal.Parse(receta.Precios.FirstOrDefault().General.Split('.')[0]) * receta.Cantidad;
+                                List<Receta> recetaAux = new List<Receta>();
+                                for (int e = 0; e < int.Parse(receta.Cantidad.ToString()); e++)
+                                {
+
+                                    var responseRecetaBebida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("gaseosa")).FirstOrDefault();
+                                    Receta responseRecetaComida = null;
+                                    //Si el combo es el combo 4, solo tomamos por defecto las gaseosas, las comidas se dejan tal cual
+                                    if (item.Code != _Combo4Code)
+                                    {
+                                        responseRecetaComida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("perro")).FirstOrDefault();
+                                    }
+                                    if (responseRecetaBebida != null)
+                                    {
+                                        recetaAux.Add(responseRecetaBebida);
+                                    }
+                                    else if (responseRecetaComida != null)
+                                    {
+                                        recetaAux.Add(responseRecetaComida);
+                                    }
+
+                                }
+                                if (recetaAux.Count != 0)
+                                {
+                                    receta.RecetaReceta = recetaAux;
+                                }
+                                else
+                                {
+                                    receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                                }
+                                foreach (var preciosReceta in receta.RecetaReceta)
+                                {
+                                    if (preciosReceta.Precios != null)
+                                    {
+                                        if (Utilities.dataUser.Tarjeta != null)
+                                        {
+                                            precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                        }
+                                        else
+                                        {
+                                            precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().General.Split('.')[0]);
+                                        }
+                                    }
+                                }
                             }
                         }
-                        if (receta.RecetaReceta != null)
-                        {
-                            List<Receta> recetaAux = new List<Receta>();
-                            for (int e = 0; e < int.Parse(receta.Cantidad.ToString()); e++)
-                            {
-
-                                var responseRecetaBebida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("gaseosa")).FirstOrDefault();
-                                Receta responseRecetaComida = null;
-                                //Si el combo es el combo 4, solo tomamos por defecto las gaseosas, las comidas se dejan tal cual
-                                if (item.Code != _Combo4Code)
-                                {
-                                    responseRecetaComida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("perro")).FirstOrDefault();
-                                }
-                                if (responseRecetaBebida != null)
-                                {
-                                    recetaAux.Add(responseRecetaBebida);
-                                }
-                                else if (responseRecetaComida != null)
-                                {
-                                    recetaAux.Add(responseRecetaComida);
-                                }
-
-                            }
-                            if (recetaAux.Count != 0)
-                            {
-                                receta.RecetaReceta = recetaAux;
-                            }
-                            else
-                            {
-                                receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
-                            }
-                            foreach (var preciosReceta in receta.RecetaReceta)
-                            {
-                                if (preciosReceta.Precios != null)
-                                {
-                                    if (Utilities.dataUser.Tarjeta != null)
-                                    {
-                                        precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
-                                    }
-                                    else
-                                    {
-                                        precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().General.Split('.')[0]);
-                                    }
-                                }
-                            }
-                        }
+                        productos.Add(combo);
                     }
-                    productos.Add(combo);
+                    else
+                    {
+                       var data=   Utilities._Combos.Where(pr => pr.Code == item.Code).FirstOrDefault();
+                       combosMalos.Add(data);
+                    }
                 }
+
                 item.Price = precio;
+            }
+
+            foreach (var combo in combosMalos)
+            {
+                Utilities._Combos.Remove(combo);
             }
         }
 
@@ -392,6 +416,22 @@ namespace WPProcinal.Forms.User_Control
         #endregion
 
         #region "Métodos"
+
+        //private void PaintDataCombo()
+        //{
+        //    foreach (var item in Utilities._Combos)
+        //    {
+        //        if (item.isCombo)
+        //        {
+        //            var block =  (item.textBlock as TextBlock);
+        //            Dispatcher.BeginInvoke((Action)delegate
+        //            {
+        //                block.Text = item.textBlock.Text;
+        //            });
+        //        }
+        //    }
+        //}
+
         private async void GoToPay()
         {
             FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
@@ -480,6 +520,14 @@ namespace WPProcinal.Forms.User_Control
                 WCFServices41.PostDesAssingreserva(_Seats, _DipMap);
             });
             Switcher.Navigate(new UCCinema());
+        }
+
+        private void BtnMoreProducts_TouchDown(object sender, TouchEventArgs e)
+        {
+            SetCallBacksNull();
+            timer.CallBackStop?.Invoke(1);
+
+            Switcher.Navigate(new UCProducts(_Seats, _DipMap));
         }
     }
 }

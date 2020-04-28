@@ -3,12 +3,14 @@ using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Windows.Controls;
 using System.Xml.Serialization;
 using WPProcinal.Classes;
 using WPProcinal.Models;
@@ -956,6 +958,78 @@ namespace WPProcinal.Service
 
         }
         #endregion
+
+        /// <summary>
+        /// Servicio para realizar la anulación de una venta
+        /// </summary>
+        /// <returns></returns>
+        #region "SCOTDC"
+        public static List<SCOTDC> GetTDCCodes(SCOPRE data)
+        {
+
+            string decryptData = string.Empty;
+            try
+            {
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(data);
+                try
+                {
+                    AdminPaypad.SaveErrorControl(seria,
+                          "GetTDCCodes Request",
+                          EError.Aplication,
+                          ELevelError.Mild);
+                }
+                catch { }
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+
+                var client = new RestClient(Utilities.APISCORE + "/scotdc/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Content-Length", "66");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+
+                try
+                {
+                    AdminPaypad.SaveErrorControl(decryptData,
+                    "CancelSale Response",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+
+                var est = JsonConvert.DeserializeObject<List<SCOTDC>>(decryptData);
+
+                return est;
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "CancelSale catch",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+                return null;
+            }
+
+        }
+        #endregion
+
     }
 
     #region ERROR
@@ -1069,6 +1143,7 @@ namespace WPProcinal.Service
         public int PagoInterno { get; set; }
         public int PagoCredito { get; set; }
         public int PagoEfectivo { get; set; }
+        public int CodMedioPago { get; set; }
         public string Accion { get; set; }
         public int teatro { get; set; }
         public int tercero { get; set; }
@@ -1212,18 +1287,50 @@ namespace WPProcinal.Service
         public List<Producto> ListaProductos { get; set; }
     }
 
-    public class Producto
+    public class Producto : INotifyPropertyChanged
     {
         public long Codigo { get; set; }
-
+        public string Imagen { get; set; }
         public string Descripcion { get; set; }
 
         public string Tipo { get; set; }
 
         public int Precio { get; set; }
-
+        private int value { get; set; }
+        public int Value
+        {
+            get
+            {
+                return this.value;
+            }
+            set
+            {
+                this.value = value;
+                OnPropertyRaised("Value");
+            }
+        }
+        public List<Precio> Precios { get; set; }
 
         public List<Receta> Receta { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyRaised(string propertyname)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+        }
+
+    }
+
+    public class MasProductos
+    {
+        public long Codigo { get; set; }
+
+        public string Descripcion { get; set; }
+
+
+        public int Precio { get; set; }
+
     }
 
     public class Precio
@@ -1231,6 +1338,10 @@ namespace WPProcinal.Service
         public string General { get; set; }
 
         public string OtroPago { get; set; }
+
+        public decimal auxGeneral { get; set; }
+
+        public decimal auxOtroPago { get; set; }
 
         public string PagoInterno { get; set; }
 
@@ -1309,12 +1420,25 @@ namespace WPProcinal.Service
     }
     #endregion
 
+    #region SCOTDC
+    public class SCOTDC
+    {
+        public long Codigo { get; set; }
+
+        [JsonProperty("Descripción")]
+        public string Descripcion { get; set; }
+        public long TipoPago { get; set; }
+    }
+    #endregion
+
     public class Combos
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public long Code { get; set; }
+        public Producto dataProduct { get; set; }
+        public bool isCombo { get; set; }
     }
 
     public class Request41

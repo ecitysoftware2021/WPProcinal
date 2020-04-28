@@ -26,6 +26,7 @@ namespace WPProcinal.Forms.User_Control
         {
             InitializeComponent();
             ConfiguratePublish();
+
             Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
             try
             {

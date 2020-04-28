@@ -82,7 +82,8 @@ namespace WPProcinal.Forms.User_Control
 
                 utilities = new Utilities();
                 ModalMensajes = new Mensajes();
-                TPV = new TPVOperation();
+                //TODO: descomentar
+                //TPV = new TPVOperation();
 
                 Utilities.TypeSeats = Seats;
                 Utilities.DipMapCurrent = dipMap;
@@ -111,9 +112,15 @@ namespace WPProcinal.Forms.User_Control
                 };
 
                 stateUpdate = true;
+
+                //TODO:descomentar hasta el activar y eliminar el buyticket
                 payState = true;
+
                 Utilities.Speack("Estableciendo conexión con el datáfono, espera por favor.");
-                Activar();
+
+                //Activar();
+
+                Buytickets();
             }
             catch (Exception ex)
             {
@@ -124,36 +131,36 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                Task.Run(() =>
-                {
-                    if (payState)
-                    {
-                        ValorTotal = Utilities.PayVal.ToString();
-                        NumeroTransaccion = Utilities.IDTransactionDB.ToString();
-                        TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
-                            TipoOperacion, Delimitador,
-                           ValorTotal, Delimitador,
-                            ValorIVA, Delimitador,
-                            NumeroKiosko, Delimitador,
-                            NumeroTerminal, Delimitador,
-                            NumeroTransaccion, Delimitador,
-                            ValorPropina, Delimitador,
-                            CodigoUnico, Delimitador,
-                            ValorIAC, Delimitador,
-                            IdentificacionCajero, "]");
+                //Task.Run(() =>
+                //{
+                //    if (payState)
+                //    {
+                //        ValorTotal = Utilities.PayVal.ToString();
+                //        NumeroTransaccion = Utilities.IDTransactionDB.ToString();
+                //        TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
+                //            TipoOperacion, Delimitador,
+                //           ValorTotal, Delimitador,
+                //            ValorIVA, Delimitador,
+                //            NumeroKiosko, Delimitador,
+                //            NumeroTerminal, Delimitador,
+                //            NumeroTransaccion, Delimitador,
+                //            ValorPropina, Delimitador,
+                //            CodigoUnico, Delimitador,
+                //            ValorIAC, Delimitador,
+                //            IdentificacionCajero, "]");
 
-                        //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
-                        var LCRPeticion = TPV.CalculateLRC(TramaInicial);
-                        try
-                        {
-                            LogService.SaveRequestResponse(DateTime.Now + " :: Petición al datáfono: ", LCRPeticion);
-                        }
-                        catch { }
-                        //Envío la trama que intentará activar el datáfono
-                        var datos = TPV.EnviarPeticion(LCRPeticion);
-                        TPVOperation.CallBackRespuesta?.Invoke(datos);
-                    }
-                });
+                //        //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
+                //        var LCRPeticion = TPV.CalculateLRC(TramaInicial);
+                //        try
+                //        {
+                //            LogService.SaveRequestResponse(DateTime.Now + " :: Petición al datáfono: ", LCRPeticion);
+                //        }
+                //        catch { }
+                //        //Envío la trama que intentará activar el datáfono
+                //        var datos = TPV.EnviarPeticion(LCRPeticion);
+                //        TPVOperation.CallBackRespuesta?.Invoke(datos);
+                //    }
+                //});
             }
             catch (Exception ex)
             {
@@ -377,11 +384,14 @@ namespace WPProcinal.Forms.User_Control
                         {
 
                             var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
-                            foreach (var receta in combo.Receta)
+                            if (combo.Receta != null)
                             {
-                                if (receta.RecetaReceta != null)
+                                foreach (var receta in combo.Receta)
                                 {
-                                    receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                                    if (receta.RecetaReceta != null)
+                                    {
+                                        receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                                    }
                                 }
                             }
                             combo.Precio = Utilities.dataUser.Tarjeta != null ? 2 : 1;
@@ -420,6 +430,7 @@ namespace WPProcinal.Forms.User_Control
                         Sala = Utilities.DipMapCurrent.RoomId,
                         teatro = Utilities.DipMapCurrent.CinemaId,
                         Telefono = long.Parse(dataClient.Telefono),
+                        CodMedioPago = 6,
                         tercero = 1,
                         TipoBono = 0,
                         TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),

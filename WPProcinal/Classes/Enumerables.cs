@@ -37,11 +37,10 @@ namespace WPProcinal.Classes
 
     public enum ETransactionType
     {
-        Pay = 1,
-        Buy = 2,
-        Deposit = 3,
-        Whitdraw = 4,
-        Search = 5
+        Search = 1,
+        Deposit = 2,
+        Buy = 3,
+        Whitdraw = 4
     }
 
     public enum ETransactionState

@@ -1,2 +1,2 @@
 usuario:hdsharepoint;password:Pun3$/*
-usuario:Pay+ Ecity;password:EcitySoftware2019#;tipo:1
+usuario:Ecity.Software;password:Ecitysoftware2019#;tipo:1

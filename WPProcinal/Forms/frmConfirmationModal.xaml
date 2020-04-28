@@ -129,16 +129,88 @@
                        Text="Detalle Compra" 
                         FontWeight="Bold"
                         VerticalAlignment="Top"/>
-                        <ListView x:Name="lvListSeats" Grid.Row="4" Margin="0,20,0,0" Grid.ColumnSpan="2" FontSize="15">
+
+                        <ListView Grid.Row="4" Margin="0,20,0,0" Grid.ColumnSpan="2" FontSize="15">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding FieldNull}"  />
-                                    <GridViewColumn Header="Silla" Width="200" DisplayMemberBinding="{Binding Name}" />
-                                    <GridViewColumn Header="Cantidad" Width="200" DisplayMemberBinding="{Binding Quantity, StringFormat='0'}" />
-                                    <GridViewColumn Header="Precio" Width="200" DisplayMemberBinding="{Binding Price, StringFormat='$ 0,0'}" />
+                                    <GridViewColumn Width="100"/>
+                                    <GridViewColumn Header="Item" Width="200"  />
+                                    <GridViewColumn Header="Cantidad" Width="200"  />
+                                    <GridViewColumn Header="Precio" Width="200" />
                                 </GridView>
                             </ListView.View>
                         </ListView>
+                        <ListView 
+                            Grid.Row="4"
+                            Grid.ColumnSpan="2"
+                            x:Name="lvListSeats" 
+                            Margin="0,80,0,0"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Top"
+                            ItemsSource="{Binding}"
+                                >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid 
+                                        Columns="1"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top"
+                                     />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Name="gridData"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top" 
+                                        Background="White"
+                                        Margin="0,0,0,0"
+                                        Width="600"
+                                        Height="40"
+                                        >
+                                        <TextBlock
+                                            FontSize="17"
+                                            Text="{Binding Name}"
+                                            Foreground="Black"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,0,0"
+                                            TextWrapping="Wrap"
+                                            Width="150"
+                                        />
+                                        <TextBlock
+                                            FontSize="20"
+                                            Text="{Binding Quantity}"
+                                            Foreground="Black"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,40,0"
+                                        />
+                                        <TextBlock
+                                            FontSize="20"
+                                            Text="{Binding Price, StringFormat='$ 0,0'}"
+                                            Foreground="Black"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,50,0"
+                                        />
+                                        <Image 
+                                            x:Name="BtnDelete"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Height="30"
+                                            Stretch="Uniform"
+                                            Margin="0,0,0,0" 
+                                            Source="/Images/buttons/x.png"
+                                            TouchDown="BtnDelete_TouchDown"    
+                                        />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
                         <TextBlock HorizontalAlignment="Center"
                     FontSize="20"
                                FontFamily="Gotham"

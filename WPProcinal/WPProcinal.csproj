@@ -268,6 +268,12 @@
     <Compile Include="Forms\User_Control\UCPoints.xaml.cs">
       <DependentUpon>UCPoints.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\User_Control\UCProducts.xaml.cs">
+      <DependentUpon>UCProducts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\User_Control\UCProductsCombos.xaml.cs">
+      <DependentUpon>UCProductsCombos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\User_Control\UCSchedule.xaml.cs">
       <DependentUpon>UCSchedule.xaml</DependentUpon>
     </Compile>
@@ -375,6 +381,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\User_Control\UCProducts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\User_Control\UCProductsCombos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\User_Control\UCSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -473,6 +487,9 @@
       <DependentUpon>Procinal.edmx</DependentUpon>
       <LastGenOutput>Procinal.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\imgCrispetas.png" />
+    <Resource Include="Images\Buttons\verCombos.png" />
+    <Resource Include="Images\Buttons\verProductos.png" />
     <Resource Include="Images\NotFound.png" />
     <Resource Include="Images\Backgrounds\loginDelete2.png" />
     <Resource Include="Images\Backgrounds\loginDelete.png" />

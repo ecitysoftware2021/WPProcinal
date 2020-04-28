@@ -542,3 +542,7 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_C
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSeat.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WModal.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Themes\Generic.baml
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.g.cs
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.baml
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.g.cs
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.baml

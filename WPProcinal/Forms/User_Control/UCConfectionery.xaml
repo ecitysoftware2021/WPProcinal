@@ -26,18 +26,16 @@
                     VerticalAlignment="Top"
                     Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
                 />
-            <!--<TextBlock
-                       FontSize="50"
-                       Text="Selecciona tu combo preferido:" 
-                       FontWeight="Bold"
-                       FontFamily="Gotham"
-                       Foreground="Red"
-                       TextWrapping="Wrap"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Top"
-                       Margin="0,140,0,0"
-            />-->
+            <Image 
+                Name="BtnMoreProducts"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="20,0,0,0"
+                Height="70"
+                Stretch="Uniform"
+                Source="/Images/Buttons/verProductos.png"
+                TouchDown="BtnMoreProducts_TouchDown"
+                />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
