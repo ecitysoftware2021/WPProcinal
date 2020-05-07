@@ -283,7 +283,7 @@
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202005063020221" horario="9:35 pm" reservasONline="true" ventasONline="true" militar="2135" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="1">
+              <hora idFuncion="202005063020221" horario="9:35 pm" reservasONline="true" ventasONline="true" militar="2135" validaciones="Si" cortoNacional="" capacidad="138" disponibilidad="2">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="170" nombreTarifa="2D Black Gen Mar y M" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="5400,0000" />

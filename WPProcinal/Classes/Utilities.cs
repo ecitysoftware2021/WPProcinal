@@ -1,5 +1,4 @@
-﻿using CEntidades;
-using Grabador.Transaccion;
+﻿using Grabador.Transaccion;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,7 +18,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using WPProcinal.ADO;
 using WPProcinal.DataModel;
 using WPProcinal.Forms;
 using WPProcinal.Forms.User_Control;

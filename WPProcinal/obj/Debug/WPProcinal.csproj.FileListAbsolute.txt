@@ -396,7 +396,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DataBases\DBProci
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe.config
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.pdb
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\CEntidades.dll
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Dapper.dll
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.dll
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.SqlServer.dll
@@ -408,7 +407,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLit
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.EF6.dll
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.Linq.dll
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.dll
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\CEntidades.pdb
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Dapper.xml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.xml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.SqlServer.xml
@@ -419,7 +417,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\RestSharp.xml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.xml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.xml
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.g.cs
@@ -547,3 +544,4 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Contro
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Zen.Barcode.Core.dll
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache

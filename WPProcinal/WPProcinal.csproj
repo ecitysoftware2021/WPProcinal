@@ -75,9 +75,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Grabador.Transaccion.dll</HintPath>
     </Reference>
-    <Reference Include="ITLlib">
-      <HintPath>..\..\ITLlib.dll</HintPath>
-    </Reference>
     <Reference Include="KioskosLib, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\KioskosLib.dll</HintPath>
@@ -90,10 +87,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PayPad.BilleteroV2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\H81\Documents\PayPad.BilleteroV2.dll</HintPath>
     </Reference>
     <Reference Include="PrinterValidator">
       <HintPath>..\..\..\..\source\repos\PrinterValidator\PrinterValidator\bin\Debug\PrinterValidator.dll</HintPath>
@@ -459,12 +452,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CEntidades\CEntidades.csproj">
-      <Project>{bb4249cc-e2fd-4ffb-822d-23d764200580}</Project>
-      <Name>CEntidades</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
