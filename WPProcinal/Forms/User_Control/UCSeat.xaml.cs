@@ -885,7 +885,23 @@ namespace WPProcinal.Forms.User_Control
 
         private void NavigateToConfectionery()
         {
-            Switcher.Navigate(new UCProductsCombos(SelectedTypeSeats, dipMapCurrent));
+            //TODO: sacar mensaje de validando confi
+            var combos = WCFServices41.GetCombos(new SCOPRE
+            {
+                teatro = Utilities.GetConfiguration("CodCinema"),
+                tercero = "1"
+            });
+
+            if (combos != null)
+            {
+                Utilities._Productos = combos.ListaProductos;
+                Switcher.Navigate(new UCProductsCombos(SelectedTypeSeats, dipMapCurrent));
+            }
+            else
+            {
+                ShowPay();
+            }
+
         }
 
         /// <summary>

@@ -52,7 +52,8 @@ namespace WPProcinal.Forms
                         Name = item.Name,
                         Price = item.Price,
                         Quantity = item.Quantity,
-                        Code = item.Code
+                        Code = item.Code,
+                        Visible = "Visible"
                     });
                 }
             }
@@ -63,7 +64,8 @@ namespace WPProcinal.Forms
                 {
                     Name = item.Name,
                     Price = item.Price,
-                    Quantity = item.Quantity
+                    Quantity = item.Quantity,
+                    Visible = "Hidden"
                 });
             }
             OrganizeValues();
@@ -133,17 +135,16 @@ namespace WPProcinal.Forms
             try
             {
                 var combo = ((sender as Image).DataContext as Combos);
-                if (combo.Code > 0)
+
+                DeleteCombo(combo);
+                Dispatcher.BeginInvoke((Action)delegate
                 {
-                    DeleteCombo(combo);
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        _View.Remove(combo);
-                        lvListSeats.ItemsSource = _View;
-                        lvListSeats.Items.Refresh();
-                        OrganizeValues();
-                    });
-                }
+                    _View.Remove(combo);
+                    lvListSeats.ItemsSource = _View;
+                    lvListSeats.Items.Refresh();
+                    OrganizeValues();
+                });
+
             }
             catch (System.Exception ex)
             {

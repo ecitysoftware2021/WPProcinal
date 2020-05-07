@@ -210,6 +210,7 @@ namespace WPProcinal.Forms.User_Control
                     item.Value = 0;
                 }
             }
+            ChangeImageBuy();
         }
         public void ChangePrices()
         {
@@ -292,11 +293,11 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (Utilities.dataUser.Tarjeta != null)
                             {
-                                precio = preciosReceta.auxOtroPago;
+                                precio = preciosReceta.auxOtroPago * item.Quantity;
                             }
                             else
                             {
-                                precio = preciosReceta.auxGeneral;
+                                precio = preciosReceta.auxGeneral * item.Quantity;
                             }
                         }
                     }
@@ -349,6 +350,7 @@ namespace WPProcinal.Forms.User_Control
 
 
         }
+
         #endregion
 
         #region "Timer"

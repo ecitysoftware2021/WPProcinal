@@ -24,6 +24,7 @@ namespace WPProcinal.Forms
         int peripheralsValidated = 0;
         bool stateMoney = false;
         int PeripheralsToCheck = int.Parse(Utilities.GetConfiguration("PeripheralsToCheck"));
+        int configurateActive = int.Parse(Utilities.GetConfiguration("ConfigurateActive"));
         Validator validator = new Validator();
         public frmConfigurate()
         {
@@ -86,13 +87,14 @@ namespace WPProcinal.Forms
                                 {
                                     util = new Utilities(1);
                                 }
-                                if (Utilities.GetConfiguration("ConfigurateActive").Equals("no"))
+                                if (configurateActive != 1)
                                 {
                                     Utilities.LoadData();
                                     Dispatcher.BeginInvoke((Action)delegate
                                     {
                                         Switcher.Navigate(new UCCinema());
                                     });
+
                                 }
                                 else
                                 {
@@ -149,7 +151,6 @@ namespace WPProcinal.Forms
                 {
                     Utilities.control.callbackError = null;
                 });
-                //Utilities.SendMailNotificationError(error);
                 ShowModalError(error);
             };
 
@@ -260,13 +261,6 @@ namespace WPProcinal.Forms
             {
                 Switcher.Navigate(new UCCinema());
             });
-            //Dispatcher.BeginInvoke((Action)delegate
-            //{
-            //    SetCallbackNull();
-            //    frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description));
-            //    modal.ShowDialog();
-            //    GetToken();
-            //});
         }
     }
 }

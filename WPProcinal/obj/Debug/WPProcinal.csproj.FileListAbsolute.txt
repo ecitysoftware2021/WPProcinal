@@ -546,3 +546,4 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Contro
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.baml
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Zen.Barcode.Core.dll

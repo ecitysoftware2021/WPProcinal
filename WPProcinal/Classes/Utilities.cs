@@ -95,7 +95,7 @@ namespace WPProcinal.Classes
 
         public static ObservableCollection<MoviesViewModel> LstMovies = new ObservableCollection<MoviesViewModel>();
 
-        CLSPrint objPrint = new CLSPrint();
+        Print printCombo = new Print();
 
         public static List<TypeSeat> TypeSeats = new List<TypeSeat>();
 
@@ -321,31 +321,36 @@ namespace WPProcinal.Classes
                 {
                     if (seat.Price != 0)
                     {
-                        objPrint.Movie = dipMap.MovieName;
-                        objPrint.Time = dipMap.HourFunction;
-                        objPrint.Room = dipMap.RoomName;
-                        objPrint.Date = dipMap.Day; //Fecha
-                        objPrint.Seat = seat.Name;
-                        objPrint.FechaPago = DateTime.Now;
-                        objPrint.Valor = seat.Price;
-                        objPrint.Tramite = "Boleto de Cine";
-                        objPrint.Category = dipMap.Category;
-                        objPrint.Secuencia = Secuencia;
-                        objPrint.Formato = MovieFormat;
-                        objPrint.TipoSala = Utilities.TipoSala;
-                        objPrint.IDTransaccion = Utilities.IDTransactionDB.ToString();
+                        printCombo.Movie = dipMap.MovieName;
+                        printCombo.Time = dipMap.HourFunction;
+                        printCombo.Hora = dipMap.HourFormat;
+                        printCombo.Room = dipMap.RoomName;
+                        printCombo.Date = dipMap.Day; //Fecha
+                        printCombo.DateFormat = dipMap.Date; //Fecha
+                        printCombo.Funcion = dipMap.IDFuncion;
+                        printCombo.Seat = seat.Name;
+                        printCombo.Fila = seat.RelativeRow;
+                        printCombo.Columna = seat.RelativeColumn;
+                        printCombo.FechaPago = DateTime.Now;
+                        printCombo.Valor = seat.Price;
+                        printCombo.Tramite = "Boleto de Cine";
+                        printCombo.Category = dipMap.Category;
+                        printCombo.Secuencia = Secuencia;
+                        printCombo.Formato = MovieFormat;
+                        printCombo.TipoSala = Utilities.TipoSala;
+                        printCombo.IDTransaccion = Utilities.IDTransactionDB.ToString();
 
                         if (Utilities.dataUser.Tarjeta != null && Utilities.dataUser.Puntos > 0)
                         {
-                            objPrint.Puntos = Utilities.dataUser.Puntos.ToString();
+                            printCombo.Puntos = Utilities.dataUser.Puntos.ToString();
                         }
                         else
                         {
-                            objPrint.Puntos = "0";
+                            printCombo.Puntos = "0";
                         }
 
                         i++;
-                        objPrint.PrintTickets();
+                        printCombo.PrintTickets();
                     }
                 }
 
@@ -353,7 +358,7 @@ namespace WPProcinal.Classes
                 {
                     _DataResolution = WCFServices41.ConsultResolution();
 
-                    Print printCombo = new Print();
+                    
                     printCombo.ImprimirComprobante(0);
 
                     var ComboTemporada = Utilities._Combos.Where(x => x.Name == Utilities.GetConfiguration("0NAME")).FirstOrDefault();
@@ -430,7 +435,7 @@ namespace WPProcinal.Classes
                     TYPE_TRANSACTION_ID = (int)ETransactionType.Buy,
                     STATE_TRANSACTION_ID = (int)ETransactionState.Initital,
                     TRANSACTION_REFERENCE = Utilities.Secuencia,
-                    PAYER_ID = 477,
+                    PAYER_ID = 0,
                     PAYMENT_TYPE_ID = (int)EPaymentType.Cash
                 };
 

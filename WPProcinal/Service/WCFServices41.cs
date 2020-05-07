@@ -1439,6 +1439,7 @@ namespace WPProcinal.Service
         public long Code { get; set; }
         public Producto dataProduct { get; set; }
         public bool isCombo { get; set; }
+        public string Visible { get; set; }
     }
 
     public class Request41

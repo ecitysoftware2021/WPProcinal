@@ -44,6 +44,8 @@ namespace WPProcinal.Forms.User_Control
             this.view = new CollectionViewSource();
             this.lstPager = new ObservableCollection<Producto>();
             ActivateTimer();
+            InitView();
+            PaintDataCombo();
         }
         #endregion
 
@@ -61,23 +63,20 @@ namespace WPProcinal.Forms.User_Control
                         //{
                         //    decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
                         //    decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
-                            product.Imagen = $"http://localhost/Procinal/images/{product.Codigo}.jpg";
-                            //if (General > 0 && OtroPago > 0)
-                            //{
-                            //    product.Precios[0].auxGeneral = General;
-                            //    product.Precios[0].auxOtroPago = OtroPago;
+                        product.Imagen = $"http://localhost/Procinal/images/{product.Codigo}.jpg";
+                        //if (General > 0 && OtroPago > 0)
+                        //{
+                        //    product.Precios[0].auxGeneral = General;
+                        //    product.Precios[0].auxOtroPago = OtroPago;
 
-                                lstPager.Add(product);
-                            //}
+                        lstPager.Add(product);
+                        //}
                         //}
                     }
                 }
 
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    view.Source = lstPager;
-                    lv_Products.DataContext = view;
-                });
+                view.Source = lstPager;
+                lv_Products.DataContext = view;
             }
             catch (Exception ex)
             {
@@ -194,7 +193,7 @@ namespace WPProcinal.Forms.User_Control
 
                 foreach (var item in Utilities._Combos)
                 {
-                    if (!item.isCombo)
+                    if (item.isCombo)
                     {
                         foreach (var list in lstPager)
                         {
@@ -214,6 +213,7 @@ namespace WPProcinal.Forms.User_Control
                         item.Value = 0;
                     }
                 }
+                ChangeImageBuy();
             }
             catch (Exception ex)
             {
@@ -391,51 +391,5 @@ namespace WPProcinal.Forms.User_Control
         }
         #endregion
 
-        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var frmLoading = new FrmLoading("¡Cargando confiteria...!");
-
-            frmLoading.Show();
-            this.IsEnabled = false;
-            Task.Run(() =>
-            {
-                var combos = WCFServices41.GetCombos(new SCOPRE
-                {
-                    teatro = Utilities.GetConfiguration("CodCinema"),
-                    tercero = "1"
-                });
-
-                if (combos != null)
-                {
-                    Utilities._Productos = combos.ListaProductos;
-                    InitView();
-                    //PaintDataCombo();
-                }
-                else
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-
-                        SetCallBacksNull();
-                        timer.CallBackStop?.Invoke(1);
-                        frmModal frmModal = new frmModal("No se pudo descargar la confitería, continúa el pago de tus boletas!");
-                        frmModal.ShowDialog();
-                        ShowDetailModal();
-                    });
-                }
-
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-
-                    ActivateTimer();
-                    frmLoading.Close();
-                    this.IsEnabled = true;
-                });
-                //AddCombo("Combo Hamburguesa", _ComboHamburguesaPrice, C6, 423);
-                //ChangePrices();
-            });
-
-
-        }
     }
 }
