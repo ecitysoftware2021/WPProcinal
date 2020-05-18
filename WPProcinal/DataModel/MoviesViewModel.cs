@@ -23,8 +23,8 @@ namespace WPProcinal.Classes
             set { this._ImageData = value; }
         }
 
-        private BitmapImage _ImageTag;
-        public BitmapImage ImageTag
+        private string _ImageTag;
+        public string ImageTag
         {
             get { return this._ImageTag; }
             set { this._ImageTag = value; }

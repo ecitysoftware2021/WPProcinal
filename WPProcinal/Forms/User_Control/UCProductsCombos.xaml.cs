@@ -136,10 +136,12 @@ namespace WPProcinal.Forms.User_Control
 
             SetCallBacksNull();
             timer.CallBackStop?.Invoke(1);
-            Task.Run(() =>
-            {
-                WCFServices41.PostDesAssingreserva(_Seats, _DipMap);
-            });
+            this.IsEnabled = false;
+            var frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+            Utilities.Loading(frmLoading, true, this);
+            Utilities.CancelAssing(_Seats, _DipMap);
+            Utilities.Loading(frmLoading, false, this);
+            this.IsEnabled = true;
             Switcher.Navigate(new UCCinema());
         }
 
@@ -342,8 +344,6 @@ namespace WPProcinal.Forms.User_Control
                     });
                 }
                 catch { }
-
-                LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
 
                 if (Utilities.MedioPago == 1)
                 {

@@ -113,11 +113,13 @@ namespace WPProcinal.Forms
                             }
                             else
                             {
+                                LogService.SaveRequestResponse("Sin dinero", data.Message, 6);
                                 ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
                             }
                         }
                         else
                         {
+                            LogService.SaveRequestResponse("Verificando perifericos", data.Message, 2);
                             ShowModalError("No se pudo verificar el estado de los periféricos");
                         }
                     }
@@ -206,14 +208,7 @@ namespace WPProcinal.Forms
                 }
                 else
                 {
-                    try
-                    {
-                        AdminPaypad.SaveErrorControl(Status.ERROR_MESSAGE,
-                            "Respuesta de la impresora",
-                            EError.Device,
-                            ELevelError.Medium);
-                    }
-                    catch { }
+                    LogService.SaveRequestResponse("Iniciando la impresora", Status.STATUS, 2);
                     ShowModalError(Status.ERROR_MESSAGE);
                 }
             };

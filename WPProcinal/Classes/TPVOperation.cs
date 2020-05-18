@@ -31,7 +31,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "EnviarPeticion en TPVOperations", EError.Aplication, ELevelError.Medium);
+                LogService.SaveRequestResponse("Enviando peticion al datáfono", ex.Message, 1);
                 return ex.Message;
             }
 

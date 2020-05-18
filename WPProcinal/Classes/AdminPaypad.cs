@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WPProcinal.DataModel;
 using WPProcinal.Models.ApiLocal;
@@ -37,7 +35,7 @@ namespace WPProcinal.Classes
             }
         }
 
-        public async static void SaveLog(object log, ELogType type)
+        public  static void SaveLog(object log, ELogType type)
         {
             try
             {
@@ -59,14 +57,12 @@ namespace WPProcinal.Classes
                         {
                             var error = (RequestLogDevice)log;
                             api.CallApi("SaveLogDevice", error);
-                            SaveErrorControl(error.Description, "", EError.Device, error.Level);
                         }
                     }
                 });
             }
             catch (Exception ex)
             {
-                //utilities.saveLogError(MethodBase.GetCurrentMethod().Name, "InitPaypad", ex.ToString(), "Ocurrio un error");
             }
         }
 

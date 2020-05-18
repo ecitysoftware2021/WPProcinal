@@ -584,30 +584,46 @@ namespace WPProcinal.Forms.User_Control
                             _frmConfirmationModal.DialogResult.Value)
                         {
                             List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
-                            GetSecuence();
-                            List<ResponseScogru> responseReserve = Reserve(ubicacione);
-                            if (responseReserve != null)
+                            var sec = GetSecuence();
+                            if (sec)
                             {
-                                foreach (var item in responseReserve)
+                                List<ResponseScogru> responseReserve = Reserve(ubicacione);
+                                if (responseReserve != null)
                                 {
-                                    if (item.Respuesta.Contains("exitoso"))
+                                    foreach (var item in responseReserve)
                                     {
-                                        ShowPay();
-                                        break;
+                                        if (item.Respuesta.Contains("exitoso"))
+                                        {
+                                            ShowPay();
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Task.Run(() =>
+                                            {
+                                                Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
+                                                    $" <br> Error: {item.Respuesta}");
+                                            });
+                                            Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                                            ReloadWindow();
+                                            break;
+                                        }
                                     }
-                                    else
+                                }
+                                else
+                                {
+                                    Task.Run(() =>
                                     {
-                                        Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
-                                        ReloadWindow();
-                                        break;
-                                    }
+                                        Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB} <br> no hubo respuesta del servicio");
+                                    });
+                                    Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                                    ReloadWindow();
+                                    return;
                                 }
                             }
                             else
                             {
-                                Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
                                 ReloadWindow();
-                                return;
                             }
                         }
                         else
@@ -622,6 +638,10 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
+                    Task.Run(() =>
+                    {
+                        Utilities.SendMailErrores($"No fúe posible obtener las tarífas en Score");
+                    });
                     ReloadWindow();
                 }
             }
@@ -733,33 +753,50 @@ namespace WPProcinal.Forms.User_Control
             {
 
 
-                GetSecuence();
-                List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
-
-
-                List<ResponseScogru> response41 = Reserve(ubicacione);
-                if (response41 != null)
+                var sec = GetSecuence();
+                if (sec)
                 {
-                    foreach (var item in response41)
+                    List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
+
+
+                    List<ResponseScogru> response41 = Reserve(ubicacione);
+                    if (response41 != null)
                     {
-                        if (item.Respuesta.Contains("exitoso"))
+                        foreach (var item in response41)
                         {
-                            NavigateToConfectionery();
-                            break;
+                            if (item.Respuesta.Contains("exitoso"))
+                            {
+                                NavigateToConfectionery();
+                                break;
+                            }
+                            else
+                            {
+                                Task.Run(() =>
+                                {
+                                    Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
+                                        $" <br> Error: {item.Respuesta}");
+                                });
+                                Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                                ReloadWindow();
+                                break;
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        Task.Run(() =>
                         {
-                            Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
-                            ReloadWindow();
-                            break;
-                        }
+                            Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
+                                $"");
+                        });
+                        Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                        ReloadWindow();
+                        return;
                     }
                 }
                 else
                 {
-                    Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
                     ReloadWindow();
-                    return;
                 }
 
             }
@@ -818,7 +855,7 @@ namespace WPProcinal.Forms.User_Control
             return response41;
         }
 
-        private void GetSecuence()
+        private bool GetSecuence()
         {
             try
             {
@@ -835,9 +872,14 @@ namespace WPProcinal.Forms.User_Control
                 frmLoading.Close();
                 if (responseSec41 == null)
                 {
+                    Task.Run(() =>
+                    {
+                        Utilities.SendMailErrores($"No se pudo obtener la secuencia de compra en la transaccion: {Utilities.IDTransactionDB}" +
+                            $"");
+                    });
                     Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
-                    ReloadWindow();
-                    return;
+
+                    return false;
                 }
 
                 foreach (var item in responseSec41)
@@ -845,11 +887,17 @@ namespace WPProcinal.Forms.User_Control
                     dipMapCurrent.Secuence = int.Parse(item.Secuencia.ToString());
                     Utilities.Secuencia = item.Secuencia.ToString();
                 }
+                return true;
             }
             catch (Exception ex)
             {
+                Task.Run(() =>
+                {
+                    Utilities.SendMailErrores($"No se pudo obtener la secuencia de compra en la transaccion: {Utilities.IDTransactionDB}" +
+                        $"");
+                });
                 Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
-                ReloadWindow();
+                return false;
             }
         }
 
@@ -886,7 +934,7 @@ namespace WPProcinal.Forms.User_Control
         private void NavigateToConfectionery()
         {
             //TODO: sacar mensaje de validando confi
-            var combos = WCFServices41.GetCombos(new SCOPRE
+            var combos = WCFServices41.GetConfectionery(new SCOPRE
             {
                 teatro = Utilities.GetConfiguration("CodCinema"),
                 tercero = "1"
@@ -926,8 +974,12 @@ namespace WPProcinal.Forms.User_Control
                     {
                         lista.Add(item);
                     }
-                    WCFServices41.PostDesAssingreserva(lista, dipMapCurrent);
-
+                    this.IsEnabled = false;
+                    frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                    frmLoading.Show();
+                    Utilities.CancelAssing(lista, dipMapCurrent);
+                    frmLoading.Close();
+                    this.IsEnabled = true;
                     Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
 
                     frmLoading = new FrmLoading("¡Reconectando...!");
@@ -946,8 +998,6 @@ namespace WPProcinal.Forms.User_Control
                         });
                     }
                     catch { }
-
-                    LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
 
                     if (Utilities.MedioPago == 1)
                     {
@@ -979,7 +1029,12 @@ namespace WPProcinal.Forms.User_Control
                 {
                     lista.Add(item);
                 }
-                WCFServices41.PostDesAssingreserva(lista, dipMapCurrent);
+                this.IsEnabled = false;
+                frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                frmLoading.Show();
+                Utilities.CancelAssing(lista, dipMapCurrent);
+                frmLoading.Close();
+                this.IsEnabled = true;
             }
             try
             {

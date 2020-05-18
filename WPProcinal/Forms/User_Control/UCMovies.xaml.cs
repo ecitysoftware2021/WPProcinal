@@ -65,6 +65,7 @@ namespace WPProcinal.Forms.User_Control
         {
             if (data != null)
             {
+                this.IsEnabled = false;
                 foreach (var pelicula in data.Pelicula)
                 {
                     try
@@ -86,6 +87,11 @@ namespace WPProcinal.Forms.User_Control
                     {
                     }
                 }
+                this.IsEnabled = true;
+                Task.Run(() =>
+                {
+                    Utilities.ValidateImages();
+                });
             }
 
         }
@@ -95,14 +101,10 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 string TagPath = string.Empty;
-                //var status = WCFServices41.StateImage(pelicula.Data.Imagen);
                 var movieType = GetTypeImage(pelicula.Tipo);
 
                 string image = pelicula.Data.Imagen;
-                //if (!status)
-                //{
-                // //   image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "NotFound.jpg");
-                //}
+                
                 Utilities.LstMovies.Add(new MoviesViewModel
                 {
                     ImageData = Utilities.LoadImage(image, true),
@@ -111,11 +113,6 @@ namespace WPProcinal.Forms.User_Control
                     ImageMovieType = movieType,
                     Nombre = pelicula.Nombre
                 });
-                //TODO: desconemndar
-                //if (!WCFServices41.StateImage(image))
-                //{
-                //    Utilities.Send(pelicula.Nombre+" "+ image);
-                //}
             }
             catch (Exception ex)
             {
@@ -172,7 +169,7 @@ namespace WPProcinal.Forms.User_Control
         }
 
         #region Methods
-        private async void ValidatePayPad()
+        private void ValidatePayPad()
         {
             try
             {

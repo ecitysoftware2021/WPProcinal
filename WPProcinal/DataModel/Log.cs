@@ -14,6 +14,9 @@ namespace WPProcinal.Classes
         public string Reference { get; set; }
 
         public string Description { get; set; }
+        public int STATE { get; set; }
+
+        public int TRANSACTION_ID { get { return Utilities.IDTransactionDB; } }
     }
 
     public class RequestLogDevice
@@ -29,24 +32,6 @@ namespace WPProcinal.Classes
         public ELevelError Level { get; set; }
     }
 
-    public class LogErrorApi
-    {
-        public int ERROR_LOG_ID { get; set; }
-        public Nullable<int> LOGIN_API_ID { get; set; }
-        public string NAME_CLASS { get; set; }
-        public string NAME_FUNCTION { get; set; }
-        public string MESSAGE_ERROR { get; set; }
-        public string DESCRIPTION { get; set; }
-        public Nullable<System.DateTime> DATE { get; set; }
-        public int TYPE { get; set; }
-        public Nullable<bool> STATE { get; set; }
-    }
-
-    public class LogUrlApi
-    {
-        public int Id { get; set; }
-        public string Url { get; set; }
-    }
 
     public class LogErrorGeneral
     {
@@ -69,22 +54,7 @@ namespace WPProcinal.Classes
         public string Metodo { get; set; }
     }
 
-    public class LogDispenser
-    {
-        public string SendMessage { get; set; }
 
-        public string ResponseMessage { get; set; }
-
-        public string TransactionId { get; set; }
-
-        public DateTime DateDispenser { get; set; }
-    }
-
-    public class PeticionRespuesta
-    {
-        public string Operacion { get; set; }
-        public string Mensaje { get; set; }
-    }
 
     public class LogService
     {
@@ -199,14 +169,15 @@ namespace WPProcinal.Classes
 
 
 
-        public static void SaveRequestResponse(string operacion, string mensaje)
+        public static void SaveRequestResponse(string operacion, string mensaje, int state)
         {
             try
             {
                 AdminPaypad.SaveLog(new RequestLog
                 {
                     Description = mensaje,
-                    Reference = Dictionaries.Cinemas[Utilities.CinemaId] + " - " + operacion
+                    Reference = Dictionaries.Cinemas[Utilities.CinemaId] + " - " + operacion,
+                    STATE = state
                 }, ELogType.General);
             }
             catch { }

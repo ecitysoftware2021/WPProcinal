@@ -96,7 +96,7 @@ namespace WPProcinal.Forms.User_Control
             this.IsEnabled = false;
             Task.Run(() =>
             {
-                var combos = WCFServices41.GetCombos(new SCOPRE
+                var combos = WCFServices41.GetConfectionery(new SCOPRE
                 {
                     teatro = Utilities.GetConfiguration("CodCinema"),
                     tercero = "1"
@@ -460,8 +460,6 @@ namespace WPProcinal.Forms.User_Control
                 }
                 catch { }
 
-                LogService.SaveRequestResponse("=".PadRight(5, '=') + "Transacción de " + DateTime.Now + ": ", "ID: " + Utilities.IDTransactionDB);
-
                 if (Utilities.MedioPago == 1)
                 {
                     Switcher.Navigate(new UCPayCine(_Seats, _DipMap));
@@ -515,10 +513,13 @@ namespace WPProcinal.Forms.User_Control
 
             SetCallBacksNull();
             timer.CallBackStop?.Invoke(1);
-            Task.Run(() =>
-            {
-                WCFServices41.PostDesAssingreserva(_Seats, _DipMap);
-            });
+           
+            this.IsEnabled = false;
+            var frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+            frmLoading.Show();
+            Utilities.CancelAssing(_Seats, _DipMap);
+            frmLoading.Close();
+            this.IsEnabled = true;
             Switcher.Navigate(new UCCinema());
         }
 

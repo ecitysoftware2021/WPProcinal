@@ -98,7 +98,6 @@ namespace WPProcinal.Classes
 
         public string LogMessage;//Mensaje para el log
 
-        public static LogDispenser log;//Log del dispenser
 
         public int WaitForCoins = 0;
         #endregion
@@ -125,6 +124,19 @@ namespace WPProcinal.Classes
         private int CoinsBaudRate = int.Parse(ConfigurationManager.AppSettings["CoinsBaudRate"]);//Denominacion cassete 3
         #endregion
 
+        #region Errors
+        public static string[] ErrorVector = new string[]
+       {
+            "STACKER_OPEN",
+            "JAM_IN_ACCEPTOR",
+            "PAUSE",
+            "ER:MD",
+            "thickness",
+            "Scan",
+            "FATAL",
+            "Printer"
+       };
+        #endregion
 
         #endregion
 
@@ -148,11 +160,6 @@ namespace WPProcinal.Classes
                 if (_BarcodeReader == null)
                 {
                     _BarcodeReader = new SerialPort();
-                }
-
-                if (log == null)
-                {
-                    log = new LogDispenser();
                 }
 
             }
@@ -191,14 +198,7 @@ namespace WPProcinal.Classes
         /// </summary>
         public void Start()
         {
-            try
-            {
-                SendMessageBills(_StartBills);
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "Start en ControlPeripherals", EError.Aplication, ELevelError.Medium);
-            }
+            SendMessageBills(_StartBills);
         }
         public void StartCoinAcceptorDispenser()
         {
@@ -233,10 +233,9 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message,
-                    "Iniciando el puerto de los billeteros",
-                    EError.Device,
-                    ELevelError.Strong);
+                LogService.SaveRequestResponse("Iniciando el puerto de los billeteros", ex.Message, 2);
+                AdminPaypad.SaveErrorControl(ex.Message, "Iniciando el puerto de los billeteros", EError.Device, ELevelError.Strong);
+
                 callbackError?.Invoke(string.Concat("Billetero: ", ex.Message));
             }
         }
@@ -264,10 +263,9 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message,
-                    "Iniciando el puerto de los monederos",
-                    EError.Device,
-                    ELevelError.Strong);
+                LogService.SaveRequestResponse("Iniciando el puerto de los monederos", ex.Message, 2);
+                AdminPaypad.SaveErrorControl(ex.Message, "Iniciando el puerto de los monederos", EError.Device, ELevelError.Strong);
+
                 callbackError?.Invoke(string.Concat("Monedero: ", ex.Message));
             }
         }
@@ -292,7 +290,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                throw ex;
+                AdminPaypad.SaveErrorControl(ex.Message, "Iniciando el puerto del scanner", EError.Device, ELevelError.Medium);
             }
         }
 
@@ -312,22 +310,16 @@ namespace WPProcinal.Classes
                 {
 
                     _serialPortBills.Write(message);
-                    try
-                    {
-                        LogService.SaveRequestResponse(DateTime.Now + " :: Mensaje al billetero: ", message);
-                    }
-                    catch { }
+
+                    LogService.SaveRequestResponse("Mensaje al billetero", message, 1);
                     Thread.Sleep(1000);
-                    log.SendMessage += string.Format("Billetero: {0}\n", message);
                 }
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("Enviando mensaje a los billeteros", ex.Message, 2);
+                AdminPaypad.SaveErrorControl(ex.Message, "Enviando mensaje a los billeteros", EError.Device, ELevelError.Strong);
 
-                AdminPaypad.SaveErrorControl(ex.Message,
-                    "Enviando mensaje a los billeteros",
-                    EError.Device,
-                    ELevelError.Strong);
                 callbackError?.Invoke(string.Concat("Billetero: ", ex.Message));
             }
         }
@@ -343,21 +335,15 @@ namespace WPProcinal.Classes
                 if (_serialPortCoins.IsOpen)
                 {
                     _serialPortCoins.Write(message);
-                    try
-                    {
-                        LogService.SaveRequestResponse(DateTime.Now + " :: Mensaje al monedero: ", message);
-                    }
-                    catch { }
+
+                    LogService.SaveRequestResponse("Mensaje al monedero", message, 1);
                     Thread.Sleep(1000);
-                    log.SendMessage += string.Format("Monedero: {0}\n", message);
                 }
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message,
-                    "Enviando mensaje a los monederos",
-                    EError.Device,
-                    ELevelError.Strong);
+                LogService.SaveRequestResponse("Enviando mensaje a los monederos", ex.Message, 2);
+                AdminPaypad.SaveErrorControl(ex.Message, "Enviando mensaje a los monederos", EError.Device, ELevelError.Strong);
                 callbackError?.Invoke(string.Concat("Monedero: ", ex.Message));
             }
         }
@@ -378,16 +364,13 @@ namespace WPProcinal.Classes
                 string response = _serialPortBills.ReadLine();
                 if (!string.IsNullOrEmpty(response))
                 {
-                    log.ResponseMessage += string.Format("Respuesta Billetero:{0}\n", response);
                     ProcessResponseBills(response);
                 }
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message,
-                "_serialPortBillsDataReceived",
-                EError.Aplication,
-                ELevelError.Strong);
+                LogService.SaveRequestResponse("Recibiendo mensaje de los billeteros", ex.Message, 2);
+                AdminPaypad.SaveErrorControl(ex.Message, "_serialPortBillsDataReceived", EError.Aplication, ELevelError.Strong);
             }
         }
 
@@ -403,16 +386,13 @@ namespace WPProcinal.Classes
                 string response = _serialPortCoins.ReadLine();
                 if (!string.IsNullOrEmpty(response))
                 {
-                    log.ResponseMessage += string.Format("Respuesta Monedero: {0}\n", response);
                     ProcessResponseCoins(response);
                 }
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message,
-                "_serialPortCoinsDataReceived",
-                EError.Aplication,
-                ELevelError.Strong);
+                LogService.SaveRequestResponse("Recibiendo mensaje de los monederos", ex.Message, 2);
+                AdminPaypad.SaveErrorControl(ex.Message, "_serialPortCoinsDataReceived", EError.Aplication, ELevelError.Strong);
             }
         }
 
@@ -433,13 +413,11 @@ namespace WPProcinal.Classes
                     var data = _BarcodeReader.ReadExisting();
                     var response = Utilities.ProccesDocument(data);
                     callbackDocument?.Invoke(response);
-                    //_BarcodeReader.DiscardInBuffer();
-                    //_BarcodeReader.DiscardOutBuffer();
                 }
             }
             catch (Exception ex)
             {
-                //callbackError?.Invoke(Tuple.Create("AP", "Error, ha ocurrido una exepcion " + ex));
+                AdminPaypad.SaveErrorControl(ex.Message, "Scanner_DataReceived", EError.Aplication, ELevelError.Mild);
             }
         }
 
@@ -463,14 +441,15 @@ namespace WPProcinal.Classes
                         ProcessRC(response);
                         break;
                     case "ER":
-                        try
+                        foreach (var item in ErrorVector)
                         {
-                            AdminPaypad.SaveErrorControl(message,
-                            "Respuesta de los billeteros",
-                            EError.Device,
-                            ELevelError.Strong);
+                            if (message.ToLower().Contains(item.ToLower()))
+                            {
+                                LogService.SaveRequestResponse("Respuesta de los billeteros", message, 2);
+                                AdminPaypad.SaveErrorControl(message, "Respuesta de los billeteros", EError.Device, ELevelError.Strong);
+                            }
                         }
-                        catch { }
+
                         if (!message.ToLower().Contains("abnormal"))
                         {
                             ProcessER(response);
@@ -508,14 +487,8 @@ namespace WPProcinal.Classes
                         ProcessRC(response);
                         break;
                     case "ER":
-                        try
-                        {
-                            AdminPaypad.SaveErrorControl(message,
-                            "Respuesta de los monederos",
-                            EError.Device,
-                            ELevelError.Strong);
-                        }
-                        catch { }
+                        LogService.SaveRequestResponse("Respuesta de los monederos", message, 2);
+                        AdminPaypad.SaveErrorControl(message, "Respuesta de los monederos", EError.Device, ELevelError.Strong);
                         ProcessER(response);
                         break;
                     case "UN":
@@ -530,7 +503,8 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "ProcessResponseCoins en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+                LogService.SaveRequestResponse("Procesando respuesta de los monederos", ex.Message, 2);
+                AdminPaypad.SaveErrorControl(ex.Message, "ProcessResponseCoins", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -583,7 +557,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "ProccessRC en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(ex.Message, "ProccessRC", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -598,20 +572,15 @@ namespace WPProcinal.Classes
                 if (response[1] == "MD")
                 {
                     stateError = true;
-                    //Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
-                    //{
-                    //    callbackError?.Invoke(deliveryValue.ToString());
-                    //}));
                 }
                 if (response[1] == "DP")
                 {
                     stateError = true;
-                    //callbackError?.Invoke(string.Concat("Error, se alcanzó a entregar:", deliveryValue));
                 }
 
                 if (response[1] == "AP")
                 {
-                    //callbackError?.Invoke("Error, en el billetero Aceptance");
+
                 }
                 else if (response[1] == "FATAL")
                 {
@@ -845,7 +814,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "StartAceptance en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(ex.Message, "StartAceptance", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -861,7 +830,6 @@ namespace WPProcinal.Classes
                 StopAceptance();
                 Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
                 {
-
                     callbackTotalIn?.Invoke(enterVal);
                 }));
                 enterValue = 0;

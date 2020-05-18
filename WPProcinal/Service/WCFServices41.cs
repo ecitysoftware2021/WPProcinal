@@ -83,14 +83,7 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                    "GetStateRoom Request",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Peticion sala", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -116,14 +109,7 @@ namespace WPProcinal.Service
                 var est = JsonConvert.DeserializeObject<List<EstadoSala41>>(decryptData);
                 if (est.Count < 2)
                 {
-                    try
-                    {
-                        AdminPaypad.SaveErrorControl(decryptData,
-                        "GetStateRoom Response",
-                        EError.Customer,
-                        ELevelError.Mild);
-                    }
-                    catch { }
+                    LogService.SaveRequestResponse("Respuesta consulta sala", decryptData, 1);
                     return null;
                 }
                 return est;
@@ -131,14 +117,6 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "GetStateRoom catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
         }
@@ -158,14 +136,7 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                    "GetPrices Request",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Peticion precios sillas", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -187,14 +158,7 @@ namespace WPProcinal.Service
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(decryptData,
-                    "GetPrices Response",
-                    EError.Customer,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Respuesta Precios Sillas", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseTarifa>>(decryptData);
                 if (est[0].sala == null)
                 {
@@ -205,14 +169,6 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "GetPrices catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
         }
@@ -232,14 +188,7 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                    "GetSecuence Request",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Peticion secuencia", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -261,15 +210,9 @@ namespace WPProcinal.Service
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                LogService.SaveRequestResponse("Respuesta secuencia", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseSec>>(decryptData);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(decryptData,
-                    "GetSecuence Response",
-                    EError.Customer,
-                    ELevelError.Mild);
-                }
-                catch { }
+
                 if (est[0].Secuencia == 0)
                 {
                     return null;
@@ -279,14 +222,6 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "GetSecuence catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
         }
@@ -306,15 +241,7 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                    "PostPreventa Request",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Peticion preventa", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -336,29 +263,13 @@ namespace WPProcinal.Service
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
-
-                try
-                {
-                    AdminPaypad.SaveErrorControl(decryptData,
-                    "PostPreventa Response",
-                    EError.Customer,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Respuesta preventa", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseScogru>>(decryptData);
                 return est;
 
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "PostPreventa catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
         }
@@ -370,7 +281,7 @@ namespace WPProcinal.Service
         /// <param name="data"></param>
         /// <returns></returns>
         #region SCOINT
-        public static List<EsponseScoint> PostBuy(SCOINT data)
+        public static List<ResponseScoint> PostBuy(SCOINT data)
         {
 
             string decryptData = string.Empty;
@@ -416,7 +327,7 @@ namespace WPProcinal.Service
                     ELevelError.Mild);
                 }
                 catch { }
-                var est = JsonConvert.DeserializeObject<List<EsponseScoint>>(decryptData);
+                var est = JsonConvert.DeserializeObject<List<ResponseScoint>>(decryptData);
                 return est;
 
             }
@@ -440,12 +351,6 @@ namespace WPProcinal.Service
             {
                 var client = new RestClient(image);
                 var request = new RestRequest(Method.GET);
-                request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "www.pantallasprocinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 IRestResponse response = client.Execute(request);
                 if (response.StatusDescription == "OK")
                 {
@@ -469,64 +374,57 @@ namespace WPProcinal.Service
         /// <param name="typeSeatsCurrent"></param>
         /// <param name="dipMapCurrent"></param>
         #region SCOSIL
-        public static void PostDesAssingreserva(List<TypeSeat> typeSeatsCurrent, DipMap dipMapCurrent)
+        public static List<ResponseScoint> PostDesAssingreserva(TypeSeat typeSeatsCurrent, DipMap dipMapCurrent)
         {
             string decryptData = string.Empty;
             try
             {
-                foreach (var item in typeSeatsCurrent)
+
+                SCOSIL data = new SCOSIL
                 {
-                    SCOSIL data = new SCOSIL
-                    {
-                        Columna = item.RelativeColumn,
-                        FechaFuncion = dipMapCurrent.Date,
-                        Fila = item.RelativeRow,
-                        Funcion = dipMapCurrent.IDFuncion,
-                        Sala = dipMapCurrent.RoomId,
-                        teatro = dipMapCurrent.CinemaId,
-                        tercero = "1",
-                        Usuario = 777
-                    };
+                    Columna = typeSeatsCurrent.RelativeColumn,
+                    FechaFuncion = dipMapCurrent.Date,
+                    Fila = typeSeatsCurrent.RelativeRow,
+                    Funcion = dipMapCurrent.IDFuncion,
+                    Sala = dipMapCurrent.RoomId,
+                    teatro = dipMapCurrent.CinemaId,
+                    tercero = "1",
+                    Usuario = 777
+                };
 
-                    //Data convertida a formato json
-                    var seria = JsonConvert.SerializeObject(data);
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(data);
+                LogService.SaveRequestResponse("Peticion desreservar", seria, 1);
 
-                    //Data encriptada con la llave de score
-                    var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
-
-
-                    var client = new RestClient(Utilities.APISCORE + "/scosil/");
-                    var request = new RestRequest(Method.POST);
-                    request.AddHeader("cache-control", "no-cache");
-                    request.AddHeader("Connection", "keep-alive");
-                    request.AddHeader("Content-Length", "66");
-                    request.AddHeader("Accept-Encoding", "gzip, deflate");
-                    request.AddHeader("Host", "scorecoorp.procinal.com");
-                    request.AddHeader("Cache-Control", "no-cache");
-                    request.AddHeader("Accept", "*/*");
-                    request.AddHeader("Content-Type", "application/json");
-                    request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
-                    IRestResponse response = client.Execute(request);
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
 
-                    var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+                var client = new RestClient(Utilities.APISCORE + "/scosil/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Content-Length", "66");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
 
-                    decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
-                    try
-                    {
-                        AdminPaypad.SaveErrorControl(seria,
-                              "PostDesAssingreserva Response",
-                              EError.Customer,
-                              ELevelError.Mild);
-                    }
-                    catch { }
-                    var est = JsonConvert.DeserializeObject<List<EsponseScoint>>(decryptData);
 
-                }
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                LogService.SaveRequestResponse("Respuesta al desreservar", decryptData, 1);
+                var est = JsonConvert.DeserializeObject<List<ResponseScoint>>(decryptData);
+                return est;
+
             }
             catch (Exception ex)
             {
-                var est = JsonConvert.DeserializeObject<List<RESPONSEERROR>>(decryptData);
+                return null;
             }
         }
         #endregion
@@ -537,7 +435,7 @@ namespace WPProcinal.Service
         /// <param name="data"></param>
         /// <returns></returns>
         #region SCOPRE
-        public static Confiteria GetCombos(SCOPRE data)
+        public static Confiteria GetConfectionery(SCOPRE data)
         {
 
             string decryptData = string.Empty;
@@ -545,14 +443,7 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                    "GetCombos Request",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Peticion cnfiteria", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -577,14 +468,7 @@ namespace WPProcinal.Service
                 var est = JsonConvert.DeserializeObject<Confiteria>(decryptData);
                 if (est.ListaProductos.Count < 6)
                 {
-                    try
-                    {
-                        AdminPaypad.SaveErrorControl(decryptData,
-                        "GetCombos Response",
-                        EError.Customer,
-                        ELevelError.Mild);
-                    }
-                    catch { }
+                    LogService.SaveRequestResponse("Respuesta al consultar los productos", decryptData, 1);
                     return null;
                 }
                 return est;
@@ -592,14 +476,6 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "GetCombos catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
         }
@@ -620,14 +496,7 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                    "GetUserKey Request",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Peticion clave cliente", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -648,7 +517,7 @@ namespace WPProcinal.Service
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
-
+                LogService.SaveRequestResponse("Respuesta clave cliente", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<SCOCSNResponse[]>(decryptData);
 
                 return est[0].Valor;
@@ -656,14 +525,6 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "GetUserKey catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
         }
@@ -683,14 +544,7 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                    "GetClientData Request",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Peticion data cliente", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -709,19 +563,12 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                LogService.SaveRequestResponse("Respuesta al consultar la data del cliente", decryptData, 1);
                 var clientdata = JsonConvert.DeserializeObject<List<SCOLOGResponse>>(decryptData);
                 return clientdata;
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "GetClientData catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
         }
@@ -732,30 +579,16 @@ namespace WPProcinal.Service
         /// </summary>
         /// <returns></returns>
         #region "SCORES"
-        public static List<ResponseScores> ConsultResolution()
+        public static List<ResponseScores> ConsultResolution(SCORES data)
         {
 
             string decryptData = string.Empty;
             try
             {
-                SCORES sCOCED = new SCORES
-                {
-                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
-                    Secuencial = Convert.ToInt32(Utilities.Secuencia),
-                    teatro = Utilities.DipMapCurrent.CinemaId,
-                    tercero = 1
-                };
-
                 //Data convertida a formato json
-                var seria = JsonConvert.SerializeObject(sCOCED);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                          "ConsultResolution Request",
-                          EError.Customer,
-                          ELevelError.Mild);
-                }
-                catch { }
+                var seria = JsonConvert.SerializeObject(data);
+                LogService.SaveRequestResponse("Respuesta al consultar los puntos", seria, 1);
+
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -776,29 +609,13 @@ namespace WPProcinal.Service
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
-
-                try
-                {
-                    AdminPaypad.SaveErrorControl(decryptData,
-                    "ConsultResolution Response",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Respuesta al consultar la resolución", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseScores>>(decryptData);
                 return est;
 
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "ConsultResolution catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
         }
@@ -809,29 +626,15 @@ namespace WPProcinal.Service
         /// </summary>
         /// <returns></returns>
         #region "SCOMOV"
-        public static double ConsultPoints()
+        public static double ConsultPoints(SCOMOV data)
         {
 
             string decryptData = string.Empty;
             try
             {
-                SCOMOV sCOMOV = new SCOMOV
-                {
-                    Correo = Utilities.dataUser.Login,
-                    Clave = Utilities.dataUser.Clave,
-                    tercero = 1
-                };
-
                 //Data convertida a formato json
-                var seria = JsonConvert.SerializeObject(sCOMOV);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                          "ConsultPoints Request",
-                          EError.Customer,
-                          ELevelError.Mild);
-                }
-                catch { }
+                var seria = JsonConvert.SerializeObject(data);
+                LogService.SaveRequestResponse("Peticion para consultar los puntos", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -852,29 +655,14 @@ namespace WPProcinal.Service
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                LogService.SaveRequestResponse("Respuesta al consultar los puntos", decryptData, 1);
 
-                try
-                {
-                    AdminPaypad.SaveErrorControl(decryptData,
-                    "ConsultPoints Response",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 var est = JsonConvert.DeserializeObject<List<ResponseScomov>>(decryptData);
                 return est[0].puntos_acumulados;
 
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "ConsultPoints catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return 0;
             }
         }
@@ -901,14 +689,7 @@ namespace WPProcinal.Service
 
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(sCORET);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                          "CancelSale Request",
-                          EError.Aplication,
-                          ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Peticion para cancelar la compra", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -929,15 +710,7 @@ namespace WPProcinal.Service
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
-
-                try
-                {
-                    AdminPaypad.SaveErrorControl(decryptData,
-                    "CancelSale Response",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Respuesta al cancelar la compra", decryptData, 1);
 
                 var est = JsonConvert.DeserializeObject<List<ResponseScoret>>(decryptData);
 
@@ -945,14 +718,6 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "CancelSale catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
 
@@ -960,7 +725,7 @@ namespace WPProcinal.Service
         #endregion
 
         /// <summary>
-        /// Servicio para realizar la anulación de una venta
+        /// Servicio para consultar los códigos de tarjeta
         /// </summary>
         /// <returns></returns>
         #region "SCOTDC"
@@ -972,14 +737,8 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                          "GetTDCCodes Request",
-                          EError.Aplication,
-                          ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Peticion para obtener los codigos de tarjetas", seria, 1);
+
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -1001,14 +760,7 @@ namespace WPProcinal.Service
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
 
-                try
-                {
-                    AdminPaypad.SaveErrorControl(decryptData,
-                    "CancelSale Response",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Respuesta al obtener los codigos de tarjetas", decryptData, 1);
 
                 var est = JsonConvert.DeserializeObject<List<SCOTDC>>(decryptData);
 
@@ -1016,14 +768,6 @@ namespace WPProcinal.Service
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "CancelSale catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
 
@@ -1149,7 +893,7 @@ namespace WPProcinal.Service
         public int tercero { get; set; }
     }
 
-    public class EsponseScoint
+    public class ResponseScoint
     {
         public string Respuesta { get; set; }
     }

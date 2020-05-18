@@ -71,7 +71,7 @@ namespace WPProcinal.Forms
             Utilities.control.ClosePortScanner();
             DialogResult = false;
             //DialogResult = ValidateCineFan("1028040734");
-           // DialogResult = ValidateCineFan("43261286");
+            // DialogResult = ValidateCineFan("43261286");
             //DialogResult = ValidateCineFan("0071949041");
             //DialogResult = ValidateCineFan("27955585");
         }
@@ -125,7 +125,12 @@ namespace WPProcinal.Forms
                         if (item.Tarjeta != null)
                         {
                             Utilities.dataUser = item;
-                            Utilities.dataUser.Puntos = WCFServices41.ConsultPoints();
+                            Utilities.dataUser.Puntos = WCFServices41.ConsultPoints(new SCOMOV
+                            {
+                                Correo = Utilities.dataUser.Login,
+                                Clave = Utilities.dataUser.Clave,
+                                tercero = 1
+                            });
                             isCineFan = true;
                             break;
                         }
@@ -152,14 +157,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "ValidateCineFan en frmModalCineFan",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Validando el cinefan", ex.Message, 1);
                 txtError.Text = "No se pudo validar la información, intenta de nuevo.";
                 frmLoading.Close();
                 return false;

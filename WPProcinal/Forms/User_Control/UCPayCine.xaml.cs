@@ -132,8 +132,6 @@ namespace WPProcinal.Forms.User_Control
 
                     Utilities.control.callbackTotalIn = null;
 
-
-                    Utilities.SaveLogDispenser(ControlPeripherals.log);
                     Utilities.EnterTotal = enterTotal;
                     if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                     {
@@ -155,7 +153,6 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.control.callbackError = error =>
                 {
                     Utilities.control.callbackError = null;
-                    Utilities.SaveLogDispenser(ControlPeripherals.log);
                 };
 
                 Utilities.control.StartAceptance(PaymentViewModel.PayValue);
@@ -186,8 +183,6 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Utilities.control.callbackTotalOut = null;
                     Utilities.ValueDelivery = (long)totalOut;
-
-                    Utilities.SaveLogDispenser(ControlPeripherals.log);
                     totalReturn = true;
                     if (state)
                     {
@@ -208,7 +203,6 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.control.callbackError = error =>
                 {
                     Utilities.control.callbackError = null;
-                    Utilities.SaveLogDispenser(ControlPeripherals.log);
                 };
 
                 Utilities.control.callbackOut = delivery =>
@@ -218,7 +212,6 @@ namespace WPProcinal.Forms.User_Control
                     if (!totalReturn)
                     {
                         Utilities.ValueDelivery = (long)delivery;
-                        Utilities.SaveLogDispenser(ControlPeripherals.log);
 
                         try
                         {
@@ -322,11 +315,12 @@ namespace WPProcinal.Forms.User_Control
             {
                 if (!task)
                 {
-                    try
-                    {
-                        WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                    }
-                    catch { }
+                    this.IsEnabled = false;
+                    frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                    frmLoading.Show();
+                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    frmLoading.Close();
+                    this.IsEnabled = true;
 
                     try
                     {
@@ -385,13 +379,13 @@ namespace WPProcinal.Forms.User_Control
             {
                 try
                 {
-                    Task.Run(() =>
-                    {
-                        Dispatcher.Invoke(() =>
-                        {
-                            WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                        });
-                    });
+                    
+                    this.IsEnabled = false;
+                    frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                    frmLoading.Show();
+                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    frmLoading.Close();
+                    this.IsEnabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -526,13 +520,12 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    Task.Run(() =>
-                    {
-                        Dispatcher.Invoke(() =>
-                        {
-                            WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                        });
-                    });
+                    this.IsEnabled = false;
+                    frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                    frmLoading.Show();
+                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    frmLoading.Close();
+                    this.IsEnabled = true;
                 }
                 SavePay(payState);
             }
@@ -596,12 +589,6 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (PaymentViewModel.ValorIngresado >= Utilities.PayVal)
                             {
-
-                                try
-                                {
-                                    LogService.SaveRequestResponse(DateTime.Now + " :: ActivateTimer: ", "Tiempo Transcurrido Inactividad Dispositivos");
-                                }
-                                catch { }
                                 controlInactividad = 1;
                                 try
                                 {

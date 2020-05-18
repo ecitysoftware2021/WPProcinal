@@ -33,6 +33,7 @@ namespace WPProcinal.Classes
 
         public static string APISCORE = GetConfiguration("ScoreService");
         public static string SCOREKEY = GetConfiguration("ScoreKey");
+        public static string UrlImages = GetConfiguration("UrlImages");
 
         public static List<string> Imagenes = new List<string>();
 
@@ -65,12 +66,13 @@ namespace WPProcinal.Classes
         public static DateTime FechaSeleccionada = DateTime.Today;
 
         public static decimal ValorPagarScore { get; set; }
-
+        private static bool ImgValidatorFlag = true;
         public static string Secuencia { get; set; }
 
         public static string path;
 
         public static DataPaypad dataPaypad = new DataPaypad();
+        public static List<DataImagesScore> BadImages;
         public static int MedioPago { get; set; }
         public static decimal ScorePayValue { get; set; }
 
@@ -90,6 +92,95 @@ namespace WPProcinal.Classes
         public static Peliculas Peliculas;
 
         public static ImageSource ImageSelected;
+
+        internal static void ValidateImages()
+        {
+            if (ImgValidatorFlag)
+            {
+                ImgValidatorFlag = false;
+                try
+                {
+                    BadImages = new List<DataImagesScore>();
+                    ObservableCollection<MoviesViewModel> images = new ObservableCollection<MoviesViewModel>();
+                    foreach (var item in LstMovies)
+                    {
+                        images.Add(item);
+                    }
+                    foreach (var item in images)
+                    {
+                        if (!WCFServices41.StateImage(item.ImageTag))
+                        {
+                            BadImages.Add(new DataImagesScore
+                            {
+                                Pelicula = item.Title,
+                                Url = item.ImageTag
+                            });
+                        }
+                    }
+
+                    if (BadImages.Count > 0)
+                    {
+                        SendMailImages();
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+                ImgValidatorFlag = true;
+            }
+        }
+
+        public static void SendMailImages()
+        {
+            try
+            {
+                ApiLocal api = new ApiLocal();
+                Email mail;
+                string data = string.Empty;
+
+                foreach (var item in BadImages)
+                {
+                    data += $"Película: {item.Pelicula}, Imágen: {item.Url} <br>";
+                }
+
+                mail = new Email
+                {
+                    Body = $"No fué posible descargar las siguientes imágenes:<br> {data} <br>" +
+                            $"Por favor revisar el repositorio de imagenes Url: {UrlImages} <br>" +
+                            "Nota: revisar que el nombre de la imágen este bien escrito o que la imágen si exista.",
+                    Subject = "Alerta Información Pay+",
+                    paypad_id = CorrespondentId
+                };
+
+                var response = api.GetResponse(mail, "SendEmail");
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        public static void SendMailErrores(string data)
+        {
+            try
+            {
+                ApiLocal api = new ApiLocal();
+                Email mail;
+
+
+                mail = new Email
+                {
+                    Body = data,
+                    Subject = "Alerta Inconsistencia en Pay+",
+                    paypad_id = CorrespondentId
+                };
+
+                var response = api.GetResponse(mail, "SendEmail");
+            }
+            catch (Exception ex)
+            {
+            }
+        }
 
         public static ObservableCollection<MoviesViewModel> LstMovies = new ObservableCollection<MoviesViewModel>();
 
@@ -171,6 +262,47 @@ namespace WPProcinal.Classes
             return new BitmapImage(new Uri(string.Concat(filename), UriKind.Relative));
         }
 
+        public static void CancelAssing(List<TypeSeat> typeSeatsCurrent, DipMap dipMapCurrent)
+        {
+            bool sendMail = false;
+            string message = string.Empty;
+            string infoUbicaciones = string.Empty;
+            foreach (var typeSeat in typeSeatsCurrent)
+            {
+                var response = WCFServices41.PostDesAssingreserva(typeSeat, dipMapCurrent);
+
+                if (response != null)
+                {
+                    if (!response[0].Respuesta.ToLower().Contains("exitoso"))
+                    {
+                        sendMail = true;
+                        message = response[0].Respuesta;
+                        foreach (var item in typeSeatsCurrent)
+                        {
+                            infoUbicaciones += $"Película: {dipMapCurrent.MovieName}, Horario: {dipMapCurrent.HourFunction}, Ubicacion: {item.Name} <br>";
+                        }
+                    }
+                }
+                else
+                {
+                    sendMail = true;
+                    foreach (var item in typeSeatsCurrent)
+                    {
+                        infoUbicaciones += $"Película: {dipMapCurrent.MovieName}, Horario: {dipMapCurrent.HourFunction}, Ubicacion: {item.Name} <br>";
+                    }
+                }
+            }
+
+            if (sendMail)
+            {
+                Task.Run(() =>
+                {
+                    Utilities.SendMailErrores($"No se pudo eliminar las preventas de la transacción {IDTransactionDB} para las siguientes ubicaciones:<br>{infoUbicaciones}" +
+                        $"<br>Error: {message}");
+                });
+            }
+        }
+
         public static decimal RoundValue(decimal valor)
         {
             decimal roundVal = (Math.Ceiling(valor / 100)) * 100;
@@ -200,14 +332,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "Error en GoToInicial",
-                    EError.Aplication,
-                    ELevelError.Medium);
-                }
-                catch { }
+                LogService.SaveRequestResponse("GoToInitial", ex.Message, 2);
                 RestartApp();
             }
         }
@@ -335,12 +460,12 @@ namespace WPProcinal.Classes
                         printCombo.Category = dipMap.Category;
                         printCombo.Secuencia = Secuencia;
                         printCombo.Formato = MovieFormat;
-                        printCombo.TipoSala = Utilities.TipoSala;
-                        printCombo.IDTransaccion = Utilities.IDTransactionDB.ToString();
+                        printCombo.TipoSala = TipoSala;
+                        printCombo.IDTransaccion = IDTransactionDB.ToString();
 
-                        if (Utilities.dataUser.Tarjeta != null && Utilities.dataUser.Puntos > 0)
+                        if (dataUser.Tarjeta != null && dataUser.Puntos > 0)
                         {
-                            printCombo.Puntos = Utilities.dataUser.Puntos.ToString();
+                            printCombo.Puntos = dataUser.Puntos.ToString();
                         }
                         else
                         {
@@ -352,16 +477,22 @@ namespace WPProcinal.Classes
                     }
                 }
 
-                if (Utilities._Combos.Count > 0)
+                if (_Combos.Count > 0)
                 {
-                    _DataResolution = WCFServices41.ConsultResolution();
+                    _DataResolution = WCFServices41.ConsultResolution(new SCORES
+                    {
+                        Punto = Convert.ToInt32(GetConfiguration("Cinema")),
+                        Secuencial = Convert.ToInt32(Secuencia),
+                        teatro = DipMapCurrent.CinemaId,
+                        tercero = 1
+                    });
 
-                    
+
                     printCombo.ImprimirComprobante(0);
 
-                    var ComboTemporada = Utilities._Combos.Where(x => x.Name == Utilities.GetConfiguration("0NAME")).FirstOrDefault();
+                    var ComboTemporada = _Combos.Where(x => x.Name == GetConfiguration("0NAME")).FirstOrDefault();
 
-                    if (ComboTemporada != null && Utilities.GetConfiguration("0Cupon").Equals("1"))
+                    if (ComboTemporada != null && GetConfiguration("0Cupon").Equals("1"))
                     {
                         printCombo.ImprimirComprobante(1);
                     }
@@ -370,33 +501,14 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                            "Error imprimiendo boletas",
-                            EError.Device,
-                            ELevelError.Strong);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Imprimiendo las boletas", ex.Message, 2);
+                AdminPaypad.SaveErrorControl(ex.Message,
+                        "Error imprimiendo boletas",
+                        EError.Device,
+                        ELevelError.Strong);
             }
         }
 
-        public static void SaveLogDispenser(LogDispenser log)
-        {
-            try
-            {
-                LogService logService = new LogService
-                {
-                    NamePath = "C:\\LogDispenser",
-                    FileName = string.Concat("Log", DateTime.Now.ToString("yyyyMMdd"), ".json")
-                };
-
-                logService.CreateLogs(log);
-            }
-            catch (Exception ex)
-            {
-            }
-        }
 
         public static void SaveLogTransactions(LogErrorGeneral log, string path)
         {
@@ -568,8 +680,6 @@ namespace WPProcinal.Classes
                 catch { }
                 return false;
             }
-            //LogService.CreateLogsPeticionRespuestaDispositivos(DateTime.Now + " :: UpdateTransaction: ", "Salí");
-
         }
 
         public static void BackUpEcity(string data)
@@ -987,6 +1097,10 @@ namespace WPProcinal.Classes
         public int idTransactionAPi { get; set; }
         public DateTime Date { get; set; }
     }
-
+    public class DataImagesScore
+    {
+        public string Pelicula { get; set; }
+        public string Url { get; set; }
+    }
 
 }

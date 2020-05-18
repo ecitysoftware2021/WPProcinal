@@ -131,6 +131,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
+                //TODO: descomentar
                 //Task.Run(() =>
                 //{
                 //    if (payState)
@@ -219,7 +220,7 @@ namespace WPProcinal.Forms.User_Control
         /// Finaliza el proceso de pago, imprime las boletas y va al formulario final
         /// </summary>
         /// <param name="task"></param>
-        private async void SavePay(bool task)
+        private void SavePay(bool task)
         {
             try
             {
@@ -228,14 +229,14 @@ namespace WPProcinal.Forms.User_Control
                 {
                     try
                     {
-                        WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                        Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
                     }
                     catch { }
 
                     try
                     {
 
-                        await Dispatcher.BeginInvoke((Action)delegate
+                        Dispatcher.BeginInvoke((Action)delegate
                         {
                             frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular el pago.");
                             modal.ShowDialog();
@@ -265,10 +266,10 @@ namespace WPProcinal.Forms.User_Control
                     objUtil.PrintTicket("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
                     ApproveTrans();
 
-                    await Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        Utilities.Loading(frmLoading, false, this);
-                    });
+                    Dispatcher.BeginInvoke((Action)delegate
+                   {
+                       Utilities.Loading(frmLoading, false, this);
+                   });
 
                     if (Utilities.dataUser.Tarjeta != null)
                     {
@@ -282,7 +283,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "SavePay en frmPayCine", EError.Aplication, ELevelError.Medium);
+                LogService.SaveRequestResponse("Guardando el pago en Efectivo", ex.Message, 1);
                 Utilities.GoToInicial();
             }
         }
@@ -294,22 +295,15 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                try
+
+                Task.Run(() =>
                 {
-                    Task.Run(() =>
+                    Dispatcher.Invoke(() =>
                     {
-                        Dispatcher.Invoke(() =>
-                        {
-                            WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                        });
+                        Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
                     });
-                }
-                catch (Exception ex)
-                {
-                    LogService.CreateLogsError(
-                          string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                          ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled FrmCardPayment");
-                }
+                });
+
                 UnlockTPV();
                 Dispatcher.Invoke(() =>
                 {
@@ -321,36 +315,20 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en FrmCardPayment", EError.Aplication, ELevelError.Medium);
+
             }
             Utilities.Loading(frmLoading, false, this);
             Utilities.GoToInicial();
         }
         private void CancelWithoutTPV()
         {
-            try
-            {
-                try
-                {
-                    Task.Run(() =>
-                    {
-                        Dispatcher.Invoke(() =>
-                        {
-                            WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                        });
-                    });
-                }
-                catch (Exception ex)
-                {
-                    LogService.CreateLogsError(
-                          string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                          ex.InnerException, "---------- Trace: ", ex.StackTrace), "CancelWithoutTPV FrmCardPayment");
-                }
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "CancelWithoutTPV en FrmCardPayment", EError.Aplication, ELevelError.Medium);
-            }
+            this.IsEnabled = false;
+            frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+            Utilities.Loading(frmLoading, true, this);
+
+            Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+            this.IsEnabled = true;
+            Utilities.Loading(frmLoading, false, this);
             Utilities.GoToInicial();
         }
 
@@ -461,10 +439,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-                        Dispatcher.Invoke(() =>
-                        {
-                            WCFServices41.PostDesAssingreserva(Utilities.TypeSeats, Utilities.DipMapCurrent);
-                        });
+                        Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
                     });
                 }
                 SavePay(payState);
@@ -473,6 +448,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 payState = false;
                 SavePay(payState);
+                LogService.SaveRequestResponse("Confirmando la compra en efectivo", ex.Message, 2);
                 AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
@@ -520,7 +496,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 try
                 {
-                    LogService.SaveRequestResponse(DateTime.Now + " :: Respuesta del datáfono: ", responseTPV);
+                    LogService.SaveRequestResponse("Respuesta del datáfono", responseTPV, 1);
                 }
                 catch { }
                 /**
@@ -531,6 +507,11 @@ namespace WPProcinal.Forms.User_Control
                     frmLoading.Close();
 
                     SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
+                    Task.Run(() =>
+                    {
+                        Utilities.SendMailErrores($"Se perdió la conexión del datáfono en la transacción {Utilities.IDTransactionDB}," +
+                            "Por favor reiniciar el datáfono o contactar con Credibanco para la respectiva validación.");
+                    });
                 }
                 else
                 {
@@ -596,6 +577,11 @@ namespace WPProcinal.Forms.User_Control
                         frmLoading.Close();
                         this.IsEnabled = true;
                         SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
+                        Task.Run(() =>
+                        {
+                            Utilities.SendMailErrores($"Se perdió la conexión del datáfono en la transacción {Utilities.IDTransactionDB}," +
+                                "Por favor reiniciar el datáfono o contactar con Credibanco para la respectiva validación.");
+                        });
                     }
                 }
             }
@@ -820,6 +806,11 @@ namespace WPProcinal.Forms.User_Control
                     else if (response[2].Equals("05"))//Error de conexión a puerto (Fisico)
                     {
                         SetMessageAndPutVisibility("Datáfono no disponible.");
+                        Task.Run(() =>
+                        {
+                            Utilities.SendMailErrores($"Se perdió la conexión del datáfono en la transacción {Utilities.IDTransactionDB}," +
+                                "Por favor contactar con 1Cero1 para la respectiva validación.");
+                        });
                     }
 
                 }
