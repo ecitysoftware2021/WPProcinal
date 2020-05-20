@@ -249,9 +249,6 @@
     <Compile Include="Forms\User_Control\UCCinema.xaml.cs">
       <DependentUpon>UCCinema.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\User_Control\UCConfectionery.xaml.cs">
-      <DependentUpon>UCConfectionery.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\User_Control\UCFinalTransaction.xaml.cs">
       <DependentUpon>UCFinalTransaction.xaml</DependentUpon>
     </Compile>
@@ -354,10 +351,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\User_Control\UCCinema.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\User_Control\UCConfectionery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

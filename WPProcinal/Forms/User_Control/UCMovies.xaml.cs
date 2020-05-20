@@ -104,7 +104,7 @@ namespace WPProcinal.Forms.User_Control
                 var movieType = GetTypeImage(pelicula.Tipo);
 
                 string image = pelicula.Data.Imagen;
-                
+
                 Utilities.LstMovies.Add(new MoviesViewModel
                 {
                     ImageData = Utilities.LoadImage(image, true),
@@ -286,27 +286,20 @@ namespace WPProcinal.Forms.User_Control
             }
             catch { }
 
-            //TODO: descomentar
-            //if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
-            //{
+            if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
+            {
                 Image TocuhImage = (Image)sender;
                 var movie = Utilities.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
-                //var status = WCFServices41.StateImage(movie.Data.Imagen);
                 string image = movie.Data.Imagen;
-                //if (!status)
-                //{
-                //    image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "NotFound.jpg");
-                //}
                 Utilities.ImageSelected = Utilities.LoadImage(image, true);
-
                 Switcher.Navigate(new UCSchedule(movie));
-            //}
-            //else
-            //{
-            //    frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeSinDinero"));
-            //    modal.ShowDialog();
-            //    Switcher.Navigate(new UCCinema());
-            //}
+            }
+            else
+            {
+                frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeSinDinero"));
+                modal.ShowDialog();
+                Switcher.Navigate(new UCCinema());
+            }
         }
 
         private void BtnPrev_TouchDown(object sender, TouchEventArgs e)
@@ -347,7 +340,7 @@ namespace WPProcinal.Forms.User_Control
                     frmModalCineFan modalCineFan = new frmModalCineFan();
                     modalCineFan.ShowDialog();
                     Utilities.Speack("Selecciona una película para continuar.");
-                    
+
                     this.Opacity = 1;
                     ActivateTimer();
 

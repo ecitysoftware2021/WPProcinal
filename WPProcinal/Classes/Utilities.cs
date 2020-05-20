@@ -976,69 +976,33 @@ namespace WPProcinal.Classes
         {
             try
             {
-                //foreach (var item in Peliculas.Pelicula)
-                //{
-                //    if (WCFServices41.StateImage(item.Data.Imagen))
-                //    {
-                //        if (!Directory.Exists("Slider"))
-                //        {
-                //            Directory.CreateDirectory("Slider");
-                //        }
-                //        path = Path.Combine(Directory.GetCurrentDirectory(), "Slider");
-                //        using (WebClient client = new WebClient())
-                //        {
-                //            var fileName = string.Concat(path, "\\", item.Nombre + ".jpg");
-                //            if (!File.Exists(fileName))
-                //            {
-                //                client.DownloadFile(new Uri(item.Data.Imagen), fileName);
-                //            }
-                //        }
-                //    }
-
-                //    Imagenes.Add(item.Data.Imagen);
-                //}
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
-        public static void Send(string data)
-        {
-            try
-            {
-                string Correos = Utilities.GetConfiguration("Correos");
-
-                var Correo = Correos.Split(',');
-
-                foreach (var to in Correo)
+                foreach (var item in Peliculas.Pelicula)
                 {
-                    using (MailMessage mm = new MailMessage("ecitysoftware@gmail.com", to))
+                    if (WCFServices41.StateImage(item.Data.Imagen))
                     {
-                        mm.Subject = "Alerta";
-                        mm.SubjectEncoding = System.Text.Encoding.UTF8;
-                        mm.Body = "No se pudo descargar la imagen de: " + data +
-                            " Por favor revisar en el repositorio donde se suben las imagenes Url (http://pantallasprocinal.com/img/peliculas/)" + Environment.NewLine +
-                            "Nota: revisar que el nombre de la película este bien escrito o que la imagen si exista.";
-                        mm.BodyEncoding = System.Text.Encoding.UTF8;
-                        mm.IsBodyHtml = true;
-                        //mm.Attachments.Add(new Attachment(new MemoryStream(CreatePDF()), "NotificacionKiosko.pdf"));
-
-                        SmtpClient smtp = new SmtpClient();
-                        smtp.Host = "smtp.gmail.com";
-                        smtp.EnableSsl = true;
-                        NetworkCredential NetworkCred = new NetworkCredential("ecitysoftware@gmail.com", "3C1ty2019$/*");
-                        smtp.UseDefaultCredentials = true;
-                        smtp.Credentials = NetworkCred;
-                        smtp.Port = 587;
-                        smtp.Send(mm);
+                        if (!Directory.Exists("Slider"))
+                        {
+                            Directory.CreateDirectory("Slider");
+                        }
+                        path = Path.Combine(Directory.GetCurrentDirectory(), "Slider");
+                        using (WebClient client = new WebClient())
+                        {
+                            var fileName = string.Concat(path, "\\", item.Nombre + ".jpg");
+                            if (!File.Exists(fileName))
+                            {
+                                client.DownloadFile(new Uri(item.Data.Imagen), fileName);
+                            }
+                        }
                     }
+
+                    Imagenes.Add(item.Data.Imagen);
                 }
             }
             catch (Exception ex)
             {
             }
         }
+
 
         public static void DeleteCombo(string comboName, decimal comboPrice, Producto dataProduct)
         {

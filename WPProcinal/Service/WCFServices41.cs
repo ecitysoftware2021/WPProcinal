@@ -289,14 +289,7 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-                try
-                {
-                    AdminPaypad.SaveErrorControl(seria,
-                          "PostBuy Request",
-                          EError.Customer,
-                          ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Peticion Compra", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
 
@@ -318,29 +311,13 @@ namespace WPProcinal.Service
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
-
-                try
-                {
-                    AdminPaypad.SaveErrorControl(decryptData,
-                    "PostBuy Response",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Respuesta Compra", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseScoint>>(decryptData);
                 return est;
 
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "PostBuy catch",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
                 return null;
             }
         }

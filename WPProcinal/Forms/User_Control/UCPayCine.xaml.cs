@@ -37,7 +37,6 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 OrganizeValues();
-                frmLoading = new FrmLoading("Cargando...");
                 utilities = new Utilities();
                 state = true;
                 Utilities.TypeSeats = Seats;
@@ -111,6 +110,7 @@ namespace WPProcinal.Forms.User_Control
                             Dispatcher.BeginInvoke((Action)delegate
                             {
                                 btnCancelar.IsEnabled = false;
+                                frmLoading = new FrmLoading("Procesando compra...");
                                 Utilities.Loading(frmLoading, true, this);
                                 Utilities.control.callbackValueIn = null;
 
@@ -227,14 +227,15 @@ namespace WPProcinal.Forms.User_Control
                                 {
                                     frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
                                     modal.ShowDialog();
-                                    Buytickets();
                                     Utilities.Loading(frmLoading, false, this);
+                                    Buytickets();
                                 });
                             }
                             else
                             {
-                                Buytickets();
                                 Utilities.Loading(frmLoading, false, this);
+                                Buytickets();
+
                             }
                         }
                         else
@@ -379,7 +380,8 @@ namespace WPProcinal.Forms.User_Control
             {
                 try
                 {
-                    
+                    Utilities.Loading(frmLoading, false, this);
+
                     this.IsEnabled = false;
                     frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                     frmLoading.Show();
@@ -389,17 +391,10 @@ namespace WPProcinal.Forms.User_Control
                 }
                 catch (Exception ex)
                 {
-                    LogService.CreateLogsError(
-                          string.Concat("Mensaje: ", ex.Message, "-------- Inner: ",
-                          ex.InnerException, "---------- Trace: ", ex.StackTrace), "Cancelled PayCine");
                 }
                 Task.Run(() =>
                 {
                     Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Canceled, Utilities.ValueDelivery);
-
-                    logError.Description = "\nSe cancelo una transaccion";
-                    logError.State = "Cancelada";
-                    Utilities.SaveLogTransactions(logError, "LogTransacciones\\Cancelada");
 
                 });
                 Dispatcher.Invoke(() =>
@@ -422,7 +417,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                if (Utilities.GetConfiguration("Ambiente").Equals("Prd"))
+                if (Utilities.GetConfiguration("Ambiente").Equals("1"))
                 {
                     List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
                     foreach (var item in Utilities.TypeSeats)
@@ -445,11 +440,14 @@ namespace WPProcinal.Forms.User_Control
                         {
 
                             var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
-                            foreach (var receta in combo.Receta)
+                            if (combo.Receta != null)
                             {
-                                if (receta.RecetaReceta != null)
+                                foreach (var receta in combo.Receta)
                                 {
-                                    receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                                    if (receta.RecetaReceta != null)
+                                    {
+                                        receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                                    }
                                 }
                             }
                             combo.Precio = Utilities.dataUser.Tarjeta != null ? 2 : 1;
@@ -464,6 +462,8 @@ namespace WPProcinal.Forms.User_Control
 
                     var dataClient = GetDataClient();
 
+                    frmLoading = new FrmLoading("Confirmando la compra...");
+                    frmLoading.Show();
 
                     var response41 = WCFServices41.PostBuy(new SCOINT
                     {
@@ -493,6 +493,7 @@ namespace WPProcinal.Forms.User_Control
                         TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
                         Ubicaciones = ubicaciones
                     });
+                    frmLoading.Close();
                     foreach (var item in response41)
                     {
                         if (item.Respuesta != null)
@@ -531,6 +532,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                frmLoading.Close();
                 payState = false;
                 SavePay(payState);
                 AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
@@ -647,6 +649,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 this.IsEnabled = false;
+                frmLoading = new FrmLoading("Cancelando la compra...");
                 Utilities.Loading(frmLoading, true, this);
 
                 Utilities.control.StopAceptance();

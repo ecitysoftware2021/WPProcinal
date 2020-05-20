@@ -933,13 +933,15 @@ namespace WPProcinal.Forms.User_Control
 
         private void NavigateToConfectionery()
         {
-            //TODO: sacar mensaje de validando confi
+            this.IsEnabled = false;
+            frmLoading = new FrmLoading("¡Descargando la confitería...!");
+            frmLoading.Show();
             var combos = WCFServices41.GetConfectionery(new SCOPRE
             {
                 teatro = Utilities.GetConfiguration("CodCinema"),
                 tercero = "1"
             });
-
+            frmLoading.Close();
             if (combos != null)
             {
                 Utilities._Productos = combos.ListaProductos;
