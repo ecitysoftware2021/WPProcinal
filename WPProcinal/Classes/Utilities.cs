@@ -360,6 +360,28 @@ namespace WPProcinal.Classes
             catch { }
         }
 
+        public static void UpdateApp()
+        {
+            try
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    Process pc = new Process();
+                    Process pn = new Process();
+                    ProcessStartInfo si = new ProcessStartInfo();
+                    si.FileName = GetConfiguration("APLICATION_UPDATE");
+                    pn.StartInfo = si;
+                    pn.Start();
+                    pc = Process.GetCurrentProcess();
+                    pc.Kill();
+                }));
+                GC.Collect();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
         public static void DoEvents()
         {
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,

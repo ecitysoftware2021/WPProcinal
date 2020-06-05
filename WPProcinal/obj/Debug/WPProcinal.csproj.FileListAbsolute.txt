@@ -178,14 +178,12 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DataBases\DB
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe.config
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.pdb
-C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\CEntidades.dll
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.dll
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignColors.dll
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.dll
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Newtonsoft.Json.dll
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.dll
-C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\CEntidades.pdb
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.xml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.pdb
@@ -512,7 +510,6 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmMod
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalLogin.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCardPayment.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCinema.g.cs
-C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCConfectionery.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCFinalTransaction.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCMovies.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.g.cs
@@ -525,7 +522,6 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmMod
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalLogin.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCardPayment.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCinema.baml
-C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCConfectionery.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCFinalTransaction.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCMovies.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.baml
@@ -546,3 +542,8 @@ D:\GitHub\WPProcinal\WPProcinal\bin\Debug\Zen.Barcode.Core.dll
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Zen.Barcode.Core.dll
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.g.cs
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.g.cs
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.baml
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.baml

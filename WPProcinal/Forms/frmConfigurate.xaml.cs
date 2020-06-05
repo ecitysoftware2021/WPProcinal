@@ -76,9 +76,15 @@ namespace WPProcinal.Forms
                             okServidor.Visibility = Visibility.Visible;
                             badServidor.Visibility = Visibility.Hidden;
                         });
+
                         DataPaypad data = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
 
-                        if (data.State)
+                        if (data.StateUpdate)
+                        {
+                            ShowModalError("Tiene una actualización pendiente por favor no manipule ni apague el PayPlus mientras termina la instalación.", true);
+                            Utilities.UpdateApp();
+                        }
+                        else if (data.State)
                         {
                             if (data.StateAceptance && data.StateDispenser)
                             {
@@ -245,17 +251,28 @@ namespace WPProcinal.Forms
         }
 
 
-        private void ShowModalError(string description)
+        private void ShowModalError(string description,bool stop = false)
         {
-            if (util == null)
-            {
-                util = new Utilities(1);
-            }
-            Utilities.LoadData();
             Dispatcher.BeginInvoke((Action)delegate
             {
-                Switcher.Navigate(new UCCinema());
+                SetCallbackNull();
+                frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description),stop);
+                modal.ShowDialog();
+
+                if (!stop)
+                {
+                    GetToken();
+                }
             });
+            //if (util == null)
+            //{
+            //    util = new Utilities(1);
+            //}
+            //Utilities.LoadData();
+            //Dispatcher.BeginInvoke((Action)delegate
+            //{
+            //    Switcher.Navigate(new UCCinema());
+            //});
         }
     }
 }

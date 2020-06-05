@@ -14,5 +14,6 @@ namespace WPProcinal.Models.ApiLocal
         public string Message { get; set; }
         public object ListImages { get; set; }
         public object Invoicedata { get; set; }
+        public bool StateUpdate { get; set; }
     }
 }

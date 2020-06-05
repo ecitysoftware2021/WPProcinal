@@ -286,7 +286,13 @@ namespace WPProcinal.Forms.User_Control
             }
             catch { }
 
-            if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
+            if (Utilities.dataPaypad.StateUpdate)
+            {
+                frmModal modal = new frmModal("Tiene una actualización pendiente por favor no manipule ni apague el PayPlus mientras termina la instalación.", true);
+                modal.ShowDialog();
+                Utilities.UpdateApp();
+            }
+            else if(Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
             {
                 Image TocuhImage = (Image)sender;
                 var movie = Utilities.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
