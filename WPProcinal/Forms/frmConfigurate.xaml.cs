@@ -82,7 +82,6 @@ namespace WPProcinal.Forms
                         if (data.StateUpdate)
                         {
                             ShowModalError("Tiene una actualización pendiente por favor no manipule ni apague el PayPlus mientras termina la instalación.", true);
-                            Utilities.UpdateApp();
                         }
                         else if (data.State)
                         {
@@ -262,6 +261,10 @@ namespace WPProcinal.Forms
                 if (!stop)
                 {
                     GetToken();
+                }
+                else
+                {
+                    Utilities.UpdateApp();
                 }
             });
             //if (util == null)
