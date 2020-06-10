@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WPProcinal.Classes;
@@ -166,8 +167,8 @@ namespace WPProcinal.Service
         {
             try
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "AppData", "keysProcinal.txt");
-                string[] text = System.IO.File.ReadAllLines(path);
+                string[] text = File.ReadAllLines(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "AppData", "keysProcinal.txt"));
+
                 if (text.Length > 0)
                 {
                     string[] line1 = text[0].Split(';');

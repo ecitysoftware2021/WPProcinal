@@ -31,7 +31,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
                 <RowDefinition />
-                <RowDefinition Height="120" />
+                <RowDefinition Height="80" />
             </Grid.RowDefinitions>
             <Border
                 
@@ -68,8 +68,8 @@
                 <Grid>
                     <Image HorizontalAlignment="Center"
                        Name="BtnEnd"
-                       VerticalAlignment="Center"
-                       Width="230"
+                       VerticalAlignment="Bottom"
+                       Width="200"
                        Margin="0,0,0,0"
                        Stretch="Uniform"
                        Source="../Images/salir2.png"
