@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPProcinal", "WPProcinal\WPProcinal.csproj", "{98EA6DEF-15FB-47DA-9818-838FC62BDD26}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstallerProcinal", "InstallerProcinal\InstallerProcinal.vdproj", "{9E7BE42D-BAD1-471D-9324-866B63B0AFF9}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstallerProcinal", "InstallerProcinal\InstallerProcinal.vdproj", "{B05C87E8-FED7-457E-A9ED-1C05E8B1F7AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{98EA6DEF-15FB-47DA-9818-838FC62BDD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98EA6DEF-15FB-47DA-9818-838FC62BDD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98EA6DEF-15FB-47DA-9818-838FC62BDD26}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E7BE42D-BAD1-471D-9324-866B63B0AFF9}.Debug|Any CPU.ActiveCfg = Debug
-		{9E7BE42D-BAD1-471D-9324-866B63B0AFF9}.Release|Any CPU.ActiveCfg = Release
+		{B05C87E8-FED7-457E-A9ED-1C05E8B1F7AE}.Debug|Any CPU.ActiveCfg = Debug
+		{B05C87E8-FED7-457E-A9ED-1C05E8B1F7AE}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -167,7 +167,7 @@ namespace WPProcinal.Service
         {
             try
             {
-                string[] text = File.ReadAllLines(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "AppData", "keysProcinal.txt"));
+                string[] text = File.ReadAllLines(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "AppData", "Keys.txt"));
 
                 if (text.Length > 0)
                 {
