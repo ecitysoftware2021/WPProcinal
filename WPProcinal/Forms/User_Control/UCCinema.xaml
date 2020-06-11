@@ -7,11 +7,15 @@
              mc:Ignorable="d" 
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              d:DesignHeight="2064.095" d:DesignWidth="1250.599">
-    <Grid TouchDown="gridPrincipal_TouchDown" Name="gridPrincipal">
+    <Grid  Name="gridPrincipal">
         
             <Grid.Background>
                 <ImageBrush ImageSource="{Binding sourse}"  Stretch="Fill"/>
             </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         
         <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/procinal01.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
@@ -24,7 +28,20 @@
                     Width="300" 
                     Visibility="Visible"
                     Height="300" 
-                    Grid.Column="1"/>
+                    Grid.Column="0"
+               TouchDown="ConfigBoletas_TouchDown"/>
+        <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/procinal01.gif" 
+                   gif:ImageBehavior.AnimateInDesignMode="True"
+                   gif:ImageBehavior.AutoStart="True" 
+                    Stretch="Fill"
+                    Margin="0,350,0,0" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Width="300" 
+                    Visibility="Visible"
+                    Height="300" 
+                    Grid.Column="1"
+               TouchDown="Config_TouchDown"/>
 
     </Grid>
 </UserControl>

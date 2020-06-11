@@ -996,7 +996,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         Task.Run(() =>
                         {
-                            grabador.Grabar(Utilities.IDTransactionDB);
+                            grabador.Grabar(Utilities.IDTransactionDB, 0);
                         });
                     }
                     catch { }

@@ -58,5 +58,10 @@ namespace WPProcinal.Classes
         Card = 2
     }
 
+    public enum ETypeBuy
+    {
+        ConfectioneryAndCinema = 0,
+        JustConfectionery = 1
+    }
 
 }

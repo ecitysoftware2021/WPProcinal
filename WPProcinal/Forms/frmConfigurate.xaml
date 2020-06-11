@@ -45,6 +45,7 @@
         <TextBlock Text="Comunicación Servidor"
                    Grid.Row="2"
                    Grid.Column="0"
+
                        FontFamily="Gotham"
                        FontSize="45"
                        Foreground="White"

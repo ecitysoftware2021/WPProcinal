@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Reflection;
 using System.Speech.Synthesis;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -52,6 +53,8 @@ namespace WPProcinal.Classes
         public static List<Pelicula> Movies = new List<Pelicula>();
 
         public static DataDocument dataDocument;
+        public static ETypeBuy eTypeBuy;
+        public static string PLACA;
 
         public static SCOLOGResponse dataUser;
 
@@ -72,6 +75,7 @@ namespace WPProcinal.Classes
         public static string path;
 
         public static DataPaypad dataPaypad = new DataPaypad();
+
         public static List<DataImagesScore> BadImages;
         public static int MedioPago { get; set; }
         public static decimal ScorePayValue { get; set; }
@@ -216,11 +220,9 @@ namespace WPProcinal.Classes
             }
         }
 
-
         public Utilities()
         {
         }
-
 
         /// <summary>
         /// Se usa para ocultar o mostrar la modal de carga
@@ -337,7 +339,6 @@ namespace WPProcinal.Classes
             }
         }
 
-
         /// <summary>
         /// Método usado para regresar a la pantalla principal
         /// </summary>
@@ -350,7 +351,7 @@ namespace WPProcinal.Classes
                     Process pc = new Process();
                     Process pn = new Process();
                     ProcessStartInfo si = new ProcessStartInfo();
-                    si.FileName = Path.Combine(Directory.GetCurrentDirectory(), "WPProcinal.exe");
+                    si.FileName = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "WPProcinal.exe");
                     pn.StartInfo = si;
                     pn.Start();
                     pc = Process.GetCurrentProcess();
@@ -417,7 +418,6 @@ namespace WPProcinal.Classes
             return reader.GetValue(key, typeof(String)).ToString();
         }
 
-
         public static void SaveFileXML(string content)
         {
             if (!Directory.Exists("Procinal"))
@@ -442,12 +442,6 @@ namespace WPProcinal.Classes
         public static string GetFileXML()
         {
             var file = File.ReadAllText(NameFile);
-            return file;
-        }
-
-        public static string GetFileCombos()
-        {
-            var file = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Confiteria", "Confiteria.txt"));
             return file;
         }
 
@@ -501,15 +495,6 @@ namespace WPProcinal.Classes
 
                 if (_Combos.Count > 0)
                 {
-                    _DataResolution = WCFServices41.ConsultResolution(new SCORES
-                    {
-                        Punto = Convert.ToInt32(GetConfiguration("Cinema")),
-                        Secuencial = Convert.ToInt32(Secuencia),
-                        teatro = DipMapCurrent.CinemaId,
-                        tercero = 1
-                    });
-
-
                     printCombo.ImprimirComprobante(0);
 
                     var ComboTemporada = _Combos.Where(x => x.Name == GetConfiguration("0NAME")).FirstOrDefault();
@@ -530,7 +515,6 @@ namespace WPProcinal.Classes
                         ELevelError.Strong);
             }
         }
-
 
         public static void SaveLogTransactions(LogErrorGeneral log, string path)
         {
@@ -856,20 +840,6 @@ namespace WPProcinal.Classes
             }
             catch { }
         }
-
-        public static bool IsValidEmailAddress(string email)
-        {
-            try
-            {
-                Regex regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,8}$");
-                return regex.IsMatch(email);
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
 
         public static DataDocument ProccesDocument(string data)
         {

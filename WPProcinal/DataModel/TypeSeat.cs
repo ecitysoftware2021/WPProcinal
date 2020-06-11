@@ -32,14 +32,4 @@ namespace WPProcinal.Classes
     }
 
 
-    public class SeatTmp
-    {
-        public string Name { get; set; }
-
-        public string Type { get; set; }
-
-        public string State { get; set; }
-
-    }
-
 }

@@ -214,8 +214,6 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.e
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\Opciones.baml
-D:\GitHub\WPProcinal\WPProcinal\bin\Debug\DataBases\DBProcinal.mdf
-D:\GitHub\WPProcinal\WPProcinal\bin\Debug\DataBases\DBProcinal_log.ldf
 D:\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe.config
 D:\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe
 D:\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.pdb
@@ -474,7 +472,6 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmModalDeletePay.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalLogin.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCardPayment.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCinema.g.cs
-D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCConfectionery.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCFinalTransaction.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCMovies.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.g.cs
@@ -487,7 +484,6 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmModalDeletePay.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModalLogin.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCardPayment.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCinema.baml
-D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCConfectionery.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCFinalTransaction.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCMovies.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.baml
@@ -541,9 +537,11 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.g.
 D:\GitHub\WPProcinal\WPProcinal\bin\Debug\Zen.Barcode.Core.dll
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.baml
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.baml
-D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Zen.Barcode.Core.dll
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.baml
+D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WPlateModal.g.cs
+D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WPlateModal.baml

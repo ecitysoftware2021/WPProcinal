@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -29,6 +30,11 @@ namespace WPProcinal.Forms.User_Control
         TimerTiempo timer;
 
         #endregion
+
+        /// <summary>
+        /// TypeBuy 2: Boletas & Confiteria, 1: Solo Confiteria
+        /// </summary>
+        /// <param name="typeBuy"></param>
         public UCMovies()
         {
             InitializeComponent();
@@ -292,7 +298,7 @@ namespace WPProcinal.Forms.User_Control
                 modal.ShowDialog();
                 Utilities.UpdateApp();
             }
-            else if(Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
+            else if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
             {
                 Image TocuhImage = (Image)sender;
                 var movie = Utilities.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
@@ -345,23 +351,30 @@ namespace WPProcinal.Forms.User_Control
                     this.Opacity = 0.3;
                     frmModalCineFan modalCineFan = new frmModalCineFan();
                     modalCineFan.ShowDialog();
-                    Utilities.Speack("Selecciona una película para continuar.");
-
-                    this.Opacity = 1;
-                    ActivateTimer();
-
-                    if (modalCineFan.DialogResult.HasValue &&
-                    modalCineFan.DialogResult.Value)
+                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
                     {
-                        if (!string.IsNullOrEmpty(Utilities.dataUser.Nombre))
+                        Utilities.Speack("Selecciona una película para continuar.");
+
+                        this.Opacity = 1;
+                        ActivateTimer();
+
+                        if (modalCineFan.DialogResult.HasValue &&
+                        modalCineFan.DialogResult.Value)
                         {
-                            txtNameUser.Text = "Bienvenid@ " + Utilities.dataUser.Nombre.ToUpperInvariant();
-                            txtNameUser.Visibility = Visibility.Visible;
+                            if (!string.IsNullOrEmpty(Utilities.dataUser.Nombre))
+                            {
+                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataUser.Nombre.ToUpperInvariant();
+                                txtNameUser.Visibility = Visibility.Visible;
+                            }
+                        }
+                        else
+                        {
+                            //Utilities.GoToInicial();
                         }
                     }
                     else
                     {
-                        //Utilities.GoToInicial();
+                        Switcher.Navigate(new UCProductsCombos(new List<TypeSeat>(), new DipMap()));
                     }
                 });
             });

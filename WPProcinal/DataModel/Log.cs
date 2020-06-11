@@ -62,27 +62,6 @@ namespace WPProcinal.Classes
 
         public string FileName { get; set; }
 
-        public void CreateLogs<T>(T model)
-        {
-            var json = JsonConvert.SerializeObject(model);
-            if (!Directory.Exists(NamePath))
-            {
-                Directory.CreateDirectory(NamePath);
-            }
-
-            var nameFile = Path.Combine(NamePath, FileName);
-            if (!File.Exists(nameFile))
-            {
-                var archivo = File.CreateText(nameFile);
-                archivo.Close();
-            }
-
-            using (StreamWriter sw = File.AppendText(nameFile))
-            {
-                sw.WriteLine(json);
-            }
-        }
-
         public void CreateLogsTransactions<T>(T model)
         {
             try
@@ -110,64 +89,6 @@ namespace WPProcinal.Classes
             {
             }
         }
-
-        public static void CreateLogsError(string error, string metodo)
-        {
-            try
-            {
-                Error err = new Error
-                {
-                    Mensaje = error,
-                    Metodo = metodo
-                };
-                var json = JsonConvert.SerializeObject(err);
-                string fullPath = string.Format(@"C:\\LogsError\");
-                if (!Directory.Exists(fullPath))
-                {
-                    Directory.CreateDirectory(fullPath);
-                }
-
-                var nameFile = Path.Combine(fullPath, "Error" + DateTime.Now.ToString("yyyyMMdd"));
-                if (!File.Exists(nameFile))
-                {
-                    var archivo = File.CreateText(nameFile);
-                    archivo.Close();
-                }
-
-                using (StreamWriter sw = File.AppendText(nameFile))
-                {
-                    sw.WriteLine(json);
-                }
-            }
-            catch { }
-        }
-        public static void CreateLogsSecuencia<T>(T model)
-        {
-            try
-            {
-                var json = JsonConvert.SerializeObject(model);
-                string fullPath = string.Format(@"C:\\LogsSecuencias\");
-                if (!Directory.Exists(fullPath))
-                {
-                    Directory.CreateDirectory(fullPath);
-                }
-
-                var nameFile = Path.Combine(fullPath, "Error" + DateTime.Now.ToString("yyyyMMdd"));
-                if (!File.Exists(nameFile))
-                {
-                    var archivo = File.CreateText(nameFile);
-                    archivo.Close();
-                }
-
-                using (StreamWriter sw = File.AppendText(nameFile))
-                {
-                    sw.WriteLine(json);
-                }
-            }
-            catch { }
-        }
-
-
 
         public static void SaveRequestResponse(string operacion, string mensaje, int state)
         {

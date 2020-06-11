@@ -276,7 +276,7 @@ namespace WPProcinal.Forms.User_Control
                     ValorSobrante = 0,
                     ValorIngresado = 0
                 };
-
+                Utilities.PLACA = string.Empty;
                 this.DataContext = PaymentViewModel;
             }
             catch (Exception ex)
@@ -417,6 +417,8 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
+                WPlateModal wPlate = new WPlateModal();
+                wPlate.ShowDialog();
                 if (Utilities.GetConfiguration("Ambiente").Equals("1"))
                 {
                     List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
@@ -467,7 +469,8 @@ namespace WPProcinal.Forms.User_Control
 
                     var response41 = WCFServices41.PostBuy(new SCOINT
                     {
-                        Accion = "V",
+                        Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
+                        Placa = string.IsNullOrEmpty(Utilities.PLACA) ? "0" : Utilities.PLACA,
                         Apellido = dataClient.Apellido,
                         ClienteFrecuente = long.Parse(dataClient.Tarjeta),
                         CorreoCliente = dataClient.Login,

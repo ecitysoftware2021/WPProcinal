@@ -5,12 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Windows.Controls;
 using System.Xml.Serialization;
 using WPProcinal.Classes;
 using WPProcinal.Models;
@@ -24,10 +22,17 @@ namespace WPProcinal.Service
         public WCFServices41()
         {
         }
+
         private static void ServerCertificateValidationCallback()
         {
             ServicePointManager.ServerCertificateValidationCallback += delegate (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
         }
+
+        /// <summary>
+        /// DESCARGA Y DESERIALIZACIÓN DEL XML DE LAS FUNCIONES
+        /// </summary>
+        /// <returns></returns>
+        #region DESCARGA XML
 
         public static Response DownloadData()
         {
@@ -68,6 +73,7 @@ namespace WPProcinal.Service
             return mapaSala;
         }
 
+        #endregion
 
         /// <summary>
         /// TRAER LA SALA PARA PINTAR
@@ -552,7 +558,7 @@ namespace WPProcinal.Service
         #endregion
 
         /// <summary>
-        /// Servicio para consultar los datos de la impresión de los combos
+        /// Servicio para consultar la resolución de factura para la confitería
         /// </summary>
         /// <returns></returns>
         #region "SCORES"
@@ -564,7 +570,7 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-                LogService.SaveRequestResponse("Respuesta al consultar los puntos", seria, 1);
+                LogService.SaveRequestResponse("Petición Consultar Resolución Factura", seria, 1);
 
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
@@ -857,6 +863,9 @@ namespace WPProcinal.Service
         public int Pelicula { get; set; }
         public List<UbicacioneSCOINT> Ubicaciones { get; set; }
         public List<Producto> Productos { get; set; }
+        public string Placa { get; set; }
+        public int AudiPrev { get { return 0; } }
+        public string TipoEntrega { get { return "T"; } }
         public string Cortesia { get; set; }
         public int TipoBono { get; set; }
         public long ClienteFrecuente { get; set; }
@@ -1170,9 +1179,7 @@ namespace WPProcinal.Service
 
     public class Response41
     {
-
         public string request { get; set; }
-
     }
 
 

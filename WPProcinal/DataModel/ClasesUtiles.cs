@@ -1,24 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace WPProcinal.Classes
 {
 
-    public class CLSDatos
-    {
-        public string DNI { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Direccion { get; set; }
-        public long NumeroBastidor { get; set; }
-        public string TipoVehiculo { get; set; }
-        public string CategoriaVehiculo { get; set; }
-        public string Referencia { get; set; }
-    }
 
     public class Mensajes : INotifyPropertyChanged
     {

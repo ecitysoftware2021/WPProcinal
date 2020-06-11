@@ -315,8 +315,29 @@ namespace WPProcinal.Forms.User_Control
             frmLoading.Show();
             var response = await utilities.CreateTransaction("Cine ", _DipMap, _Seats);
             frmLoading.Close();
+            bool validateCombo = false;
 
-            if (!response)
+            if (Utilities._Combos.Count > 0)
+            {
+                validateCombo = true;
+                frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
+                frmLoading.Show();
+                Utilities._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                {
+                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                    Secuencial = Convert.ToInt32(Utilities.Secuencia),
+                    teatro = Utilities.DipMapCurrent.CinemaId,
+                    tercero = 1
+                });
+                frmLoading.Close();
+            }
+            if (validateCombo && (Utilities._DataResolution == null || Utilities._DataResolution.Count == 0))
+            {
+                Utilities.ShowModal("No se pudo obtener la factura de compra, por favor intente de nuevo.");
+                this.IsEnabled = true;
+                this.Opacity = 1;
+            }
+            else if (!response)
             {
                 Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
 
@@ -333,7 +354,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-                        grabador.Grabar(Utilities.IDTransactionDB);
+                        grabador.Grabar(Utilities.IDTransactionDB, 0);
                     });
                 }
                 catch { }

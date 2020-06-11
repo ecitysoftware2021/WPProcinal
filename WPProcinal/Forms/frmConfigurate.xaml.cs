@@ -267,15 +267,6 @@ namespace WPProcinal.Forms
                     Utilities.UpdateApp();
                 }
             });
-            //if (util == null)
-            //{
-            //    util = new Utilities(1);
-            //}
-            //Utilities.LoadData();
-            //Dispatcher.BeginInvoke((Action)delegate
-            //{
-            //    Switcher.Navigate(new UCCinema());
-            //});
         }
     }
 }

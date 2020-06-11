@@ -71,7 +71,7 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Grabador.Transaccion, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Grabador.Transaccion, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Grabador.Transaccion.dll</HintPath>
     </Reference>
@@ -139,36 +139,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ADO\NotifyPay.cs">
-      <DependentUpon>Procinal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ADO\Procinal.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Procinal.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ADO\Procinal.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Procinal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ADO\Procinal.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Procinal.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="ADO\RePrint.cs">
-      <DependentUpon>Procinal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ADO\TblDipMap.cs">
-      <DependentUpon>Procinal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ADO\TblPay.cs">
-      <DependentUpon>Procinal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ADO\TblTypeSeat.cs">
-      <DependentUpon>Procinal.tt</DependentUpon>
-    </Compile>
     <Compile Include="Classes\AdminPaypad.cs" />
     <Compile Include="Classes\ControlPeripheralsNotArduino.cs" />
     <Compile Include="Classes\ErrorCodes.cs" />
@@ -185,10 +155,8 @@
     </Compile>
     <Compile Include="DataModel\ClasesUtiles.cs" />
     <Compile Include="Classes\ControlPeripherals.cs" />
-    <Compile Include="Classes\DBProcinalController.cs" />
     <Compile Include="Classes\Enumerables.cs" />
     <Compile Include="DataModel\Log.cs" />
-    <Compile Include="DataModel\LogError.cs" />
     <Compile Include="DataModel\NotifyMoney.cs">
       <DependentUpon>PayPlusModel.tt</DependentUpon>
     </Compile>
@@ -208,19 +176,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\PayViewModel.cs" />
     <Compile Include="DataModel\Response.cs" />
     <Compile Include="DataModel\Email.cs" />
-    <Compile Include="DataModel\SP_GET_INVOICE_DATA_Result.cs" />
     <Compile Include="Classes\TimerTiempo.cs" />
     <Compile Include="Classes\TPVOperation.cs" />
     <Compile Include="DataModel\Transaction.cs" />
     <Compile Include="DataModel\TypeSeat.cs" />
-    <Compile Include="DataModel\DEVICE_LOG.cs" />
     <Compile Include="DataModel\ERROR_LOG.cs" />
     <Compile Include="DataModel\PAYPAD_CONSOLE_ERROR.cs" />
-    <Compile Include="DataModel\PAYPAD_LOG.cs" />
-    <Compile Include="DataModel\TRANSACTION_DETAIL.cs" />
     <Compile Include="Forms\frmConfigurate.xaml.cs">
       <DependentUpon>frmConfigurate.xaml</DependentUpon>
     </Compile>
@@ -276,6 +239,9 @@
     <Compile Include="Forms\WModal.xaml.cs">
       <DependentUpon>WModal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\WPlateModal.xaml.cs">
+      <DependentUpon>WPlateModal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Keyboard\TouchScreenKeyboard.cs" />
     <Compile Include="Keyboard\TouchScreenKeyNumeric.cs" />
     <Compile Include="Models\ApiLocal\DataPaypad.cs" />
@@ -285,21 +251,8 @@
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\DataDocument.cs" />
     <Compile Include="Models\DateName.cs" />
-    <Compile Include="Models\DesAsignarReserva.cs" />
     <Compile Include="Models\DipMap.cs" />
-    <Compile Include="Models\EstadoFila.cs" />
-    <Compile Include="Models\EstadoSala.cs" />
-    <Compile Include="Models\MapaSala.cs" />
-    <Compile Include="Models\Plantilla.cs" />
-    <Compile Include="Models\Reembolso.cs" />
-    <Compile Include="Models\Reserva.cs" />
-    <Compile Include="Models\Room.cs" />
-    <Compile Include="Models\Seat.cs" />
-    <Compile Include="Models\SeatDisable.cs" />
-    <Compile Include="Models\SecuenciaVenta.cs" />
-    <Compile Include="Models\TransaccionCompra.cs" />
     <Compile Include="Service\ApiLocal.cs" />
-    <Compile Include="Service\ApiServices.cs" />
     <Compile Include="Service\Uptake.cs" />
     <Compile Include="Service\WCFServices41.cs" />
     <Page Include="Forms\frmConfigurate.xaml">
@@ -322,10 +275,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataModel\Function.cs" />
     <Compile Include="DataModel\MoviesViewModel.cs" />
     <Compile Include="Classes\Dictionaries.cs" />
-    <Compile Include="DataModel\SelectViewModel.cs" />
     <Compile Include="Classes\Utilities.cs" />
     <Compile Include="Forms\frmConfirmationModal.xaml.cs">
       <DependentUpon>frmConfirmationModal.xaml</DependentUpon>
@@ -390,14 +341,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\WPlateModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CinemaMovies.cs" />
-    <Compile Include="Models\Movies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -415,14 +368,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="ADO\Procinal.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Procinal.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ADO\Procinal.edmx.diagram">
-      <DependentUpon>Procinal.edmx</DependentUpon>
-    </None>
-    <None Include="DataContext\DB_Local.db" />
     <EntityDeploy Include="DataModel\PayPlusModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PayPlusModel.Designer.cs</LastGenOutput>
@@ -460,16 +405,7 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
-    <Content Include="ADO\Procinal.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Procinal.edmx</DependentUpon>
-      <LastGenOutput>Procinal.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ADO\Procinal.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Procinal.edmx</DependentUpon>
-      <LastGenOutput>Procinal.cs</LastGenOutput>
-    </Content>
+    <Resource Include="Images\Buttons\DELETE.png" />
     <Resource Include="Images\imgCrispetas.png" />
     <Resource Include="Images\Buttons\verCombos.png" />
     <Resource Include="Images\Buttons\verProductos.png" />
@@ -585,14 +521,7 @@
     <Resource Include="Images\Tags\estrenos.png" />
     <Resource Include="Images\Tags\pre-ventas.png" />
     <Resource Include="Images\Tags\Ted.jpg" />
-    <Resource Include="AppData\keysProcinal.txt" />
-    <Content Include="DataBases\DBProcinal.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DataBases\DBProcinal_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>DBProcinal.mdf</DependentUpon>
-    </Content>
+    <Resource Include="AppData\Keys.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

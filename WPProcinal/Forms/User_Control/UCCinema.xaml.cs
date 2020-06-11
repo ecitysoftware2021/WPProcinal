@@ -73,7 +73,7 @@ namespace WPProcinal.Forms.User_Control
 
                 //WCFServices41 a = new WCFServices41();
 
-               //WCFServices41.ConsultResolution(null);
+                //WCFServices41.ConsultResolution(null);
             }
             catch (Exception ex)
             {
@@ -111,12 +111,13 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void gridPrincipal_TouchDown(object sender, TouchEventArgs e)
+        private void ConfigBoletas_TouchDown(object sender, TouchEventArgs e)
         {
             try
             {
                 gridPrincipal.IsEnabled = false;
                 _imageSleader.Stop();
+                Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
                 Switcher.Navigate(new UCMovies());
             }
             catch (System.Exception ex)
@@ -125,5 +126,19 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
+        private void Config_TouchDown(object sender, TouchEventArgs e)
+        {
+            try
+            {
+                gridPrincipal.IsEnabled = false;
+                _imageSleader.Stop();
+                Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
+                Switcher.Navigate(new UCMovies());
+            }
+            catch (System.Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
+            }
+        }
     }
 }

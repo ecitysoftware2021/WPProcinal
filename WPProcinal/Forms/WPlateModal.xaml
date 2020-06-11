@@ -1,0 +1,202 @@
+﻿<Window x:Class="WPProcinal.Forms.WPlateModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPProcinal.Forms"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="WPlateModal"  WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        ShowInTaskbar="False" 
+        Topmost="True"
+        Height="550" 
+        Width="900">
+    <Border 
+            BorderBrush="Black" 
+            BorderThickness="3,3,3,3"
+            CornerRadius="20,20,20,20">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/Backgrounds/p-fondo-general.jpg"
+                        Stretch="Fill"/>
+        </Border.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock 
+                FontSize="30"
+                Foreground="White"
+                FontWeight="Bold"
+                TextAlignment="Center"
+                Text="INGRESA TU PLACA PARA DARTE ACCESO" />
+
+            <TextBox 
+                md:HintAssist.Hint="INGRESA TU PLACA" 
+                md:HintAssist.IsFloating="True" 
+                md:HintAssist.FloatingScale="0.3"
+                FontSize="30"
+                Foreground="White"
+                FontWeight="Bold"
+                TextAlignment="Center"
+                Name="txPlaca"
+                IsEnabled="False"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Margin="297,80,297,26"/>
+
+            <Grid Name="grvStandar" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Margin="177,0" Width="540">
+                <StackPanel Orientation="Vertical" Name="spControls">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Height="60" Width="50" Foreground="White" Content="1" Tag="1" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="2" Tag="2" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="3" Tag="3" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="4" Tag="4" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="5" Tag="5" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="6" Tag="6" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="7" Tag="7" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="8" Tag="8" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="9" Tag="9" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="0" Tag="0" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Height="60" Width="50" Foreground="White" Content="Q" Tag="Q" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="W" Tag="W" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="E" Tag="E" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="R" Tag="R" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="T" Tag="T" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2"  TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="Y" Tag="Y" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="U" Tag="U" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="I" Tag="I" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="O" Tag="O" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="P" Tag="P" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Height="60" Width="50" Foreground="White" Content="A" Tag="A" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="S" Tag="S" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="D" Tag="D" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="F" Tag="F" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="G" Tag="G" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="H" Tag="H" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="J" Tag="J" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="K" Tag="K" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="L" Tag="L" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="Ñ" Tag="Ñ" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Label Height="60" Width="50" Foreground="White" Content="Z" Tag="Z" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="X" Tag="X" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="C" Tag="C" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="V" Tag="V" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="B" Tag="B" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="N" Tag="N" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="M" Tag="M" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="60" Width="50" Foreground="White" Content="X" Tag="X" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                        <Label Height="50" Foreground="White" Content="Borrar" Tag="&lt;" FontSize="25" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+
+                        </Label>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <Image HorizontalAlignment="Center"
+                       Name="BtnEnd"
+                       VerticalAlignment="Bottom"
+                       Width="200"
+                       Margin="347,0"
+                   Grid.Row="1"
+                       Stretch="Uniform"
+                       Source="../Images/Buttons/continuar.png"
+                           TouchDown="BtnContinue_TouchDown" Height="82"
+                       />
+        </Grid>
+    </Border>
+</Window>
