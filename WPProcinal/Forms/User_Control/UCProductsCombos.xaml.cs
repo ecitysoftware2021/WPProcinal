@@ -22,24 +22,22 @@ namespace WPProcinal.Forms.User_Control
     {
         #region "Referencias"
         private TimerTiempo timer;
-        private List<TypeSeat> _Seats;
-        private DipMap _DipMap;
+        private List<ChairsInformation> _Seats;
+        private FunctionInformation _DipMap;
         private CollectionViewSource view;
         private ObservableCollection<Producto> lstPager;
         ApiLocal api;
         CLSGrabador grabador;
-        Utilities utilities;
         private int _Combo4Code = int.Parse(Utilities.GetConfiguration("4Code"));
         #endregion
 
         #region "Constructor"
-        public UCProductsCombos(List<TypeSeat> Seats, DipMap dipMap)
+        public UCProductsCombos(List<ChairsInformation> Seats, FunctionInformation dipMap)
         {
             InitializeComponent();
             _Seats = Seats;
             _DipMap = dipMap;
             api = new ApiLocal();
-            utilities = new Utilities();
             grabador = new CLSGrabador();
             this.view = new CollectionViewSource();
             this.lstPager = new ObservableCollection<Producto>();
@@ -54,7 +52,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                foreach (var product in Utilities._Productos)
+                foreach (var product in DataService41._Productos)
                 {
 
                     if (product.Tipo.ToUpper() == "C")
@@ -177,7 +175,7 @@ namespace WPProcinal.Forms.User_Control
 
         private void ChangeImageBuy()
         {
-            if (Utilities._Combos.Count > 0)
+            if (DataService41._Combos.Count > 0)
             {
                 BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/continuar.png", UriKind.Relative));
             }
@@ -193,7 +191,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 List<long> codesOk = new List<long>();
 
-                foreach (var item in Utilities._Combos)
+                foreach (var item in DataService41._Combos)
                 {
                     if (item.isCombo)
                     {
@@ -226,19 +224,19 @@ namespace WPProcinal.Forms.User_Control
             List<Producto> productos = new List<Producto>();
             //Utilities.dataUser = new SCOLOGResponse();
             decimal precio = 0;
-            foreach (var item in Utilities._Combos)
+            foreach (var item in DataService41._Combos)
             {
                 precio = 0;
                 for (int i = 0; i < item.Quantity; i++)
                 {
-                    var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+                    var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
                     if (combo.Receta != null)
                     {
                         foreach (var receta in combo.Receta)
                         {
                             if (receta.Precios != null)
                             {
-                                if (Utilities.dataUser.Tarjeta != null)
+                                if (DataService41.dataUser.Tarjeta != null)
                                 {
                                     precio += decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]) * receta.Cantidad;
                                 }
@@ -282,7 +280,7 @@ namespace WPProcinal.Forms.User_Control
                                 {
                                     if (preciosReceta.Precios != null)
                                     {
-                                        if (Utilities.dataUser.Tarjeta != null)
+                                        if (DataService41.dataUser.Tarjeta != null)
                                         {
                                             precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
                                         }
@@ -300,7 +298,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         foreach (var preciosReceta in combo.Precios)
                         {
-                            if (Utilities.dataUser.Tarjeta != null)
+                            if (DataService41.dataUser.Tarjeta != null)
                             {
                                 precio = preciosReceta.auxOtroPago;
                             }
@@ -320,26 +318,26 @@ namespace WPProcinal.Forms.User_Control
         {
             FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
             frmLoading.Show();
-            var response = await utilities.CreateTransaction("Cine ", _DipMap, _Seats);
+            var response = await Utilities.CreateTransaction("Cine ", _DipMap, _Seats);
             frmLoading.Close();
 
             bool validateCombo = false;
 
-            if (Utilities._Combos.Count > 0)
+            if (DataService41._Combos.Count > 0)
             {
                 validateCombo = true;
                 frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
                 frmLoading.Show();
-                Utilities._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
                 {
                     Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
-                    Secuencial = Convert.ToInt32(Utilities.Secuencia),
-                    teatro = Utilities.DipMapCurrent.CinemaId,
+                    Secuencial = Convert.ToInt32(DataService41.Secuencia),
+                    teatro = Utilities.SelectedFunction.CinemaId,
                     tercero = 1
                 });
                 frmLoading.Close();
             }
-            if (validateCombo && (Utilities._DataResolution == null || Utilities._DataResolution.Count == 0))
+            if (validateCombo && (DataService41._DataResolution == null || DataService41._DataResolution.Count == 0))
             {
                 Utilities.ShowModal("No se pudo obtener la factura de compra, por favor intente de nuevo.");
                 this.IsEnabled = true;
@@ -367,11 +365,11 @@ namespace WPProcinal.Forms.User_Control
                 }
                 catch { }
 
-                if (Utilities.MedioPago == 1)
+                if (Utilities.MedioPago == EPaymentType.Cash)
                 {
                     Switcher.Navigate(new UCPayCine(_Seats, _DipMap));
                 }
-                else if (Utilities.MedioPago == 2)
+                else if (Utilities.MedioPago == EPaymentType.Card)
                 {
                     Switcher.Navigate(new UCCardPayment(_Seats, _DipMap));
                 }

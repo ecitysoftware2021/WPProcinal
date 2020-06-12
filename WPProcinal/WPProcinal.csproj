@@ -140,10 +140,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\AdminPaypad.cs" />
-    <Compile Include="Classes\ControlPeripheralsNotArduino.cs" />
-    <Compile Include="Classes\ErrorCodes.cs" />
     <Compile Include="Classes\ImagesSleader.cs" />
-    <Compile Include="Classes\LocalConfectionery.cs" />
     <Compile Include="Classes\Login.cs" />
     <Compile Include="Classes\Print.cs" />
     <Compile Include="Classes\Switcher.cs" />
@@ -181,7 +178,7 @@
     <Compile Include="Classes\TimerTiempo.cs" />
     <Compile Include="Classes\TPVOperation.cs" />
     <Compile Include="DataModel\Transaction.cs" />
-    <Compile Include="DataModel\TypeSeat.cs" />
+    <Compile Include="DataModel\ChairsInformation.cs" />
     <Compile Include="DataModel\ERROR_LOG.cs" />
     <Compile Include="DataModel\PAYPAD_CONSOLE_ERROR.cs" />
     <Compile Include="Forms\frmConfigurate.xaml.cs">
@@ -251,7 +248,7 @@
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\DataDocument.cs" />
     <Compile Include="Models\DateName.cs" />
-    <Compile Include="Models\DipMap.cs" />
+    <Compile Include="Models\FunctionInformation.cs" />
     <Compile Include="Service\ApiLocal.cs" />
     <Compile Include="Service\Uptake.cs" />
     <Compile Include="Service\WCFServices41.cs" />

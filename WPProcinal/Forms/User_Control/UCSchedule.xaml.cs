@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using WPProcinal.Classes;
 using WPProcinal.Models;
+using WPProcinal.Service;
 
 namespace WPProcinal.Forms.User_Control
 {
@@ -49,9 +50,9 @@ namespace WPProcinal.Forms.User_Control
         {
             InitializeComponent();
             this.Movie = Movie;
-            Utilities.Movie = Movie;
+            DataService41.Movie = Movie;
 
-            foreach (var peli in Utilities.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
+            foreach (var peli in DataService41.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
             {
                 ListFechas(peli.DiasDisponiblesTodosCinemas);
             }
@@ -81,9 +82,9 @@ namespace WPProcinal.Forms.User_Control
                 FontS = 35;
             }
             GenerateFunctions();
-            if (Utilities.Movie.Data.Censura.Contains("15") || Utilities.Movie.Data.Censura.Contains("18"))
+            if (DataService41.Movie.Data.Censura.Contains("15") || DataService41.Movie.Data.Censura.Contains("18"))
             {
-                frmModal modal = new frmModal(string.Format(Utilities.GetConfiguration("MensajeCensura"), Utilities.Movie.Data.Censura));
+                frmModal modal = new frmModal(string.Format(Utilities.GetConfiguration("MensajeCensura"), DataService41.Movie.Data.Censura));
                 modal.ShowDialog();
             }
             ActivateTimer();
@@ -127,7 +128,7 @@ namespace WPProcinal.Forms.User_Control
                 //Se arma una lista con los datos de sólo el cinema donde se encuentra la máquina
                 int Hour = DateTime.Now.Hour;
 
-                foreach (var peli in Utilities.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
+                foreach (var peli in DataService41.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
                 {
 
                     //ListFechas(peli.DiasDisponiblesTodosCinemas);
@@ -339,11 +340,11 @@ namespace WPProcinal.Forms.User_Control
             return DateInvert;
         }
 
-        private DipMap SetProperties(Schedule schedule)
+        private FunctionInformation SetProperties(Schedule schedule)
         {
             int Hour = Convert.ToInt32(schedule.MilitarHour.ToString().Substring(0, 2));
             string DateFormat = InvertDate(schedule.UnivDate);
-            DipMap map = new DipMap
+            FunctionInformation map = new FunctionInformation
             {
                 MovieName = schedule.Title,
                 Language = schedule.Language,
@@ -688,7 +689,7 @@ namespace WPProcinal.Forms.User_Control
                     Utilities.MovieFormat = formato[0];
                 }
                 Utilities.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
-                DipMap dipmap = SetProperties(schedule);
+                FunctionInformation dipmap = SetProperties(schedule);
 
                 SetCallBacksNull();
                 timer.CallBackStop?.Invoke(1);

@@ -23,13 +23,13 @@ namespace WPProcinal.Forms
         decimal totalModal = 0;
         decimal totalPago = 0;
 
-        List<TypeSeat> _typeSeats;
-        DipMap _dipMap;
+        List<ChairsInformation> _typeSeats;
+        FunctionInformation _dipMap;
         List<Combos> _View;
         #endregion
 
-        public frmConfirmationModal(List<TypeSeat> typeSeats,
-            DipMap dipMap,
+        public frmConfirmationModal(List<ChairsInformation> typeSeats,
+            FunctionInformation dipMap,
             bool visibleCombo = false)
         {
             InitializeComponent();
@@ -43,9 +43,9 @@ namespace WPProcinal.Forms
         private void ConfigureView()
         {
             HideOrShowButtons();
-            if (Utilities._Combos != null)
+            if (DataService41._Combos != null)
             {
-                foreach (var item in Utilities._Combos)
+                foreach (var item in DataService41._Combos)
                 {
                     _View.Add(new Combos
                     {
@@ -80,7 +80,7 @@ namespace WPProcinal.Forms
             foreach (var item in _View)
             {
                 totalPago += item.Price;
-                item.Price = Utilities.RoundValue(item.Price);
+                item.Price = RoundValue(item.Price);
                 totalModal += item.Price;
             }
 
@@ -119,14 +119,14 @@ namespace WPProcinal.Forms
         private void BtnCard_TouchDown(object sender, TouchEventArgs e)
         {
             this.IsEnabled = false;
-            Utilities.MedioPago = 2;
+            Utilities.MedioPago = EPaymentType.Card;
             DialogResult = true;
         }
 
         private void BtnCash_TouchDown(object sender, TouchEventArgs e)
         {
             this.IsEnabled = false;
-            Utilities.MedioPago = 1;
+            Utilities.MedioPago = EPaymentType.Cash;
             DialogResult = true;
         }
 
@@ -154,16 +154,22 @@ namespace WPProcinal.Forms
         {
             try
             {
-                var dataToDelete = Utilities._Combos.Where(com => com.Code == combo.Code).FirstOrDefault();
+                var dataToDelete = DataService41._Combos.Where(com => com.Code == combo.Code).FirstOrDefault();
                 if (dataToDelete != null)
                 {
-                    Utilities._Combos.Remove(dataToDelete);
+                    DataService41._Combos.Remove(dataToDelete);
                 }
             }
             catch (Exception)
             {
 
             }
+        }
+        public static decimal RoundValue(decimal valor)
+        {
+            decimal roundVal = (Math.Ceiling(valor / 100)) * 100;
+
+            return roundVal;
         }
     }
 }

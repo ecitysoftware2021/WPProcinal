@@ -81,7 +81,7 @@ namespace WPProcinal.Forms
 
                         if (data.StateUpdate)
                         {
-                            ShowModalError("Tiene una actualización pendiente por favor no manipule ni apague el PayPlus mientras termina la instalación.", true);
+                            ShowModalError("Hay una nueva versión de la aplicación, pendiente por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
                         }
                         else if (data.State)
                         {
@@ -90,7 +90,7 @@ namespace WPProcinal.Forms
                                 stateMoney = true;
                                 if (util == null)
                                 {
-                                    util = new Utilities(1);
+                                    util = new Utilities();
                                 }
                                 if (configurateActive != 1)
                                 {
@@ -109,8 +109,6 @@ namespace WPProcinal.Forms
                                         Utilities.control.OpenSerialPorts();
                                         Utilities.control.Start();
                                         Utilities.control.StartCoinAcceptorDispenser();
-                                        Utilities.PeripheralsNotArduino.ProcessResponsePrinter(0);
-                                        //Utilities.PeripheralsNotArduino.ProcessResponsePrinter(validator.ValidatePrinter());
                                         Utilities.LoadData();
                                     });
                                 }
@@ -198,25 +196,15 @@ namespace WPProcinal.Forms
                 });
             };
 
-            ControlPeripheralsNotArduino.callbackStatusPrinter = Status =>
+
+            Dispatcher.BeginInvoke((Action)delegate
             {
-                if (Status.STATUS == "OK" || Status.STATUS == "ALERT")
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        ControlPeripheralsNotArduino.callbackStatusPrinter = null;
-                        peripheralsValidated++;
-                        okImpresora.Visibility = Visibility.Visible;
-                        badImpresora.Visibility = Visibility.Hidden;
-                        CheckPeripheralsAndContinue();
-                    });
-                }
-                else
-                {
-                    LogService.SaveRequestResponse("Iniciando la impresora", Status.STATUS, 2);
-                    ShowModalError(Status.ERROR_MESSAGE);
-                }
-            };
+                peripheralsValidated++;
+                okImpresora.Visibility = Visibility.Visible;
+                badImpresora.Visibility = Visibility.Hidden;
+                CheckPeripheralsAndContinue();
+            });
+
 
         }
 
@@ -225,7 +213,6 @@ namespace WPProcinal.Forms
             try
             {
                 peripheralsValidated = 0;
-                ControlPeripheralsNotArduino.callbackStatusPrinter = null;
                 Utilities.control.callbackToken = null;
                 Utilities.control.callbackStatusCoinAceptanceDispenser = null;
                 Utilities.control.callbackStatusBillAceptance = null;
@@ -250,20 +237,23 @@ namespace WPProcinal.Forms
         }
 
 
-        private void ShowModalError(string description,bool stop = false)
+        private void ShowModalError(string description, bool stop = false)
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
                 SetCallbackNull();
-                frmModal modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description),stop);
-                modal.ShowDialog();
+                frmModal modal;
 
                 if (!stop)
                 {
+                    modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description), stop);
+                    modal.ShowDialog();
                     GetToken();
                 }
                 else
                 {
+                    modal = new frmModal(description, stop);
+                    modal.ShowDialog();
                     Utilities.UpdateApp();
                 }
             });

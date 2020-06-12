@@ -2,7 +2,7 @@
 
 namespace WPProcinal.Models
 {
-    public class DipMap
+    public class FunctionInformation
     {
         public int CinemaId { get; set; }//Id del cinema ex:303
         public int RoomId { get; set; }//Id sala ex: 1

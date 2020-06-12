@@ -19,10 +19,7 @@ namespace WPProcinal.Service
     {
 
         static EcityDataEncrypt dataEncrypt = new EcityDataEncrypt();
-        public WCFServices41()
-        {
-        }
-
+       
         private static void ServerCertificateValidationCallback()
         {
             ServicePointManager.ServerCertificateValidationCallback += delegate (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
@@ -91,10 +88,10 @@ namespace WPProcinal.Service
                 var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion sala", seria, 1);
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scoest/");
+                var client = new RestClient(DataService41.APISCORE + "/scoest/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -110,7 +107,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
 
                 var est = JsonConvert.DeserializeObject<List<EstadoSala41>>(decryptData);
                 if (est.Count < 2)
@@ -144,10 +141,10 @@ namespace WPProcinal.Service
                 var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion precios sillas", seria, 1);
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scopla/");
+                var client = new RestClient(DataService41.APISCORE + "/scopla/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -163,7 +160,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta Precios Sillas", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseTarifa>>(decryptData);
                 if (est[0].sala == null)
@@ -196,10 +193,10 @@ namespace WPProcinal.Service
                 var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion secuencia", seria, 1);
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scosec/");
+                var client = new RestClient(DataService41.APISCORE + "/scosec/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -215,7 +212,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta secuencia", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseSec>>(decryptData);
 
@@ -249,10 +246,10 @@ namespace WPProcinal.Service
                 var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion preventa", seria, 1);
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scogru/");
+                var client = new RestClient(DataService41.APISCORE + "/scogru/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -268,7 +265,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta preventa", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseScogru>>(decryptData);
                 return est;
@@ -297,10 +294,10 @@ namespace WPProcinal.Service
                 var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion Compra", seria, 1);
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scoint/");
+                var client = new RestClient(DataService41.APISCORE + "/scoint/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -316,7 +313,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta Compra", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseScoint>>(decryptData);
                 return est;
@@ -357,7 +354,7 @@ namespace WPProcinal.Service
         /// <param name="typeSeatsCurrent"></param>
         /// <param name="dipMapCurrent"></param>
         #region SCOSIL
-        public static List<ResponseScoint> PostDesAssingreserva(TypeSeat typeSeatsCurrent, DipMap dipMapCurrent)
+        public static List<ResponseScoint> PostDesAssingreserva(ChairsInformation typeSeatsCurrent, FunctionInformation dipMapCurrent)
         {
             string decryptData = string.Empty;
             try
@@ -380,10 +377,10 @@ namespace WPProcinal.Service
                 LogService.SaveRequestResponse("Peticion desreservar", seria, 1);
 
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scosil/");
+                var client = new RestClient(DataService41.APISCORE + "/scosil/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -399,7 +396,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta al desreservar", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseScoint>>(decryptData);
                 return est;
@@ -428,10 +425,10 @@ namespace WPProcinal.Service
                 var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion cnfiteria", seria, 1);
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scopre/");
+                var client = new RestClient(DataService41.APISCORE + "/scopre/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -446,7 +443,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
 
                 var est = JsonConvert.DeserializeObject<Confiteria>(decryptData);
                 if (est.ListaProductos.Count < 6)
@@ -481,10 +478,10 @@ namespace WPProcinal.Service
                 var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion clave cliente", seria, 1);
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scoced/");
+                var client = new RestClient(DataService41.APISCORE + "/scoced/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -499,7 +496,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta clave cliente", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<SCOCSNResponse[]>(decryptData);
 
@@ -529,10 +526,10 @@ namespace WPProcinal.Service
                 var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion data cliente", seria, 1);
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
 
-                var client = new RestClient(Utilities.APISCORE + "/scoced/");
+                var client = new RestClient(DataService41.APISCORE + "/scoced/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -545,7 +542,7 @@ namespace WPProcinal.Service
                 IRestResponse response = client.Execute(request);
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta al consultar la data del cliente", decryptData, 1);
                 var clientdata = JsonConvert.DeserializeObject<List<SCOLOGResponse>>(decryptData);
                 return clientdata;
@@ -573,9 +570,9 @@ namespace WPProcinal.Service
                 LogService.SaveRequestResponse("Petición Consultar Resolución Factura", seria, 1);
 
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
-                var client = new RestClient(Utilities.APISCORE + "/scores/");
+                var client = new RestClient(DataService41.APISCORE + "/scores/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -591,7 +588,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta al consultar la resolución", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseScores>>(decryptData);
                 return est;
@@ -619,9 +616,9 @@ namespace WPProcinal.Service
                 var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion para consultar los puntos", seria, 1);
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
-                var client = new RestClient(Utilities.APISCORE + "/scomov/");
+                var client = new RestClient(DataService41.APISCORE + "/scomov/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -637,7 +634,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta al consultar los puntos", decryptData, 1);
 
                 var est = JsonConvert.DeserializeObject<List<ResponseScomov>>(decryptData);
@@ -674,9 +671,9 @@ namespace WPProcinal.Service
                 var seria = JsonConvert.SerializeObject(sCORET);
                 LogService.SaveRequestResponse("Peticion para cancelar la compra", seria, 1);
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
-                var client = new RestClient(Utilities.APISCORE + "/scoret/");
+                var client = new RestClient(DataService41.APISCORE + "/scoret/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -692,7 +689,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta al cancelar la compra", decryptData, 1);
 
                 var est = JsonConvert.DeserializeObject<List<ResponseScoret>>(decryptData);
@@ -723,9 +720,9 @@ namespace WPProcinal.Service
                 LogService.SaveRequestResponse("Peticion para obtener los codigos de tarjetas", seria, 1);
 
                 //Data encriptada con la llave de score
-                var encryptData = dataEncrypt.Encrypt(seria, Utilities.SCOREKEY);
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
-                var client = new RestClient(Utilities.APISCORE + "/scotdc/");
+                var client = new RestClient(DataService41.APISCORE + "/scotdc/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Connection", "keep-alive");
@@ -741,7 +738,7 @@ namespace WPProcinal.Service
 
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
-                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, Utilities.SCOREKEY);
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
 
                 LogService.SaveRequestResponse("Respuesta al obtener los codigos de tarjetas", decryptData, 1);
 
@@ -1182,5 +1179,62 @@ namespace WPProcinal.Service
         public string request { get; set; }
     }
 
+    public static class DataService41
+    {
+        /// <summary>
+        /// Lista para recibir la informacion de la resolución de factura de score
+        /// </summary>
+        public static List<ResponseScores> _DataResolution = new List<ResponseScores>();
+        /// <summary>
+        /// Lista global para registrar los productos que se seleccionen
+        /// en la pantalla de confiteria
+        /// </summary>
+        public static List<Combos> _Combos = new List<Combos>();
+
+        /// <summary>
+        /// Lista global para almacenar los productos que devuelva  el servicio SCOPRE
+        /// </summary>
+        public static List<Producto> _Productos;
+
+        /// <summary>
+        /// Lista para almacenar las peliculas que devuelva el xml
+        /// </summary>
+        public static List<Pelicula> Movies;
+
+        /// <summary>
+        /// Objeto que almacena la informacion del usuario cinefan
+        /// </summary>
+        public static SCOLOGResponse dataUser;
+
+        /// <summary>
+        /// URL de la api de score
+        /// </summary>
+        public static string APISCORE = Utilities.GetConfiguration("ScoreService");
+
+        /// <summary>
+        /// Llave de desencripción de las respuestas de score
+        /// </summary>
+        public static string SCOREKEY = Utilities.GetConfiguration("ScoreKey");
+
+        /// <summary>
+        /// URL de los posters de las películas
+        /// </summary>
+        public static string UrlImages = Utilities.GetConfiguration("UrlImages");
+
+        /// <summary>
+        /// Numero de secuencia de cada compra en score, se utiliza para la notificación del pago
+        /// </summary>
+        public static string Secuencia { get; set; }
+
+        /// <summary>
+        /// Objeto para almacenar la data de la película seleccionada por el usuario
+        /// </summary>
+        public static Pelicula Movie;
+
+        /// <summary>
+        /// Objeto para deserializar el xml y tenerlo en memoria
+        /// </summary>
+        public static Peliculas Peliculas;
+    }
 
 }

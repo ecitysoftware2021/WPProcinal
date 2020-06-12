@@ -1,10 +1,12 @@
 ﻿using Grabador.Transaccion;
 using PrinterValidator;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPProcinal.Classes;
@@ -21,13 +23,16 @@ namespace WPProcinal.Forms.User_Control
         static CLSGrabador grabador = new CLSGrabador();
         private FrmLoading frmLoading;
         private ImageSleader _imageSleader;
+        System.Timers.Timer timerStatePay = new System.Timers.Timer();
 
         public UCCinema()
         {
             InitializeComponent();
             ConfiguratePublish();
+            timerStatePay.Interval = 10000;
+            timerStatePay.Elapsed += new System.Timers.ElapsedEventHandler(TimerStatePay_Tick);
+            timerStatePay.Start();
 
-            Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
             try
             {
                 grabador.FinalizarGrabacion();
@@ -54,13 +59,22 @@ namespace WPProcinal.Forms.User_Control
 
         }
 
+        private void TimerStatePay_Tick(object sender, ElapsedEventArgs e)
+        {
+            Task.Run(() =>
+            {
+                Utilities.ReValidatePayPad();
+            });
+           
+        }
+
         private async void ConfiguratePublish()
         {
             try
             {
                 if (_imageSleader == null)
                 {
-                    _imageSleader = new ImageSleader(Utilities.path);
+                    _imageSleader = new ImageSleader(Utilities.PublicityPath);
 
                     this.DataContext = _imageSleader.imageModel;
 
@@ -85,9 +99,6 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-
-                Utilities.LstMovies.Clear();
-
                 string dataXml = string.Empty;
                 var response = WCFServices41.DownloadData();
                 frmLoading.Close();
@@ -102,7 +113,7 @@ namespace WPProcinal.Forms.User_Control
 
                 dataXml = Utilities.GetFileXML();
                 Peliculas data = WCFServices41.DeserealizeXML<Peliculas>(dataXml);
-                Utilities.Peliculas = data;
+                DataService41.Peliculas = data;
 
             }
             catch (System.Exception ex)
@@ -115,10 +126,14 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                gridPrincipal.IsEnabled = false;
-                _imageSleader.Stop();
-                Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
-                Switcher.Navigate(new UCMovies());
+                if (ValidatePayPad())
+                {
+                    timerStatePay.Stop();
+                    gridPrincipal.IsEnabled = false;
+                    _imageSleader.Stop();
+                    Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
+                    Switcher.Navigate(new UCMovies());
+                }
             }
             catch (System.Exception ex)
             {
@@ -130,14 +145,46 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                gridPrincipal.IsEnabled = false;
-                _imageSleader.Stop();
-                Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
-                Switcher.Navigate(new UCMovies());
+                if (ValidatePayPad())
+                {
+                    timerStatePay.Stop();
+                    gridPrincipal.IsEnabled = false;
+                    _imageSleader.Stop();
+                    Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
+                    Switcher.Navigate(new UCMovies());
+                }
             }
             catch (System.Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+
+        private bool ValidatePayPad()
+        {
+            if (Utilities.dataPaypad.StateUpdate)
+            {
+                frmModal modal = new frmModal("Tiene una actualización pendiente por favor no manipule ni apague el PayPlus mientras termina la instalación.", true);
+                modal.ShowDialog();
+                Utilities.UpdateApp();
+                return false;
+            }
+            else if (!Utilities.dataPaypad.State)
+            {
+                frmModal modal = new frmModal("Perdí la conexión, intenta en un momento por favor!", false);
+                modal.ShowDialog();
+                return false;
+            }
+            else if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
+            {
+                return true;
+            }
+            else
+            {
+                frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeSinDinero"));
+                modal.ShowDialog();
+                return false;
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -27,6 +28,22 @@ namespace WPProcinal.Forms.User_Control
         int totalPage = 0;
         int login = 0;
 
+        /// <summary>
+        /// Variable de control, para evitar validar varias veces la misma imagen,
+        /// esta validacion de imagen se hace para notificar al cinema cuando un poster esta malo
+        /// </summary>
+        private bool ImgValidatorFlag = true;
+
+        /// <summary>
+        /// Lista de imagenes que estan mal cargadas, esta lista se reporta por correo al cinema para su corrección.
+        /// </summary>
+        private List<DataImagesScore> BadImages;
+
+        /// <summary>
+        /// Modelo que se va a bindar para mostrar la lista de peliculas
+        /// </summary>
+        private ObservableCollection<MoviesViewModel> LstMoviesModel;
+
         TimerTiempo timer;
 
         #endregion
@@ -38,27 +55,21 @@ namespace WPProcinal.Forms.User_Control
         public UCMovies()
         {
             InitializeComponent();
-            Task.Run(() =>
-            {
-                ValidatePayPad();
-            });
+
             var frmLoading = new FrmLoading("¡Cargando peliculas...!");
             frmLoading.Show();
             try
             {
-                Utilities.Movies.Clear();
-
-                Utilities.LstMovies.Clear();
-                Utilities.CinemaId = Utilities.GetConfiguration("CodCinema");
+                DataService41.Movies = new List<Pelicula>();
+                LstMoviesModel = new ObservableCollection<MoviesViewModel>();
                 lblCinema1.Text = Dictionaries.Cinemas[Utilities.CinemaId];
 
                 this.Dispatcher.Invoke(new ThreadStart(() =>
                 {
-                    DownloadData(Utilities.Peliculas);
-                    CreatePages();
+                    DownloadData(DataService41.Peliculas);
                     frmLoading.Close();
                 }));
-                Utilities.DoEvents();
+                //Utilities.DoEvents();
 
             }
             catch (Exception ex)
@@ -80,10 +91,10 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (Cinema.Cinema.Id == Utilities.CinemaId)
                             {
-                                var peliculaExistente = Utilities.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
+                                var peliculaExistente = DataService41.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
                                 if (peliculaExistente == 0)
                                 {
-                                    Utilities.Movies.Add(pelicula);
+                                    DataService41.Movies.Add(pelicula);
                                     LoadMovies(pelicula);
                                 }
                             }
@@ -96,10 +107,77 @@ namespace WPProcinal.Forms.User_Control
                 this.IsEnabled = true;
                 Task.Run(() =>
                 {
-                    Utilities.ValidateImages();
+                    ValidateImages();
                 });
             }
 
+        }
+
+        private void ValidateImages()
+        {
+            if (ImgValidatorFlag)
+            {
+                ImgValidatorFlag = false;
+                try
+                {
+                    BadImages = new List<DataImagesScore>();
+                    ObservableCollection<MoviesViewModel> images = new ObservableCollection<MoviesViewModel>();
+                    foreach (var item in LstMoviesModel)
+                    {
+                        images.Add(item);
+                    }
+                    foreach (var item in images)
+                    {
+                        if (!WCFServices41.StateImage(item.ImageTag))
+                        {
+                            BadImages.Add(new DataImagesScore
+                            {
+                                Pelicula = item.Title,
+                                Url = item.ImageTag
+                            });
+                        }
+                    }
+
+                    if (BadImages.Count > 0)
+                    {
+                        SendMailImages();
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+                ImgValidatorFlag = true;
+            }
+        }
+
+        private void SendMailImages()
+        {
+            try
+            {
+                ApiLocal api = new ApiLocal();
+                Email mail;
+                string data = string.Empty;
+
+                foreach (var item in BadImages)
+                {
+                    data += $"Película: {item.Pelicula}, Imágen: {item.Url} <br>";
+                }
+
+                mail = new Email
+                {
+                    Body = $"No fué posible descargar las siguientes imágenes:<br> {data} <br>" +
+                            $"Por favor revisar el repositorio de imagenes Url: {Utilities.GetConfiguration("UrlImages")} <br>" +
+                            "Nota: revisar que el nombre de la imágen este bien escrito o que la imágen si exista.",
+                    Subject = "Alerta Información Pay+",
+                    paypad_id = Utilities.CorrespondentId
+                };
+
+                var response = api.GetResponse(mail, "SendEmail");
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         public void LoadMovies(Pelicula pelicula)
@@ -111,7 +189,7 @@ namespace WPProcinal.Forms.User_Control
 
                 string image = pelicula.Data.Imagen;
 
-                Utilities.LstMovies.Add(new MoviesViewModel
+                LstMoviesModel.Add(new MoviesViewModel
                 {
                     ImageData = Utilities.LoadImage(image, true),
                     Tag = pelicula.Id,
@@ -175,100 +253,20 @@ namespace WPProcinal.Forms.User_Control
         }
 
         #region Methods
-        private void ValidatePayPad()
-        {
-            try
-            {
-                AdminPaypad adminPaypad = new AdminPaypad();
-                adminPaypad.UpdatePeripherals();
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "ValidatePayPad en frmMovies", EError.Aplication, ELevelError.Medium);
-            }
-        }
 
-        private void CreatePages()
-        {
-            try
-            {
-                int itemcount = Utilities.Movies.Count;
+        //private void View_Filter(object sender, FilterEventArgs e)
+        //{
+        //    int index = LstMovies.IndexOf((MoviesViewModel)e.Item);
+        //    if (index >= itemPerPage * currentPageIndex && index < itemPerPage * (currentPageIndex + 1))
+        //    {
+        //        e.Accepted = true;
+        //    }
+        //    else
+        //    {
 
-                // Calculate the total pages
-                totalPage = itemcount / itemPerPage;
-                if (itemcount % itemPerPage != 0)
-                {
-                    totalPage += 1;
-                }
-
-                if (totalPage == 1)
-                {
-                    btnNext.Visibility = Visibility.Hidden;
-                    btnPrev.Visibility = Visibility.Hidden;
-                }
-
-                Thread.Sleep(1000);
-                view.Source = Utilities.LstMovies;
-                view.Filter += new FilterEventHandler(View_Filter);
-                this.DataContext = view;
-                ShowCurrentPageIndex();
-                tbTotalPage.Text = totalPage.ToString();
-
-                GifLoadder.Visibility = Visibility.Hidden;
-                ValidateImage();
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "CreatePages en frmMovies", EError.Aplication, ELevelError.Medium);
-            }
-
-        }
-
-        private void ShowCurrentPageIndex()
-        {
-            ValidateImage();
-            this.tbCurrentPage.Text = (currentPageIndex + 1).ToString();
-        }
-
-        private void View_Filter(object sender, FilterEventArgs e)
-        {
-            int index = Utilities.LstMovies.IndexOf((MoviesViewModel)e.Item);
-            if (index >= itemPerPage * currentPageIndex && index < itemPerPage * (currentPageIndex + 1))
-            {
-                e.Accepted = true;
-            }
-            else
-            {
-
-                e.Accepted = false;
-            }
-        }
-        #endregion
-
-
-        #region Buttons-Events
-
-        private void ValidateImage()
-        {
-            if (currentPageIndex == 0)
-            {
-                btnPrev.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                btnPrev.Visibility = Visibility.Visible;
-            }
-
-            if (currentPageIndex == totalPage - 1)
-            {
-                btnNext.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                btnNext.Visibility = Visibility.Visible;
-            }
-        }
-
+        //        e.Accepted = false;
+        //    }
+        //}
         #endregion
 
         private void btnAtras_TouchDown(object sender, TouchEventArgs e)
@@ -292,53 +290,12 @@ namespace WPProcinal.Forms.User_Control
             }
             catch { }
 
-            if (Utilities.dataPaypad.StateUpdate)
-            {
-                frmModal modal = new frmModal("Tiene una actualización pendiente por favor no manipule ni apague el PayPlus mientras termina la instalación.", true);
-                modal.ShowDialog();
-                Utilities.UpdateApp();
-            }
-            else if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
-            {
-                Image TocuhImage = (Image)sender;
-                var movie = Utilities.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
-                string image = movie.Data.Imagen;
-                Utilities.ImageSelected = Utilities.LoadImage(image, true);
-                Switcher.Navigate(new UCSchedule(movie));
-            }
-            else
-            {
-                frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeSinDinero"));
-                modal.ShowDialog();
-                Switcher.Navigate(new UCCinema());
-            }
-        }
+            Image TocuhImage = (Image)sender;
+            var movie = DataService41.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
+            string image = movie.Data.Imagen;
+            Utilities.ImageSelected = Utilities.LoadImage(image, true);
+            Switcher.Navigate(new UCSchedule(movie));
 
-        private void BtnPrev_TouchDown(object sender, TouchEventArgs e)
-        {
-            SetCallBacksNull();
-            ActivateTimer();
-            // Display previous page
-            if (currentPageIndex > 0)
-            {
-                currentPageIndex--;
-                view.View.Refresh();
-            }
-
-            ShowCurrentPageIndex();
-        }
-
-        private void BtnNext_TouchDown(object sender, TouchEventArgs e)
-        {
-            SetCallBacksNull();
-            ActivateTimer();
-            // Display next page
-            if (currentPageIndex < totalPage - 1)
-            {
-                currentPageIndex++;
-                view.View.Refresh();
-            }
-            ShowCurrentPageIndex();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -361,9 +318,9 @@ namespace WPProcinal.Forms.User_Control
                         if (modalCineFan.DialogResult.HasValue &&
                         modalCineFan.DialogResult.Value)
                         {
-                            if (!string.IsNullOrEmpty(Utilities.dataUser.Nombre))
+                            if (!string.IsNullOrEmpty(DataService41.dataUser.Nombre))
                             {
-                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataUser.Nombre.ToUpperInvariant();
+                                txtNameUser.Text = "Bienvenid@ " + DataService41.dataUser.Nombre.ToUpperInvariant();
                                 txtNameUser.Visibility = Visibility.Visible;
                             }
                         }
@@ -374,7 +331,7 @@ namespace WPProcinal.Forms.User_Control
                     }
                     else
                     {
-                        Switcher.Navigate(new UCProductsCombos(new List<TypeSeat>(), new DipMap()));
+                        Switcher.Navigate(new UCProductsCombos(new List<ChairsInformation>(), new FunctionInformation()));
                     }
                 });
             });

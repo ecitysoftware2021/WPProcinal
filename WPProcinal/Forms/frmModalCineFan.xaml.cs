@@ -30,10 +30,8 @@ namespace WPProcinal.Forms
         public frmModalCineFan()
         {
             InitializeComponent();
-            TouchScreenKeyboard.PositionX = 90;
-            TouchScreenKeyboard.PositionY = 0;
             Utilities.dataDocument = new Models.DataDocument();
-            Utilities.dataUser = new SCOLOGResponse();
+            DataService41.dataUser = new SCOLOGResponse();
 
             Utilities.Speack("Bienvenido, si eres un cinefán, escanea tu cédula en el lector!");
         }
@@ -124,11 +122,11 @@ namespace WPProcinal.Forms
                     {
                         if (item.Tarjeta != null)
                         {
-                            Utilities.dataUser = item;
-                            Utilities.dataUser.Puntos = WCFServices41.ConsultPoints(new SCOMOV
+                            DataService41.dataUser = item;
+                            DataService41.dataUser.Puntos = WCFServices41.ConsultPoints(new SCOMOV
                             {
-                                Correo = Utilities.dataUser.Login,
-                                Clave = Utilities.dataUser.Clave,
+                                Correo = DataService41.dataUser.Login,
+                                Clave = DataService41.dataUser.Clave,
                                 tercero = 1
                             });
                             isCineFan = true;

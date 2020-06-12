@@ -22,7 +22,7 @@ namespace WPProcinal.Forms.User_Control
         {
             Task.Run(() =>
             {
-                Thread.Sleep(1000);
+                Utilities.ReValidatePayPad();
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     Utilities.GoToInicial();

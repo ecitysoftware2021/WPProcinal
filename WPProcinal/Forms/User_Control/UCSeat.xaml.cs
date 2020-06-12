@@ -20,8 +20,8 @@ namespace WPProcinal.Forms.User_Control
     /// </summary>
     public partial class UCSeat : UserControl
     {
-        List<TypeSeat> SelectedTypeSeats = new List<TypeSeat>();
-        DipMap dipMapCurrent = new DipMap();
+        List<ChairsInformation> SelectedTypeSeats = new List<ChairsInformation>();
+        FunctionInformation dipMapCurrent = new FunctionInformation();
 
         bool _ErrorTransaction = true;
 
@@ -32,18 +32,16 @@ namespace WPProcinal.Forms.User_Control
 
         ApiLocal api;
         CLSGrabador grabador;
-        Utilities utilities;
 
-        public UCSeat(DipMap dipMap)
+        public UCSeat(FunctionInformation dipMap)
         {
             InitializeComponent();
             try
             {
 
                 api = new ApiLocal();
-                utilities = new Utilities();
                 grabador = new CLSGrabador();
-                Utilities._Combos = new List<Combos>();
+                DataService41._Combos = new List<Combos>();
                 frmLoading = new FrmLoading("¡Cargando la sala!");
                 dipMapCurrent = dipMap;
                 TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
@@ -81,7 +79,7 @@ namespace WPProcinal.Forms.User_Control
                     frmLoading.Close();
                 });
 
-                Utilities.DoEvents();
+                //Utilities.DoEvents();
             }
             catch (Exception ex)
             {
@@ -285,7 +283,7 @@ namespace WPProcinal.Forms.User_Control
                         };
 
 
-                        TypeSeat typeSeat = new TypeSeat
+                        ChairsInformation typeSeat = new ChairsInformation
                         {
                             Letter = filas.filRel,
                             Name = string.Concat(filas.filRel, item.Columna),
@@ -403,7 +401,7 @@ namespace WPProcinal.Forms.User_Control
                         };
 
 
-                        TypeSeat typeSeat = new TypeSeat
+                        ChairsInformation typeSeat = new ChairsInformation
                         {
                             Letter = est[filaScore].filRel,
                             Name = string.Concat(est[filaScore].filRel, item.Columna),
@@ -466,12 +464,12 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void MSelectedsetas(object sender, TouchEventArgs eh, TypeSeat item)
+        private void MSelectedsetas(object sender, TouchEventArgs eh, ChairsInformation item)
         {
             SelectedSeatsMethod(sender, item);
         }
 
-        private void SelectedSeatsMethod(object sender, TypeSeat item)
+        private void SelectedSeatsMethod(object sender, ChairsInformation item)
         {
             try
             {
@@ -493,7 +491,6 @@ namespace WPProcinal.Forms.User_Control
                 }
 
                 LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
-                Utilities.CantSeats = SelectedTypeSeats.Count;
             }
             catch (Exception ex)
             {
@@ -679,7 +676,7 @@ namespace WPProcinal.Forms.User_Control
             foreach (var selectedTypeSeat in SelectedTypeSeats)
             {
                 var tarifa = new ResponseTarifa();
-                if (Utilities.dataUser.Tarjeta != null)
+                if (DataService41.dataUser.Tarjeta != null)
                 {
                     tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
                 }
@@ -885,7 +882,7 @@ namespace WPProcinal.Forms.User_Control
                 foreach (var item in responseSec41)
                 {
                     dipMapCurrent.Secuence = int.Parse(item.Secuencia.ToString());
-                    Utilities.Secuencia = item.Secuencia.ToString();
+                    DataService41.Secuencia = item.Secuencia.ToString();
                 }
                 return true;
             }
@@ -903,17 +900,17 @@ namespace WPProcinal.Forms.User_Control
 
         SCOLOGResponse GetDataClient()
         {
-            if (Utilities.dataUser.Tarjeta != null)
+            if (DataService41.dataUser.Tarjeta != null)
             {
                 return new SCOLOGResponse
                 {
-                    Apellido = Utilities.dataUser.Apellido,
-                    Tarjeta = Utilities.dataUser.Tarjeta,
-                    Login = Utilities.dataUser.Login,
-                    Direccion = Utilities.dataUser.Direccion,
-                    Documento = Utilities.dataUser.Documento,
-                    Nombre = Utilities.dataUser.Nombre,
-                    Telefono = Utilities.dataUser.Telefono
+                    Apellido = DataService41.dataUser.Apellido,
+                    Tarjeta = DataService41.dataUser.Tarjeta,
+                    Login = DataService41.dataUser.Login,
+                    Direccion = DataService41.dataUser.Direccion,
+                    Documento = DataService41.dataUser.Documento,
+                    Nombre = DataService41.dataUser.Nombre,
+                    Telefono = DataService41.dataUser.Telefono
                 };
             }
             else
@@ -944,7 +941,7 @@ namespace WPProcinal.Forms.User_Control
             frmLoading.Close();
             if (combos != null)
             {
-                Utilities._Productos = combos.ListaProductos;
+                DataService41._Productos = combos.ListaProductos;
                 Switcher.Navigate(new UCProductsCombos(SelectedTypeSeats, dipMapCurrent));
             }
             else
@@ -966,12 +963,12 @@ namespace WPProcinal.Forms.User_Control
 
                 FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
                 frmLoading.Show();
-                var response = await utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
+                var response = await Utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
                 frmLoading.Close();
 
                 if (!response)
                 {
-                    List<TypeSeat> lista = new List<TypeSeat>();
+                    List<ChairsInformation> lista = new List<ChairsInformation>();
                     foreach (var item in SelectedTypeSeats)
                     {
                         lista.Add(item);
@@ -1001,11 +998,11 @@ namespace WPProcinal.Forms.User_Control
                     }
                     catch { }
 
-                    if (Utilities.MedioPago == 1)
+                    if (Utilities.MedioPago == EPaymentType.Cash)
                     {
                         Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
                     }
-                    else if (Utilities.MedioPago == 2)
+                    else if (Utilities.MedioPago == EPaymentType.Card)
                     {
                         Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
                     }
@@ -1026,7 +1023,7 @@ namespace WPProcinal.Forms.User_Control
             this.IsEnabled = false;
             if (activePay)
             {
-                List<TypeSeat> lista = new List<TypeSeat>();
+                List<ChairsInformation> lista = new List<ChairsInformation>();
                 foreach (var item in SelectedTypeSeats)
                 {
                     lista.Add(item);
@@ -1044,7 +1041,7 @@ namespace WPProcinal.Forms.User_Control
                 timer.CallBackStop?.Invoke(1);
             }
             catch { }
-            Switcher.Navigate(new UCSchedule(Utilities.Movie));
+            Switcher.Navigate(new UCSchedule(DataService41.Movie));
         }
 
         private void Pay_TouchDown(object sender, TouchEventArgs e)

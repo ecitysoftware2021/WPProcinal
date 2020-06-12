@@ -53,27 +53,7 @@
                     <materialDesign:TransitionEffect Kind="SlideInFromBottom"  Duration="0:0:1.9"/>
                 </materialDesign:TransitioningContent.OpeningEffects>
                 <Grid>
-                    <Image
-                Grid.Column="1"
-                HorizontalAlignment="Left"
-                Name="btnPrev" 
-                Source="/Images/anterior.png"
-                VerticalAlignment="Top" 
-                Margin="30,100,0,0"
-                Height="161" 
-                Width="200"
-                        TouchDown="BtnPrev_TouchDown"/>
-
-                    <Image  Grid.Column="1"
-                    Source="/Images/siguiente.png"
-                    Margin="0,100,30,0"
-                    HorizontalAlignment="Right"
-                    Name="btnNext" 
-                    VerticalAlignment="Top"
-                            TouchDown="BtnNext_TouchDown"
-                    Height="161" 
-                    Width="200"
-                    Grid.RowSpan="1"/>
+                   
                     <ListView x:Name="lvMovies" 
                   HorizontalAlignment="Center" 
                   VerticalAlignment="Center"

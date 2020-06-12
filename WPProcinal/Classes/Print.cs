@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Globalization;
 using System.IO;
+using WPProcinal.Service;
 using Zen.Barcode;
 
 namespace WPProcinal.Classes
@@ -174,7 +175,7 @@ namespace WPProcinal.Classes
             string dataQR = $"" +
                     $"cnv3 " +
                     $"{Utilities.GetConfiguration("CodCinema")} " +
-                    $"{Utilities.Secuencia}-" +
+                    $"{DataService41.Secuencia}-" +
                     $"{fechaConvertida.ToString("yyyyMMdd")}_" +
                     $"{Room.Split(' ')[1]}_" +
                     $"{Funcion}_" +
@@ -252,9 +253,9 @@ namespace WPProcinal.Classes
                 g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
                 SpaceY += 20;
 
-                if (Utilities._DataResolution != null && Utilities._DataResolution.Count > 0)
+                if (DataService41._DataResolution != null && DataService41._DataResolution.Count > 0)
                 {
-                    foreach (var data in Utilities._DataResolution)
+                    foreach (var data in DataService41._DataResolution)
                     {
                         g.DrawString("Factura ", fBodyTiulos, sb, 10, SpaceY);
                         g.DrawString(data.Factura.ToString(), fBodyTiulos, sb, 140, SpaceY);
@@ -289,7 +290,7 @@ namespace WPProcinal.Classes
                 g.DrawString("========================================", fBodyTiulos, sb, 10, SpaceY);
                 SpaceY += 15;
 
-                foreach (var item in Utilities._Combos)
+                foreach (var item in DataService41._Combos)
                 {
                     g.DrawString(item.Name, fBodyTiulos, sb, 10, SpaceY);
                     g.DrawString(item.Price.ToString("$ #,#00"), fBodyTiulos, sb, 140, SpaceY);

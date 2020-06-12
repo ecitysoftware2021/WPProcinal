@@ -2,7 +2,7 @@
 
 namespace WPProcinal.Classes
 {
-    public class TypeSeat
+    public class ChairsInformation
     {
         public int RelativeColumn { get; set; }
         public string RelativeRow { get; set; }

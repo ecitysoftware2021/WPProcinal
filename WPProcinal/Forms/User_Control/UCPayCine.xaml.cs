@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPProcinal.Classes;
+using WPProcinal.DataModel;
 using WPProcinal.Models;
 using WPProcinal.Service;
 
@@ -19,7 +20,6 @@ namespace WPProcinal.Forms.User_Control
     {
         private PaymentViewModel PaymentViewModel;
         private FrmLoading frmLoading;
-        private Utilities utilities;
         private LogErrorGeneral logError;
         private bool stateUpdate;
         int controlInactividad = 0;
@@ -28,20 +28,18 @@ namespace WPProcinal.Forms.User_Control
         private bool state;
         TimerTiempo timer;
         Response responseGlobal = new Response();
-        Utilities objUtil = new Utilities();
         private bool totalReturn = false;
         List<Producto> productos;
-        public UCPayCine(List<TypeSeat> Seats, DipMap dipMap)
+        public UCPayCine(List<ChairsInformation> Seats, FunctionInformation dipMap)
         {
             InitializeComponent();
             try
             {
                 OrganizeValues();
-                utilities = new Utilities();
                 state = true;
-                Utilities.TypeSeats = Seats;
-                Utilities.DipMapCurrent = dipMap;
-                Utilities.DipMapCurrent.Total = Convert.ToDouble(Utilities.ValorPagarScore);
+                Utilities.SelectedChairs = Seats;
+                Utilities.SelectedFunction = dipMap;
+                Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
 
                 TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
                 TxtDay.Text = dipMap.Day;
@@ -116,7 +114,7 @@ namespace WPProcinal.Forms.User_Control
 
                             });
                         }
-                        utilities.ProccesValue(new DataMoneyNotification
+                        ProccesValue(new DataMoneyNotification
                         {
                             enterValue = enterValue,
                             opt = 2,
@@ -132,7 +130,6 @@ namespace WPProcinal.Forms.User_Control
 
                     Utilities.control.callbackTotalIn = null;
 
-                    Utilities.EnterTotal = enterTotal;
                     if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                     {
                         ActivateTimer(true);
@@ -163,6 +160,72 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
+        public void ProccesValue(DataMoneyNotification data)
+        {
+            try
+            {
+                if (data.opt == 2)
+                {
+                    if (data.enterValue >= 1000)
+                    {
+                        data.code = "AP";
+                    }
+                    else
+                    {
+                        data.code = "MA";
+                    }
+                }
+                else
+                {
+                    if (data.enterValue > 1000)
+                    {
+                        data.code = "DP";
+                    }
+                    else
+                    {
+                        data.code = "MD";
+                    }
+                }
+
+                InsertLocalDBMoney(new RequestTransactionDetails
+                {
+                    Code = data.code,
+                    Denomination = Convert.ToInt32(data.enterValue),
+                    Operation = data.opt,
+                    Quantity = data.quantity,
+                    TransactionId = data.idTransactionAPi,
+                    Date = DateTime.Now
+                });
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private static void InsertLocalDBMoney(RequestTransactionDetails detail)
+        {
+            try
+            {
+                using (var con = new DB_PayPlus_LocalEntities())
+                {
+                    NotifyMoney notify = new NotifyMoney
+                    {
+                        CODE = detail.Code,
+                        DENOMINATION = detail.Denomination,
+                        DESCRIPTION = detail.Description,
+                        OPERATION = detail.Operation,
+                        QUANTITY = detail.Quantity,
+                        TRANSACTION_ID = detail.TransactionId,
+                        DATE = detail.Date
+                    };
+                    con.NotifyMoney.Add(notify);
+                    con.SaveChanges();
+                }
+            }
+            catch { }
+        }
+
         /// <summary>
         /// Método que se encarga de devolver el dinero ya sea por que se canceló la transacción o por que hay valor sobrante
         /// </summary>
@@ -176,7 +239,7 @@ namespace WPProcinal.Forms.User_Control
                 totalReturn = false;
                 Utilities.control.callbackLog = log =>
                 {
-                    utilities.ProccesValue(log, Utilities.IDTransactionDB);
+                    ProccesValue(log, Utilities.IDTransactionDB);
                 };
 
                 Utilities.control.callbackTotalOut = totalOut =>
@@ -261,6 +324,43 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
+
+        public void ProccesValue(string messaje, int idTransactionAPi)
+        {
+            try
+            {
+                InsertLocalDBMoneyDispenser(new RequestTransactionDetails
+                {
+                    Description = messaje,
+                    TransactionId = idTransactionAPi,
+                    Date = DateTime.Now
+                });
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private static void InsertLocalDBMoneyDispenser(RequestTransactionDetails detail)
+        {
+            try
+            {
+                using (var con = new DB_PayPlus_LocalEntities())
+                {
+                    BackUpMoney notify = new BackUpMoney
+                    {
+                        Data = detail.Description,
+                        TransactionID = detail.TransactionId,
+                        Date = detail.Date
+                    };
+                    con.BackUpMoney.Add(notify);
+                    con.SaveChanges();
+                }
+            }
+            catch { }
+        }
+
         /// <summary>
         /// Método encargado de organizar todos los valores de la transacción en la vista
         /// </summary>
@@ -303,9 +403,6 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                logError.Description = "\nNo fue posible actualizar esta transacción a aprobada";
-                logError.State = "Iniciada";
-                Utilities.SaveLogTransactions(logError, "LogTransacciones\\Iniciadas");
                 stateUpdate = false;
             }
         }
@@ -319,7 +416,7 @@ namespace WPProcinal.Forms.User_Control
                     this.IsEnabled = false;
                     frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                     frmLoading.Show();
-                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
                     frmLoading.Close();
                     this.IsEnabled = true;
 
@@ -343,7 +440,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    objUtil.PrintTicket("Aprobada", Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    Utilities.PrintTicket("Aprobada", Utilities.SelectedChairs, Utilities.SelectedFunction);
 
                     ApproveTrans();
 
@@ -351,7 +448,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         Utilities.Loading(frmLoading, false, this);
 
-                        if (Utilities.dataUser.Tarjeta != null)
+                        if (DataService41.dataUser.Tarjeta != null)
                         {
                             Switcher.Navigate(new UCPoints());
                         }
@@ -385,7 +482,7 @@ namespace WPProcinal.Forms.User_Control
                     this.IsEnabled = false;
                     frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                     frmLoading.Show();
-                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
                     frmLoading.Close();
                     this.IsEnabled = true;
                 }
@@ -422,7 +519,7 @@ namespace WPProcinal.Forms.User_Control
                 if (Utilities.GetConfiguration("Ambiente").Equals("1"))
                 {
                     List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
-                    foreach (var item in Utilities.TypeSeats)
+                    foreach (var item in Utilities.SelectedChairs)
                     {
                         ubicaciones.Add(new UbicacioneSCOINT
                         {
@@ -436,12 +533,12 @@ namespace WPProcinal.Forms.User_Control
 
                     productos = new List<Producto>();
 
-                    foreach (var item in Utilities._Combos)
+                    foreach (var item in DataService41._Combos)
                     {
                         for (int i = 0; i < item.Quantity; i++)
                         {
 
-                            var combo = Utilities._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+                            var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
                             if (combo.Receta != null)
                             {
                                 foreach (var receta in combo.Receta)
@@ -452,15 +549,15 @@ namespace WPProcinal.Forms.User_Control
                                     }
                                 }
                             }
-                            combo.Precio = Utilities.dataUser.Tarjeta != null ? 2 : 1;
+                            combo.Precio = DataService41.dataUser.Tarjeta != null ? 2 : 1;
                             productos.Add(combo);
                         }
                     }
 
 
-                    string year = Utilities.DipMapCurrent.Date.Substring(0, 4);
-                    string mount = Utilities.DipMapCurrent.Date.Substring(4, 2);
-                    string day = Utilities.DipMapCurrent.Date.Substring(6, 2);
+                    string year = Utilities.SelectedFunction.Date.Substring(0, 4);
+                    string mount = Utilities.SelectedFunction.Date.Substring(4, 2);
+                    string day = Utilities.SelectedFunction.Date.Substring(6, 2);
 
                     var dataClient = GetDataClient();
 
@@ -477,19 +574,19 @@ namespace WPProcinal.Forms.User_Control
                         Cortesia = string.Empty,
                         Direccion = dataClient.Direccion,
                         DocIdentidad = long.Parse(dataClient.Documento),
-                        Factura = Utilities.DipMapCurrent.Secuence,
+                        Factura = Utilities.SelectedFunction.Secuence,
                         FechaFun = string.Concat(year, "-", mount, "-", day),
-                        Funcion = Utilities.DipMapCurrent.IDFuncion,
-                        InicioFun = Utilities.DipMapCurrent.HourFormat,
+                        Funcion = Utilities.SelectedFunction.IDFuncion,
+                        InicioFun = Utilities.SelectedFunction.HourFormat,
                         Nombre = dataClient.Nombre,
-                        PagoCredito = Utilities.MedioPago == 1 ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
-                        PagoEfectivo = Utilities.MedioPago == 1 ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
+                        PagoCredito = Utilities.MedioPago == EPaymentType.Cash ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
+                        PagoEfectivo = Utilities.MedioPago == EPaymentType.Cash ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
                         PagoInterno = 0,
-                        Pelicula = Utilities.DipMapCurrent.MovieId,
+                        Pelicula = Utilities.SelectedFunction.MovieId,
                         Productos = productos,
-                        PuntoVenta = Utilities.DipMapCurrent.PointOfSale,
-                        Sala = Utilities.DipMapCurrent.RoomId,
-                        teatro = Utilities.DipMapCurrent.CinemaId,
+                        PuntoVenta = Utilities.SelectedFunction.PointOfSale,
+                        Sala = Utilities.SelectedFunction.RoomId,
+                        teatro = Utilities.SelectedFunction.CinemaId,
                         Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
                         tercero = 1,
                         TipoBono = 0,
@@ -503,9 +600,9 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (item.Respuesta.Contains("exitoso"))
                             {
-                                if (Utilities.dataUser.Tarjeta != null)
+                                if (DataService41.dataUser.Tarjeta != null)
                                 {
-                                    Utilities.dataUser.Puntos = Convert.ToDouble(Math.Floor(Utilities.PayVal / 1000)) + Utilities.dataUser.Puntos;
+                                    DataService41.dataUser.Puntos = Convert.ToDouble(Math.Floor(Utilities.PayVal / 1000)) + DataService41.dataUser.Puntos;
                                 }
                                 payState = true;
                                 break;
@@ -527,7 +624,7 @@ namespace WPProcinal.Forms.User_Control
                     this.IsEnabled = false;
                     frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                     frmLoading.Show();
-                    Utilities.CancelAssing(Utilities.TypeSeats, Utilities.DipMapCurrent);
+                    Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
                     frmLoading.Close();
                     this.IsEnabled = true;
                 }
@@ -544,17 +641,17 @@ namespace WPProcinal.Forms.User_Control
 
         SCOLOGResponse GetDataClient()
         {
-            if (Utilities.dataUser.Tarjeta != null)
+            if (DataService41.dataUser.Tarjeta != null)
             {
                 return new SCOLOGResponse
                 {
-                    Apellido = Utilities.dataUser.Apellido,
-                    Tarjeta = Utilities.dataUser.Tarjeta,
-                    Login = Utilities.dataUser.Login,
-                    Direccion = Utilities.dataUser.Direccion,
-                    Documento = Utilities.dataUser.Documento,
-                    Nombre = Utilities.dataUser.Nombre,
-                    Telefono = Utilities.dataUser.Telefono
+                    Apellido = DataService41.dataUser.Apellido,
+                    Tarjeta = DataService41.dataUser.Tarjeta,
+                    Login = DataService41.dataUser.Login,
+                    Direccion = DataService41.dataUser.Direccion,
+                    Documento = DataService41.dataUser.Documento,
+                    Nombre = DataService41.dataUser.Nombre,
+                    Telefono = DataService41.dataUser.Telefono
                 };
             }
             else
