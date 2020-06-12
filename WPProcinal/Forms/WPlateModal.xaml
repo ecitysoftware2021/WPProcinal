@@ -155,7 +155,9 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
+                        <Label Height="60" Width="50" Foreground="White" Content="" Tag="Z" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
 
+                        </Label>
                         <Label Height="60" Width="50" Foreground="White" Content="Z" Tag="Z" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
 
                         </Label>
@@ -177,10 +179,7 @@
                         <Label Height="60" Width="50" Foreground="White" Content="M" Tag="M" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
 
                         </Label>
-                        <Label Height="60" Width="50" Foreground="White" Content="X" Tag="X" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
-
-                        </Label>
-                        <Label Height="50" Foreground="White" Content="Borrar" Tag="&lt;" FontSize="25" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
+                        <Label Height="50" Foreground="White" Content="Borrar" Tag="." FontSize="25" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
 
                         </Label>
                     </StackPanel>

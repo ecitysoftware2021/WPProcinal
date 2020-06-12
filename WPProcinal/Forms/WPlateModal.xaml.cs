@@ -33,8 +33,8 @@ namespace WPProcinal.Forms
 
         private void Label_TouchDown(object sender, TouchEventArgs e)
         {
-            var text = (sender as Label).Tag;
-            if (text != "<")
+            var text = (sender as Label).Tag.ToString();
+            if (text != ".")
             {
                 txPlaca.Text += text;
             }

@@ -115,25 +115,11 @@ namespace WPProcinal.Service
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
                 HttpResponseMessage response = new HttpResponseMessage();
 
-                if (controller == "GetInvoiceData")
+                var task = client.PostAsync(url, content);
+                if (await Task.WhenAny(task, Task.Delay(30000)) == task)
                 {
-                    url = string.Format(url, Utilities.GetConfiguration("idPaypad"), "&", true);
-
-                    var task = client.GetAsync(url);
-                    if (await Task.WhenAny(task, Task.Delay(30000)) == task)
-                    {
-                        response = task.Result;
-                    }
+                    response = task.Result;
                 }
-                else
-                {
-                    var task = client.PostAsync(url, content);
-                    if (await Task.WhenAny(task, Task.Delay(30000)) == task)
-                    {
-                        response = task.Result;
-                    }
-                }
-
                 LogService.CreateLogsPeticion($"Respuesta {controller}", JsonConvert.SerializeObject(response));
 
 

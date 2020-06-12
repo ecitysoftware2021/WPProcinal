@@ -346,8 +346,6 @@ C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSchedule.baml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSeat.baml
 C:\Users\H81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DataBases\DBProcinal.mdf
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DataBases\DBProcinal_log.ldf
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe.config
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.pdb
@@ -387,7 +385,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Contro
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSeat.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\App.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_Content.g.cs
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.cache
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.lref
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\App.baml
@@ -404,7 +401,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Contro
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSchedule.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSeat.baml
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Themes\Generic.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.g.resources
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.Properties.Resources.resources
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.GenerateResource.cache
@@ -543,3 +539,5 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WPlateModal.g.cs
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WPlateModal.baml

@@ -364,7 +364,7 @@ namespace WPProcinal.Forms.User_Control
                 Letter = "A",
                 IsCard = "S",
                 Group = 1,
-                Login = "brandon-377@hotmail.com",
+                Login = "ecitysoftware@gmail.com",
                 PointOfSale = int.Parse(Utilities.GetConfiguration("Cinema")),
                 TypeZona = schedule.TypeZona,
                 IDFuncion = schedule.IdFuncion

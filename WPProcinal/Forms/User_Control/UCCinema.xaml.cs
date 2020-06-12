@@ -31,7 +31,7 @@ namespace WPProcinal.Forms.User_Control
             ConfiguratePublish();
             timerStatePay.Interval = 10000;
             timerStatePay.Elapsed += new System.Timers.ElapsedEventHandler(TimerStatePay_Tick);
-            timerStatePay.Start();
+            
 
             try
             {
@@ -120,6 +120,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "LoadData en frmCinema", EError.Aplication, ELevelError.Medium);
             }
+            timerStatePay.Start();
         }
 
         private void ConfigBoletas_TouchDown(object sender, TouchEventArgs e)

@@ -77,15 +77,15 @@ namespace WPProcinal.Forms
                             badServidor.Visibility = Visibility.Hidden;
                         });
 
-                        DataPaypad data = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
+                        Utilities.dataPaypad = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
 
-                        if (data.StateUpdate)
+                        if (Utilities.dataPaypad.StateUpdate)
                         {
                             ShowModalError("Hay una nueva versión de la aplicación, pendiente por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
                         }
-                        else if (data.State)
+                        else if (Utilities.dataPaypad.State)
                         {
-                            if (data.StateAceptance && data.StateDispenser)
+                            if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser)
                             {
                                 stateMoney = true;
                                 if (util == null)
@@ -116,13 +116,13 @@ namespace WPProcinal.Forms
                             }
                             else
                             {
-                                LogService.SaveRequestResponse("Sin dinero", data.Message, 6);
+                                LogService.SaveRequestResponse("Sin dinero", Utilities.dataPaypad.Message, 6);
                                 ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
                             }
                         }
                         else
                         {
-                            LogService.SaveRequestResponse("Verificando perifericos", data.Message, 2);
+                            LogService.SaveRequestResponse("Verificando perifericos", Utilities.dataPaypad.Message, 2);
                             ShowModalError("No se pudo verificar el estado de los periféricos");
                         }
                     }

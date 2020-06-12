@@ -20,7 +20,6 @@ namespace WPProcinal.Forms.User_Control
     {
         private PaymentViewModel PaymentViewModel;
         private FrmLoading frmLoading;
-        private LogErrorGeneral logError;
         private bool stateUpdate;
         int controlInactividad = 0;
         int controlCancel = 0;
@@ -37,25 +36,22 @@ namespace WPProcinal.Forms.User_Control
             {
                 OrganizeValues();
                 state = true;
+
+                Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
                 Utilities.SelectedChairs = Seats;
                 Utilities.SelectedFunction = dipMap;
-                Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
-
-                TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
-                TxtDay.Text = dipMap.Day;
-                TxtRoom.Text = dipMap.RoomName;
-                TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
-                TxtHour.Text = "Hora Función: " + dipMap.HourFunction;
-                TxtSubTitle.Text = "Idioma: " + dipMap.Language;
-                var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
-                TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
-
-                logError = new LogErrorGeneral
+                if (Seats.Count > 0)
                 {
-                    Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                    IDCorresponsal = Utilities.CorrespondentId,
-                    IdTransaction = Utilities.IDTransactionDB,
-                };
+                    TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
+                    TxtDay.Text = dipMap.Day;
+                    TxtRoom.Text = dipMap.RoomName;
+                    TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
+                    TxtHour.Text = "Hora Función: " + dipMap.HourFunction;
+                    TxtSubTitle.Text = "Idioma: " + dipMap.Language;
+                    var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
+                    TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
+
+                }
                 stateUpdate = true;
                 payState = true;
 
@@ -514,8 +510,12 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                WPlateModal wPlate = new WPlateModal();
-                wPlate.ShowDialog();
+                if (Utilities.GetConfiguration("ModalPlate").Equals("1"))
+                {
+                    WPlateModal wPlate = new WPlateModal();
+                    wPlate.ShowDialog();
+                }
+
                 if (Utilities.GetConfiguration("Ambiente").Equals("1"))
                 {
                     List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();

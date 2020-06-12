@@ -89,6 +89,11 @@ namespace WPProcinal.Forms
             lvListSeats.ItemsSource = _View.OrderBy(s => s.Name);
             Utilities.ValorPagarScore = totalPago;
             Utilities.PayVal = totalModal;
+            if (Utilities.PayVal <= 0)
+            {
+                BtnCash.Visibility = Visibility.Hidden;
+                BtnCard.Visibility = Visibility.Hidden;
+            }
         }
         /// <summary>
         /// Asigno los textos a cada variable de la vista

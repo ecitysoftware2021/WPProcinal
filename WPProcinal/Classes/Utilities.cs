@@ -221,7 +221,14 @@ namespace WPProcinal.Classes
         /// <returns></returns>
         public static string CapitalizeFirstLetter(string value)
         {
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
+            try
+            {
+                return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
+            }
+            catch (Exception)
+            {
+                return value;
+            }
         }
 
         /// <summary>
@@ -464,6 +471,8 @@ namespace WPProcinal.Classes
             {
                 Print printCombo = new Print();
                 int i = 0;
+
+                printCombo.Placa = Utilities.PLACA;
                 foreach (var seat in Seats)
                 {
                     if (seat.Price != 0)

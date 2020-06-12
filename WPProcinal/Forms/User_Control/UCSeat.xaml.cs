@@ -571,7 +571,7 @@ namespace WPProcinal.Forms.User_Control
 
                 if (GetPrices())
                 {
-                    if (Utilities.FechaSeleccionada != DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy")))
+                    if (!GetCombo() || Utilities.FechaSeleccionada.ToString("dd/MM/yyyy") != DateTime.Now.ToString("dd/MM/yyyy"))
                     {
                         frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
                         this.Opacity = 0.3;
@@ -627,10 +627,11 @@ namespace WPProcinal.Forms.User_Control
                         {
                             ActivateTimer();
                         }
+
                     }
                     else
                     {
-                        SecuenceAndReserve();
+                        SecuenceAndReserveToConfectionery();
                     }
                 }
                 else
@@ -649,6 +650,37 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.ShowModal("Lo sentimos, no fué posible consultar las tarifas, por favor intente de nuevo.");
                 ReloadWindow();
             }
+        }
+
+        private bool GetCombo()
+        {
+            frmLoading = new FrmLoading("¡Descargando la confitería...!");
+            frmLoading.Show();
+            var combos = WCFServices41.GetConfectionery(new SCOPRE
+            {
+                teatro = Utilities.GetConfiguration("CodCinema"),
+                tercero = "1"
+            });
+            frmLoading.Close();
+            if (combos != null)
+            {
+                if (combos.ListaProductos.Count > 0)
+                {
+                    DataService41._Productos = combos.ListaProductos;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+
+
         }
 
         private bool GetPrices()
@@ -739,7 +771,7 @@ namespace WPProcinal.Forms.User_Control
         /// Reserva los puestos
         /// </summary>
         /// 
-        private void SecuenceAndReserve()
+        private void SecuenceAndReserveToConfectionery()
         {
             SetCallBacksNull();
             timer.CallBackStop?.Invoke(1);
@@ -931,24 +963,7 @@ namespace WPProcinal.Forms.User_Control
         private void NavigateToConfectionery()
         {
             this.IsEnabled = false;
-            frmLoading = new FrmLoading("¡Descargando la confitería...!");
-            frmLoading.Show();
-            var combos = WCFServices41.GetConfectionery(new SCOPRE
-            {
-                teatro = Utilities.GetConfiguration("CodCinema"),
-                tercero = "1"
-            });
-            frmLoading.Close();
-            if (combos != null)
-            {
-                DataService41._Productos = combos.ListaProductos;
-                Switcher.Navigate(new UCProductsCombos(SelectedTypeSeats, dipMapCurrent));
-            }
-            else
-            {
-                ShowPay();
-            }
-
+            Switcher.Navigate(new UCProductsCombos(SelectedTypeSeats, dipMapCurrent));
         }
 
         /// <summary>
@@ -1007,8 +1022,6 @@ namespace WPProcinal.Forms.User_Control
                         Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
                     }
                 }
-
-
             }
             catch (Exception ex)
             {

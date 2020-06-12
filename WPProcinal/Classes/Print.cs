@@ -48,6 +48,7 @@ namespace WPProcinal.Classes
         public string TipoSala { get; set; }
 
         public string Estado { get; set; }
+        public string Placa { get; set; }
 
 
 
@@ -151,6 +152,9 @@ namespace WPProcinal.Classes
 
             g.DrawString("Fecha de venta:", fBodyTiulos, sb, 10, SpaceY);
             g.DrawString(FechaPago.ToString("dd/MM/yyyy hh:mm:ss"), fBodyFecha, sb, SpaceX + 30, SpaceY);
+            SpaceY += 30;
+            g.DrawString("Vehículo:", fBodyTiulos, sb, 10, SpaceY);
+            g.DrawString(Placa, fBodyFecha, sb, SpaceX + 30, SpaceY);
             SpaceY += 30;
             g.DrawString("Solo se permite el ingreso a las instalaciones de", fBodyAvisos, sb, 10, SpaceY);
             SpaceY += 15;
@@ -318,6 +322,9 @@ namespace WPProcinal.Classes
                 SpaceY += 20;
                 g.DrawString("Valor Total:", fBodyTiulos, sb, 40, SpaceY);
                 g.DrawString((baseIMP + IMP).ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
+                SpaceY += 20;
+                g.DrawString("Vehículo:", fBodyTiulos, sb, 40, SpaceY);
+                g.DrawString(Placa, fBodyTiulos, sb, 200, SpaceY);
                 SpaceY += 20;
                 g.DrawString("RECLAMA TU COMBO EN LA CONFITERÍA", fBodySala, sb, 0, SpaceY);
                 SpaceY += 20;

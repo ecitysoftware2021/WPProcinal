@@ -66,6 +66,7 @@ namespace WPProcinal.Forms.User_Control
 
                 this.Dispatcher.Invoke(new ThreadStart(() =>
                 {
+                    CreatePages();
                     DownloadData(DataService41.Peliculas);
                     frmLoading.Close();
                 }));
@@ -202,6 +203,37 @@ namespace WPProcinal.Forms.User_Control
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "LoadMovies en frmMovies", EError.Aplication, ELevelError.Medium);
             }
+        }
+
+        private void CreatePages()
+        {
+            try
+            {
+                int itemcount = DataService41.Movies.Count;
+
+                // Calculate the total pages
+                totalPage = itemcount / itemPerPage;
+                if (itemcount % itemPerPage != 0)
+                {
+                    totalPage += 1;
+                }
+
+
+                Thread.Sleep(1000);
+                view.Source = LstMoviesModel;
+                //view.Filter += new FilterEventHandler(View_Filter);
+                this.DataContext = view;
+                //ShowCurrentPageIndex();
+                tbTotalPage.Text = totalPage.ToString();
+
+                GifLoadder.Visibility = Visibility.Hidden;
+                //ValidateImage();
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(ex.Message, "CreatePages en frmMovies", EError.Aplication, ELevelError.Medium);
+            }
+
         }
 
         BitmapImage GetTypeImage(string type)

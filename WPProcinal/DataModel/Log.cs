@@ -58,38 +58,6 @@ namespace WPProcinal.Classes
 
     public class LogService
     {
-        public string NamePath { get; set; }
-
-        public string FileName { get; set; }
-
-        public void CreateLogsTransactions<T>(T model)
-        {
-            try
-            {
-                var json = JsonConvert.SerializeObject(model);
-                string fullPath = string.Format(@"C:\\LogsProcinal\{0}\", NamePath);
-                if (!Directory.Exists(fullPath))
-                {
-                    Directory.CreateDirectory(fullPath);
-                }
-
-                var nameFile = Path.Combine(fullPath, FileName);
-                if (!File.Exists(nameFile))
-                {
-                    var archivo = File.CreateText(nameFile);
-                    archivo.Close();
-                }
-
-                using (StreamWriter sw = File.AppendText(nameFile))
-                {
-                    sw.WriteLine(json);
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
         public static void SaveRequestResponse(string operacion, string mensaje, int state)
         {
             try

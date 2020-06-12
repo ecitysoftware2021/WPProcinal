@@ -18,7 +18,6 @@ namespace WPProcinal.Forms.User_Control
     public partial class UCCardPayment : UserControl
     {
         private FrmLoading frmLoading;
-        private LogErrorGeneral logError;
         private bool stateUpdate;
         private bool payState;
         TPVOperation TPV;
@@ -80,34 +79,27 @@ namespace WPProcinal.Forms.User_Control
                 frmLoading.Show();
 
                 ModalMensajes = new Mensajes();
-                //TODO: descomentar
-                //TPV = new TPVOperation();
-
-                Utilities.SelectedChairs = Seats;
-                Utilities.SelectedFunction = dipMap;
-                Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
-
                 ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
                 this.DataContext = ModalMensajes;
 
-                TramaInicial = "";
+                //TODO: descomentar
+                //TPV = new TPVOperation();
 
-
-                TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
-                TxtDay.Text = dipMap.Day;
-                TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
-                TxtHour.Text = dipMap.HourFunction;
-                TxtSubTitle.Text = dipMap.Language;
-                var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
-                TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
-
-
-                logError = new LogErrorGeneral
+                Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
+                if (Seats.Count > 0)
                 {
-                    Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                    IDCorresponsal = Utilities.CorrespondentId,
-                    IdTransaction = Utilities.IDTransactionDB,
-                };
+                    Utilities.SelectedChairs = Seats;
+                    Utilities.SelectedFunction = dipMap;
+                    TramaInicial = "";
+
+                    TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
+                    TxtDay.Text = dipMap.Day;
+                    TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
+                    TxtHour.Text = dipMap.HourFunction;
+                    TxtSubTitle.Text = dipMap.Language;
+                    var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
+                    TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
+                }
 
                 stateUpdate = true;
 
@@ -366,8 +358,11 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                WPlateModal wPlate = new WPlateModal();
-                wPlate.ShowDialog();
+                if (Utilities.GetConfiguration("ModalPlate").Equals("1"))
+                {
+                    WPlateModal wPlate = new WPlateModal();
+                    wPlate.ShowDialog();
+                }
                 if (Utilities.GetConfiguration("Ambiente").Equals("Prd"))
                 {
                     List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
