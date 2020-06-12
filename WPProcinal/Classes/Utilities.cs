@@ -111,7 +111,7 @@ namespace WPProcinal.Classes
         /// <summary>
         /// Ruta donde se guarda toda la data del xml dentro de un txt
         /// </summary>
-        public static string XMLFile = string.Format("{0}\\Cinema.txt", Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+        public static string XMLFile = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "XmlCinema", "Cinema.txt");
 
         /// <summary>
         /// Poster de la peícula seleccionada, se usa para mostrar en la pantalla de los horarios
@@ -413,10 +413,10 @@ namespace WPProcinal.Classes
         /// <param name="content"></param>
         public static void SaveFileXML(string content)
         {
-            if (!Directory.Exists("Procinal"))
+
+            if (!Directory.Exists("XmlCinema"))
             {
-                Directory.CreateDirectory("Procinal");
-                Directory.CreateDirectory(Path.Combine("Procinal", "XmlCinema"));
+                Directory.CreateDirectory("XmlCinema");
             }
             if (File.Exists(XMLFile))
             {
