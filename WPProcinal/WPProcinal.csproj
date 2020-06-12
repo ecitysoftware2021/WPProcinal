@@ -239,8 +239,6 @@
     <Compile Include="Forms\WPlateModal.xaml.cs">
       <DependentUpon>WPlateModal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Keyboard\TouchScreenKeyboard.cs" />
-    <Compile Include="Keyboard\TouchScreenKeyNumeric.cs" />
     <Compile Include="Models\ApiLocal\DataPaypad.cs" />
     <Compile Include="Models\ApiLocal\RequestAuth.cs" />
     <Compile Include="Models\ApiLocal\ResponseAuth.cs" />
@@ -341,10 +339,6 @@
     <Page Include="Forms\WPlateModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
