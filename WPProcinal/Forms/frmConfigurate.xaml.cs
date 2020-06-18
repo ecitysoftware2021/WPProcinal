@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PrinterValidator;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,6 +29,12 @@ namespace WPProcinal.Forms
         Validator validator = new Validator();
         public frmConfigurate()
         {
+            var ProcessApp = Process.GetProcessesByName("WPProcinal");
+            if (ProcessApp.Length > 1)
+            {
+                this.Close();
+            }
+
             InitializeComponent();
             Switcher.Navigator = this;
             try

@@ -61,7 +61,7 @@ namespace WPProcinal.Forms.User_Control
                         //{
                         //    decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
                         //    decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
-                        product.Imagen = $"http://181.143.126.126:41900/Images/Procinal/{product.Codigo}.png";
+                        product.Imagen = $"{Utilities.GetConfiguration("ProductsURL")}{product.Codigo}.png";
                         //if (General > 0 && OtroPago > 0)
                         //{
                         //    product.Precios[0].auxGeneral = General;
@@ -323,27 +323,17 @@ namespace WPProcinal.Forms.User_Control
 
             bool validateCombo = false;
 
-            if (DataService41._Combos.Count > 0)
+            if (Utilities.eTypeBuy == ETypeBuy.JustConfectionery)
             {
-                validateCombo = true;
-                frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
-                frmLoading.Show();
-                DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                if (!GetSecuence())
                 {
-                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
-                    Secuencial = Convert.ToInt32(DataService41.Secuencia),
-                    teatro = Utilities.SelectedFunction.CinemaId,
-                    tercero = 1
-                });
-                frmLoading.Close();
+                    this.IsEnabled = true;
+                    this.Opacity = 1;
+                    return;
+                }
             }
-            if (validateCombo && (DataService41._DataResolution == null || DataService41._DataResolution.Count == 0))
-            {
-                Utilities.ShowModal("No se pudo obtener la factura de compra, por favor intente de nuevo.");
-                this.IsEnabled = true;
-                this.Opacity = 1;
-            }
-            else if (!response)
+
+            if (!response)
             {
                 Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
 
@@ -377,6 +367,52 @@ namespace WPProcinal.Forms.User_Control
 
 
         }
+
+        private bool GetSecuence()
+        {
+            try
+            {
+                FrmLoading frmLoading = new FrmLoading("¡Generando secuencia de compra!");
+                frmLoading.Show();
+
+                var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
+                {
+                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                    teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                    tercero = "1"
+                });
+
+                frmLoading.Close();
+                if (responseSec41 == null)
+                {
+                    Task.Run(() =>
+                    {
+                        Utilities.SendMailErrores($"No se pudo obtener la secuencia de compra en la transaccion: {Utilities.IDTransactionDB}" +
+                            $"");
+                    });
+                    Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
+
+                    return false;
+                }
+
+                foreach (var item in responseSec41)
+                {
+                    DataService41.Secuencia = item.Secuencia.ToString();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Task.Run(() =>
+                {
+                    Utilities.SendMailErrores($"No se pudo obtener la secuencia de compra en la transaccion: {Utilities.IDTransactionDB}" +
+                        $"");
+                });
+                Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
+                return false;
+            }
+        }
+
         #endregion
 
         #region "Timer"

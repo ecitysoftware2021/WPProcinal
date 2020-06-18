@@ -363,7 +363,7 @@ namespace WPProcinal.Forms.User_Control
                     WPlateModal wPlate = new WPlateModal();
                     wPlate.ShowDialog();
                 }
-                if (Utilities.GetConfiguration("Ambiente").Equals("Prd"))
+                if (Utilities.GetConfiguration("Ambiente").Equals("1"))
                 {
                     List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
                     foreach (var item in Utilities.SelectedChairs)
@@ -402,9 +402,15 @@ namespace WPProcinal.Forms.User_Control
                     }
 
 
-                    string year = Utilities.SelectedFunction.Date.Substring(0, 4);
-                    string mount = Utilities.SelectedFunction.Date.Substring(4, 2);
-                    string day = Utilities.SelectedFunction.Date.Substring(6, 2);
+                    string year = DateTime.Now.Year.ToString();
+                    string mount = DateTime.Now.Month.ToString();
+                    string day = DateTime.Now.Day.ToString();
+                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+                    {
+                        year = Utilities.SelectedFunction.Date.Substring(0, 4);
+                        mount = Utilities.SelectedFunction.Date.Substring(4, 2);
+                        day = Utilities.SelectedFunction.Date.Substring(6, 2);
+                    }
 
                     var dataClient = GetDataClient();
 
@@ -429,9 +435,9 @@ namespace WPProcinal.Forms.User_Control
                         PagoInterno = 0,
                         Pelicula = Utilities.SelectedFunction.MovieId,
                         Productos = productos,
-                        PuntoVenta = Utilities.SelectedFunction.PointOfSale,
+                        PuntoVenta = int.Parse(Utilities.GetConfiguration("Cinema")),
                         Sala = Utilities.SelectedFunction.RoomId,
-                        teatro = Utilities.SelectedFunction.CinemaId,
+                        teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
                         Telefono = long.Parse(dataClient.Telefono),
                         CodMedioPago = 6,
                         tercero = 1,
@@ -445,7 +451,12 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (item.Respuesta.Contains("exitoso"))
                             {
+                                if (DataService41.dataUser.Tarjeta != null)
+                                {
+                                    DataService41.dataUser.Puntos = Convert.ToDouble(Math.Floor(Utilities.PayVal / 1000)) + DataService41.dataUser.Puntos;
+                                }
                                 payState = true;
+                                GetInvoice();
                                 break;
                             }
                             else
@@ -477,7 +488,22 @@ namespace WPProcinal.Forms.User_Control
                 AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
-
+        private void GetInvoice()
+        {
+            if (DataService41._Combos.Count > 0)
+            {
+                frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
+                frmLoading.Show();
+                DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                {
+                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                    Secuencial = Convert.ToInt32(DataService41.Secuencia),
+                    teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                    tercero = 1
+                });
+                frmLoading.Close();
+            }
+        }
         SCOLOGResponse GetDataClient()
         {
             if (DataService41.dataUser.Tarjeta != null)

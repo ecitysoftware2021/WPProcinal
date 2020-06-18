@@ -571,7 +571,7 @@ namespace WPProcinal.Forms.User_Control
 
                 if (GetPrices())
                 {
-                    if (!GetCombo() || Utilities.FechaSeleccionada.ToString("dd/MM/yyyy") != DateTime.Now.ToString("dd/MM/yyyy"))
+                    if (Utilities.FechaSeleccionada.ToString("dd/MM/yyyy") != DateTime.Now.ToString("dd/MM/yyyy"))
                     {
                         frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
                         this.Opacity = 0.3;
@@ -580,48 +580,7 @@ namespace WPProcinal.Forms.User_Control
                         if (_frmConfirmationModal.DialogResult.HasValue &&
                             _frmConfirmationModal.DialogResult.Value)
                         {
-                            List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
-                            var sec = GetSecuence();
-                            if (sec)
-                            {
-                                List<ResponseScogru> responseReserve = Reserve(ubicacione);
-                                if (responseReserve != null)
-                                {
-                                    foreach (var item in responseReserve)
-                                    {
-                                        if (item.Respuesta.Contains("exitoso"))
-                                        {
-                                            ShowPay();
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Task.Run(() =>
-                                            {
-                                                Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
-                                                    $" <br> Error: {item.Respuesta}");
-                                            });
-                                            Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
-                                            ReloadWindow();
-                                            break;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Task.Run(() =>
-                                    {
-                                        Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB} <br> no hubo respuesta del servicio");
-                                    });
-                                    Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
-                                    ReloadWindow();
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                ReloadWindow();
-                            }
+                            GoToPay();
                         }
                         else
                         {
@@ -631,7 +590,14 @@ namespace WPProcinal.Forms.User_Control
                     }
                     else
                     {
-                        SecuenceAndReserveToConfectionery();
+                        if (!GetCombo())
+                        {
+                            GoToPay();
+                        }
+                        else
+                        {
+                            SecuenceAndReserveToConfectionery();
+                        }
                     }
                 }
                 else
@@ -648,6 +614,52 @@ namespace WPProcinal.Forms.User_Control
                 AdminPaypad.SaveErrorControl(ex.Message, "SendData en frmSeat", EError.Aplication, ELevelError.Medium);
 
                 Utilities.ShowModal("Lo sentimos, no fué posible consultar las tarifas, por favor intente de nuevo.");
+                ReloadWindow();
+            }
+        }
+
+        private void GoToPay()
+        {
+            List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
+            var sec = GetSecuence();
+            if (sec)
+            {
+                List<ResponseScogru> responseReserve = Reserve(ubicacione);
+                if (responseReserve != null)
+                {
+                    foreach (var item in responseReserve)
+                    {
+                        if (item.Respuesta.Contains("exitoso"))
+                        {
+                            ShowPay();
+                            break;
+                        }
+                        else
+                        {
+                            Task.Run(() =>
+                            {
+                                Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
+                                    $" <br> Error: {item.Respuesta}");
+                            });
+                            Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                            ReloadWindow();
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Task.Run(() =>
+                    {
+                        Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB} <br> no hubo respuesta del servicio");
+                    });
+                    Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                    ReloadWindow();
+                    return;
+                }
+            }
+            else
+            {
                 ReloadWindow();
             }
         }

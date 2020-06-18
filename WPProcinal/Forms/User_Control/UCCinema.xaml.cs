@@ -28,7 +28,7 @@ namespace WPProcinal.Forms.User_Control
         public UCCinema()
         {
             InitializeComponent();
-            ConfiguratePublish();
+            
             timerStatePay.Interval = 10000;
             timerStatePay.Elapsed += new System.Timers.ElapsedEventHandler(TimerStatePay_Tick);
             
@@ -55,6 +55,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 frmLoading.Show();
                 LoadData();
+                ConfiguratePublish();
             }));
 
         }

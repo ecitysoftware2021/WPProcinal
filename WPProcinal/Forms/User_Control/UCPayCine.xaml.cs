@@ -555,10 +555,15 @@ namespace WPProcinal.Forms.User_Control
                     }
 
 
-                    string year = Utilities.SelectedFunction.Date.Substring(0, 4);
-                    string mount = Utilities.SelectedFunction.Date.Substring(4, 2);
-                    string day = Utilities.SelectedFunction.Date.Substring(6, 2);
-
+                    string year = DateTime.Now.Year.ToString();
+                    string mount = DateTime.Now.Month.ToString();
+                    string day = DateTime.Now.Day.ToString();
+                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+                    {
+                        year = Utilities.SelectedFunction.Date.Substring(0, 4);
+                        mount = Utilities.SelectedFunction.Date.Substring(4, 2);
+                        day = Utilities.SelectedFunction.Date.Substring(6, 2);
+                    }
                     var dataClient = GetDataClient();
 
                     frmLoading = new FrmLoading("Confirmando la compra...");
@@ -604,6 +609,7 @@ namespace WPProcinal.Forms.User_Control
                                 {
                                     DataService41.dataUser.Puntos = Convert.ToDouble(Math.Floor(Utilities.PayVal / 1000)) + DataService41.dataUser.Puntos;
                                 }
+                                GetInvoice();
                                 payState = true;
                                 break;
                             }
@@ -636,6 +642,23 @@ namespace WPProcinal.Forms.User_Control
                 payState = false;
                 SavePay(payState);
                 AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        private void GetInvoice()
+        {
+            if (DataService41._Combos.Count > 0)
+            {
+                frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
+                frmLoading.Show();
+                DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                {
+                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                    Secuencial = Convert.ToInt32(DataService41.Secuencia),
+                    teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                    tercero = 1
+                });
+                frmLoading.Close();
             }
         }
 

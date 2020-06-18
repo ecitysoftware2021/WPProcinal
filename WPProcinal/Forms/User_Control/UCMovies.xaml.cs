@@ -363,10 +363,49 @@ namespace WPProcinal.Forms.User_Control
                     }
                     else
                     {
-                        Switcher.Navigate(new UCProductsCombos(new List<ChairsInformation>(), new FunctionInformation()));
+                        if (GetCombo())
+                        {
+                            Switcher.Navigate(new UCProductsCombos(new List<ChairsInformation>(), new FunctionInformation()));
+                        }
+                        else
+                        {
+                            frmModal modal = new frmModal("No se pudo descargar la confiteria, intenta de nuevo por favor!", false);
+                            modal.ShowDialog();
+                            Switcher.Navigate(new UCCinema());
+                        }
                     }
                 });
             });
+        }
+        private bool GetCombo()
+        {
+            FrmLoading frmLoading = new FrmLoading("¡Descargando la confitería...!");
+            frmLoading.Show();
+            var combos = WCFServices41.GetConfectionery(new SCOPRE
+            {
+                teatro = Utilities.GetConfiguration("CodCinema"),
+                tercero = "1"
+            });
+            frmLoading.Close();
+            if (combos != null)
+            {
+                if (combos.ListaProductos.Count > 0)
+                {
+                    DataService41._Productos = combos.ListaProductos;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+
+
         }
 
         private void BtnLogin_TouchDown(object sender, TouchEventArgs e)
