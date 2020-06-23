@@ -529,7 +529,7 @@ namespace WPProcinal.Forms.User_Control
                                 Top = 0,
                                 Left = 0,
                             },
-                            Name = string.Concat(est[filaScore].filRel, item.Columna),
+                            Name = string.Concat(est[filaScore].filRel, (columnaScore + 1)),
                             Tag = item.TipoSilla,
                         };
 
@@ -537,10 +537,10 @@ namespace WPProcinal.Forms.User_Control
                         ChairsInformation typeSeat = new ChairsInformation
                         {
                             Letter = est[filaScore].filRel,
-                            Name = string.Concat(est[filaScore].filRel, item.Columna),
+                            Name = string.Concat(est[filaScore].filRel, (columnaScore + 1)),
                             Number = item.Columna.ToString(),
                             Type = item.TipoSilla,
-                            RelativeColumn = int.Parse((filas.maxCol - columnaScore).ToString()),
+                            RelativeColumn = (columnaScore + 1),
                             RelativeRow = filas.filRel,
                         };
 
@@ -548,7 +548,7 @@ namespace WPProcinal.Forms.User_Control
                         Label labelSeat = new Label();
                         labelSeat.FontSize = 10;
                         labelSeat.FontWeight = FontWeights.Bold;
-                        labelSeat.Content = string.Concat(est[filaScore].filRel, item.Columna);
+                        labelSeat.Content = string.Concat(est[filaScore].filRel, (columnaScore+1));
                         labelSeat.Margin = new Thickness(0, 10, 0, 0);
                         labelSeat.Height = 25;
 
