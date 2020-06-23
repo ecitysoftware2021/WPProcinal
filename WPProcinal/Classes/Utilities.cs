@@ -473,6 +473,7 @@ namespace WPProcinal.Classes
                 int i = 0;
 
                 printCombo.Placa = Utilities.PLACA;
+                printCombo.Secuencia = DataService41.Secuencia;
                 foreach (var seat in Seats)
                 {
                     if (seat.Price != 0)
@@ -491,7 +492,7 @@ namespace WPProcinal.Classes
                         printCombo.Valor = seat.Price;
                         printCombo.Tramite = "Boleto de Cine";
                         printCombo.Category = dipMap.Category;
-                        printCombo.Secuencia = DataService41.Secuencia;
+                        
                         printCombo.Formato = MovieFormat;
                         printCombo.TipoSala = TipoSala;
                         printCombo.IDTransaccion = IDTransactionDB.ToString();

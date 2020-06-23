@@ -75,8 +75,9 @@ namespace WPProcinal.Forms.User_Control
                 Modal.ShowDialog();
 
                 lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
-                frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
-                frmLoading.Show();
+                //TODO:DESCOMENTAR
+                //frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
+                //frmLoading.Show();
 
                 ModalMensajes = new Mensajes();
                 ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
@@ -425,7 +426,7 @@ namespace WPProcinal.Forms.User_Control
                         Cortesia = string.Empty,
                         Direccion = dataClient.Direccion,
                         DocIdentidad = long.Parse(dataClient.Documento),
-                        Factura = Utilities.SelectedFunction.Secuence,
+                        Factura = int.Parse(DataService41.Secuencia),
                         FechaFun = string.Concat(year, "-", mount, "-", day),
                         Funcion = Utilities.SelectedFunction.IDFuncion,
                         InicioFun = Utilities.SelectedFunction.HourFormat,

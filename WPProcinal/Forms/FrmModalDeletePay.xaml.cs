@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using WPProcinal.Classes;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms
@@ -26,9 +27,15 @@ namespace WPProcinal.Forms
         {
             try
             {
-                int secuenca = Convert.ToInt32(txtSecuencia.Text);
+                int secuencia = Convert.ToInt32(txtSecuencia.Text);
 
-                var response = WCFServices41.CancelSale(secuenca);
+                var response = WCFServices41.CancelSale(new SCORET
+                {
+                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                    Pedido = secuencia,
+                    teatro = Utilities.GetConfiguration("CodCinema"),
+                    tercero = "1"
+                });
                 if (response != null)
                 {
                     if (response[0].Respuesta != null)
@@ -39,7 +46,7 @@ namespace WPProcinal.Forms
 
                             Task.Run(() =>
                             {
-                                Thread.Sleep(3000);
+                                Thread.Sleep(2000);
                                 Dispatcher.BeginInvoke((Action)delegate
                                 {
                                     DialogResult = true;

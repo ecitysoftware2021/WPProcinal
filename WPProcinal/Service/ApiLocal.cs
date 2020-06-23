@@ -222,15 +222,19 @@ namespace WPProcinal.Service
         {
             try
             {
-                var reques = new RequestAuthentication2
+                RequestApi requestApi = new RequestApi
                 {
-                    Password = password,
-                    Type = 2,
-                    UserName = username
+                    Session = Utilities.Session,
+                    User = Utilities.CorrespondentId,
+                    Data = new RequestAuthentication2
+                    {
+                        Password = password,
+                        Type = 1,
+                        UserName = username
+                    }
                 };
-
                 ServicePointManager.Expect100Continue = false;
-                var json = JsonConvert.SerializeObject(reques);
+                var json = JsonConvert.SerializeObject(requestApi);
                 var content = new StringContent(json, Encoding.UTF8, "Application/json");
                 var client = new HttpClient();
                 client.BaseAddress = new Uri(Utilities.GetConfiguration("basseAddressLocal"));
@@ -250,7 +254,7 @@ namespace WPProcinal.Service
                     return null;
                 }
 
-                var user = JsonConvert.DeserializeObject<UserViewModel2>(responseApi.Data.ToString());
+                var user = JsonConvert.DeserializeObject<List<UserViewModel2>>(responseApi.Data.ToString()).FirstOrDefault();
                 var userSession = new UserSession2
                 {
                     CUSTOMER_ID = user.CUSTOMER_ID,

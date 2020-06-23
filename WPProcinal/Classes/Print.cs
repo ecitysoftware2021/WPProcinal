@@ -279,6 +279,10 @@ namespace WPProcinal.Classes
                         g.DrawString("Vencimiento ", fBodyTiulos, sb, 10, SpaceY);
                         g.DrawString(data.Vencimiento.ToString(), fBodyTiulos, sb, 140, SpaceY);
                         SpaceY += 20;
+
+                        g.DrawString("Secuencia ", fBodyTiulos, sb, 10, SpaceY);
+                        g.DrawString(Secuencia, fBodyTiulos, sb, 140, SpaceY);
+                        SpaceY += 20;
                     }
                 }
 

@@ -212,6 +212,17 @@ namespace WPProcinal.Forms.User_Control
                         OrganizePositionOfSeatsInverted(response41);
                     }
                 }
+                else if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Mayorca)
+                {
+                    if (dipMapCurrent.RoomId == 10)
+                    {
+                        OrganizePositionOfSeatsInvertedAutocine(response41);
+                    }
+                    else
+                    {
+                        OrganizePositionOfSeats(response41);
+                    }
+                }
                 else
                 {
                     OrganizePositionOfSeats(response41);
@@ -464,6 +475,129 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
+        private void OrganizePositionOfSeatsInvertedAutocine(List<EstadoSala41> est)
+        {
+            try
+            {
+                int Height = est.Count();
+                int Width = int.Parse(est[0].maxCol.ToString());
+
+                for (int i = 0; i <= Height; i++)
+                {
+                    gridSillas.RowDefinitions.Add(new RowDefinition());
+                }
+                for (int i = 0; i <= Width; i++)
+                {
+                    gridSillas.ColumnDefinitions.Add(new ColumnDefinition());
+                }
+                int fila = 0;
+                int columnaUsuario = 0;
+                int columnaScore = Width - 1;
+                int filaScore = Height - 1;
+                foreach (var filas in est)
+                {
+                    foreach (var item in filas.DescripcionSilla)
+                    {
+
+
+                        ImageSource imageSource = null;
+                        if (item.TipoSilla == "General")
+                        {
+                            imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(string.Empty);
+                        }
+                        else if (item.TipoSilla == "pasillo")
+                        {
+                            imageSource = GetImage(item.TipoSilla);
+
+                        }
+                        else
+                        {
+                            imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
+                        }
+
+                        Image image = new Image
+                        {
+                            Source = imageSource,
+                            Height = 26,
+                            Width = 30,
+                            VerticalAlignment = VerticalAlignment.Top,
+                            HorizontalAlignment = HorizontalAlignment.Left,
+                            Margin = new Thickness
+                            {
+                                Right = 0,
+                                Bottom = 0,
+                                Top = 0,
+                                Left = 0,
+                            },
+                            Name = string.Concat(est[filaScore].filRel, item.Columna),
+                            Tag = item.TipoSilla,
+                        };
+
+
+                        ChairsInformation typeSeat = new ChairsInformation
+                        {
+                            Letter = est[filaScore].filRel,
+                            Name = string.Concat(est[filaScore].filRel, item.Columna),
+                            Number = item.Columna.ToString(),
+                            Type = item.TipoSilla,
+                            RelativeColumn = int.Parse((filas.maxCol - columnaScore).ToString()),
+                            RelativeRow = filas.filRel,
+                        };
+
+
+                        Label labelSeat = new Label();
+                        labelSeat.FontSize = 10;
+                        labelSeat.FontWeight = FontWeights.Bold;
+                        labelSeat.Content = string.Concat(est[filaScore].filRel, item.Columna);
+                        labelSeat.Margin = new Thickness(0, 10, 0, 0);
+                        labelSeat.Height = 25;
+
+                        if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
+                        {
+                            image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
+                        }
+
+                        if (item.TipoSilla != "pasillo")
+                        {
+                            gridSillas.Children.Add(labelSeat);
+                            Grid.SetColumn(labelSeat, columnaUsuario);
+                            Grid.SetRow(labelSeat, fila);
+
+                            gridSillas.Children.Add(image);
+                            Grid.SetColumn(image, columnaUsuario);
+                            Grid.SetRow(image, fila);
+
+                        }
+
+                        columnaUsuario++;
+                        columnaScore--;
+                    }
+                    columnaUsuario = 0;
+                    columnaScore = Width - 1;
+                    if (filas.DescripcionSilla.Count > 0)
+                    {
+
+                        filaScore--;
+                        fila++;
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    AdminPaypad.SaveErrorControl(ex.Message,
+                    "OrganizePositionOfSeatsInverted",
+                    EError.Aplication,
+                    ELevelError.Mild);
+                }
+                catch { }
+            }
+        }
+
+
         private void MSelectedsetas(object sender, TouchEventArgs eh, ChairsInformation item)
         {
             SelectedSeatsMethod(sender, item);
@@ -592,7 +726,19 @@ namespace WPProcinal.Forms.User_Control
                     {
                         if (!GetCombo())
                         {
-                            GoToPay();
+                            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
+                            this.Opacity = 0.3;
+                            _frmConfirmationModal.ShowDialog();
+                            this.Opacity = 1;
+                            if (_frmConfirmationModal.DialogResult.HasValue &&
+                                _frmConfirmationModal.DialogResult.Value)
+                            {
+                                GoToPay();
+                            }
+                            else
+                            {
+                                ActivateTimer();
+                            }
                         }
                         else
                         {

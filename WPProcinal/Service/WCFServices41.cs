@@ -19,7 +19,7 @@ namespace WPProcinal.Service
     {
 
         static EcityDataEncrypt dataEncrypt = new EcityDataEncrypt();
-       
+
         private static void ServerCertificateValidationCallback()
         {
             ServicePointManager.ServerCertificateValidationCallback += delegate (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
@@ -446,7 +446,7 @@ namespace WPProcinal.Service
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
 
                 var est = JsonConvert.DeserializeObject<Confiteria>(decryptData);
-                if (est.ListaProductos.Count < 6)
+                if (est.ListaProductos.Count < 1)
                 {
                     LogService.SaveRequestResponse("Respuesta al consultar los productos", decryptData, 1);
                     return null;
@@ -653,22 +653,14 @@ namespace WPProcinal.Service
         /// </summary>
         /// <returns></returns>
         #region "SCORET"
-        public static List<ResponseScoret> CancelSale(int secuencia)
+        public static List<ResponseScoret> CancelSale(SCORET data)
         {
 
             string decryptData = string.Empty;
             try
             {
-                SCORET sCORET = new SCORET
-                {
-                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
-                    Pedido = secuencia,
-                    teatro = Utilities.GetConfiguration("CodCinema"),
-                    tercero = "1"
-                };
-
                 //Data convertida a formato json
-                var seria = JsonConvert.SerializeObject(sCORET);
+                var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion para cancelar la compra", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
