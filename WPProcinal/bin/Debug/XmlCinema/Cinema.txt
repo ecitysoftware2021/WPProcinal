@@ -7725,7 +7725,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Mar, Jun 23 2020" univ="20200623">
-              <hora idFuncion="202006233031020" horario="8:30 pm" reservasONline="true" ventasONline="true" militar="2030" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="39" disponibilidad="3">
+              <hora idFuncion="202006233031020" horario="8:30 pm" reservasONline="true" ventasONline="true" militar="2030" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="39" disponibilidad="21">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="14" nombreTarifa="2D Tarjeta Intelecto" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8500,0000" />

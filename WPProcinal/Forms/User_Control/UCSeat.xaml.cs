@@ -540,8 +540,8 @@ namespace WPProcinal.Forms.User_Control
                             Name = string.Concat(est[filaScore].filRel, (columnaScore + 1)),
                             Number = item.Columna.ToString(),
                             Type = item.TipoSilla,
-                            RelativeColumn = (columnaScore + 1),
-                            RelativeRow = filas.filRel,
+                            RelativeColumn = int.Parse((filas.maxCol - columnaScore).ToString()),
+                            RelativeRow = est[filaScore].filRel,
                         };
 
 
