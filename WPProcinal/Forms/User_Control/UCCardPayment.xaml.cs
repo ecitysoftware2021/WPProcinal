@@ -359,7 +359,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                if (Utilities.GetConfiguration("ModalPlate").Equals("1"))
+                if (Utilities.GetConfiguration("ModalPlate").Equals("1") && Utilities.PlateObligatory)
                 {
                     WPlateModal wPlate = new WPlateModal();
                     wPlate.ShowDialog();

@@ -20,14 +20,14 @@ namespace WPProcinal.Forms.User_Control
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Task.Run(() =>
-            {
+            //Task.Run(() =>
+            //{
                 Utilities.ReValidatePayPad();
-                Dispatcher.BeginInvoke((Action)delegate
-                {
+                //Dispatcher.BeginInvoke((Action)delegate
+                //{
                     Utilities.GoToInicial();
-                });
-            });
+                //});
+            //});
         }
     }
 }

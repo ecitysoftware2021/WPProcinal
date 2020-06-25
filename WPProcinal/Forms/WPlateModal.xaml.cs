@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WPProcinal.Classes;
 
 namespace WPProcinal.Forms
@@ -28,7 +18,22 @@ namespace WPProcinal.Forms
         private void BtnContinue_TouchDown(object sender, TouchEventArgs e)
         {
             Utilities.PLACA = txPlaca.Text.Trim();
-            DialogResult = true;
+            if (Utilities.PlateObligatory)
+            {
+                if (!string.IsNullOrEmpty(Utilities.PLACA) && Utilities.PLACA.Length > 5)
+                {
+                    DialogResult = true;
+                }
+                else
+                {
+                    lblInformation.Text = "INGRESE UNA PLACA VÁLIDA";
+                }
+            }
+            else
+            {
+                DialogResult = true;
+            }
+
         }
 
         private void Label_TouchDown(object sender, TouchEventArgs e)
@@ -36,7 +41,10 @@ namespace WPProcinal.Forms
             var text = (sender as Label).Tag.ToString();
             if (text != ".")
             {
-                txPlaca.Text += text;
+                if (txPlaca.Text.Length < 6)
+                {
+                    txPlaca.Text += text;
+                }
             }
             else
             {

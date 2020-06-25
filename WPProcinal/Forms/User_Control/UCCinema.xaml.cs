@@ -28,10 +28,10 @@ namespace WPProcinal.Forms.User_Control
         public UCCinema()
         {
             InitializeComponent();
-            
+            Utilities.SelectedChairs = new System.Collections.Generic.List<ChairsInformation>();
+            DataService41._Combos = new System.Collections.Generic.List<Combos>();
             timerStatePay.Interval = 10000;
             timerStatePay.Elapsed += new System.Timers.ElapsedEventHandler(TimerStatePay_Tick);
-            
 
             try
             {
@@ -66,7 +66,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 Utilities.ReValidatePayPad();
             });
-           
+
         }
 
         private async void ConfiguratePublish()
@@ -153,6 +153,7 @@ namespace WPProcinal.Forms.User_Control
                     gridPrincipal.IsEnabled = false;
                     _imageSleader.Stop();
                     Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
+                    Utilities.PlateObligatory = true;
                     Switcher.Navigate(new UCMovies());
                 }
             }

@@ -216,10 +216,12 @@ namespace WPProcinal.Forms.User_Control
                 {
                     if (dipMapCurrent.RoomId == 10)
                     {
+                        Utilities.PlateObligatory = true;
                         OrganizePositionOfSeatsInvertedAutocine(response41);
                     }
                     else
                     {
+                        Utilities.PlateObligatory = false;
                         OrganizePositionOfSeats(response41);
                     }
                 }
@@ -481,6 +483,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 int Height = est.Count();
                 int Width = int.Parse(est[0].maxCol.ToString());
+                //est.Reverse();
 
                 for (int i = 0; i <= Height; i++)
                 {
@@ -529,7 +532,7 @@ namespace WPProcinal.Forms.User_Control
                                 Top = 0,
                                 Left = 0,
                             },
-                            Name = string.Concat(est[filaScore].filRel, (columnaScore + 1)),
+                            Name = string.Concat(filas.filRel, (columnaScore + 1)),
                             Tag = item.TipoSilla,
                         };
 
@@ -537,18 +540,18 @@ namespace WPProcinal.Forms.User_Control
                         ChairsInformation typeSeat = new ChairsInformation
                         {
                             Letter = est[filaScore].filRel,
-                            Name = string.Concat(est[filaScore].filRel, (columnaScore + 1)),
+                            Name = string.Concat(filas.filRel, (columnaScore + 1)),
                             Number = item.Columna.ToString(),
                             Type = item.TipoSilla,
                             RelativeColumn = int.Parse((filas.maxCol - columnaScore).ToString()),
-                            RelativeRow = est[filaScore].filRel,
+                            RelativeRow = filas.filRel,
                         };
 
 
                         Label labelSeat = new Label();
                         labelSeat.FontSize = 10;
                         labelSeat.FontWeight = FontWeights.Bold;
-                        labelSeat.Content = string.Concat(est[filaScore].filRel, (columnaScore+1));
+                        labelSeat.Content = string.Concat(filas.filRel, (columnaScore+1));
                         labelSeat.Margin = new Thickness(0, 10, 0, 0);
                         labelSeat.Height = 25;
 
@@ -560,11 +563,11 @@ namespace WPProcinal.Forms.User_Control
                         if (item.TipoSilla != "pasillo")
                         {
                             gridSillas.Children.Add(labelSeat);
-                            Grid.SetColumn(labelSeat, columnaUsuario);
+                            Grid.SetColumn(labelSeat, columnaScore);
                             Grid.SetRow(labelSeat, fila);
 
                             gridSillas.Children.Add(image);
-                            Grid.SetColumn(image, columnaUsuario);
+                            Grid.SetColumn(image, columnaScore);
                             Grid.SetRow(image, fila);
 
                         }
@@ -705,7 +708,7 @@ namespace WPProcinal.Forms.User_Control
 
                 if (GetPrices())
                 {
-                    if (Utilities.FechaSeleccionada.ToString("dd/MM/yyyy") != DateTime.Now.ToString("dd/MM/yyyy"))
+                    if (Utilities.FechaSeleccionada.ToString("dd/MM/yyyy") != DateTime.Now.ToString("dd/MM/yyyy") || Utilities.PlateObligatory)
                     {
                         frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
                         this.Opacity = 0.3;

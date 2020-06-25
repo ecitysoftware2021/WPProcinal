@@ -58,6 +58,11 @@ namespace WPProcinal.Classes
         public static string PLACA;
 
         /// <summary>
+        /// Variable para poner obligatoria o no la placa
+        /// </summary>
+        public static bool PlateObligatory { get; set; }
+
+        /// <summary>
         /// Objeto para el sonido de la app
         /// </summary>
         public static SpeechSynthesizer speech;

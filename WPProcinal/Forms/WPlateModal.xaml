@@ -13,8 +13,8 @@
         AllowsTransparency="True"
         ShowInTaskbar="False" 
         Topmost="True"
-        Height="550" 
-        Width="900">
+        Height="400" 
+        Width="700">
     <Border 
             BorderBrush="Black" 
             BorderThickness="3,3,3,3"
@@ -33,27 +33,29 @@
             </Grid.RowDefinitions>
 
             <TextBlock 
-                FontSize="30"
+                x:Name="lblInformation"
+                FontSize="25"
                 Foreground="White"
                 FontWeight="Bold"
                 TextAlignment="Center"
                 Text="INGRESA TU PLACA PARA DARTE ACCESO" />
 
-            <TextBox 
-                md:HintAssist.Hint="INGRESA TU PLACA" 
-                md:HintAssist.IsFloating="True" 
-                md:HintAssist.FloatingScale="0.3"
+            <TextBox
                 FontSize="30"
                 Foreground="White"
                 FontWeight="Bold"
                 TextAlignment="Center"
                 Name="txPlaca"
                 IsEnabled="False"
-                VerticalContentAlignment="Center"
+                VerticalAlignment="Top"
+                VerticalContentAlignment="Bottom"
                 HorizontalContentAlignment="Center"
-                Margin="297,80,297,26"/>
+                Margin="0,40,0,0"/>
 
-            <Grid Name="grvStandar" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Margin="177,0" Width="540">
+            <Grid Name="grvStandar" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Top" Grid.Row="1"
+                  Margin="0,-40,0,0">
                 <StackPanel Orientation="Vertical" Name="spControls">
                     <StackPanel Orientation="Horizontal">
                         <Label Height="60" Width="50" Foreground="White" Content="1" Tag="1" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
@@ -189,12 +191,12 @@
             <Image HorizontalAlignment="Center"
                        Name="BtnEnd"
                        VerticalAlignment="Bottom"
-                       Width="200"
-                       Margin="347,0"
+                       Width="160"
+                   Margin="0,0,0,-15"
                    Grid.Row="1"
                        Stretch="Uniform"
                        Source="../Images/Buttons/continuar.png"
-                           TouchDown="BtnContinue_TouchDown" Height="82"
+                           TouchDown="BtnContinue_TouchDown"
                        />
         </Grid>
     </Border>
