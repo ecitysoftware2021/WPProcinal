@@ -20,14 +20,16 @@ namespace WPProcinal.Forms.User_Control
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //Task.Run(() =>
-            //{
+            if (Utilities.GetConfiguration("CashPayState").Equals("1"))
+            {
                 Utilities.ReValidatePayPad();
-                //Dispatcher.BeginInvoke((Action)delegate
-                //{
-                    Utilities.GoToInicial();
-                //});
-            //});
+                Utilities.GoToInicial();
+            }
+            else
+            {
+                Thread.Sleep(2000);
+                Utilities.GoToInicial();
+            }
         }
     }
 }

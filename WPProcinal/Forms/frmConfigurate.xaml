@@ -30,7 +30,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
+
         <TextBlock Text="CONFIGURACIÓN DEL DISPOSITIVO"
                        FontFamily="Gotham"
                    Grid.Row="1"
@@ -45,7 +45,6 @@
         <TextBlock Text="Comunicación Servidor"
                    Grid.Row="2"
                    Grid.Column="0"
-
                        FontFamily="Gotham"
                        FontSize="45"
                        Foreground="White"
@@ -77,6 +76,7 @@
 
         <TextBlock Text="Billetero Aceptador"
                    Grid.Row="2"
+                   Name="lblBillAceptance"
                    Grid.Column="0"
                        FontFamily="Gotham"
                        FontSize="45"
@@ -108,6 +108,7 @@
 
         <TextBlock Text="Billetero Dispensador"
                    Grid.Row="2"
+                   Name="lblBillDispenser"
                    Grid.Column="0"
                        FontFamily="Gotham"
                        FontSize="45"
@@ -137,6 +138,7 @@
 
         <TextBlock Text="Monederos"
                    Grid.Row="3"
+                   Name="lblCoins"
                    Grid.Column="0"
                        FontFamily="Gotham"
                        FontSize="45"
@@ -168,6 +170,7 @@
 
         <TextBlock Text="Impresora"
                    Grid.Row="3"
+                   Name="lblPrinter"
                    Grid.Column="0"
                        FontFamily="Gotham"
                        FontSize="45"

@@ -36,6 +36,28 @@ namespace WPProcinal.Forms
             }
 
             InitializeComponent();
+
+            if (!Utilities.GetConfiguration("CashPayState").Equals("1"))
+            {
+                okAceptadorBilletes.Visibility = Visibility.Hidden;
+                badAceptadorBilletes.Visibility = Visibility.Hidden;
+                lblBillAceptance.Visibility = Visibility.Hidden;
+
+                okMonederos.Visibility = Visibility.Hidden;
+                badMonederos.Visibility = Visibility.Hidden;
+                lblCoins.Visibility = Visibility.Hidden;
+
+
+                okDispensadorBilletes.Visibility = Visibility.Hidden;
+                badDispensadorBilletes.Visibility = Visibility.Hidden;
+                lblBillDispenser.Visibility = Visibility.Hidden;
+
+                Grid.SetRow(lblPrinter, 2);
+                Grid.SetRow(okImpresora, 2);
+                Grid.SetRow(badImpresora, 2);
+
+            }
+
             Switcher.Navigator = this;
             try
             {
@@ -92,40 +114,52 @@ namespace WPProcinal.Forms
                         }
                         else if (Utilities.dataPaypad.State)
                         {
-                            if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser)
+                            if (Utilities.GetConfiguration("CashPayState").Equals("1"))
                             {
-                                stateMoney = true;
-                                if (util == null)
+                                if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser)
                                 {
-                                    util = new Utilities();
-                                }
-                                if (configurateActive != 1)
-                                {
-                                    Utilities.LoadData();
-                                    Dispatcher.BeginInvoke((Action)delegate
+                                    stateMoney = true;
+                                    if (util == null)
                                     {
-                                        Switcher.Navigate(new UCCinema());
-                                    });
+                                        util = new Utilities();
+                                    }
+                                    if (configurateActive != 1)
+                                    {
+                                        Utilities.LoadData();
+                                        Dispatcher.BeginInvoke((Action)delegate
+                                        {
+                                            Switcher.Navigate(new UCCinema());
+                                        });
+
+                                    }
+                                    else
+                                    {
+                                        ChangeStatusPeripherals();
+                                        Task.Run(() =>
+                                        {
+                                            Utilities.control.OpenSerialPorts();
+                                            Utilities.control.Start();
+                                            Utilities.control.StartCoinAcceptorDispenser();
+                                            Utilities.LoadData();
+                                        });
+                                    }
 
                                 }
                                 else
                                 {
-                                    ChangeStatusPeripherals();
-                                    Task.Run(() =>
-                                    {
-                                        Utilities.control.OpenSerialPorts();
-                                        Utilities.control.Start();
-                                        Utilities.control.StartCoinAcceptorDispenser();
-                                        Utilities.LoadData();
-                                    });
+                                    LogService.SaveRequestResponse("Sin dinero", Utilities.dataPaypad.Message, 6);
+                                    ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
                                 }
-
                             }
                             else
                             {
-                                LogService.SaveRequestResponse("Sin dinero", Utilities.dataPaypad.Message, 6);
-                                ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
+                                if (util == null)
+                                {
+                                    util = new Utilities();
+                                }
+                                ChangeStatusPeripherals();
                             }
+
                         }
                         else
                         {
@@ -156,8 +190,9 @@ namespace WPProcinal.Forms
             {
                 peripheralsValidated++;
             }
-
-            Utilities.control.callbackError = error =>
+            if (Utilities.GetConfiguration("CashPayState").Equals("1"))
+            {
+                Utilities.control.callbackError = error =>
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
@@ -166,43 +201,44 @@ namespace WPProcinal.Forms
                 ShowModalError(error);
             };
 
-            Utilities.control.callbackStatusBillAceptance = State =>
-            {
-
-                Dispatcher.BeginInvoke((Action)delegate
+                Utilities.control.callbackStatusBillAceptance = State =>
                 {
-                    Utilities.control.callbackStatusBillAceptance = null;
-                    peripheralsValidated++;
-                    okAceptadorBilletes.Visibility = Visibility.Visible;
-                    badAceptadorBilletes.Visibility = Visibility.Hidden;
-                    CheckPeripheralsAndContinue();
-                });
-            };
 
-            Utilities.control.callbackStatusCoinAceptanceDispenser = State =>
-            {
-                Dispatcher.BeginInvoke((Action)delegate
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        Utilities.control.callbackStatusBillAceptance = null;
+                        peripheralsValidated++;
+                        okAceptadorBilletes.Visibility = Visibility.Visible;
+                        badAceptadorBilletes.Visibility = Visibility.Hidden;
+                        CheckPeripheralsAndContinue();
+                    });
+                };
+
+                Utilities.control.callbackStatusCoinAceptanceDispenser = State =>
                 {
-                    Utilities.control.callbackStatusCoinAceptanceDispenser = null;
-                    peripheralsValidated++;
-                    okMonederos.Visibility = Visibility.Visible;
-                    badMonederos.Visibility = Visibility.Hidden;
-                    CheckPeripheralsAndContinue();
-                });
-            };
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        Utilities.control.callbackStatusCoinAceptanceDispenser = null;
+                        peripheralsValidated++;
+                        okMonederos.Visibility = Visibility.Visible;
+                        badMonederos.Visibility = Visibility.Hidden;
+                        CheckPeripheralsAndContinue();
+                    });
+                };
 
-            Utilities.control.callbackToken = isSucces =>
-            {
-                Dispatcher.BeginInvoke((Action)delegate
+                Utilities.control.callbackToken = isSucces =>
                 {
-                    Utilities.control.callbackToken = null;
-                    peripheralsValidated++;
-                    okDispensadorBilletes.Visibility = Visibility.Visible;
-                    badDispensadorBilletes.Visibility = Visibility.Hidden;
-                    CheckPeripheralsAndContinue();
-                });
-            };
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        Utilities.control.callbackToken = null;
+                        peripheralsValidated++;
+                        okDispensadorBilletes.Visibility = Visibility.Visible;
+                        badDispensadorBilletes.Visibility = Visibility.Hidden;
+                        CheckPeripheralsAndContinue();
+                    });
+                };
 
+            }
 
             Dispatcher.BeginInvoke((Action)delegate
             {

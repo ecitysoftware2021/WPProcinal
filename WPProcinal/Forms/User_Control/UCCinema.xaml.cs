@@ -173,21 +173,28 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.UpdateApp();
                 return false;
             }
-            else if (!Utilities.dataPaypad.State)
+            if (Utilities.GetConfiguration("CashPayState").Equals("1"))
             {
-                frmModal modal = new frmModal("Perdí la conexión, intenta en un momento por favor!", false);
-                modal.ShowDialog();
-                return false;
-            }
-            else if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
-            {
-                return true;
+                if (!Utilities.dataPaypad.State)
+                {
+                    frmModal modal = new frmModal("Perdí la conexión, intenta en un momento por favor!", false);
+                    modal.ShowDialog();
+                    return false;
+                }
+                else if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
+                {
+                    return true;
+                }
+                else
+                {
+                    frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeSinDinero"));
+                    modal.ShowDialog();
+                    return false;
+                }
             }
             else
             {
-                frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeSinDinero"));
-                modal.ShowDialog();
-                return false;
+                return true;
             }
         }
     }
