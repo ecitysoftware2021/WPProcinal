@@ -16,8 +16,8 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
-        <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/procinal01.gif" 
+
+        <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/ANIMACION-PROCINAL-2.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
                     x:Name="GifLoad2" 
@@ -30,7 +30,7 @@
                     Height="300" 
                     Grid.Column="0"
                TouchDown="ConfigBoletas_TouchDown"/>
-        <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/procinal01.gif" 
+        <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/ANIMACION-PROCINAL.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
                     Stretch="Fill"

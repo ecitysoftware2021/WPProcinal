@@ -71,8 +71,6 @@ namespace WPProcinal.Forms.User_Control
             {
 
 
-                frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
-                Modal.ShowDialog();
 
                 lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
                 //TODO:DESCOMENTAR
@@ -111,7 +109,7 @@ namespace WPProcinal.Forms.User_Control
 
                 //Activar();
 
-                Buytickets();
+                
             }
             catch (Exception ex)
             {
@@ -122,6 +120,10 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
+
+                frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
+                Modal.ShowDialog();
+                Buytickets();
                 //TODO: descomentar
                 //Task.Run(() =>
                 //{

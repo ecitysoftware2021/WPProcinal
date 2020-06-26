@@ -396,6 +396,8 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Gif\ANIMACION-PROCINAL-2.gif" />
+    <Resource Include="Images\Gif\ANIMACION-PROCINAL.gif" />
     <Resource Include="Images\Buttons\DELETE.png" />
     <Resource Include="Images\imgCrispetas.png" />
     <Resource Include="Images\Buttons\verCombos.png" />

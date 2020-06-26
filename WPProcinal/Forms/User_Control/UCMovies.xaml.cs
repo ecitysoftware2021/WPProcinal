@@ -427,6 +427,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         FrmModalDeletePay modalDeletePay = new FrmModalDeletePay();
                         modalDeletePay.ShowDialog();
+                        login = 0;
                     }
 
                     this.Opacity = 1;

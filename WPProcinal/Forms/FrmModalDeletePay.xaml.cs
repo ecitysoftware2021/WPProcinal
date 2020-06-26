@@ -44,14 +44,14 @@ namespace WPProcinal.Forms
                         {
                             txtMs.Text = "Compra eliminada";
 
-                            Task.Run(() =>
-                            {
-                                Thread.Sleep(2000);
-                                Dispatcher.BeginInvoke((Action)delegate
-                                {
-                                    DialogResult = true;
-                                });
-                            });
+                            //Task.Run(() =>
+                            //{
+                            //    Thread.Sleep(2000);
+                            //    Dispatcher.BeginInvoke((Action)delegate
+                            //    {
+                            //        DialogResult = true;
+                            //    });
+                            //});
                         }
                     }
                     else

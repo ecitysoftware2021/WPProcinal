@@ -153,7 +153,7 @@ namespace WPProcinal.Forms.User_Control
                     gridPrincipal.IsEnabled = false;
                     _imageSleader.Stop();
                     Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
-                    Utilities.PlateObligatory = true;
+                    Utilities.PlateObligatory = false;
                     Switcher.Navigate(new UCMovies());
                 }
             }
