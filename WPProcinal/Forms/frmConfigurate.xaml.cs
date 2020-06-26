@@ -2,6 +2,7 @@
 using PrinterValidator;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -36,6 +37,19 @@ namespace WPProcinal.Forms
             }
 
             InitializeComponent();
+
+
+            if (Directory.Exists("Slider"))
+            {
+                try
+                {
+                    foreach (var item in Directory.GetFiles("Slider"))
+                    {
+                        File.Delete(item);
+                    }
+                }
+                catch { }
+            }
 
             if (!Utilities.GetConfiguration("CashPayState").Equals("1"))
             {
@@ -110,7 +124,7 @@ namespace WPProcinal.Forms
 
                         if (Utilities.dataPaypad.StateUpdate)
                         {
-                            ShowModalError("Hay una nueva versión de la aplicación, pendiente por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
+                            ShowModalError("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
                         }
                         else if (Utilities.dataPaypad.State)
                         {
@@ -140,7 +154,7 @@ namespace WPProcinal.Forms
                                             Utilities.control.OpenSerialPorts();
                                             Utilities.control.Start();
                                             Utilities.control.StartCoinAcceptorDispenser();
-                                            Utilities.LoadData();
+
                                         });
                                     }
 
@@ -157,6 +171,7 @@ namespace WPProcinal.Forms
                                 {
                                     util = new Utilities();
                                 }
+
                                 ChangeStatusPeripherals();
                             }
 

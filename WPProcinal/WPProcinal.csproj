@@ -239,6 +239,9 @@
     <Compile Include="Forms\WPlateModal.xaml.cs">
       <DependentUpon>WPlateModal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\WTCModal.xaml.cs">
+      <DependentUpon>WTCModal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApiLocal\DataPaypad.cs" />
     <Compile Include="Models\ApiLocal\RequestAuth.cs" />
     <Compile Include="Models\ApiLocal\ResponseAuth.cs" />
@@ -340,6 +343,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\WTCModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -396,6 +403,8 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\tc.jpg" />
+    <Resource Include="Images\Buttons\aceptar.png" />
     <Resource Include="Images\Gif\ANIMACION-PROCINAL-2.gif" />
     <Resource Include="Images\Gif\ANIMACION-PROCINAL.gif" />
     <Resource Include="Images\Buttons\DELETE.png" />

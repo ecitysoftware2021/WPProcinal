@@ -54,7 +54,9 @@ namespace WPProcinal.Forms.User_Control
             Task.Run(() => Dispatcher.BeginInvoke((Action)delegate
             {
                 frmLoading.Show();
-                LoadData();
+                Utilities.LoadData();
+                frmLoading.Close();
+                timerStatePay.Start();
                 ConfiguratePublish();
             }));
 
@@ -102,9 +104,10 @@ namespace WPProcinal.Forms.User_Control
             {
                 string dataXml = string.Empty;
                 var response = WCFServices41.DownloadData();
-                frmLoading.Close();
+
                 if (!response.IsSuccess)
                 {
+                    frmLoading.Close();
                     Utilities.ShowModal(response.Message);
                     return;
                 }
@@ -115,10 +118,13 @@ namespace WPProcinal.Forms.User_Control
                 dataXml = Utilities.GetFileXML();
                 Peliculas data = WCFServices41.DeserealizeXML<Peliculas>(dataXml);
                 DataService41.Peliculas = data;
+                Utilities.LoadData();
+                frmLoading.Close();
 
             }
             catch (System.Exception ex)
             {
+                frmLoading.Close();
                 AdminPaypad.SaveErrorControl(ex.Message, "LoadData en frmCinema", EError.Aplication, ELevelError.Medium);
             }
             timerStatePay.Start();
@@ -168,9 +174,12 @@ namespace WPProcinal.Forms.User_Control
         {
             if (Utilities.dataPaypad.StateUpdate)
             {
-                frmModal modal = new frmModal("Tiene una actualización pendiente por favor no manipule ni apague el PayPlus mientras termina la instalación.", true);
-                modal.ShowDialog();
-                Utilities.UpdateApp();
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    frmModal modal = new frmModal("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
+                    modal.ShowDialog();
+                    Utilities.UpdateApp();
+                });
                 return false;
             }
             if (Utilities.GetConfiguration("CashPayState").Equals("1"))

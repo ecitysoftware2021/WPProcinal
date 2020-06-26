@@ -497,7 +497,7 @@ namespace WPProcinal.Classes
                         printCombo.Valor = seat.Price;
                         printCombo.Tramite = "Boleto de Cine";
                         printCombo.Category = dipMap.Category;
-                        
+
                         printCombo.Formato = MovieFormat;
                         printCombo.TipoSala = TipoSala;
                         printCombo.IDTransaccion = IDTransactionDB.ToString();
@@ -856,25 +856,34 @@ namespace WPProcinal.Classes
         {
             try
             {
-                foreach (var item in DataService41.Peliculas.Pelicula)
+                var sliders = Directory.GetFiles("Slider");
+                if (sliders.Length < 1)
                 {
-                    if (WCFServices41.StateImage(item.Data.Imagen))
+                    foreach (var item in DataService41.Peliculas.Pelicula)
                     {
-                        if (!Directory.Exists("Slider"))
+                        foreach (var peli in item.Cinemas)
                         {
-                            Directory.CreateDirectory("Slider");
-                        }
-                        PublicityPath = Path.Combine(Directory.GetCurrentDirectory(), "Slider");
-                        using (WebClient client = new WebClient())
-                        {
-                            var fileName = string.Concat(PublicityPath, "\\", item.Nombre + ".jpg");
-                            if (!File.Exists(fileName))
+                            if (peli.Cinema.Id == GetConfiguration("CodCinema"))
                             {
-                                client.DownloadFile(new Uri(item.Data.Imagen), fileName);
+                                if (WCFServices41.StateImage(item.Data.Imagen))
+                                {
+                                    if (!Directory.Exists("Slider"))
+                                    {
+                                        Directory.CreateDirectory("Slider");
+                                    }
+                                    PublicityPath = Path.Combine(Directory.GetCurrentDirectory(), "Slider");
+                                    using (WebClient client = new WebClient())
+                                    {
+                                        var fileName = string.Concat(PublicityPath, "\\", item.Nombre + ".jpg");
+                                        if (!File.Exists(fileName))
+                                        {
+                                            client.DownloadFile(new Uri(item.Data.Imagen), fileName);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-
                 }
             }
             catch (Exception ex)

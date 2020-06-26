@@ -1,0 +1,77 @@
+﻿<Window x:Class="WPProcinal.Forms.WTCModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPProcinal.Forms"
+        mc:Ignorable="d"
+        Title="WTCModal" WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        ShowInTaskbar="False" 
+        Topmost="True"
+        Height="450" 
+        Width="600">
+    <Border 
+            BorderBrush="Black" 
+            BorderThickness="3,3,3,3"
+            CornerRadius="20,20,20,20">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/Backgrounds/p-fondo-general.jpg"
+                        Stretch="Fill"/>
+        </Border.Background>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center"
+                   Grid.Row="0"
+                       VerticalAlignment="Top"
+                       Margin="0,0,0,0"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       FontSize="30"
+                       Text="TERMINOS Y CONDICIONES"
+                       />
+            <TextBlock x:Name="LblMessage" 
+                           HorizontalAlignment="Center"
+                           FontFamily="Gotham"
+                           Grid.Row="1" 
+                           Margin="0,0,0,0"
+                           FontSize="25"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Top" 
+                           Foreground="white" 
+                    />
+            
+            <TextBlock x:Name="LblURL" 
+                           HorizontalAlignment="Center"
+                           FontFamily="Gotham"
+                           Grid.Row="1"
+                           Margin="0,0,0,60"
+                           FontSize="20"
+                       FontWeight="Bold"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Bottom" 
+                           Foreground="White"
+                       FontStyle="Italic"/>
+
+            <Image HorizontalAlignment="Center"
+                       Name="BtnEnd"
+                       VerticalAlignment="Bottom"
+                       Width="200"
+                   Grid.Row="2"
+                       Margin="0,0,0,0"
+                       Stretch="Uniform"
+                       Source="../Images/Buttons/aceptar.png"
+                           TouchDown="BtnEnd_TouchDown"
+                       />
+        </Grid>
+    </Border>
+</Window>

@@ -540,4 +540,5 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WPlateModal.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WPlateModal.baml
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WTCModal.g.cs
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WTCModal.baml

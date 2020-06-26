@@ -73,16 +73,14 @@ namespace WPProcinal.Forms.User_Control
 
 
                 lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
-                //TODO:DESCOMENTAR
-                //frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
-                //frmLoading.Show();
+                frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
+                frmLoading.Show();
 
                 ModalMensajes = new Mensajes();
                 ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
                 this.DataContext = ModalMensajes;
 
-                //TODO: descomentar
-                //TPV = new TPVOperation();
+                TPV = new TPVOperation();
 
                 Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
                 if (Seats.Count > 0)
@@ -102,14 +100,12 @@ namespace WPProcinal.Forms.User_Control
 
                 stateUpdate = true;
 
-                //TODO:descomentar hasta el activar y eliminar el buyticket
                 payState = true;
-
                 Utilities.Speack("Estableciendo conexión con el datáfono, espera por favor.");
 
-                //Activar();
+                Activar();
 
-                
+
             }
             catch (Exception ex)
             {
@@ -123,38 +119,37 @@ namespace WPProcinal.Forms.User_Control
 
                 frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
                 Modal.ShowDialog();
-                Buytickets();
-                //TODO: descomentar
-                //Task.Run(() =>
-                //{
-                //    if (payState)
-                //    {
-                //        ValorTotal = Utilities.PayVal.ToString();
-                //        NumeroTransaccion = Utilities.IDTransactionDB.ToString();
-                //        TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
-                //            TipoOperacion, Delimitador,
-                //           ValorTotal, Delimitador,
-                //            ValorIVA, Delimitador,
-                //            NumeroKiosko, Delimitador,
-                //            NumeroTerminal, Delimitador,
-                //            NumeroTransaccion, Delimitador,
-                //            ValorPropina, Delimitador,
-                //            CodigoUnico, Delimitador,
-                //            ValorIAC, Delimitador,
-                //            IdentificacionCajero, "]");
+                //Buytickets();
+                Task.Run(() =>
+                {
+                    if (payState)
+                    {
+                        ValorTotal = Utilities.PayVal.ToString();
+                        NumeroTransaccion = Utilities.IDTransactionDB.ToString();
+                        TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
+                            TipoOperacion, Delimitador,
+                           ValorTotal, Delimitador,
+                            ValorIVA, Delimitador,
+                            NumeroKiosko, Delimitador,
+                            NumeroTerminal, Delimitador,
+                            NumeroTransaccion, Delimitador,
+                            ValorPropina, Delimitador,
+                            CodigoUnico, Delimitador,
+                            ValorIAC, Delimitador,
+                            IdentificacionCajero, "]");
 
-                //        //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
-                //        var LCRPeticion = TPV.CalculateLRC(TramaInicial);
-                //        try
-                //        {
-                //            LogService.SaveRequestResponse(DateTime.Now + " :: Petición al datáfono: ", LCRPeticion);
-                //        }
-                //        catch { }
-                //        //Envío la trama que intentará activar el datáfono
-                //        var datos = TPV.EnviarPeticion(LCRPeticion);
-                //        TPVOperation.CallBackRespuesta?.Invoke(datos);
-                //    }
-                //});
+                        //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
+                        var LCRPeticion = TPV.CalculateLRC(TramaInicial);
+                        try
+                        {
+                            LogService.SaveRequestResponse("Petición al datáfono", LCRPeticion, 1);
+                        }
+                        catch { }
+                        //Envío la trama que intentará activar el datáfono
+                        var datos = TPV.EnviarPeticion(LCRPeticion);
+                        TPVOperation.CallBackRespuesta?.Invoke(datos);
+                    }
+                });
             }
             catch (Exception ex)
             {

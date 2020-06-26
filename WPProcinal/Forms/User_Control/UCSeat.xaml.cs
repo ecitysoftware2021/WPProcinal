@@ -551,7 +551,7 @@ namespace WPProcinal.Forms.User_Control
                         Label labelSeat = new Label();
                         labelSeat.FontSize = 10;
                         labelSeat.FontWeight = FontWeights.Bold;
-                        labelSeat.Content = string.Concat(filas.filRel, (columnaScore+1));
+                        labelSeat.Content = string.Concat(filas.filRel, (columnaScore + 1));
                         labelSeat.Margin = new Thickness(0, 10, 0, 0);
                         labelSeat.Height = 25;
 
@@ -717,6 +717,11 @@ namespace WPProcinal.Forms.User_Control
                         if (_frmConfirmationModal.DialogResult.HasValue &&
                             _frmConfirmationModal.DialogResult.Value)
                         {
+                            if (Utilities.PlateObligatory)
+                            {
+                                WTCModal modal = new WTCModal();
+                                modal.ShowDialog();
+                            }
                             GoToPay();
                         }
                         else
@@ -736,6 +741,11 @@ namespace WPProcinal.Forms.User_Control
                             if (_frmConfirmationModal.DialogResult.HasValue &&
                                 _frmConfirmationModal.DialogResult.Value)
                             {
+                                if (Utilities.PlateObligatory)
+                                {
+                                    WTCModal modal = new WTCModal();
+                                    modal.ShowDialog();
+                                }
                                 GoToPay();
                             }
                             else
