@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using WPProcinal.Service;
 using Zen.Barcode;
 
@@ -77,8 +78,8 @@ namespace WPProcinal.Classes
             Graphics g = e.Graphics;
             SpaceY = 100;
             SpaceX = 70;
-
-            string RutaIMG = Path.Combine(Directory.GetCurrentDirectory(), "Salas_Formatos", "logo.png");
+            var pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Salas_Formatos", "logo.png");
+            string RutaIMG = pat;
             g.DrawImage(Image.FromFile(RutaIMG), 40, 0);
 
             g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, 80);
@@ -121,8 +122,8 @@ namespace WPProcinal.Classes
             string verticalData = string.Concat(Room, " - Silla: ", Seat, " - Hora: ", Time);
             g.DrawString(verticalData, fBody1Vertical, solidBrush, pointF, stringFormat);
             g.DrawString(Room, fBodySala, sb, SpaceX + 140, SpaceY + 90);
-
-            string RutaIMGSilla = Path.Combine(Directory.GetCurrentDirectory(), "Salas_Formatos", "silla.jpg");
+            pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Salas_Formatos", "silla.jpg");
+            string RutaIMGSilla = pat;
             g.DrawImage(Image.FromFile(RutaIMGSilla), SpaceX + 70, SpaceY + 120);
             g.DrawString(Seat, fBodyTiulos, sb, SpaceX + 170, SpaceY + 130);
             SpaceY += 70;
@@ -177,7 +178,7 @@ namespace WPProcinal.Classes
             DateTime fechaConvertida = DateTime.ParseExact(DateFormat, "yyyyMMdd", CultureInfo.InvariantCulture);
 
             string dataQR = $"" +
-                    $"cnv3 " +
+                    $"cnv{Utilities.GetConfiguration("Cinema")} " +
                     $"{Utilities.GetConfiguration("CodCinema")} " +
                     $"{DataService41.Secuencia}-" +
                     $"{fechaConvertida.ToString("yyyyMMdd")}_" +
@@ -228,8 +229,8 @@ namespace WPProcinal.Classes
                 Graphics g = e.Graphics;
                 SpaceY = 100;
                 SpaceX = 70;
-
-                string RutaIMG = Path.Combine(Directory.GetCurrentDirectory(), "Salas_Formatos", "logo.png");
+                string pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Salas_Formatos", "logo.png");
+                string RutaIMG = pat;
                 g.DrawImage(Image.FromFile(RutaIMG), 40, 0);
 
                 g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, 80);
@@ -349,8 +350,8 @@ namespace WPProcinal.Classes
                 Graphics g = e.Graphics;
                 SpaceY = 100;
                 SpaceX = 70;
-
-                string RutaIMG = Path.Combine(Directory.GetCurrentDirectory(), "Salas_Formatos", "logo.png");
+                string pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Salas_Formatos", "logo.png");
+                string RutaIMG = pat;
                 g.DrawImage(Image.FromFile(RutaIMG), 40, 0);
 
                 g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, 80);
@@ -447,7 +448,8 @@ namespace WPProcinal.Classes
         }
         private string GenerateTags(string name)
         {
-            return Path.Combine(Directory.GetCurrentDirectory(), "Salas_Formatos", name + ".png");
+            string pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Salas_Formatos", name + ".png");
+            return pat;
         }
 
         public static System.Drawing.Image GenerateCode(string code)

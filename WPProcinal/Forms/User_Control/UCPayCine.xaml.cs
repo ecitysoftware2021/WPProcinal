@@ -615,11 +615,13 @@ namespace WPProcinal.Forms.User_Control
                             }
                             else
                             {
+                                frmLoading.Close();
                                 payState = false;
                             }
                         }
                         else
                         {
+                            frmLoading.Close();
                             payState = false;
                         }
 
@@ -638,7 +640,10 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                frmLoading.Close();
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    frmLoading.Close();
+                });
                 payState = false;
                 SavePay(payState);
                 AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);

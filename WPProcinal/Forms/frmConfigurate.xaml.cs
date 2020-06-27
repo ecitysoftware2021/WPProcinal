@@ -3,6 +3,7 @@ using PrinterValidator;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,17 +39,21 @@ namespace WPProcinal.Forms
 
             InitializeComponent();
 
-
-            if (Directory.Exists("Slider"))
+            var slides = Utilities.GetConfiguration("PublicityRoute");
+            if (Directory.Exists(slides))
             {
                 try
                 {
-                    foreach (var item in Directory.GetFiles("Slider"))
+                    foreach (var item in Directory.GetFiles(slides))
                     {
                         File.Delete(item);
                     }
                 }
                 catch { }
+            }
+            else
+            {
+                Directory.CreateDirectory(slides);
             }
 
             if (!Utilities.GetConfiguration("CashPayState").Equals("1"))

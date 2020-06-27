@@ -459,11 +459,13 @@ namespace WPProcinal.Forms.User_Control
                             }
                             else
                             {
+                                frmLoading.Close();
                                 payState = false;
                             }
                         }
                         else
                         {
+                            frmLoading.Close();
                             payState = false;
                         }
 
@@ -480,6 +482,10 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    frmLoading.Close();
+                });
                 payState = false;
                 SavePay(payState);
                 LogService.SaveRequestResponse("Confirmando la compra en efectivo", ex.Message, 2);

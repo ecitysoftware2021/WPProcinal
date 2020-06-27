@@ -866,6 +866,10 @@ namespace WPProcinal.Service
         public string Accion { get; set; }
         public int teatro { get; set; }
         public int tercero { get; set; }
+        public string Obs1 { get { return ""; } }
+        public string Obs2 { get { return ""; } }
+        public string Obs3 { get { return ""; } }
+        public string Obs4 { get { return ""; } }
     }
 
     public class ResponseScoint

@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
@@ -45,7 +46,8 @@ namespace WPProcinal.Forms.User_Control
 
             try
             {
-                Process.Start(Path.Combine(Directory.GetCurrentDirectory(), "Renotificar", "RenotifyConsole.exe"));
+                var pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Renotificar", "RenotifyConsole.exe");
+                Process.Start(pat);
             }
             catch { }
             frmLoading = new FrmLoading("¡Descargando información...!");

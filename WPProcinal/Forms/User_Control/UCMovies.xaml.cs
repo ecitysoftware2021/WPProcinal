@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -239,17 +240,21 @@ namespace WPProcinal.Forms.User_Control
         BitmapImage GetTypeImage(string type)
         {
             string image = string.Empty;
+
             if (type.Equals("Estreno"))
             {
-                image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "estrenos.png");
+                string pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Images", "estrenos.png");
+                image = pat;
             }
             else if (type.Equals("Próximo Estreno"))
             {
-                image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "pre-ventas.png");
+                string pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Images", "pre-ventas.png");
+                image = pat;
             }
             else
             {
-                image = Path.Combine(Directory.GetCurrentDirectory(), "Images", "carteleras.png");
+                string pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Images", "carteleras.png");
+                image = pat;
             }
             return new BitmapImage(new Uri(image));
         }

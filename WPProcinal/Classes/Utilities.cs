@@ -425,10 +425,10 @@ namespace WPProcinal.Classes
         /// <param name="content"></param>
         public static void SaveFileXML(string content)
         {
-
-            if (!Directory.Exists("XmlCinema"))
+            var pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "XmlCinema");
+            if (!Directory.Exists(pat))
             {
-                Directory.CreateDirectory("XmlCinema");
+                Directory.CreateDirectory(pat);
             }
             if (File.Exists(XMLFile))
             {
@@ -856,7 +856,8 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var sliders = Directory.GetFiles("Slider");
+                var slides = Utilities.GetConfiguration("PublicityRoute");
+                var sliders = Directory.GetFiles(slides);
                 if (sliders.Length < 1)
                 {
                     foreach (var item in DataService41.Peliculas.Pelicula)
@@ -867,14 +868,10 @@ namespace WPProcinal.Classes
                             {
                                 if (WCFServices41.StateImage(item.Data.Imagen))
                                 {
-                                    if (!Directory.Exists("Slider"))
-                                    {
-                                        Directory.CreateDirectory("Slider");
-                                    }
-                                    PublicityPath = Path.Combine(Directory.GetCurrentDirectory(), "Slider");
+                                    PublicityPath = slides;
                                     using (WebClient client = new WebClient())
                                     {
-                                        var fileName = string.Concat(PublicityPath, "\\", item.Nombre + ".jpg");
+                                        var fileName = Path.Combine(PublicityPath, item.Nombre + ".jpg");
                                         if (!File.Exists(fileName))
                                         {
                                             client.DownloadFile(new Uri(item.Data.Imagen), fileName);
