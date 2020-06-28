@@ -259,42 +259,49 @@ namespace WPProcinal.Classes
         /// <param name="dipMapCurrent"></param>
         public static void CancelAssing(List<ChairsInformation> typeSeatsCurrent, FunctionInformation dipMapCurrent)
         {
-            bool sendMail = false;
-            string message = string.Empty;
-            string infoUbicaciones = string.Empty;
-            foreach (var typeSeat in typeSeatsCurrent)
+            try
             {
-                var response = WCFServices41.PostDesAssingreserva(typeSeat, dipMapCurrent);
-
-                if (response != null)
+                bool sendMail = false;
+                string message = string.Empty;
+                string infoUbicaciones = string.Empty;
+                foreach (var typeSeat in typeSeatsCurrent)
                 {
-                    if (!response[0].Respuesta.ToLower().Contains("exitoso"))
+                    var response = WCFServices41.PostDesAssingreserva(typeSeat, dipMapCurrent);
+
+                    if (response != null)
+                    {
+                        if (!response[0].Respuesta.ToLower().Contains("exitoso"))
+                        {
+                            sendMail = true;
+                            message = response[0].Respuesta;
+                            foreach (var item in typeSeatsCurrent)
+                            {
+                                infoUbicaciones += $"Película: {dipMapCurrent.MovieName}, Horario: {dipMapCurrent.HourFunction}, Ubicacion: {item.Name} <br>";
+                            }
+                        }
+                    }
+                    else
                     {
                         sendMail = true;
-                        message = response[0].Respuesta;
                         foreach (var item in typeSeatsCurrent)
                         {
                             infoUbicaciones += $"Película: {dipMapCurrent.MovieName}, Horario: {dipMapCurrent.HourFunction}, Ubicacion: {item.Name} <br>";
                         }
                     }
                 }
-                else
+
+                if (sendMail)
                 {
-                    sendMail = true;
-                    foreach (var item in typeSeatsCurrent)
+                    Task.Run(() =>
                     {
-                        infoUbicaciones += $"Película: {dipMapCurrent.MovieName}, Horario: {dipMapCurrent.HourFunction}, Ubicacion: {item.Name} <br>";
-                    }
+                        Utilities.SendMailErrores($"No se pudo eliminar las preventas de la transacción {IDTransactionDB} para las siguientes ubicaciones:<br>{infoUbicaciones}" +
+                            $"<br>Error: {message}");
+                    });
                 }
             }
-
-            if (sendMail)
+            catch (Exception ex)
             {
-                Task.Run(() =>
-                {
-                    Utilities.SendMailErrores($"No se pudo eliminar las preventas de la transacción {IDTransactionDB} para las siguientes ubicaciones:<br>{infoUbicaciones}" +
-                        $"<br>Error: {message}");
-                });
+                //TODO:
             }
         }
 

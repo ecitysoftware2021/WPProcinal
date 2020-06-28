@@ -19,7 +19,6 @@ namespace WPProcinal.Forms.User_Control
     public partial class UCPayCine : UserControl
     {
         private PaymentViewModel PaymentViewModel;
-        private FrmLoading frmLoading;
         private bool stateUpdate;
         int controlInactividad = 0;
         int controlCancel = 0;
@@ -104,8 +103,7 @@ namespace WPProcinal.Forms.User_Control
                             Dispatcher.BeginInvoke((Action)delegate
                             {
                                 btnCancelar.IsEnabled = false;
-                                frmLoading = new FrmLoading("Procesando compra...");
-                                Utilities.Loading(frmLoading, true, this);
+                                btnCancelar.Visibility = Visibility.Hidden;
                                 Utilities.control.callbackValueIn = null;
 
                             });
@@ -228,10 +226,11 @@ namespace WPProcinal.Forms.User_Control
         /// <param name="returnValue">valor a devolver</param>
         private void ReturnMoney(decimal returnValue, bool state)
         {
+            FrmLoading frmLoading = new FrmLoading("Devolviendo dinero...");
             try
             {
                 Utilities.Speack("Estamos contando el dinero, espera un momento por favor.");
-
+                frmLoading.Show();
                 totalReturn = false;
                 Utilities.control.callbackLog = log =>
                 {
@@ -286,15 +285,12 @@ namespace WPProcinal.Forms.User_Control
                                 {
                                     frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
                                     modal.ShowDialog();
-                                    Utilities.Loading(frmLoading, false, this);
                                     Buytickets();
                                 });
                             }
                             else
                             {
-                                Utilities.Loading(frmLoading, false, this);
                                 Buytickets();
-
                             }
                         }
                         else
@@ -310,9 +306,11 @@ namespace WPProcinal.Forms.User_Control
                 };
 
                 Utilities.control.StartDispenser(returnValue);
+                frmLoading.Close();
             }
             catch (Exception ex)
             {
+                frmLoading.Close();
                 AdminPaypad.SaveErrorControl(ex.Message,
                     "ReturnMoney en frmPayCine",
                     EError.Aplication,
@@ -392,7 +390,6 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-
                         Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Aproved, PaymentViewModel.ValorSobrante);
                     });
                 }
@@ -410,25 +407,22 @@ namespace WPProcinal.Forms.User_Control
                 if (!task)
                 {
                     this.IsEnabled = false;
-                    frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
-                    frmLoading.Show();
-                    Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
-                    frmLoading.Close();
-                    this.IsEnabled = true;
-
+                    FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                     try
                     {
+                        frmLoading.Show();
+                        Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                        frmLoading.Close();
+                        this.IsEnabled = true;
 
                         await Dispatcher.BeginInvoke((Action)delegate
                         {
-                            Utilities.Loading(frmLoading, false, this);
                             frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.PayVal.ToString("#,##0"));
                             modal.ShowDialog();
-                            Utilities.Loading(frmLoading, true, this);
                         });
                         GC.Collect();
                     }
-                    catch { }
+                    catch { frmLoading.Close(); }
 
                     ActivateTimer(false);
                     ReturnMoney(Utilities.PayVal, false);
@@ -442,8 +436,6 @@ namespace WPProcinal.Forms.User_Control
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
-                        Utilities.Loading(frmLoading, false, this);
-
                         if (DataService41.dataUser.Tarjeta != null)
                         {
                             Switcher.Navigate(new UCPoints());
@@ -471,12 +463,10 @@ namespace WPProcinal.Forms.User_Control
             catch { }
             try
             {
+                FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                 try
                 {
-                    Utilities.Loading(frmLoading, false, this);
-
                     this.IsEnabled = false;
-                    frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                     frmLoading.Show();
                     Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
                     frmLoading.Close();
@@ -484,6 +474,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 catch (Exception ex)
                 {
+                    frmLoading.Close();
                 }
                 Task.Run(() =>
                 {
@@ -492,7 +483,6 @@ namespace WPProcinal.Forms.User_Control
                 });
                 Dispatcher.Invoke(() =>
                 {
-                    Utilities.Loading(frmLoading, false, this);
                     frmModal modal = new frmModal("Señor usuario, su compra fué cancelada.");
                     modal.ShowDialog();
                 });
@@ -508,13 +498,17 @@ namespace WPProcinal.Forms.User_Control
 
         private void Buytickets()
         {
+            FrmLoading frmLoading = new FrmLoading("Procesando compra...");
+
             try
             {
+
                 if (Utilities.GetConfiguration("ModalPlate").Equals("1") && Utilities.PlateObligatory)
                 {
                     WPlateModal wPlate = new WPlateModal();
                     wPlate.ShowDialog();
                 }
+                frmLoading.Show();
 
                 if (Utilities.GetConfiguration("Ambiente").Equals("1"))
                 {
@@ -566,9 +560,6 @@ namespace WPProcinal.Forms.User_Control
                     }
                     var dataClient = GetDataClient();
 
-                    frmLoading = new FrmLoading("Confirmando la compra...");
-                    frmLoading.Show();
-
                     var response41 = WCFServices41.PostBuy(new SCOINT
                     {
                         Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
@@ -615,13 +606,11 @@ namespace WPProcinal.Forms.User_Control
                             }
                             else
                             {
-                                frmLoading.Close();
                                 payState = false;
                             }
                         }
                         else
                         {
-                            frmLoading.Close();
                             payState = false;
                         }
 
@@ -636,10 +625,12 @@ namespace WPProcinal.Forms.User_Control
                     frmLoading.Close();
                     this.IsEnabled = true;
                 }
+
                 SavePay(payState);
             }
             catch (Exception ex)
             {
+                frmLoading.Close();
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     frmLoading.Close();
@@ -654,16 +645,23 @@ namespace WPProcinal.Forms.User_Control
         {
             if (DataService41._Combos.Count > 0)
             {
-                frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
-                frmLoading.Show();
-                DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                FrmLoading frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
+                try
                 {
-                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
-                    Secuencial = Convert.ToInt32(DataService41.Secuencia),
-                    teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
-                    tercero = 1
-                });
-                frmLoading.Close();
+                    frmLoading.Show();
+                    DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                    {
+                        Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                        Secuencial = Convert.ToInt32(DataService41.Secuencia),
+                        teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                        tercero = 1
+                    });
+                    frmLoading.Close();
+                }
+                catch (Exception ex)
+                {
+                    frmLoading.Close();
+                }
             }
         }
 
@@ -729,11 +727,9 @@ namespace WPProcinal.Forms.User_Control
                                 if (state)
                                 {
                                     Buytickets();
-                                    Utilities.Loading(frmLoading, false, this);
                                 }
                                 else
                                 {
-                                    Utilities.Loading(frmLoading, false, this);
                                     frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador. Gracias");
                                     modal.ShowDialog();
                                     Cancelled();
@@ -748,7 +744,6 @@ namespace WPProcinal.Forms.User_Control
                                     SetCallBacksNull();
                                 }
                                 catch { }
-                                Utilities.Loading(frmLoading, false, this);
                                 frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador. Gracias");
                                 modal.ShowDialog();
                                 Cancelled();
@@ -777,12 +772,11 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 this.IsEnabled = false;
-                frmLoading = new FrmLoading("Cancelando la compra...");
-                Utilities.Loading(frmLoading, true, this);
-
+                FrmLoading frmLoading = new FrmLoading("Apagando bilelteros...");
+                frmLoading.Show();
                 Utilities.control.StopAceptance();
                 Thread.Sleep(200);
-
+                frmLoading.Close();
                 if (PaymentViewModel.ValorIngresado > 0)
                 {
                     ActivateTimer(false);

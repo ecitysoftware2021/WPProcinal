@@ -25,7 +25,6 @@ namespace WPProcinal.Forms.User_Control
 
         bool _ErrorTransaction = true;
 
-        FrmLoading frmLoading;
         bool vibraAvailable = false;
         TimerTiempo timer;
         bool activePay = false;
@@ -42,7 +41,7 @@ namespace WPProcinal.Forms.User_Control
                 api = new ApiLocal();
                 grabador = new CLSGrabador();
                 DataService41._Combos = new List<Combos>();
-                frmLoading = new FrmLoading("¡Cargando la sala!");
+
                 dipMapCurrent = dipMap;
                 TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
                 TxtRoom.Text = dipMap.RoomName;
@@ -73,10 +72,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 this.Dispatcher.Invoke(() =>
                 {
-
-                    frmLoading.Show();
                     LoadSeats();
-                    frmLoading.Close();
                 });
 
                 //Utilities.DoEvents();
@@ -178,8 +174,10 @@ namespace WPProcinal.Forms.User_Control
         private void LoadSeats()
         {
 
+            FrmLoading frmLoading = new FrmLoading("¡Descargando la sala!");
             try
             {
+                frmLoading.Show();
                 var response41 = WCFServices41.GetStateRoom(new SCOEST
                 {
                     teatro = dipMapCurrent.CinemaId,
@@ -189,6 +187,7 @@ namespace WPProcinal.Forms.User_Control
                     tercero = "1",
                     Funcion = dipMapCurrent.IDFuncion
                 });
+                frmLoading.Close();
                 if (response41 == null)
                 {
                     try
@@ -217,6 +216,10 @@ namespace WPProcinal.Forms.User_Control
                     if (dipMapCurrent.RoomId == 10)
                     {
                         Utilities.PlateObligatory = true;
+
+                        WTCModal modal = new WTCModal(Utilities.GetConfiguration("MensajeUbicaciones"));
+                        modal.ShowDialog();
+
                         OrganizePositionOfSeatsInvertedAutocine(response41);
                     }
                     else
@@ -233,6 +236,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                frmLoading.Close();
                 AdminPaypad.SaveErrorControl(ex.Message, "LoadSeats en frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
@@ -708,6 +712,7 @@ namespace WPProcinal.Forms.User_Control
 
                 if (GetPrices())
                 {
+
                     if (Utilities.FechaSeleccionada.ToString("dd/MM/yyyy") != DateTime.Now.ToString("dd/MM/yyyy") || Utilities.PlateObligatory)
                     {
                         frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
@@ -717,11 +722,9 @@ namespace WPProcinal.Forms.User_Control
                         if (_frmConfirmationModal.DialogResult.HasValue &&
                             _frmConfirmationModal.DialogResult.Value)
                         {
-                            if (Utilities.PlateObligatory)
-                            {
-                                WTCModal modal = new WTCModal();
-                                modal.ShowDialog();
-                            }
+
+                            WTCModal modal = new WTCModal(Utilities.GetConfiguration("MensajeCinefans"), Utilities.GetConfiguration("MensajeURL"));
+                            modal.ShowDialog();
                             GoToPay();
                         }
                         else
@@ -741,11 +744,9 @@ namespace WPProcinal.Forms.User_Control
                             if (_frmConfirmationModal.DialogResult.HasValue &&
                                 _frmConfirmationModal.DialogResult.Value)
                             {
-                                if (Utilities.PlateObligatory)
-                                {
-                                    WTCModal modal = new WTCModal();
-                                    modal.ShowDialog();
-                                }
+
+                                WTCModal modal = new WTCModal(Utilities.GetConfiguration("MensajeCinefans"), Utilities.GetConfiguration("MensajeURL"));
+                                modal.ShowDialog();
                                 GoToPay();
                             }
                             else
@@ -825,28 +826,36 @@ namespace WPProcinal.Forms.User_Control
 
         private bool GetCombo()
         {
-            frmLoading = new FrmLoading("¡Descargando la confitería...!");
-            frmLoading.Show();
-            var combos = WCFServices41.GetConfectionery(new SCOPRE
+            FrmLoading frmLoading = new FrmLoading("¡Descargando la confitería...!");
+            try
             {
-                teatro = Utilities.GetConfiguration("CodCinema"),
-                tercero = "1"
-            });
-            frmLoading.Close();
-            if (combos != null)
-            {
-                if (combos.ListaProductos.Count > 0)
+                frmLoading.Show();
+                var combos = WCFServices41.GetConfectionery(new SCOPRE
                 {
-                    DataService41._Productos = combos.ListaProductos;
-                    return true;
+                    teatro = Utilities.GetConfiguration("CodCinema"),
+                    tercero = "1"
+                });
+                frmLoading.Close();
+                if (combos != null)
+                {
+                    if (combos.ListaProductos.Count > 0)
+                    {
+                        DataService41._Productos = combos.ListaProductos;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
                     return false;
                 }
             }
-            else
+            catch (Exception ex)
             {
+                frmLoading.Close();
                 return false;
             }
 
@@ -857,74 +866,82 @@ namespace WPProcinal.Forms.User_Control
         private bool GetPrices()
         {
             this.IsEnabled = false;
-            frmLoading = new FrmLoading("¡Descargando precios...!");
-            frmLoading.Show();
-            var response41 = WCFServices41.GetPrices(new SCOPLA
+            FrmLoading frmLoading = new FrmLoading("¡Descargando los precios...!");
+            try
             {
-                FechaFuncion = dipMapCurrent.Date,
-                InicioFuncion = dipMapCurrent.HourFormat,
-                Pelicula = dipMapCurrent.MovieId,
-                Sala = dipMapCurrent.RoomId,
-                teatro = dipMapCurrent.CinemaId,
-                tercero = "1"
-            });
-            this.IsEnabled = true;
-            frmLoading.Close();
-            if (response41 == null)
-            {
-                Utilities.ShowModal("Lo sentimos, no fué posible consultar las tarifas, por favor intente de nuevo.");
-                return false;
-            }
-            List<string> sinTarifa = new List<string>();
-            foreach (var selectedTypeSeat in SelectedTypeSeats)
-            {
-                var tarifa = new ResponseTarifa();
-                if (DataService41.dataUser.Tarjeta != null)
+                frmLoading.Show();
+                var response41 = WCFServices41.GetPrices(new SCOPLA
                 {
-                    tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                    FechaFuncion = dipMapCurrent.Date,
+                    InicioFuncion = dipMapCurrent.HourFormat,
+                    Pelicula = dipMapCurrent.MovieId,
+                    Sala = dipMapCurrent.RoomId,
+                    teatro = dipMapCurrent.CinemaId,
+                    tercero = "1"
+                });
+                this.IsEnabled = true;
+                frmLoading.Close();
+                if (response41 == null)
+                {
+                    Utilities.ShowModal("Lo sentimos, no fué posible consultar las tarifas, por favor intente de nuevo.");
+                    return false;
                 }
-                else
+                List<string> sinTarifa = new List<string>();
+                foreach (var selectedTypeSeat in SelectedTypeSeats)
                 {
-                    tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
-                }
-
-                if (tarifa != null)
-                {
-                    if (tarifa.silla != null)
+                    var tarifa = new ResponseTarifa();
+                    if (DataService41.dataUser.Tarjeta != null)
                     {
-                        selectedTypeSeat.Price = Convert.ToDecimal(tarifa.valor);
-                        selectedTypeSeat.CodTarifa = tarifa.codigo.ToString();
+                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                    }
+                    else
+                    {
+                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
+                    }
+
+                    if (tarifa != null)
+                    {
+                        if (tarifa.silla != null)
+                        {
+                            selectedTypeSeat.Price = Convert.ToDecimal(tarifa.valor);
+                            selectedTypeSeat.CodTarifa = tarifa.codigo.ToString();
+                        }
+                        else
+                        {
+                            sinTarifa.Add(selectedTypeSeat.Name);
+                        }
                     }
                     else
                     {
                         sinTarifa.Add(selectedTypeSeat.Name);
                     }
                 }
-                else
+
+                var stringerror = new StringBuilder();
+                stringerror.Append("No se encontraron tarifas para los puestos: ");
+                stringerror.AppendLine();
+                foreach (var item in sinTarifa)
                 {
-                    sinTarifa.Add(selectedTypeSeat.Name);
+                    stringerror.Append(item);
+                    stringerror.Append(", ");
+
                 }
+                stringerror.AppendLine();
+                stringerror.Append("Por favor vuelva a intentarlo o seleccione un horario diferente.");
+
+                if (sinTarifa.Count > 0)
+                {
+                    Utilities.ShowModal(stringerror.ToString());
+                    return false;
+                }
+                return true;
+
             }
-
-            var stringerror = new StringBuilder();
-            stringerror.Append("No se encontraron tarifas para los puestos: ");
-            stringerror.AppendLine();
-            foreach (var item in sinTarifa)
+            catch (Exception ex)
             {
-                stringerror.Append(item);
-                stringerror.Append(", ");
-
-            }
-            stringerror.AppendLine();
-            stringerror.Append("Por favor vuelva a intentarlo o seleccione un horario diferente.");
-
-            if (sinTarifa.Count > 0)
-            {
-                Utilities.ShowModal(stringerror.ToString());
+                frmLoading.Close();
                 return false;
             }
-            return true;
-
         }
 
         /// <summary>
@@ -1003,13 +1020,11 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 this.IsEnabled = true;
-                frmLoading.Close();
                 AdminPaypad.SaveErrorControl(ex.Message, "SecueceAndReserve en frmSeat", EError.Aplication, ELevelError.Medium);
 
                 Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
                 ReloadWindow();
             }
-            frmLoading.Close();
         }
 
         private List<Ubicacione> OrganizeSeatsTuReserve()
@@ -1031,7 +1046,7 @@ namespace WPProcinal.Forms.User_Control
         private List<ResponseScogru> Reserve(List<Ubicacione> ubicacione)
         {
             var dataClient = GetDataClient();
-            frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
+            FrmLoading frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
             frmLoading.Show();
 
             var response41 = WCFServices41.PostPreventa(new SCOGRU
@@ -1057,11 +1072,10 @@ namespace WPProcinal.Forms.User_Control
 
         private bool GetSecuence()
         {
+            FrmLoading frmLoading = new FrmLoading("¡Generando secuencia de compra!");
             try
             {
-                frmLoading = new FrmLoading("¡Generando secuencia de compra!");
                 frmLoading.Show();
-
                 var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
                 {
                     Punto = dipMapCurrent.PointOfSale,
@@ -1091,6 +1105,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                frmLoading.Close();
                 Task.Run(() =>
                 {
                     Utilities.SendMailErrores($"No se pudo obtener la secuencia de compra en la transaccion: {Utilities.IDTransactionDB}" +
@@ -1213,7 +1228,7 @@ namespace WPProcinal.Forms.User_Control
                     lista.Add(item);
                 }
                 this.IsEnabled = false;
-                frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                 frmLoading.Show();
                 Utilities.CancelAssing(lista, dipMapCurrent);
                 frmLoading.Close();

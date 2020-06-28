@@ -17,7 +17,6 @@ namespace WPProcinal.Forms.User_Control
     /// </summary>
     public partial class UCCardPayment : UserControl
     {
-        private FrmLoading frmLoading;
         private bool stateUpdate;
         private bool payState;
         TPVOperation TPV;
@@ -73,8 +72,6 @@ namespace WPProcinal.Forms.User_Control
 
 
                 lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
-                frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
-                frmLoading.Show();
 
                 ModalMensajes = new Mensajes();
                 ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
@@ -120,6 +117,8 @@ namespace WPProcinal.Forms.User_Control
                 frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
                 Modal.ShowDialog();
                 //Buytickets();
+                FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
+
                 Task.Run(() =>
                 {
                     if (payState)
@@ -146,7 +145,17 @@ namespace WPProcinal.Forms.User_Control
                         }
                         catch { }
                         //Envío la trama que intentará activar el datáfono
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            frmLoading.Show();
+                        });
+
                         var datos = TPV.EnviarPeticion(LCRPeticion);
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            frmLoading.Close();
+                        });
+
                         TPVOperation.CallBackRespuesta?.Invoke(datos);
                     }
                 });
@@ -222,7 +231,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     if (response.CodeError == 200)
                     {
-                        //
+                        //TODO:
                     }
 
                 }
@@ -244,28 +253,21 @@ namespace WPProcinal.Forms.User_Control
                 num = 2;
                 if (!task)
                 {
-                    try
+                    FrmLoading frmLoading = new FrmLoading("Eliminando preventas...");
+                    frmLoading.Show();
+                    Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                    frmLoading.Close();
+
+                    Dispatcher.BeginInvoke((Action)delegate
                     {
-                        Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
-                    }
-                    catch { }
+                        frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular el pago.");
+                        modal.ShowDialog();
 
-                    try
-                    {
-
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular el pago.");
-                            modal.ShowDialog();
-
-                        });
-                        GC.Collect();
-                    }
-                    catch { }
+                    });
+                    GC.Collect();
 
                     Utilities.UpdateTransaction(0, 3, 0);
                     Utilities.GoToInicial();
-
                 }
                 else
                 {
@@ -279,14 +281,11 @@ namespace WPProcinal.Forms.User_Control
                     catch
                     {
                     }
-
+                    FrmLoading frmLoading = new FrmLoading("Imprimiendo tickets...");
+                    frmLoading.Show();
                     Utilities.PrintTicket("Aprobada", Utilities.SelectedChairs, Utilities.SelectedFunction);
+                    frmLoading.Close();
                     ApproveTrans();
-
-                    Dispatcher.BeginInvoke((Action)delegate
-                   {
-                       Utilities.Loading(frmLoading, false, this);
-                   });
 
                     if (DataService41.dataUser.Tarjeta != null)
                     {
@@ -310,21 +309,16 @@ namespace WPProcinal.Forms.User_Control
         /// </summary>
         private void Cancelled()
         {
+            FrmLoading frmLoading = new FrmLoading("Eliminando preventas...");
             try
             {
-
-                Task.Run(() =>
-                {
-                    Dispatcher.Invoke(() =>
-                    {
-                        Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
-                    });
-                });
+                frmLoading.Show();
+                Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                frmLoading.Close();
 
                 UnlockTPV();
                 Dispatcher.Invoke(() =>
                 {
-                    Utilities.Loading(frmLoading, false, this);
                     frmModal modal = new frmModal("Usuario su pago fue cancelado.");
                     modal.ShowDialog();
                 });
@@ -332,20 +326,28 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-
+                frmLoading.Close();
             }
-            Utilities.Loading(frmLoading, false, this);
             Utilities.GoToInicial();
         }
         private void CancelWithoutTPV()
         {
-            this.IsEnabled = false;
-            frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
-            Utilities.Loading(frmLoading, true, this);
+            FrmLoading frmLoading = new FrmLoading("Eliminando preventas...");
 
-            Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
-            this.IsEnabled = true;
-            Utilities.Loading(frmLoading, false, this);
+            this.IsEnabled = false;
+            try
+            {
+                frmLoading.Show();
+                Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                frmLoading.Close();
+
+                this.IsEnabled = true;
+
+            }
+            catch (Exception ex)
+            {
+                frmLoading.Close();
+            }
             Utilities.GoToInicial();
         }
 
@@ -354,6 +356,8 @@ namespace WPProcinal.Forms.User_Control
         /// </summary>
         private void Buytickets()
         {
+            FrmLoading frmLoading = new FrmLoading("Procesando la compra...");
+            frmLoading.Show();
             try
             {
                 if (Utilities.GetConfiguration("ModalPlate").Equals("1") && Utilities.PlateObligatory)
@@ -443,6 +447,7 @@ namespace WPProcinal.Forms.User_Control
                         TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
                         Ubicaciones = ubicaciones
                     });
+                    frmLoading.Close();
                     foreach (var item in response41)
                     {
                         if (item.Respuesta != null)
@@ -459,13 +464,11 @@ namespace WPProcinal.Forms.User_Control
                             }
                             else
                             {
-                                frmLoading.Close();
                                 payState = false;
                             }
                         }
                         else
                         {
-                            frmLoading.Close();
                             payState = false;
                         }
 
@@ -482,10 +485,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    frmLoading.Close();
-                });
+                frmLoading.Close();
                 payState = false;
                 SavePay(payState);
                 LogService.SaveRequestResponse("Confirmando la compra en efectivo", ex.Message, 2);
@@ -494,17 +494,24 @@ namespace WPProcinal.Forms.User_Control
         }
         private void GetInvoice()
         {
-            if (DataService41._Combos.Count > 0)
+            FrmLoading frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
+            try
             {
-                frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
-                frmLoading.Show();
-                DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                if (DataService41._Combos.Count > 0)
                 {
-                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
-                    Secuencial = Convert.ToInt32(DataService41.Secuencia),
-                    teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
-                    tercero = 1
-                });
+                    frmLoading.Show();
+                    DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                    {
+                        Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                        Secuencial = Convert.ToInt32(DataService41.Secuencia),
+                        teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                        tercero = 1
+                    });
+                    frmLoading.Close();
+                }
+            }
+            catch (Exception ex)
+            {
                 frmLoading.Close();
             }
         }
@@ -559,8 +566,6 @@ namespace WPProcinal.Forms.User_Control
                  * **/
                 if (responseTPV.Length < 4)
                 {
-                    frmLoading.Close();
-
                     SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
                     Task.Run(() =>
                     {
@@ -629,7 +634,6 @@ namespace WPProcinal.Forms.User_Control
                     }
                     else
                     {
-                        frmLoading.Close();
                         this.IsEnabled = true;
                         SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
                         Task.Run(() =>
@@ -761,7 +765,6 @@ namespace WPProcinal.Forms.User_Control
                 if (opcionesTransaccionales.Length > 1)
                 {
                     lvOpciones.Visibility = Visibility.Visible;
-                    frmLoading.Close();
                     //Asigno el título de la operación actual para el usuario
                     ModalMensajes.MensajePrincipal = positiveResponse[2];
 
@@ -852,7 +855,6 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    frmLoading.Close();
                     //Error de tarjeta
                     if (response[2].Equals("02"))
                     {
@@ -879,7 +881,6 @@ namespace WPProcinal.Forms.User_Control
         void ProcesarFinalError(string message)
         {
             UnlockTPV();
-            frmLoading.Close();
             SetMessageAndPutVisibility(message);
         }
 
@@ -898,7 +899,6 @@ namespace WPProcinal.Forms.User_Control
                 GC.Collect();
                 ModalMensajes.MensajePrincipal = message;
                 lvOpciones.Visibility = Visibility.Hidden;
-                frmLoading = new FrmLoading("Cancelando transacción, espere por favor...");
                 frmModal modal = new frmModal(GetMessageError(message));
                 modal.ShowDialog();
                 RetryPayment();
@@ -1094,8 +1094,6 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 this.IsEnabled = false;
-                frmLoading = new FrmLoading("Cancelando la transacción, espere por favor...");
-                Utilities.Loading(frmLoading, true, this);
                 Task.Run(() =>
                 {
                     Utilities.UpdateTransaction(0, (int)ETransactionState.Canceled, 0);

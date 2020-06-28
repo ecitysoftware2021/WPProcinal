@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WPProcinal.Classes;
 
 namespace WPProcinal.Forms
@@ -20,11 +10,11 @@ namespace WPProcinal.Forms
     /// </summary>
     public partial class WTCModal : Window
     {
-        public WTCModal()
+        public WTCModal(string message, string url = "")
         {
             InitializeComponent();
-            LblMessage.Text = string.Format(Utilities.GetConfiguration("MensajeCinefans"), Environment.NewLine + Environment.NewLine);
-            LblURL.Text = Utilities.GetConfiguration("MensajeURL");
+            LblMessage.Text = string.Format(message, Environment.NewLine + Environment.NewLine);
+            LblURL.Text = url;
         }
 
         private void BtnEnd_TouchDown(object sender, TouchEventArgs e)
