@@ -13,7 +13,7 @@
         AllowsTransparency="True"
         ShowInTaskbar="False" 
         Topmost="True"
-        Height="400" 
+        Height="500" 
         Width="700">
     <Border 
             BorderBrush="Black" 
@@ -55,7 +55,7 @@
             <Grid Name="grvStandar" 
                   HorizontalAlignment="Center" 
                   VerticalAlignment="Top" Grid.Row="1"
-                  Margin="0,-40,0,0">
+                  Margin="0,-90,0,0">
                 <StackPanel Orientation="Vertical" Name="spControls">
                     <StackPanel Orientation="Horizontal">
                         <Label Height="60" Width="50" Foreground="White" Content="1" Tag="1" FontSize="40" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="2" TouchDown="Label_TouchDown">
@@ -187,12 +187,32 @@
                     </StackPanel>
                 </StackPanel>
             </Grid>
-
-            <Image HorizontalAlignment="Center"
+            <TextBlock 
+                FontSize="40"
+                Grid.Row="1" 
+                VerticalAlignment="Center" 
+                Margin="0,70,0,0"
+                TextAlignment="Center"
+                Foreground="White"
+                FontWeight="Bold"
+                Text="Seleccione el tipo de vehículo"/>
+            <ComboBox 
+                Name="cb_TypeAuto" 
+                FontSize="40"
+                Grid.Row="1" 
+                VerticalAlignment="Bottom" 
+                Margin="0,0,0,10"
+                Background="Transparent"
+                Width="220"
+                Foreground="Black"
+                FontWeight="Bold"
+                >
+            </ComboBox>
+            <Image HorizontalAlignment="Right"
                        Name="BtnEnd"
                        VerticalAlignment="Bottom"
                        Width="160"
-                   Margin="0,0,0,-15"
+                   Margin="0,0,0,0"
                    Grid.Row="1"
                        Stretch="Uniform"
                        Source="../Images/Buttons/continuar.png"

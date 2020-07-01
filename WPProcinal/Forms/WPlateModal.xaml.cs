@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPProcinal.Classes;
@@ -10,14 +11,40 @@ namespace WPProcinal.Forms
     /// </summary>
     public partial class WPlateModal : Window
     {
+        string[] TiposAuto;
         public WPlateModal()
         {
             InitializeComponent();
+            LoadTypeAuto();
+        }
+
+        private void LoadTypeAuto()
+        {
+            try
+            {
+                TiposAuto = Utilities.GetConfiguration("TiposAutos").Split(';');
+                var dataSource = new List<TypeAuto>();
+                foreach (var item in TiposAuto)
+                {
+                    dataSource.Add(new TypeAuto() { Name = item, Value = item });
+                }
+                cb_TypeAuto.ItemsSource = dataSource;
+                cb_TypeAuto.DisplayMemberPath = "Name";
+                cb_TypeAuto.SelectedValuePath = "Value";
+                cb_TypeAuto.SelectedIndex = 0;
+            }
+            catch (System.Exception ex)
+            {
+
+            }
+
         }
 
         private void BtnContinue_TouchDown(object sender, TouchEventArgs e)
         {
             Utilities.PLACA = txPlaca.Text.Trim();
+            Utilities.TIPOAUTO = cb_TypeAuto.SelectedValue.ToString();
+
             if (Utilities.PlateObligatory)
             {
                 if (!string.IsNullOrEmpty(Utilities.PLACA) && Utilities.PLACA.Length > 5)
@@ -54,5 +81,10 @@ namespace WPProcinal.Forms
                 }
             }
         }
+    }
+    public class TypeAuto
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
     }
 }

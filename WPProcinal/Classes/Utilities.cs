@@ -56,6 +56,7 @@ namespace WPProcinal.Classes
         /// Variable para almacenar la placa del vehículo en autocine
         /// </summary>
         public static string PLACA;
+        public static string TIPOAUTO;
 
         /// <summary>
         /// Variable para poner obligatoria o no la placa

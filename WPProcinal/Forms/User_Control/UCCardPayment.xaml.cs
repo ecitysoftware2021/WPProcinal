@@ -445,7 +445,8 @@ namespace WPProcinal.Forms.User_Control
                         tercero = 1,
                         TipoBono = 0,
                         TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
-                        Ubicaciones = ubicaciones
+                        Ubicaciones = ubicaciones,
+                        Obs1 = Utilities.TIPOAUTO
                     });
                     frmLoading.Close();
                     foreach (var item in response41)
