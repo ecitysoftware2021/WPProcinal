@@ -116,49 +116,49 @@ namespace WPProcinal.Forms.User_Control
 
                 frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
                 Modal.ShowDialog();
-                Buytickets();
-                //FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
+                // Buytickets();
+                FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
 
-                //Task.Run(() =>
-                //{
-                //    if (payState)
-                //    {
-                //        ValorTotal = Utilities.PayVal.ToString();
-                //        NumeroTransaccion = Utilities.IDTransactionDB.ToString();
-                //        TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
-                //            TipoOperacion, Delimitador,
-                //           ValorTotal, Delimitador,
-                //            ValorIVA, Delimitador,
-                //            NumeroKiosko, Delimitador,
-                //            NumeroTerminal, Delimitador,
-                //            NumeroTransaccion, Delimitador,
-                //            ValorPropina, Delimitador,
-                //            CodigoUnico, Delimitador,
-                //            ValorIAC, Delimitador,
-                //            IdentificacionCajero, "]");
+                Task.Run(() =>
+                {
+                    if (payState)
+                    {
+                        ValorTotal = Utilities.PayVal.ToString();
+                        NumeroTransaccion = Utilities.IDTransactionDB.ToString();
+                        TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
+                            TipoOperacion, Delimitador,
+                           ValorTotal, Delimitador,
+                            ValorIVA, Delimitador,
+                            NumeroKiosko, Delimitador,
+                            NumeroTerminal, Delimitador,
+                            NumeroTransaccion, Delimitador,
+                            ValorPropina, Delimitador,
+                            CodigoUnico, Delimitador,
+                            ValorIAC, Delimitador,
+                            IdentificacionCajero, "]");
 
-                //        //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
-                //        var LCRPeticion = TPV.CalculateLRC(TramaInicial);
-                //        try
-                //        {
-                //            LogService.SaveRequestResponse("Petición al datáfono", LCRPeticion, 1);
-                //        }
-                //        catch { }
-                //        //Envío la trama que intentará activar el datáfono
-                //        Dispatcher.BeginInvoke((Action)delegate
-                //        {
-                //            frmLoading.Show();
-                //        });
+                        //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
+                        var LCRPeticion = TPV.CalculateLRC(TramaInicial);
+                        try
+                        {
+                            LogService.SaveRequestResponse("Petición al datáfono", LCRPeticion, 1);
+                        }
+                        catch { }
+                        //Envío la trama que intentará activar el datáfono
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            frmLoading.Show();
+                        });
 
-                //        var datos = TPV.EnviarPeticion(LCRPeticion);
-                //        Dispatcher.BeginInvoke((Action)delegate
-                //        {
-                //            frmLoading.Close();
-                //        });
+                        var datos = TPV.EnviarPeticion(LCRPeticion);
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            frmLoading.Close();
+                        });
 
-                //        TPVOperation.CallBackRespuesta?.Invoke(datos);
-                //    }
-                //});
+                        TPVOperation.CallBackRespuesta?.Invoke(datos);
+                    }
+                });
             }
             catch (Exception ex)
             {

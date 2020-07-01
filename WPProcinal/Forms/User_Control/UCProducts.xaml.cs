@@ -60,7 +60,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
                             decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
-                            product.Imagen = $"{Utilities.GetConfiguration("ProductsURL")}{product.Codigo}.jpg";
+                            product.Imagen = $"{Utilities.GetConfiguration("ProductsURL")}{product.Codigo}.png";
                             if (General > 0 && OtroPago > 0)
                             {
                                 product.Precios[0].auxGeneral = General;
