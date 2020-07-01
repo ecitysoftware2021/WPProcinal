@@ -201,10 +201,9 @@
                 FontSize="40"
                 Grid.Row="1" 
                 VerticalAlignment="Bottom" 
-                Margin="0,0,0,10"
-                Background="Transparent"
+                Margin="0,0,0,50"
                 Width="220"
-                Foreground="Black"
+                Foreground="White"
                 FontWeight="Bold"
                 >
             </ComboBox>
