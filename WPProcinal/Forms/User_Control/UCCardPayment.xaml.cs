@@ -116,7 +116,8 @@ namespace WPProcinal.Forms.User_Control
 
                 frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
                 Modal.ShowDialog();
-                // Buytickets();
+                //Buytickets();
+                //return;
                 FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
 
                 Task.Run(() =>

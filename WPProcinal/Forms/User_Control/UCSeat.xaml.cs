@@ -543,9 +543,9 @@ namespace WPProcinal.Forms.User_Control
 
                         ChairsInformation typeSeat = new ChairsInformation
                         {
-                            Letter = est[filaScore].filRel,
+                            Letter = filas.filRel,
                             Name = string.Concat(filas.filRel, (columnaScore + 1)),
-                            Number = item.Columna.ToString(),
+                            Number = (columnaScore + 1).ToString(),
                             Type = item.TipoSilla,
                             RelativeColumn = int.Parse((filas.maxCol - columnaScore).ToString()),
                             RelativeRow = filas.filRel,

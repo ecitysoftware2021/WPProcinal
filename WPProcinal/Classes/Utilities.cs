@@ -499,8 +499,8 @@ namespace WPProcinal.Classes
                         printCombo.DateFormat = dipMap.Date; //Fecha
                         printCombo.Funcion = dipMap.IDFuncion;
                         printCombo.Seat = seat.Name;
-                        printCombo.Fila = seat.RelativeRow;
-                        printCombo.Columna = seat.RelativeColumn;
+                        printCombo.Fila = seat.Letter;
+                        printCombo.Columna = int.Parse(seat.Number);
                         printCombo.FechaPago = DateTime.Now;
                         printCombo.Valor = seat.Price;
                         printCombo.Tramite = "Boleto de Cine";
