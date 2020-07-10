@@ -403,6 +403,12 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Seats\s-black-car.png" />
+    <Resource Include="Images\Seats\s-bloqueada-car.png" />
+    <Resource Include="Images\Seats\s-disponible-car.png" />
+    <Resource Include="Images\Seats\s-ocupada-car.png" />
+    <Resource Include="Images\Seats\s-preferencial-car.png" />
+    <Resource Include="Images\Seats\s-seleccionada-car.png" />
     <Resource Include="Images\tc.jpg" />
     <Resource Include="Images\Buttons\aceptar.png" />
     <Resource Include="Images\Gif\ANIMACION-PROCINAL-2.gif" />

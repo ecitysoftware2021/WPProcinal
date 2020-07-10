@@ -1,7 +1,7 @@
 <Peliculas>
-  <pelicula id="1511121" nombre="BOHEMIAN RHAPSODY GEN 2D GNR DOB" tipo="Preventa">
+  <pelicula id="1511121" nombre="BOHEMIAN RHAPSODY AUTOCINE GEN 2D GNR DOB" tipo="Preventa">
     <sinopsis>“Bohemian Rhapsody, La historia de Freddie Mercury” es una celebración trepidante de Queen, su música y su extraordinario cantante principal Freddie Mercury, quien desafió estereotipos y destruyó convenciones para convertirse en uno de los artistas más queridos del mundo. La película sigue el ascenso meteórico de la banda a través de sus canciones icónicas y su sonido revolucionario, de su inminente implosión una vez que el estilo de vida de Mercury se sale de control, y de su reunión triunfante</sinopsis>
-    <data TituloOriginal="BOHEMIAN RHAPSODY" Imagen="https://www.pantallasprocinal.com/img/peliculas/BOHEMIAN RHAPSODY.jpg" Censura="Todos" idioma="INGLÉS" genero="DRAMA" pais="ESTADOS UNIDOS" duracion="135" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="https://www.youtube.com/watch?v=FwzfV3omSr8" fechaEstreno="Jue, Nov 1 2018" reparto="" director="Bryan Singer" distribuidor="CINECOLOMBIA" />
+    <data TituloOriginal="BOHEMIAN RHAPSODY AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/BOHEMIAN RHAPSODY AUTOCINE.jpg" Censura="Todos" idioma="INGLÉS" genero="DRAMA" pais="ESTADOS UNIDOS" duracion="135" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="https://www.youtube.com/watch?v=FwzfV3omSr8" fechaEstreno="Mar, Jul 7 2020" reparto="" director="Bryan Singer" distribuidor="CINECOLOR COLOMBIA SAS" />
     <DiasDisponiblesTodosCinemas>
       <dia fecha="Dom, Jul 12 2020" univ="20200712" />
       <dia fecha="Mie, Jul 15 2020" univ="20200715" />
@@ -15,21 +15,19 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Dom, Jul 12 2020" univ="20200712">
-              <hora idFuncion="202007123031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="0">
+              <hora idFuncion="202007123031018" horario="6:30 pm" reservasONline="true" ventasONline="false" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="41">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                    <Tarifa codigoTarifa="438" nombreTarifa="VEHIC 4 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="58000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Mie, Jul 15 2020" univ="20200715">
-              <hora idFuncion="202007153031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="0">
+              <hora idFuncion="202007153031021" horario="9:30 pm" reservasONline="true" ventasONline="false" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="20">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
@@ -55,21 +53,19 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Jue, Jul 9 2020" univ="20200709">
-              <hora idFuncion="202007093031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="2">
+              <hora idFuncion="202007093031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="33">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Dom, Jul 12 2020" univ="20200712">
-              <hora idFuncion="202007123031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="0">
+              <hora idFuncion="202007123031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="24">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                    <Tarifa codigoTarifa="438" nombreTarifa="VEHIC 4 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="58000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
@@ -82,7 +78,7 @@
   <pelicula id="9011111" nombre="ME LLEVARAS EN TI GEN 2D GNR ORI" tipo="Preventa">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="ME LLEVARAS EN TI" Imagen="https://www.pantallasprocinal.com/img/peliculas/ME LLEVARAS EN TI.jpg" Censura="12 Años" idioma="HABLADA" genero="DRAMA" pais="COLOMBIA" duracion="120" medio="digital" formato="Digital 2D" versión="ORIGINAL" trailer1="" trailer2="" fechaEstreno="Jue, Oct 24 2019" reparto="" director="" distribuidor="INDUSTRIAS AUDIOVISUALES COLOMBIANAS SAS" />
+    <data TituloOriginal="ME LLEVARAS EN TI" Imagen="https://www.pantallasprocinal.com/img/peliculas/ME LLEVARAS EN TI.jpg" Censura="12 Años" idioma="HABLADA" genero="DRAMA" pais="COLOMBIA" duracion="120" medio="digital" formato="Digital 2D" versión="ORIGINAL" trailer1="" trailer2="" fechaEstreno="Jue, Oct 24 2019" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
     <DiasDisponiblesTodosCinemas>
       <dia fecha="Vie, Jul 10 2020" univ="20200710" />
     </DiasDisponiblesTodosCinemas>
@@ -94,11 +90,10 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Vie, Jul 10 2020" univ="20200710">
-              <hora idFuncion="202007103031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="0">
+              <hora idFuncion="202007103031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="53">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                    <Tarifa codigoTarifa="438" nombreTarifa="VEHIC 4 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="58000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
@@ -108,92 +103,10 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="12111121" nombre="JUMANJI EL SIGUIENTE NIVEL GEN 2D GNR DOB" tipo="Preventa">
+  <pelicula id="14311131" nombre="1917 AUTOCINE GEN 2D GNR SUB" tipo="Preventa">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="JUMANJI EL SIGUIENTE NIVEL" Imagen="https://www.pantallasprocinal.com/img/peliculas/JUMANJI EL SIGUIENTE NIVEL.jpg" Censura="7 Años" idioma="DOBLADA" genero="AVENTURA" pais="ESTADOS UNIDOS" duracion="125" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Dic 26 2019" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
-    <DiasDisponiblesTodosCinemas>
-      <dia fecha="Dom, Jul 5 2020" univ="20200705" />
-      <dia fecha="Lun, Jul 6 2020" univ="20200706" />
-    </DiasDisponiblesTodosCinemas>
-    <cinemas>
-      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
-        <DiasDisponiblesCinema>
-          <dia fecha="Dom, Jul 5 2020" univ="20200705" />
-          <dia fecha="Lun, Jul 6 2020" univ="20200706" />
-        </DiasDisponiblesCinema>
-        <salas>
-          <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Dom, Jul 5 2020" univ="20200705">
-              <hora idFuncion="202007053031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="29">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                    <Tarifa codigoTarifa="438" nombreTarifa="VEHIC 4 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="58000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-            <Fecha dia="Lun, Jul 6 2020" univ="20200706">
-              <hora idFuncion="202007063031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="22">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-          </sala>
-        </salas>
-      </cinema>
-    </cinemas>
-  </pelicula>
-  <pelicula id="13511121" nombre="BAD BOYS PARA SIEMPRE GEN 2D GNR DOB" tipo="Preventa">
-    <sinopsis>
-    </sinopsis>
-    <data TituloOriginal="BAD BOYS PARA SIEMPRE" Imagen="https://www.pantallasprocinal.com/img/peliculas/BAD BOYS PARA SIEMPRE.jpg" Censura="15 Años" idioma="DOBLADA" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="125" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Ene 23 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
-    <DiasDisponiblesTodosCinemas>
-      <dia fecha="Dom, Jul 5 2020" univ="20200705" />
-      <dia fecha="Mar, Jul 7 2020" univ="20200707" />
-    </DiasDisponiblesTodosCinemas>
-    <cinemas>
-      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
-        <DiasDisponiblesCinema>
-          <dia fecha="Dom, Jul 5 2020" univ="20200705" />
-          <dia fecha="Mar, Jul 7 2020" univ="20200707" />
-        </DiasDisponiblesCinema>
-        <salas>
-          <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Dom, Jul 5 2020" univ="20200705">
-              <hora idFuncion="202007053031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="31">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                    <Tarifa codigoTarifa="438" nombreTarifa="VEHIC 4 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="58000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-            <Fecha dia="Mar, Jul 7 2020" univ="20200707">
-              <hora idFuncion="202007073031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="24">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-          </sala>
-        </salas>
-      </cinema>
-    </cinemas>
-  </pelicula>
-  <pelicula id="14311121" nombre="1917 GEN 2D GNR DOB" tipo="Preventa">
-    <sinopsis>
-    </sinopsis>
-    <data TituloOriginal="1917" Imagen="https://www.pantallasprocinal.com/img/peliculas/1917.jpg" Censura="12 Años" idioma="DOBLADA" genero="DRAMA" pais="ESTADOS UNIDOS" duracion="120" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Ene 23 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
+    <data TituloOriginal="1917 AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/1917 AUTOCINE.jpg" Censura="12 Años" idioma="DOBLADA" genero="DRAMA" pais="ESTADOS UNIDOS" duracion="120" medio="digital" formato="Digital 2D" versión="SUBTITULADA" trailer1="" trailer2="" fechaEstreno="Mar, Jul 7 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
     <DiasDisponiblesTodosCinemas>
       <dia fecha="Jue, Jul 9 2020" univ="20200709" />
       <dia fecha="Mar, Jul 14 2020" univ="20200714" />
@@ -207,21 +120,23 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Jue, Jul 9 2020" univ="20200709">
-              <hora idFuncion="202007093031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="0">
+              <hora idFuncion="202007093031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="59">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
+                    <Tarifa codigoTarifa="1" nombreTarifa="2D GEN SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12900,0000" />
+                    <Tarifa codigoTarifa="14" nombreTarifa="2D Tarjeta Intelecto" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8500,0000" />
+                    <Tarifa codigoTarifa="17" nombreTarifa="2D TP GEN SEM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11000,0000" />
+                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7800,0000" />
+                    <Tarifa codigoTarifa="85" nombreTarifa="2D StarKids" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Mar, Jul 14 2020" univ="20200714">
-              <hora idFuncion="202007143031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="0">
+              <hora idFuncion="202007143031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="24">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
@@ -231,38 +146,216 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="15411121" nombre="EL HOMBRE INVISIBLE GEN 2D GNR DOB" tipo="Estreno">
+  <pelicula id="15321121" nombre="UNIDOS SNV 2D GNR DOB" tipo="Preventa">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="EL HOMBRE INVISIBLE" Imagen="https://www.pantallasprocinal.com/img/peliculas/EL HOMBRE INVISIBLE.jpg" Censura="12 Años" idioma="DOBLADA" genero="SUSPENSO" pais="ESTADOS UNIDOS" duracion="125" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Feb 27 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
+    <data TituloOriginal="UNIDOS" Imagen="https://www.pantallasprocinal.com/img/peliculas/UNIDOS.jpg" Censura="Todos" idioma="DOBLADA" genero="ANIMADA" pais="ESTADOS UNIDOS" duracion="100" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Mar 5 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Sab, Jul 4 2020" univ="20200704" />
-      <dia fecha="Mar, Jul 7 2020" univ="20200707" />
+      <dia fecha="Jue, Nov 5 2020" univ="20201105" />
+      <dia fecha="Vie, Nov 6 2020" univ="20201106" />
+      <dia fecha="Sab, Nov 7 2020" univ="20201107" />
+      <dia fecha="Dom, Nov 8 2020" univ="20201108" />
+      <dia fecha="Lun, Nov 9 2020" univ="20201109" />
+      <dia fecha="Mar, Nov 10 2020" univ="20201110" />
+      <dia fecha="Mie, Nov 11 2020" univ="20201111" />
     </DiasDisponiblesTodosCinemas>
     <cinemas>
-      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
+      <cinema id="323" nombre="guacari" ciudad="Sincelejo                                         ">
         <DiasDisponiblesCinema>
-          <dia fecha="Sab, Jul 4 2020" univ="20200704" />
-          <dia fecha="Mar, Jul 7 2020" univ="20200707" />
+          <dia fecha="Jue, Nov 5 2020" univ="20201105" />
+          <dia fecha="Vie, Nov 6 2020" univ="20201106" />
+          <dia fecha="Sab, Nov 7 2020" univ="20201107" />
+          <dia fecha="Dom, Nov 8 2020" univ="20201108" />
+          <dia fecha="Lun, Nov 9 2020" univ="20201109" />
+          <dia fecha="Mar, Nov 10 2020" univ="20201110" />
+          <dia fecha="Mie, Nov 11 2020" univ="20201111" />
         </DiasDisponiblesCinema>
         <salas>
-          <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Sab, Jul 4 2020" univ="20200704">
-              <hora idFuncion="202007043031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="100">
+          <sala numeroSala="1" tipoSala="SUPERNOVA">
+            <Fecha dia="Jue, Nov 5 2020" univ="20201105">
+              <hora idFuncion="202011053230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                    <Tarifa codigoTarifa="438" nombreTarifa="VEHIC 4 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="58000,0000" />
+                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
+                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011053230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
+                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011053230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
+                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
-            <Fecha dia="Mar, Jul 7 2020" univ="20200707">
-              <hora idFuncion="202007073031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="80">
+            <Fecha dia="Vie, Nov 6 2020" univ="20201106">
+              <hora idFuncion="202011063230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
+                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
+                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011063230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
+                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011063230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
+                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Sab, Nov 7 2020" univ="20201107">
+              <hora idFuncion="202011073230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
+                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011073230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
+                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011073230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
+                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Dom, Nov 8 2020" univ="20201108">
+              <hora idFuncion="202011083230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
+                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011083230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
+                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011083230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
+                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Lun, Nov 9 2020" univ="20201109">
+              <hora idFuncion="202011093230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
+                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011093230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
+                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011093230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
+                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Mar, Nov 10 2020" univ="20201110">
+              <hora idFuncion="202011103230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011103230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011103230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Mie, Nov 11 2020" univ="20201111">
+              <hora idFuncion="202011113230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011113230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+              <hora idFuncion="202011113230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
+                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
@@ -272,91 +365,36 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="16811121" nombre="BLOODSHOT GEN 2D GNR DOB" tipo="Estreno">
+  <pelicula id="17711121" nombre="PANTERA NEGRA AUTOCINE GEN 2D GNR DOB" tipo="Preventa">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="BLOODSHOT" Imagen="https://www.pantallasprocinal.com/img/peliculas/BLOODSHOT.jpg" Censura="12 Años" idioma="DOBLADA" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Mar 12 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
+    <data TituloOriginal="PANTERA NEGRA AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/PANTERA NEGRA AUTOCINE.jpg" Censura="Todos" idioma="INGLÉS" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="135" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Mar, Jul 7 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Sab, Jul 4 2020" univ="20200704" />
-      <dia fecha="Lun, Jul 6 2020" univ="20200706" />
-    </DiasDisponiblesTodosCinemas>
-    <cinemas>
-      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
-        <DiasDisponiblesCinema>
-          <dia fecha="Sab, Jul 4 2020" univ="20200704" />
-          <dia fecha="Lun, Jul 6 2020" univ="20200706" />
-        </DiasDisponiblesCinema>
-        <salas>
-          <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Sab, Jul 4 2020" univ="20200704">
-              <hora idFuncion="202007043031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="43">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                    <Tarifa codigoTarifa="438" nombreTarifa="VEHIC 4 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="58000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-            <Fecha dia="Lun, Jul 6 2020" univ="20200706">
-              <hora idFuncion="202007063031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="18">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-          </sala>
-        </salas>
-      </cinema>
-    </cinemas>
-  </pelicula>
-  <pelicula id="17711121" nombre="PANTERA NEGRA GEN 2D GNR DOB" tipo="Preventa">
-    <sinopsis>
-    </sinopsis>
-    <data TituloOriginal="PANTERA NEGRA" Imagen="https://www.pantallasprocinal.com/img/peliculas/PANTERA NEGRA.jpg" Censura="Todos" idioma="DOBLADA" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="135" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Vie, Jul 3 2020" reparto="" director="" distribuidor="INDUSTRIAS AUDIOVISUALES COLOMBIANAS SAS" />
-    <DiasDisponiblesTodosCinemas>
-      <dia fecha="Mie, Jul 8 2020" univ="20200708" />
       <dia fecha="Vie, Jul 10 2020" univ="20200710" />
       <dia fecha="Lun, Jul 13 2020" univ="20200713" />
     </DiasDisponiblesTodosCinemas>
     <cinemas>
       <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
         <DiasDisponiblesCinema>
-          <dia fecha="Mie, Jul 8 2020" univ="20200708" />
           <dia fecha="Vie, Jul 10 2020" univ="20200710" />
           <dia fecha="Lun, Jul 13 2020" univ="20200713" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Mie, Jul 8 2020" univ="20200708">
-              <hora idFuncion="202007083031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="73">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
             <Fecha dia="Vie, Jul 10 2020" univ="20200710">
-              <hora idFuncion="202007103031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="0">
+              <hora idFuncion="202007103031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="92">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                    <Tarifa codigoTarifa="438" nombreTarifa="VEHIC 4 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="58000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Lun, Jul 13 2020" univ="20200713">
-              <hora idFuncion="202007133031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="0">
+              <hora idFuncion="202007133031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="57">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
@@ -366,10 +404,38 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="17811131" nombre="JOJO RABBIT GEN 2D GNR SUB" tipo="Preventa">
+  <pelicula id="17711131" nombre="PANTERA NEGRA AUTOCINE GEN 2D GNR SUB" tipo="Estreno">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="JOJO RABBIT" Imagen="https://www.pantallasprocinal.com/img/peliculas/JOJO RABBIT.jpg" Censura="12 Años" idioma="INGLÉS" genero="COMEDIA" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="SUBTITULADA" trailer1="" trailer2="" fechaEstreno="Vie, Jul 3 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
+    <data TituloOriginal="PANTERA NEGRA AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/PANTERA NEGRA AUTOCINE.jpg" Censura="Todos" idioma="INGLÉS" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="135" medio="digital" formato="Digital 2D" versión="SUBTITULADA" trailer1="" trailer2="" fechaEstreno="Mar, Jul 7 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
+    <DiasDisponiblesTodosCinemas>
+      <dia fecha="Mie, Jul 8 2020" univ="20200708" />
+    </DiasDisponiblesTodosCinemas>
+    <cinemas>
+      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
+        <DiasDisponiblesCinema>
+          <dia fecha="Mie, Jul 8 2020" univ="20200708" />
+        </DiasDisponiblesCinema>
+        <salas>
+          <sala numeroSala="10" tipoSala="GENERAL">
+            <Fecha dia="Mie, Jul 8 2020" univ="20200708">
+              <hora idFuncion="202007083031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="94">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+          </sala>
+        </salas>
+      </cinema>
+    </cinemas>
+  </pelicula>
+  <pelicula id="17811131" nombre="JOJO RABBIT AUTOCINE GEN 2D GNR SUB" tipo="Estreno">
+    <sinopsis>
+    </sinopsis>
+    <data TituloOriginal="JOJO RABBIT AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/JOJO RABBIT AUTOCINE.jpg" Censura="12 Años" idioma="INGLÉS" genero="COMEDIA" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="SUBTITULADA" trailer1="" trailer2="" fechaEstreno="Mar, Jul 7 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
     <DiasDisponiblesTodosCinemas>
       <dia fecha="Mie, Jul 8 2020" univ="20200708" />
       <dia fecha="Sab, Jul 11 2020" univ="20200711" />
@@ -383,21 +449,19 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Mie, Jul 8 2020" univ="20200708">
-              <hora idFuncion="202007083031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="22">
+              <hora idFuncion="202007083031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="100">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Sab, Jul 11 2020" univ="20200711">
-              <hora idFuncion="202007113031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="4">
+              <hora idFuncion="202007113031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="100">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                    <Tarifa codigoTarifa="438" nombreTarifa="VEHIC 4 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="58000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
@@ -407,10 +471,10 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="17911121" nombre="NOSOTROS GEN 2D GNR DOB" tipo="Preventa">
+  <pelicula id="17911121" nombre="NOSOTROS AUTOCINE GEN 2D GNR DOB" tipo="Preventa">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="NOSOTROS" Imagen="https://www.pantallasprocinal.com/img/peliculas/NOSOTROS.jpg" Censura="12 Años" idioma="DOBLADA" genero="SUSPENSO" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Vie, Jul 3 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
+    <data TituloOriginal="NOSOTROS AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/NOSOTROS AUTOCINE.jpg" Censura="12 Años" idioma="DOBLADA" genero="SUSPENSO" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Mar, Jul 7 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
     <DiasDisponiblesTodosCinemas>
       <dia fecha="Lun, Jul 13 2020" univ="20200713" />
       <dia fecha="Mie, Jul 15 2020" univ="20200715" />
@@ -424,21 +488,19 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Lun, Jul 13 2020" univ="20200713">
-              <hora idFuncion="202007133031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="0">
+              <hora idFuncion="202007133031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="37">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Mie, Jul 15 2020" univ="20200715">
-              <hora idFuncion="202007153031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="0">
+              <hora idFuncion="202007153031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="27">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
@@ -465,21 +527,19 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Sab, Jul 11 2020" univ="20200711">
-              <hora idFuncion="202007113031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="2">
+              <hora idFuncion="202007113031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="59">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                    <Tarifa codigoTarifa="438" nombreTarifa="VEHIC 4 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="58000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Mar, Jul 14 2020" univ="20200714">
-              <hora idFuncion="202007143031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="8">
+              <hora idFuncion="202007143031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="24">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                    <Tarifa codigoTarifa="436" nombreTarifa="VEHIC 4 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
                   </TipoSilla>
                 </TipoZona>
               </hora>

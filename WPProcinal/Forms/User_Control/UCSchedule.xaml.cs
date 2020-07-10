@@ -390,34 +390,38 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                foreach (var item in dias.Dia)
+                if (dias != null)
                 {
-                    string fechaCompuesta = ConvertDate(item);
-                    DateTime dt2 = DateTime.Parse(fechaCompuesta);
-                    var datetime = GetDateCorrectly(item.Univ);
 
-                    //if (datetime != DateTime.Today)
-                    if (datetime >= DateTime.Today)
+
+                    foreach (var item in dias.Dia)
                     {
-                        string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
-                        var exist = dateName.Where(dt => dt.Mes == dt2.ToString("MMM").ToUpper() && dt.DiaNumero == dt2.ToString("dd")).Count();
-                        if (exist == 0)
+                        string fechaCompuesta = ConvertDate(item);
+                        DateTime dt2 = DateTime.Parse(fechaCompuesta);
+                        var datetime = GetDateCorrectly(item.Univ);
+
+                        //if (datetime != DateTime.Today)
+                        if (datetime >= DateTime.Today)
                         {
-                            dateName.Add(new DateName
+                            string NombreDiaAdd = dt2.ToString("dddd", CultureInfo.CreateSpecificCulture("es-ES"));
+                            var exist = dateName.Where(dt => dt.Mes == dt2.ToString("MMM").ToUpper() && dt.DiaNumero == dt2.ToString("dd")).Count();
+                            if (exist == 0)
                             {
-                                FechaOrigin = dt2,
-                                Mes = dt2.ToString("MMM").ToUpper(),
-                                NombreDia = NombreDiaAdd.ToUpper(),
-                                DiaNumero = dt2.ToString("dd")
-                            });
+                                dateName.Add(new DateName
+                                {
+                                    FechaOrigin = dt2,
+                                    Mes = dt2.ToString("MMM").ToUpper(),
+                                    NombreDia = NombreDiaAdd.ToUpper(),
+                                    DiaNumero = dt2.ToString("dd")
+                                });
 
-                            dateName = dateName.OrderBy(i => i.FechaOrigin).ToList();
+                                dateName = dateName.OrderBy(i => i.FechaOrigin).ToList();
+                            }
                         }
+
                     }
-
+                    Utilities.FechaSeleccionada = dateName[0].FechaOrigin;
                 }
-                Utilities.FechaSeleccionada = dateName[0].FechaOrigin;
-
 
             }
             catch (Exception ex)

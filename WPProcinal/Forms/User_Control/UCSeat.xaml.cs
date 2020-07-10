@@ -510,7 +510,7 @@ namespace WPProcinal.Forms.User_Control
                         ImageSource imageSource = null;
                         if (item.TipoSilla == "General")
                         {
-                            imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(string.Empty);
+                            imageSource = ((item.EstadoSilla == "B") || (item.EstadoSilla == "O")) ? GetImage(item.EstadoSilla) : GetImage(string.Empty);
                         }
                         else if (item.TipoSilla == "pasillo")
                         {
@@ -519,20 +519,20 @@ namespace WPProcinal.Forms.User_Control
                         }
                         else
                         {
-                            imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
+                            imageSource = ((item.EstadoSilla == "B") || (item.EstadoSilla == "O")) ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
                         }
 
                         Image image = new Image
                         {
                             Source = imageSource,
-                            Height = 26,
-                            Width = 30,
+                            Height = 35,
+                            Width = 35,
                             VerticalAlignment = VerticalAlignment.Top,
                             HorizontalAlignment = HorizontalAlignment.Left,
                             Margin = new Thickness
                             {
                                 Right = 0,
-                                Bottom = 0,
+                                Bottom = 20,
                                 Top = 0,
                                 Left = 0,
                             },
@@ -553,11 +553,12 @@ namespace WPProcinal.Forms.User_Control
 
 
                         Label labelSeat = new Label();
-                        labelSeat.FontSize = 10;
+                        labelSeat.FontSize = 20;
                         labelSeat.FontWeight = FontWeights.Bold;
                         labelSeat.Content = string.Concat(filas.filRel, (columnaScore + 1));
-                        labelSeat.Margin = new Thickness(0, 10, 0, 0);
-                        labelSeat.Height = 25;
+                        labelSeat.Margin = new Thickness(0, 0, 0, 70);
+                        labelSeat.Height = 35;
+
 
                         if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
                         {
@@ -648,14 +649,14 @@ namespace WPProcinal.Forms.User_Control
 
         private ImageSource GetImage(string ckeck)
         {
-            string icon = "s-disponible";
+            string icon = !Utilities.PlateObligatory ? "s-disponible" : "s-disponible-car";
             if (ckeck == "R")
             {
-                icon = "s-seleccionada";
+                icon = !Utilities.PlateObligatory ? "s-seleccionada" : "s-seleccionada-car";
             }
-            else if (ckeck == "B")
+            else if (ckeck == "B" || ckeck == "O")
             {
-                icon = "s-bloqueada";
+                icon = !Utilities.PlateObligatory ? "s-bloqueada" : "s-bloqueada-car";
                 ImgNoDisponible.Visibility = Visibility.Visible;
             }
             else if (ckeck == "Discapacitado")
@@ -671,7 +672,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 if (vibraAvailable)
                 {
-                    icon = "s-ocupada";
+                    icon = !Utilities.PlateObligatory ? "s-ocupada" : "s-ocupada-car";
                 }
             }
             else if (ckeck == "M")
