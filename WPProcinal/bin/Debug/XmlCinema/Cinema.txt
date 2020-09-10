@@ -15,7 +15,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Vie, Sep 11 2020" univ="20200911">
-              <hora idFuncion="202009113031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="16">
+              <hora idFuncion="202009113031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="18">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -37,7 +37,7 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="5511121" nombre="EL REY LEON GEN 2D GNR DOB" tipo="Preventa">
+  <pelicula id="5511121" nombre="EL REY LEON GEN 2D GNR DOB" tipo="Estreno">
     <sinopsis>
     </sinopsis>
     <data TituloOriginal="EL REY LEON" Imagen="https://www.pantallasprocinal.com/img/peliculas/EL REY LEON.jpg" Censura="Todos" idioma="INGLÉS" genero="ANIMADA" pais="ESTADOS UNIDOS" duracion="120" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Jul 18 2019" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
@@ -52,7 +52,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Jue, Sep 10 2020" univ="20200910">
-              <hora idFuncion="202009103031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="18">
+              <hora idFuncion="202009103031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="29">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -82,7 +82,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Dom, Sep 13 2020" univ="20200913">
-              <hora idFuncion="202009133031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="2">
+              <hora idFuncion="202009133031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="6">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -91,7 +91,7 @@
               </hora>
             </Fecha>
             <Fecha dia="Lun, Sep 14 2020" univ="20200914">
-              <hora idFuncion="202009143031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="24">
+              <hora idFuncion="202009143031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="18">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -323,7 +323,7 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="15711121" nombre="JEXI UN CELULAR SIN FILTRO GEN 2D GNR DOB" tipo="Preventa">
+  <pelicula id="15711121" nombre="JEXI UN CELULAR SIN FILTRO GEN 2D GNR DOB" tipo="Estreno">
     <sinopsis>
     </sinopsis>
     <data TituloOriginal="JEXI UN CELULAR SIN FILTRO" Imagen="https://www.pantallasprocinal.com/img/peliculas/JEXI UN CELULAR SIN FILTRO.jpg" Censura="12 Años" idioma="DOBLADA" genero="COMEDIA" pais="ESTADOS UNIDOS" duracion="85" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Feb 20 2020" reparto="" director="" distribuidor="DIAMOND FILMS COLOMBIA S.A.S" />
@@ -338,7 +338,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Jue, Sep 10 2020" univ="20200910">
-              <hora idFuncion="202009103031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="16">
+              <hora idFuncion="202009103031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="39">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -396,7 +396,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Sab, Sep 12 2020" univ="20200912">
-              <hora idFuncion="202009123031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="22">
+              <hora idFuncion="202009123031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="31">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -405,7 +405,7 @@
               </hora>
             </Fecha>
             <Fecha dia="Mar, Sep 15 2020" univ="20200915">
-              <hora idFuncion="202009153031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="20">
+              <hora idFuncion="202009153031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="14">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -433,7 +433,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Sab, Sep 12 2020" univ="20200912">
-              <hora idFuncion="202009123031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="10">
+              <hora idFuncion="202009123031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="18">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -467,7 +467,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Vie, Sep 11 2020" univ="20200911">
-              <hora idFuncion="202009113031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="24">
+              <hora idFuncion="202009113031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="33">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -485,7 +485,7 @@
               </hora>
             </Fecha>
             <Fecha dia="Lun, Sep 14 2020" univ="20200914">
-              <hora idFuncion="202009143031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="22">
+              <hora idFuncion="202009143031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="18">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />

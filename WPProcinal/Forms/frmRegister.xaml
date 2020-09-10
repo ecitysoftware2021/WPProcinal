@@ -101,13 +101,16 @@
                         VerticalAlignment="Top"
                         Width="600"
                         Height="60"
-                        TextAlignment="Center"/>
+                        IsReadOnly="True"
+                        TextAlignment="Center"
+                        TouchDown="txPhone_TouchDown"
+                        TextChanged="txPhone_TextChanged"/>
                     <PasswordBox x:Name="pxPassword"
                         Grid.ColumnSpan="2"
                         Grid.Row="1"
                         md:HintAssist.FloatingScale="0.3"
                         md:HintAssist.IsFloating="True"
-                        md:HintAssist.Hint="Clave (Min. 5, Máx. 18)"
+                        md:HintAssist.Hint="Clave (Min. 5, Máx. 19)"
                         Foreground="Black"
                         FontWeight="Bold"
                         FontSize="30"
@@ -116,7 +119,10 @@
                         VerticalAlignment="Center"
                         Margin="50,0,0,0"       
                         Width="600"
-                        Height="60"/>
+                        Height="60"
+                        HorizontalContentAlignment="Center"
+                        TouchDown="pxPassword_TouchDown" 
+                        PasswordChanged="pxPassword_PasswordChanged"/>
                     <TextBox x:Name="txAddress"
                         Grid.Row="1"
                         Grid.ColumnSpan="2"
@@ -132,7 +138,10 @@
                         Margin="50,0,0,0"
                         Width="600"
                         Height="60"
-                        TextAlignment="Center"/>
+                        TextAlignment="Center"
+                        IsReadOnly="True"
+                        TextChanged="txAddress_TextChanged"
+                        TouchDown="txAddress_TouchDown"/>
                     <TextBox x:Name="txMail"
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
@@ -148,7 +157,10 @@
                         Margin="50,50,0,0"
                         Width="600"
                         Height="60"
-                        TextAlignment="Center"/>
+                        IsReadOnly="True"
+                        TextAlignment="Center"
+                        TextChanged="txMail_TextChanged"
+                        TouchDown="txMail_TouchDown"/>
                 </Grid>
                 
                 <Image Source="/Images/Buttons/omitir.png"
