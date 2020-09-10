@@ -47,7 +47,7 @@
                        Margin="80,130,0,0"
                        Stretch="Fill"
                        Source="../Images/buttons/btnnot.png"
-                       TouchDown="BtnSalir_TouchDown"
+                       TouchDown="BtnRegister_TouchDown"
                     />
                 </Grid>
                 <Grid Grid.Row="3">

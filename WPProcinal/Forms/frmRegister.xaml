@@ -1,0 +1,166 @@
+﻿<Window x:Class="WPProcinal.Forms.frmRegister"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPProcinal.Forms"
+        mc:Ignorable="d"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Top="140"
+        ShowInTaskbar="False" 
+        Height="900" 
+        Width="700"
+        Loaded="Window_Loaded">
+    <Border 
+            BorderBrush="Transparent" 
+            BorderThickness="3,3,3,3"
+            CornerRadius="20,20,20,20" >
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/Backgrounds/fondoCineFan2.jpg"/>
+        </Border.Background>
+        <Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Registro de CineFan"
+                               FontSize="50"
+                               FontWeight="Bold"
+                               Foreground="#C3161B"
+                               HorizontalAlignment="Center"
+                               Height="100"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"/>
+
+                <Grid Grid.Row="0" Visibility="Visible" Name="gridCedula">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Image Source="/Images/Backgrounds/textoCedula.png" 
+                           Width="600"
+                           Height="150"
+                           Grid.Row="0"/>
+
+                    <Image Name="gifCedula" Grid.Row="1"
+                        gif:ImageBehavior.AnimatedSource="/Images/Gif/gifCedula.gif" 
+                        gif:ImageBehavior.AnimateInDesignMode="True"
+                        gif:ImageBehavior.AutoStart="True" 
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Center" 
+                        Height="320" 
+                        Margin="0,-100,0,0"
+                        Stretch="Uniform"
+                    />
+                </Grid>
+                
+                <Grid Grid.Row="0" Visibility="Hidden" Name="gridDatos">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock 
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Text="Completa los datos para el registro"
+                        TextWrapping="Wrap"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        Foreground="#C3161B"
+                        HorizontalAlignment="Center"
+                        TextAlignment="Center"
+                        VerticalAlignment="Center"/>
+                    <TextBox x:Name="txPhone"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="1"
+                        md:HintAssist.FloatingScale="0.3"
+                        md:HintAssist.IsFloating="True"
+                        md:HintAssist.Hint="Número de teléfono (Min. 8, Máx. 10)"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        FontSize="30"
+                        MaxLength="10"
+                        HorizontalAlignment="Left"
+                        Margin="50,0,0,0"
+                        VerticalAlignment="Top"
+                        Width="600"
+                        Height="60"
+                        TextAlignment="Center"/>
+                    <PasswordBox x:Name="pxPassword"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="1"
+                        md:HintAssist.FloatingScale="0.3"
+                        md:HintAssist.IsFloating="True"
+                        md:HintAssist.Hint="Clave (Min. 5, Máx. 18)"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        FontSize="30"
+                        MaxLength="19"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="50,0,0,0"       
+                        Width="600"
+                        Height="60"/>
+                    <TextBox x:Name="txAddress"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        md:HintAssist.FloatingScale="0.3"
+                        md:HintAssist.IsFloating="True"
+                        md:HintAssist.Hint="Dirección residencia (Cll 33 52 81)"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        FontSize="30"
+                        MaxLength="30"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Margin="50,0,0,0"
+                        Width="600"
+                        Height="60"
+                        TextAlignment="Center"/>
+                    <TextBox x:Name="txMail"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        md:HintAssist.FloatingScale="0.3"
+                        md:HintAssist.IsFloating="True"
+                        md:HintAssist.Hint="Correo Electrónico (prueba@correo.com)"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        FontSize="30"
+                        MaxLength="40"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="50,50,0,0"
+                        Width="600"
+                        Height="60"
+                        TextAlignment="Center"/>
+                </Grid>
+                
+                <Image Source="/Images/Buttons/omitir.png"
+                       Height="80"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Left"
+                       Margin="50,0,0,0"
+                       Name="btOmitir"
+                       TouchDown="btOmitir_TouchDown"
+                       />
+
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

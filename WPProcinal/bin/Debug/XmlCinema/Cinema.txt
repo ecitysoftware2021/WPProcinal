@@ -1,21 +1,21 @@
 <Peliculas>
-  <pelicula id="1511121" nombre="BOHEMIAN RHAPSODY AUTOCINE GEN 2D GNR DOB" tipo="Preventa">
-    <sinopsis>“Bohemian Rhapsody, La historia de Freddie Mercury” es una celebración trepidante de Queen, su música y su extraordinario cantante principal Freddie Mercury, quien desafió estereotipos y destruyó convenciones para convertirse en uno de los artistas más queridos del mundo. La película sigue el ascenso meteórico de la banda a través de sus canciones icónicas y su sonido revolucionario, de su inminente implosión una vez que el estilo de vida de Mercury se sale de control, y de su reunión triunfante</sinopsis>
-    <data TituloOriginal="BOHEMIAN RHAPSODY AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/BOHEMIAN RHAPSODY AUTOCINE.jpg" Censura="Todos" idioma="INGLÉS" genero="DRAMA" pais="ESTADOS UNIDOS" duracion="135" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="https://www.youtube.com/watch?v=FwzfV3omSr8" fechaEstreno="Mar, Jul 7 2020" reparto="" director="Bryan Singer" distribuidor="CINECOLOR COLOMBIA SAS" />
+  <pelicula id="3711121" nombre="ALADDIN DE DISNEY GEN 2D GNR DOB" tipo="Preventa">
+    <sinopsis>ALADDÍN, la adaptación de acción real del clásico animado de 1992, es dirigida por Guy Ritchie a partir del guion de John August. El elenco de la nueva película de Disney incluye a: Will Smith, nominado dos veces al premio Oscar®, como el Genio que tiene el poder de conceder tres deseos a quien posea su lámpara mágica; Mena Massoud como Aladdín, el desafortunado pero agradable joven callejero que está enamorado de la hija del Sultán; Naomi Scott como la Princesa Jasmín, la hermosa hija del Sultá</sinopsis>
+    <data TituloOriginal="ALADDIN DE DISNEY" Imagen="https://www.pantallasprocinal.com/img/peliculas/ALADDIN DE DISNEY.jpg" Censura="Todos" idioma="INGLÉS" genero="AVENTURA" pais="ESTADOS UNIDOS" duracion="130" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="https://www.youtube.com/watch?v=1xouVEZ9lnU" fechaEstreno="Mie, Sep 16 2020" reparto="" director="Guy Ritchie" distribuidor="CINECOLOR COLOMBIA SAS" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Dom, Jul 12 2020" univ="20200712" />
-      <dia fecha="Mie, Jul 15 2020" univ="20200715" />
+      <dia fecha="Vie, Sep 11 2020" univ="20200911" />
+      <dia fecha="Mie, Sep 16 2020" univ="20200916" />
     </DiasDisponiblesTodosCinemas>
     <cinemas>
       <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
         <DiasDisponiblesCinema>
-          <dia fecha="Dom, Jul 12 2020" univ="20200712" />
-          <dia fecha="Mie, Jul 15 2020" univ="20200715" />
+          <dia fecha="Vie, Sep 11 2020" univ="20200911" />
+          <dia fecha="Mie, Sep 16 2020" univ="20200916" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Dom, Jul 12 2020" univ="20200712">
-              <hora idFuncion="202007123031018" horario="6:30 pm" reservasONline="true" ventasONline="false" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="41">
+            <Fecha dia="Vie, Sep 11 2020" univ="20200911">
+              <hora idFuncion="202009113031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="16">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -23,8 +23,8 @@
                 </TipoZona>
               </hora>
             </Fecha>
-            <Fecha dia="Mie, Jul 15 2020" univ="20200715">
-              <hora idFuncion="202007153031021" horario="9:30 pm" reservasONline="true" ventasONline="false" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="20">
+            <Fecha dia="Mie, Sep 16 2020" univ="20200916">
+              <hora idFuncion="202009163031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="6">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -37,23 +37,22 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="2311121" nombre="CAPTAIN MARVEL GEN 2D GNR DOB" tipo="Preventa">
-    <sinopsis>La historia sigue a Carol Danvers, a quien veremos convertirse en una de las heroínas más poderosas del universo cuando la Tierra queda atrapada en medio de una guerra galáctica entre dos razas alienígenas. Ambientada en la década de 1990, CAPITANA MARVEL nos presenta una original y nueva aventura situada en un período nunca antes visto en la historia del Universo Cinematográfico de Marvel.</sinopsis>
-    <data TituloOriginal="CAPTAIN MARVEL" Imagen="https://www.pantallasprocinal.com/img/peliculas/CAPTAIN MARVEL.jpg" Censura="7 Años" idioma="INGLÉS" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="130" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="https://www.youtube.com/watch?v=6XkN-MFNZpI" fechaEstreno="Jue, Mar 7 2019" reparto="Brie Larson, Samuel L. Jackson, Ben Mendelsohn" director="Anna Boden, Ryan Fleck" distribuidor="INDUSTRIAS AUDIOVISUALES COLOMBIANAS SAS" />
+  <pelicula id="5511121" nombre="EL REY LEON GEN 2D GNR DOB" tipo="Preventa">
+    <sinopsis>
+    </sinopsis>
+    <data TituloOriginal="EL REY LEON" Imagen="https://www.pantallasprocinal.com/img/peliculas/EL REY LEON.jpg" Censura="Todos" idioma="INGLÉS" genero="ANIMADA" pais="ESTADOS UNIDOS" duracion="120" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Jul 18 2019" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Jue, Jul 9 2020" univ="20200709" />
-      <dia fecha="Dom, Jul 12 2020" univ="20200712" />
+      <dia fecha="Jue, Sep 10 2020" univ="20200910" />
     </DiasDisponiblesTodosCinemas>
     <cinemas>
       <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
         <DiasDisponiblesCinema>
-          <dia fecha="Jue, Jul 9 2020" univ="20200709" />
-          <dia fecha="Dom, Jul 12 2020" univ="20200712" />
+          <dia fecha="Jue, Sep 10 2020" univ="20200910" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Jue, Jul 9 2020" univ="20200709">
-              <hora idFuncion="202007093031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="33">
+            <Fecha dia="Jue, Sep 10 2020" univ="20200910">
+              <hora idFuncion="202009103031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="18">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -61,8 +60,29 @@
                 </TipoZona>
               </hora>
             </Fecha>
-            <Fecha dia="Dom, Jul 12 2020" univ="20200712">
-              <hora idFuncion="202007123031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="24">
+          </sala>
+        </salas>
+      </cinema>
+    </cinemas>
+  </pelicula>
+  <pelicula id="11411121" nombre="MIDWAY BATALLA EN EL PACIFICO GEN 2D GNR DOB" tipo="Preventa">
+    <sinopsis>
+    </sinopsis>
+    <data TituloOriginal="MIDWAY BATALLA EN EL PACIFICO" Imagen="https://www.pantallasprocinal.com/img/peliculas/MIDWAY BATALLA EN EL PACIFICO.jpg" Censura="12 Años" idioma="DOBLADA" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="140" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Lun, Sep 14 2020" reparto="" director="" distribuidor="DIAMOND FILMS COLOMBIA S.A.S" />
+    <DiasDisponiblesTodosCinemas>
+      <dia fecha="Dom, Sep 13 2020" univ="20200913" />
+      <dia fecha="Lun, Sep 14 2020" univ="20200914" />
+    </DiasDisponiblesTodosCinemas>
+    <cinemas>
+      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
+        <DiasDisponiblesCinema>
+          <dia fecha="Dom, Sep 13 2020" univ="20200913" />
+          <dia fecha="Lun, Sep 14 2020" univ="20200914" />
+        </DiasDisponiblesCinema>
+        <salas>
+          <sala numeroSala="10" tipoSala="GENERAL">
+            <Fecha dia="Dom, Sep 13 2020" univ="20200913">
+              <hora idFuncion="202009133031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="2">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -70,70 +90,8 @@
                 </TipoZona>
               </hora>
             </Fecha>
-          </sala>
-        </salas>
-      </cinema>
-    </cinemas>
-  </pelicula>
-  <pelicula id="9011111" nombre="ME LLEVARAS EN TI GEN 2D GNR ORI" tipo="Preventa">
-    <sinopsis>
-    </sinopsis>
-    <data TituloOriginal="ME LLEVARAS EN TI" Imagen="https://www.pantallasprocinal.com/img/peliculas/ME LLEVARAS EN TI.jpg" Censura="12 Años" idioma="HABLADA" genero="DRAMA" pais="COLOMBIA" duracion="120" medio="digital" formato="Digital 2D" versión="ORIGINAL" trailer1="" trailer2="" fechaEstreno="Jue, Oct 24 2019" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
-    <DiasDisponiblesTodosCinemas>
-      <dia fecha="Vie, Jul 10 2020" univ="20200710" />
-    </DiasDisponiblesTodosCinemas>
-    <cinemas>
-      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
-        <DiasDisponiblesCinema>
-          <dia fecha="Vie, Jul 10 2020" univ="20200710" />
-        </DiasDisponiblesCinema>
-        <salas>
-          <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Vie, Jul 10 2020" univ="20200710">
-              <hora idFuncion="202007103031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="53">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-          </sala>
-        </salas>
-      </cinema>
-    </cinemas>
-  </pelicula>
-  <pelicula id="14311131" nombre="1917 AUTOCINE GEN 2D GNR SUB" tipo="Preventa">
-    <sinopsis>
-    </sinopsis>
-    <data TituloOriginal="1917 AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/1917 AUTOCINE.jpg" Censura="12 Años" idioma="DOBLADA" genero="DRAMA" pais="ESTADOS UNIDOS" duracion="120" medio="digital" formato="Digital 2D" versión="SUBTITULADA" trailer1="" trailer2="" fechaEstreno="Mar, Jul 7 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
-    <DiasDisponiblesTodosCinemas>
-      <dia fecha="Jue, Jul 9 2020" univ="20200709" />
-      <dia fecha="Mar, Jul 14 2020" univ="20200714" />
-    </DiasDisponiblesTodosCinemas>
-    <cinemas>
-      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
-        <DiasDisponiblesCinema>
-          <dia fecha="Jue, Jul 9 2020" univ="20200709" />
-          <dia fecha="Mar, Jul 14 2020" univ="20200714" />
-        </DiasDisponiblesCinema>
-        <salas>
-          <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Jue, Jul 9 2020" univ="20200709">
-              <hora idFuncion="202007093031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="59">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="1" nombreTarifa="2D GEN SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="12900,0000" />
-                    <Tarifa codigoTarifa="14" nombreTarifa="2D Tarjeta Intelecto" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="8500,0000" />
-                    <Tarifa codigoTarifa="17" nombreTarifa="2D TP GEN SEM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11000,0000" />
-                    <Tarifa codigoTarifa="39" nombreTarifa="2D Fuerzas Militares" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7800,0000" />
-                    <Tarifa codigoTarifa="85" nombreTarifa="2D StarKids" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="No" validoPos="Si" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="5200,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-            <Fecha dia="Mar, Jul 14 2020" univ="20200714">
-              <hora idFuncion="202007143031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="24">
+            <Fecha dia="Lun, Sep 14 2020" univ="20200914">
+              <hora idFuncion="202009143031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="24">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -365,24 +323,80 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="17711121" nombre="PANTERA NEGRA AUTOCINE GEN 2D GNR DOB" tipo="Preventa">
+  <pelicula id="15711121" nombre="JEXI UN CELULAR SIN FILTRO GEN 2D GNR DOB" tipo="Preventa">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="PANTERA NEGRA AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/PANTERA NEGRA AUTOCINE.jpg" Censura="Todos" idioma="INGLÉS" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="135" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Mar, Jul 7 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
+    <data TituloOriginal="JEXI UN CELULAR SIN FILTRO" Imagen="https://www.pantallasprocinal.com/img/peliculas/JEXI UN CELULAR SIN FILTRO.jpg" Censura="12 Años" idioma="DOBLADA" genero="COMEDIA" pais="ESTADOS UNIDOS" duracion="85" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Feb 20 2020" reparto="" director="" distribuidor="DIAMOND FILMS COLOMBIA S.A.S" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Vie, Jul 10 2020" univ="20200710" />
-      <dia fecha="Lun, Jul 13 2020" univ="20200713" />
+      <dia fecha="Jue, Sep 10 2020" univ="20200910" />
     </DiasDisponiblesTodosCinemas>
     <cinemas>
       <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
         <DiasDisponiblesCinema>
-          <dia fecha="Vie, Jul 10 2020" univ="20200710" />
-          <dia fecha="Lun, Jul 13 2020" univ="20200713" />
+          <dia fecha="Jue, Sep 10 2020" univ="20200910" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Vie, Jul 10 2020" univ="20200710">
-              <hora idFuncion="202007103031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="92">
+            <Fecha dia="Jue, Sep 10 2020" univ="20200910">
+              <hora idFuncion="202009103031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="16">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+          </sala>
+        </salas>
+      </cinema>
+    </cinemas>
+  </pelicula>
+  <pelicula id="20011121" nombre="LOGAN GEN 2D GNR DOB" tipo="Preventa">
+    <sinopsis>
+    </sinopsis>
+    <data TituloOriginal="LOGAN" Imagen="https://www.pantallasprocinal.com/img/peliculas/LOGAN.jpg" Censura="15 Años" idioma="INGLÉS" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="135" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Mar, Sep 15 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
+    <DiasDisponiblesTodosCinemas>
+      <dia fecha="Mar, Sep 15 2020" univ="20200915" />
+    </DiasDisponiblesTodosCinemas>
+    <cinemas>
+      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
+        <DiasDisponiblesCinema>
+          <dia fecha="Mar, Sep 15 2020" univ="20200915" />
+        </DiasDisponiblesCinema>
+        <salas>
+          <sala numeroSala="10" tipoSala="GENERAL">
+            <Fecha dia="Mar, Sep 15 2020" univ="20200915">
+              <hora idFuncion="202009153031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="4">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+          </sala>
+        </salas>
+      </cinema>
+    </cinemas>
+  </pelicula>
+  <pelicula id="20111121" nombre="HOTEL MUMBAI EL ATENTADO GEN 2D GNR DOB" tipo="Preventa">
+    <sinopsis>
+    </sinopsis>
+    <data TituloOriginal="HOTEL MUMBAI EL ATENTADO" Imagen="https://www.pantallasprocinal.com/img/peliculas/HOTEL MUMBAI EL ATENTADO.jpg" Censura="12 Años" idioma="INGLÉS" genero="THRILLER" pais="AUSTRALIA" duracion="125" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Mar, Sep 15 2020" reparto="" director="" distribuidor="CINEPLEX S.A.S" />
+    <DiasDisponiblesTodosCinemas>
+      <dia fecha="Sab, Sep 12 2020" univ="20200912" />
+      <dia fecha="Mar, Sep 15 2020" univ="20200915" />
+    </DiasDisponiblesTodosCinemas>
+    <cinemas>
+      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
+        <DiasDisponiblesCinema>
+          <dia fecha="Sab, Sep 12 2020" univ="20200912" />
+          <dia fecha="Mar, Sep 15 2020" univ="20200915" />
+        </DiasDisponiblesCinema>
+        <salas>
+          <sala numeroSala="10" tipoSala="GENERAL">
+            <Fecha dia="Sab, Sep 12 2020" univ="20200912">
+              <hora idFuncion="202009123031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="22">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -390,8 +404,8 @@
                 </TipoZona>
               </hora>
             </Fecha>
-            <Fecha dia="Lun, Jul 13 2020" univ="20200713">
-              <hora idFuncion="202007133031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="57">
+            <Fecha dia="Mar, Sep 15 2020" univ="20200915">
+              <hora idFuncion="202009153031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="20">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -404,61 +418,22 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="17711131" nombre="PANTERA NEGRA AUTOCINE GEN 2D GNR SUB" tipo="Estreno">
+  <pelicula id="20311121" nombre="COCO GEN 2D GNR DOB" tipo="Preventa">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="PANTERA NEGRA AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/PANTERA NEGRA AUTOCINE.jpg" Censura="Todos" idioma="INGLÉS" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="135" medio="digital" formato="Digital 2D" versión="SUBTITULADA" trailer1="" trailer2="" fechaEstreno="Mar, Jul 7 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
+    <data TituloOriginal="COCO" Imagen="https://www.pantallasprocinal.com/img/peliculas/COCO.jpg" Censura="Todos" idioma="INGLÉS" genero="ANIMADA" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Vie, Sep 4 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Mie, Jul 8 2020" univ="20200708" />
+      <dia fecha="Sab, Sep 12 2020" univ="20200912" />
     </DiasDisponiblesTodosCinemas>
     <cinemas>
       <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
         <DiasDisponiblesCinema>
-          <dia fecha="Mie, Jul 8 2020" univ="20200708" />
+          <dia fecha="Sab, Sep 12 2020" univ="20200912" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Mie, Jul 8 2020" univ="20200708">
-              <hora idFuncion="202007083031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="94">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-          </sala>
-        </salas>
-      </cinema>
-    </cinemas>
-  </pelicula>
-  <pelicula id="17811131" nombre="JOJO RABBIT AUTOCINE GEN 2D GNR SUB" tipo="Estreno">
-    <sinopsis>
-    </sinopsis>
-    <data TituloOriginal="JOJO RABBIT AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/JOJO RABBIT AUTOCINE.jpg" Censura="12 Años" idioma="INGLÉS" genero="COMEDIA" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="SUBTITULADA" trailer1="" trailer2="" fechaEstreno="Mar, Jul 7 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
-    <DiasDisponiblesTodosCinemas>
-      <dia fecha="Mie, Jul 8 2020" univ="20200708" />
-      <dia fecha="Sab, Jul 11 2020" univ="20200711" />
-    </DiasDisponiblesTodosCinemas>
-    <cinemas>
-      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
-        <DiasDisponiblesCinema>
-          <dia fecha="Mie, Jul 8 2020" univ="20200708" />
-          <dia fecha="Sab, Jul 11 2020" univ="20200711" />
-        </DiasDisponiblesCinema>
-        <salas>
-          <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Mie, Jul 8 2020" univ="20200708">
-              <hora idFuncion="202007083031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="100">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-            <Fecha dia="Sab, Jul 11 2020" univ="20200711">
-              <hora idFuncion="202007113031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="100">
+            <Fecha dia="Sab, Sep 12 2020" univ="20200912">
+              <hora idFuncion="202009123031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="10">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -471,63 +446,28 @@
       </cinema>
     </cinemas>
   </pelicula>
-  <pelicula id="17911121" nombre="NOSOTROS AUTOCINE GEN 2D GNR DOB" tipo="Preventa">
+  <pelicula id="20411121" nombre="EL SECRETO: ATREVETE A SONAR GEN 2D GNR DOB" tipo="Preventa">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="NOSOTROS AUTOCINE" Imagen="https://www.pantallasprocinal.com/img/peliculas/NOSOTROS AUTOCINE.jpg" Censura="12 Años" idioma="DOBLADA" genero="SUSPENSO" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Mar, Jul 7 2020" reparto="" director="" distribuidor="UNITED INTERNATIONAL PICTURES LTDA" />
+    <data TituloOriginal="EL SECRETO: ATREVETE A SONAR" Imagen="https://www.pantallasprocinal.com/img/peliculas/EL SECRETO: ATREVETE A SONAR.jpg" Censura="7 Años" idioma="INGLÉS" genero="DRAMA" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Lun, Sep 14 2020" reparto="" director="" distribuidor="CINEPLEX S.A.S" />
     <DiasDisponiblesTodosCinemas>
-      <dia fecha="Lun, Jul 13 2020" univ="20200713" />
-      <dia fecha="Mie, Jul 15 2020" univ="20200715" />
+      <dia fecha="Vie, Sep 11 2020" univ="20200911" />
+      <dia fecha="Dom, Sep 13 2020" univ="20200913" />
+      <dia fecha="Lun, Sep 14 2020" univ="20200914" />
+      <dia fecha="Mie, Sep 16 2020" univ="20200916" />
     </DiasDisponiblesTodosCinemas>
     <cinemas>
       <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
         <DiasDisponiblesCinema>
-          <dia fecha="Lun, Jul 13 2020" univ="20200713" />
-          <dia fecha="Mie, Jul 15 2020" univ="20200715" />
+          <dia fecha="Vie, Sep 11 2020" univ="20200911" />
+          <dia fecha="Dom, Sep 13 2020" univ="20200913" />
+          <dia fecha="Lun, Sep 14 2020" univ="20200914" />
+          <dia fecha="Mie, Sep 16 2020" univ="20200916" />
         </DiasDisponiblesCinema>
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Lun, Jul 13 2020" univ="20200713">
-              <hora idFuncion="202007133031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="37">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-            <Fecha dia="Mie, Jul 15 2020" univ="20200715">
-              <hora idFuncion="202007153031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="27">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
-                  </TipoSilla>
-                </TipoZona>
-              </hora>
-            </Fecha>
-          </sala>
-        </salas>
-      </cinema>
-    </cinemas>
-  </pelicula>
-  <pelicula id="18011121" nombre="GUARDIANES DE LA GALAXIA VOL 1 GEN 2D GNR DOB" tipo="Preventa">
-    <sinopsis>
-    </sinopsis>
-    <data TituloOriginal="GUARDIANES DE LA GALAXIA VOL 1" Imagen="https://www.pantallasprocinal.com/img/peliculas/GUARDIANES DE LA GALAXIA VOL 1.jpg" Censura="Todos" idioma="DOBLADA" genero="ACCIÓN" pais="ESTADOS UNIDOS" duracion="125" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Vie, Jul 3 2020" reparto="" director="" distribuidor="INDUSTRIAS AUDIOVISUALES COLOMBIANAS SAS" />
-    <DiasDisponiblesTodosCinemas>
-      <dia fecha="Sab, Jul 11 2020" univ="20200711" />
-      <dia fecha="Mar, Jul 14 2020" univ="20200714" />
-    </DiasDisponiblesTodosCinemas>
-    <cinemas>
-      <cinema id="303" nombre="mayorca" ciudad="Sabaneta&#xD;&#xA;                                        ">
-        <DiasDisponiblesCinema>
-          <dia fecha="Sab, Jul 11 2020" univ="20200711" />
-          <dia fecha="Mar, Jul 14 2020" univ="20200714" />
-        </DiasDisponiblesCinema>
-        <salas>
-          <sala numeroSala="10" tipoSala="GENERAL">
-            <Fecha dia="Sab, Jul 11 2020" univ="20200711">
-              <hora idFuncion="202007113031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="59">
+            <Fecha dia="Vie, Sep 11 2020" univ="20200911">
+              <hora idFuncion="202009113031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="24">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -535,8 +475,26 @@
                 </TipoZona>
               </hora>
             </Fecha>
-            <Fecha dia="Mar, Jul 14 2020" univ="20200714">
-              <hora idFuncion="202007143031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="LOS NIÑOS                                         " capacidad="49" disponibilidad="24">
+            <Fecha dia="Dom, Sep 13 2020" univ="20200913">
+              <hora idFuncion="202009133031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="6">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Lun, Sep 14 2020" univ="20200914">
+              <hora idFuncion="202009143031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="22">
+                <TipoZona nombreZona="GENERAL" idZona="0">
+                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
+                    <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
+                  </TipoSilla>
+                </TipoZona>
+              </hora>
+            </Fecha>
+            <Fecha dia="Mie, Sep 16 2020" univ="20200916">
+              <hora idFuncion="202009163031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="4">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />

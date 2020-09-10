@@ -200,6 +200,9 @@
     <Compile Include="Forms\frmModalLogin.xaml.cs">
       <DependentUpon>frmModalLogin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmRegister.xaml.cs">
+      <DependentUpon>frmRegister.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
     </Compile>
@@ -288,6 +291,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\frmModalLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\frmRegister.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -403,6 +410,7 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Backgrounds\textoCedula.png" />
     <Resource Include="Images\Seats\s-black-car.png" />
     <Resource Include="Images\Seats\s-bloqueada-car.png" />
     <Resource Include="Images\Seats\s-disponible-car.png" />

@@ -749,9 +749,21 @@ namespace WPProcinal.Classes
                     string name = string.Empty;
                     string document = string.Empty;
 
-                    if (data.IndexOf("0M") > 0)
+                    if (data.IndexOf("00M") > 0)
                     {
-                        gender = "Masculino";
+                        gender = "M";
+                        date = data.Substring(data.IndexOf("00M") + 2, 8);
+                        documentData = data.Substring(0, data.IndexOf("00M"));
+                    }
+                    else if (data.IndexOf("00F") > 0)
+                    {
+                        documentData = data.Substring(0, data.IndexOf("00F"));
+                        date = data.Substring(data.IndexOf("00F") + 2, 8);
+                        gender = "F";
+                    }
+                    else if (data.IndexOf("0M") > 0)
+                    {
+                        gender = "M";
                         date = data.Substring(data.IndexOf("0M") + 2, 8);
                         documentData = data.Substring(0, data.IndexOf("0M"));
                     }
@@ -759,7 +771,7 @@ namespace WPProcinal.Classes
                     {
                         documentData = data.Substring(0, data.IndexOf("0F"));
                         date = data.Substring(data.IndexOf("0F") + 2, 8);
-                        gender = "Femenino";
+                        gender = "F";
                     }
 
                     char[] cedulaNombreChar = documentData.ToCharArray();

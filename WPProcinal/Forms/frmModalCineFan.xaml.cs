@@ -53,15 +53,18 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
+        private void BtnRegister_TouchDown(object sender, TouchEventArgs e)
         {
-            Utilities.control.callbackDocument = null;
-            Utilities.control.ClosePortScanner();
-            DialogResult = false;
-            //DialogResult = ValidateCineFan("1028040734");
-            // DialogResult = ValidateCineFan("43261286");
-            //DialogResult = ValidateCineFan("0071949041");
-            //DialogResult = ValidateCineFan("27955585");
+            frmRegister frmRegister = new frmRegister();
+            frmRegister.ShowDialog();
+            if (frmRegister.DialogResult.HasValue && frmRegister.DialogResult.Value)
+            {
+                DialogResult = true;
+            }
+            else
+            {
+                DialogResult = false;
+            }
         }
         #endregion
 

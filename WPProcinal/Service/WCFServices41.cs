@@ -746,6 +746,55 @@ namespace WPProcinal.Service
         }
         #endregion
 
+        /// <summary>
+        /// Servicio para registarar un usuario nuevo
+        /// </summary>
+        /// <returns></returns>
+        #region "SCOCYA"
+        public static List<ResponseScoret> PersonRegister(SCOCYA data)
+        {
+
+            string decryptData = string.Empty;
+            try
+            {
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(data);
+                LogService.SaveRequestResponse("Peticion para registrar un cliente", seria, 1);
+
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
+
+                var client = new RestClient(DataService41.APISCORE + "/scocya/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Content-Length", "66");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
+
+                LogService.SaveRequestResponse("Respuesta al registrar un cliente", decryptData, 1);
+
+                var est = JsonConvert.DeserializeObject<List<ResponseScoret>>(decryptData);
+
+                return est;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+        #endregion
     }
 
     #region ERROR
@@ -1151,6 +1200,34 @@ namespace WPProcinal.Service
         [JsonProperty("Descripción")]
         public string Descripcion { get; set; }
         public long TipoPago { get; set; }
+    }
+    #endregion
+
+    #region "SCOCYA"
+    public class SCOCYA
+    {
+        public string Login { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string Sexo { get; set; }
+        public int Edad { get; set; }
+        public string Documento { get; set; }
+        public string Clave { get; set; }
+        public string Telefono { get; set; }
+        public string Fecha_Nacimiento { get; set; }
+        public string Direccion { get; set; }
+        public string Celular { get; set; }
+        public string Correo { get { return Login; } }
+        public string Genero { get; } = "accion";
+        public string Cinema { get; } = Utilities.GetConfiguration("CodCinema");
+        public string Reservas { get; } = "N";
+        public string Noticias { get; } = "N";
+        public string Cartelera { get; } = "N";
+        public string Otras_Salas { get; } = "N";
+        public string Barrio { get; } = "N";
+        public string Municipio { get; } = "medellin";
+        public string Accion { get; } = "C";
+        public string tercero { get; } = "1";
     }
     #endregion
 
