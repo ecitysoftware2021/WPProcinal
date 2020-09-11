@@ -129,8 +129,8 @@ namespace WPProcinal.Forms.User_Control
                     Utilities.PayVal = pagoCredito;
 
                     //TODO:comentar para produccion
-                    Buytickets();
-                    return;
+                    //Buytickets();
+                    //return;
 
 
                     FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
