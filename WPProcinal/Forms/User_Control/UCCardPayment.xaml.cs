@@ -22,6 +22,8 @@ namespace WPProcinal.Forms.User_Control
         TPVOperation TPV;
         private int num = 1;
         List<Producto> productos;
+        private decimal pagoCredito = 0;
+        private decimal pagoInterno = 0;
         #region Propiedades Tarjeta
 
         private string TramaCancelar;
@@ -72,7 +74,7 @@ namespace WPProcinal.Forms.User_Control
 
 
                 lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
-
+                pagoCredito = Utilities.PayVal;
                 ModalMensajes = new Mensajes();
                 ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
                 this.DataContext = ModalMensajes;
@@ -116,55 +118,97 @@ namespace WPProcinal.Forms.User_Control
 
                 frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
                 Modal.ShowDialog();
-                //Buytickets();
-                //return;
-                FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
+                ValidateUserBalance();
 
-                Task.Run(() =>
+                if (pagoCredito == 0)
                 {
-                    if (payState)
+                    Buytickets();
+                }
+                else
+                {
+                    Utilities.PayVal = pagoCredito;
+
+                    //TODO:comentar para produccion
+                    //Buytickets();
+                    //return;
+
+
+                    FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
+                    Task.Run(() =>
                     {
-                        ValorTotal = Utilities.PayVal.ToString();
-                        NumeroTransaccion = Utilities.IDTransactionDB.ToString();
-                        TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
-                            TipoOperacion, Delimitador,
-                           ValorTotal, Delimitador,
-                            ValorIVA, Delimitador,
-                            NumeroKiosko, Delimitador,
-                            NumeroTerminal, Delimitador,
-                            NumeroTransaccion, Delimitador,
-                            ValorPropina, Delimitador,
-                            CodigoUnico, Delimitador,
-                            ValorIAC, Delimitador,
-                            IdentificacionCajero, "]");
-
-                        //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
-                        var LCRPeticion = TPV.CalculateLRC(TramaInicial);
-                        try
+                        if (payState)
                         {
-                            LogService.SaveRequestResponse("Petición al datáfono", LCRPeticion, 1);
+                            ValorTotal = Utilities.PayVal.ToString();
+                            NumeroTransaccion = Utilities.IDTransactionDB.ToString();
+                            TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
+                                TipoOperacion, Delimitador,
+                               ValorTotal, Delimitador,
+                                ValorIVA, Delimitador,
+                                NumeroKiosko, Delimitador,
+                                NumeroTerminal, Delimitador,
+                                NumeroTransaccion, Delimitador,
+                                ValorPropina, Delimitador,
+                                CodigoUnico, Delimitador,
+                                ValorIAC, Delimitador,
+                                IdentificacionCajero, "]");
+
+                            //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
+                            var LCRPeticion = TPV.CalculateLRC(TramaInicial);
+                            try
+                            {
+                                LogService.SaveRequestResponse("Petición al datáfono", LCRPeticion, 1);
+                            }
+                            catch { }
+                            //Envío la trama que intentará activar el datáfono
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmLoading.Show();
+                            });
+
+                            var datos = TPV.EnviarPeticion(LCRPeticion);
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmLoading.Close();
+                            });
+
+                            TPVOperation.CallBackRespuesta?.Invoke(datos);
                         }
-                        catch { }
-                        //Envío la trama que intentará activar el datáfono
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            frmLoading.Show();
-                        });
-
-                        var datos = TPV.EnviarPeticion(LCRPeticion);
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            frmLoading.Close();
-                        });
-
-                        TPVOperation.CallBackRespuesta?.Invoke(datos);
-                    }
-                });
+                    });
+                }
             }
             catch (Exception ex)
             {
             }
         }
+
+        private void ValidateUserBalance()
+        {
+            decimal valorPagoConSaldoFavor = 0;
+            if (DataService41.dataUser.SaldoFavor != null)
+            {
+                if (DataService41.dataUser.SaldoFavor.Value > 0)
+                {
+                    frmModal Modal = new frmModal($"Tienes un saldo a favor de ${DataService41.dataUser.SaldoFavor.Value.ToString("C")}, ¿deseas utilizarlo en esta compra?", balance: true);
+                    Modal.ShowDialog();
+                    if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
+                    {
+                        valorPagoConSaldoFavor = Utilities.PayVal - DataService41.dataUser.SaldoFavor.Value;
+                        if (valorPagoConSaldoFavor <= 99)
+                        {
+                            pagoCredito = 0;
+                            pagoInterno = Utilities.PayVal;
+                        }
+                        else
+                        {
+                            pagoCredito = Utilities.PayVal - DataService41.dataUser.SaldoFavor.Value;
+                            pagoInterno = DataService41.dataUser.SaldoFavor.Value;
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         /// <summary>
         /// Activa el callback que procesa todas las respuestas del datáfono
@@ -433,9 +477,9 @@ namespace WPProcinal.Forms.User_Control
                         Funcion = Utilities.SelectedFunction.IDFuncion,
                         InicioFun = Utilities.SelectedFunction.HourFormat,
                         Nombre = dataClient.Nombre,
-                        PagoCredito = Utilities.MedioPago == EPaymentType.Cash ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
-                        PagoEfectivo = Utilities.MedioPago == EPaymentType.Cash ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
-                        PagoInterno = 0,
+                        PagoCredito = (int)pagoCredito,
+                        PagoEfectivo = 0,
+                        PagoInterno = (int)pagoInterno,
                         Pelicula = Utilities.SelectedFunction.MovieId,
                         Productos = productos,
                         PuntoVenta = int.Parse(Utilities.GetConfiguration("Cinema")),

@@ -38,23 +38,28 @@ namespace WPProcinal.Classes
                 this.folder = folder;
 
                 LoadImageFolder();
+
+                dispatcherTimer = new DispatcherTimer();
+
+                dispatcherTimer.Tick += dispatcherTimer_Tick;
+
+                Init();
             }
 
-            dispatcherTimer = new DispatcherTimer();
 
-            dispatcherTimer.Tick += dispatcherTimer_Tick;
-
-            Init();
         }
 
         public void Start()
         {
             try
             {
-                PlaySlideShow(0);
-                if (isRotate)
+                if (!string.IsNullOrEmpty(folder))
                 {
-                    StarTime();
+                    PlaySlideShow(0);
+                    if (isRotate)
+                    {
+                        StarTime();
+                    }
                 }
             }
             catch (Exception ex)
@@ -162,18 +167,24 @@ namespace WPProcinal.Classes
 
         public void StarTime()
         {
-            dispatcherTimer.Interval = new TimeSpan(0, 0, this.time);
-            if (dispatcherTimer.IsEnabled)
+            if (!string.IsNullOrEmpty(folder))
             {
-                dispatcherTimer.Stop();
+                dispatcherTimer.Interval = new TimeSpan(0, 0, this.time);
+                if (dispatcherTimer.IsEnabled)
+                {
+                    dispatcherTimer.Stop();
+                }
+                dispatcherTimer.Start();
             }
-            dispatcherTimer.Start();
         }
 
         public void StopTime()
         {
-            dispatcherTimer.Stop();
-            dispatcherTimer = null;
+            if (!string.IsNullOrEmpty(folder))
+            {
+                dispatcherTimer.Stop();
+                dispatcherTimer = null;
+            }
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)

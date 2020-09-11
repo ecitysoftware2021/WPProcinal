@@ -360,6 +360,11 @@ namespace WPProcinal.Forms.User_Control
                                 txtNameUser.Text = "Bienvenid@ " + DataService41.dataUser.Nombre.ToUpperInvariant();
                                 txtNameUser.Visibility = Visibility.Visible;
                             }
+                            else if (!string.IsNullOrEmpty(Utilities.dataDocument.FirstName))
+                            {
+                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataDocument.FirstName.ToUpperInvariant();
+                                txtNameUser.Visibility = Visibility.Visible;
+                            }
                         }
                         else
                         {

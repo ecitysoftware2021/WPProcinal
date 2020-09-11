@@ -99,7 +99,7 @@ namespace WPProcinal.Forms
             {
                 cedula = long.Parse(cedula).ToString();
 
-                frmLoading = new FrmLoading("¡Consultando información...!");
+                frmLoading = new FrmLoading("¡Consultando CineFan...!");
                 frmLoading.Show();
                 var responseClient = WCFServices41.GetClientData(new SCOCED
                 {
@@ -116,13 +116,17 @@ namespace WPProcinal.Forms
                         if (item.Tarjeta != null)
                         {
                             DataService41.dataUser = item;
+                            frmLoading = new FrmLoading("¡Consultando Puntos CineFan...!");
+                            frmLoading.Show();
                             DataService41.dataUser.Puntos = WCFServices41.ConsultPoints(new SCOMOV
                             {
                                 Correo = DataService41.dataUser.Login,
                                 Clave = DataService41.dataUser.Clave,
                                 tercero = 1
                             });
+                            frmLoading.Close();
                             isCineFan = true;
+
                             break;
                         }
                         else
@@ -132,6 +136,22 @@ namespace WPProcinal.Forms
                     }
                     if (isCineFan)
                     {
+                        frmLoading = new FrmLoading("¡Consultando Saldo CineFan...!");
+                        frmLoading.Show();
+                        var saldo = WCFServices41.GetPersonBalance(new SCOSDO
+                        {
+                            Correo = DataService41.dataUser.Login,
+                            tercero = "1"
+                        });
+                        frmLoading.Close();
+                        foreach (var item in saldo)
+                        {
+                            if (item.Saldo != null)
+                            {
+                                DataService41.dataUser.SaldoFavor = item.Saldo;
+                                break;
+                            }
+                        }
                         return true;
                     }
                     else

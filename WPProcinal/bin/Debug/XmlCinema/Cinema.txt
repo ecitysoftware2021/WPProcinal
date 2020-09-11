@@ -15,7 +15,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Vie, Sep 11 2020" univ="20200911">
-              <hora idFuncion="202009113031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="18">
+              <hora idFuncion="202009113031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="20">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -40,7 +40,7 @@
   <pelicula id="5511121" nombre="EL REY LEON GEN 2D GNR DOB" tipo="Estreno">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="EL REY LEON" Imagen="https://www.pantallasprocinal.com/img/peliculas/EL REY LEON.jpg" Censura="Todos" idioma="INGLÉS" genero="ANIMADA" pais="ESTADOS UNIDOS" duracion="120" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Jul 18 2019" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
+    <data TituloOriginal="EL REY LEON" Imagen="https://www.pantallasprocinal.com/img/peliculas/EL REY LEON.jpg" Censura="Todos" idioma="INGLÉS" genero="ANIMADA" pais="ESTADOS UNIDOS" duracion="120" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Jue, Sep 10 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
     <DiasDisponiblesTodosCinemas>
       <dia fecha="Jue, Sep 10 2020" univ="20200910" />
     </DiasDisponiblesTodosCinemas>
@@ -52,7 +52,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Jue, Sep 10 2020" univ="20200910">
-              <hora idFuncion="202009103031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="29">
+              <hora idFuncion="202009103031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="35">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -82,7 +82,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Dom, Sep 13 2020" univ="20200913">
-              <hora idFuncion="202009133031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="6">
+              <hora idFuncion="202009133031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="4">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -131,189 +131,162 @@
         <salas>
           <sala numeroSala="1" tipoSala="SUPERNOVA">
             <Fecha dia="Jue, Nov 5 2020" univ="20201105">
-              <hora idFuncion="202011053230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
-                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+              <hora idFuncion="202011053230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011053230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
-                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+              <hora idFuncion="202011053230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011053230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
-                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+              <hora idFuncion="202011053230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Vie, Nov 6 2020" univ="20201106">
-              <hora idFuncion="202011063230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
-                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+              <hora idFuncion="202011063230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011063230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
-                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+              <hora idFuncion="202011063230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011063230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
-                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+              <hora idFuncion="202011063230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Sab, Nov 7 2020" univ="20201107">
-              <hora idFuncion="202011073230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
-                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+              <hora idFuncion="202011073230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011073230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
-                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+              <hora idFuncion="202011073230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011073230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
-                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+              <hora idFuncion="202011073230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Dom, Nov 8 2020" univ="20201108">
-              <hora idFuncion="202011083230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
-                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+              <hora idFuncion="202011083230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011083230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
-                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+              <hora idFuncion="202011083230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011083230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="209" nombreTarifa="2D SN FS NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="14900,0000" />
-                    <Tarifa codigoTarifa="210" nombreTarifa="2D SN TP FS NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="11900,0000" />
+              <hora idFuncion="202011083230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Lun, Nov 9 2020" univ="20201109">
-              <hora idFuncion="202011093230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
-                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+              <hora idFuncion="202011093230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011093230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
-                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+              <hora idFuncion="202011093230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011093230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="8" nombreTarifa="2D SN SEM NOC" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="11900,0000" />
-                    <Tarifa codigoTarifa="24" nombreTarifa="2D SN TP SEM NOC" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="10700,0000" />
+              <hora idFuncion="202011093230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Mar, Nov 10 2020" univ="20201110">
-              <hora idFuncion="202011103230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+              <hora idFuncion="202011103230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011103230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+              <hora idFuncion="202011103230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011103230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+              <hora idFuncion="202011103230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
             </Fecha>
             <Fecha dia="Mie, Nov 11 2020" univ="20201111">
-              <hora idFuncion="202011113230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+              <hora idFuncion="202011113230118" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011113230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+              <hora idFuncion="202011113230120" horario="8:50 pm" reservasONline="true" ventasONline="true" militar="2050" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
-              <hora idFuncion="202011113230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="234" disponibilidad="0">
-                <TipoZona nombreZona="GENERAL" idZona="0">
-                  <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
-                    <Tarifa codigoTarifa="213" nombreTarifa="2D SN MM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="No" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="214" nombreTarifa="2D SN TP MM" documentoEnCaja="Código" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="No" clienteFrecuente="Si" listaEspecial="No" valor="7450,0000" />
-                    <Tarifa codigoTarifa="260" nombreTarifa="2D SN MM KIOSK" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="No" validoPos="No" validoApp="No" validoPosMovil="No" clienteFrecuente="No" listaEspecial="No" valor="7500,0000" />
+              <hora idFuncion="202011113230123" horario="11:00 pm" reservasONline="true" ventasONline="true" militar="2300" validaciones="Si" cortoNacional="" capacidad="No Disponible" disponibilidad="No Disponible">
+                <TipoZona>
+                  <TipoSilla>
+                    <Tarifa />
                   </TipoSilla>
                 </TipoZona>
               </hora>
@@ -338,7 +311,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Jue, Sep 10 2020" univ="20200910">
-              <hora idFuncion="202009103031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="39">
+              <hora idFuncion="202009103031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="55">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -396,7 +369,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Sab, Sep 12 2020" univ="20200912">
-              <hora idFuncion="202009123031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="31">
+              <hora idFuncion="202009123031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="37">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -421,7 +394,7 @@
   <pelicula id="20311121" nombre="COCO GEN 2D GNR DOB" tipo="Preventa">
     <sinopsis>
     </sinopsis>
-    <data TituloOriginal="COCO" Imagen="https://www.pantallasprocinal.com/img/peliculas/COCO.jpg" Censura="Todos" idioma="INGLÉS" genero="ANIMADA" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Vie, Sep 4 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
+    <data TituloOriginal="COCO" Imagen="https://www.pantallasprocinal.com/img/peliculas/COCO.jpg" Censura="Todos" idioma="INGLÉS" genero="ANIMADA" pais="ESTADOS UNIDOS" duracion="110" medio="digital" formato="Digital 2D" versión="DOBLADA" trailer1="" trailer2="" fechaEstreno="Sab, Sep 12 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
     <DiasDisponiblesTodosCinemas>
       <dia fecha="Sab, Sep 12 2020" univ="20200912" />
     </DiasDisponiblesTodosCinemas>
@@ -433,7 +406,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Sab, Sep 12 2020" univ="20200912">
-              <hora idFuncion="202009123031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="18">
+              <hora idFuncion="202009123031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="20">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -467,7 +440,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Vie, Sep 11 2020" univ="20200911">
-              <hora idFuncion="202009113031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="33">
+              <hora idFuncion="202009113031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="39">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -506,5 +479,10 @@
         </salas>
       </cinema>
     </cinemas>
+  </pelicula>
+  <pelicula id="55" nombre="EL REY LEON" tipo="Próximo Estreno">
+    <sinopsis>
+    </sinopsis>
+    <data TituloOriginal="EL REY LEON" Imagen="https://www.pantallasprocinal.com/img/peliculas/EL REY LEON.jpg" Censura="Todos" idioma="INGLÉS" genero="ANIMADA" pais="ESTADOS UNIDOS" duracion="120" medio="digital" trailer1="" trailer2="" fechaEstreno="Jue, Sep 10 2020" reparto="" director="" distribuidor="CINECOLOR COLOMBIA SAS" />
   </pelicula>
 </Peliculas>

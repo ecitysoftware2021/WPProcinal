@@ -414,6 +414,7 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Buttons\btn-show-id.png" />
     <Resource Include="Images\Backgrounds\textoCedula.png" />
     <Resource Include="Images\Seats\s-black-car.png" />
     <Resource Include="Images\Seats\s-bloqueada-car.png" />

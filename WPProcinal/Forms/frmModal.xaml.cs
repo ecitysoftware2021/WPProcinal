@@ -13,24 +13,25 @@ namespace WPProcinal.Forms
         private TimerTiempo timer;
         private bool stop;
 
-        public frmModal(string message,bool timer = false)
+        public frmModal(string message, bool timer = false, bool balance = false)
         {
             InitializeComponent();
             LblMessage.Text = message;
             this.stop = timer;
 
+            if (balance)
+            {
+                BtnSalir.Visibility = Visibility.Hidden;
+                BtnSi.Visibility = Visibility.Visible;
+                BtnNo.Visibility = Visibility.Visible;
+            }
             if (stop)
             {
-                BtnEnd.Visibility = Visibility.Hidden;
+                BtnSalir.Visibility = Visibility.Hidden;
                 ActivateTimer();
             }
         }
 
-        private void BtnEnd_TouchDown(object sender, TouchEventArgs e)
-        {
-            BtnEnd.IsEnabled = false;
-            DialogResult = true;
-        }
 
         #region "Timer"
         private void ActivateTimer()
@@ -55,5 +56,22 @@ namespace WPProcinal.Forms
             catch { }
         }
         #endregion
+
+        private void BtnNo_TouchDown(object sender, TouchEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void BtnSi_TouchDown(object sender, TouchEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
+        {
+
+            BtnSalir.IsEnabled = false;
+            DialogResult = true;
+        }
     }
 }

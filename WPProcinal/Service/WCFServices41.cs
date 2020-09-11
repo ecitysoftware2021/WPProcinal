@@ -795,6 +795,56 @@ namespace WPProcinal.Service
 
         }
         #endregion
+
+        /// <summary>
+        /// Servicio para consultar el saldo a favor de un cliente
+        /// </summary>
+        /// <returns></returns>
+        #region "SCOSDO"
+        public static List<ResponseScosdo> GetPersonBalance(SCOSDO data)
+        {
+
+            string decryptData = string.Empty;
+            try
+            {
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(data);
+                LogService.SaveRequestResponse("Peticion para conocer el saldo de un cliente", seria, 1);
+
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
+
+                var client = new RestClient(DataService41.APISCORE + "/scosdo/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Content-Length", "66");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "scorecoorp.procinal.com");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
+
+                LogService.SaveRequestResponse("Respuesta al consultar el saldo de un cliente", decryptData, 1);
+
+                var est = JsonConvert.DeserializeObject<List<ResponseScosdo>>(decryptData);
+
+                return est;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+        #endregion
     }
 
     #region ERROR
@@ -816,6 +866,7 @@ namespace WPProcinal.Service
     public class ResponseScoret
     {
         public string Respuesta { get; set; }
+
         [JsonProperty("Validación")]
         public string Validacion { get; set; }
     }
@@ -1188,6 +1239,7 @@ namespace WPProcinal.Service
         public string Telefono { get; set; }
         public string Fecha_Nacimiento { get; set; }
         public double Puntos { get; set; }
+        public Nullable<decimal> SaldoFavor { get; set; }
 
     }
     #endregion
@@ -1212,11 +1264,11 @@ namespace WPProcinal.Service
         public string Sexo { get; set; }
         public int Edad { get; set; }
         public string Documento { get; set; }
+        public string Celular { get; set; }
         public string Clave { get; set; }
-        public string Telefono { get; set; }
+        public string Telefono { get { return Celular; } }
         public string Fecha_Nacimiento { get; set; }
         public string Direccion { get; set; }
-        public string Celular { get; set; }
         public string Correo { get { return Login; } }
         public string Genero { get; } = "accion";
         public string Cinema { get; } = Utilities.GetConfiguration("CodCinema");
@@ -1231,6 +1283,20 @@ namespace WPProcinal.Service
     }
     #endregion
 
+    #region SCOSDO
+    public class SCOSDO
+    {
+        public string Correo { get; set; }
+        public string tercero { get; set; }
+    }
+
+    public class ResponseScosdo
+    {
+        [JsonProperty("Validación")]
+        public string Validacion { get; set; }
+        public Nullable<decimal> Saldo { get; set; }
+    }
+    #endregion
     public class Combos
     {
         public string Name { get; set; }

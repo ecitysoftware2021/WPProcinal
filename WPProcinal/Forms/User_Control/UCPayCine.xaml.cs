@@ -28,6 +28,8 @@ namespace WPProcinal.Forms.User_Control
         Response responseGlobal = new Response();
         private bool totalReturn = false;
         List<Producto> productos;
+        private decimal pagoCredito = 0;
+        private decimal pagoInterno = 0;
         public UCPayCine(List<ChairsInformation> Seats, FunctionInformation dipMap)
         {
             InitializeComponent();
@@ -70,17 +72,51 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                Task.Run(() =>
+                if (pagoCredito == 0)
                 {
-                    if (payState)
+                    Buytickets();
+                }
+                else
+                {
+                    Utilities.PayVal = pagoCredito;
+                    Task.Run(() =>
                     {
-                        ActivateWallet();
-                    }
-                });
+                        if (payState)
+                        {
+                            ActivateWallet();
+                        }
+                    });
+                }
             }
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "Window_Loaded en frmPayCine", EError.Aplication, ELevelError.Medium);
+            }
+        }
+        private void ValidateUserBalance()
+        {
+            decimal valorPagoConSaldoFavor = 0;
+            if (DataService41.dataUser.SaldoFavor != null)
+            {
+                if (DataService41.dataUser.SaldoFavor.Value > 0)
+                {
+                    frmModal Modal = new frmModal($"Tienes un saldo a favor de ${DataService41.dataUser.SaldoFavor.Value.ToString("C")}, ¿deseas utilizarlo en esta compra?", balance: true);
+                    Modal.ShowDialog();
+                    if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
+                    {
+                        valorPagoConSaldoFavor = Utilities.PayVal - DataService41.dataUser.SaldoFavor.Value;
+                        if (valorPagoConSaldoFavor <= 99)
+                        {
+                            pagoCredito = 0;
+                            pagoInterno = Utilities.PayVal;
+                        }
+                        else
+                        {
+                            pagoCredito = Utilities.PayVal - DataService41.dataUser.SaldoFavor.Value;
+                            pagoInterno = DataService41.dataUser.SaldoFavor.Value;
+                        }
+                    }
+                }
             }
         }
 
@@ -575,9 +611,9 @@ namespace WPProcinal.Forms.User_Control
                         Funcion = Utilities.SelectedFunction.IDFuncion,
                         InicioFun = Utilities.SelectedFunction.HourFormat,
                         Nombre = dataClient.Nombre,
-                        PagoCredito = Utilities.MedioPago == EPaymentType.Cash ? 0 : int.Parse(Utilities.ValorPagarScore.ToString()),
-                        PagoEfectivo = Utilities.MedioPago == EPaymentType.Cash ? int.Parse(Utilities.ValorPagarScore.ToString()) : 0,
-                        PagoInterno = 0,
+                        PagoCredito = 0,
+                        PagoEfectivo = int.Parse(Utilities.ValorPagarScore.ToString()),
+                        PagoInterno = (int)pagoInterno,
                         Pelicula = Utilities.SelectedFunction.MovieId,
                         Productos = productos,
                         PuntoVenta = Utilities.SelectedFunction.PointOfSale,

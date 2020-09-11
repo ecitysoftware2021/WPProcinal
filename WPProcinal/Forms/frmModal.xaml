@@ -67,14 +67,35 @@
                     CornerRadius="0,0,30,30" Margin="0,4,-4,-4" Grid.ColumnSpan="2">
                 <Grid>
                     <Image HorizontalAlignment="Center"
-                       Name="BtnEnd"
+                       Name="BtnSalir"
                        VerticalAlignment="Bottom"
                        Width="200"
                        Margin="0,0,0,0"
                        Stretch="Uniform"
                        Source="../Images/salir2.png"
-                           TouchDown="BtnEnd_TouchDown"
+                           TouchDown="BtnSalir_TouchDown"
                        />
+                    <Image HorizontalAlignment="Left"
+                       Name="BtnNo"
+                       VerticalAlignment="Bottom"
+                       Width="80"
+                       Margin="200,0,0,0"
+                       Stretch="Uniform"
+                           Visibility="Hidden"
+                       Source="/Images/Buttons/btnNot.png"
+                           TouchDown="BtnNo_TouchDown"
+                       />
+                    <Image HorizontalAlignment="Right"
+                       Name="BtnSi"
+                           Visibility="Hidden"
+                       VerticalAlignment="Bottom"
+                       Width="80"
+                       Margin="0,0,200,0"
+                       Stretch="Uniform"
+                       Source="/Images/Buttons/btnYes.png"
+                           TouchDown="BtnSi_TouchDown"
+                       />
+                    
                 </Grid>
             </Border>
         </Grid>

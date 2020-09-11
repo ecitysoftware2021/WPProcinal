@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using WPProcinal.Classes;
+using WPProcinal.Service;
 
 namespace WPProcinal.Forms
 {
@@ -10,6 +15,7 @@ namespace WPProcinal.Forms
     /// </summary>
     public partial class frmRegister : Window
     {
+        private bool ShowPass = false;
         public frmRegister()
         {
             InitializeComponent();
@@ -50,6 +56,7 @@ namespace WPProcinal.Forms
 
         private void txPhone_TouchDown(object sender, TouchEventArgs e)
         {
+            txPhone.Background = Brushes.Transparent;
             WPKeyboard.Keyboard.InitKeyboard(new WPKeyboard.Keyboard.DataKey
             {
                 control = txPhone,
@@ -62,6 +69,7 @@ namespace WPProcinal.Forms
 
         private void pxPassword_TouchDown(object sender, TouchEventArgs e)
         {
+            pxPassword.Background = Brushes.Transparent;
             WPKeyboard.Keyboard.InitKeyboard(new WPKeyboard.Keyboard.DataKey
             {
                 control = pxPassword,
@@ -86,10 +94,42 @@ namespace WPProcinal.Forms
             {
                 pxPassword.Password = pxPassword.Password.Substring(0, pxPassword.Password.Length - 1);
             }
+            txPasswordShow.Text = pxPassword.Password;
+        }
+
+        private void imgShowPass_TouchDown(object sender, TouchEventArgs e)
+        {
+            ShowPass = !ShowPass;
+            if (ShowPass)
+            {
+                txPasswordShow.Visibility = Visibility.Visible;
+                pxPassword.Visibility = Visibility.Hidden;
+                imgShowPass.Opacity = 1;
+            }
+            else
+            {
+                txPasswordShow.Visibility = Visibility.Hidden;
+                pxPassword.Visibility = Visibility.Visible;
+                imgShowPass.Opacity = 0.3;
+            }
+        }
+
+        private void txPasswordShow_TouchDown(object sender, TouchEventArgs e)
+        {
+            txPasswordShow.Background = Brushes.Transparent;
+            WPKeyboard.Keyboard.InitKeyboard(new WPKeyboard.Keyboard.DataKey
+            {
+                control = pxPassword,
+                eType = WPKeyboard.Keyboard.EType.Standar,
+                window = this,
+                X = 250,
+                Y = 860
+            });
         }
 
         private void txAddress_TouchDown(object sender, TouchEventArgs e)
         {
+            txAddress.Background = Brushes.Transparent;
             WPKeyboard.Keyboard.InitKeyboard(new WPKeyboard.Keyboard.DataKey
             {
                 control = txAddress,
@@ -110,6 +150,7 @@ namespace WPProcinal.Forms
 
         private void txMail_TouchDown(object sender, TouchEventArgs e)
         {
+            txMail.Background = Brushes.Transparent;
             WPKeyboard.Keyboard.InitKeyboard(new WPKeyboard.Keyboard.DataKey
             {
                 control = txMail,
@@ -127,5 +168,141 @@ namespace WPProcinal.Forms
                 txMail.Text = txMail.Text.Substring(0, txMail.Text.Length - 1);
             }
         }
+
+        private void btSiguiente_TouchDown(object sender, TouchEventArgs e)
+        {
+            if (ValidateControls())
+            {
+                bool regState = false;
+                Utilities.dataDocument.Address = txAddress.Text;
+                Utilities.dataDocument.Phone = txPhone.Text;
+                Utilities.dataDocument.Key = pxPassword.Password;
+                Utilities.dataDocument.Email = txMail.Text;
+                int edad = 18;
+                try
+                {
+                    edad = DateTime.Now.Year - int.Parse(Utilities.dataDocument.Date.Substring(0, 4));
+                }
+                catch
+                {
+                }
+                FrmLoading frmLoading = new FrmLoading("¡Realizando registro...!");
+                frmLoading.Show();
+                Task.Run(() =>
+                {
+                    var responseReg = WCFServices41.PersonRegister(new SCOCYA
+                    {
+                        Apellido = string.Concat(Utilities.dataDocument.LastName, " ", Utilities.dataDocument.SecondLastName),
+                        Celular = Utilities.dataDocument.Phone,
+                        Clave = Utilities.dataDocument.Key,
+                        Login = Utilities.dataDocument.Email,
+                        Direccion = Utilities.dataDocument.Address,
+                        Documento = Utilities.dataDocument.Document,
+                        Edad = edad,
+                        Fecha_Nacimiento = Utilities.dataDocument.Date,
+                        Nombre = string.Concat(Utilities.dataDocument.FirstName, " ", Utilities.dataDocument.SecondName),
+                        Sexo = Utilities.dataDocument.Gender,
+                    });
+
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        frmLoading.Close();
+                    });
+
+                    foreach (var item in responseReg)
+                    {
+                        if (item.Respuesta != null)
+                        {
+                            if (item.Respuesta.Contains("éxito"))
+                            {
+                                Dispatcher.BeginInvoke((Action)delegate
+                                {
+                                    frmModal modal = new frmModal("Registro realizado correctamente, presiona aceptar para continuar.");
+                                    modal.ShowDialog();
+                                });
+                                regState = true;
+                                break;
+                            }
+                            else
+                            {
+                                Dispatcher.BeginInvoke((Action)delegate
+                                {
+                                    frmModal modal = new frmModal(item.Respuesta);
+                                    modal.ShowDialog();
+                                });
+                                regState = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmModal modal = new frmModal(item.Validacion);
+                                modal.ShowDialog();
+                            });
+                            regState = false;
+                            break;
+                        }
+                    }
+
+                    if (regState)
+                    {
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+
+                            DialogResult = true;
+                        });
+                    }
+                    else
+                    {
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            DialogResult = false;
+                        });
+                    }
+                });
+            }
+        }
+        private bool ValidateControls()
+        {
+            bool result = true;
+            if (txPhone.Text.Length < 8)
+            {
+                txPhone.Background = Brushes.Red;
+                result = false;
+            }
+            if (pxPassword.Password.Length < 5)
+            {
+                pxPassword.Background = Brushes.Red;
+                txPasswordShow.Background = Brushes.Red;
+                result = false;
+            }
+            if (txAddress.Text.Length < 8)
+            {
+                txAddress.Background = Brushes.Red;
+                result = false;
+            }
+            if (!ValidateMail(txMail.Text))
+            {
+                txMail.Background = Brushes.Red;
+                result = false;
+            }
+            return result;
+        }
+
+        private bool ValidateMail(string mail)
+        {
+            try
+            {
+                Regex regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,8}$");
+                return regex.IsMatch(mail);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }
