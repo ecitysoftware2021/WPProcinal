@@ -52,7 +52,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Jue, Sep 10 2020" univ="20200910">
-              <hora idFuncion="202009103031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="35">
+              <hora idFuncion="202009103031018" horario="6:30 pm" reservasONline="true" ventasONline="true" militar="1830" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="41">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -311,7 +311,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Jue, Sep 10 2020" univ="20200910">
-              <hora idFuncion="202009103031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="55">
+              <hora idFuncion="202009103031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="61">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="435" nombreTarifa="VEHIC 3 PER SEM" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="No" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="35000,0000" />
@@ -369,7 +369,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Sab, Sep 12 2020" univ="20200912">
-              <hora idFuncion="202009123031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="37">
+              <hora idFuncion="202009123031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="35">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />
@@ -440,7 +440,7 @@
         <salas>
           <sala numeroSala="10" tipoSala="GENERAL">
             <Fecha dia="Vie, Sep 11 2020" univ="20200911">
-              <hora idFuncion="202009113031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="39">
+              <hora idFuncion="202009113031021" horario="9:30 pm" reservasONline="true" ventasONline="true" militar="2130" validaciones="Si" cortoNacional="" capacidad="49" disponibilidad="41">
                 <TipoZona nombreZona="GENERAL" idZona="0">
                   <TipoSilla nombreTipoSilla="General" idTipoSilla="1">
                     <Tarifa codigoTarifa="437" nombreTarifa="VEHIC 3 PER FS" documentoEnCaja="Ninguno" medioPago="Todos" validokiosko="Si" validoTeceros="Si" validoInternet="Si" validoPos="Si" validoApp="Si" validoPosMovil="Si" clienteFrecuente="No" listaEspecial="No" valor="45000,0000" />

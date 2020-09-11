@@ -893,10 +893,10 @@ namespace WPProcinal.Forms.User_Control
                     var tarifa = new ResponseTarifa();
                     if (DataService41.dataUser.Tarjeta != null)
                     {
-                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
-                    }
-                    else
-                    {
+                    //    tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                    //}
+                    //else
+                    //{
                         tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
                     }
 

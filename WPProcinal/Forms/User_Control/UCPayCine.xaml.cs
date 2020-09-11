@@ -28,7 +28,7 @@ namespace WPProcinal.Forms.User_Control
         Response responseGlobal = new Response();
         private bool totalReturn = false;
         List<Producto> productos;
-        private decimal pagoCredito = 0;
+        private decimal pagoEfectivo = 0;
         private decimal pagoInterno = 0;
         public UCPayCine(List<ChairsInformation> Seats, FunctionInformation dipMap)
         {
@@ -36,6 +36,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 OrganizeValues();
+                pagoEfectivo = Utilities.PayVal;
                 state = true;
 
                 Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
@@ -72,13 +73,14 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                if (pagoCredito == 0)
+                ValidateUserBalance();
+                if (pagoEfectivo == 0)
                 {
                     Buytickets();
                 }
                 else
                 {
-                    Utilities.PayVal = pagoCredito;
+                    Utilities.PayVal = pagoEfectivo;
                     Task.Run(() =>
                     {
                         if (payState)
@@ -104,15 +106,15 @@ namespace WPProcinal.Forms.User_Control
                     Modal.ShowDialog();
                     if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
                     {
-                        valorPagoConSaldoFavor = Utilities.PayVal - DataService41.dataUser.SaldoFavor.Value;
+                        valorPagoConSaldoFavor = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
                         if (valorPagoConSaldoFavor <= 99)
                         {
-                            pagoCredito = 0;
-                            pagoInterno = Utilities.PayVal;
+                            pagoEfectivo = 0;
+                            pagoInterno = Utilities.ValorPagarScore;
                         }
                         else
                         {
-                            pagoCredito = Utilities.PayVal - DataService41.dataUser.SaldoFavor.Value;
+                            pagoEfectivo = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
                             pagoInterno = DataService41.dataUser.SaldoFavor.Value;
                         }
                     }
@@ -612,7 +614,7 @@ namespace WPProcinal.Forms.User_Control
                         InicioFun = Utilities.SelectedFunction.HourFormat,
                         Nombre = dataClient.Nombre,
                         PagoCredito = 0,
-                        PagoEfectivo = int.Parse(Utilities.ValorPagarScore.ToString()),
+                        PagoEfectivo = (int)pagoEfectivo,
                         PagoInterno = (int)pagoInterno,
                         Pelicula = Utilities.SelectedFunction.MovieId,
                         Productos = productos,
@@ -624,7 +626,7 @@ namespace WPProcinal.Forms.User_Control
                         TipoBono = 0,
                         TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
                         Ubicaciones = ubicaciones,
-                        Obs1 = Utilities.TIPOAUTO
+                        Obs1 = string.IsNullOrEmpty(Utilities.TIPOAUTO) ? "" : Utilities.TIPOAUTO
                     });
                     frmLoading.Close();
                     foreach (var item in response41)

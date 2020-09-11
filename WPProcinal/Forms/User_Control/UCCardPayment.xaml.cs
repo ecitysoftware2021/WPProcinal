@@ -79,7 +79,7 @@ namespace WPProcinal.Forms.User_Control
                 ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
                 this.DataContext = ModalMensajes;
 
-                TPV = new TPVOperation();
+
 
                 Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
                 if (Seats.Count > 0)
@@ -101,7 +101,7 @@ namespace WPProcinal.Forms.User_Control
 
                 payState = true;
                 Utilities.Speack("Estableciendo conexión con el datáfono, espera por favor.");
-
+                TPV = new TPVOperation();
                 Activar();
 
 
@@ -129,8 +129,8 @@ namespace WPProcinal.Forms.User_Control
                     Utilities.PayVal = pagoCredito;
 
                     //TODO:comentar para produccion
-                    //Buytickets();
-                    //return;
+                    Buytickets();
+                    return;
 
 
                     FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
@@ -192,15 +192,15 @@ namespace WPProcinal.Forms.User_Control
                     Modal.ShowDialog();
                     if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
                     {
-                        valorPagoConSaldoFavor = Utilities.PayVal - DataService41.dataUser.SaldoFavor.Value;
+                        valorPagoConSaldoFavor = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
                         if (valorPagoConSaldoFavor <= 99)
                         {
                             pagoCredito = 0;
-                            pagoInterno = Utilities.PayVal;
+                            pagoInterno = Utilities.ValorPagarScore;
                         }
                         else
                         {
-                            pagoCredito = Utilities.PayVal - DataService41.dataUser.SaldoFavor.Value;
+                            pagoCredito = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
                             pagoInterno = DataService41.dataUser.SaldoFavor.Value;
                         }
                     }
@@ -491,7 +491,7 @@ namespace WPProcinal.Forms.User_Control
                         TipoBono = 0,
                         TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
                         Ubicaciones = ubicaciones,
-                        Obs1 = Utilities.TIPOAUTO
+                        Obs1 = string.IsNullOrEmpty(Utilities.TIPOAUTO) ? "" : Utilities.TIPOAUTO
                     });
                     frmLoading.Close();
                     foreach (var item in response41)
