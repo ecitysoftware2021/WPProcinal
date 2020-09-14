@@ -28,15 +28,12 @@ namespace WPProcinal.Forms.User_Control
         Response responseGlobal = new Response();
         private bool totalReturn = false;
         List<Producto> productos;
-        private decimal pagoEfectivo = 0;
-        private decimal pagoInterno = 0;
         public UCPayCine(List<ChairsInformation> Seats, FunctionInformation dipMap)
         {
             InitializeComponent();
             try
             {
                 OrganizeValues();
-                pagoEfectivo = Utilities.PayVal;
                 state = true;
 
                 Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
@@ -58,7 +55,6 @@ namespace WPProcinal.Forms.User_Control
                 payState = true;
 
 
-                //Buytickets();
                 Utilities.control.StartValues();
                 Utilities.Speack("Por favor, ingresa el dinero");
 
@@ -73,14 +69,12 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                ValidateUserBalance();
-                if (pagoEfectivo == 0)
+                if (Utilities.PayVal == 0)
                 {
                     Buytickets();
                 }
                 else
                 {
-                    Utilities.PayVal = pagoEfectivo;
                     Task.Run(() =>
                     {
                         if (payState)
@@ -95,32 +89,7 @@ namespace WPProcinal.Forms.User_Control
                 AdminPaypad.SaveErrorControl(ex.Message, "Window_Loaded en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
-        private void ValidateUserBalance()
-        {
-            decimal valorPagoConSaldoFavor = 0;
-            if (DataService41.dataUser.SaldoFavor != null)
-            {
-                if (DataService41.dataUser.SaldoFavor.Value > 0)
-                {
-                    frmModal Modal = new frmModal($"Tienes un saldo a favor de ${DataService41.dataUser.SaldoFavor.Value.ToString("C")}, ¿deseas utilizarlo en esta compra?", balance: true);
-                    Modal.ShowDialog();
-                    if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
-                    {
-                        valorPagoConSaldoFavor = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
-                        if (valorPagoConSaldoFavor <= 99)
-                        {
-                            pagoEfectivo = 0;
-                            pagoInterno = Utilities.ValorPagarScore;
-                        }
-                        else
-                        {
-                            pagoEfectivo = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
-                            pagoInterno = DataService41.dataUser.SaldoFavor.Value;
-                        }
-                    }
-                }
-            }
-        }
+
 
         #region Methods
         /// <summary>
@@ -428,7 +397,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-                        Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Aproved, PaymentViewModel.ValorSobrante);
+                        Utilities.UpdateTransaction(Utilities.PayVal, (int)ETransactionState.Aproved, PaymentViewModel.ValorSobrante);
                     });
                 }
             }
@@ -614,8 +583,8 @@ namespace WPProcinal.Forms.User_Control
                         InicioFun = Utilities.SelectedFunction.HourFormat,
                         Nombre = dataClient.Nombre,
                         PagoCredito = 0,
-                        PagoEfectivo = (int)pagoEfectivo,
-                        PagoInterno = (int)pagoInterno,
+                        PagoEfectivo = (int)Utilities.PayVal,
+                        PagoInterno = (int)Utilities.PagoInterno,
                         Pelicula = Utilities.SelectedFunction.MovieId,
                         Productos = productos,
                         PuntoVenta = Utilities.SelectedFunction.PointOfSale,

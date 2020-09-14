@@ -139,7 +139,7 @@ namespace WPProcinal.Service
             {
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
-                LogService.SaveRequestResponse("Peticion precios sillas", seria, 1);
+                LogService.SaveRequestResponse("Peticion tarifas sillas", seria, 1);
                 //Data encriptada con la llave de score
                 var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
 
@@ -161,7 +161,7 @@ namespace WPProcinal.Service
                 var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
-                LogService.SaveRequestResponse("Respuesta Precios Sillas", decryptData, 1);
+                LogService.SaveRequestResponse("Respuesta tarifas Sillas", decryptData, 1);
                 var est = JsonConvert.DeserializeObject<List<ResponseTarifa>>(decryptData);
                 if (est[0].sala == null)
                 {

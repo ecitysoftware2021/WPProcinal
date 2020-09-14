@@ -64,4 +64,21 @@ namespace WPProcinal.Classes
         JustConfectionery = 1
     }
 
+    public enum ECodigoMedioPagoScore
+    {
+        Todos = 0,
+        Efectivo = 1,
+        Pago_Interno = 2,
+        Moneda_Alternativa = 3,
+        Tarjeta_Debito_Credi = 6,
+        Ventas_Credito = 7,
+        Bono_Regalo = 11,
+        Tarjeta_Procinal_Ant = 13,
+        Diferencias_Negativa = 14,
+        Migración_TP = 15,
+        BONO_CONFITERIA = 16,
+        BONO_BOLETERIA = 17,
+        CONV_COMFAMA = 18
+    }
+
 }

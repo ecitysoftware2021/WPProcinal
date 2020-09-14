@@ -31,7 +31,7 @@ namespace WPProcinal.Forms.User_Control
 
         ApiLocal api;
         CLSGrabador grabador;
-
+        private decimal pagoInterno = 0;
         public UCSeat(FunctionInformation dipMap)
         {
             InitializeComponent();
@@ -74,8 +74,6 @@ namespace WPProcinal.Forms.User_Control
                 {
                     LoadSeats();
                 });
-
-                //Utilities.DoEvents();
             }
             catch (Exception ex)
             {
@@ -723,9 +721,11 @@ namespace WPProcinal.Forms.User_Control
                         if (_frmConfirmationModal.DialogResult.HasValue &&
                             _frmConfirmationModal.DialogResult.Value)
                         {
-
-                            WTCModal modal = new WTCModal(Utilities.GetConfiguration("MensajeCinefans"), Utilities.GetConfiguration("MensajeURL"));
-                            modal.ShowDialog();
+                            if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Mayorca && dipMapCurrent.RoomId == 10)
+                            {
+                                WTCModal modal = new WTCModal(Utilities.GetConfiguration("MensajeCinefans"), Utilities.GetConfiguration("MensajeURL"));
+                                modal.ShowDialog();
+                            }
                             GoToPay();
                         }
                         else
@@ -746,8 +746,11 @@ namespace WPProcinal.Forms.User_Control
                                 _frmConfirmationModal.DialogResult.Value)
                             {
 
-                                WTCModal modal = new WTCModal(Utilities.GetConfiguration("MensajeCinefans"), Utilities.GetConfiguration("MensajeURL"));
-                                modal.ShowDialog();
+                                if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Mayorca && dipMapCurrent.RoomId == 10)
+                                {
+                                    WTCModal modal = new WTCModal(Utilities.GetConfiguration("MensajeCinefans"), Utilities.GetConfiguration("MensajeURL"));
+                                    modal.ShowDialog();
+                                }
                                 GoToPay();
                             }
                             else
@@ -893,10 +896,10 @@ namespace WPProcinal.Forms.User_Control
                     var tarifa = new ResponseTarifa();
                     if (DataService41.dataUser.Tarjeta != null)
                     {
-                    //    tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
-                    //}
-                    //else
-                    //{
+                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                    }
+                    else
+                    {
                         tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
                     }
 
@@ -1165,6 +1168,7 @@ namespace WPProcinal.Forms.User_Control
 
                 FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
                 frmLoading.Show();
+                Utilities.ValidateUserBalance();
                 var response = await Utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
                 frmLoading.Close();
 
@@ -1216,7 +1220,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-
+        
 
         private void BtnAtras_TouchDown(object sender, TouchEventArgs e)
         {

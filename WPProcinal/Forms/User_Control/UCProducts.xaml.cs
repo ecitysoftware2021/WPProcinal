@@ -311,6 +311,7 @@ namespace WPProcinal.Forms.User_Control
         {
             FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
             frmLoading.Show();
+            Utilities.ValidateUserBalance();
             var response = Utilities.CreateTransaction("Cine ", _DipMap, _Seats).Result;
             frmLoading.Close();
             bool validateCombo = false;

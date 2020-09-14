@@ -22,8 +22,7 @@ namespace WPProcinal.Forms.User_Control
         TPVOperation TPV;
         private int num = 1;
         List<Producto> productos;
-        private decimal pagoCredito = 0;
-        private decimal pagoInterno = 0;
+       
         #region Propiedades Tarjeta
 
         private string TramaCancelar;
@@ -74,7 +73,7 @@ namespace WPProcinal.Forms.User_Control
 
 
                 lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
-                pagoCredito = Utilities.PayVal;
+               
                 ModalMensajes = new Mensajes();
                 ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
                 this.DataContext = ModalMensajes;
@@ -118,16 +117,13 @@ namespace WPProcinal.Forms.User_Control
 
                 frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
                 Modal.ShowDialog();
-                ValidateUserBalance();
 
-                if (pagoCredito == 0)
+                if (Utilities.PayVal == 0)
                 {
                     Buytickets();
                 }
                 else
                 {
-                    Utilities.PayVal = pagoCredito;
-
                     //TODO:comentar para produccion
                     //Buytickets();
                     //return;
@@ -181,32 +177,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void ValidateUserBalance()
-        {
-            decimal valorPagoConSaldoFavor = 0;
-            if (DataService41.dataUser.SaldoFavor != null)
-            {
-                if (DataService41.dataUser.SaldoFavor.Value > 0)
-                {
-                    frmModal Modal = new frmModal($"Tienes un saldo a favor de ${DataService41.dataUser.SaldoFavor.Value.ToString("C")}, ¿deseas utilizarlo en esta compra?", balance: true);
-                    Modal.ShowDialog();
-                    if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
-                    {
-                        valorPagoConSaldoFavor = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
-                        if (valorPagoConSaldoFavor <= 99)
-                        {
-                            pagoCredito = 0;
-                            pagoInterno = Utilities.ValorPagarScore;
-                        }
-                        else
-                        {
-                            pagoCredito = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
-                            pagoInterno = DataService41.dataUser.SaldoFavor.Value;
-                        }
-                    }
-                }
-            }
-        }
+        
 
 
 
@@ -303,13 +274,13 @@ namespace WPProcinal.Forms.User_Control
                     Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
                     frmLoading.Close();
 
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular el pago.");
-                        modal.ShowDialog();
+                    //Dispatcher.BeginInvoke((Action)delegate
+                    //{
+                    frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular el pago.");
+                    modal.ShowDialog();
 
-                    });
-                    GC.Collect();
+                    //});
+                    //GC.Collect();
 
                     Utilities.UpdateTransaction(0, 3, 0);
                     Utilities.GoToInicial();
@@ -477,16 +448,16 @@ namespace WPProcinal.Forms.User_Control
                         Funcion = Utilities.SelectedFunction.IDFuncion,
                         InicioFun = Utilities.SelectedFunction.HourFormat,
                         Nombre = dataClient.Nombre,
-                        PagoCredito = (int)pagoCredito,
+                        PagoCredito = (int)Utilities.PayVal,
                         PagoEfectivo = 0,
-                        PagoInterno = (int)pagoInterno,
+                        PagoInterno = (int)Utilities.PagoInterno,
                         Pelicula = Utilities.SelectedFunction.MovieId,
                         Productos = productos,
                         PuntoVenta = int.Parse(Utilities.GetConfiguration("Cinema")),
                         Sala = Utilities.SelectedFunction.RoomId,
                         teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
                         Telefono = long.Parse(dataClient.Telefono),
-                        CodMedioPago = 6,
+                        CodMedioPago = Utilities.PayVal > 0 ? (int)ECodigoMedioPagoScore.Tarjeta_Debito_Credi : (int)ECodigoMedioPagoScore.Todos,
                         tercero = 1,
                         TipoBono = 0,
                         TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),

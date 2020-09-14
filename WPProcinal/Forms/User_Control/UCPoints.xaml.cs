@@ -15,10 +15,10 @@ namespace WPProcinal.Forms.User_Control
         public UCPoints()
         {
             InitializeComponent();
-            Dispatcher.BeginInvoke((Action)delegate
-            {
+            //Dispatcher.BeginInvoke((Action)delegate
+            //{
                 txtPuntos.Text = $"¡En esta compra acumulaste {Math.Floor(Utilities.PayVal / 1000)} puntos!";
-            });
+            //});
             Utilities.Speack("Gracias por tu compra, retira tus boletas.");
         }
 
@@ -29,10 +29,11 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.ReValidatePayPad();
                 Dispatcher.BeginInvoke((Action)delegate
                 {
+                    Thread.Sleep(3000);
                     Utilities.GoToInicial();
                 });
             });
         }
-        
+
     }
 }

@@ -189,6 +189,7 @@ namespace WPProcinal.Classes
         /// Valor a pagar que se le muestra al usuario (el redondeado)
         /// </summary>
         public static decimal PayVal { get; set; }
+        public static decimal PagoInterno { get; set; }
 
         /// <summary>
         /// Valor devuelto al usuario
@@ -559,7 +560,7 @@ namespace WPProcinal.Classes
 
                 Transaction transaction = new Transaction
                 {
-                    TOTAL_AMOUNT = Utilities.PayVal,
+                    TOTAL_AMOUNT = PayVal,
                     DATE_BEGIN = DateTime.Now,
                     DESCRIPTION = "Se inició la transacción para: " + name,
                     TYPE_TRANSACTION_ID = (int)ETransactionType.Buy,
@@ -978,6 +979,33 @@ namespace WPProcinal.Classes
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "ValidatePayPad en frmMovies", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        public static void ValidateUserBalance()
+        {
+            decimal valorPagoConSaldoFavor = 0;
+            if (DataService41.dataUser.SaldoFavor != null)
+            {
+                if (DataService41.dataUser.SaldoFavor.Value > 0)
+                {
+                    frmModal Modal = new frmModal($"Tienes un saldo a favor de {DataService41.dataUser.SaldoFavor.Value.ToString("C")} ¿deseas utilizarlo en esta compra?", balance: true);
+                    Modal.ShowDialog();
+                    if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
+                    {
+                        valorPagoConSaldoFavor = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
+                        if (valorPagoConSaldoFavor <= 0)
+                        {
+                            Utilities.PayVal = 0;
+                            Utilities.PagoInterno = Utilities.ValorPagarScore;
+                        }
+                        else
+                        {
+                            Utilities.PayVal = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
+                            Utilities.PagoInterno = DataService41.dataUser.SaldoFavor.Value;
+                        }
+                    }
+                }
             }
         }
     }
