@@ -299,7 +299,6 @@ namespace WPProcinal.Forms
             }
         }
 
-
         private void ShowModalError(string description, bool stop = false)
         {
             Dispatcher.BeginInvoke((Action)delegate

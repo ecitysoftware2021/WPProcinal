@@ -801,7 +801,7 @@ namespace WPProcinal.Service
         /// </summary>
         /// <returns></returns>
         #region "SCOSDO"
-        public static List<ResponseScosdo> GetPersonBalance(SCOSDO data)
+        public static ResponseScosdo GetPersonBalance(SCOSDO data)
         {
 
             string decryptData = string.Empty;
@@ -834,7 +834,7 @@ namespace WPProcinal.Service
 
                 LogService.SaveRequestResponse("Respuesta al consultar el saldo de un cliente", decryptData, 1);
 
-                var est = JsonConvert.DeserializeObject<List<ResponseScosdo>>(decryptData);
+                var est = JsonConvert.DeserializeObject<ResponseScosdo>(decryptData);
 
                 return est;
             }
@@ -1294,7 +1294,8 @@ namespace WPProcinal.Service
     {
         [JsonProperty("Validación")]
         public string Validacion { get; set; }
-        public Nullable<decimal> Saldo { get; set; }
+        public Nullable<decimal> Saldo_Total { get; set; }
+        public Nullable<decimal> Saldo_Disponible { get; set; }
     }
     #endregion
     public class Combos

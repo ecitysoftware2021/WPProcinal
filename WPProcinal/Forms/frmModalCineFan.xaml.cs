@@ -144,12 +144,11 @@ namespace WPProcinal.Forms
                             tercero = "1"
                         });
                         frmLoading.Close();
-                        foreach (var item in saldo)
+                        if (saldo != null)
                         {
-                            if (item.Saldo != null)
+                            if (saldo.Saldo_Disponible != null)
                             {
-                                DataService41.dataUser.SaldoFavor = item.Saldo;
-                                break;
+                                DataService41.dataUser.SaldoFavor = saldo.Saldo_Disponible;
                             }
                         }
                         return true;

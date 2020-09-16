@@ -173,8 +173,6 @@ C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcin
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\David Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
-C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DataBases\DBProcinal.mdf
-C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\DataBases\DBProcinal_log.ldf
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe.config
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.pdb
@@ -190,14 +188,12 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesi
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Newtonsoft.Json.xml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.xml
-C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmModal.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\App.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_Content.g.cs
-C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.cache
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal_MarkupCompile.lref
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\App.baml
@@ -449,7 +445,6 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_C
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSchedule.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSeat.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WModal.baml
-C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Themes\Generic.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.g.cs
@@ -546,3 +541,9 @@ D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WTCModal.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmRegister.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmRegister.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmRegister.g.cs
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WPlateModal.g.cs
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WTCModal.g.cs
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmRegister.baml
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WPlateModal.baml
+C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WTCModal.baml
