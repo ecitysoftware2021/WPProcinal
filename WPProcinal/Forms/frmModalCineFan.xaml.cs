@@ -103,7 +103,7 @@ namespace WPProcinal.Forms
                 frmLoading.Show();
                 var responseClient = WCFServices41.GetClientData(new SCOCED
                 {
-                    Documento = "43261286",
+                    Documento = cedula,
                     tercero = "1"
                 });
                 frmLoading.Close();
@@ -152,7 +152,6 @@ namespace WPProcinal.Forms
                                 break;
                             }
                         }
-
                         return true;
                     }
                     else

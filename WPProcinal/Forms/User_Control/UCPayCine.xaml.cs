@@ -443,7 +443,7 @@ namespace WPProcinal.Forms.User_Control
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
-                        if (DataService41.dataUser.Tarjeta != null)
+                        if (DataService41.dataUser.Tarjeta != null && Utilities.PayVal > 0)
                         {
                             Switcher.Navigate(new UCPoints());
                         }

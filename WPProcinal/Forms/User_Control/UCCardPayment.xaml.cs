@@ -22,7 +22,7 @@ namespace WPProcinal.Forms.User_Control
         TPVOperation TPV;
         private int num = 1;
         List<Producto> productos;
-       
+
         #region Propiedades Tarjeta
 
         private string TramaCancelar;
@@ -73,7 +73,7 @@ namespace WPProcinal.Forms.User_Control
 
 
                 lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
-               
+
                 ModalMensajes = new Mensajes();
                 ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
                 this.DataContext = ModalMensajes;
@@ -177,7 +177,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        
+
 
 
 
@@ -303,7 +303,7 @@ namespace WPProcinal.Forms.User_Control
                     frmLoading.Close();
                     ApproveTrans();
 
-                    if (DataService41.dataUser.Tarjeta != null)
+                    if (DataService41.dataUser.Tarjeta != null && Utilities.PayVal > 0)
                     {
                         Switcher.Navigate(new UCPoints());
                     }

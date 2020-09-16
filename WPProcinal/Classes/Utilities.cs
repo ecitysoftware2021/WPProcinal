@@ -989,6 +989,7 @@ namespace WPProcinal.Classes
             {
                 if (DataService41.dataUser.SaldoFavor.Value > 0)
                 {
+                    DataService41.dataUser.SaldoFavor = (DataService41.dataUser.SaldoFavor.Value - (DataService41.dataUser.SaldoFavor.Value % 100));
                     frmModal Modal = new frmModal($"Tienes un saldo a favor de {DataService41.dataUser.SaldoFavor.Value.ToString("C")} ¿deseas utilizarlo en esta compra?", balance: true);
                     Modal.ShowDialog();
                     if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
