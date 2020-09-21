@@ -124,11 +124,6 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    //TODO:comentar para produccion
-                    //Buytickets();
-                    //return;
-
-
                     FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
                     Task.Run(() =>
                     {
