@@ -66,6 +66,11 @@ namespace WPProcinal.Forms
                 DialogResult = false;
             }
         }
+
+        private void Image_TouchDown(object sender, TouchEventArgs e)
+        {
+            DialogResult = false;
+        }
         #endregion
 
         #region "Métodos"

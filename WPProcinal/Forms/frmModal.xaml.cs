@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using WPProcinal.Classes;
 
 namespace WPProcinal.Forms
@@ -13,11 +14,15 @@ namespace WPProcinal.Forms
         private TimerTiempo timer;
         private bool stop;
 
-        public frmModal(string message, bool timer = false, bool balance = false)
+        public frmModal(string message, bool timer = false, bool balance = false, bool CineFan = false)
         {
             InitializeComponent();
             LblMessage.Text = message;
             this.stop = timer;
+            if (CineFan)
+            {
+                BtnSalir.Source = new BitmapImage(new Uri(@"/Images/Buttons/ContinuaCompra.png", UriKind.Relative));
+            }
 
             if (balance)
             {

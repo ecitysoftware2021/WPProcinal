@@ -547,6 +547,5 @@ C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WTCMod
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmRegister.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WPlateModal.baml
 C:\Users\1Cero1SAS\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\WTCModal.baml
-D:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmRegister.g.cs
 D:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmRegister.baml

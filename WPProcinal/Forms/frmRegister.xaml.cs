@@ -217,7 +217,7 @@ namespace WPProcinal.Forms
                             {
                                 Dispatcher.BeginInvoke((Action)delegate
                                 {
-                                    frmModal modal = new frmModal("Registro realizado correctamente, presiona aceptar para continuar.");
+                                    frmModal modal = new frmModal($"¡Bienvenido!{Environment.NewLine}Ahora eres un CineFans", CineFan: true);
                                     modal.ShowDialog();
                                 });
                                 regState = true;

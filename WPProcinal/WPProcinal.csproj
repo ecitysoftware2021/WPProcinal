@@ -414,6 +414,10 @@
       <DependentUpon>PayPlusModel.edmx</DependentUpon>
       <LastGenOutput>PayPlusModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Buttons\ContinuaCompra.png" />
+    <Resource Include="Images\Buttons\ContinuaSinRegistro.png" />
+    <Resource Include="Images\Buttons\NoCinefan.png" />
+    <Resource Include="Images\Buttons\SiCinefan.png" />
     <Resource Include="Images\Buttons\btn-show-id.png" />
     <Resource Include="Images\Backgrounds\textoCedula.png" />
     <Resource Include="Images\Seats\s-black-car.png" />

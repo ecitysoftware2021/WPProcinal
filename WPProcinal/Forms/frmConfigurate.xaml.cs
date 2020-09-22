@@ -38,7 +38,6 @@ namespace WPProcinal.Forms
             }
 
             InitializeComponent();
-
             var slides = Utilities.GetConfiguration("PublicityRoute");
             if (Directory.Exists(slides))
             {

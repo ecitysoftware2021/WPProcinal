@@ -25,69 +25,96 @@
                         Stretch="Fill"/>
         </Border.Background>
         <Grid>
-            <Grid Name="grdScanner" Margin="-2,-2,2,2" Visibility="Visible">
+            <Grid Name="grdScanner">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="0*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="2" />
-                    <RowDefinition Height="110" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="150" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="0,0,0,0">
-                    <Image HorizontalAlignment="Left"
-                       Name="BtnSalir"
+
+                <Image HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Width="260"
-                       Height="70"
-                       Opacity="0"
-                       Margin="80,130,0,0"
-                       Stretch="Fill"
-                       Source="../Images/buttons/btnnot.png"
+                       Opacity="0.5"
+                       Margin="0,40,0,0"
+                       Stretch="Uniform"
+                       Source="../Images/buttons/SiCinefan.png"
+                    />
+
+                <Image HorizontalAlignment="Center"
+                       Name="btRegister"
+                       VerticalAlignment="Bottom"
+                       Width="260"
+                       Margin="0,0,0,0"
+                       Stretch="Uniform"
+                       Source="../Images/buttons/NoCinefan.png"
                        TouchDown="BtnRegister_TouchDown"
                     />
-                </Grid>
-                <Grid Grid.Row="3">
-                    <Image Name="gifCedula" 
+                <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Width="500"
+                       TextAlignment="Center"
+                       Grid.Row="1"
+                       Margin="0,0,0,0"
+                       FontWeight="Bold"
+                       Foreground="#C3161B"
+                       TextWrapping="Wrap"
+                       Text="Escanea el código de tu cédula en el lector"
+                       FontSize="50"    
+                    />
+
+
+                <Image Name="gifCedula" 
+                      Grid.Row="1"
                         gif:ImageBehavior.AnimatedSource="/Images/Gif/gifCedula.gif" 
                         gif:ImageBehavior.AnimateInDesignMode="True"
                         gif:ImageBehavior.AutoStart="True" 
-                        VerticalAlignment="Center" 
+                        VerticalAlignment="Bottom" 
                         HorizontalAlignment="Center" 
-                        Height="320" 
-                        Margin="0,20,0,0"
+                       Margin="0,0,0,-90"
+                        Height="220" 
                         Stretch="Uniform"
                     />
-                </Grid>
-                <Grid Grid.Row="4">
-                    <Image HorizontalAlignment="Right"
-                       Name="BtnContinuar"
-                       VerticalAlignment="Center"
-                       Width="200"
-                       Margin="0,0,100,0"
+
+                <Image HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Width="260"
+                       Margin="0,100,0,0"
                        Stretch="Uniform"
-                       Source="../Images/Buttons/continuar.png"
-                       Visibility="Hidden"
+                       Grid.Row="2"
+                       TouchDown="Image_TouchDown"
+                       Source="../Images/buttons/ContinuaSinRegistro.png"
                     />
-                </Grid>
-                <Grid Grid.Row="5">
-                    <TextBlock 
+                <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       Width="530"
+                       TextAlignment="Center"
+                       Grid.Row="2"
+                       Margin="0,0,0,50"
+                       FontWeight="Bold"
+                       Foreground="#C3161B"
+                       TextWrapping="Wrap"
+                       Text="Para saber más de CineFans ingresa a procinal.com o escanea el código QR"
+                       FontSize="20"    
+                    />
+
+                <TextBlock 
                         Name="txtError"
                         FontFamily="Arial"
                         FontSize="25"
                         Width="552"
                         TextAlignment="Center"
                         TextWrapping="Wrap"
-                        VerticalAlignment="Center"
+                        VerticalAlignment="Bottom"
                         HorizontalAlignment="Center"
                         Foreground="#FFC2171C"
-                        Margin="0,0,0,40"
+                        Margin="0,0,0,10"
+                        Grid.Row="2"
                         FontWeight="Bold"
                     />
-                </Grid>
             </Grid>
         </Grid>
     </Border>
