@@ -142,6 +142,11 @@ namespace WPProcinal.Forms.User_Control
                     gridPrincipal.IsEnabled = false;
                     _imageSleader.Stop();
                     Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
+                    if (Utilities.GetConfiguration("ModalBioseguridad").Equals("1"))
+                    {
+                        ModalBioseguridad modal = new ModalBioseguridad();
+                        modal.ShowDialog();
+                    }
                     Switcher.Navigate(new UCMovies());
                 }
             }
@@ -162,6 +167,11 @@ namespace WPProcinal.Forms.User_Control
                     _imageSleader.Stop();
                     Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
                     Utilities.PlateObligatory = false;
+                    if (Utilities.GetConfiguration("ModalBioseguridad").Equals("1"))
+                    {
+                        ModalBioseguridad modal = new ModalBioseguridad();
+                        modal.ShowDialog();
+                    }
                     Switcher.Navigate(new UCMovies());
                 }
             }
