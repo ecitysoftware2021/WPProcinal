@@ -73,10 +73,12 @@ namespace WPProcinal.Forms.User_Control
 
 
                 lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
-
-                ModalMensajes = new Mensajes();
-                ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
-                this.DataContext = ModalMensajes;
+                if (Utilities.PayVal > 0)
+                {
+                    ModalMensajes = new Mensajes();
+                    ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
+                    this.DataContext = ModalMensajes;
+                }
 
 
 
@@ -97,11 +99,13 @@ namespace WPProcinal.Forms.User_Control
                 }
 
                 stateUpdate = true;
-
-                payState = true;
-                Utilities.Speack("Estableciendo conexión con el datáfono, espera por favor.");
-                TPV = new TPVOperation();
-                Activar();
+                if (Utilities.PayVal > 0)
+                {
+                    payState = true;
+                    Utilities.Speack("Estableciendo conexión con el datáfono, espera por favor.");
+                    TPV = new TPVOperation();
+                    Activar();
+                }
 
 
             }
@@ -114,16 +118,14 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-
-                frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
-                Modal.ShowDialog();
-
                 if (Utilities.PayVal == 0)
                 {
                     Buytickets();
                 }
                 else
                 {
+                    frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
+                    Modal.ShowDialog();
                     FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
                     Task.Run(() =>
                     {
