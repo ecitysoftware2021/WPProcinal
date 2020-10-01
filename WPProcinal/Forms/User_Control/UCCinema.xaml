@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/ANIMACION-PROCINAL-2.gif" 
+        <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/procinal01.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
                     x:Name="GifLoad2" 

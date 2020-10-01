@@ -41,7 +41,7 @@
                                TextAlignment="Center"
                                VerticalAlignment="Top"/>
 
-                <Grid Grid.Row="0" Visibility="Hidden" Name="gridCedula">
+                <Grid Grid.Row="0" Visibility="Visible" Name="gridCedula">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -64,7 +64,7 @@
                     />
                 </Grid>
                 
-                <Grid Grid.Row="0" Visibility="Visible" Name="gridDatos">
+                <Grid Grid.Row="0" Visibility="Hidden" Name="gridDatos">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>

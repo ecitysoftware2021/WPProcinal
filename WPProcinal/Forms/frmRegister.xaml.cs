@@ -75,7 +75,7 @@ namespace WPProcinal.Forms
                 eType = WPKeyboard.Keyboard.EType.Numeric,
                 window = this,
                 X = 250,
-                Y = 780
+                Y = 850
             });
         }
 
@@ -88,7 +88,7 @@ namespace WPProcinal.Forms
                 eType = WPKeyboard.Keyboard.EType.Standar,
                 window = this,
                 X = 250,
-                Y = 860
+                Y = 930
             });
         }
 
@@ -143,7 +143,7 @@ namespace WPProcinal.Forms
                 eType = WPKeyboard.Keyboard.EType.Standar,
                 window = this,
                 X = 250,
-                Y = 860
+                Y = 930
             });
         }
 
@@ -156,7 +156,7 @@ namespace WPProcinal.Forms
                 eType = WPKeyboard.Keyboard.EType.Standar,
                 window = this,
                 X = 250,
-                Y = 940
+                Y = 1020
             });
         }
 
@@ -177,7 +177,7 @@ namespace WPProcinal.Forms
                 eType = WPKeyboard.Keyboard.EType.Standar,
                 window = this,
                 X = 250,
-                Y = 1050
+                Y = 1100
             });
         }
 

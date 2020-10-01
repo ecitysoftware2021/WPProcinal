@@ -104,7 +104,7 @@ namespace WPProcinal.Forms
             {
                 cedula = long.Parse(cedula).ToString();
 
-                frmLoading = new FrmLoading("¡Consultando CineFan...!");
+                frmLoading = new FrmLoading("¡Consultando Cine Fans...!");
                 frmLoading.Show();
                 var responseClient = WCFServices41.GetClientData(new SCOCED
                 {
@@ -121,7 +121,7 @@ namespace WPProcinal.Forms
                         if (item.Tarjeta != null)
                         {
                             DataService41.dataUser = item;
-                            frmLoading = new FrmLoading("¡Consultando Puntos CineFan...!");
+                            frmLoading = new FrmLoading("¡Consultando Puntos Cine Fans...!");
                             frmLoading.Show();
                             DataService41.dataUser.Puntos = WCFServices41.ConsultPoints(new SCOMOV
                             {
@@ -141,7 +141,7 @@ namespace WPProcinal.Forms
                     }
                     if (isCineFan)
                     {
-                        frmLoading = new FrmLoading("¡Consultando Saldo CineFan...!");
+                        frmLoading = new FrmLoading("¡Consultando Saldo Cine Fans...!");
                         frmLoading.Show();
                         var saldo = WCFServices41.GetPersonBalance(new SCOSDO
                         {
@@ -172,7 +172,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.SaveRequestResponse("Validando el cinefan", ex.Message, 1);
+                LogService.SaveRequestResponse("Validando el cine fans", ex.Message, 1);
                 txtError.Text = "No se pudo validar la información, intenta de nuevo.";
                 frmLoading.Close();
                 return false;
