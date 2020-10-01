@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using WPProcinal.Classes;
@@ -23,6 +21,7 @@ namespace WPProcinal.Forms.User_Control
             if (Utilities.GetConfiguration("CashPayState").Equals("1"))
             {
                 Utilities.ReValidatePayPad();
+                Thread.Sleep(2000);
                 Utilities.GoToInicial();
             }
             else

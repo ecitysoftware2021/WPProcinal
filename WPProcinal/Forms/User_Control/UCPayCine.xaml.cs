@@ -21,11 +21,9 @@ namespace WPProcinal.Forms.User_Control
         private PaymentViewModel PaymentViewModel;
         private bool stateUpdate;
         int controlInactividad = 0;
-        int controlCancel = 0;
         private bool payState;
         private bool state;
         TimerTiempo timer;
-        Response responseGlobal = new Response();
         private bool totalReturn = false;
         List<Producto> productos;
         public UCPayCine(List<ChairsInformation> Seats, FunctionInformation dipMap)
@@ -52,12 +50,12 @@ namespace WPProcinal.Forms.User_Control
 
                 }
                 stateUpdate = true;
-                payState = true;
-
-
                 Utilities.control.StartValues();
-                Utilities.Speack("Por favor, ingresa el dinero");
-
+                if (Utilities.PayVal > 0)
+                {
+                    payState = true;
+                    Utilities.Speack("Por favor, ingresa el dinero");
+                }
             }
             catch (Exception ex)
             {

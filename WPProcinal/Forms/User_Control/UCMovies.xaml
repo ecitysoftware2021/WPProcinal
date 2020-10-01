@@ -157,7 +157,7 @@
             />
             <TextBlock
                        FontSize="50"
-                       Text="Seleccione una película" 
+                       Text="Selecciona una película" 
                        FontWeight="Bold"
                        FontFamily="Gotham"
                        Foreground="White"

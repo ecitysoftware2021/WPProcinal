@@ -34,7 +34,17 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-
+                <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       TextAlignment="Center"
+                       Grid.Row="0"
+                       Margin="0,0,0,0"
+                       FontWeight="Bold"
+                       Foreground="#C3161B"
+                       TextWrapping="Wrap"
+                       Text="¿Eres un Cine Fans?"
+                       FontSize="60"    
+                    />
                 <Image HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Width="260"
@@ -93,7 +103,7 @@
                        Width="530"
                        TextAlignment="Center"
                        Grid.Row="2"
-                       Margin="0,0,0,50"
+                       Margin="0,0,0,60"
                        FontWeight="Bold"
                        Foreground="#C3161B"
                        TextWrapping="Wrap"

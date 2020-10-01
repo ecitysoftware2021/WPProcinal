@@ -704,7 +704,7 @@ namespace WPProcinal.Forms.User_Control
                 timer.CallBackStop?.Invoke(1);
                 if (SelectedTypeSeats.Count == 0)
                 {
-                    Utilities.ShowModal("Debe seleccionar almenos un puesto");
+                    Utilities.ShowModal("Debe seleccionar mínimo un puesto");
                     ActivateTimer();
                     return;
                 }
@@ -1220,7 +1220,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        
+
 
         private void BtnAtras_TouchDown(object sender, TouchEventArgs e)
         {

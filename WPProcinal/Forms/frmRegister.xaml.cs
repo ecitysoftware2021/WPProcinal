@@ -66,6 +66,18 @@ namespace WPProcinal.Forms
                 Y = 780
             });
         }
+        private void txPhoneVerification_TouchDown(object sender, TouchEventArgs e)
+        {
+            txPhoneVerification.Background = Brushes.Transparent;
+            WPKeyboard.Keyboard.InitKeyboard(new WPKeyboard.Keyboard.DataKey
+            {
+                control = txPhoneVerification,
+                eType = WPKeyboard.Keyboard.EType.Numeric,
+                window = this,
+                X = 250,
+                Y = 780
+            });
+        }
 
         private void pxPassword_TouchDown(object sender, TouchEventArgs e)
         {
@@ -85,6 +97,14 @@ namespace WPProcinal.Forms
             if (txPhone.Text.Length > txPhone.MaxLength)
             {
                 txPhone.Text = txPhone.Text.Substring(0, txPhone.Text.Length - 1);
+            }
+        }
+
+        private void txPhoneVerification_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (txPhoneVerification.Text.Length > txPhoneVerification.MaxLength)
+            {
+                txPhoneVerification.Text = txPhoneVerification.Text.Substring(0, txPhoneVerification.Text.Length - 1);
             }
         }
 
@@ -272,6 +292,11 @@ namespace WPProcinal.Forms
                 txPhone.Background = Brushes.Red;
                 result = false;
             }
+            if (txPhoneVerification.Text != txPhone.Text)
+            {
+                txPhoneVerification.Background = Brushes.Red;
+                result = false;
+            }
             if (pxPassword.Password.Length < 5)
             {
                 pxPassword.Background = Brushes.Red;
@@ -303,6 +328,7 @@ namespace WPProcinal.Forms
                 return false;
             }
         }
+
 
     }
 }

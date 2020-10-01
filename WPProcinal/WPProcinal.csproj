@@ -468,7 +468,6 @@
     <Resource Include="Images\Buttons\tituloCineFan2.png" />
     <Resource Include="Images\Backgrounds\fondoCineFan2.jpg" />
     <Resource Include="Images\Gif\gifCedula.gif" />
-    <Resource Include="Images\Backgrounds\fondoCineFan.jpg" />
     <Resource Include="Images\Buttons\+.png" />
     <Resource Include="Images\Buttons\-.png" />
     <Resource Include="Images\Backgrounds\p-fondo-eat.jpg" />
