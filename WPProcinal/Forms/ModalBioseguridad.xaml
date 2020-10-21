@@ -20,7 +20,7 @@
             BorderThickness="3,3,3,3"
             CornerRadius="20,20,20,20">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/modalBioseguridad.jpg"
+            <ImageBrush ImageSource="/Images/modalBioseguridad.jpeg"
                         Stretch="Fill"/>
         </Border.Background>
         <Grid>
@@ -28,12 +28,12 @@
             <Image HorizontalAlignment="Center"
                        VerticalAlignment="Bottom"
                        Width="360"
-                       Margin="0,0,0,60"
-                       Opacity="0"
+                       Margin="0,0,0,0"
+                       Opacity="1"
                        Stretch="Uniform"
                        Grid.Row="2"
                        TouchDown="Image_TouchDown"
-                       Source="../Images/buttons/ContinuaSinRegistro.png"
+                       Source="../Images/buttons/btnAcepto.jpg"
                     />
         </Grid>
     </Border>
