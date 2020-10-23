@@ -147,27 +147,6 @@ namespace WPProcinal.Forms
             });
         }
 
-        private void txAddress_TouchDown(object sender, TouchEventArgs e)
-        {
-            txAddress.Background = Brushes.Transparent;
-            WPKeyboard.Keyboard.InitKeyboard(new WPKeyboard.Keyboard.DataKey
-            {
-                control = txAddress,
-                eType = WPKeyboard.Keyboard.EType.Standar,
-                window = this,
-                X = 250,
-                Y = 1020
-            });
-        }
-
-        private void txAddress_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            if (txAddress.Text.Length > txAddress.MaxLength)
-            {
-                txAddress.Text = txAddress.Text.Substring(0, txAddress.Text.Length - 1);
-            }
-        }
-
         private void txMail_TouchDown(object sender, TouchEventArgs e)
         {
             txMail.Background = Brushes.Transparent;
@@ -177,7 +156,7 @@ namespace WPProcinal.Forms
                 eType = WPKeyboard.Keyboard.EType.Standar,
                 window = this,
                 X = 250,
-                Y = 1100
+                Y = 1020
             });
         }
 
@@ -194,7 +173,6 @@ namespace WPProcinal.Forms
             if (ValidateControls())
             {
                 bool regState = false;
-                Utilities.dataDocument.Address = txAddress.Text;
                 Utilities.dataDocument.Phone = txPhone.Text;
                 Utilities.dataDocument.Key = pxPassword.Password;
                 Utilities.dataDocument.Email = txMail.Text;
@@ -301,11 +279,6 @@ namespace WPProcinal.Forms
             {
                 pxPassword.Background = Brushes.Red;
                 txPasswordShow.Background = Brushes.Red;
-                result = false;
-            }
-            if (txAddress.Text.Length < 8)
-            {
-                txAddress.Background = Brushes.Red;
                 result = false;
             }
             if (!ValidateMail(txMail.Text))
