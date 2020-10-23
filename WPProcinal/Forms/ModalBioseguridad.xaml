@@ -20,7 +20,7 @@
             BorderThickness="3,3,3,3"
             CornerRadius="20,20,20,20">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/modalBioseguridad.jpeg"
+            <ImageBrush ImageSource="/Images/modalBioseguridad.png"
                         Stretch="Fill"/>
         </Border.Background>
         <Grid>
@@ -28,7 +28,7 @@
             <Image HorizontalAlignment="Center"
                        VerticalAlignment="Bottom"
                        Width="360"
-                       Margin="0,0,0,0"
+                       Margin="0,0,0,130"
                        Opacity="1"
                        Stretch="Uniform"
                        Grid.Row="2"
