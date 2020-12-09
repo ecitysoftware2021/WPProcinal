@@ -197,7 +197,7 @@ namespace WPProcinal.Forms.User_Control
                     Tag = pelicula.Id,
                     Id = pelicula.Id,
                     ImageMovieType = movieType,
-                    Nombre = pelicula.Nombre
+                    Nombre = pelicula.Data.TituloOriginal
                 });
             }
             catch (Exception ex)

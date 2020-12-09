@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -329,10 +330,12 @@ namespace WPProcinal.Service
         {
             try
             {
-                var client = new RestClient(image);
-                var request = new RestRequest(Method.GET);
-                IRestResponse response = client.Execute(request);
-                if (response.StatusDescription == "OK")
+                var client =new HttpClient();
+                var response = client.GetAsync(image).Result;
+                //var client = new RestClient(image);
+                //var request = new RestRequest(Method.GET);
+                //IRestResponse response = client.Execute(request);
+                if (response.IsSuccessStatusCode)
                 {
                     return true;
                 }

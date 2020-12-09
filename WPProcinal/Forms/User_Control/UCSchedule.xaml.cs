@@ -214,7 +214,7 @@ namespace WPProcinal.Forms.User_Control
                                         {
                                             Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
                                             FontS = FontS,
-                                            Language = string.Concat(peli.Data.Idioma),
+                                            Language = string.Concat(peli.Data.Versión),
 
                                             Gener = Movie.Data.Genero,
                                             Duration = string.Concat(Movie.Data.Duracion, " minutos"),
@@ -372,7 +372,6 @@ namespace WPProcinal.Forms.User_Control
                 TypeZona = schedule.TypeZona,
                 IDFuncion = schedule.IdFuncion
             };
-            //TODO: PointOfSale = 87
             return map;
         }
         #endregion

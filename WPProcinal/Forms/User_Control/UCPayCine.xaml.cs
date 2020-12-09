@@ -69,6 +69,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 if (Utilities.PayVal == 0)
                 {
+                    this.IsEnabled = false;
                     Buytickets();
                 }
                 else
@@ -581,7 +582,7 @@ namespace WPProcinal.Forms.User_Control
                         InicioFun = Utilities.SelectedFunction.HourFormat,
                         Nombre = dataClient.Nombre,
                         PagoCredito = 0,
-                        PagoEfectivo = (int)Utilities.PayVal,
+                        PagoEfectivo = (int)Utilities.ValorPagarScore,
                         PagoInterno = (int)Utilities.PagoInterno,
                         Pelicula = Utilities.SelectedFunction.MovieId,
                         Productos = productos,

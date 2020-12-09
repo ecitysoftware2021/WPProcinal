@@ -69,9 +69,6 @@ namespace WPProcinal.Forms.User_Control
             InitializeComponent();
             try
             {
-
-
-
                 lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
                 if (Utilities.PayVal > 0)
                 {
@@ -79,8 +76,6 @@ namespace WPProcinal.Forms.User_Control
                     ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
                     this.DataContext = ModalMensajes;
                 }
-
-
 
                 Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
                 if (Seats.Count > 0)
@@ -120,6 +115,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 if (Utilities.PayVal == 0)
                 {
+                    this.IsEnabled = false;
                     Buytickets();
                 }
                 else
@@ -445,7 +441,7 @@ namespace WPProcinal.Forms.User_Control
                         Funcion = Utilities.SelectedFunction.IDFuncion,
                         InicioFun = Utilities.SelectedFunction.HourFormat,
                         Nombre = dataClient.Nombre,
-                        PagoCredito = (int)Utilities.PayVal,
+                        PagoCredito = (int)Utilities.ValorPagarScore,
                         PagoEfectivo = 0,
                         PagoInterno = (int)Utilities.PagoInterno,
                         Pelicula = Utilities.SelectedFunction.MovieId,
