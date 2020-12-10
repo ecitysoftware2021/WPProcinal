@@ -883,19 +883,22 @@ namespace WPProcinal.Classes
                 {
                     foreach (var item in DataService41.Peliculas.Pelicula)
                     {
-                        foreach (var peli in item.Cinemas)
+                        if (item.Cinemas != null)
                         {
-                            if (peli.Cinema.Id == GetConfiguration("CodCinema"))
+                            foreach (var peli in item.Cinemas.Cinema)
                             {
-                                if (WCFServices41.StateImage(item.Data.Imagen))
+                                if (peli.Id == GetConfiguration("CodCinema"))
                                 {
-                                    PublicityPath = slides;
-                                    using (WebClient client = new WebClient())
+                                    if (WCFServices41.StateImage(item.Data.Imagen))
                                     {
-                                        var fileName = Path.Combine(PublicityPath, item.Nombre + ".jpg");
-                                        if (!File.Exists(fileName))
+                                        PublicityPath = slides;
+                                        using (WebClient client = new WebClient())
                                         {
-                                            client.DownloadFile(new Uri(item.Data.Imagen), fileName);
+                                            var fileName = Path.Combine(PublicityPath, item.Nombre + ".jpg");
+                                            if (!File.Exists(fileName))
+                                            {
+                                                client.DownloadFile(new Uri(item.Data.Imagen), fileName);
+                                            }
                                         }
                                     }
                                 }

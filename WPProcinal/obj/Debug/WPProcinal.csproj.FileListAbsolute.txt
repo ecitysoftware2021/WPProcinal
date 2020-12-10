@@ -494,7 +494,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\RestSharp.xml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.xml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.xml
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfigurate.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\frmConfirmationModal.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\FrmLoading.g.cs

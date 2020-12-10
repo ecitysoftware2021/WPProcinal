@@ -89,15 +89,18 @@ namespace WPProcinal.Forms.User_Control
                 {
                     try
                     {
-                        foreach (var Cinema in pelicula.Cinemas)
+                        if (pelicula.Cinemas != null)
                         {
-                            if (Cinema.Cinema.Id == Utilities.CinemaId)
+                            foreach (var Cinema in pelicula.Cinemas.Cinema)
                             {
-                                var peliculaExistente = DataService41.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
-                                if (peliculaExistente == 0)
+                                if (Cinema.Id == Utilities.CinemaId)
                                 {
-                                    DataService41.Movies.Add(pelicula);
-                                    LoadMovies(pelicula);
+                                    var peliculaExistente = DataService41.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
+                                    if (peliculaExistente == 0)
+                                    {
+                                        DataService41.Movies.Add(pelicula);
+                                        LoadMovies(pelicula);
+                                    }
                                 }
                             }
                         }

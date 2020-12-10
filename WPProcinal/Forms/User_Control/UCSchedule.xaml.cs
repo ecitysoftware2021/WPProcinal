@@ -132,10 +132,10 @@ namespace WPProcinal.Forms.User_Control
                 {
 
                     //ListFechas(peli.DiasDisponiblesTodosCinemas);
-                    foreach (var Cinema in peli.Cinemas.Where(cine => cine.Cinema.Id == Utilities.CinemaId))
+                    foreach (var Cinema in peli.Cinemas.Cinema.Where(cine => cine.Id == Utilities.CinemaId))
                     {
                         //Se recorre cada sala del Cinema
-                        foreach (var room in Cinema.Cinema.Salas.Sala)
+                        foreach (var room in Cinema.Salas.Sala)
                         {
                             //Se arma una lista con las fechas de cada función y luego se recorre
                             var functions = room.Fecha.ToList();
@@ -159,11 +159,11 @@ namespace WPProcinal.Forms.User_Control
                                         string tipoZona = "General";
                                         if (item.TipoZona.Count > 1)
                                         {
-                                            tipoZona = item.TipoZona[1].TipoSilla.NombreTipoSilla;
+                                            tipoZona = item.TipoZona[1].TipoSilla[0].NombreTipoSilla;
                                         }
                                         else
                                         {
-                                            tipoZona = item.TipoZona[0].TipoSilla.NombreTipoSilla;
+                                            tipoZona = item.TipoZona[0].TipoSilla[0].NombreTipoSilla;
                                         }
 
                                         if (fechaSeleccionada != DateTime.Today)
