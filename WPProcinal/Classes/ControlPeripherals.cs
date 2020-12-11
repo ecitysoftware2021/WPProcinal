@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using System.Windows.Threading;
 using WPProcinal.Models;
 
 namespace WPProcinal.Classes
@@ -362,6 +363,7 @@ namespace WPProcinal.Classes
             try
             {
                 string response = _serialPortBills.ReadLine();
+                LogService.SaveRequestResponse("Respuesta de los monederos", response, 2);
                 if (!string.IsNullOrEmpty(response))
                 {
                     ProcessResponseBills(response);
@@ -384,6 +386,8 @@ namespace WPProcinal.Classes
             try
             {
                 string response = _serialPortCoins.ReadLine();
+                LogService.SaveRequestResponse("Respuesta de los monederos", response, 2);
+
                 if (!string.IsNullOrEmpty(response))
                 {
                     ProcessResponseCoins(response);
@@ -896,9 +900,10 @@ namespace WPProcinal.Classes
                 {
 
                     LogMessage += string.Concat(data.Replace("\r", string.Empty), "!");
-
-                    callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"));
-
+                    Dispatcher.CurrentDispatcher.BeginInvoke((Action)delegate
+                    {
+                        callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"));
+                    });
                     ValidateFinal(isBX);
                     WaitForCoins--;
                 }
@@ -912,7 +917,10 @@ namespace WPProcinal.Classes
                 {
                     if (WaitForCoins == 0)
                     {
-                        callbackOut?.Invoke(deliveryVal);
+                        Dispatcher.CurrentDispatcher.BeginInvoke((Action)delegate
+                        {
+                            callbackOut?.Invoke(deliveryVal);
+                        });
                     }
                 }
             }
@@ -929,7 +937,10 @@ namespace WPProcinal.Classes
             {
                 //if (WaitForCoins == 0)
                 //{
-                callbackTotalOut?.Invoke(deliveryVal);
+                Dispatcher.CurrentDispatcher.BeginInvoke((Action)delegate
+                {
+                    callbackTotalOut?.Invoke(deliveryVal);
+                });
                 //}
             }
         }
