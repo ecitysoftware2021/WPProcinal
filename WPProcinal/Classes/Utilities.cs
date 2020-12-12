@@ -37,6 +37,7 @@ namespace WPProcinal.Classes
             {
                 control = new ControlPeripherals();
                 control.StopAceptance();
+                controlScanner = new ControlScanner();
             }
             catch (Exception ex)
             {
@@ -164,6 +165,8 @@ namespace WPProcinal.Classes
         /// Objeto global para el control de los periféricos
         /// </summary>
         public static ControlPeripherals control;
+
+        public static ControlScanner controlScanner;
 
         /// <summary>
         /// Token obtenido de la api

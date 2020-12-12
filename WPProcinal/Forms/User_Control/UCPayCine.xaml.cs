@@ -396,7 +396,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-                        Utilities.UpdateTransaction(Utilities.PayVal, (int)ETransactionState.Aproved, PaymentViewModel.ValorSobrante);
+                        Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Aproved, PaymentViewModel.ValorSobrante);
                     });
                 }
             }

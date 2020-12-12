@@ -32,7 +32,7 @@ namespace WPProcinal.Forms
         {
             try
             {
-                Utilities.control.callbackDocument = Document =>
+                Utilities.controlScanner.callbackDocument = Document =>
                 {
                     if (!string.IsNullOrEmpty(Document.Document))
                     {
@@ -45,8 +45,8 @@ namespace WPProcinal.Forms
                     }
                 };
 
-                Utilities.control.num = 0;
-                Utilities.control.InitializePortScanner(Utilities.GetConfiguration("PortScanner"));
+                Utilities.controlScanner.num = 0;
+                Utilities.controlScanner.InitializePortScanner(Utilities.GetConfiguration("PortScanner"));
             }
             catch (Exception ex)
             {
@@ -82,13 +82,13 @@ namespace WPProcinal.Forms
                 {
                     if (ValidateCineFan(Utilities.dataDocument.Document))
                     {
-                        Utilities.control.callbackDocument = null;
-                        Utilities.control.ClosePortScanner();
+                        Utilities.controlScanner.callbackDocument = null;
+                        Utilities.controlScanner.ClosePortScanner();
                         DialogResult = true;
                     }
                     else
                     {
-                        Utilities.control.num = 0;
+                        Utilities.controlScanner.num = 0;
                     }
                 }));
 

@@ -144,6 +144,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\AdminPaypad.cs" />
+    <Compile Include="Classes\ControlScanner.cs" />
     <Compile Include="Classes\ImagesSleader.cs" />
     <Compile Include="Classes\Login.cs" />
     <Compile Include="Classes\Print.cs" />

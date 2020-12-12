@@ -31,11 +31,11 @@ namespace WPProcinal.Forms
         {
             try
             {
-                Utilities.control.callbackDocument = Document =>
+                Utilities.controlScanner.callbackDocument = Document =>
                 {
                     if (!string.IsNullOrEmpty(Document.Document))
                     {
-                        Utilities.control.callbackDocument = null;
+                        Utilities.controlScanner.callbackDocument = null;
                         Dispatcher.BeginInvoke((Action)delegate
                         {
                             Utilities.dataDocument = Document;
@@ -46,8 +46,8 @@ namespace WPProcinal.Forms
                     }
                 };
 
-                Utilities.control.num = 0;
-                Utilities.control.InitializePortScanner(Utilities.GetConfiguration("PortScanner"));
+                Utilities.controlScanner.num = 0;
+                Utilities.controlScanner.InitializePortScanner(Utilities.GetConfiguration("PortScanner"));
             }
             catch (Exception ex)
             {
