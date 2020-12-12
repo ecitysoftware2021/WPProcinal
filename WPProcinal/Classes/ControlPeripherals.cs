@@ -18,7 +18,7 @@ namespace WPProcinal.Classes
 
         private SerialPort _serialPortCoins;//Puerto Monederos
 
-       
+
         #endregion
 
         #region CommandsPorts
@@ -65,7 +65,7 @@ namespace WPProcinal.Classes
         public Action<bool> callbackStatusBillAceptance;//Calback de mensaje
         public Action<bool> callbackStatusCoinAceptanceDispenser;//Calback de mensaje
 
-        
+
         #endregion
 
         #region EvaluationValues
@@ -261,7 +261,7 @@ namespace WPProcinal.Classes
             }
         }
 
-       
+
 
         #endregion
 
@@ -368,7 +368,7 @@ namespace WPProcinal.Classes
             }
         }
 
-        
+
 
         #endregion
 
@@ -438,7 +438,11 @@ namespace WPProcinal.Classes
                     case "ER":
                         LogService.SaveRequestResponse("Respuesta de los monederos", message, 2);
                         AdminPaypad.SaveErrorControl(message, "Respuesta de los monederos", EError.Device, ELevelError.Strong);
-                        ProcessER(response);
+                        if (!message.Contains("ER:MD: Empty or jam in 2 motor"))
+                        {
+                            ProcessER(response);
+                        }
+
                         break;
                     case "UN":
                         ProcessUN(response);
