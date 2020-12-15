@@ -792,7 +792,7 @@ namespace WPProcinal.Forms.User_Control
                 FrmLoading frmLoading = new FrmLoading("Apagando bilelteros...");
                 frmLoading.Show();
                 Utilities.control.StopAceptance();
-                Thread.Sleep(200);
+                Thread.Sleep(1000);
                 frmLoading.Close();
                 if (PaymentViewModel.ValorIngresado > 0)
                 {
