@@ -156,6 +156,7 @@ namespace WPProcinal.Forms
                                         {
                                             Utilities.control.OpenSerialPorts();
                                             Utilities.control.Start();
+                                            Utilities.control.StartCoinAcceptorDispenser();
                                         });
                                     }
                                 }
@@ -220,22 +221,33 @@ namespace WPProcinal.Forms
                     LogService.SaveRequestResponse(Title, Message, State);
                 };
 
-                Utilities.control.callbackToken = isSucces =>
+                Utilities.control.callbackStatusBillAceptance = State =>
                 {
+
                     Dispatcher.BeginInvoke((Action)delegate
                     {
+                        Utilities.control.callbackStatusBillAceptance = null;
                         peripheralsValidated++;
                         okAceptadorBilletes.Visibility = Visibility.Visible;
                         badAceptadorBilletes.Visibility = Visibility.Hidden;
                         CheckPeripheralsAndContinue();
                     });
+                };
+
+                Utilities.control.callbackStatusCoinAceptanceDispenser = State =>
+                {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
+                        Utilities.control.callbackStatusCoinAceptanceDispenser = null;
                         peripheralsValidated++;
                         okMonederos.Visibility = Visibility.Visible;
                         badMonederos.Visibility = Visibility.Hidden;
                         CheckPeripheralsAndContinue();
                     });
+                };
+
+                Utilities.control.callbackToken = isSucces =>
+                {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
                         Utilities.control.callbackToken = null;
@@ -263,6 +275,8 @@ namespace WPProcinal.Forms
             {
                 peripheralsValidated = 0;
                 Utilities.control.callbackToken = null;
+                Utilities.control.callbackStatusCoinAceptanceDispenser = null;
+                Utilities.control.callbackStatusBillAceptance = null;
                 Utilities.control.callbackError = null;
             }
             catch { }
