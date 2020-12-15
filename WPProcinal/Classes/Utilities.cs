@@ -2,17 +2,14 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Mail;
 using System.Reflection;
 using System.Speech.Synthesis;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +23,7 @@ using WPProcinal.Models;
 using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
 using static WPProcinal.Models.ApiLocal.Uptake;
+using Peripheral.Control;
 
 namespace WPProcinal.Classes
 {
