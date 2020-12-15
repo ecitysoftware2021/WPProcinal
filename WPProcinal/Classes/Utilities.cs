@@ -33,7 +33,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                control = new ControlPeripherals();
+                control = new ControlPeripheralsUnified();
                 control.StopAceptance();
                 controlScanner = new ControlScanner();
             }
@@ -162,7 +162,7 @@ namespace WPProcinal.Classes
         /// <summary>
         /// Objeto global para el control de los periféricos
         /// </summary>
-        public static ControlPeripherals control;
+        public static ControlPeripheralsUnified control;
 
         public static ControlScanner controlScanner;
 
