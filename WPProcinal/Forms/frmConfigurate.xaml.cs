@@ -148,7 +148,6 @@ namespace WPProcinal.Forms
                                         {
                                             Switcher.Navigate(new UCCinema());
                                         });
-
                                     }
                                     else
                                     {
@@ -158,10 +157,8 @@ namespace WPProcinal.Forms
                                             Utilities.control.OpenSerialPorts();
                                             Utilities.control.Start();
                                             Utilities.control.StartCoinAcceptorDispenser();
-
                                         });
                                     }
-
                                 }
                                 else
                                 {
@@ -178,7 +175,6 @@ namespace WPProcinal.Forms
 
                                 ChangeStatusPeripherals();
                             }
-
                         }
                         else
                         {
@@ -204,21 +200,26 @@ namespace WPProcinal.Forms
 
         private void ChangeStatusPeripherals()
         {
-
             if (stateMoney)
             {
                 peripheralsValidated++;
             }
             if (Utilities.GetConfiguration("CashPayState").Equals("1"))
             {
-                Utilities.control.callbackError = error =>
-            {
-                Dispatcher.BeginInvoke((Action)delegate
+                Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
                 {
-                    Utilities.control.callbackError = null;
-                });
-                ShowModalError(error);
-            };
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        Utilities.control.callbackError = null;
+                    });
+                    AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                    ShowModalError(error);
+                };
+
+                Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
+                {
+                    LogService.SaveRequestResponse(Title, Message, State);
+                };
 
                 Utilities.control.callbackStatusBillAceptance = State =>
                 {
@@ -266,8 +267,6 @@ namespace WPProcinal.Forms
                 badImpresora.Visibility = Visibility.Hidden;
                 CheckPeripheralsAndContinue();
             });
-
-
         }
 
         void SetCallbackNull()

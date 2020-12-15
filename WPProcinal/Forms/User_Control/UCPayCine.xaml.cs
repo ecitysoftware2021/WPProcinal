@@ -147,9 +147,14 @@ namespace WPProcinal.Forms.User_Control
                     }
                 };
 
-                Utilities.control.callbackError = error =>
+                Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
                 {
-                    Utilities.control.callbackError = null;
+                    AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                };
+
+                Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
+                {
+                    LogService.SaveRequestResponse(Title, Message, State);
                 };
 
                 Utilities.control.StartAceptance(PaymentViewModel.PayValue);
@@ -264,9 +269,14 @@ namespace WPProcinal.Forms.User_Control
                     }
                 };
 
-                Utilities.control.callbackError = error =>
+                Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
                 {
-                    Utilities.control.callbackError = null;
+                    AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                };
+
+                Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
+                {
+                    LogService.SaveRequestResponse(Title, Message, State);
                 };
 
                 Utilities.control.callbackOut = delivery =>
