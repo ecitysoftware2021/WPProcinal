@@ -1,2 +1,2 @@
 usuario:usrapli;password:1Cero12019$/*
-usuario:Procinal Mayorca Kiosco 1;password:ProcinalMayorca2020!;tipo:1
+usuario:Pay+ Puerta del Norte;password:ProcinalP.Norte2020!;tipo:1

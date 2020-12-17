@@ -479,18 +479,22 @@ namespace WPProcinal.Forms.User_Control
             catch { }
             try
             {
-                FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+
                 try
                 {
-                    this.IsEnabled = false;
-                    frmLoading.Show();
-                    Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
-                    frmLoading.Close();
-                    this.IsEnabled = true;
+                    Dispatcher.Invoke(() =>
+                    {
+                        FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                        this.IsEnabled = false;
+                        frmLoading.Show();
+                        Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                        frmLoading.Close();
+                        this.IsEnabled = true;
+                    });
                 }
                 catch (Exception ex)
                 {
-                    frmLoading.Close();
+
                 }
                 Task.Run(() =>
                 {
