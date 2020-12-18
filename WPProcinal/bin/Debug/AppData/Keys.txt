@@ -1,2 +1,2 @@
-usuario:usrapli;password:1Cero12019$/*
-usuario:Pay+ Puerta del Norte;password:ProcinalP.Norte2020!;tipo:1
+usuario:hdsharepoint;password:Pun3$/*
+usuario:Pay+ Procinal Aventura 1;password:ProcinalAventura2020*;tipo:1
