@@ -267,7 +267,7 @@ namespace WPProcinal.Forms.User_Control
                         ImageSource imageSource = null;
                         if (item.TipoSilla == "General")
                         {
-                            imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(string.Empty);
+                            imageSource = ((item.EstadoSilla == "B") || (item.EstadoSilla == "O")) ? GetImage(item.EstadoSilla) : GetImage(string.Empty);
                         }
                         else if (item.TipoSilla == "pasillo")
                         {
@@ -276,7 +276,7 @@ namespace WPProcinal.Forms.User_Control
                         }
                         else
                         {
-                            imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
+                            imageSource = ((item.EstadoSilla == "B") || (item.EstadoSilla == "O")) ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
                         }
 
                         Image image = new Image
@@ -385,7 +385,7 @@ namespace WPProcinal.Forms.User_Control
                         ImageSource imageSource = null;
                         if (item.TipoSilla == "General")
                         {
-                            imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(string.Empty);
+                            imageSource = ((item.EstadoSilla == "B") || (item.EstadoSilla == "O")) ? GetImage(item.EstadoSilla) : GetImage(string.Empty);
                         }
                         else if (item.TipoSilla == "pasillo")
                         {
@@ -394,7 +394,7 @@ namespace WPProcinal.Forms.User_Control
                         }
                         else
                         {
-                            imageSource = (item.EstadoSilla == "B") ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
+                            imageSource = ((item.EstadoSilla == "B") || (item.EstadoSilla == "O")) ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
                         }
 
                         Image image = new Image
@@ -768,7 +768,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-                        Utilities.SendMailErrores($"No fúe posible obtener las tarífas en Score");
+                        Utilities.SendMailErrores($"No fue posible obtener las tarífas en Score");
                     });
                     ReloadWindow();
                 }
