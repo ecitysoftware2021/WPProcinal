@@ -236,7 +236,7 @@ namespace WPProcinal.Forms.User_Control
                                             {
                                                 Title = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal),
                                                 FontS = FontS,
-                                                Language = string.Concat(peli.Data.Idioma),
+                                                Language = string.Concat(peli.Data.Versión),
                                                 Gener = Movie.Data.Genero,
                                                 Duration = string.Concat(Movie.Data.Duracion, " minutos"),
                                                 Category = Movie.Data.Censura,
