@@ -183,6 +183,7 @@ namespace WPProcinal.Forms.User_Control
                                         //se permite ingreso hasta 1:30 horas antes de iniciar la pelicula
                                         //else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(90).ToString("HHmm")))
                                         {
+
                                             horatmps.Add(new HoraTMP
                                             {
                                                 Horario = item.Horario,
@@ -192,6 +193,7 @@ namespace WPProcinal.Forms.User_Control
                                                 TipoZona = tipoZona,
                                                 Validaciones = item.Validaciones
                                             });
+
                                         }
                                         else
                                         {

@@ -236,10 +236,9 @@
             <Grid >
                 <ListView x:Name="lvSchedule"
                 HorizontalAlignment="Center" 
-                      Width="850"
-                      Height="1900"
+                      Width="1060"
                 VerticalAlignment="Top"
-                Margin="-100,0,0,0"
+                Margin="0,0,0,0"
                 ItemsSource="{Binding}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
