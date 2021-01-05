@@ -180,7 +180,7 @@ namespace WPProcinal.Classes
             string dataQR = $"" +
                     $"cnv{Utilities.GetConfiguration("Cinema")} " +
                     $"{Utilities.GetConfiguration("CodCinema")} " +
-                    $"{DataService41.Secuencia}-" +
+                    $"{Utilities.dataTransaction.Secuencia}-" +
                     $"{fechaConvertida.ToString("yyyyMMdd")}_" +
                     $"{Room.Split(' ')[1]}_" +
                     $"{Funcion}_" +

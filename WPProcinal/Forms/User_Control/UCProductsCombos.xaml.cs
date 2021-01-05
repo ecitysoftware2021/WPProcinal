@@ -22,8 +22,6 @@ namespace WPProcinal.Forms.User_Control
     {
         #region "Referencias"
         private TimerTiempo timer;
-        private List<ChairsInformation> _Seats;
-        private FunctionInformation _DipMap;
         private CollectionViewSource view;
         private ObservableCollection<Producto> lstPager;
         ApiLocal api;
@@ -32,11 +30,9 @@ namespace WPProcinal.Forms.User_Control
         #endregion
 
         #region "Constructor"
-        public UCProductsCombos(List<ChairsInformation> Seats, FunctionInformation dipMap)
+        public UCProductsCombos()
         {
             InitializeComponent();
-            _Seats = Seats;
-            _DipMap = dipMap;
             api = new ApiLocal();
             grabador = new CLSGrabador();
             this.view = new CollectionViewSource();
@@ -126,7 +122,7 @@ namespace WPProcinal.Forms.User_Control
         {
             SetCallBacksNull();
             timer.CallBackStop?.Invoke(1);
-            Switcher.Navigate(new UCProducts(_Seats, _DipMap));
+            Switcher.Navigate(new UCProducts());
         }
 
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
@@ -137,7 +133,7 @@ namespace WPProcinal.Forms.User_Control
             this.IsEnabled = false;
             var frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
             Utilities.Loading(frmLoading, true, this);
-            Utilities.CancelAssing(_Seats, _DipMap);
+            Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
             Utilities.Loading(frmLoading, false, this);
             this.IsEnabled = true;
             Switcher.Navigate(new UCCinema());
@@ -156,7 +152,7 @@ namespace WPProcinal.Forms.User_Control
         #region "Métodos"
         private void ShowDetailModal()
         {
-            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(_Seats, _DipMap);
+            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
             this.Opacity = 0.3;
             _frmConfirmationModal.ShowDialog();
             if (_frmConfirmationModal.DialogResult.HasValue &&
@@ -236,7 +232,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (receta.Precios != null)
                             {
-                                if (DataService41.dataUser.Tarjeta != null)
+                                if (Utilities.dataTransaction.dataUser.Tarjeta != null)
                                 {
                                     precio += decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]) * receta.Cantidad;
                                 }
@@ -280,7 +276,7 @@ namespace WPProcinal.Forms.User_Control
                                 {
                                     if (preciosReceta.Precios != null)
                                     {
-                                        if (DataService41.dataUser.Tarjeta != null)
+                                        if (Utilities.dataTransaction.dataUser.Tarjeta != null)
                                         {
                                             precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
                                         }
@@ -298,7 +294,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         foreach (var preciosReceta in combo.Precios)
                         {
-                            if (DataService41.dataUser.Tarjeta != null)
+                            if (Utilities.dataTransaction.dataUser.Tarjeta != null)
                             {
                                 precio = preciosReceta.auxOtroPago;
                             }
@@ -319,12 +315,12 @@ namespace WPProcinal.Forms.User_Control
             FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
             frmLoading.Show();
             Utilities.ValidateUserBalance();
-            var response = await Utilities.CreateTransaction("Cine ", _DipMap, _Seats);
+            var response = await Utilities.CreateTransaction("Cine ");
             frmLoading.Close();
 
             bool validateCombo = false;
 
-            if (Utilities.eTypeBuy == ETypeBuy.JustConfectionery)
+            if (Utilities.dataTransaction.eTypeBuy == ETypeBuy.JustConfectionery)
             {
                 if (!GetSecuence())
                 {
@@ -356,13 +352,13 @@ namespace WPProcinal.Forms.User_Control
                 }
                 catch { }
 
-                if (Utilities.MedioPago == EPaymentType.Cash)
+                if (Utilities.dataTransaction.MedioPago == EPaymentType.Cash)
                 {
-                    Switcher.Navigate(new UCPayCine(_Seats, _DipMap));
+                    Switcher.Navigate(new UCPayCine());
                 }
-                else if (Utilities.MedioPago == EPaymentType.Card)
+                else if (Utilities.dataTransaction.MedioPago == EPaymentType.Card)
                 {
-                    Switcher.Navigate(new UCCardPayment(_Seats, _DipMap));
+                    Switcher.Navigate(new UCCardPayment());
                 }
             }
 
@@ -398,7 +394,7 @@ namespace WPProcinal.Forms.User_Control
 
                 foreach (var item in responseSec41)
                 {
-                    DataService41.Secuencia = item.Secuencia.ToString();
+                    Utilities.dataTransaction.Secuencia = item.Secuencia.ToString();
                 }
                 return true;
             }

@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Input;
 using WPProcinal.Classes;
-using WPProcinal.Models;
 using WPProcinal.Service;
-using System;
 
 namespace WPProcinal.Forms
 {
@@ -23,19 +22,13 @@ namespace WPProcinal.Forms
         decimal totalModal = 0;
         decimal totalPago = 0;
 
-        List<ChairsInformation> _typeSeats;
-        FunctionInformation _dipMap;
         List<Combos> _View;
         #endregion
 
-        public frmConfirmationModal(List<ChairsInformation> typeSeats,
-            FunctionInformation dipMap,
-            bool visibleCombo = false)
+        public frmConfirmationModal(bool visibleCombo = false)
         {
             InitializeComponent();
             _visibleCombo = visibleCombo;
-            _typeSeats = typeSeats;
-            _dipMap = dipMap;
             _View = new List<Combos>();
             ConfigureView();
         }
@@ -58,7 +51,7 @@ namespace WPProcinal.Forms
                 }
             }
 
-            foreach (var item in _typeSeats)
+            foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
             {
                 _View.Add(new Combos
                 {
@@ -87,9 +80,9 @@ namespace WPProcinal.Forms
             SetTextView();
 
             lvListSeats.ItemsSource = _View.OrderBy(s => s.Name);
-            Utilities.ValorPagarScore = totalPago;
-            Utilities.PayVal = totalModal;
-            if (Utilities.PayVal <= 0)
+            Utilities.dataTransaction.DataFunction.Total = totalPago;
+            Utilities.dataTransaction.PayVal = totalModal;
+            if (Utilities.dataTransaction.PayVal <= 0)
             {
                 BtnCash.Visibility = Visibility.Hidden;
                 BtnCard.Visibility = Visibility.Hidden;
@@ -100,9 +93,9 @@ namespace WPProcinal.Forms
         /// </summary>
         private void SetTextView()
         {
-            TxtTitle.Text = Utilities.CapitalizeFirstLetter(_dipMap.MovieName);
-            TxtRoom.Text = _dipMap.RoomName;
-            TxtDate.Text = string.Format("{0} {1}", _dipMap.Day, _dipMap.HourFunction);
+            TxtTitle.Text = Utilities.CapitalizeFirstLetter(Utilities.dataTransaction.DataFunction.MovieName);
+            TxtRoom.Text = Utilities.dataTransaction.DataFunction.RoomName;
+            TxtDate.Text = string.Format("{0} {1}", Utilities.dataTransaction.DataFunction.Day, Utilities.dataTransaction.DataFunction.HourFunction);
             TxtTotal.Text = string.Format("{0:C0}", totalModal);
         }
 
@@ -124,14 +117,14 @@ namespace WPProcinal.Forms
         private void BtnCard_TouchDown(object sender, TouchEventArgs e)
         {
             this.IsEnabled = false;
-            Utilities.MedioPago = EPaymentType.Card;
+            Utilities.dataTransaction.MedioPago = EPaymentType.Card;
             DialogResult = true;
         }
 
         private void BtnCash_TouchDown(object sender, TouchEventArgs e)
         {
             this.IsEnabled = false;
-            Utilities.MedioPago = EPaymentType.Cash;
+            Utilities.dataTransaction.MedioPago = EPaymentType.Cash;
             DialogResult = true;
         }
 

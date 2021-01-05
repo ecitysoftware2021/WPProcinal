@@ -1,5 +1,4 @@
-﻿using Grabador.Transaccion;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WPProcinal.Classes;
-using WPProcinal.Models;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms.User_Control
@@ -20,41 +18,31 @@ namespace WPProcinal.Forms.User_Control
     /// </summary>
     public partial class UCSeat : UserControl
     {
-        List<ChairsInformation> SelectedTypeSeats = new List<ChairsInformation>();
-        FunctionInformation dipMapCurrent = new FunctionInformation();
-
-        bool _ErrorTransaction = true;
-
         bool vibraAvailable = false;
         TimerTiempo timer;
         bool activePay = false;
 
         ApiLocal api;
-        CLSGrabador grabador;
-        private decimal pagoInterno = 0;
-        public UCSeat(FunctionInformation dipMap)
+        public UCSeat()
         {
             InitializeComponent();
             try
             {
-
                 api = new ApiLocal();
-                grabador = new CLSGrabador();
                 DataService41._Combos = new List<Combos>();
-
-                dipMapCurrent = dipMap;
-                TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
-                TxtRoom.Text = dipMap.RoomName;
-                TxtDay.Text = dipMap.Day;
-                TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
-                TxtHour.Text = "Hora Función: " + dipMap.HourFunction;
-                TxtSubTitle.Text = "Idioma: " + dipMap.Language;
+                Utilities.dataTransaction.SelectedTypeSeats = new List<ChairsInformation>();
+                TxtTitle.Text = Utilities.CapitalizeFirstLetter(Utilities.dataTransaction.DataFunction.MovieName);
+                TxtRoom.Text = Utilities.dataTransaction.DataFunction.RoomName;
+                TxtDay.Text = Utilities.dataTransaction.DataFunction.Day;
+                TxtFormat.Text = string.Format("Formato: {0}", Utilities.dataTransaction.MovieFormat.ToUpper());
+                TxtHour.Text = "Hora Función: " + Utilities.dataTransaction.DataFunction.HourFunction;
+                TxtSubTitle.Text = "Idioma: " + Utilities.dataTransaction.DataFunction.Language;
                 tbDiaActual.Text = "Fecha Actual: " + DateTime.Now.ToLongDateString();
 
-                var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
+                var time = TimeSpan.FromMinutes(double.Parse(Utilities.dataTransaction.DataFunction.Duration.Split(' ')[0]));
                 TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
 
-                LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
+                LblNumSeats.Content = Utilities.dataTransaction.SelectedTypeSeats.Count.ToString();
                 HideImages();
                 ActivateTimer();
 
@@ -137,18 +125,18 @@ namespace WPProcinal.Forms.User_Control
             try
             {
 
-                if (dipMapCurrent.TypeZona == "General")
+                if (Utilities.dataTransaction.DataFunction.TypeZona == "General")
                 {
                     ImgDisponible.Visibility = Visibility.Visible;
                     ImgVibroSound.Visibility = Visibility.Hidden;
                 }
-                else if (dipMapCurrent.TypeZona == "Vibrasound")
+                else if (Utilities.dataTransaction.DataFunction.TypeZona == "Vibrasound")
                 {
                     ImgDisponible.Visibility = Visibility.Visible;
                     ImgVibroSound.Visibility = Visibility.Visible;
                     vibraAvailable = true;
                 }
-                else if (dipMapCurrent.TypeZona == "V")
+                else if (Utilities.dataTransaction.DataFunction.TypeZona == "V")
                 {
                     ImgDisponible.Visibility = Visibility.Visible;
                     //ImgPreferencia.Visibility = Visibility.Visible;
@@ -178,12 +166,12 @@ namespace WPProcinal.Forms.User_Control
                 frmLoading.Show();
                 var response41 = WCFServices41.GetStateRoom(new SCOEST
                 {
-                    teatro = dipMapCurrent.CinemaId,
-                    Sala = dipMapCurrent.RoomId,
-                    FechaFuncion = dipMapCurrent.Date,
+                    teatro = Utilities.dataTransaction.DataFunction.CinemaId,
+                    Sala = Utilities.dataTransaction.DataFunction.RoomId,
+                    FechaFuncion = Utilities.dataTransaction.DataFunction.Date,
                     Correo = "prueba@prueba.com",
                     tercero = "1",
-                    Funcion = dipMapCurrent.IDFuncion
+                    Funcion = Utilities.dataTransaction.DataFunction.IDFuncion
                 });
                 frmLoading.Close();
                 if (response41 == null)
@@ -198,9 +186,9 @@ namespace WPProcinal.Forms.User_Control
                     Switcher.Navigate(new UCCinema());
                     return;
                 }
-                if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Monterrey)
+                if (Utilities.dataTransaction.DataFunction.CinemaId == (int)Dictionaries.ECinemas.Monterrey)
                 {
-                    if (dipMapCurrent.RoomId == 4 || dipMapCurrent.RoomId == 5)
+                    if (Utilities.dataTransaction.DataFunction.RoomId == 4 || Utilities.dataTransaction.DataFunction.RoomId == 5)
                     {
                         OrganizePositionOfSeats(response41);
                     }
@@ -209,9 +197,9 @@ namespace WPProcinal.Forms.User_Control
                         OrganizePositionOfSeatsInverted(response41);
                     }
                 }
-                else if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Mayorca)
+                else if (Utilities.dataTransaction.DataFunction.CinemaId == (int)Dictionaries.ECinemas.Mayorca)
                 {
-                    if (dipMapCurrent.RoomId == 10)
+                    if (Utilities.dataTransaction.DataFunction.RoomId == 10)
                     {
                         Utilities.PlateObligatory = true;
 
@@ -614,23 +602,23 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 Image image = (Image)sender;
-                var seatcurrent = SelectedTypeSeats.Where(s => s.Name == item.Name).FirstOrDefault();
+                var seatcurrent = Utilities.dataTransaction.SelectedTypeSeats.Where(s => s.Name == item.Name).FirstOrDefault();
                 if (seatcurrent == null)
                 {
-                    if (SelectedTypeSeats.Count < 10)
+                    if (Utilities.dataTransaction.SelectedTypeSeats.Count < 10)
                     {
                         item.Quantity = 1;
-                        SelectedTypeSeats.Add(item);
+                        Utilities.dataTransaction.SelectedTypeSeats.Add(item);
                         image.Source = GetImage("R");
                     }
                 }
                 else
                 {
-                    SelectedTypeSeats.Remove(item);
+                    Utilities.dataTransaction.SelectedTypeSeats.Remove(item);
                     image.Source = GetImage(image.Tag.ToString());
                 }
 
-                LblNumSeats.Content = SelectedTypeSeats.Count.ToString();
+                LblNumSeats.Content = Utilities.dataTransaction.SelectedTypeSeats.Count.ToString();
             }
             catch (Exception ex)
             {
@@ -702,7 +690,7 @@ namespace WPProcinal.Forms.User_Control
                 int control = 0;
                 SetCallBacksNull();
                 timer.CallBackStop?.Invoke(1);
-                if (SelectedTypeSeats.Count == 0)
+                if (Utilities.dataTransaction.SelectedTypeSeats.Count == 0)
                 {
                     Utilities.ShowModal("Debe seleccionar mínimo un puesto");
                     ActivateTimer();
@@ -712,16 +700,17 @@ namespace WPProcinal.Forms.User_Control
                 if (GetPrices())
                 {
 
-                    if (Utilities.FechaSeleccionada.ToString("dd/MM/yyyy") != DateTime.Now.ToString("dd/MM/yyyy") || Utilities.PlateObligatory)
+                    if (Utilities.dataTransaction.FechaSeleccionada.ToString("dd/MM/yyyy") != DateTime.Now.ToString("dd/MM/yyyy") || Utilities.PlateObligatory)
                     {
-                        frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
+                        frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
                         this.Opacity = 0.3;
                         _frmConfirmationModal.ShowDialog();
                         this.Opacity = 1;
                         if (_frmConfirmationModal.DialogResult.HasValue &&
                             _frmConfirmationModal.DialogResult.Value)
                         {
-                            if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Mayorca && dipMapCurrent.RoomId == 10)
+                            if (Utilities.dataTransaction.DataFunction.CinemaId ==
+                                (int)Dictionaries.ECinemas.Mayorca && Utilities.dataTransaction.DataFunction.RoomId == 10)
                             {
                                 WTCModal modal = new WTCModal(Utilities.GetConfiguration("MensajeCinefans"), Utilities.GetConfiguration("MensajeURL"));
                                 modal.ShowDialog();
@@ -738,7 +727,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         if (!GetCombo())
                         {
-                            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(SelectedTypeSeats, dipMapCurrent);
+                            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
                             this.Opacity = 0.3;
                             _frmConfirmationModal.ShowDialog();
                             this.Opacity = 1;
@@ -746,7 +735,8 @@ namespace WPProcinal.Forms.User_Control
                                 _frmConfirmationModal.DialogResult.Value)
                             {
 
-                                if (dipMapCurrent.CinemaId == (int)Dictionaries.ECinemas.Mayorca && dipMapCurrent.RoomId == 10)
+                                if (Utilities.dataTransaction.DataFunction.CinemaId == (int)Dictionaries.ECinemas.Mayorca
+                                    && Utilities.dataTransaction.DataFunction.RoomId == 10)
                                 {
                                     WTCModal modal = new WTCModal(Utilities.GetConfiguration("MensajeCinefans"), Utilities.GetConfiguration("MensajeURL"));
                                     modal.ShowDialog();
@@ -876,11 +866,11 @@ namespace WPProcinal.Forms.User_Control
                 frmLoading.Show();
                 var response41 = WCFServices41.GetPrices(new SCOPLA
                 {
-                    FechaFuncion = dipMapCurrent.Date,
-                    InicioFuncion = dipMapCurrent.HourFormat,
-                    Pelicula = dipMapCurrent.MovieId,
-                    Sala = dipMapCurrent.RoomId,
-                    teatro = dipMapCurrent.CinemaId,
+                    FechaFuncion = Utilities.dataTransaction.DataFunction.Date,
+                    InicioFuncion = Utilities.dataTransaction.DataFunction.HourFormat,
+                    Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
+                    Sala = Utilities.dataTransaction.DataFunction.RoomId,
+                    teatro = Utilities.dataTransaction.DataFunction.CinemaId,
                     tercero = "1"
                 });
                 this.IsEnabled = true;
@@ -891,16 +881,30 @@ namespace WPProcinal.Forms.User_Control
                     return false;
                 }
                 List<string> sinTarifa = new List<string>();
-                foreach (var selectedTypeSeat in SelectedTypeSeats)
+                foreach (var selectedTypeSeat in Utilities.dataTransaction.SelectedTypeSeats)
                 {
                     var tarifa = new ResponseTarifa();
-                    if (DataService41.dataUser.Tarjeta != null)
+                    if (Utilities.dataTransaction.dataUser.Tarjeta != null)
                     {
-                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                        if (Utilities.dataTransaction.DataFunction.Validaciones.ToLower().Equals("no"))
+                        {
+                            tarifa = response41.Where(t => t.silla.ToLower() == "general" && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                        }
+                        else
+                        {
+                            tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                        }
                     }
                     else
                     {
-                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
+                        if (Utilities.dataTransaction.DataFunction.Validaciones.ToLower().Equals("no"))
+                        {
+                            tarifa = response41.Where(t => t.silla.ToLower() == "general").FirstOrDefault();
+                        }
+                        else
+                        {
+                            tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
+                        }
                     }
 
                     if (tarifa != null)
@@ -955,7 +959,7 @@ namespace WPProcinal.Forms.User_Control
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
-                Switcher.Navigate(new UCSeat(dipMapCurrent));
+                Switcher.Navigate(new UCSeat());
             });
         }
 
@@ -1034,7 +1038,7 @@ namespace WPProcinal.Forms.User_Control
         private List<Ubicacione> OrganizeSeatsTuReserve()
         {
             List<Ubicacione> ubicacione = new List<Ubicacione>();
-            foreach (var item in SelectedTypeSeats)
+            foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
             {
                 ubicacione.Add(new Ubicacione
                 {
@@ -1056,16 +1060,16 @@ namespace WPProcinal.Forms.User_Control
             var response41 = WCFServices41.PostPreventa(new SCOGRU
             {
                 Apellido = dataClient.Apellido,
-                Descripcion = dipMapCurrent.MovieName,
-                FechaFuncion = dipMapCurrent.Date,
-                HoraFuncion = dipMapCurrent.Hour,
-                InicioFuncion = dipMapCurrent.HourFormat,
+                Descripcion = Utilities.dataTransaction.DataFunction.MovieName,
+                FechaFuncion = Utilities.dataTransaction.DataFunction.Date,
+                HoraFuncion = Utilities.dataTransaction.DataFunction.Hour,
+                InicioFuncion = Utilities.dataTransaction.DataFunction.HourFormat,
                 Nombre = dataClient.Nombre,
-                Pelicula = dipMapCurrent.MovieId,
-                PuntoVenta = dipMapCurrent.PointOfSale,
-                Sala = dipMapCurrent.RoomId,
-                Secuencia = dipMapCurrent.Secuence,
-                teatro = dipMapCurrent.CinemaId,
+                Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
+                PuntoVenta = Utilities.dataTransaction.DataFunction.PointOfSale,
+                Sala = Utilities.dataTransaction.DataFunction.RoomId,
+                Secuencia = Utilities.dataTransaction.DataFunction.Secuence,
+                teatro = Utilities.dataTransaction.DataFunction.CinemaId,
                 Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
                 tercero = 1,
                 Ubicaciones = ubicacione
@@ -1082,8 +1086,8 @@ namespace WPProcinal.Forms.User_Control
                 frmLoading.Show();
                 var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
                 {
-                    Punto = dipMapCurrent.PointOfSale,
-                    teatro = dipMapCurrent.CinemaId,
+                    Punto = Utilities.dataTransaction.DataFunction.PointOfSale,
+                    teatro = Utilities.dataTransaction.DataFunction.CinemaId,
                     tercero = "1"
                 });
 
@@ -1102,8 +1106,8 @@ namespace WPProcinal.Forms.User_Control
 
                 foreach (var item in responseSec41)
                 {
-                    dipMapCurrent.Secuence = int.Parse(item.Secuencia.ToString());
-                    DataService41.Secuencia = item.Secuencia.ToString();
+                    Utilities.dataTransaction.DataFunction.Secuence = int.Parse(item.Secuencia.ToString());
+                    Utilities.dataTransaction.Secuencia = item.Secuencia.ToString();
                 }
                 return true;
             }
@@ -1122,17 +1126,17 @@ namespace WPProcinal.Forms.User_Control
 
         SCOLOGResponse GetDataClient()
         {
-            if (DataService41.dataUser.Tarjeta != null)
+            if (Utilities.dataTransaction.dataUser.Tarjeta != null)
             {
                 return new SCOLOGResponse
                 {
-                    Apellido = DataService41.dataUser.Apellido,
-                    Tarjeta = DataService41.dataUser.Tarjeta,
-                    Login = DataService41.dataUser.Login,
-                    Direccion = DataService41.dataUser.Direccion,
-                    Documento = DataService41.dataUser.Documento,
-                    Nombre = DataService41.dataUser.Nombre,
-                    Telefono = DataService41.dataUser.Telefono
+                    Apellido = Utilities.dataTransaction.dataUser.Apellido,
+                    Tarjeta = Utilities.dataTransaction.dataUser.Tarjeta,
+                    Login = Utilities.dataTransaction.dataUser.Login,
+                    Direccion = Utilities.dataTransaction.dataUser.Direccion,
+                    Documento = Utilities.dataTransaction.dataUser.Documento,
+                    Nombre = Utilities.dataTransaction.dataUser.Nombre,
+                    Telefono = Utilities.dataTransaction.dataUser.Telefono
                 };
             }
             else
@@ -1153,7 +1157,7 @@ namespace WPProcinal.Forms.User_Control
         private void NavigateToConfectionery()
         {
             this.IsEnabled = false;
-            Switcher.Navigate(new UCProductsCombos(SelectedTypeSeats, dipMapCurrent));
+            Switcher.Navigate(new UCProductsCombos());
         }
 
         /// <summary>
@@ -1169,20 +1173,20 @@ namespace WPProcinal.Forms.User_Control
                 FrmLoading frmLoading = new FrmLoading("¡Creando la transacción...!");
                 frmLoading.Show();
                 Utilities.ValidateUserBalance();
-                var response = await Utilities.CreateTransaction("Cine ", dipMapCurrent, SelectedTypeSeats);
+                var response = await Utilities.CreateTransaction("Cine ");
                 frmLoading.Close();
 
                 if (!response)
                 {
                     List<ChairsInformation> lista = new List<ChairsInformation>();
-                    foreach (var item in SelectedTypeSeats)
+                    foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
                     {
                         lista.Add(item);
                     }
                     this.IsEnabled = false;
                     frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                     frmLoading.Show();
-                    Utilities.CancelAssing(lista, dipMapCurrent);
+                    Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                     frmLoading.Close();
                     this.IsEnabled = true;
                     Utilities.ShowModal("No se pudo crear la transacción, por favor intente de nuevo.");
@@ -1195,22 +1199,22 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    try
-                    {
-                        Task.Run(() =>
-                        {
-                            grabador.Grabar(Utilities.IDTransactionDB, 0);
-                        });
-                    }
-                    catch { }
+                    //try
+                    //{
+                    //    Task.Run(() =>
+                    //    {
+                    //        grabador.Grabar(Utilities.IDTransactionDB, 0);
+                    //    });
+                    //}
+                    //catch { }
 
-                    if (Utilities.MedioPago == EPaymentType.Cash)
+                    if (Utilities.dataTransaction.MedioPago == EPaymentType.Cash)
                     {
-                        Switcher.Navigate(new UCPayCine(SelectedTypeSeats, dipMapCurrent));
+                        Switcher.Navigate(new UCPayCine());
                     }
-                    else if (Utilities.MedioPago == EPaymentType.Card)
+                    else if (Utilities.dataTransaction.MedioPago == EPaymentType.Card)
                     {
-                        Switcher.Navigate(new UCCardPayment(SelectedTypeSeats, dipMapCurrent));
+                        Switcher.Navigate(new UCCardPayment());
                     }
                 }
             }
@@ -1228,14 +1232,14 @@ namespace WPProcinal.Forms.User_Control
             if (activePay)
             {
                 List<ChairsInformation> lista = new List<ChairsInformation>();
-                foreach (var item in SelectedTypeSeats)
+                foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
                 {
                     lista.Add(item);
                 }
                 this.IsEnabled = false;
                 FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                 frmLoading.Show();
-                Utilities.CancelAssing(lista, dipMapCurrent);
+                Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                 frmLoading.Close();
                 this.IsEnabled = true;
             }

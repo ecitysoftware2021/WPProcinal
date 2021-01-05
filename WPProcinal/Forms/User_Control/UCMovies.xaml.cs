@@ -24,7 +24,6 @@ namespace WPProcinal.Forms.User_Control
     {
         #region Reference
         CollectionViewSource view = new CollectionViewSource();
-        int currentPageIndex = 0;
         int itemPerPage = 20;
         int totalPage = 0;
         int login = 0;
@@ -62,6 +61,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 DataService41.Movies = new List<Pelicula>();
+                Utilities.dataTransaction = new DataTransaction();
                 LstMoviesModel = new ObservableCollection<MoviesViewModel>();
                 lblCinema1.Text = Dictionaries.Cinemas[Utilities.CinemaId];
 
@@ -292,22 +292,6 @@ namespace WPProcinal.Forms.User_Control
             timer.CallBackTimer = null;
         }
 
-        #region Methods
-
-        //private void View_Filter(object sender, FilterEventArgs e)
-        //{
-        //    int index = LstMovies.IndexOf((MoviesViewModel)e.Item);
-        //    if (index >= itemPerPage * currentPageIndex && index < itemPerPage * (currentPageIndex + 1))
-        //    {
-        //        e.Accepted = true;
-        //    }
-        //    else
-        //    {
-
-        //        e.Accepted = false;
-        //    }
-        //}
-        #endregion
 
         private void btnAtras_TouchDown(object sender, TouchEventArgs e)
         {
@@ -333,7 +317,7 @@ namespace WPProcinal.Forms.User_Control
             Image TocuhImage = (Image)sender;
             var movie = DataService41.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
             string image = movie.Data.Imagen;
-            Utilities.ImageSelected = Utilities.LoadImage(image, true);
+            Utilities.dataTransaction.ImageSelected = Utilities.LoadImage(image, true);
             Switcher.Navigate(new UCSchedule(movie));
 
         }
@@ -348,7 +332,7 @@ namespace WPProcinal.Forms.User_Control
                     this.Opacity = 0.3;
                     frmModalCineFan modalCineFan = new frmModalCineFan();
                     modalCineFan.ShowDialog();
-                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+                    if (Utilities.dataTransaction.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
                     {
                         Utilities.Speack("Selecciona una película para continuar.");
 
@@ -358,14 +342,14 @@ namespace WPProcinal.Forms.User_Control
                         if (modalCineFan.DialogResult.HasValue &&
                         modalCineFan.DialogResult.Value)
                         {
-                            if (!string.IsNullOrEmpty(DataService41.dataUser.Nombre))
+                            if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataUser.Nombre))
                             {
-                                txtNameUser.Text = "Bienvenid@ " + DataService41.dataUser.Nombre.ToUpperInvariant();
+                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataUser.Nombre.ToUpperInvariant();
                                 txtNameUser.Visibility = Visibility.Visible;
                             }
-                            else if (!string.IsNullOrEmpty(Utilities.dataDocument.FirstName))
+                            else if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataDocument.FirstName))
                             {
-                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataDocument.FirstName.ToUpperInvariant();
+                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataDocument.FirstName.ToUpperInvariant();
                                 txtNameUser.Visibility = Visibility.Visible;
                             }
                         }
@@ -378,7 +362,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         if (GetCombo())
                         {
-                            Switcher.Navigate(new UCProductsCombos(new List<ChairsInformation>(), new FunctionInformation()));
+                            Switcher.Navigate(new UCProductsCombos());
                         }
                         else
                         {

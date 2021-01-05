@@ -1345,11 +1345,6 @@ namespace WPProcinal.Service
         public static List<Pelicula> Movies;
 
         /// <summary>
-        /// Objeto que almacena la informacion del usuario cinefan
-        /// </summary>
-        public static SCOLOGResponse dataUser;
-
-        /// <summary>
         /// URL de la api de score
         /// </summary>
         public static string APISCORE = Utilities.GetConfiguration("ScoreService");
@@ -1363,11 +1358,6 @@ namespace WPProcinal.Service
         /// URL de los posters de las películas
         /// </summary>
         public static string UrlImages = Utilities.GetConfiguration("UrlImages");
-
-        /// <summary>
-        /// Numero de secuencia de cada compra en score, se utiliza para la notificación del pago
-        /// </summary>
-        public static string Secuencia { get; set; }
 
         /// <summary>
         /// Objeto para almacenar la data de la película seleccionada por el usuario

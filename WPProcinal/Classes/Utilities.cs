@@ -36,26 +36,14 @@ namespace WPProcinal.Classes
                 control = new ControlPeripherals();
                 control.StopAceptance();
                 controlScanner = new ControlScanner();
+                dataTransaction = new DataTransaction();
             }
             catch (Exception ex)
             {
             }
         }
-        /// <summary>
-        /// Objeto para almacenar la información de la cédula leída
-        /// </summary>
-        public static DataDocument dataDocument;
 
-        /// <summary>
-        /// Variable para almacenar el tipo de compra, si es solo confiteria o boleta mas confitería
-        /// </summary>
-        public static ETypeBuy eTypeBuy;
-
-        /// <summary>
-        /// Variable para almacenar la placa del vehículo en autocine
-        /// </summary>
-        public static string PLACA;
-        public static string TIPOAUTO;
+        public static DataTransaction dataTransaction;
 
         /// <summary>
         /// Variable para poner obligatoria o no la placa
@@ -78,17 +66,6 @@ namespace WPProcinal.Classes
         public static string CinemaId = GetConfiguration("CodCinema");
 
         /// <summary>
-        /// Variable global para conocer la fecha en la que el usuario quiere ver la pelicula
-        /// </summary>
-        public static DateTime FechaSeleccionada = DateTime.Today;
-
-        /// <summary>
-        /// Variable para almacenar el valor a pagar original, ya que el que se muestra al usuario es redondeado
-        /// </summary>
-        public static decimal ValorPagarScore { get; set; }
-
-
-        /// <summary>
         /// Variable que almacena la ruta en la que se encuentra la publicidad
         /// </summary>
         public static string PublicityPath;
@@ -99,29 +76,9 @@ namespace WPProcinal.Classes
         public static DataPaypad dataPaypad = new DataPaypad();
 
         /// <summary>
-        /// Almacena la opcion seleccionada por el usuario, si eligio pago en efectivo o con tarjeta
-        /// </summary>
-        public static EPaymentType MedioPago { get; set; }
-
-        /// <summary>
-        /// Formato de la pelicula, se muestra en todas las pantallas
-        /// </summary>
-        public static string MovieFormat { get; set; }
-
-        /// <summary>
-        /// Esta variable solo se usa para pintar el tipo de sala en la boleta
-        /// </summary>
-        public static string TipoSala { get; set; }
-
-        /// <summary>
         /// Ruta donde se guarda toda la data del xml dentro de un txt
         /// </summary>
         public static string XMLFile = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "XmlCinema", "Cinema.txt");
-
-        /// <summary>
-        /// Poster de la peícula seleccionada, se usa para mostrar en la pantalla de los horarios
-        /// </summary>
-        public static ImageSource ImageSelected;
 
         /// <summary>
         /// Notifica vía mail al cinema, cuando sucede un error de score en la app
@@ -150,16 +107,6 @@ namespace WPProcinal.Classes
         }
 
         /// <summary>
-        /// Lista de las ubicaciones seleccionadas
-        /// </summary>
-        public static List<ChairsInformation> SelectedChairs = new List<ChairsInformation>();
-
-        /// <summary>
-        /// Información de la funcion seleccionada
-        /// </summary>
-        public static FunctionInformation SelectedFunction = new FunctionInformation();
-
-        /// <summary>
         /// Objeto global para el control de los periféricos
         /// </summary>
         public static ControlPeripherals control;
@@ -185,17 +132,6 @@ namespace WPProcinal.Classes
         /// ID de Pay+
         /// </summary>
         public static int CorrespondentId { get; set; }
-
-        /// <summary>
-        /// Valor a pagar que se le muestra al usuario (el redondeado)
-        /// </summary>
-        public static decimal PayVal { get; set; }
-        public static decimal PagoInterno { get; set; }
-
-        /// <summary>
-        /// Valor devuelto al usuario
-        /// </summary>
-        public static long ValueDelivery { get; set; }
 
         /// <summary>
         /// Se usa para ocultar o mostrar la modal de carga
@@ -487,8 +423,8 @@ namespace WPProcinal.Classes
                 Print printCombo = new Print();
                 int i = 0;
 
-                printCombo.Placa = Utilities.PLACA;
-                printCombo.Secuencia = DataService41.Secuencia;
+                printCombo.Placa = dataTransaction.PLACA;
+                printCombo.Secuencia = dataTransaction.Secuencia;
                 foreach (var seat in Seats)
                 {
                     if (seat.Price != 0)
@@ -508,13 +444,13 @@ namespace WPProcinal.Classes
                         printCombo.Tramite = "Boleto de Cine";
                         printCombo.Category = dipMap.Category;
 
-                        printCombo.Formato = MovieFormat;
-                        printCombo.TipoSala = TipoSala;
+                        printCombo.Formato = Utilities.dataTransaction.MovieFormat;
+                        printCombo.TipoSala = Utilities.dataTransaction.TipoSala;
                         printCombo.IDTransaccion = IDTransactionDB.ToString();
 
-                        if (DataService41.dataUser.Tarjeta != null && DataService41.dataUser.Puntos > 0)
+                        if (dataTransaction.dataUser.Tarjeta != null && dataTransaction.dataUser.Puntos > 0)
                         {
-                            printCombo.Puntos = DataService41.dataUser.Puntos.ToString();
+                            printCombo.Puntos = dataTransaction.dataUser.Puntos.ToString();
                         }
                         else
                         {
@@ -553,7 +489,7 @@ namespace WPProcinal.Classes
         /// Método encargado de crear la transacciòn en bd y retornar el id de esta misma   
         /// </summary>
         /// <param name="Amount">Cantdiad a pagaar o retirar</param>
-        public static async Task<bool> CreateTransaction(string name, FunctionInformation movie, List<ChairsInformation> Seats)
+        public static async Task<bool> CreateTransaction(string name)
         {
             try
             {
@@ -561,25 +497,25 @@ namespace WPProcinal.Classes
 
                 Transaction transaction = new Transaction
                 {
-                    TOTAL_AMOUNT = PayVal,
+                    TOTAL_AMOUNT = dataTransaction.PayVal,
                     DATE_BEGIN = DateTime.Now,
                     DESCRIPTION = "Se inició la transacción para: " + name,
                     TYPE_TRANSACTION_ID = (int)ETransactionType.Buy,
                     STATE_TRANSACTION_ID = (int)ETransactionState.Initital,
-                    TRANSACTION_REFERENCE = DataService41.Secuencia,
+                    TRANSACTION_REFERENCE = dataTransaction.Secuencia,
                     PAYER_ID = 0,
                     PAYMENT_TYPE_ID = (int)EPaymentType.Cash
                 };
 
-                foreach (var item in Seats)
+                foreach (var item in dataTransaction.SelectedTypeSeats)
                 {
                     var details = new TRANSACTION_DESCRIPTION
                     {
                         AMOUNT = item.Price,
                         TRANSACTION_ID = transaction.TRANSACTION_ID,
                         TRANSACTION_PRODUCT_ID = (int)ETransactionProducto.Ticket,
-                        DESCRIPTION = movie.MovieName + " - " + item.Name,
-                        EXTRA_DATA = DataService41.Secuencia
+                        DESCRIPTION = dataTransaction.DataFunction.MovieName + " - " + item.Name,
+                        EXTRA_DATA = dataTransaction.Secuencia
                     };
 
                     transaction.TRANSACTION_DESCRIPTION.Add(details);
@@ -595,20 +531,20 @@ namespace WPProcinal.Classes
                             TRANSACTION_ID = IDTransactionDB,
                             TRANSACTION_PRODUCT_ID = (int)ETransactionProducto.Confectionery,
                             DESCRIPTION = item.Name,
-                            EXTRA_DATA = DataService41.Secuencia
+                            EXTRA_DATA = dataTransaction.Secuencia
                         };
                         transaction.TRANSACTION_DESCRIPTION.Add(details);
                     }
                 }
-                if (dataDocument != null)
+                if (dataTransaction.dataDocument != null)
                 {
-                    if (dataDocument.Document != null)
+                    if (dataTransaction.dataDocument.Document != null)
                     {
                         transaction.payer = new PAYER();
-                        transaction.payer.IDENTIFICATION = dataDocument.Document;
-                        transaction.payer.NAME = dataDocument.FirstName;
-                        transaction.payer.LAST_NAME = dataDocument.LastName;
-                        transaction.payer.BIRTHDAY = dataDocument.Date;
+                        transaction.payer.IDENTIFICATION = dataTransaction.dataDocument.Document;
+                        transaction.payer.NAME = dataTransaction.dataDocument.FirstName;
+                        transaction.payer.LAST_NAME = dataTransaction.dataDocument.LastName;
+                        transaction.payer.BIRTHDAY = dataTransaction.dataDocument.Date;
 
                         var resultPayer = await api.CallApi("SavePayer", transaction.payer);
 
@@ -664,7 +600,7 @@ namespace WPProcinal.Classes
                     INCOME_AMOUNT = Enter,
                     RETURN_AMOUNT = Return,
                     TRANSACTION_ID = IDTransactionDB,
-                    PAYMENT_TYPE_ID = (int)MedioPago
+                    PAYMENT_TYPE_ID = (int)dataTransaction.MedioPago
                 };
 
                 var response = await api.GetResponse(new RequestApi
@@ -989,25 +925,25 @@ namespace WPProcinal.Classes
         public static void ValidateUserBalance()
         {
             decimal valorPagoConSaldoFavor = 0;
-            if (DataService41.dataUser.SaldoFavor != null)
+            if (dataTransaction.dataUser.SaldoFavor != null)
             {
-                if (DataService41.dataUser.SaldoFavor.Value > 0)
+                if (dataTransaction.dataUser.SaldoFavor.Value > 0)
                 {
-                    DataService41.dataUser.SaldoFavor = (DataService41.dataUser.SaldoFavor.Value - (DataService41.dataUser.SaldoFavor.Value % 100));
-                    frmModal Modal = new frmModal($"Tienes un saldo a favor de {DataService41.dataUser.SaldoFavor.Value.ToString("C")} ¿deseas utilizarlo en esta compra?", balance: true);
+                    dataTransaction.dataUser.SaldoFavor = (dataTransaction.dataUser.SaldoFavor.Value - (dataTransaction.dataUser.SaldoFavor.Value % 100));
+                    frmModal Modal = new frmModal($"Tienes un saldo a favor de {dataTransaction.dataUser.SaldoFavor.Value.ToString("C")} ¿deseas utilizarlo en esta compra?", balance: true);
                     Modal.ShowDialog();
                     if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
                     {
-                        valorPagoConSaldoFavor = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
+                        valorPagoConSaldoFavor = dataTransaction.DataFunction.Total - dataTransaction.dataUser.SaldoFavor.Value;
                         if (valorPagoConSaldoFavor <= 0)
                         {
-                            Utilities.PayVal = 0;
-                            Utilities.PagoInterno = Utilities.ValorPagarScore;
+                            dataTransaction.PayVal = 0;
+                            dataTransaction.PagoInterno = dataTransaction.DataFunction.Total;
                         }
                         else
                         {
-                            Utilities.PayVal = Utilities.ValorPagarScore - DataService41.dataUser.SaldoFavor.Value;
-                            Utilities.PagoInterno = DataService41.dataUser.SaldoFavor.Value;
+                            dataTransaction.PayVal = dataTransaction.DataFunction.Total - dataTransaction.dataUser.SaldoFavor.Value;
+                            dataTransaction.PagoInterno = dataTransaction.dataUser.SaldoFavor.Value;
                         }
                     }
                 }

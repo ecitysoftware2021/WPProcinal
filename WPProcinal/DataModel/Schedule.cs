@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WPProcinal.Models;
+﻿using System.Collections.Generic;
 
 namespace WPProcinal.Classes
 {
@@ -30,6 +25,7 @@ namespace WPProcinal.Classes
         public string Formato { get; set; }
         public string Censura { get; set; }
         public int IdFuncion { get; set; }
+        public string Validaciones { get; set; }
     }
     public class HoraTMP
     {

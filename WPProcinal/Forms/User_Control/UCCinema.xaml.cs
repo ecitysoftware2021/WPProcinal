@@ -1,17 +1,13 @@
 ﻿using Grabador.Transaccion;
-using PrinterValidator;
 using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPProcinal.Classes;
-using WPProcinal.Models;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms.User_Control
@@ -29,7 +25,6 @@ namespace WPProcinal.Forms.User_Control
         public UCCinema()
         {
             InitializeComponent();
-            Utilities.SelectedChairs = new System.Collections.Generic.List<ChairsInformation>();
             DataService41._Combos = new System.Collections.Generic.List<Combos>();
             timerStatePay.Interval = 10000;
             timerStatePay.Elapsed += new System.Timers.ElapsedEventHandler(TimerStatePay_Tick);
@@ -100,37 +95,6 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void LoadData()
-        {
-            try
-            {
-                string dataXml = string.Empty;
-                var response = WCFServices41.DownloadData();
-
-                if (!response.IsSuccess)
-                {
-                    frmLoading.Close();
-                    Utilities.ShowModal(response.Message);
-                    return;
-                }
-
-                Utilities.SaveFileXML(response.Result.ToString());
-                dataXml = response.Result.ToString();
-
-                dataXml = Utilities.GetFileXML();
-                Peliculas data = WCFServices41.DeserealizeXML<Peliculas>(dataXml);
-                DataService41.Peliculas = data;
-                Utilities.LoadData();
-                frmLoading.Close();
-
-            }
-            catch (System.Exception ex)
-            {
-                frmLoading.Close();
-                AdminPaypad.SaveErrorControl(ex.Message, "LoadData en frmCinema", EError.Aplication, ELevelError.Medium);
-            }
-            timerStatePay.Start();
-        }
 
         private void ConfigBoletas_TouchDown(object sender, TouchEventArgs e)
         {
@@ -141,7 +105,7 @@ namespace WPProcinal.Forms.User_Control
                     timerStatePay.Stop();
                     gridPrincipal.IsEnabled = false;
                     _imageSleader.Stop();
-                    Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
+                    Utilities.dataTransaction.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
                     if (Utilities.GetConfiguration("ModalBioseguridad").Equals("1"))
                     {
                         ModalBioseguridad modal = new ModalBioseguridad();
@@ -165,7 +129,7 @@ namespace WPProcinal.Forms.User_Control
                     timerStatePay.Stop();
                     gridPrincipal.IsEnabled = false;
                     _imageSleader.Stop();
-                    Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
+                    Utilities.dataTransaction.eTypeBuy = ETypeBuy.JustConfectionery;
                     Utilities.PlateObligatory = false;
                     if (Utilities.GetConfiguration("ModalBioseguridad").Equals("1"))
                     {

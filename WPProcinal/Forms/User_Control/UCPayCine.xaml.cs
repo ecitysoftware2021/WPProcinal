@@ -26,32 +26,28 @@ namespace WPProcinal.Forms.User_Control
         TimerTiempo timer;
         private bool totalReturn = false;
         List<Producto> productos;
-        public UCPayCine(List<ChairsInformation> Seats, FunctionInformation dipMap)
+        public UCPayCine()
         {
             InitializeComponent();
             try
             {
                 OrganizeValues();
                 state = true;
-
-                Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
-                Utilities.SelectedChairs = Seats;
-                Utilities.SelectedFunction = dipMap;
-                if (Seats.Count > 0)
+                if (Utilities.dataTransaction.SelectedTypeSeats.Count > 0)
                 {
-                    TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
-                    TxtDay.Text = dipMap.Day;
-                    TxtRoom.Text = dipMap.RoomName;
-                    TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
-                    TxtHour.Text = "Hora Función: " + dipMap.HourFunction;
-                    TxtSubTitle.Text = "Idioma: " + dipMap.Language;
-                    var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
+                    TxtTitle.Text = Utilities.CapitalizeFirstLetter(Utilities.dataTransaction.DataFunction.MovieName);
+                    TxtDay.Text = Utilities.dataTransaction.DataFunction.Day;
+                    TxtRoom.Text = Utilities.dataTransaction.DataFunction.RoomName;
+                    TxtFormat.Text = string.Format("Formato: {0}", Utilities.dataTransaction.MovieFormat.ToUpper());
+                    TxtHour.Text = "Hora Función: " + Utilities.dataTransaction.DataFunction.HourFunction;
+                    TxtSubTitle.Text = "Idioma: " + Utilities.dataTransaction.DataFunction.Language;
+                    var time = TimeSpan.FromMinutes(double.Parse(Utilities.dataTransaction.DataFunction.Duration.Split(' ')[0]));
                     TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
 
                 }
                 stateUpdate = true;
                 Utilities.control.StartValues();
-                if (Utilities.PayVal > 0)
+                if (Utilities.dataTransaction.PayVal > 0)
                 {
                     payState = true;
                     Utilities.Speack("Por favor, ingresa el dinero");
@@ -67,7 +63,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                if (Utilities.PayVal == 0)
+                if (Utilities.dataTransaction.PayVal == 0)
                 {
                     this.IsEnabled = false;
                     Buytickets();
@@ -104,7 +100,7 @@ namespace WPProcinal.Forms.User_Control
                     if (enterValue > 0)
                     {
                         PaymentViewModel.ValorIngresado += enterValue;
-                        if (PaymentViewModel.ValorIngresado >= Utilities.PayVal)
+                        if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal)
                         {
                             Dispatcher.BeginInvoke((Action)delegate
                             {
@@ -251,7 +247,7 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.control.callbackTotalOut = totalOut =>
                 {
                     Utilities.control.callbackTotalOut = null;
-                    Utilities.ValueDelivery = (long)totalOut;
+                    Utilities.dataTransaction.ValueDelivery = (long)totalOut;
                     totalReturn = true;
                     if (state)
                     {
@@ -285,7 +281,7 @@ namespace WPProcinal.Forms.User_Control
                     Utilities.control.callbackOut = null;
                     if (!totalReturn)
                     {
-                        Utilities.ValueDelivery = (long)delivery;
+                        Utilities.dataTransaction.ValueDelivery = (long)delivery;
 
                         try
                         {
@@ -293,7 +289,7 @@ namespace WPProcinal.Forms.User_Control
                             SetCallBacksNull();
                         }
                         catch { }
-                        if (PaymentViewModel.ValorIngresado >= Utilities.PayVal && state)
+                        if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal && state)
                         {
                             if (delivery != returnValue)
                             {
@@ -378,15 +374,14 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                lblValorPagar.Content = string.Format("{0:C0}", Utilities.PayVal);
+                lblValorPagar.Content = string.Format("{0:C0}", Utilities.dataTransaction.PayVal);
                 PaymentViewModel = new PaymentViewModel
                 {
-                    PayValue = Utilities.PayVal,
-                    ValorFaltante = Utilities.PayVal,
+                    PayValue = Utilities.dataTransaction.PayVal,
+                    ValorFaltante = Utilities.dataTransaction.PayVal,
                     ValorSobrante = 0,
                     ValorIngresado = 0
                 };
-                Utilities.PLACA = string.Empty;
                 this.DataContext = PaymentViewModel;
             }
             catch (Exception ex)
@@ -406,7 +401,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-                        Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Aproved, PaymentViewModel.ValorSobrante);
+                        Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Aproved, Utilities.dataTransaction.ValueDelivery);
                     });
                 }
             }
@@ -427,13 +422,13 @@ namespace WPProcinal.Forms.User_Control
                     try
                     {
                         frmLoading.Show();
-                        Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                        Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                         frmLoading.Close();
                         this.IsEnabled = true;
 
                         await Dispatcher.BeginInvoke((Action)delegate
                         {
-                            frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.PayVal.ToString("#,##0"));
+                            frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.dataTransaction.PayVal.ToString("#,##0"));
                             modal.ShowDialog();
                         });
                         GC.Collect();
@@ -441,18 +436,18 @@ namespace WPProcinal.Forms.User_Control
                     catch { frmLoading.Close(); }
 
                     ActivateTimer(false);
-                    ReturnMoney(Utilities.PayVal, false);
+                    ReturnMoney(Utilities.dataTransaction.PayVal, false);
 
                 }
                 else
                 {
-                    Utilities.PrintTicket("Aprobada", Utilities.SelectedChairs, Utilities.SelectedFunction);
+                    Utilities.PrintTicket("Aprobada", Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
 
                     ApproveTrans();
 
                     await Dispatcher.BeginInvoke((Action)delegate
                     {
-                        if (DataService41.dataUser.Tarjeta != null && Utilities.PayVal > 0)
+                        if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PayVal > 0)
                         {
                             Switcher.Navigate(new UCPoints());
                         }
@@ -487,7 +482,7 @@ namespace WPProcinal.Forms.User_Control
                         FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                         this.IsEnabled = false;
                         frmLoading.Show();
-                        Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                        Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                         frmLoading.Close();
                         this.IsEnabled = true;
                     });
@@ -498,7 +493,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 Task.Run(() =>
                 {
-                    Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Canceled, Utilities.ValueDelivery);
+                    Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Canceled, Utilities.dataTransaction.ValueDelivery);
 
                 });
                 Dispatcher.Invoke(() =>
@@ -533,7 +528,7 @@ namespace WPProcinal.Forms.User_Control
                 if (Utilities.GetConfiguration("Ambiente").Equals("1"))
                 {
                     List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
-                    foreach (var item in Utilities.SelectedChairs)
+                    foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
                     {
                         ubicaciones.Add(new UbicacioneSCOINT
                         {
@@ -563,7 +558,7 @@ namespace WPProcinal.Forms.User_Control
                                     }
                                 }
                             }
-                            combo.Precio = DataService41.dataUser.Tarjeta != null ? 2 : 1;
+                            combo.Precio = Utilities.dataTransaction.dataUser.Tarjeta != null ? 2 : 1;
                             productos.Add(combo);
                         }
                     }
@@ -572,43 +567,43 @@ namespace WPProcinal.Forms.User_Control
                     string year = DateTime.Now.Year.ToString();
                     string mount = DateTime.Now.Month.ToString();
                     string day = DateTime.Now.Day.ToString();
-                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+                    if (Utilities.dataTransaction.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
                     {
-                        year = Utilities.SelectedFunction.Date.Substring(0, 4);
-                        mount = Utilities.SelectedFunction.Date.Substring(4, 2);
-                        day = Utilities.SelectedFunction.Date.Substring(6, 2);
+                        year = Utilities.dataTransaction.DataFunction.Date.Substring(0, 4);
+                        mount = Utilities.dataTransaction.DataFunction.Date.Substring(4, 2);
+                        day = Utilities.dataTransaction.DataFunction.Date.Substring(6, 2);
                     }
                     var dataClient = GetDataClient();
 
                     var response41 = WCFServices41.PostBuy(new SCOINT
                     {
-                        Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
-                        Placa = string.IsNullOrEmpty(Utilities.PLACA) ? "0" : Utilities.PLACA,
+                        Accion = Utilities.dataTransaction.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
+                        Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
                         Apellido = dataClient.Apellido,
                         ClienteFrecuente = long.Parse(dataClient.Tarjeta),
                         CorreoCliente = dataClient.Login,
                         Cortesia = string.Empty,
                         Direccion = dataClient.Direccion,
                         DocIdentidad = long.Parse(dataClient.Documento),
-                        Factura = Utilities.SelectedFunction.Secuence,
+                        Factura = Utilities.dataTransaction.DataFunction.Secuence,
                         FechaFun = string.Concat(year, "-", mount, "-", day),
-                        Funcion = Utilities.SelectedFunction.IDFuncion,
-                        InicioFun = Utilities.SelectedFunction.HourFormat,
+                        Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
+                        InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
                         Nombre = dataClient.Nombre,
                         PagoCredito = 0,
-                        PagoEfectivo = (int)Utilities.ValorPagarScore,
-                        PagoInterno = (int)Utilities.PagoInterno,
-                        Pelicula = Utilities.SelectedFunction.MovieId,
+                        PagoEfectivo = (int)Utilities.dataTransaction.ValorPagarScore,
+                        PagoInterno = (int)Utilities.dataTransaction.PagoInterno,
+                        Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
                         Productos = productos,
-                        PuntoVenta = Utilities.SelectedFunction.PointOfSale,
-                        Sala = Utilities.SelectedFunction.RoomId,
-                        teatro = Utilities.SelectedFunction.CinemaId,
+                        PuntoVenta = Utilities.dataTransaction.DataFunction.PointOfSale,
+                        Sala = Utilities.dataTransaction.DataFunction.RoomId,
+                        teatro = Utilities.dataTransaction.DataFunction.CinemaId,
                         Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
                         tercero = 1,
                         TipoBono = 0,
-                        TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
+                        TotalVenta = int.Parse(Utilities.dataTransaction.ValorPagarScore.ToString()),
                         Ubicaciones = ubicaciones,
-                        Obs1 = string.IsNullOrEmpty(Utilities.TIPOAUTO) ? "" : Utilities.TIPOAUTO
+                        Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
                     });
                     frmLoading.Close();
                     foreach (var item in response41)
@@ -617,9 +612,11 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (item.Respuesta.Contains("exitoso"))
                             {
-                                if (DataService41.dataUser.Tarjeta != null)
+                                if (Utilities.dataTransaction.dataUser.Tarjeta != null)
                                 {
-                                    DataService41.dataUser.Puntos = Convert.ToDouble(Math.Floor(Utilities.PayVal / 1000)) + DataService41.dataUser.Puntos;
+                                    Utilities.dataTransaction.dataUser.Puntos = 
+                                        Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
+                                        Utilities.dataTransaction.dataUser.Puntos;
                                 }
                                 GetInvoice();
                                 payState = true;
@@ -642,7 +639,7 @@ namespace WPProcinal.Forms.User_Control
                     this.IsEnabled = false;
                     frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
                     frmLoading.Show();
-                    Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                    Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                     frmLoading.Close();
                     this.IsEnabled = true;
                 }
@@ -673,7 +670,7 @@ namespace WPProcinal.Forms.User_Control
                     DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
                     {
                         Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
-                        Secuencial = Convert.ToInt32(DataService41.Secuencia),
+                        Secuencial = Convert.ToInt32(Utilities.dataTransaction.Secuencia),
                         teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
                         tercero = 1
                     });
@@ -688,17 +685,17 @@ namespace WPProcinal.Forms.User_Control
 
         SCOLOGResponse GetDataClient()
         {
-            if (DataService41.dataUser.Tarjeta != null)
+            if (Utilities.dataTransaction.dataUser.Tarjeta != null)
             {
                 return new SCOLOGResponse
                 {
-                    Apellido = DataService41.dataUser.Apellido,
-                    Tarjeta = DataService41.dataUser.Tarjeta,
-                    Login = DataService41.dataUser.Login,
-                    Direccion = DataService41.dataUser.Direccion,
-                    Documento = DataService41.dataUser.Documento,
-                    Nombre = DataService41.dataUser.Nombre,
-                    Telefono = DataService41.dataUser.Telefono
+                    Apellido = Utilities.dataTransaction.dataUser.Apellido,
+                    Tarjeta = Utilities.dataTransaction.dataUser.Tarjeta,
+                    Login = Utilities.dataTransaction.dataUser.Login,
+                    Direccion = Utilities.dataTransaction.dataUser.Direccion,
+                    Documento = Utilities.dataTransaction.dataUser.Documento,
+                    Nombre = Utilities.dataTransaction.dataUser.Nombre,
+                    Telefono = Utilities.dataTransaction.dataUser.Telefono
                 };
             }
             else
@@ -736,7 +733,7 @@ namespace WPProcinal.Forms.User_Control
                         catch { }
                         if (controlInactividad == 0)
                         {
-                            if (PaymentViewModel.ValorIngresado >= Utilities.PayVal)
+                            if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal)
                             {
                                 controlInactividad = 1;
                                 try

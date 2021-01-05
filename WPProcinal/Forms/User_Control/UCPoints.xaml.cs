@@ -17,9 +17,10 @@ namespace WPProcinal.Forms.User_Control
             InitializeComponent();
             //Dispatcher.BeginInvoke((Action)delegate
             //{
-            txtPuntos.Text = $"¡En esta compra acumulaste {Math.Floor(Utilities.PayVal / 1000)} puntos!";
+            txtPuntos.Text = $"¡En esta compra acumulaste {Math.Floor(Utilities.dataTransaction.PayVal / 1000)} puntos!";
             //});
             Utilities.Speack("Gracias por tu compra, retira tus boletas.");
+            Utilities.dataTransaction = new DataTransaction();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

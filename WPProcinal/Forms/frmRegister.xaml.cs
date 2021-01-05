@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using WPProcinal.Classes;
 using WPProcinal.Service;
 
@@ -19,7 +18,6 @@ namespace WPProcinal.Forms
         public frmRegister()
         {
             InitializeComponent();
-            Utilities.dataDocument = new Models.DataDocument();
         }
 
         private void btOmitir_TouchDown(object sender, TouchEventArgs e)
@@ -38,7 +36,7 @@ namespace WPProcinal.Forms
                         Utilities.controlScanner.callbackDocument = null;
                         Dispatcher.BeginInvoke((Action)delegate
                         {
-                            Utilities.dataDocument = Document;
+                            Utilities.dataTransaction.dataDocument = Document;
                             gridCedula.Visibility = Visibility.Hidden;
                             gridDatos.Visibility = Visibility.Visible;
                         });
@@ -173,13 +171,13 @@ namespace WPProcinal.Forms
             if (ValidateControls())
             {
                 bool regState = false;
-                Utilities.dataDocument.Phone = txPhone.Text;
-                Utilities.dataDocument.Key = pxPassword.Password;
-                Utilities.dataDocument.Email = txMail.Text;
+                Utilities.dataTransaction.dataDocument.Phone = txPhone.Text;
+                Utilities.dataTransaction.dataDocument.Key = pxPassword.Password;
+                Utilities.dataTransaction.dataDocument.Email = txMail.Text;
                 int edad = 18;
                 try
                 {
-                    edad = DateTime.Now.Year - int.Parse(Utilities.dataDocument.Date.Substring(0, 4));
+                    edad = DateTime.Now.Year - int.Parse(Utilities.dataTransaction.dataDocument.Date.Substring(0, 4));
                 }
                 catch
                 {
@@ -190,16 +188,16 @@ namespace WPProcinal.Forms
                 {
                     var responseReg = WCFServices41.PersonRegister(new SCOCYA
                     {
-                        Apellido = string.Concat(Utilities.dataDocument.LastName, " ", Utilities.dataDocument.SecondLastName),
-                        Celular = Utilities.dataDocument.Phone,
-                        Clave = Utilities.dataDocument.Key,
-                        Login = Utilities.dataDocument.Email,
-                        Direccion = Utilities.dataDocument.Address,
-                        Documento = Utilities.dataDocument.Document,
+                        Apellido = string.Concat(Utilities.dataTransaction.dataDocument.LastName, " ", Utilities.dataTransaction.dataDocument.SecondLastName),
+                        Celular = Utilities.dataTransaction.dataDocument.Phone,
+                        Clave = Utilities.dataTransaction.dataDocument.Key,
+                        Login = Utilities.dataTransaction.dataDocument.Email,
+                        Direccion = Utilities.dataTransaction.dataDocument.Address,
+                        Documento = Utilities.dataTransaction.dataDocument.Document,
                         Edad = edad,
-                        Fecha_Nacimiento = Utilities.dataDocument.Date,
-                        Nombre = string.Concat(Utilities.dataDocument.FirstName, " ", Utilities.dataDocument.SecondName),
-                        Sexo = Utilities.dataDocument.Gender,
+                        Fecha_Nacimiento = Utilities.dataTransaction.dataDocument.Date,
+                        Nombre = string.Concat(Utilities.dataTransaction.dataDocument.FirstName, " ", Utilities.dataTransaction.dataDocument.SecondName),
+                        Sexo = Utilities.dataTransaction.dataDocument.Gender,
                     });
 
                     Dispatcher.BeginInvoke((Action)delegate

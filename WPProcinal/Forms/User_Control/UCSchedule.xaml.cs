@@ -62,14 +62,14 @@ namespace WPProcinal.Forms.User_Control
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            imgBackground.ImageSource = Utilities.ImageSelected;
+            imgBackground.ImageSource = Utilities.dataTransaction.ImageSelected;
             MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
             TxtTitle.Text = MovieName;
             tbDiaActual.Text = "Fecha Actual: " + DateTime.Now.ToLongDateString();
             var time = TimeSpan.FromMinutes(double.Parse(Movie.Data.Duracion));
             TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
             //TxtGender.Text = string.Concat("Género: ", Movie.Data.Genero);
-            DateTime fechaActual = Utilities.FechaSeleccionada;
+            DateTime fechaActual = Utilities.dataTransaction.FechaSeleccionada;
 
             //TxtDay.Text = string.Format("{0} {1}, {2}", fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
 
@@ -144,7 +144,7 @@ namespace WPProcinal.Forms.User_Control
                                 /*Se obtiene la fecha de la función  y luego se valida para no mostrar
                                 funciones con fechas menores a la actual*/
                                 var datetime = GetDateCorrectly(function.Univ);
-                                var fechaSeleccionada = GetDateCorrectly(Utilities.FechaSeleccionada.ToString("yyyyMMdd"));
+                                var fechaSeleccionada = GetDateCorrectly(Utilities.dataTransaction.FechaSeleccionada.ToString("yyyyMMdd"));
                                 if (datetime == fechaSeleccionada)
                                 {
 
@@ -266,7 +266,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    Utilities.ShowModal("No hay funciones disponibles en esta fecha: " + Utilities.FechaSeleccionada.ToLongDateString());
+                    Utilities.ShowModal("No hay funciones disponibles en esta fecha: " + Utilities.dataTransaction.FechaSeleccionada.ToLongDateString());
                     return;
                 }
             }
@@ -370,15 +370,11 @@ namespace WPProcinal.Forms.User_Control
                 Login = "ecitysoftware@gmail.com",
                 PointOfSale = int.Parse(Utilities.GetConfiguration("Cinema")),
                 TypeZona = schedule.TypeZona,
-                IDFuncion = schedule.IdFuncion
+                IDFuncion = schedule.IdFuncion,
+                Validaciones=schedule.Validaciones
             };
             return map;
         }
-        #endregion
-
-        #region ButtonsEvents
-
-
         #endregion
 
         #region Dias Disponibles
@@ -419,7 +415,7 @@ namespace WPProcinal.Forms.User_Control
                         }
 
                     }
-                    Utilities.FechaSeleccionada = dateName[0].FechaOrigin;
+                    Utilities.dataTransaction.FechaSeleccionada = dateName[0].FechaOrigin;
                 }
 
             }
@@ -565,7 +561,7 @@ namespace WPProcinal.Forms.User_Control
                 var service = (DateName)(sender as ListViewItem).Content;
 
                 FechaSelect = service.FechaOrigin;//poner la fecha en el formato xml
-                Utilities.FechaSeleccionada = FechaSelect;
+                Utilities.dataTransaction.FechaSeleccionada = FechaSelect;
                 GenerateFunctions();
             }
             catch (Exception ex)
@@ -683,23 +679,24 @@ namespace WPProcinal.Forms.User_Control
                     TypeZona = selectedSchedule.TipoZona,
                     UnivDate = selectedSchedule.DatosPelicula.UnivDate,
                     Censura = selectedSchedule.DatosPelicula.Censura,
-                    IdFuncion = selectedSchedule.DatosPelicula.IdFuncion
+                    IdFuncion = selectedSchedule.DatosPelicula.IdFuncion,
+                    Validaciones=selectedSchedule.Validaciones
                 };
                 var formato = selectedSchedule.DatosPelicula.Formato.Split(' ');
                 if (formato.Length > 1)
                 {
-                    Utilities.MovieFormat = formato[1];
+                    Utilities.dataTransaction.MovieFormat = formato[1];
                 }
                 else
                 {
-                    Utilities.MovieFormat = formato[0];
+                    Utilities.dataTransaction.MovieFormat = formato[0];
                 }
-                Utilities.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
-                FunctionInformation dipmap = SetProperties(schedule);
+                Utilities.dataTransaction.TipoSala = selectedSchedule.DatosPelicula.TipoSala;
+                Utilities.dataTransaction.DataFunction = SetProperties(schedule);
 
                 SetCallBacksNull();
                 timer.CallBackStop?.Invoke(1);
-                Switcher.Navigate(new UCSeat(dipmap));
+                Switcher.Navigate(new UCSeat());
             }
             catch (Exception ex)
             {

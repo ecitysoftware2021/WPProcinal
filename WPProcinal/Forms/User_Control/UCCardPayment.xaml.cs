@@ -64,37 +64,35 @@ namespace WPProcinal.Forms.User_Control
 
         Mensajes ModalMensajes;
         #endregion
-        public UCCardPayment(List<ChairsInformation> Seats, FunctionInformation dipMap)
+        public UCCardPayment()
         {
             InitializeComponent();
             try
             {
-                lblValorPagar.Content = Utilities.PayVal.ToString("$ #,##0");
-                if (Utilities.PayVal > 0)
+                lblValorPagar.Content = Utilities.dataTransaction.PayVal.ToString("$ #,##0");
+                if (Utilities.dataTransaction.PayVal > 0)
                 {
                     ModalMensajes = new Mensajes();
                     ModalMensajes.MensajePrincipal = "Conectándose con el datáfono...";
                     this.DataContext = ModalMensajes;
                 }
 
-                Utilities.SelectedFunction.Total = Convert.ToDouble(Utilities.ValorPagarScore);
-                if (Seats.Count > 0)
+
+                if (Utilities.dataTransaction.SelectedTypeSeats.Count > 0)
                 {
-                    Utilities.SelectedChairs = Seats;
-                    Utilities.SelectedFunction = dipMap;
                     TramaInicial = "";
 
-                    TxtTitle.Text = Utilities.CapitalizeFirstLetter(dipMap.MovieName);
-                    TxtDay.Text = dipMap.Day;
-                    TxtFormat.Text = string.Format("Formato: {0}", Utilities.MovieFormat.ToUpper());
-                    TxtHour.Text = dipMap.HourFunction;
-                    TxtSubTitle.Text = dipMap.Language;
-                    var time = TimeSpan.FromMinutes(double.Parse(dipMap.Duration.Split(' ')[0]));
+                    TxtTitle.Text = Utilities.CapitalizeFirstLetter(Utilities.dataTransaction.DataFunction.MovieName);
+                    TxtDay.Text = Utilities.dataTransaction.DataFunction.Day;
+                    TxtFormat.Text = string.Format("Formato: {0}", Utilities.dataTransaction.MovieFormat.ToUpper());
+                    TxtHour.Text = Utilities.dataTransaction.DataFunction.HourFunction;
+                    TxtSubTitle.Text = Utilities.dataTransaction.DataFunction.Language;
+                    var time = TimeSpan.FromMinutes(double.Parse(Utilities.dataTransaction.DataFunction.Duration.Split(' ')[0]));
                     TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
                 }
 
                 stateUpdate = true;
-                if (Utilities.PayVal > 0)
+                if (Utilities.dataTransaction.PayVal > 0)
                 {
                     payState = true;
                     Utilities.Speack("Estableciendo conexión con el datáfono, espera por favor.");
@@ -113,7 +111,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                if (Utilities.PayVal == 0)
+                if (Utilities.dataTransaction.PayVal == 0)
                 {
                     this.IsEnabled = false;
                     Buytickets();
@@ -127,7 +125,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         if (payState)
                         {
-                            ValorTotal = Utilities.PayVal.ToString();
+                            ValorTotal = Utilities.dataTransaction.PayVal.ToString();
                             NumeroTransaccion = Utilities.IDTransactionDB.ToString();
                             TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
                                 TipoOperacion, Delimitador,
@@ -201,7 +199,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-                        Utilities.UpdateTransaction(Utilities.PayVal, (int)ETransactionState.Aproved, 0);
+                        Utilities.UpdateTransaction(Utilities.dataTransaction.PayVal, (int)ETransactionState.Aproved, 0);
                     });
                     SaveCardInformation(new RequestCardInformation
                     {
@@ -227,8 +225,6 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 ApiLocal api = new ApiLocal();
-
-
 
                 var response = await api.GetResponse(new RequestApi
                 {
@@ -264,7 +260,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     FrmLoading frmLoading = new FrmLoading("Eliminando preventas...");
                     frmLoading.Show();
-                    Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                    Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                     frmLoading.Close();
 
                     //Dispatcher.BeginInvoke((Action)delegate
@@ -282,9 +278,10 @@ namespace WPProcinal.Forms.User_Control
                 {
                     try
                     {
-                        if (DataService41.dataUser.Tarjeta != null)
+                        if (Utilities.dataTransaction.dataUser.Tarjeta != null)
                         {
-                            DataService41.dataUser.Puntos = Convert.ToDouble(Math.Floor(Utilities.PayVal / 1000)) + DataService41.dataUser.Puntos;
+                            Utilities.dataTransaction.dataUser.Puntos =
+                                Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) + Utilities.dataTransaction.dataUser.Puntos;
                         }
                     }
                     catch
@@ -292,11 +289,11 @@ namespace WPProcinal.Forms.User_Control
                     }
                     FrmLoading frmLoading = new FrmLoading("Imprimiendo tickets...");
                     frmLoading.Show();
-                    Utilities.PrintTicket("Aprobada", Utilities.SelectedChairs, Utilities.SelectedFunction);
+                    Utilities.PrintTicket("Aprobada", Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                     frmLoading.Close();
                     ApproveTrans();
 
-                    if (DataService41.dataUser.Tarjeta != null && Utilities.PayVal > 0)
+                    if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PayVal > 0)
                     {
                         Switcher.Navigate(new UCPoints());
                     }
@@ -322,7 +319,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 frmLoading.Show();
-                Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                 frmLoading.Close();
 
                 UnlockTPV();
@@ -347,7 +344,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 frmLoading.Show();
-                Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                 frmLoading.Close();
 
                 this.IsEnabled = true;
@@ -377,7 +374,7 @@ namespace WPProcinal.Forms.User_Control
                 if (Utilities.GetConfiguration("Ambiente").Equals("1"))
                 {
                     List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
-                    foreach (var item in Utilities.SelectedChairs)
+                    foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
                     {
                         ubicaciones.Add(new UbicacioneSCOINT
                         {
@@ -407,7 +404,7 @@ namespace WPProcinal.Forms.User_Control
                                     }
                                 }
                             }
-                            combo.Precio = DataService41.dataUser.Tarjeta != null ? 2 : 1;
+                            combo.Precio = Utilities.dataTransaction.dataUser.Tarjeta != null ? 2 : 1;
                             productos.Add(combo);
                         }
                     }
@@ -416,11 +413,11 @@ namespace WPProcinal.Forms.User_Control
                     string year = DateTime.Now.Year.ToString();
                     string mount = DateTime.Now.Month.ToString();
                     string day = DateTime.Now.Day.ToString();
-                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+                    if (Utilities.dataTransaction.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
                     {
-                        year = Utilities.SelectedFunction.Date.Substring(0, 4);
-                        mount = Utilities.SelectedFunction.Date.Substring(4, 2);
-                        day = Utilities.SelectedFunction.Date.Substring(6, 2);
+                        year = Utilities.dataTransaction.DataFunction.Date.Substring(0, 4);
+                        mount = Utilities.dataTransaction.DataFunction.Date.Substring(4, 2);
+                        day = Utilities.dataTransaction.DataFunction.Date.Substring(6, 2);
                     }
 
                     var dataClient = GetDataClient();
@@ -428,34 +425,34 @@ namespace WPProcinal.Forms.User_Control
 
                     var response41 = WCFServices41.PostBuy(new SCOINT
                     {
-                        Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
-                        Placa = string.IsNullOrEmpty(Utilities.PLACA) ? "0" : Utilities.PLACA,
+                        Accion = Utilities.dataTransaction.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
+                        Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
                         Apellido = dataClient.Apellido,
                         ClienteFrecuente = long.Parse(dataClient.Tarjeta),
                         CorreoCliente = dataClient.Login,
                         Cortesia = string.Empty,
                         Direccion = dataClient.Direccion,
                         DocIdentidad = long.Parse(dataClient.Documento),
-                        Factura = int.Parse(DataService41.Secuencia),
+                        Factura = int.Parse(Utilities.dataTransaction.Secuencia),
                         FechaFun = string.Concat(year, "-", mount, "-", day),
-                        Funcion = Utilities.SelectedFunction.IDFuncion,
-                        InicioFun = Utilities.SelectedFunction.HourFormat,
+                        Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
+                        InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
                         Nombre = dataClient.Nombre,
-                        PagoCredito = (int)Utilities.ValorPagarScore,
+                        PagoCredito = (int)Utilities.dataTransaction.DataFunction.Total,
                         PagoEfectivo = 0,
-                        PagoInterno = (int)Utilities.PagoInterno,
-                        Pelicula = Utilities.SelectedFunction.MovieId,
+                        PagoInterno = (int)Utilities.dataTransaction.PagoInterno,
+                        Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
                         Productos = productos,
                         PuntoVenta = int.Parse(Utilities.GetConfiguration("Cinema")),
-                        Sala = Utilities.SelectedFunction.RoomId,
+                        Sala = Utilities.dataTransaction.DataFunction.RoomId,
                         teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
                         Telefono = long.Parse(dataClient.Telefono),
-                        CodMedioPago = Utilities.PayVal > 0 ? (int)ECodigoMedioPagoScore.Tarjeta_Debito_Credi : (int)ECodigoMedioPagoScore.Todos,
+                        CodMedioPago = Utilities.dataTransaction.PayVal > 0 ? (int)ECodigoMedioPagoScore.Tarjeta_Debito_Credi : (int)ECodigoMedioPagoScore.Todos,
                         tercero = 1,
                         TipoBono = 0,
-                        TotalVenta = int.Parse(Utilities.ValorPagarScore.ToString()),
+                        TotalVenta = int.Parse(Utilities.dataTransaction.DataFunction.Total.ToString()),
                         Ubicaciones = ubicaciones,
-                        Obs1 = string.IsNullOrEmpty(Utilities.TIPOAUTO) ? "" : Utilities.TIPOAUTO
+                        Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
                     });
                     frmLoading.Close();
                     foreach (var item in response41)
@@ -464,9 +461,11 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (item.Respuesta.Contains("exitoso"))
                             {
-                                if (DataService41.dataUser.Tarjeta != null)
+                                if (Utilities.dataTransaction.dataUser.Tarjeta != null)
                                 {
-                                    DataService41.dataUser.Puntos = Convert.ToDouble(Math.Floor(Utilities.PayVal / 1000)) + DataService41.dataUser.Puntos;
+                                    Utilities.dataTransaction.dataUser.Puntos =
+                                        Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
+                                        Utilities.dataTransaction.dataUser.Puntos;
                                 }
                                 payState = true;
                                 GetInvoice();
@@ -488,7 +487,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Task.Run(() =>
                     {
-                        Utilities.CancelAssing(Utilities.SelectedChairs, Utilities.SelectedFunction);
+                        Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                     });
                 }
                 SavePay(payState);
@@ -513,7 +512,7 @@ namespace WPProcinal.Forms.User_Control
                     DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
                     {
                         Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
-                        Secuencial = Convert.ToInt32(DataService41.Secuencia),
+                        Secuencial = Convert.ToInt32(Utilities.dataTransaction.Secuencia),
                         teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
                         tercero = 1
                     });
@@ -527,17 +526,17 @@ namespace WPProcinal.Forms.User_Control
         }
         SCOLOGResponse GetDataClient()
         {
-            if (DataService41.dataUser.Tarjeta != null)
+            if (Utilities.dataTransaction.dataUser.Tarjeta != null)
             {
                 return new SCOLOGResponse
                 {
-                    Apellido = DataService41.dataUser.Apellido,
-                    Tarjeta = DataService41.dataUser.Tarjeta,
-                    Login = DataService41.dataUser.Login,
-                    Direccion = DataService41.dataUser.Direccion,
-                    Documento = DataService41.dataUser.Documento,
-                    Nombre = DataService41.dataUser.Nombre,
-                    Telefono = DataService41.dataUser.Telefono
+                    Apellido = Utilities.dataTransaction.dataUser.Apellido,
+                    Tarjeta = Utilities.dataTransaction.dataUser.Tarjeta,
+                    Login = Utilities.dataTransaction.dataUser.Login,
+                    Direccion = Utilities.dataTransaction.dataUser.Direccion,
+                    Documento = Utilities.dataTransaction.dataUser.Documento,
+                    Nombre = Utilities.dataTransaction.dataUser.Nombre,
+                    Telefono = Utilities.dataTransaction.dataUser.Telefono
                 };
             }
             else
@@ -571,9 +570,9 @@ namespace WPProcinal.Forms.User_Control
                     LogService.SaveRequestResponse("Respuesta del datáfono", responseTPV, 1);
                 }
                 catch { }
-                /**
-                 * Todas las respuestas correctas tienen mas de 4 caracteres
-                 * **/
+
+                //Todas las respuestas correctas tienen mas de 4 caracteres
+
                 if (responseTPV.Length < 4)
                 {
                     SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
@@ -1036,23 +1035,23 @@ namespace WPProcinal.Forms.User_Control
         private void RetryPayment()
         {
 
-            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(Utilities.SelectedChairs, Utilities.SelectedFunction);
+            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
             _frmConfirmationModal.ShowDialog();
             if (_frmConfirmationModal.DialogResult.HasValue &&
                 _frmConfirmationModal.DialogResult.Value)
             {
-                if (Utilities.MedioPago == EPaymentType.Cash)
+                if (Utilities.dataTransaction.MedioPago == EPaymentType.Cash)
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
-                        Switcher.Navigate(new UCPayCine(Utilities.SelectedChairs, Utilities.SelectedFunction));
+                        Switcher.Navigate(new UCPayCine());
                     });
                 }
                 else
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
-                        Switcher.Navigate(new UCCardPayment(Utilities.SelectedChairs, Utilities.SelectedFunction));
+                        Switcher.Navigate(new UCCardPayment());
                     });
                 }
             }

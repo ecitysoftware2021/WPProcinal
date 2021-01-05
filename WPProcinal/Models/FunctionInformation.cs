@@ -18,8 +18,9 @@ namespace WPProcinal.Models
         public int Secuence { get; set; }
         public string IsCard { get; set; }
         public string Email { get; set; }
-        public double Total { get; set; }
+        public decimal Total { get; set; }
         public string PaymentMethod { get; set; }
+        public string Validaciones { get; set; }
 
         #region MovieData
         public string MovieName { get; set; }//Titulo original ex: Deadpool 2
@@ -37,5 +38,5 @@ namespace WPProcinal.Models
 
     }
 
-    
+
 }

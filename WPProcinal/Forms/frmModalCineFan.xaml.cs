@@ -20,9 +20,6 @@ namespace WPProcinal.Forms
         public frmModalCineFan()
         {
             InitializeComponent();
-            Utilities.dataDocument = new Models.DataDocument();
-            DataService41.dataUser = new SCOLOGResponse();
-
             Utilities.Speack("Bienvenido, si eres un cinefán, escanea tu cédula en el lector!");
         }
         #endregion
@@ -38,7 +35,7 @@ namespace WPProcinal.Forms
                     {
                         Dispatcher.BeginInvoke((Action)delegate
                         {
-                            Utilities.dataDocument = Document;
+                            Utilities.dataTransaction.dataDocument = Document;
                             Validate();
                         });
 
@@ -80,7 +77,7 @@ namespace WPProcinal.Forms
             {
                 Task.Run(() => Dispatcher.BeginInvoke((Action)delegate
                 {
-                    if (ValidateCineFan(Utilities.dataDocument.Document))
+                    if (ValidateCineFan(Utilities.dataTransaction.dataDocument.Document))
                     {
                         Utilities.controlScanner.callbackDocument = null;
                         Utilities.controlScanner.ClosePortScanner();
@@ -120,13 +117,13 @@ namespace WPProcinal.Forms
                     {
                         if (item.Tarjeta != null)
                         {
-                            DataService41.dataUser = item;
+                            Utilities.dataTransaction.dataUser = item;
                             frmLoading = new FrmLoading("¡Consultando Puntos Cine Fans...!");
                             frmLoading.Show();
-                            DataService41.dataUser.Puntos = WCFServices41.ConsultPoints(new SCOMOV
+                            Utilities.dataTransaction.dataUser.Puntos = WCFServices41.ConsultPoints(new SCOMOV
                             {
-                                Correo = DataService41.dataUser.Login,
-                                Clave = DataService41.dataUser.Clave,
+                                Correo = Utilities.dataTransaction.dataUser.Login,
+                                Clave = Utilities.dataTransaction.dataUser.Clave,
                                 tercero = 1
                             });
                             frmLoading.Close();
@@ -145,7 +142,7 @@ namespace WPProcinal.Forms
                         frmLoading.Show();
                         var saldo = WCFServices41.GetPersonBalance(new SCOSDO
                         {
-                            Correo = DataService41.dataUser.Login,
+                            Correo = Utilities.dataTransaction.dataUser.Login,
                             tercero = "1"
                         });
                         frmLoading.Close();
@@ -153,7 +150,7 @@ namespace WPProcinal.Forms
                         {
                             if (saldo.Saldo_Disponible != null)
                             {
-                                DataService41.dataUser.SaldoFavor = saldo.Saldo_Disponible;
+                                Utilities.dataTransaction.dataUser.SaldoFavor = saldo.Saldo_Disponible;
                             }
                         }
                         return true;

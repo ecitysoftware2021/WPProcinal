@@ -3,14 +3,12 @@ using PrinterValidator;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WPProcinal.Classes;
 using WPProcinal.Forms.User_Control;
-using WPProcinal.Models;
 using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
 

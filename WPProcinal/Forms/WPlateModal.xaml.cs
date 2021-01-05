@@ -42,12 +42,12 @@ namespace WPProcinal.Forms
 
         private void BtnContinue_TouchDown(object sender, TouchEventArgs e)
         {
-            Utilities.PLACA = txPlaca.Text.Trim();
-            Utilities.TIPOAUTO = cb_TypeAuto.SelectedValue.ToString();
+            Utilities.dataTransaction.PLACA = txPlaca.Text.Trim();
+            Utilities.dataTransaction.TIPOAUTO = cb_TypeAuto.SelectedValue.ToString();
 
             if (Utilities.PlateObligatory)
             {
-                if (!string.IsNullOrEmpty(Utilities.PLACA) && Utilities.PLACA.Length > 5)
+                if (!string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) && Utilities.dataTransaction.PLACA.Length > 5)
                 {
                     DialogResult = true;
                 }

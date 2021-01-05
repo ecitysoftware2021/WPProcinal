@@ -44,14 +44,7 @@ namespace WPProcinal.Forms
                         {
                             txtMs.Text = "Compra eliminada";
 
-                            //Task.Run(() =>
-                            //{
-                            //    Thread.Sleep(2000);
-                            //    Dispatcher.BeginInvoke((Action)delegate
-                            //    {
-                            //        DialogResult = true;
-                            //    });
-                            //});
+                            //TODO: Imprimir un comprobante y cambiar estado de la transaccion en la base de datos
                         }
                     }
                     else
