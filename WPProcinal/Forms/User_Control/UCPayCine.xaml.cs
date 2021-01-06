@@ -591,7 +591,7 @@ namespace WPProcinal.Forms.User_Control
                         InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
                         Nombre = dataClient.Nombre,
                         PagoCredito = 0,
-                        PagoEfectivo = (int)Utilities.dataTransaction.ValorPagarScore,
+                        PagoEfectivo = (int)Utilities.dataTransaction.DataFunction.Total,
                         PagoInterno = (int)Utilities.dataTransaction.PagoInterno,
                         Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
                         Productos = productos,
@@ -601,7 +601,7 @@ namespace WPProcinal.Forms.User_Control
                         Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
                         tercero = 1,
                         TipoBono = 0,
-                        TotalVenta = int.Parse(Utilities.dataTransaction.ValorPagarScore.ToString()),
+                        TotalVenta = (int)Utilities.dataTransaction.DataFunction.Total,
                         Ubicaciones = ubicaciones,
                         Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
                     });
