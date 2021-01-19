@@ -864,7 +864,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 frmLoading.Show();
-                var response41 = WCFServices41.GetPrices(new SCOPLA
+                var response41 = WCFServices41.GetPricesKio(new SCOPLA
                 {
                     FechaFuncion = Utilities.dataTransaction.DataFunction.Date,
                     InicioFuncion = Utilities.dataTransaction.DataFunction.HourFormat,

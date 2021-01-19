@@ -179,6 +179,57 @@ namespace WPProcinal.Service
         #endregion
 
         /// <summary>
+        /// OBTENER LOS PRECIOS PARA LAS UBICACIONES CON SCOKIO
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        #region SCOKIO
+        public static List<ResponseTarifa> GetPricesKio(SCOPLA data)
+        {
+            string decryptData = string.Empty;
+            try
+            {
+                //Data convertida a formato json
+                var seria = JsonConvert.SerializeObject(data);
+                LogService.SaveRequestResponse("Peticion tarifas sillas", seria, 1);
+                //Data encriptada con la llave de score
+                var encryptData = dataEncrypt.Encrypt(seria, DataService41.SCOREKEY);
+
+
+                var client = new RestClient(DataService41.APISCORE + "/scokio/");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Content-Length", "66");
+                request.AddHeader("Accept-Encoding", "gzip, deflate");
+                request.AddHeader("Host", "score.procinal.com.co");
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+
+
+                var dataResponse = JsonConvert.DeserializeObject<List<Response41>>(response.Content);
+
+                decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
+                LogService.SaveRequestResponse("Respuesta tarifas Sillas", decryptData, 1);
+                var est = JsonConvert.DeserializeObject<List<ResponseTarifa>>(decryptData);
+                if (est[0].sala == null)
+                {
+                    return null;
+                }
+                return est;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        /// <summary>
         /// OBTENER LA SECUENCIA DE COMPRA
         /// </summary>
         /// <param name="data"></param>
