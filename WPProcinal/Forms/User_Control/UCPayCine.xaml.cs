@@ -7,9 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPProcinal.Classes;
-using WPProcinal.DataModel;
-using WPProcinal.Models;
 using WPProcinal.Service;
+using SQLite.Connection.Ecity;
 
 namespace WPProcinal.Forms.User_Control
 {
@@ -208,21 +207,16 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                using (var con = new DB_PayPlus_LocalEntities())
+                SQLConnection.SaveBackMoneyAcepted(new AceptedMoneyModel
                 {
-                    NotifyMoney notify = new NotifyMoney
-                    {
-                        CODE = detail.Code,
-                        DENOMINATION = detail.Denomination,
-                        DESCRIPTION = detail.Description,
-                        OPERATION = detail.Operation,
-                        QUANTITY = detail.Quantity,
-                        TRANSACTION_ID = detail.TransactionId,
-                        DATE = detail.Date
-                    };
-                    con.NotifyMoney.Add(notify);
-                    con.SaveChanges();
-                }
+                    CODE = detail.Code,
+                    DENOMINATION = detail.Denomination,
+                    DESCRIPTION = detail.Description,
+                    OPERATION = detail.Operation,
+                    QUANTITY = detail.Quantity,
+                    TRANSACTION_ID = detail.TransactionId,
+                    DATE = detail.Date.ToString()
+                });
             }
             catch { }
         }
@@ -352,17 +346,12 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                using (var con = new DB_PayPlus_LocalEntities())
+                SQLConnection.SaveBackMoneyDispensed(new MoneyModel
                 {
-                    BackUpMoney notify = new BackUpMoney
-                    {
-                        Data = detail.Description,
-                        TransactionID = detail.TransactionId,
-                        Date = detail.Date
-                    };
-                    con.BackUpMoney.Add(notify);
-                    con.SaveChanges();
-                }
+                    DATA = detail.Description,
+                    TRANSACTION_ID = detail.TransactionId,
+                    DATE = detail.Date.ToString()
+                });
             }
             catch { }
         }
@@ -614,7 +603,7 @@ namespace WPProcinal.Forms.User_Control
                             {
                                 if (Utilities.dataTransaction.dataUser.Tarjeta != null)
                                 {
-                                    Utilities.dataTransaction.dataUser.Puntos = 
+                                    Utilities.dataTransaction.dataUser.Puntos =
                                         Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
                                         Utilities.dataTransaction.dataUser.Puntos;
                                 }

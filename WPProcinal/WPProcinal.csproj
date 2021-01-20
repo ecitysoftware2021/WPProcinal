@@ -98,6 +98,10 @@
     <Reference Include="RestSharp, Version=106.6.10.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.6.10\lib\net452\RestSharp.dll</HintPath>
     </Reference>
+    <Reference Include="SQLite.Connection.Ecity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\SQLite.Connection.Ecity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -153,35 +157,11 @@
     <Compile Include="Classes\Login.cs" />
     <Compile Include="Classes\Print.cs" />
     <Compile Include="Classes\Switcher.cs" />
-    <Compile Include="DataModel\BackUpEcity.cs">
-      <DependentUpon>PayPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\BackUpMoney.cs">
-      <DependentUpon>PayPlusModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\ClasesUtiles.cs" />
     <Compile Include="Classes\ControlPeripherals.cs" />
     <Compile Include="Classes\Enumerables.cs" />
     <Compile Include="DataModel\Log.cs" />
-    <Compile Include="DataModel\NotifyMoney.cs">
-      <DependentUpon>PayPlusModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\PaymentViewModel.cs" />
-    <Compile Include="DataModel\PayPlusModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PayPlusModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\PayPlusModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PayPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\PayPlusModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PayPlusModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\Response.cs" />
     <Compile Include="DataModel\Email.cs" />
     <Compile Include="Classes\TimerTiempo.cs" />
@@ -389,13 +369,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DataModel\PayPlusModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PayPlusModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DataModel\PayPlusModel.edmx.diagram">
-      <DependentUpon>PayPlusModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -416,16 +389,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\PayPlusModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PayPlusModel.edmx</DependentUpon>
-      <LastGenOutput>PayPlusModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModel\PayPlusModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PayPlusModel.edmx</DependentUpon>
-      <LastGenOutput>PayPlusModel.cs</LastGenOutput>
-    </Content>
     <Resource Include="Images\modalBioseguridad.png" />
     <Resource Include="Images\Buttons\btnAcepto.jpg" />
     <Resource Include="Images\Buttons\ContinuaCompra.png" />

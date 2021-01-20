@@ -1,5 +1,6 @@
 ﻿using Grabador.Transaccion;
 using Newtonsoft.Json;
+using Peripheral.Control;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,17 +14,15 @@ using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using WPProcinal.DataModel;
 using WPProcinal.Forms;
 using WPProcinal.Forms.User_Control;
 using WPProcinal.Models;
 using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
 using static WPProcinal.Models.ApiLocal.Uptake;
-using Peripheral.Control;
+using SQLite.Connection.Ecity;
 
 namespace WPProcinal.Classes
 {
@@ -652,14 +651,11 @@ namespace WPProcinal.Classes
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
                     LossConnection = true;
-                    using (var con = new DB_PayPlus_LocalEntities())
+                    SQLConnection.SaveBackTransaction(new TransactionModel
                     {
-                        con.BackUpEcity.Add(new DataModel.BackUpEcity
-                        {
-                            Data = data,
-                        });
-                        con.SaveChanges();
-                    }
+                        DATA = data,
+                        DATE = DateTime.Now.ToString()
+                    });
                 }));
             }
             catch { }
