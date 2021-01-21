@@ -1,2 +1,2 @@
-usuario:hdsharepoint;password:Pun3$/*
-usuario:Pay+ Procinal San Nicolas 1;password:ProcinalRionegro2020-;tipo:1
+usuario:usrapli;password:1Cero12019$/*
+usuario:Ecity.Software;password:EcitySoftware2019#;tipo:1
