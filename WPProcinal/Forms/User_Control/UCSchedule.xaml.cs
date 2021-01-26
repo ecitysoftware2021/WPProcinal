@@ -150,60 +150,65 @@ namespace WPProcinal.Forms.User_Control
 
                                     var schedules = function.Hora.OrderBy(h => h.Militar).ToList();
                                     List<HoraTMP> horatmps = new List<HoraTMP>();
-                                    int count = 0;
                                     int countAvailable = 0;
                                     bool available = true;
 
                                     foreach (var item in schedules)
                                     {
-                                        string tipoZona = "General";
+                                        string tipoZona = string.Empty;
                                         if (item.TipoZona.Count > 1)
                                         {
                                             tipoZona = item.TipoZona[1].TipoSilla[0].NombreTipoSilla;
                                         }
-                                        else
+                                        else if (item.TipoZona.Count == 1)
                                         {
                                             tipoZona = item.TipoZona[0].TipoSilla[0].NombreTipoSilla;
                                         }
 
-                                        if (fechaSeleccionada != DateTime.Today)
+                                        if (!string.IsNullOrEmpty(tipoZona))
                                         {
-                                            horatmps.Add(new HoraTMP
+                                            if (fechaSeleccionada != DateTime.Today)
                                             {
-                                                Horario = item.Horario,
-                                                IdFuncion = item.IdFuncion,
-                                                Militar = int.Parse(item.Militar),
-                                                //Reservas = item.Reservas,
-                                                TipoZona = tipoZona,
-                                                Validaciones = item.Validaciones
-                                            });
-                                        }
-                                        //se permite ingreso hasta 40 minutos despues de iniciada la pelicula
-                                        else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
-                                        //se permite ingreso hasta 1:30 horas antes de iniciar la pelicula
-                                        //else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(90).ToString("HHmm")))
-                                        {
-
-                                            horatmps.Add(new HoraTMP
+                                                horatmps.Add(new HoraTMP
+                                                {
+                                                    Horario = item.Horario,
+                                                    IdFuncion = item.IdFuncion,
+                                                    Militar = int.Parse(item.Militar),
+                                                    //Reservas = item.Reservas,
+                                                    TipoZona = tipoZona,
+                                                    Validaciones = item.Validaciones
+                                                });
+                                            }
+                                            //se permite ingreso hasta 40 minutos despues de iniciada la pelicula
+                                            else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
+                                            //se permite ingreso hasta 1:30 horas antes de iniciar la pelicula
+                                            //else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(90).ToString("HHmm")))
                                             {
-                                                Horario = item.Horario,
-                                                IdFuncion = item.IdFuncion,
-                                                Militar = int.Parse(item.Militar),
-                                                //Reservas = item.Reservas,
-                                                TipoZona = tipoZona,
-                                                Validaciones = item.Validaciones
-                                            });
 
+                                                horatmps.Add(new HoraTMP
+                                                {
+                                                    Horario = item.Horario,
+                                                    IdFuncion = item.IdFuncion,
+                                                    Militar = int.Parse(item.Militar),
+                                                    //Reservas = item.Reservas,
+                                                    TipoZona = tipoZona,
+                                                    Validaciones = item.Validaciones
+                                                });
+
+                                            }
+                                            else
+                                            {
+                                                countAvailable++;
+                                            }
+                                            if (countAvailable == schedules.Count())
+                                            {
+                                                available = false;
+                                            }
                                         }
                                         else
                                         {
-                                            countAvailable++;
-                                        }
-                                        if (countAvailable == schedules.Count())
-                                        {
                                             available = false;
                                         }
-                                        count++;
                                     }
 
 
@@ -373,7 +378,7 @@ namespace WPProcinal.Forms.User_Control
                 PointOfSale = int.Parse(Utilities.GetConfiguration("Cinema")),
                 TypeZona = schedule.TypeZona,
                 IDFuncion = schedule.IdFuncion,
-                Validaciones=schedule.Validaciones
+                Validaciones = schedule.Validaciones
             };
             return map;
         }
@@ -682,7 +687,7 @@ namespace WPProcinal.Forms.User_Control
                     UnivDate = selectedSchedule.DatosPelicula.UnivDate,
                     Censura = selectedSchedule.DatosPelicula.Censura,
                     IdFuncion = selectedSchedule.DatosPelicula.IdFuncion,
-                    Validaciones=selectedSchedule.Validaciones
+                    Validaciones = selectedSchedule.Validaciones
                 };
                 var formato = selectedSchedule.DatosPelicula.Formato.Split(' ');
                 if (formato.Length > 1)
