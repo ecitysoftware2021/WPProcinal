@@ -555,7 +555,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe.config
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.pdb
-C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Dapper.dll
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.dll
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignColors.dll
@@ -565,7 +564,6 @@ C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Peripher
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\RestSharp.dll
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.dll
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Zen.Barcode.Core.dll
-C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Dapper.xml
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.xml
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.pdb
@@ -632,3 +630,4 @@ C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcin
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.dll
