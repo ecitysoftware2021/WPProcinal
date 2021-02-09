@@ -934,11 +934,13 @@ namespace WPProcinal.Classes
                         if (valorPagoConSaldoFavor <= 0)
                         {
                             dataTransaction.PayVal = 0;
+                            dataTransaction.DataFunction.Total = 0;
                             dataTransaction.PagoInterno = dataTransaction.DataFunction.Total;
                         }
                         else
                         {
                             dataTransaction.PayVal = dataTransaction.DataFunction.Total - dataTransaction.dataUser.SaldoFavor.Value;
+                            dataTransaction.DataFunction.Total = dataTransaction.DataFunction.Total - dataTransaction.dataUser.SaldoFavor.Value;
                             dataTransaction.PagoInterno = dataTransaction.dataUser.SaldoFavor.Value;
                         }
                     }

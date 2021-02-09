@@ -232,9 +232,10 @@ namespace WPProcinal.Forms.User_Control
                         {
                             if (receta.Precios != null)
                             {
-                                if (Utilities.dataTransaction.dataUser.Tarjeta != null)
+                                decimal otroPago = decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
                                 {
-                                    precio += decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]) * receta.Cantidad;
+                                    precio += otroPago * receta.Cantidad;
                                 }
                                 else
                                 {
@@ -276,9 +277,10 @@ namespace WPProcinal.Forms.User_Control
                                 {
                                     if (preciosReceta.Precios != null)
                                     {
-                                        if (Utilities.dataTransaction.dataUser.Tarjeta != null)
+                                        decimal otroPago = decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                        if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
                                         {
-                                            precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                            precio += otroPago;
                                         }
                                         else
                                         {
@@ -294,7 +296,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         foreach (var preciosReceta in combo.Precios)
                         {
-                            if (Utilities.dataTransaction.dataUser.Tarjeta != null)
+                            if (Utilities.dataTransaction.dataUser.Tarjeta != null && preciosReceta.auxOtroPago > 0)
                             {
                                 precio = preciosReceta.auxOtroPago;
                             }

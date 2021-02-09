@@ -21,6 +21,8 @@ namespace WPProcinal.Forms.User_Control
         bool vibraAvailable = false;
         TimerTiempo timer;
         bool activePay = false;
+        public List<ValidationSeats> listLockedSeats;
+        public string[] letters = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
         ApiLocal api;
         public UCSeat()
@@ -28,6 +30,7 @@ namespace WPProcinal.Forms.User_Control
             InitializeComponent();
             try
             {
+                listLockedSeats = new List<ValidationSeats>();
                 api = new ApiLocal();
                 DataService41._Combos = new List<Combos>();
                 Utilities.dataTransaction.SelectedTypeSeats = new List<ChairsInformation>();
@@ -227,13 +230,102 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
+        private ImageSource ValidateSeatsAndLock(EstadoSala41 filas, DescripcionSilla item, ImageSource imageSource)
+        {
+            var seatsToValidate = listLockedSeats.Where(lv => lv.letter == filas.filRel);
+
+            foreach (var valida in seatsToValidate)
+            {
+                if (
+                    (valida.number - 1 == item.Columna
+                    || valida.number - 2 == item.Columna
+                    || valida.number + 1 == item.Columna
+                    || valida.number + 2 == item.Columna)
+                    && item.TipoSilla != "pasillo"
+                    && item.EstadoSilla != "B" 
+                    && item.EstadoSilla != "O")
+                {
+                    imageSource = GetImage("CO");
+                    item.TipoSilla = "Discapacitado";
+                }
+            }
+
+            int position = letters.ToList().IndexOf(filas.filRel);
+
+            if (position - 1 >= 0)
+            {
+                var downLetter = listLockedSeats.Where(lv =>
+                lv.letter == letters[position - 1]
+                &&
+                (lv.number == item.Columna
+                || lv.number + 1 == item.Columna
+                || lv.number - 1 == item.Columna)
+                && item.TipoSilla != "pasillo"
+                && item.EstadoSilla != "B"
+                && item.EstadoSilla != "O").FirstOrDefault();
+                if (downLetter != null)
+                {
+                    imageSource = GetImage("CO");
+                    item.TipoSilla = "Discapacitado";
+                }
+            }
+
+            var upLetter = listLockedSeats.Where(lv =>
+            lv.letter == letters[position + 1]
+            &&
+            (lv.number == item.Columna
+            || lv.number + 1 == item.Columna
+            || lv.number - 1 == item.Columna)
+            && item.TipoSilla != "pasillo"
+            && item.EstadoSilla != "B"
+            && item.EstadoSilla != "O").FirstOrDefault();
+            if (upLetter != null)
+            {
+                imageSource = GetImage("CO");
+                item.TipoSilla = "Discapacitado";
+            }
+
+            return imageSource;
+        }
+
+        public void GetLockedSeats(List<EstadoSala41> est)
+        {
+            try
+            {
+                foreach (var filas in est)
+                {
+                    foreach (var item in filas.DescripcionSilla)
+                    {
+                        ImageSource imageSource = null;
+                        if (item.TipoSilla == "General" || item.TipoSilla != "pasillo")
+                        {
+                            if (item.EstadoSilla == "B" || item.EstadoSilla=="O")
+                            {
+                                imageSource = GetImage(item.EstadoSilla);
+                                listLockedSeats.Add(new ValidationSeats
+                                {
+                                    letter = filas.filRel,
+                                    number = item.Columna
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+
         private void OrganizePositionOfSeats(List<EstadoSala41> est)
         {
             try
             {
                 int Height = est.Count();
                 int Width = int.Parse(est[0].maxCol.ToString());
-
+                GetLockedSeats(est);
                 for (int i = 0; i <= Height; i++)
                 {
                     gridSillas.RowDefinitions.Add(new RowDefinition());
@@ -266,7 +358,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             imageSource = ((item.EstadoSilla == "B") || (item.EstadoSilla == "O")) ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
                         }
-
+                        imageSource = ValidateSeatsAndLock(filas, item, imageSource);
                         Image image = new Image
                         {
                             Source = imageSource,
@@ -351,7 +443,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 int Height = est.Count();
                 int Width = int.Parse(est[0].maxCol.ToString());
-
+                GetLockedSeats(est);
                 for (int i = 0; i <= Height; i++)
                 {
                     gridSillas.RowDefinitions.Add(new RowDefinition());
@@ -384,7 +476,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             imageSource = ((item.EstadoSilla == "B") || (item.EstadoSilla == "O")) ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
                         }
-
+                        imageSource = ValidateSeatsAndLock(filas, item, imageSource);
                         Image image = new Image
                         {
                             Source = imageSource,
@@ -474,7 +566,7 @@ namespace WPProcinal.Forms.User_Control
                 int Height = est.Count();
                 int Width = int.Parse(est[0].maxCol.ToString());
                 //est.Reverse();
-
+                GetLockedSeats(est);
                 for (int i = 0; i <= Height; i++)
                 {
                     gridSillas.RowDefinitions.Add(new RowDefinition());
@@ -507,7 +599,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             imageSource = ((item.EstadoSilla == "B") || (item.EstadoSilla == "O")) ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
                         }
-
+                        imageSource = ValidateSeatsAndLock(filas, item, imageSource);
                         Image image = new Image
                         {
                             Source = imageSource,
@@ -674,6 +766,10 @@ namespace WPProcinal.Forms.User_Control
             else if (ckeck == "pasillo")
             {
                 icon = "";
+            }
+            else if (ckeck == "CO")
+            {
+                icon = "s-reservada";
             }
 
             BitmapImage logo = new BitmapImage();
@@ -1223,8 +1319,6 @@ namespace WPProcinal.Forms.User_Control
                 AdminPaypad.SaveErrorControl(ex.Message, "ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
-
-
 
         private void BtnAtras_TouchDown(object sender, TouchEventArgs e)
         {

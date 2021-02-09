@@ -61,7 +61,6 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 DataService41.Movies = new List<Pelicula>();
-                Utilities.dataTransaction = new DataTransaction();
                 LstMoviesModel = new ObservableCollection<MoviesViewModel>();
                 lblCinema1.Text = Dictionaries.Cinemas[Utilities.CinemaId];
 

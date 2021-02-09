@@ -90,5 +90,10 @@ namespace WPProcinal.Classes
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
     }
+    public class ValidationSeats
+    {
+        public string letter { get; set; }
+        public double number { get; set; }
+    }
 
 }
