@@ -1012,10 +1012,10 @@ namespace WPProcinal.Service
         public string Cortesia { get; set; }
         public int TipoBono { get; set; }
         public long ClienteFrecuente { get; set; }
-        public int TotalVenta { get; set; }
-        public int PagoInterno { get; set; }
-        public int PagoCredito { get; set; }
-        public int PagoEfectivo { get; set; }
+        public decimal TotalVenta { get; set; }
+        public decimal PagoInterno { get; set; }
+        public decimal PagoCredito { get; set; }
+        public decimal PagoEfectivo { get; set; }
         public int CodMedioPago { get; set; }
         public string Accion { get; set; }
         public int teatro { get; set; }

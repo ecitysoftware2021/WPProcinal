@@ -115,11 +115,8 @@ namespace WPProcinal.Service
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
                 HttpResponseMessage response = new HttpResponseMessage();
 
-                var task = client.PostAsync(url, content);
-                if (await Task.WhenAny(task, Task.Delay(30000)) == task)
-                {
-                    response = task.Result;
-                }
+                 response = client.PostAsync(url, content).Result;
+                
                 LogService.CreateLogsPeticion($"Respuesta {controller}", JsonConvert.SerializeObject(response));
 
 

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using WPProcinal.Models;
 using WPProcinal.Service;
@@ -41,17 +38,17 @@ namespace WPProcinal.Classes
 
     public class RequestCardInformation
     {
-        public string Last_number { get; set; }
+        public string CARD_LAST_NUMBER { get; set; }
 
-        public int Quotas { get; set; }
+        public int PAY_QUOTAS { get; set; }
 
-        public string Franchise { get; set; }
+        public string FRANCHISE { get; set; }
 
-        public int Card_Type { get; set; }
+        public int CARD_TYPE_ID { get; set; }
 
-        public int Transaction_id { get; set; }
-        public string Autorization_code { get; set; }
-        public string Receipt_number { get; set; }
+        public int TRANSACTION_ID { get; set; }
+        public string AUTORIZATION_CODE { get; set; }
+        public string RECEIPT_NUMBER { get; set; }
         public string RRN { get; set; }
     }
 

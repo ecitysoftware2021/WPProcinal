@@ -527,7 +527,7 @@ namespace WPProcinal.Classes
                         var details = new TRANSACTION_DESCRIPTION
                         {
                             AMOUNT = item.Price / item.Quantity,
-                            TRANSACTION_ID = IDTransactionDB,
+                            TRANSACTION_ID = transaction.TRANSACTION_ID,
                             TRANSACTION_PRODUCT_ID = (int)ETransactionProducto.Confectionery,
                             DESCRIPTION = item.Name,
                             EXTRA_DATA = dataTransaction.Secuencia
@@ -934,13 +934,11 @@ namespace WPProcinal.Classes
                         if (valorPagoConSaldoFavor <= 0)
                         {
                             dataTransaction.PayVal = 0;
-                            dataTransaction.DataFunction.Total = 0;
                             dataTransaction.PagoInterno = dataTransaction.DataFunction.Total;
                         }
                         else
                         {
                             dataTransaction.PayVal = dataTransaction.DataFunction.Total - dataTransaction.dataUser.SaldoFavor.Value;
-                            dataTransaction.DataFunction.Total = dataTransaction.DataFunction.Total - dataTransaction.dataUser.SaldoFavor.Value;
                             dataTransaction.PagoInterno = dataTransaction.dataUser.SaldoFavor.Value;
                         }
                     }

@@ -21,6 +21,7 @@ namespace WPProcinal.Forms
         {
             InitializeComponent();
             Utilities.Speack("Bienvenido, si eres un cinefán, escanea tu cédula en el lector!");
+            Utilities.dataTransaction.dataUser = new SCOLOGResponse();
         }
         #endregion
 

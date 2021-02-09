@@ -203,14 +203,14 @@ namespace WPProcinal.Forms.User_Control
                     });
                     SaveCardInformation(new RequestCardInformation
                     {
-                        Autorization_code = _AutorizationCode,
-                        Franchise = _Franchise,
-                        Last_number = _LastNumbers,
-                        Receipt_number = _ReceiptNumber,
+                        AUTORIZATION_CODE = _AutorizationCode,
+                        FRANCHISE = _Franchise,
+                        CARD_LAST_NUMBER = _LastNumbers,
+                        RECEIPT_NUMBER = _ReceiptNumber,
                         RRN = _RRN,
-                        Transaction_id = Utilities.IDTransactionDB,
-                        Quotas = TPVOperation.Quotas,
-                        Card_Type = TPVOperation.Quotas != 0 ? 2 : 1
+                        TRANSACTION_ID = Utilities.IDTransactionDB,
+                        PAY_QUOTAS = TPVOperation.Quotas,
+                        CARD_TYPE_ID = TPVOperation.Quotas != 0 ? 2 : 1
                     });
                 }
             }
@@ -438,9 +438,9 @@ namespace WPProcinal.Forms.User_Control
                         Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
                         InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
                         Nombre = dataClient.Nombre,
-                        PagoCredito = (int)Utilities.dataTransaction.DataFunction.Total,
+                        PagoCredito = Utilities.dataTransaction.DataFunction.Total,
                         PagoEfectivo = 0,
-                        PagoInterno = (int)Utilities.dataTransaction.PagoInterno,
+                        PagoInterno = Utilities.dataTransaction.PagoInterno,
                         Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
                         Productos = productos,
                         PuntoVenta = int.Parse(Utilities.GetConfiguration("Cinema")),
@@ -450,7 +450,7 @@ namespace WPProcinal.Forms.User_Control
                         CodMedioPago = Utilities.dataTransaction.PayVal > 0 ? (int)ECodigoMedioPagoScore.Tarjeta_Debito_Credi : (int)ECodigoMedioPagoScore.Todos,
                         tercero = 1,
                         TipoBono = 0,
-                        TotalVenta = int.Parse(Utilities.dataTransaction.DataFunction.Total.ToString()),
+                        TotalVenta = Utilities.dataTransaction.DataFunction.Total,
                         Ubicaciones = ubicaciones,
                         Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
                     });
