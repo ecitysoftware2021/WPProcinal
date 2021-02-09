@@ -314,7 +314,7 @@ namespace WPProcinal.Forms.User_Control
             frmLoading.Close();
             bool validateCombo = false;
 
-            if (Utilities.dataTransaction.eTypeBuy == ETypeBuy.JustConfectionery)
+            if (Utilities.eTypeBuy == ETypeBuy.JustConfectionery)
             {
                 if (!GetSecuence())
                 {

@@ -61,6 +61,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 DataService41.Movies = new List<Pelicula>();
+                Utilities.dataTransaction = new DataTransaction();
                 LstMoviesModel = new ObservableCollection<MoviesViewModel>();
                 lblCinema1.Text = Dictionaries.Cinemas[Utilities.CinemaId];
 
@@ -331,7 +332,7 @@ namespace WPProcinal.Forms.User_Control
                     this.Opacity = 0.3;
                     frmModalCineFan modalCineFan = new frmModalCineFan();
                     modalCineFan.ShowDialog();
-                    if (Utilities.dataTransaction.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
                     {
                         Utilities.Speack("Selecciona una película para continuar.");
 

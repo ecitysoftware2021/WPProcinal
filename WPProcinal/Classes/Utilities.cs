@@ -60,6 +60,11 @@ namespace WPProcinal.Classes
         public static bool LossConnection { get; set; }
 
         /// <summary>
+        /// Variable para almacenar el tipo de compra, si es solo confiteria o boleta mas confitería
+        /// </summary>
+        public static ETypeBuy eTypeBuy = new ETypeBuy();
+
+        /// <summary>
         /// Variable que toma el id del cinema para saber que peliculas mostrar por cada Pay+
         /// </summary>
         public static string CinemaId = GetConfiguration("CodCinema");

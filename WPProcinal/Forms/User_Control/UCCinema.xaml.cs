@@ -105,7 +105,7 @@ namespace WPProcinal.Forms.User_Control
                     timerStatePay.Stop();
                     gridPrincipal.IsEnabled = false;
                     _imageSleader.Stop();
-                    Utilities.dataTransaction.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
+                    Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
                     if (Utilities.GetConfiguration("ModalBioseguridad").Equals("1"))
                     {
                         ModalBioseguridad modal = new ModalBioseguridad();
@@ -129,7 +129,7 @@ namespace WPProcinal.Forms.User_Control
                     timerStatePay.Stop();
                     gridPrincipal.IsEnabled = false;
                     _imageSleader.Stop();
-                    Utilities.dataTransaction.eTypeBuy = ETypeBuy.JustConfectionery;
+                    Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
                     Utilities.PlateObligatory = false;
                     if (Utilities.GetConfiguration("ModalBioseguridad").Equals("1"))
                     {

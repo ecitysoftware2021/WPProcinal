@@ -556,7 +556,7 @@ namespace WPProcinal.Forms.User_Control
                     string year = DateTime.Now.Year.ToString();
                     string mount = DateTime.Now.Month.ToString();
                     string day = DateTime.Now.Day.ToString();
-                    if (Utilities.dataTransaction.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
                     {
                         year = Utilities.dataTransaction.DataFunction.Date.Substring(0, 4);
                         mount = Utilities.dataTransaction.DataFunction.Date.Substring(4, 2);
@@ -566,7 +566,7 @@ namespace WPProcinal.Forms.User_Control
 
                     var response41 = WCFServices41.PostBuy(new SCOINT
                     {
-                        Accion = Utilities.dataTransaction.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
+                        Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
                         Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
                         Apellido = dataClient.Apellido,
                         ClienteFrecuente = long.Parse(dataClient.Tarjeta),

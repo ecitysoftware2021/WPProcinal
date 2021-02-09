@@ -79,7 +79,6 @@ namespace WPProcinal.Classes
             TipoSala = string.Empty;
             MovieFormat = string.Empty;
             ImageSelected = null;
-            eTypeBuy = new ETypeBuy();
             FechaSeleccionada = DateTime.Today;
             dataUser = new SCOLOGResponse();
             ValorPagarScore = 0;
@@ -120,10 +119,7 @@ namespace WPProcinal.Classes
         /// Poster de la peícula seleccionada, se usa para mostrar en la pantalla de los horarios
         /// </summary>
         public ImageSource ImageSelected;
-        /// <summary>
-        /// Variable para almacenar el tipo de compra, si es solo confiteria o boleta mas confitería
-        /// </summary>
-        public ETypeBuy eTypeBuy;
+        
         /// <summary>
         /// Variable global para conocer la fecha en la que el usuario quiere ver la pelicula
         /// </summary>

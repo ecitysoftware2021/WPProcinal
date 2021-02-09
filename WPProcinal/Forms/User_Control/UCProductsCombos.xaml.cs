@@ -322,7 +322,7 @@ namespace WPProcinal.Forms.User_Control
 
             bool validateCombo = false;
 
-            if (Utilities.dataTransaction.eTypeBuy == ETypeBuy.JustConfectionery)
+            if (Utilities.eTypeBuy == ETypeBuy.JustConfectionery)
             {
                 if (!GetSecuence())
                 {
