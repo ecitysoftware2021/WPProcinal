@@ -434,7 +434,7 @@ namespace WPProcinal.Forms.User_Control
                         Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
                         InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
                         Nombre = dataClient.Nombre,
-                        PagoCredito = Utilities.dataTransaction.DataFunction.Total - Utilities.dataTransaction.PagoInterno,
+                        PagoCredito = Utilities.dataTransaction.PayVal,
                         PagoEfectivo = 0,
                         PagoInterno = Utilities.dataTransaction.PagoInterno,
                         Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
