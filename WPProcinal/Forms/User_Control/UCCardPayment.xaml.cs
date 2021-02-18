@@ -125,7 +125,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         if (payState)
                         {
-                            ValorTotal = Utilities.dataTransaction.PayVal.ToString();
+                            ValorTotal = Utilities.dataTransaction.PayVal.ToString().Split(',')[0];
                             NumeroTransaccion = Utilities.IDTransactionDB.ToString();
                             TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
                                 TipoOperacion, Delimitador,
@@ -141,11 +141,7 @@ namespace WPProcinal.Forms.User_Control
 
                             //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
                             var LCRPeticion = TPV.CalculateLRC(TramaInicial);
-                            try
-                            {
-                                LogService.SaveRequestResponse("Petición al datáfono", LCRPeticion, 1);
-                            }
-                            catch { }
+                            LogService.SaveRequestResponse("Petición al datáfono", LCRPeticion, 1);
                             //Envío la trama que intentará activar el datáfono
                             Dispatcher.BeginInvoke((Action)delegate
                             {
@@ -438,7 +434,7 @@ namespace WPProcinal.Forms.User_Control
                         Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
                         InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
                         Nombre = dataClient.Nombre,
-                        PagoCredito = Utilities.dataTransaction.DataFunction.Total,
+                        PagoCredito = Utilities.dataTransaction.DataFunction.Total - Utilities.dataTransaction.PagoInterno,
                         PagoEfectivo = 0,
                         PagoInterno = Utilities.dataTransaction.PagoInterno,
                         Pelicula = Utilities.dataTransaction.DataFunction.MovieId,

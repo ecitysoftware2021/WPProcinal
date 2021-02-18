@@ -580,7 +580,7 @@ namespace WPProcinal.Forms.User_Control
                         InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
                         Nombre = dataClient.Nombre,
                         PagoCredito = 0,
-                        PagoEfectivo = Utilities.dataTransaction.DataFunction.Total,
+                        PagoEfectivo = Utilities.dataTransaction.DataFunction.Total - Utilities.dataTransaction.PagoInterno,
                         PagoInterno = Utilities.dataTransaction.PagoInterno,
                         Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
                         Productos = productos,
