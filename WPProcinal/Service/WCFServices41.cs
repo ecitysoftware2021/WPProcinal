@@ -1024,6 +1024,8 @@ namespace WPProcinal.Service
         public string Obs2 { get { return ""; } }
         public string Obs3 { get { return ""; } }
         public string Obs4 { get { return ""; } }
+
+        public bool Membresia { get; set; }
     }
 
     public class ResponseScoint

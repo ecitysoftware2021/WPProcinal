@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -14,12 +15,14 @@ namespace WPProcinal.Forms
     {
         #region "Referencias"
         FrmLoading frmLoading;
+        private List<SCOLOGResponse> responseClient;
         #endregion
 
         #region "Constructor"
         public frmModalCineFan()
         {
             InitializeComponent();
+            responseClient = new List<SCOLOGResponse>();
             Utilities.Speack("Bienvenido, si eres un cinefán, escanea tu cédula en el lector!");
             Utilities.dataTransaction.dataUser = new SCOLOGResponse();
         }
@@ -104,7 +107,7 @@ namespace WPProcinal.Forms
 
                 frmLoading = new FrmLoading("¡Consultando Cine Fans...!");
                 frmLoading.Show();
-                var responseClient = WCFServices41.GetClientData(new SCOCED
+                responseClient = WCFServices41.GetClientData(new SCOCED
                 {
                     Documento = cedula,
                     tercero = "1"
@@ -116,7 +119,7 @@ namespace WPProcinal.Forms
                 {
                     foreach (var item in responseClient)
                     {
-                        if (item.Tarjeta != null)
+                        if (item.Tarjeta != "0")
                         {
                             Utilities.dataTransaction.dataUser = item;
                             frmLoading = new FrmLoading("¡Consultando Puntos Cine Fans...!");
@@ -159,6 +162,7 @@ namespace WPProcinal.Forms
                     else
                     {
                         txtError.Text = error;
+                        txtActivar.Visibility = Visibility.Visible;
                         return false;
                     }
                 }
@@ -178,5 +182,113 @@ namespace WPProcinal.Forms
         }
         #endregion
 
+        private void txtActivar_TouchDown(object sender, TouchEventArgs e)
+        {
+            txtActivar.Visibility = Visibility.Hidden;
+            ActivarMembresia();
+        }
+
+        private void ActivarMembresia()
+        {
+            try
+            {
+                string error = string.Empty;
+
+                frmLoading = new FrmLoading("¡Consultando secuencia...!");
+                frmLoading.Show();
+
+                var responseSEC = WCFServices41.GetSecuence(new SCOSEC
+                {
+                    Punto = int.Parse(Utilities.GetConfiguration("Cinema")),
+                    teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                    tercero = "1"
+                });
+
+                frmLoading.Close();
+                if (responseSEC != null)
+                {
+                    frmLoading = new FrmLoading("¡Activando Membresía...!");
+                    frmLoading.Show();
+                    var response41 = WCFServices41.PostBuy(new SCOINT
+                    {
+                        Accion = "M",
+                        Placa = "0",
+                        Apellido = responseClient[0].Apellido,
+                        ClienteFrecuente = 0,
+                        CorreoCliente = responseClient[0].Login,
+                        Cortesia = string.Empty,
+                        Direccion = responseClient[0].Direccion,
+                        DocIdentidad = long.Parse(responseClient[0].Documento),
+                        Factura = int.Parse(responseSEC[0].Secuencia.ToString()),
+                        FechaFun = "0",
+                        Funcion = 0,
+                        InicioFun = 0,
+                        Nombre = responseClient[0].Nombre,
+                        PagoCredito = 0,
+                        PagoEfectivo = 0,
+                        PagoInterno = 0,
+                        Pelicula = 0,
+                        Productos = new List<Producto> { },
+                        PuntoVenta = int.Parse(Utilities.GetConfiguration("Cinema")),
+                        Sala = 0,
+                        teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                        Telefono = long.Parse(responseClient[0].Telefono),
+                        CodMedioPago = 0,
+                        tercero = 1,
+                        TipoBono = 0,
+                        TotalVenta = 0,
+                        Ubicaciones = new List<UbicacioneSCOINT> { },
+                        Membresia = true,
+                        Obs1 = ""
+                    });
+
+                    frmLoading.Close();
+                    foreach (var item in response41)
+                    {
+                        if (item.Respuesta != null)
+                        {
+                            if (item.Respuesta.Contains("exitoso"))
+                            {
+                                if (Utilities.dataTransaction.dataUser.Tarjeta != null)
+                                {
+                                    Utilities.dataTransaction.dataUser.Puntos =
+                                        Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
+                                        Utilities.dataTransaction.dataUser.Puntos;
+                                }
+                                Utilities.controlScanner.callbackDocument = null;
+                                Utilities.controlScanner.ClosePortScanner();
+                                DialogResult = true;
+                                break;
+                            }
+                            else
+                            {
+                                error = item.Respuesta;
+                            }
+                        }
+                        else
+                        {
+                            error = item.Respuesta;
+                        }
+                    }
+                    txtError.Text = error;
+                    txtActivar.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    error = "No se pudo obtener la secuencia.";
+                    txtActivar.Visibility = Visibility.Visible;
+                    txtError.Text = error;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("Activando membresía", ex.Message, 1);
+                txtError.Text = "No se pudo activar la membresía.";
+                if (frmLoading != null)
+                {
+                    frmLoading.Close();
+                }
+            }
+        }
     }
 }

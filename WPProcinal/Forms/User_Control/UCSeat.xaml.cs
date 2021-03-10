@@ -258,8 +258,8 @@ namespace WPProcinal.Forms.User_Control
                 lv.letter == letters[position - 1]
                 &&
                 (lv.number == item.Columna
-                || lv.number + 1 == item.Columna
-                || lv.number - 1 == item.Columna)
+                || lv.number  == item.Columna
+                || lv.number  == item.Columna)
                 && item.TipoSilla != "pasillo"
                 && item.EstadoSilla != "B"
                 && item.EstadoSilla != "O").FirstOrDefault();
@@ -274,8 +274,8 @@ namespace WPProcinal.Forms.User_Control
             lv.letter == letters[position + 1]
             &&
             (lv.number == item.Columna
-            || lv.number + 1 == item.Columna
-            || lv.number - 1 == item.Columna)
+            || lv.number == item.Columna
+            || lv.number == item.Columna)
             && item.TipoSilla != "pasillo"
             && item.EstadoSilla != "B"
             && item.EstadoSilla != "O").FirstOrDefault();
