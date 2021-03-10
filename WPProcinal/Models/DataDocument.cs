@@ -13,5 +13,7 @@
         public string Phone { get; set; }
         public string Key { get; set; }
         public string Address { get { return ""; } }
+
+        public string FullName { get; set; }
     }
 }
