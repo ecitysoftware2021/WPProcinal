@@ -127,28 +127,29 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-
+                ImgDisponible.Visibility = Visibility.Visible;
                 if (Utilities.dataTransaction.DataFunction.TypeZona == "General")
                 {
-                    ImgDisponible.Visibility = Visibility.Visible;
                     ImgVibroSound.Visibility = Visibility.Hidden;
+                    ImgPreferencial.Visibility = Visibility.Hidden;
                 }
                 else if (Utilities.dataTransaction.DataFunction.TypeZona == "Vibrasound")
                 {
-                    ImgDisponible.Visibility = Visibility.Visible;
                     ImgVibroSound.Visibility = Visibility.Visible;
+                    ImgPreferencial.Visibility = Visibility.Hidden;
                     vibraAvailable = true;
                 }
                 else if (Utilities.dataTransaction.DataFunction.TypeZona == "V")
                 {
                     ImgDisponible.Visibility = Visibility.Visible;
-                    //ImgPreferencia.Visibility = Visibility.Visible;
+                }
+                else if (Utilities.dataTransaction.DataFunction.TypeZona == "Preferencial")
+                {
+                    ImgPreferencial.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    ImgDisponible.Visibility = Visibility.Visible;
                     ImgVibroSound.Visibility = Visibility.Visible;
-                    //ImgPreferencia.Visibility = Visibility.Visible;
                     vibraAvailable = true;
                 }
 
@@ -242,7 +243,7 @@ namespace WPProcinal.Forms.User_Control
                     || valida.number + 1 == item.Columna
                     || valida.number + 2 == item.Columna)
                     && item.TipoSilla != "pasillo"
-                    && item.EstadoSilla != "B" 
+                    && item.EstadoSilla != "B"
                     && item.EstadoSilla != "O")
                 {
                     imageSource = GetImage("CO");
@@ -258,8 +259,8 @@ namespace WPProcinal.Forms.User_Control
                 lv.letter == letters[position - 1]
                 &&
                 (lv.number == item.Columna
-                || lv.number  == item.Columna
-                || lv.number  == item.Columna)
+                || lv.number == item.Columna
+                || lv.number == item.Columna)
                 && item.TipoSilla != "pasillo"
                 && item.EstadoSilla != "B"
                 && item.EstadoSilla != "O").FirstOrDefault();
@@ -299,7 +300,7 @@ namespace WPProcinal.Forms.User_Control
                         ImageSource imageSource = null;
                         if (item.TipoSilla == "General" || item.TipoSilla != "pasillo")
                         {
-                            if (item.EstadoSilla == "B" || item.EstadoSilla=="O")
+                            if (item.EstadoSilla == "B" || item.EstadoSilla == "O")
                             {
                                 imageSource = GetImage(item.EstadoSilla);
                                 listLockedSeats.Add(new ValidationSeats
@@ -770,6 +771,10 @@ namespace WPProcinal.Forms.User_Control
             else if (ckeck == "CO")
             {
                 icon = "s-reservada";
+            }
+            else if (ckeck == "Preferencial")
+            {
+                icon = "s-preferencial";
             }
 
             BitmapImage logo = new BitmapImage();

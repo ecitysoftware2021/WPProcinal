@@ -621,5 +621,3 @@ C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcin
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Peripheral.Control.pdb
