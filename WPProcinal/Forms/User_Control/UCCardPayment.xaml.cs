@@ -448,6 +448,7 @@ namespace WPProcinal.Forms.User_Control
                         TipoBono = 0,
                         TotalVenta = Utilities.dataTransaction.DataFunction.Total,
                         Ubicaciones = ubicaciones,
+                        Membresia = false,
                         Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
                     });
                     frmLoading.Close();
