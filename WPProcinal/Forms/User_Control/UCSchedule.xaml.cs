@@ -180,7 +180,7 @@ namespace WPProcinal.Forms.User_Control
                                                 });
                                             }
                                             //se permite ingreso hasta 40 minutos despues de iniciada la pelicula
-                                            else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-300).ToString("HHmm")))
+                                            else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
                                             //se permite ingreso hasta 1:30 horas antes de iniciar la pelicula
                                             //else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(90).ToString("HHmm")))
                                             {
