@@ -947,10 +947,6 @@ namespace WPProcinal.Classes
                             dataTransaction.PagoInterno = dataTransaction.dataUser.SaldoFavor.Value;
                         }
                     }
-                    else
-                    {
-                        dataTransaction.dataUser.SaldoFavor = 0;
-                    }
                 }
             }
         }

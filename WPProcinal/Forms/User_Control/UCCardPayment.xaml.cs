@@ -99,8 +99,6 @@ namespace WPProcinal.Forms.User_Control
                     TPV = new TPVOperation();
                     Activar();
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -1037,6 +1035,7 @@ namespace WPProcinal.Forms.User_Control
             if (_frmConfirmationModal.DialogResult.HasValue &&
                 _frmConfirmationModal.DialogResult.Value)
             {
+                Utilities.ValidateUserBalance();
                 if (Utilities.dataTransaction.MedioPago == EPaymentType.Cash)
                 {
                     Dispatcher.BeginInvoke((Action)delegate
