@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Globalization;
@@ -21,9 +22,12 @@ namespace WPProcinal.Classes
         Font fBodyFecha = new Font("myriam pro", 8, FontStyle.Bold);
         Font fBody1Vertical = new Font("Arial", 6, FontStyle.Bold);
 
+        public Print()
+        {
+            Seat = new List<string>();
+        }
 
         public decimal Valor { get; set; }
-        public DateTime Fecha { get; set; }
         public int Hora { get; set; }
         public int SpaceY { get; set; }
         public int SpaceX { get; set; }
@@ -33,10 +37,9 @@ namespace WPProcinal.Classes
         public string Secuencia { get; set; }
         public string IDTransaccion { get; set; }
         public string Formato { get; set; }
-        public string Tramite { get; set; }
         public string Time { get; set; }
         public string Room { get; set; }
-        public string Seat { get; set; }
+        public List<string> Seat { get; set; }
         public string Fila { get; set; }
         public int Columna { get; set; }
         public int Funcion { get; set; }
@@ -81,8 +84,6 @@ namespace WPProcinal.Classes
             var pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Salas_Formatos", "logo.png");
             string RutaIMG = pat;
             g.DrawImage(Image.FromFile(RutaIMG), 40, 0);
-
-            g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, 80);
             SpaceY += 10;
 
 
@@ -104,32 +105,29 @@ namespace WPProcinal.Classes
                 g.DrawString(Utilities.GetConfiguration("Nit"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
             }
             SpaceY += 20;
-            g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
-            SpaceY += 20;
-            g.DrawString(FormatName(Movie).ToUpper(), fBodyContenido, sb, 50, SpaceY - 20);
-            SpaceY += 20;
-            g.DrawImage(Image.FromFile(GenerateTags(TipoSala)), SpaceX, SpaceY);
 
-            g.DrawImage(Image.FromFile(GenerateTags(Formato)), SpaceX + 130, SpaceY + 60);
-
-            g.DrawString(Room, fBodySala, sb, SpaceX + 140, SpaceY + 90);
-
-            PointF pointF = new PointF(0, 200);
+            PointF pointF = new PointF(0, 0);
             StringFormat stringFormat = new StringFormat();
             SolidBrush solidBrush = new SolidBrush(Color.FromArgb(255, 0, 0, 255));
             stringFormat.FormatFlags = StringFormatFlags.DirectionVertical;
 
-            string verticalData = string.Concat(Room, " - Silla: ", Seat, " - Hora: ", Time);
+            string verticalData = string.Concat("Película: ", Movie, " - ", Room, " - Sillas: ", String.Join(",", Seat), " - Fecha: ", Date, " - Hora: ", Time, " - Valor: ", Valor.ToString("$ #,##0"));
             g.DrawString(verticalData, fBody1Vertical, solidBrush, pointF, stringFormat);
-            g.DrawString(Room, fBodySala, sb, SpaceX + 140, SpaceY + 90);
-            pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Salas_Formatos", "silla.jpg");
-            string RutaIMGSilla = pat;
-            g.DrawImage(Image.FromFile(RutaIMGSilla), SpaceX + 70, SpaceY + 120);
-            g.DrawString(Seat, fBodyTiulos, sb, SpaceX + 170, SpaceY + 130);
-            SpaceY += 70;
+            pointF = new PointF(275, 0);
+            g.DrawString(verticalData, fBody1Vertical, solidBrush, pointF, stringFormat);
+
+
             g.DrawString("Auditoría:", fBodyTiulos, sb, 10, SpaceY);
             g.DrawString(Secuencia, fBodyTiulos, sb, SpaceX, SpaceY);
             SpaceY += 20;
+            g.DrawString("Película:", fBodyTiulos, sb, 10, SpaceY);
+            g.DrawString(Movie, fBodyTiulos, sb, SpaceX, SpaceY);
+            SpaceY += 20;
+
+            g.DrawString("Sala:", fBodyTiulos, sb, 10, SpaceY);
+            g.DrawString($"{Room} - {Formato} - {TipoSala} ", fBodyTiulos, sb, SpaceX, SpaceY);
+            SpaceY += 20;
+
             g.DrawString("Hora:", fBodyTiulos, sb, 10, SpaceY);
             g.DrawString(Time, fBodyTiulos, sb, SpaceX, SpaceY);
             SpaceY += 20;
@@ -140,12 +138,18 @@ namespace WPProcinal.Classes
             g.DrawString(Category, fBodyTiulos, sb, SpaceX, SpaceY);
             SpaceY += 20;
             g.DrawString("Tarifa:", fBodyTiulos, sb, 10, SpaceY);
+            g.DrawString((Valor / Seat.Count).ToString("$ #,##0"), fBodyTiulos, sb, SpaceX, SpaceY);
+            SpaceY += 20;
+            g.DrawString("Total:", fBodyTiulos, sb, 10, SpaceY);
             g.DrawString(Valor.ToString("$ #,##0"), fBodyTiulos, sb, SpaceX, SpaceY);
             SpaceY += 20;
-
-            g.DrawString("Puntos:", fBodyTiulos, sb, 10, SpaceY);
-            g.DrawString(Puntos, fBodyTiulos, sb, SpaceX, SpaceY);
+            g.DrawString("Sillas:", fBodyTiulos, sb, 10, SpaceY);
+            g.DrawString(string.Join(",", Seat), fBodyTiulos, sb, SpaceX, SpaceY);
             SpaceY += 20;
+
+            //g.DrawString("CashBack:", fBodyTiulos, sb, 10, SpaceY);
+            //g.DrawString(Puntos, fBodyTiulos, sb, SpaceX, SpaceY);
+            //SpaceY += 20;
 
             g.DrawString("Compra:", fBodyTiulos, sb, 10, SpaceY);
             g.DrawString(IDTransaccion, fBodyTiulos, sb, SpaceX, SpaceY);
@@ -154,9 +158,9 @@ namespace WPProcinal.Classes
             g.DrawString("Fecha de venta:", fBodyTiulos, sb, 10, SpaceY);
             g.DrawString(FechaPago.ToString("dd/MM/yyyy hh:mm:ss"), fBodyFecha, sb, SpaceX + 30, SpaceY);
             SpaceY += 30;
-            g.DrawString("Vehículo:", fBodyTiulos, sb, 10, SpaceY);
-            g.DrawString(Placa, fBodyFecha, sb, SpaceX + 30, SpaceY);
-            SpaceY += 30;
+            //g.DrawString("Vehículo:", fBodyTiulos, sb, 10, SpaceY);
+            //g.DrawString(Placa, fBodyFecha, sb, SpaceX + 30, SpaceY);
+            //SpaceY += 30;
             g.DrawString("Solo se permite el ingreso a las instalaciones de", fBodyAvisos, sb, 10, SpaceY);
             SpaceY += 15;
             g.DrawString("Cinemas Procinal, de productos que hayan sido", fBodyAvisos, sb, 10, SpaceY);
@@ -177,20 +181,20 @@ namespace WPProcinal.Classes
             SpaceY += 50;
             DateTime fechaConvertida = DateTime.ParseExact(DateFormat, "yyyyMMdd", CultureInfo.InvariantCulture);
 
-            string dataQR = $"" +
-                    $"cnv{Utilities.GetConfiguration("Cinema")} " +
-                    $"{Utilities.GetConfiguration("CodCinema")} " +
-                    $"{Utilities.dataTransaction.Secuencia}-" +
-                    $"{fechaConvertida.ToString("yyyyMMdd")}_" +
-                    $"{Room.Split(' ')[1]}_" +
-                    $"{Funcion}_" +
-                    $"{Fila}_" +
-                    $"{Columna} " +
-                    $"{fechaConvertida.ToString("dd/MM/yyyy")} " +
-                    $"{Room.Split(' ')[1]} " +
-                    $"{Hora} " +
-                    $"{Fila}{Columna}";
-            g.DrawImage(GenerateCode(dataQR), 40, SpaceY);
+            //string dataQR = $"" +
+            //        $"cnv{Utilities.GetConfiguration("Cinema")} " +
+            //        $"{Utilities.GetConfiguration("CodCinema")} " +
+            //        $"{Utilities.dataTransaction.Secuencia}-" +
+            //        $"{fechaConvertida.ToString("yyyyMMdd")}_" +
+            //        $"{Room.Split(' ')[1]}_" +
+            //        $"{Funcion}_" +
+            //        $"{Fila}_" +
+            //        $"{Columna} " +
+            //        $"{fechaConvertida.ToString("dd/MM/yyyy")} " +
+            //        $"{Room.Split(' ')[1]} " +
+            //        $"{Hora} " +
+            //        $"{Fila}{Columna}";
+            //g.DrawImage(GenerateCode(dataQR), 40, SpaceY);
 
         }
 

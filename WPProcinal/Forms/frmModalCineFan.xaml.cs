@@ -176,7 +176,10 @@ namespace WPProcinal.Forms
             {
                 LogService.SaveRequestResponse("Validando el cine fans", ex.Message, 1);
                 txtError.Text = "No se pudo validar la información, intenta de nuevo.";
-                frmLoading.Close();
+                if (frmLoading != null)
+                {
+                    frmLoading.Close();
+                }
                 return false;
             }
         }

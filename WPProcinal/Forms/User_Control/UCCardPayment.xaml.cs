@@ -449,6 +449,7 @@ namespace WPProcinal.Forms.User_Control
                         Membresia = false,
                         Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
                     });
+
                     frmLoading.Close();
                     foreach (var item in response41)
                     {

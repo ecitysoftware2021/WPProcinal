@@ -429,42 +429,45 @@ namespace WPProcinal.Classes
 
                 printCombo.Placa = dataTransaction.PLACA;
                 printCombo.Secuencia = dataTransaction.Secuencia;
+
                 foreach (var seat in Seats)
                 {
-                    if (seat.Price != 0)
-                    {
-                        printCombo.Movie = dipMap.MovieName;
-                        printCombo.Time = dipMap.HourFunction;
-                        printCombo.Hora = dipMap.HourFormat;
-                        printCombo.Room = dipMap.RoomName;
-                        printCombo.Date = dipMap.Day; //Fecha
-                        printCombo.DateFormat = dipMap.Date; //Fecha
-                        printCombo.Funcion = dipMap.IDFuncion;
-                        printCombo.Seat = seat.Name;
-                        printCombo.Fila = seat.Letter;
-                        printCombo.Columna = int.Parse(seat.Number);
-                        printCombo.FechaPago = DateTime.Now;
-                        printCombo.Valor = seat.Price;
-                        printCombo.Tramite = "Boleto de Cine";
-                        printCombo.Category = dipMap.Category;
-
-                        printCombo.Formato = Utilities.dataTransaction.MovieFormat;
-                        printCombo.TipoSala = Utilities.dataTransaction.TipoSala;
-                        printCombo.IDTransaccion = IDTransactionDB.ToString();
-
-                        if (dataTransaction.dataUser.Tarjeta != null && dataTransaction.dataUser.Puntos > 0)
-                        {
-                            printCombo.Puntos = dataTransaction.dataUser.Puntos.ToString();
-                        }
-                        else
-                        {
-                            printCombo.Puntos = "0";
-                        }
-
-                        i++;
-                        printCombo.PrintTickets();
-                    }
+                    printCombo.Seat.Add(seat.Name);
                 }
+
+
+                printCombo.Movie = dipMap.MovieName.ToLower();
+                printCombo.Time = dipMap.HourFunction;
+                printCombo.Hora = dipMap.HourFormat;
+                printCombo.Room = dipMap.RoomName;
+                printCombo.Date = dipMap.Day; //Fecha
+                printCombo.DateFormat = dipMap.Date; //Fecha
+                printCombo.Funcion = dipMap.IDFuncion;
+                //printCombo.Seat = seat.Name;
+                //printCombo.Fila = seat.Letter;
+                //printCombo.Columna = int.Parse(seat.Number);
+                printCombo.FechaPago = DateTime.Now;
+                foreach (var item in Seats)
+                {
+                    printCombo.Valor += item.Price;
+                }
+                printCombo.Category = dipMap.Category;
+
+                printCombo.Formato = Utilities.dataTransaction.MovieFormat;
+                printCombo.TipoSala = Utilities.dataTransaction.TipoSala;
+                printCombo.IDTransaccion = IDTransactionDB.ToString();
+
+                if (dataTransaction.dataUser.Tarjeta != null && dataTransaction.dataUser.SaldoFavor.Value > 0)
+                {
+                    printCombo.Puntos = dataTransaction.dataUser.SaldoFavor.Value.ToString("$ #,##0");
+                }
+                else
+                {
+                    printCombo.Puntos = "$ 0.00";
+                }
+
+                printCombo.PrintTickets();
+
 
                 if (DataService41._Combos.Count > 0)
                 {
