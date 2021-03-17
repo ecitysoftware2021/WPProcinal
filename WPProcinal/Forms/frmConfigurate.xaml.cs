@@ -53,7 +53,21 @@ namespace WPProcinal.Forms
                 Directory.CreateDirectory(slides);
             }
 
-            if (!Utilities.GetConfiguration("CashPayState").Equals("1"))
+
+            Switcher.Navigator = this;
+            try
+            {
+                api = new ApiLocal();
+            }
+            catch (Exception ex)
+            {
+                ShowModalError(ex.Message);
+            }
+        }
+
+        private void SetVisibility()
+        {
+            if (!Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
             {
                 okAceptadorBilletes.Visibility = Visibility.Hidden;
                 badAceptadorBilletes.Visibility = Visibility.Hidden;
@@ -73,16 +87,6 @@ namespace WPProcinal.Forms
                 Grid.SetRow(badImpresora, 2);
 
             }
-
-            Switcher.Navigator = this;
-            try
-            {
-                api = new ApiLocal();
-            }
-            catch (Exception ex)
-            {
-                ShowModalError(ex.Message);
-            }
         }
 
         /// <summary>
@@ -99,6 +103,7 @@ namespace WPProcinal.Forms
             if (api != null)
             {
                 GetToken();
+
             }
         }
 
@@ -114,6 +119,7 @@ namespace WPProcinal.Forms
                 if (state)
                 {
                     var response = await api.GetResponse(new Uptake.RequestApi(), "InitPaypad");
+
                     if (response.CodeError == 200)
                     {
                         Dispatcher.BeginInvoke((Action)delegate
@@ -123,14 +129,14 @@ namespace WPProcinal.Forms
                         });
 
                         Utilities.dataPaypad = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
-
+                        SetVisibility();
                         if (Utilities.dataPaypad.StateUpdate)
                         {
                             ShowModalError("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
                         }
                         else if (Utilities.dataPaypad.State)
                         {
-                            if (Utilities.GetConfiguration("CashPayState").Equals("1"))
+                            if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
                             {
                                 if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser)
                                 {
@@ -139,24 +145,14 @@ namespace WPProcinal.Forms
                                     {
                                         util = new Utilities();
                                     }
-                                    if (configurateActive != 1)
+
+                                    ChangeStatusPeripherals();
+                                    Task.Run(() =>
                                     {
-                                        Utilities.LoadData();
-                                        Dispatcher.BeginInvoke((Action)delegate
-                                        {
-                                            Switcher.Navigate(new UCCinema());
-                                        });
-                                    }
-                                    else
-                                    {
-                                        ChangeStatusPeripherals();
-                                        Task.Run(() =>
-                                        {
-                                            Utilities.control.OpenSerialPorts();
-                                            Utilities.control.Start();
-                                            Utilities.control.StartCoinAcceptorDispenser();
-                                        });
-                                    }
+                                        Utilities.control.OpenSerialPorts();
+                                        Utilities.control.Start();
+                                        Utilities.control.StartCoinAcceptorDispenser();
+                                    });
                                 }
                                 else
                                 {
@@ -198,14 +194,15 @@ namespace WPProcinal.Forms
 
         private void ChangeStatusPeripherals()
         {
-            if (stateMoney)
-            {
-                peripheralsValidated++;
-            }
-            if (Utilities.GetConfiguration("CashPayState").Equals("1"))
+            //if (stateMoney)
+            //{
+            //    peripheralsValidated++;
+            //}
+            if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
             {
                 Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
                 {
+                    Utilities.control.callbackError = null;
                     Dispatcher.BeginInvoke((Action)delegate
                     {
                         Utilities.control.callbackError = null;
@@ -219,30 +216,30 @@ namespace WPProcinal.Forms
                     LogService.SaveRequestResponse(Title, Message, State);
                 };
 
-                Utilities.control.callbackStatusBillAceptance = State =>
-                {
+                //Utilities.control.callbackStatusBillAceptance = State =>
+                //{
 
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        Utilities.control.callbackStatusBillAceptance = null;
-                        peripheralsValidated++;
-                        okAceptadorBilletes.Visibility = Visibility.Visible;
-                        badAceptadorBilletes.Visibility = Visibility.Hidden;
-                        CheckPeripheralsAndContinue();
-                    });
-                };
+                //    Dispatcher.BeginInvoke((Action)delegate
+                //    {
+                //        Utilities.control.callbackStatusBillAceptance = null;
+                //        peripheralsValidated++;
+                //        okAceptadorBilletes.Visibility = Visibility.Visible;
+                //        badAceptadorBilletes.Visibility = Visibility.Hidden;
+                //        CheckPeripheralsAndContinue();
+                //    });
+                //};
 
-                Utilities.control.callbackStatusCoinAceptanceDispenser = State =>
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        Utilities.control.callbackStatusCoinAceptanceDispenser = null;
-                        peripheralsValidated++;
-                        okMonederos.Visibility = Visibility.Visible;
-                        badMonederos.Visibility = Visibility.Hidden;
-                        CheckPeripheralsAndContinue();
-                    });
-                };
+                //Utilities.control.callbackStatusCoinAceptanceDispenser = State =>
+                //{
+                //    Dispatcher.BeginInvoke((Action)delegate
+                //    {
+                //        Utilities.control.callbackStatusCoinAceptanceDispenser = null;
+                //        peripheralsValidated++;
+                //        okMonederos.Visibility = Visibility.Visible;
+                //        badMonederos.Visibility = Visibility.Hidden;
+                //        CheckPeripheralsAndContinue();
+                //    });
+                //};
 
                 Utilities.control.callbackToken = isSucces =>
                 {
@@ -250,21 +247,34 @@ namespace WPProcinal.Forms
                     {
                         Utilities.control.callbackToken = null;
                         peripheralsValidated++;
+                        okAceptadorBilletes.Visibility = Visibility.Visible;
+                        badAceptadorBilletes.Visibility = Visibility.Hidden;
+
+                        okMonederos.Visibility = Visibility.Visible;
+                        badMonederos.Visibility = Visibility.Hidden;
+
                         okDispensadorBilletes.Visibility = Visibility.Visible;
                         badDispensadorBilletes.Visibility = Visibility.Hidden;
+
+                        okImpresora.Visibility = Visibility.Visible;
+                        badImpresora.Visibility = Visibility.Hidden;
                         CheckPeripheralsAndContinue();
                     });
                 };
 
             }
-
-            Dispatcher.BeginInvoke((Action)delegate
+            else
             {
-                peripheralsValidated++;
-                okImpresora.Visibility = Visibility.Visible;
-                badImpresora.Visibility = Visibility.Hidden;
                 CheckPeripheralsAndContinue();
-            });
+            }
+
+            //Dispatcher.BeginInvoke((Action)delegate
+            //{
+            //    peripheralsValidated++;
+            //    okImpresora.Visibility = Visibility.Visible;
+            //    badImpresora.Visibility = Visibility.Hidden;
+            //    CheckPeripheralsAndContinue();
+            //});
         }
 
         void SetCallbackNull()
@@ -272,27 +282,30 @@ namespace WPProcinal.Forms
             try
             {
                 peripheralsValidated = 0;
-                Utilities.control.callbackToken = null;
-                Utilities.control.callbackStatusCoinAceptanceDispenser = null;
-                Utilities.control.callbackStatusBillAceptance = null;
-                Utilities.control.callbackError = null;
+                if (Utilities.control != null)
+                {
+                    Utilities.control.callbackToken = null;
+                    Utilities.control.callbackStatusCoinAceptanceDispenser = null;
+                    Utilities.control.callbackStatusBillAceptance = null;
+                    Utilities.control.callbackError = null;
+                }
             }
             catch { }
         }
 
         private void CheckPeripheralsAndContinue()
         {
-            if (peripheralsValidated >= PeripheralsToCheck)
+            //if (peripheralsValidated >= Utilities.dataPaypad.PaypadConfiguration.peripheralS_TO_CHECK)
+            //{
+            Task.Run(() =>
             {
-                Task.Run(() =>
+                Thread.Sleep(1000);
+                Dispatcher.BeginInvoke((Action)delegate
                 {
-                    Thread.Sleep(1000);
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        Switcher.Navigate(new UCCinema());
-                    });
+                    Switcher.Navigate(new UCCinema());
                 });
-            }
+            });
+            //}
         }
 
         private void ShowModalError(string description, bool stop = false)
