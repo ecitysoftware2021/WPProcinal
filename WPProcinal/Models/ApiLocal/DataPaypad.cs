@@ -22,7 +22,7 @@ namespace WPProcinal.Models.ApiLocal
         public int paypaD_ID { get; set; }
         public string bilL_PORT { get; set; }
         public string coiN_PORT { get; set; }
-        public object unifieD_PORT { get; set; }
+        public string unifieD_PORT { get; set; }
         public string printeR_PORT { get; set; }
         public int printeR_BAUD_RATE { get; set; }
         public string dispenseR_CONFIGURATION { get; set; }

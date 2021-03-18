@@ -15,8 +15,6 @@ namespace WPProcinal.Forms
     public partial class frmConfirmationModal : Window
     {
         #region Variables Locales
-        int payCardState = int.Parse(Utilities.GetConfiguration("CardPayState"));
-        int payCashState = int.Parse(Utilities.GetConfiguration("CashPayState"));
         bool _visibleCombo = false;
 
         decimal totalModal = 0;
@@ -104,8 +102,8 @@ namespace WPProcinal.Forms
         /// </summary>
         private void HideOrShowButtons()
         {
-            BtnCard.Visibility = payCardState == 1 ? Visibility.Visible : Visibility.Hidden;
-            BtnCash.Visibility = payCashState == 1 ? Visibility.Visible : Visibility.Hidden;
+            BtnCard.Visibility = Utilities.dataPaypad.PaypadConfiguration.enablE_CARD ? Visibility.Visible : Visibility.Hidden;
+            BtnCash.Visibility = Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS ? Visibility.Visible : Visibility.Hidden;
         }
 
 

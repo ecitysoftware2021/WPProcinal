@@ -149,9 +149,19 @@ namespace WPProcinal.Forms
                                     ChangeStatusPeripherals();
                                     Task.Run(() =>
                                     {
-                                        Utilities.control.OpenSerialPorts();
-                                        Utilities.control.Start();
-                                        Utilities.control.StartCoinAcceptorDispenser();
+                                        if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
+                                        {
+                                            Utilities.control.OpenSerialPorts();
+                                            Utilities.control.Start();
+                                            Utilities.control.StartCoinAcceptorDispenser();
+                                        }
+                                        else
+                                        {
+                                            Utilities.controlUnified.OpenSerialPorts();
+                                            Utilities.controlUnified.Start();
+                                            Utilities.controlUnified.StartCoinAcceptorDispenser();
+                                        }
+                                        
                                     });
                                 }
                                 else

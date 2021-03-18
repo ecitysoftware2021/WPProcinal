@@ -28,12 +28,26 @@ namespace WPProcinal.Classes
 {
     public class Utilities
     {
+        /// <summary>
+        /// Objeto global para el control de los periféricos
+        /// </summary>
+        public static ControlPeripherals control;
+        public static ControlPeripheralsUnified controlUnified;
         public Utilities()
         {
             try
             {
-                control = new ControlPeripherals();
-                control.StopAceptance();
+                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
+                {
+                    control = new ControlPeripherals();
+                    control.StopAceptance();
+                }
+                else
+                {
+                    controlUnified = new ControlPeripheralsUnified();
+                    controlUnified.StopAceptance();
+                }
+
                 controlScanner = new ControlScanner();
                 dataTransaction = new DataTransaction();
             }
@@ -110,10 +124,7 @@ namespace WPProcinal.Classes
             }
         }
 
-        /// <summary>
-        /// Objeto global para el control de los periféricos
-        /// </summary>
-        public static ControlPeripherals control;
+
 
         public static ControlScanner controlScanner;
 
