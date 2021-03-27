@@ -45,7 +45,15 @@ namespace WPProcinal.Forms.User_Control
 
                 }
                 stateUpdate = true;
-                Utilities.control.StartValues();
+                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
+                {
+                    Utilities.control.StartValues();
+                }
+                else
+                {
+                    Utilities.controlUnified.StartValues();
+                }
+
                 if (Utilities.dataTransaction.PayVal > 0)
                 {
                     payState = true;
@@ -94,65 +102,131 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 payState = false;
-                Utilities.control.callbackValueIn = enterValue =>
+                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
                 {
-                    if (enterValue > 0)
+                    Utilities.control.callbackValueIn = enterValue =>
                     {
-                        PaymentViewModel.ValorIngresado += enterValue;
-                        if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal)
+                        if (enterValue > 0)
                         {
-                            Dispatcher.BeginInvoke((Action)delegate
+                            PaymentViewModel.ValorIngresado += enterValue;
+                            if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal)
                             {
-                                btnCancelar.IsEnabled = false;
-                                btnCancelar.Visibility = Visibility.Hidden;
-                                Utilities.control.callbackValueIn = null;
+                                Dispatcher.BeginInvoke((Action)delegate
+                                {
+                                    btnCancelar.IsEnabled = false;
+                                    btnCancelar.Visibility = Visibility.Hidden;
+                                    Utilities.control.callbackValueIn = null;
 
+                                });
+                            }
+                            ProccesValue(new DataMoneyNotification
+                            {
+                                enterValue = enterValue,
+                                opt = 2,
+                                quantity = 1,
+                                idTransactionAPi = Utilities.IDTransactionDB
                             });
                         }
-                        ProccesValue(new DataMoneyNotification
-                        {
-                            enterValue = enterValue,
-                            opt = 2,
-                            quantity = 1,
-                            idTransactionAPi = Utilities.IDTransactionDB
-                        });
-                    }
-                };
+                    };
 
-                Utilities.control.callbackTotalIn = enterTotal =>
-                {
-
-
-                    Utilities.control.callbackTotalIn = null;
-
-                    if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
+                    Utilities.control.callbackTotalIn = enterTotal =>
                     {
-                        ActivateTimer(true);
 
-                        ReturnMoney(PaymentViewModel.ValorSobrante, true);
 
-                    }
-                    else
-                    {
-                        if (state)
+                        Utilities.control.callbackTotalIn = null;
+
+                        if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                         {
-                            state = false;
-                            Buytickets();
+                            ActivateTimer(true);
+
+                            ReturnMoney(PaymentViewModel.ValorSobrante, true);
+
                         }
-                    }
-                };
+                        else
+                        {
+                            if (state)
+                            {
+                                state = false;
+                                Buytickets();
+                            }
+                        }
+                    };
 
-                Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
+                    Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
+                    {
+                        AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                    };
+
+                    Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
+                    {
+                        LogService.SaveRequestResponse(Title, Message, State);
+                    };
+
+                    Utilities.control.StartAceptance(PaymentViewModel.PayValue);
+                }
+                else
                 {
-                    AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                };
+                    Utilities.controlUnified.callbackValueIn = enterValue =>
+                    {
+                        if (enterValue > 0)
+                        {
+                            PaymentViewModel.ValorIngresado += enterValue;
+                            if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal)
+                            {
+                                Dispatcher.BeginInvoke((Action)delegate
+                                {
+                                    btnCancelar.IsEnabled = false;
+                                    btnCancelar.Visibility = Visibility.Hidden;
+                                    Utilities.controlUnified.callbackValueIn = null;
 
-                Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
-                {
-                    LogService.SaveRequestResponse(Title, Message, State);
-                };
+                                });
+                            }
+                            ProccesValue(new DataMoneyNotification
+                            {
+                                enterValue = enterValue,
+                                opt = 2,
+                                quantity = 1,
+                                idTransactionAPi = Utilities.IDTransactionDB
+                            });
+                        }
+                    };
 
-                Utilities.control.StartAceptance(PaymentViewModel.PayValue);
+                    Utilities.controlUnified.callbackTotalIn = enterTotal =>
+                    {
+
+
+                        Utilities.controlUnified.callbackTotalIn = null;
+
+                        if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
+                        {
+                            ActivateTimer(true);
+
+                            ReturnMoney(PaymentViewModel.ValorSobrante, true);
+
+                        }
+                        else
+                        {
+                            if (state)
+                            {
+                                state = false;
+                                Buytickets();
+                            }
+                        }
+                    };
+
+                    Utilities.controlUnified.callbackError = (error, description, EError, ELEvelError) =>
+                    {
+                        AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                    };
+
+                    Utilities.controlUnified.CallBackSaveRequestResponse = (Title, Message, State) =>
+                    {
+                        LogService.SaveRequestResponse(Title, Message, State);
+                    };
+
+                    Utilities.controlUnified.StartAceptance(PaymentViewModel.PayValue);
+                }
+
             }
             catch (Exception ex)
             {
@@ -233,85 +307,171 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.Speack("Estamos contando el dinero, espera un momento por favor.");
                 frmLoading.Show();
                 totalReturn = false;
-                Utilities.control.callbackLog = log =>
+                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
                 {
-                    ProccesValue(log, Utilities.IDTransactionDB);
-                };
-
-                Utilities.control.callbackTotalOut = totalOut =>
-                {
-                    Utilities.control.callbackTotalOut = null;
-                    Utilities.dataTransaction.ValueDelivery = (long)totalOut;
-                    totalReturn = true;
-                    if (state)
+                    Utilities.control.callbackLog = log =>
                     {
-                        try
-                        {
-                            SetCallBacksNull();
-                            timer.CallBackStop?.Invoke(1);
-                        }
-                        catch { }
-                        Buytickets();
-                    }
-                    else
+                        ProccesValue(log, Utilities.IDTransactionDB);
+                    };
+
+                    Utilities.control.callbackTotalOut = totalOut =>
                     {
-                        Cancelled();
-                    }
-                };
-
-                Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
-                {
-                    AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                };
-
-                Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
-                {
-                    LogService.SaveRequestResponse(Title, Message, State);
-                };
-
-                Utilities.control.callbackOut = delivery =>
-                {
-
-                    Utilities.control.callbackOut = null;
-                    if (!totalReturn)
-                    {
-                        Utilities.dataTransaction.ValueDelivery = (long)delivery;
-
-                        try
+                        Utilities.control.callbackTotalOut = null;
+                        Utilities.dataTransaction.ValueDelivery = (long)totalOut;
+                        totalReturn = true;
+                        if (state)
                         {
-                            timer.CallBackStop?.Invoke(1);
-                            SetCallBacksNull();
-                        }
-                        catch { }
-                        if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal && state)
-                        {
-                            if (delivery != returnValue)
+                            try
                             {
-                                Dispatcher.BeginInvoke((Action)delegate
-                                {
-                                    frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
-                                    modal.ShowDialog();
-                                    Buytickets();
-                                });
+                                SetCallBacksNull();
+                                timer.CallBackStop?.Invoke(1);
                             }
-                            else
-                            {
-                                Buytickets();
-                            }
+                            catch { }
+                            Buytickets();
                         }
                         else
                         {
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0"));
-                                modal.ShowDialog();
-                                Cancelled();
-                            });
+                            Cancelled();
                         }
-                    }
-                };
+                    };
 
-                Utilities.control.StartDispenser(returnValue);
+                    Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
+                    {
+                        AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                    };
+
+                    Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
+                    {
+                        LogService.SaveRequestResponse(Title, Message, State);
+                    };
+
+                    Utilities.control.callbackOut = delivery =>
+                    {
+
+                        Utilities.control.callbackOut = null;
+                        if (!totalReturn)
+                        {
+                            Utilities.dataTransaction.ValueDelivery = (long)delivery;
+
+                            try
+                            {
+                                timer.CallBackStop?.Invoke(1);
+                                SetCallBacksNull();
+                            }
+                            catch { }
+                            if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal && state)
+                            {
+                                if (delivery != returnValue)
+                                {
+                                    Dispatcher.BeginInvoke((Action)delegate
+                                    {
+                                        frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
+                                        modal.ShowDialog();
+                                        Buytickets();
+                                    });
+                                }
+                                else
+                                {
+                                    Buytickets();
+                                }
+                            }
+                            else
+                            {
+                                Dispatcher.BeginInvoke((Action)delegate
+                                {
+                                    frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0"));
+                                    modal.ShowDialog();
+                                    Cancelled();
+                                });
+                            }
+                        }
+                    };
+
+                    Utilities.control.StartDispenser(returnValue, Utilities.dataPaypad.PaypadConfiguration.dispenseR_CONFIGURATION.Split('-'));
+                }
+                else
+                {
+                    Utilities.controlUnified.callbackLog = log =>
+                    {
+                        ProccesValue(log, Utilities.IDTransactionDB);
+                    };
+
+                    Utilities.controlUnified.callbackTotalOut = totalOut =>
+                    {
+                        Utilities.controlUnified.callbackTotalOut = null;
+                        Utilities.dataTransaction.ValueDelivery = (long)totalOut;
+                        totalReturn = true;
+                        if (state)
+                        {
+                            try
+                            {
+                                SetCallBacksNull();
+                                timer.CallBackStop?.Invoke(1);
+                            }
+                            catch { }
+                            Buytickets();
+                        }
+                        else
+                        {
+                            Cancelled();
+                        }
+                    };
+
+                    Utilities.controlUnified.callbackError = (error, description, EError, ELEvelError) =>
+                    {
+                        AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                    };
+
+                    Utilities.controlUnified.CallBackSaveRequestResponse = (Title, Message, State) =>
+                    {
+                        LogService.SaveRequestResponse(Title, Message, State);
+                    };
+
+                    Utilities.controlUnified.callbackOut = delivery =>
+                    {
+
+                        Utilities.controlUnified.callbackOut = null;
+                        if (!totalReturn)
+                        {
+                            Utilities.dataTransaction.ValueDelivery = (long)delivery;
+
+                            try
+                            {
+                                timer.CallBackStop?.Invoke(1);
+                                SetCallBacksNull();
+                            }
+                            catch { }
+                            if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal && state)
+                            {
+                                if (delivery != returnValue)
+                                {
+                                    Dispatcher.BeginInvoke((Action)delegate
+                                    {
+                                        frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
+                                        modal.ShowDialog();
+                                        Buytickets();
+                                    });
+                                }
+                                else
+                                {
+                                    Buytickets();
+                                }
+                            }
+                            else
+                            {
+                                Dispatcher.BeginInvoke((Action)delegate
+                                {
+                                    frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0"));
+                                    modal.ShowDialog();
+                                    Cancelled();
+                                });
+                            }
+                        }
+                    };
+
+                    Utilities.controlUnified.StartDispenser(returnValue);
+                }
+
                 frmLoading.Close();
             }
             catch (Exception ex)
@@ -782,7 +942,14 @@ namespace WPProcinal.Forms.User_Control
                 this.IsEnabled = false;
                 FrmLoading frmLoading = new FrmLoading("Apagando bilelteros...");
                 frmLoading.Show();
-                Utilities.control.StopAceptance();
+                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
+                {
+                    Utilities.control.StopAceptance();
+                }
+                else
+                {
+                    Utilities.controlUnified.StopAceptance();
+                }
                 Thread.Sleep(1000);
                 frmLoading.Close();
                 if (PaymentViewModel.ValorIngresado > 0)

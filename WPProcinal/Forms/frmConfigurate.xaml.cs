@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PrinterValidator;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -22,11 +21,6 @@ namespace WPProcinal.Forms
         ApiLocal api;
         bool state;
         Utilities util;
-        int peripheralsValidated = 0;
-        bool stateMoney = false;
-        int PeripheralsToCheck = int.Parse(Utilities.GetConfiguration("PeripheralsToCheck"));
-        int configurateActive = int.Parse(Utilities.GetConfiguration("ConfigurateActive"));
-        Validator validator = new Validator();
         public frmConfigurate()
         {
             var ProcessApp = Process.GetProcessesByName("WPProcinal");
@@ -140,7 +134,6 @@ namespace WPProcinal.Forms
                             {
                                 if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser)
                                 {
-                                    stateMoney = true;
                                     if (util == null)
                                     {
                                         util = new Utilities();
@@ -151,17 +144,17 @@ namespace WPProcinal.Forms
                                     {
                                         if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
                                         {
-                                            Utilities.control.OpenSerialPorts();
+                                            Utilities.control.OpenSerialPorts(
+                                                Utilities.dataPaypad.PaypadConfiguration.bilL_PORT,
+                                                Utilities.dataPaypad.PaypadConfiguration.coiN_PORT);
                                             Utilities.control.Start();
                                             Utilities.control.StartCoinAcceptorDispenser();
                                         }
                                         else
                                         {
-                                            Utilities.controlUnified.OpenSerialPorts();
+                                            Utilities.controlUnified.OpenSerialPorts(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT);
                                             Utilities.controlUnified.Start();
-                                            Utilities.controlUnified.StartCoinAcceptorDispenser();
                                         }
-                                        
                                     });
                                 }
                                 else
@@ -204,10 +197,6 @@ namespace WPProcinal.Forms
 
         private void ChangeStatusPeripherals()
         {
-            //if (stateMoney)
-            //{
-            //    peripheralsValidated++;
-            //}
             if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
             {
                 Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
@@ -226,37 +215,12 @@ namespace WPProcinal.Forms
                     LogService.SaveRequestResponse(Title, Message, State);
                 };
 
-                //Utilities.control.callbackStatusBillAceptance = State =>
-                //{
-
-                //    Dispatcher.BeginInvoke((Action)delegate
-                //    {
-                //        Utilities.control.callbackStatusBillAceptance = null;
-                //        peripheralsValidated++;
-                //        okAceptadorBilletes.Visibility = Visibility.Visible;
-                //        badAceptadorBilletes.Visibility = Visibility.Hidden;
-                //        CheckPeripheralsAndContinue();
-                //    });
-                //};
-
-                //Utilities.control.callbackStatusCoinAceptanceDispenser = State =>
-                //{
-                //    Dispatcher.BeginInvoke((Action)delegate
-                //    {
-                //        Utilities.control.callbackStatusCoinAceptanceDispenser = null;
-                //        peripheralsValidated++;
-                //        okMonederos.Visibility = Visibility.Visible;
-                //        badMonederos.Visibility = Visibility.Hidden;
-                //        CheckPeripheralsAndContinue();
-                //    });
-                //};
 
                 Utilities.control.callbackToken = isSucces =>
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
                         Utilities.control.callbackToken = null;
-                        peripheralsValidated++;
                         okAceptadorBilletes.Visibility = Visibility.Visible;
                         badAceptadorBilletes.Visibility = Visibility.Hidden;
 
@@ -277,27 +241,21 @@ namespace WPProcinal.Forms
             {
                 CheckPeripheralsAndContinue();
             }
-
-            //Dispatcher.BeginInvoke((Action)delegate
-            //{
-            //    peripheralsValidated++;
-            //    okImpresora.Visibility = Visibility.Visible;
-            //    badImpresora.Visibility = Visibility.Hidden;
-            //    CheckPeripheralsAndContinue();
-            //});
         }
 
         void SetCallbackNull()
         {
             try
             {
-                peripheralsValidated = 0;
                 if (Utilities.control != null)
                 {
                     Utilities.control.callbackToken = null;
-                    Utilities.control.callbackStatusCoinAceptanceDispenser = null;
-                    Utilities.control.callbackStatusBillAceptance = null;
                     Utilities.control.callbackError = null;
+                }
+                else if (Utilities.controlUnified != null)
+                {
+                    Utilities.controlUnified.callbackToken = null;
+                    Utilities.controlUnified.callbackError = null;
                 }
             }
             catch { }
@@ -305,8 +263,6 @@ namespace WPProcinal.Forms
 
         private void CheckPeripheralsAndContinue()
         {
-            //if (peripheralsValidated >= Utilities.dataPaypad.PaypadConfiguration.peripheralS_TO_CHECK)
-            //{
             Task.Run(() =>
             {
                 Thread.Sleep(1000);
@@ -315,7 +271,6 @@ namespace WPProcinal.Forms
                     Switcher.Navigate(new UCCinema());
                 });
             });
-            //}
         }
 
         private void ShowModalError(string description, bool stop = false)
@@ -334,7 +289,7 @@ namespace WPProcinal.Forms
                 else
                 {
                     modal = new frmModal(description, stop);
-                    modal.ShowDialog();
+                    modal.Show();
                     Utilities.UpdateApp();
                 }
             });
