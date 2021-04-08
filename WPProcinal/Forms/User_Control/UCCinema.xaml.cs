@@ -64,6 +64,12 @@ namespace WPProcinal.Forms.User_Control
             Task.Run(() =>
             {
                 Utilities.ReValidatePayPad();
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    frmModal modal = new frmModal("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
+                    modal.ShowDialog();
+                    Utilities.UpdateApp();
+                });
             });
 
         }
@@ -85,13 +91,9 @@ namespace WPProcinal.Forms.User_Control
                     _imageSleader.Start();
                 }
 
-                //WCFServices41 a = new WCFServices41();
-
-                //WCFServices41.ConsultResolution(null);
             }
             catch (Exception ex)
             {
-                //Error.SaveLogError(MethodBase.GetCurrentMethod().Name, this.GetType().Name, ex, MessageResource.StandarError);
             }
         }
 
@@ -158,7 +160,7 @@ namespace WPProcinal.Forms.User_Control
                 });
                 return false;
             }
-            if (Utilities.GetConfiguration("CashPayState").Equals("1"))
+            if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
             {
                 if (!Utilities.dataPaypad.State)
                 {
