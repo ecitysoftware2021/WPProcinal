@@ -64,12 +64,15 @@ namespace WPProcinal.Forms.User_Control
             Task.Run(() =>
             {
                 Utilities.ReValidatePayPad();
-                Dispatcher.BeginInvoke((Action)delegate
+                if (Utilities.dataPaypad.StateUpdate)
                 {
-                    frmModal modal = new frmModal("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
-                    modal.ShowDialog();
-                    Utilities.UpdateApp();
-                });
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        frmModal modal = new frmModal("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
+                        modal.Show();
+                        Utilities.UpdateApp();
+                    });
+                }
             });
 
         }
@@ -155,7 +158,7 @@ namespace WPProcinal.Forms.User_Control
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     frmModal modal = new frmModal("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
-                    modal.ShowDialog();
+                    modal.Show();
                     Utilities.UpdateApp();
                 });
                 return false;
