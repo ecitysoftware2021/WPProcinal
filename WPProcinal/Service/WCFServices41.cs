@@ -38,7 +38,7 @@ namespace WPProcinal.Service
             using (var w = new WebClient())
             {
                 var data = string.Empty;
-                string url = Utilities.GetConfiguration("WebServiceUrl");
+                string url = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.webServiceUrl;
                 try
                 {
                     w.Encoding = Encoding.UTF8;
@@ -1327,7 +1327,7 @@ namespace WPProcinal.Service
         public string Direccion { get; set; }
         public string Correo { get { return Login; } }
         public string Genero { get; } = "accion";
-        public string Cinema { get; } = Utilities.GetConfiguration("CodCinema");
+        public string Cinema { get; } = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema.ToString();
         public string Reservas { get; } = "N";
         public string Noticias { get; } = "N";
         public string Cartelera { get; } = "N";
@@ -1400,17 +1400,17 @@ namespace WPProcinal.Service
         /// <summary>
         /// URL de la api de score
         /// </summary>
-        public static string APISCORE = Utilities.GetConfiguration("ScoreService");
+        public static string APISCORE = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.scoreService;
 
         /// <summary>
         /// Llave de desencripción de las respuestas de score
         /// </summary>
-        public static string SCOREKEY = Utilities.GetConfiguration("ScoreKey");
+        public static string SCOREKEY = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.scoreKey;
 
         /// <summary>
         /// URL de los posters de las películas
         /// </summary>
-        public static string UrlImages = Utilities.GetConfiguration("UrlImages");
+        public static string UrlImages = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.urlImages;
 
         /// <summary>
         /// Objeto para almacenar la data de la película seleccionada por el usuario

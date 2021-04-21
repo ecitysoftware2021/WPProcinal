@@ -667,14 +667,14 @@ namespace WPProcinal.Forms.User_Control
             try
             {
 
-                if (Utilities.GetConfiguration("ModalPlate").Equals("1") && Utilities.PlateObligatory)
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.modalPlate && Utilities.PlateObligatory)
                 {
                     WPlateModal wPlate = new WPlateModal();
                     wPlate.ShowDialog();
                 }
                 frmLoading.Show();
 
-                if (Utilities.GetConfiguration("Ambiente").Equals("1"))
+                if (Utilities.dataPaypad.PaypadConfiguration.iS_PRODUCTION)
                 {
                     List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
                     foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
@@ -819,9 +819,9 @@ namespace WPProcinal.Forms.User_Control
                     frmLoading.Show();
                     DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
                     {
-                        Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                        Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                         Secuencial = Convert.ToInt32(Utilities.dataTransaction.Secuencia),
-                        teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
                         tercero = 1
                     });
                     frmLoading.Close();
@@ -870,7 +870,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                string timerInactividad = Utilities.GetConfiguration("TimerInactividad");
+                string timerInactividad = Utilities.dataPaypad.PaypadConfiguration.inactivitY_TIMER;
                 timer = new TimerTiempo(timerInactividad);
                 timer.CallBackClose = response =>
                 {

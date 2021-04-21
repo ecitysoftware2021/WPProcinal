@@ -31,7 +31,7 @@ namespace WPProcinal.Classes
         public int Hora { get; set; }
         public int SpaceY { get; set; }
         public int SpaceX { get; set; }
-        public string Cinema { get { return Dictionaries.Cinemas[Utilities.GetConfiguration("CodCinema")]; } }
+        public string Cinema { get { return Dictionaries.Cinemas[Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema.ToString()]; } }
 
         public string Movie { get; set; }
         public string Secuencia { get; set; }
@@ -87,14 +87,14 @@ namespace WPProcinal.Classes
             SpaceY += 10;
 
 
-            if (Utilities.GetConfiguration("CodCinema").Equals("304")
-                || Utilities.GetConfiguration("CodCinema").Equals("302"))
+            if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema == 304
+                || Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema == 302)
             {
                 g.DrawString(Cinema, fBodySala, sb, 70, SpaceY);
                 SpaceY += 30;
                 g.DrawString("Promotora Nacional de Cines S.A.S", fBodyTiulos, sb, 50, SpaceY - 10);
                 SpaceY += 15;
-                g.DrawString(Utilities.GetConfiguration("NitPromotora"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+                g.DrawString(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.nitPromotora, fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
             }
             else
             {
@@ -102,7 +102,7 @@ namespace WPProcinal.Classes
                 SpaceY += 30;
                 g.DrawString("Colombia de Cines S.A", fBodyTiulos, sb, 80, SpaceY - 10);
                 SpaceY += 15;
-                g.DrawString(Utilities.GetConfiguration("Nit"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+                g.DrawString(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.nit, fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
             }
             SpaceY += 20;
 
@@ -181,21 +181,6 @@ namespace WPProcinal.Classes
             SpaceY += 50;
             DateTime fechaConvertida = DateTime.ParseExact(DateFormat, "yyyyMMdd", CultureInfo.InvariantCulture);
 
-            //string dataQR = $"" +
-            //        $"cnv{Utilities.GetConfiguration("Cinema")} " +
-            //        $"{Utilities.GetConfiguration("CodCinema")} " +
-            //        $"{Utilities.dataTransaction.Secuencia}-" +
-            //        $"{fechaConvertida.ToString("yyyyMMdd")}_" +
-            //        $"{Room.Split(' ')[1]}_" +
-            //        $"{Funcion}_" +
-            //        $"{Fila}_" +
-            //        $"{Columna} " +
-            //        $"{fechaConvertida.ToString("dd/MM/yyyy")} " +
-            //        $"{Room.Split(' ')[1]} " +
-            //        $"{Hora} " +
-            //        $"{Fila}{Columna}";
-            //g.DrawImage(GenerateCode(dataQR), 40, SpaceY);
-
         }
 
 
@@ -241,14 +226,14 @@ namespace WPProcinal.Classes
                 SpaceY += 10;
 
 
-                if (Utilities.GetConfiguration("CodCinema").Equals("304")
-                    || Utilities.GetConfiguration("CodCinema").Equals("302"))
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema == 304
+                    || Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema == 302)
                 {
                     g.DrawString(Cinema, fBodySala, sb, 90, SpaceY);
                     SpaceY += 30;
                     g.DrawString("Promotora Nacional de Cines S.A.S", fBodyTiulos, sb, 50, SpaceY - 10);
                     SpaceY += 15;
-                    g.DrawString(Utilities.GetConfiguration("NitPromotora"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+                    g.DrawString(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.nitPromotora, fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
                 }
                 else
                 {
@@ -256,7 +241,7 @@ namespace WPProcinal.Classes
                     SpaceY += 30;
                     g.DrawString("Colombia de Cines S.A", fBodyTiulos, sb, 80, SpaceY - 10);
                     SpaceY += 15;
-                    g.DrawString(Utilities.GetConfiguration("Nit"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+                    g.DrawString(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.nit, fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
                 }
                 SpaceY += 20;
                 g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
@@ -362,14 +347,14 @@ namespace WPProcinal.Classes
                 SpaceY += 10;
 
 
-                if (Utilities.GetConfiguration("CodCinema").Equals("304")
-                    || Utilities.GetConfiguration("CodCinema").Equals("302"))
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema == 304
+                    || Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema == 302)
                 {
                     g.DrawString(Cinema, fBodySala, sb, 90, SpaceY);
                     SpaceY += 30;
                     g.DrawString("Promotora Nacional de Cines S.A.S", fBodyTiulos, sb, 50, SpaceY - 10);
                     SpaceY += 15;
-                    g.DrawString(Utilities.GetConfiguration("NitPromotora"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+                    g.DrawString(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.nitPromotora, fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
                 }
                 else
                 {
@@ -377,7 +362,7 @@ namespace WPProcinal.Classes
                     SpaceY += 30;
                     g.DrawString("Colombia de Cines S.A", fBodyTiulos, sb, 80, SpaceY - 10);
                     SpaceY += 15;
-                    g.DrawString(Utilities.GetConfiguration("Nit"), fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+                    g.DrawString(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.nit, fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
                 }
                 SpaceY += 20;
                 g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);

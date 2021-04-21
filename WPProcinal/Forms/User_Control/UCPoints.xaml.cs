@@ -27,7 +27,7 @@ namespace WPProcinal.Forms.User_Control
         {
             Task.Run(() =>
             {
-                Utilities.ReValidatePayPad();
+                AdminPaypad.UpdatePeripherals();
                 Thread.Sleep(3000);
                 Dispatcher.BeginInvoke((Action)delegate
                 {

@@ -41,7 +41,7 @@ namespace WPProcinal.Forms
         #region "Timer"
         private void ActivateTimer()
         {
-            timer = new TimerTiempo(Utilities.GetConfiguration("TimerModal"));
+            timer = new TimerTiempo(Utilities.dataPaypad.PaypadConfiguration != null ? Utilities.dataPaypad.PaypadConfiguration.modaL_TIMER : "00:59");
             timer.CallBackClose = response =>
             {
                 Dispatcher.BeginInvoke((Action)delegate
@@ -51,15 +51,6 @@ namespace WPProcinal.Forms
             };
         }
 
-        private void SetCallBacksNull()
-        {
-            try
-            {
-                timer.CallBackClose = null;
-                timer.CallBackTimer = null;
-            }
-            catch { }
-        }
         #endregion
 
         private void BtnNo_TouchDown(object sender, TouchEventArgs e)

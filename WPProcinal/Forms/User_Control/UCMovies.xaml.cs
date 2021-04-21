@@ -172,7 +172,7 @@ namespace WPProcinal.Forms.User_Control
                 mail = new Email
                 {
                     Body = $"No fué posible descargar las siguientes imágenes:<br> {data} <br>" +
-                            $"Por favor revisar el repositorio de imagenes Url: {Utilities.GetConfiguration("UrlImages")} <br>" +
+                            $"Por favor revisar el repositorio de imagenes Url: {Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.urlImages} <br>" +
                             "Nota: revisar que el nombre de la imágen este bien escrito o que la imágen si exista.",
                     Subject = "Alerta Información Pay+",
                     paypad_id = Utilities.CorrespondentId
@@ -266,7 +266,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                tbTimer.Text = Utilities.GetConfiguration("TimerMovies");
+                tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
                 timer = new TimerTiempo(tbTimer.Text);
                 timer.CallBackClose = response =>
                 {
@@ -380,7 +380,7 @@ namespace WPProcinal.Forms.User_Control
             frmLoading.Show();
             var combos = WCFServices41.GetConfectionery(new SCOPRE
             {
-                teatro = Utilities.GetConfiguration("CodCinema"),
+                teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema.ToString(),
                 tercero = "1"
             });
             frmLoading.Close();

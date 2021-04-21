@@ -63,7 +63,7 @@ namespace WPProcinal.Forms.User_Control
         {
             Task.Run(() =>
             {
-                Utilities.ReValidatePayPad();
+                AdminPaypad.UpdatePeripherals();
                 if (Utilities.dataPaypad.StateUpdate)
                 {
                     Dispatcher.BeginInvoke((Action)delegate
@@ -87,7 +87,7 @@ namespace WPProcinal.Forms.User_Control
 
                     this.DataContext = _imageSleader.imageModel;
 
-                    _imageSleader.time = 3;
+                    _imageSleader.time = Utilities.dataPaypad.PaypadConfiguration.publicitY_TIMER;
 
                     _imageSleader.isRotate = true;
 
@@ -105,19 +105,16 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                if (ValidatePayPad())
+                timerStatePay.Stop();
+                gridPrincipal.IsEnabled = false;
+                _imageSleader.Stop();
+                Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.modalBioseguridad)
                 {
-                    timerStatePay.Stop();
-                    gridPrincipal.IsEnabled = false;
-                    _imageSleader.Stop();
-                    Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
-                    if (Utilities.GetConfiguration("ModalBioseguridad").Equals("1"))
-                    {
-                        ModalBioseguridad modal = new ModalBioseguridad();
-                        modal.ShowDialog();
-                    }
-                    Switcher.Navigate(new UCMovies());
+                    ModalBioseguridad modal = new ModalBioseguridad();
+                    modal.ShowDialog();
                 }
+                Switcher.Navigate(new UCMovies());
             }
             catch (System.Exception ex)
             {
@@ -129,20 +126,17 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                if (ValidatePayPad())
+                timerStatePay.Stop();
+                gridPrincipal.IsEnabled = false;
+                _imageSleader.Stop();
+                Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
+                Utilities.PlateObligatory = false;
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.modalBioseguridad)
                 {
-                    timerStatePay.Stop();
-                    gridPrincipal.IsEnabled = false;
-                    _imageSleader.Stop();
-                    Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
-                    Utilities.PlateObligatory = false;
-                    if (Utilities.GetConfiguration("ModalBioseguridad").Equals("1"))
-                    {
-                        ModalBioseguridad modal = new ModalBioseguridad();
-                        modal.ShowDialog();
-                    }
-                    Switcher.Navigate(new UCMovies());
+                    ModalBioseguridad modal = new ModalBioseguridad();
+                    modal.ShowDialog();
                 }
+                Switcher.Navigate(new UCMovies());
             }
             catch (System.Exception ex)
             {
@@ -177,7 +171,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    frmModal modal = new frmModal(Utilities.GetConfiguration("MensajeSinDinero"));
+                    frmModal modal = new frmModal(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeSinDinero);
                     modal.ShowDialog();
                     return false;
                 }

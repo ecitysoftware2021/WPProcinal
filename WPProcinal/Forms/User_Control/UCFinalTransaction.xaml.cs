@@ -19,9 +19,9 @@ namespace WPProcinal.Forms.User_Control
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Utilities.GetConfiguration("CashPayState").Equals("1"))
+            if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
             {
-                Utilities.ReValidatePayPad();
+                AdminPaypad.UpdatePeripherals();
                 Thread.Sleep(2000);
                 Utilities.GoToInicial();
             }

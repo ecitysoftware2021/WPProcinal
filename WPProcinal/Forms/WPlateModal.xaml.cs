@@ -22,7 +22,7 @@ namespace WPProcinal.Forms
         {
             try
             {
-                TiposAuto = Utilities.GetConfiguration("TiposAutos").Split(';');
+                TiposAuto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.tiposAutos.Split(';');
                 var dataSource = new List<TypeAuto>();
                 foreach (var item in TiposAuto)
                 {

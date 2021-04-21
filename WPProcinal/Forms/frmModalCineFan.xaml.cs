@@ -47,7 +47,7 @@ namespace WPProcinal.Forms
                 };
 
                 Utilities.controlScanner.num = 0;
-                Utilities.controlScanner.InitializePortScanner(Utilities.GetConfiguration("PortScanner"));
+                Utilities.controlScanner.InitializePortScanner(Utilities.dataPaypad.PaypadConfiguration.scanneR_PORT);
             }
             catch (Exception ex)
             {
@@ -202,9 +202,9 @@ namespace WPProcinal.Forms
 
                 var responseSEC = WCFServices41.GetSecuence(new SCOSEC
                 {
-                    Punto = int.Parse(Utilities.GetConfiguration("Cinema")),
-                    teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
-                    tercero = "1"
+                    Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
+                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
+                    tercero = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.tercero
                 });
 
                 frmLoading.Close();
@@ -232,9 +232,9 @@ namespace WPProcinal.Forms
                         PagoInterno = 0,
                         Pelicula = 0,
                         Productos = new List<Producto> { },
-                        PuntoVenta = int.Parse(Utilities.GetConfiguration("Cinema")),
+                        PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                         Sala = 0,
-                        teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
                         Telefono = long.Parse(responseClient[0].Telefono),
                         CodMedioPago = 0,
                         tercero = 1,

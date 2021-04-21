@@ -30,29 +30,22 @@ namespace WPProcinal.Forms.User_Control
         private string TramaInicial;
 
         private string MensajeDebito { get; set; }
-        private string Delimitador { get { return Utilities.GetConfiguration("Delimitador"); } }
 
-        private string IdentificadorInicio { get { return Utilities.GetConfiguration("IdentificadorInicio"); } }
 
-        private string TipoOperacion { get { return Utilities.GetConfiguration("TipoOperacion"); } }
 
         private string ValorTotal { get; set; }
 
         private string ValorIVA { get { return "0"; } }
 
-        private string NumeroKiosko { get { return Utilities.GetConfiguration("NumeroKiosko"); } }
 
-        private string NumeroTerminal { get { return Utilities.GetConfiguration("NumeroTerminal"); } }
 
         private string NumeroTransaccion { get; set; }
 
         private string ValorPropina { get { return "0"; } }
 
-        private string CodigoUnico { get { return Utilities.GetConfiguration("CodigoUnico"); } }
 
         private string ValorIAC { get { return "0"; } }
 
-        private string IdentificacionCajero { get { return Utilities.GetConfiguration("IdentificacionCajero"); } }
 
         string _Franchise;
         string _LastNumbers;
@@ -116,7 +109,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    frmModal Modal = new frmModal(Utilities.GetConfiguration("MensajeDatafono"));
+                    frmModal Modal = new frmModal(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeDatafono);
                     Modal.ShowDialog();
                     FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
                     Task.Run(() =>
@@ -125,17 +118,18 @@ namespace WPProcinal.Forms.User_Control
                         {
                             ValorTotal = Utilities.dataTransaction.PayVal.ToString().Split(',')[0];
                             NumeroTransaccion = Utilities.IDTransactionDB.ToString();
-                            TramaInicial = string.Concat(IdentificadorInicio, Delimitador,
-                                TipoOperacion, Delimitador,
-                               ValorTotal, Delimitador,
+                            string Delimitador = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.delimitador;
+                            TramaInicial = string.Concat(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.identificadorInicio, Delimitador,
+                                Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.tipoOperacion, Delimitador,
+                                ValorTotal, Delimitador,
                                 ValorIVA, Delimitador,
-                                NumeroKiosko, Delimitador,
-                                NumeroTerminal, Delimitador,
+                                Utilities.CorrespondentId, Delimitador,
+                                Utilities.CorrespondentId, Delimitador,
                                 NumeroTransaccion, Delimitador,
                                 ValorPropina, Delimitador,
-                                CodigoUnico, Delimitador,
+                                Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.codigoUnico, Delimitador,
                                 ValorIAC, Delimitador,
-                                IdentificacionCajero, "]");
+                                Utilities.CorrespondentId, "]");
 
                             //Creo el LCR de la peticion a partir de la trama de inicialización del datáfono
                             var LCRPeticion = TPV.CalculateLRC(TramaInicial);
@@ -360,12 +354,12 @@ namespace WPProcinal.Forms.User_Control
             frmLoading.Show();
             try
             {
-                if (Utilities.GetConfiguration("ModalPlate").Equals("1") && Utilities.PlateObligatory)
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.modalPlate && Utilities.PlateObligatory)
                 {
                     WPlateModal wPlate = new WPlateModal();
                     wPlate.ShowDialog();
                 }
-                if (Utilities.GetConfiguration("Ambiente").Equals("1"))
+                if (Utilities.dataPaypad.PaypadConfiguration.iS_PRODUCTION)
                 {
                     List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
                     foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
@@ -437,9 +431,9 @@ namespace WPProcinal.Forms.User_Control
                         PagoInterno = Utilities.dataTransaction.PagoInterno,
                         Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
                         Productos = productos,
-                        PuntoVenta = int.Parse(Utilities.GetConfiguration("Cinema")),
+                        PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                         Sala = Utilities.dataTransaction.DataFunction.RoomId,
-                        teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
                         Telefono = long.Parse(dataClient.Telefono),
                         CodMedioPago = Utilities.dataTransaction.PayVal > 0 ? (int)ECodigoMedioPagoScore.Tarjeta_Debito_Credi : (int)ECodigoMedioPagoScore.Todos,
                         tercero = 1,
@@ -507,9 +501,9 @@ namespace WPProcinal.Forms.User_Control
                     frmLoading.Show();
                     DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
                     {
-                        Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                        Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                         Secuencial = Convert.ToInt32(Utilities.dataTransaction.Secuencia),
-                        teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
+                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
                         tercero = 1
                     });
                     frmLoading.Close();

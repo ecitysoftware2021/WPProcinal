@@ -27,7 +27,6 @@ namespace WPProcinal.Forms.User_Control
         int itemPerPage = 6;
         int totalPage = 0;
         int FontS = 0;
-        int cinemaId = Convert.ToInt16(Utilities.GetConfiguration("CodCinema"));
         Pelicula Movie = new Pelicula();
 
         bool hourPresed = false;
@@ -84,14 +83,14 @@ namespace WPProcinal.Forms.User_Control
             GenerateFunctions();
             if (DataService41.Movie.Data.Censura.Contains("15") || DataService41.Movie.Data.Censura.Contains("18"))
             {
-                frmModal modal = new frmModal(string.Format(Utilities.GetConfiguration("MensajeCensura"), DataService41.Movie.Data.Censura));
+                frmModal modal = new frmModal(string.Format(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeCensura, DataService41.Movie.Data.Censura));
                 modal.ShowDialog();
             }
             ActivateTimer();
         }
         void ActivateTimer()
         {
-            tbTimer.Text = Utilities.GetConfiguration("TimerHorario");
+            tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
             timer = new TimerTiempo(tbTimer.Text);
             timer.CallBackClose = response =>
             {
@@ -366,7 +365,7 @@ namespace WPProcinal.Forms.User_Control
                 Day = schedule.Date,
                 Date = schedule.UnivDate,
                 DateFormat = DateFormat,
-                CinemaId = cinemaId,
+                CinemaId = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
                 RoomId = schedule.RoomId,
                 Hour = Hour,
                 HourFormat = schedule.MilitarHour,
@@ -375,7 +374,7 @@ namespace WPProcinal.Forms.User_Control
                 IsCard = "S",
                 Group = 1,
                 Login = "ecitysoftware@gmail.com",
-                PointOfSale = int.Parse(Utilities.GetConfiguration("Cinema")),
+                PointOfSale = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                 TypeZona = schedule.TypeZona,
                 IDFuncion = schedule.IdFuncion,
                 Validaciones = schedule.Validaciones

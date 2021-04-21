@@ -30,22 +30,7 @@ namespace WPProcinal.Forms
             }
 
             InitializeComponent();
-            var slides = Utilities.GetConfiguration("PublicityRoute");
-            if (Directory.Exists(slides))
-            {
-                try
-                {
-                    foreach (var item in Directory.GetFiles(slides))
-                    {
-                        File.Delete(item);
-                    }
-                }
-                catch { }
-            }
-            else
-            {
-                Directory.CreateDirectory(slides);
-            }
+
 
 
             Switcher.Navigator = this;
@@ -112,58 +97,27 @@ namespace WPProcinal.Forms
                 state = await api.SecurityToken();
                 if (state)
                 {
-                    var response = await api.GetResponse(new Uptake.RequestApi(), "InitPaypad");
+                    await AdminPaypad.UpdatePeripherals();
 
-                    if (response.CodeError == 200)
+                    if (Utilities.dataPaypad.State)
                     {
+                        ConfigurePublicity();
                         Dispatcher.BeginInvoke((Action)delegate
                         {
                             okServidor.Visibility = Visibility.Visible;
                             badServidor.Visibility = Visibility.Hidden;
                         });
 
-                        Utilities.dataPaypad = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
                         SetVisibility();
                         if (Utilities.dataPaypad.StateUpdate)
                         {
                             ShowModalError("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
+                            return;
                         }
-                        else if (Utilities.dataPaypad.State)
-                        {
-                            if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
-                            {
-                                if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser)
-                                {
-                                    if (util == null)
-                                    {
-                                        util = new Utilities();
-                                    }
 
-                                    ChangeStatusPeripherals();
-                                    Task.Run(() =>
-                                    {
-                                        if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
-                                        {
-                                            Utilities.control.OpenSerialPorts(
-                                                Utilities.dataPaypad.PaypadConfiguration.bilL_PORT,
-                                                Utilities.dataPaypad.PaypadConfiguration.coiN_PORT);
-                                            Utilities.control.Start();
-                                            Utilities.control.StartCoinAcceptorDispenser();
-                                        }
-                                        else
-                                        {
-                                            Utilities.controlUnified.OpenSerialPorts(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT);
-                                            Utilities.controlUnified.Start();
-                                        }
-                                    });
-                                }
-                                else
-                                {
-                                    LogService.SaveRequestResponse("Sin dinero", Utilities.dataPaypad.Message, 6);
-                                    ShowModalError(Utilities.GetConfiguration("MensajeSinDineroInitial"));
-                                }
-                            }
-                            else
+                        if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
+                        {
+                            if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser)
                             {
                                 if (util == null)
                                 {
@@ -171,13 +125,39 @@ namespace WPProcinal.Forms
                                 }
 
                                 ChangeStatusPeripherals();
+                                Task.Run(() =>
+                                {
+                                    if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
+                                    {
+                                        Utilities.control.OpenSerialPorts(
+                                            Utilities.dataPaypad.PaypadConfiguration.bilL_PORT,
+                                            Utilities.dataPaypad.PaypadConfiguration.coiN_PORT);
+                                        Utilities.control.Start();
+                                        Utilities.control.StartCoinAcceptorDispenser();
+                                    }
+                                    else
+                                    {
+                                        Utilities.controlUnified.OpenSerialPorts(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT);
+                                        Utilities.controlUnified.Start();
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                LogService.SaveRequestResponse("Sin dinero", Utilities.dataPaypad.Message, 6);
+                                ShowModalError(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeSinDineroInitial);
                             }
                         }
                         else
                         {
-                            LogService.SaveRequestResponse("Verificando perifericos", Utilities.dataPaypad.Message, 2);
-                            ShowModalError("No se pudo verificar el estado de los periféricos");
+                            if (util == null)
+                            {
+                                util = new Utilities();
+                            }
+
+                            ChangeStatusPeripherals();
                         }
+
                     }
                     else
                     {
@@ -195,6 +175,25 @@ namespace WPProcinal.Forms
             }
         }
 
+        private void ConfigurePublicity()
+        {
+            var slides = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.publicityRoute;
+            if (Directory.Exists(slides))
+            {
+                try
+                {
+                    foreach (var item in Directory.GetFiles(slides))
+                    {
+                        File.Delete(item);
+                    }
+                }
+                catch { }
+            }
+            else
+            {
+                Directory.CreateDirectory(slides);
+            }
+        }
         private void ChangeStatusPeripherals()
         {
             if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)

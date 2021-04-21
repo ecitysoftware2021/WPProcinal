@@ -45,7 +45,7 @@ namespace WPProcinal.Forms
                 };
 
                 Utilities.controlScanner.num = 0;
-                Utilities.controlScanner.InitializePortScanner(Utilities.GetConfiguration("PortScanner"));
+                Utilities.controlScanner.InitializePortScanner(Utilities.dataPaypad.PaypadConfiguration.scanneR_PORT);
             }
             catch (Exception ex)
             {

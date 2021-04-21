@@ -25,7 +25,6 @@ namespace WPProcinal.Forms.User_Control
         private ObservableCollection<Producto> lstPager;
         ApiLocal api;
         CLSGrabador grabador;
-        private int _Combo4Code = int.Parse(Utilities.GetConfiguration("4Code"));
         #endregion
 
         #region "Constructor"
@@ -56,7 +55,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
                             decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
-                            product.Imagen = $"{Utilities.GetConfiguration("ProductsURL")}{product.Codigo}.png";
+                            product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.productsURL}{product.Codigo}.png";
                             if (General > 0)
                             {
                                 product.Precios[0].auxGeneral = General;
@@ -244,7 +243,7 @@ namespace WPProcinal.Forms.User_Control
                                     var responseRecetaBebida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("gaseosa")).FirstOrDefault();
                                     Receta responseRecetaComida = null;
                                     //Si el combo es el combo 4, solo tomamos por defecto las gaseosas, las comidas se dejan tal cual
-                                    if (item.Code != _Combo4Code)
+                                    if (item.Code != Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.Code4)
                                     {
                                         responseRecetaComida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("perro")).FirstOrDefault();
                                     }
@@ -366,9 +365,9 @@ namespace WPProcinal.Forms.User_Control
 
                 var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
                 {
-                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
-                    teatro = int.Parse(Utilities.GetConfiguration("CodCinema")),
-                    tercero = "1"
+                    Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
+                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
+                    tercero = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.tercero
                 });
 
                 frmLoading.Close();
@@ -409,7 +408,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                tbTimer.Text = Utilities.GetConfiguration("TimerConfiteria");
+                tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
                 timer = new TimerTiempo(tbTimer.Text);
                 timer.CallBackClose = response =>
                 {

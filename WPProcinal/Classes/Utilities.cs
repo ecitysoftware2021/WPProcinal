@@ -829,8 +829,8 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var slides = Utilities.GetConfiguration("PublicityRoute");
-                var sliders = Directory.GetFiles(slides);
+                var slides = dataPaypad.PaypadConfiguration.ExtrA_DATA.publicityRoute;
+                var sliders = Directory.GetFiles(dataPaypad.PaypadConfiguration.ExtrA_DATA.publicityRoute);
                 if (sliders.Length < 1)
                 {
                     foreach (var item in DataService41.Peliculas.Pelicula)
@@ -839,7 +839,7 @@ namespace WPProcinal.Classes
                         {
                             foreach (var peli in item.Cinemas.Cinema)
                             {
-                                if (peli.Id == GetConfiguration("CodCinema"))
+                                if (peli.Id == dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema.ToString())
                                 {
                                     if (WCFServices41.StateImage(item.Data.Imagen))
                                     {
@@ -918,22 +918,6 @@ namespace WPProcinal.Classes
                         isCombo = data.isCombo
                     });
                 }
-            }
-        }
-
-        /// <summary>
-        /// Se mantiene consultando el estado del pay+
-        /// </summary>
-        public static void ReValidatePayPad()
-        {
-            try
-            {
-                AdminPaypad adminPaypad = new AdminPaypad();
-                adminPaypad.UpdatePeripherals();
-            }
-            catch (Exception ex)
-            {
-                AdminPaypad.SaveErrorControl(ex.Message, "ValidatePayPad en frmMovies", EError.Aplication, ELevelError.Medium);
             }
         }
 

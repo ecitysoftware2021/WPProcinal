@@ -31,10 +31,10 @@ namespace WPProcinal.Forms
 
                 var response = WCFServices41.CancelSale(new SCORET
                 {
-                    Punto = Convert.ToInt32(Utilities.GetConfiguration("Cinema")),
+                    Punto =Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                     Pedido = secuencia,
-                    teatro = Utilities.GetConfiguration("CodCinema"),
-                    tercero = "1"
+                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema.ToString(),
+                    tercero = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.tercero
                 });
                 if (response != null)
                 {

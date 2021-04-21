@@ -14,28 +14,34 @@ namespace WPProcinal.Classes
         static ApiLocal api = new ApiLocal();
 
 
-        public async void UpdatePeripherals()
+        public static async Task UpdatePeripherals()
         {
             try
             {
+
                 var response = await api.GetResponse(new RequestApi(), "InitPaypad");
                 if (response.CodeError == 200)
                 {
-                    DataPaypad data = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
-                    Utilities.dataPaypad = data;
+                    Utilities.dataPaypad = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
+                    Utilities.dataPaypad.PaypadConfiguration.DeserializarExtraData();
+                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DeserializeDataDatafono();
+                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DeserializeAmbiente();
+                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DefinirAmbiente(Utilities.dataPaypad.PaypadConfiguration.iS_PRODUCTION);
                 }
                 else
                 {
+                    Utilities.dataPaypad = new DataPaypad();
                     Utilities.dataPaypad.State = false;
                 }
             }
             catch (Exception ex)
             {
+                Utilities.dataPaypad = new DataPaypad();
                 Utilities.dataPaypad.State = false;
             }
         }
 
-        public  static void SaveLog(object log, ELogType type)
+        public static void SaveLog(object log, ELogType type)
         {
             try
             {
