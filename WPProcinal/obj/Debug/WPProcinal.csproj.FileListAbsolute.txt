@@ -503,7 +503,6 @@ C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFr
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignColors.dll
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.dll
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Newtonsoft.Json.dll
-C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Peripheral.Control.dll
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\RestSharp.dll
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.dll
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Zen.Barcode.Core.dll
@@ -512,7 +511,6 @@ C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\EntityFr
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.pdb
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Newtonsoft.Json.xml
-C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Peripheral.Control.pdb
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\RestSharp.xml
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WpfAnimatedGif.xml
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\App.baml
@@ -621,3 +619,4 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
+C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache

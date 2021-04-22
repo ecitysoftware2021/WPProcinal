@@ -1,6 +1,5 @@
 ﻿using Grabador.Transaccion;
 using Newtonsoft.Json;
-using Peripheral.Control;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
