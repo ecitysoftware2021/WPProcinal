@@ -50,60 +50,47 @@ namespace WPProcinal.Models.ApiLocal
     }
     public class ExtraData
     {
-        public string mensajeDatafono { get; set; }
-        public bool modalPlate { get; set; }
-        public int codCinema { get; set; }
+        public string MensajeDatafono { get; set; }
+        public bool ModalPlate { get; set; }
+        public int CodCinema { get; set; }
 
         [JsonProperty("4Code")]
         public int Code4 { get; set; }
-        public string nitPromotora { get; set; }
-        public string nit { get; set; }
-        public string publicityRoute { get; set; }
-        public string mensajeSinDineroInitial { get; set; }
-        public bool modalBioseguridad { get; set; }
-        public string mensajeSinDinero { get; set; }
-        public string urlImages { get; set; }
-        public string recorderRoute { get; set; }
-        public bool speack { get; set; }
-        public string productsURL { get; set; }
-        public string mensajeError { get; set; }
-        public string mensajeCensura { get; set; }
-        public string mensajeCinefans { get; set; }
-        public string mensajeURL { get; set; }
-        public string mensajeUbicaciones { get; set; }
-        public string tiposAutos { get; set; }
-        public string scoreKey { get; set; }
-        public string dataDatafono { get; set; }
-        public string tercero { get; set; }
+        public string NitPromotora { get; set; }
+        public string Nit { get; set; }
+        public string PublicityRoute { get; set; }
+        public string MensajeSinDineroInitial { get; set; }
+        public bool ModalBioseguridad { get; set; }
+        public string MensajeSinDinero { get; set; }
+        public string UrlImages { get; set; }
+        public string RecorderRoute { get; set; }
+        public bool Speack { get; set; }
+        public string ProductsURL { get; set; }
+        public string MensajeError { get; set; }
+        public string MensajeCensura { get; set; }
+        public string MensajeCinefans { get; set; }
+        public string MensajeURL { get; set; }
+        public string MensajeUbicaciones { get; set; }
+        public string TiposAutos { get; set; }
+        public string ScoreKey { get; set; }
         public DataDatafono DataDatafono { get; set; }
-
-        public string desarrollo { get; set; }
-        public string produccion { get; set; }
-        public DESARROLLO DESARROLLO { get; set; }
-        public PRODUCCION PRODUCCION { get; set; }
-
+        public string tercero { get; set; }
+        //public DataDatafono Data_Datafono { get; set; }
+        public DESARROLLO desarrollo { get; set; }
+        public PRODUCCION produccion { get; set; }
+ 
         public AMBIENTE AMBIENTE { get; set; }
-        public void DeserializeDataDatafono()
-        {
-            DataDatafono = JsonConvert.DeserializeObject<DataDatafono>(dataDatafono);
-        }
-
-        public void DeserializeAmbiente()
-        {
-            DESARROLLO = JsonConvert.DeserializeObject<DESARROLLO>(desarrollo);
-            PRODUCCION = JsonConvert.DeserializeObject<PRODUCCION>(produccion);
-        }
-
+    
 
         public void DefinirAmbiente(bool iS_PRODUCTION)
         {
             if (iS_PRODUCTION)
             {
-                AMBIENTE = PRODUCCION;
+                AMBIENTE = produccion;
             }
             else
             {
-                AMBIENTE = DESARROLLO;
+                AMBIENTE = desarrollo;
             }
         }
     }
@@ -124,10 +111,10 @@ namespace WPProcinal.Models.ApiLocal
     }
     public class DataDatafono
     {
-        public string delimitador { get; set; }
-        public string identificadorInicio { get; set; }
-        public string tipoOperacion { get; set; }
-        public string codigoUnico { get; set; }
+        public string Delimitador { get; set; }
+        public string IdentificadorInicio { get; set; }
+        public string TipoOperacion { get; set; }
+        public string CodigoUnico { get; set; }
     }
 }
 

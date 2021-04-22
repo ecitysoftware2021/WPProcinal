@@ -83,7 +83,7 @@ namespace WPProcinal.Forms.User_Control
             GenerateFunctions();
             if (DataService41.Movie.Data.Censura.Contains("15") || DataService41.Movie.Data.Censura.Contains("18"))
             {
-                frmModal modal = new frmModal(string.Format(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeCensura, DataService41.Movie.Data.Censura));
+                frmModal modal = new frmModal(string.Format(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeCensura, DataService41.Movie.Data.Censura));
                 modal.ShowDialog();
             }
             ActivateTimer();
@@ -131,7 +131,7 @@ namespace WPProcinal.Forms.User_Control
                 {
 
                     //ListFechas(peli.DiasDisponiblesTodosCinemas);
-                    foreach (var Cinema in peli.Cinemas.Cinema.Where(cine => cine.Id == Utilities.CinemaId))
+                    foreach (var Cinema in peli.Cinemas.Cinema.Where(cine => cine.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()))
                     {
                         //Se recorre cada sala del Cinema
                         foreach (var room in Cinema.Salas.Sala)
@@ -365,7 +365,7 @@ namespace WPProcinal.Forms.User_Control
                 Day = schedule.Date,
                 Date = schedule.UnivDate,
                 DateFormat = DateFormat,
-                CinemaId = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
+                CinemaId = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
                 RoomId = schedule.RoomId,
                 Hour = Hour,
                 HourFormat = schedule.MilitarHour,

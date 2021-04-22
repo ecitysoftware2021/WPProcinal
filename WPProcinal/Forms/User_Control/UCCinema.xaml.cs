@@ -109,7 +109,7 @@ namespace WPProcinal.Forms.User_Control
                 gridPrincipal.IsEnabled = false;
                 _imageSleader.Stop();
                 Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
-                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.modalBioseguridad)
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
                 {
                     ModalBioseguridad modal = new ModalBioseguridad();
                     modal.ShowDialog();
@@ -131,7 +131,7 @@ namespace WPProcinal.Forms.User_Control
                 _imageSleader.Stop();
                 Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
                 Utilities.PlateObligatory = false;
-                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.modalBioseguridad)
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
                 {
                     ModalBioseguridad modal = new ModalBioseguridad();
                     modal.ShowDialog();
@@ -171,7 +171,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    frmModal modal = new frmModal(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeSinDinero);
+                    frmModal modal = new frmModal(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeSinDinero);
                     modal.ShowDialog();
                     return false;
                 }

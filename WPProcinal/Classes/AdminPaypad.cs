@@ -24,8 +24,6 @@ namespace WPProcinal.Classes
                 {
                     Utilities.dataPaypad = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
                     Utilities.dataPaypad.PaypadConfiguration.DeserializarExtraData();
-                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DeserializeDataDatafono();
-                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DeserializeAmbiente();
                     Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DefinirAmbiente(Utilities.dataPaypad.PaypadConfiguration.iS_PRODUCTION);
                 }
                 else

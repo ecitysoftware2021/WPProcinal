@@ -33,7 +33,7 @@ namespace WPProcinal.Forms
                 {
                     Punto =Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                     Pedido = secuencia,
-                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema.ToString(),
+                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString(),
                     tercero = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.tercero
                 });
                 if (response != null)

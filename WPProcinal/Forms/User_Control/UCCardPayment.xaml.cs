@@ -109,8 +109,10 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    frmModal Modal = new frmModal(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeDatafono);
+                    Opacity = 0.3;
+                    frmModal Modal = new frmModal(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeDatafono);
                     Modal.ShowDialog();
+                    Opacity = 1;
                     FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
                     Task.Run(() =>
                     {
@@ -118,16 +120,16 @@ namespace WPProcinal.Forms.User_Control
                         {
                             ValorTotal = Utilities.dataTransaction.PayVal.ToString().Split(',')[0];
                             NumeroTransaccion = Utilities.IDTransactionDB.ToString();
-                            string Delimitador = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.delimitador;
-                            TramaInicial = string.Concat(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.identificadorInicio, Delimitador,
-                                Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.tipoOperacion, Delimitador,
+                            string Delimitador = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.Delimitador;
+                            TramaInicial = string.Concat(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.IdentificadorInicio, Delimitador,
+                                Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.TipoOperacion, Delimitador,
                                 ValorTotal, Delimitador,
                                 ValorIVA, Delimitador,
                                 Utilities.CorrespondentId, Delimitador,
                                 Utilities.CorrespondentId, Delimitador,
                                 NumeroTransaccion, Delimitador,
                                 ValorPropina, Delimitador,
-                                Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.codigoUnico, Delimitador,
+                                Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.CodigoUnico, Delimitador,
                                 ValorIAC, Delimitador,
                                 Utilities.CorrespondentId, "]");
 
@@ -253,8 +255,10 @@ namespace WPProcinal.Forms.User_Control
 
                     //Dispatcher.BeginInvoke((Action)delegate
                     //{
+                    Opacity = 0.3;
                     frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular el pago.");
                     modal.ShowDialog();
+                    Opacity = 1;
 
                     //});
                     //GC.Collect();
@@ -313,8 +317,10 @@ namespace WPProcinal.Forms.User_Control
                 UnlockTPV();
                 Dispatcher.Invoke(() =>
                 {
+                    Opacity = 0.3;
                     frmModal modal = new frmModal("Usuario su pago fue cancelado.");
                     modal.ShowDialog();
+                    Opacity = 1;
                 });
                 GC.Collect();
             }
@@ -354,7 +360,7 @@ namespace WPProcinal.Forms.User_Control
             frmLoading.Show();
             try
             {
-                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.modalPlate && Utilities.PlateObligatory)
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalPlate && Utilities.PlateObligatory)
                 {
                     WPlateModal wPlate = new WPlateModal();
                     wPlate.ShowDialog();
@@ -433,7 +439,7 @@ namespace WPProcinal.Forms.User_Control
                         Productos = productos,
                         PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                         Sala = Utilities.dataTransaction.DataFunction.RoomId,
-                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
+                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
                         Telefono = long.Parse(dataClient.Telefono),
                         CodMedioPago = Utilities.dataTransaction.PayVal > 0 ? (int)ECodigoMedioPagoScore.Tarjeta_Debito_Credi : (int)ECodigoMedioPagoScore.Todos,
                         tercero = 1,
@@ -503,7 +509,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                         Secuencial = Convert.ToInt32(Utilities.dataTransaction.Secuencia),
-                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
+                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
                         tercero = 1
                     });
                     frmLoading.Close();
@@ -898,8 +904,10 @@ namespace WPProcinal.Forms.User_Control
                 GC.Collect();
                 ModalMensajes.MensajePrincipal = message;
                 lvOpciones.Visibility = Visibility.Hidden;
+                Opacity = 0.3;
                 frmModal modal = new frmModal(GetMessageError(message));
                 modal.ShowDialog();
+                Opacity = 1;
                 RetryPayment();
                 GC.Collect();
             }
@@ -1024,9 +1032,10 @@ namespace WPProcinal.Forms.User_Control
 
         private void RetryPayment()
         {
-
+            Opacity = 0.3;
             frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
             _frmConfirmationModal.ShowDialog();
+            Opacity = 1;
             if (_frmConfirmationModal.DialogResult.HasValue &&
                 _frmConfirmationModal.DialogResult.Value)
             {

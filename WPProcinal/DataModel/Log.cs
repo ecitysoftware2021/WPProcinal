@@ -65,7 +65,7 @@ namespace WPProcinal.Classes
                 AdminPaypad.SaveLog(new RequestLog
                 {
                     Description = mensaje,
-                    Reference = Dictionaries.Cinemas[Utilities.CinemaId] + " - " + operacion,
+                    Reference = Dictionaries.Cinemas[Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()] + " - " + operacion,
                     STATE = state
                 }, ELogType.General);
             }

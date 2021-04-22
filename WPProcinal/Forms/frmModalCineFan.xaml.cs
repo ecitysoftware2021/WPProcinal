@@ -203,7 +203,7 @@ namespace WPProcinal.Forms
                 var responseSEC = WCFServices41.GetSecuence(new SCOSEC
                 {
                     Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
-                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
+                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
                     tercero = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.tercero
                 });
 
@@ -234,7 +234,7 @@ namespace WPProcinal.Forms
                         Productos = new List<Producto> { },
                         PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                         Sala = 0,
-                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
+                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
                         Telefono = long.Parse(responseClient[0].Telefono),
                         CodMedioPago = 0,
                         tercero = 1,

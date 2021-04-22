@@ -145,7 +145,7 @@ namespace WPProcinal.Forms
                             else
                             {
                                 LogService.SaveRequestResponse("Sin dinero", Utilities.dataPaypad.Message, 6);
-                                ShowModalError(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeSinDineroInitial);
+                                ShowModalError(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeSinDineroInitial);
                             }
                         }
                         else
@@ -177,7 +177,7 @@ namespace WPProcinal.Forms
 
         private void ConfigurePublicity()
         {
-            var slides = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.publicityRoute;
+            var slides = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.PublicityRoute;
             if (Directory.Exists(slides))
             {
                 try

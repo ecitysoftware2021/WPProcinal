@@ -53,7 +53,7 @@ namespace WPProcinal.Forms.User_Control
 
                     if (product.Tipo.ToUpper() == "C")
                     {
-                        product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.productsURL}{product.Codigo}.png";
+                        product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
                         lstPager.Add(product);
                     }
                 }
@@ -367,7 +367,7 @@ namespace WPProcinal.Forms.User_Control
                 var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
                 {
                     Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
-                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
+                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
                     tercero = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.tercero
                 });
 

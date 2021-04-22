@@ -79,11 +79,6 @@ namespace WPProcinal.Classes
         public static ETypeBuy eTypeBuy = new ETypeBuy();
 
         /// <summary>
-        /// Variable que toma el id del cinema para saber que peliculas mostrar por cada Pay+
-        /// </summary>
-        public static string CinemaId = GetConfiguration("CodCinema");
-
-        /// <summary>
         /// Variable que almacena la ruta en la que se encuentra la publicidad
         /// </summary>
         public static string PublicityPath;
@@ -320,7 +315,7 @@ namespace WPProcinal.Classes
                     Process pc = new Process();
                     Process pn = new Process();
                     ProcessStartInfo si = new ProcessStartInfo();
-                    si.FileName = GetConfiguration("APLICATION_UPDATE");
+                    si.FileName = dataPaypad.PaypadConfiguration.updater_PATH;
                     pn.StartInfo = si;
                     pn.Start();
                     pc = Process.GetCurrentProcess();
@@ -347,7 +342,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                if (GetConfiguration("Speack").Equals("1"))
+                if (dataPaypad.PaypadConfiguration.ExtrA_DATA.Speack)
                 {
                     if (speech == null)
                     {
@@ -484,12 +479,12 @@ namespace WPProcinal.Classes
                 {
                     printCombo.ImprimirComprobante(0);
 
-                    var ComboTemporada = DataService41._Combos.Where(x => x.Name == GetConfiguration("0NAME")).FirstOrDefault();
+                    //var ComboTemporada = DataService41._Combos.Where(x => x.Name == GetConfiguration("0NAME")).FirstOrDefault();
 
-                    if (ComboTemporada != null && GetConfiguration("0Cupon").Equals("1"))
-                    {
-                        printCombo.ImprimirComprobante(1);
-                    }
+                    //if (ComboTemporada != null && GetConfiguration("0Cupon").Equals("1"))
+                    //{
+                    //    printCombo.ImprimirComprobante(1);
+                    //}
                 }
 
             }
@@ -829,8 +824,8 @@ namespace WPProcinal.Classes
         {
             try
             {
-                var slides = dataPaypad.PaypadConfiguration.ExtrA_DATA.publicityRoute;
-                var sliders = Directory.GetFiles(dataPaypad.PaypadConfiguration.ExtrA_DATA.publicityRoute);
+                var slides = dataPaypad.PaypadConfiguration.ExtrA_DATA.PublicityRoute;
+                var sliders = Directory.GetFiles(dataPaypad.PaypadConfiguration.ExtrA_DATA.PublicityRoute);
                 if (sliders.Length < 1)
                 {
                     foreach (var item in DataService41.Peliculas.Pelicula)
@@ -839,7 +834,7 @@ namespace WPProcinal.Classes
                         {
                             foreach (var peli in item.Cinemas.Cinema)
                             {
-                                if (peli.Id == dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema.ToString())
+                                if (peli.Id == dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString())
                                 {
                                     if (WCFServices41.StateImage(item.Data.Imagen))
                                     {

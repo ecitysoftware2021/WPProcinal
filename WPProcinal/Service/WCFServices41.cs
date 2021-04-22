@@ -1327,7 +1327,7 @@ namespace WPProcinal.Service
         public string Direccion { get; set; }
         public string Correo { get { return Login; } }
         public string Genero { get; } = "accion";
-        public string Cinema { get; } = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema.ToString();
+        public string Cinema { get; } = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString();
         public string Reservas { get; } = "N";
         public string Noticias { get; } = "N";
         public string Cartelera { get; } = "N";
@@ -1405,12 +1405,12 @@ namespace WPProcinal.Service
         /// <summary>
         /// Llave de desencripción de las respuestas de score
         /// </summary>
-        public static string SCOREKEY = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.scoreKey;
+        public static string SCOREKEY = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ScoreKey;
 
         /// <summary>
         /// URL de los posters de las películas
         /// </summary>
-        public static string UrlImages = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.urlImages;
+        public static string UrlImages = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.UrlImages;
 
         /// <summary>
         /// Objeto para almacenar la data de la película seleccionada por el usuario

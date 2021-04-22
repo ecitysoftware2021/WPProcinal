@@ -667,7 +667,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
 
-                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.modalPlate && Utilities.PlateObligatory)
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalPlate && Utilities.PlateObligatory)
                 {
                     WPlateModal wPlate = new WPlateModal();
                     wPlate.ShowDialog();
@@ -821,7 +821,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                         Secuencial = Convert.ToInt32(Utilities.dataTransaction.Secuencia),
-                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
+                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
                         tercero = 1
                     });
                     frmLoading.Close();

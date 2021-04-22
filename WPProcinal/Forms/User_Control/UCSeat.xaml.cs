@@ -207,7 +207,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         Utilities.PlateObligatory = true;
 
-                        WTCModal modal = new WTCModal(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeUbicaciones);
+                        WTCModal modal = new WTCModal(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeUbicaciones);
                         modal.ShowDialog();
 
                         OrganizePositionOfSeatsInvertedAutocine(response41);
@@ -814,8 +814,8 @@ namespace WPProcinal.Forms.User_Control
                                 (int)Dictionaries.ECinemas.Mayorca && Utilities.dataTransaction.DataFunction.RoomId == 10)
                             {
                                 WTCModal modal = new WTCModal(
-                                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeCinefans, 
-                                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeURL);
+                                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeCinefans, 
+                                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeURL);
                                 modal.ShowDialog();
                             }
                             GoToPay();
@@ -842,8 +842,8 @@ namespace WPProcinal.Forms.User_Control
                                     && Utilities.dataTransaction.DataFunction.RoomId == 10)
                                 {
                                     WTCModal modal = new WTCModal(
-                                        Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeCinefans,
-                                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.mensajeURL);
+                                        Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeCinefans,
+                                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeURL);
                                     modal.ShowDialog();
                                 }
                                 GoToPay();
@@ -931,7 +931,7 @@ namespace WPProcinal.Forms.User_Control
                 frmLoading.Show();
                 var combos = WCFServices41.GetConfectionery(new SCOPRE
                 {
-                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema.ToString(),
+                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString(),
                     tercero = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.tercero
                 });
                 frmLoading.Close();

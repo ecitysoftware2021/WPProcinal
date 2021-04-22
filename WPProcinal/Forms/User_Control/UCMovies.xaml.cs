@@ -63,7 +63,7 @@ namespace WPProcinal.Forms.User_Control
                 DataService41.Movies = new List<Pelicula>();
                 Utilities.dataTransaction = new DataTransaction();
                 LstMoviesModel = new ObservableCollection<MoviesViewModel>();
-                lblCinema1.Text = Dictionaries.Cinemas[Utilities.CinemaId];
+                lblCinema1.Text = Dictionaries.Cinemas[Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()];
 
                 this.Dispatcher.Invoke(new ThreadStart(() =>
                 {
@@ -93,7 +93,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             foreach (var Cinema in pelicula.Cinemas.Cinema)
                             {
-                                if (Cinema.Id == Utilities.CinemaId)
+                                if (Cinema.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString())
                                 {
                                     var peliculaExistente = DataService41.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
                                     if (peliculaExistente == 0)
@@ -172,7 +172,7 @@ namespace WPProcinal.Forms.User_Control
                 mail = new Email
                 {
                     Body = $"No fué posible descargar las siguientes imágenes:<br> {data} <br>" +
-                            $"Por favor revisar el repositorio de imagenes Url: {Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.urlImages} <br>" +
+                            $"Por favor revisar el repositorio de imagenes Url: {Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.UrlImages} <br>" +
                             "Nota: revisar que el nombre de la imágen este bien escrito o que la imágen si exista.",
                     Subject = "Alerta Información Pay+",
                     paypad_id = Utilities.CorrespondentId
@@ -380,7 +380,7 @@ namespace WPProcinal.Forms.User_Control
             frmLoading.Show();
             var combos = WCFServices41.GetConfectionery(new SCOPRE
             {
-                teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema.ToString(),
+                teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString(),
                 tercero = "1"
             });
             frmLoading.Close();

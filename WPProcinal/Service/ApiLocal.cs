@@ -60,12 +60,8 @@ namespace WPProcinal.Service
 
                 HttpResponseMessage response = new HttpResponseMessage();
 
-                var task = client.PostAsync(url, content);
+                response = client.PostAsync(url, content).Result;
 
-                if (await Task.WhenAny(task, Task.Delay(30000)) == task)
-                {
-                    response = task.Result;
-                }
                 LogService.CreateLogsPeticion("Respuesta GetToken", JsonConvert.SerializeObject(response));
 
                 if (!response.IsSuccessStatusCode)
@@ -115,8 +111,8 @@ namespace WPProcinal.Service
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Utilities.TOKEN);
                 HttpResponseMessage response = new HttpResponseMessage();
 
-                 response = client.PostAsync(url, content).Result;
-                
+                response = client.PostAsync(url, content).Result;
+
                 LogService.CreateLogsPeticion($"Respuesta {controller}", JsonConvert.SerializeObject(response));
 
 
@@ -188,11 +184,7 @@ namespace WPProcinal.Service
 
                 HttpResponseMessage response = new HttpResponseMessage();
 
-                var task = client.PostAsync(url, content);
-                if (await Task.WhenAny(task, Task.Delay(20000)) == task)
-                {
-                    response = task.Result;
-                }
+                response = client.PostAsync(url, content).Result;
 
                 if (!response.IsSuccessStatusCode)
                 {

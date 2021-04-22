@@ -55,7 +55,7 @@ namespace WPProcinal.Forms.User_Control
                         {
                             decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
                             decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
-                            product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.productsURL}{product.Codigo}.png";
+                            product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
                             if (General > 0)
                             {
                                 product.Precios[0].auxGeneral = General;
@@ -336,15 +336,6 @@ namespace WPProcinal.Forms.User_Control
             }
             else
             {
-                try
-                {
-                    Task.Run(() =>
-                    {
-                        grabador.Grabar(Utilities.IDTransactionDB, 0);
-                    });
-                }
-                catch { }
-
                 if (Utilities.dataTransaction.MedioPago == EPaymentType.Cash)
                 {
                     Switcher.Navigate(new UCPayCine());
@@ -366,7 +357,7 @@ namespace WPProcinal.Forms.User_Control
                 var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
                 {
                     Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
-                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.codCinema,
+                    teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
                     tercero = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.tercero
                 });
 
