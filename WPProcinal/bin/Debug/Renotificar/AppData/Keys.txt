@@ -1,2 +1,2 @@
 usuario:usrapli;password:1Cero12019$/*
-usuario:Ecity.Software;password:EcitySoftware2019#;tipo:1
+usuario:Procinal Mayorca Kiosco 2;password:ProcinalMayorca2020%;tipo:1
