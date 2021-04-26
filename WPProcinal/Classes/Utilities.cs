@@ -22,6 +22,7 @@ using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
 using static WPProcinal.Models.ApiLocal.Uptake;
 using SQLite.Connection.Ecity;
+using System.Threading;
 
 namespace WPProcinal.Classes
 {
@@ -309,6 +310,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                Thread.Sleep(5000);
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
                     Process pc = new Process();
