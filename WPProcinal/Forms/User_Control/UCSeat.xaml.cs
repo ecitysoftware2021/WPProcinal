@@ -814,7 +814,7 @@ namespace WPProcinal.Forms.User_Control
                                 (int)Dictionaries.ECinemas.Mayorca && Utilities.dataTransaction.DataFunction.RoomId == 10)
                             {
                                 WTCModal modal = new WTCModal(
-                                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeCinefans, 
+                                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeCinefans,
                                     Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeURL);
                                 modal.ShowDialog();
                             }
@@ -900,7 +900,7 @@ namespace WPProcinal.Forms.User_Control
                                 Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
                                     $" <br> Error: {item.Respuesta}");
                             });
-                            Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                            Utilities.ShowModal(string.Concat("No se pudieron reservar los puestos: ", item.Respuesta));
                             ReloadWindow();
                             break;
                         }
@@ -1106,7 +1106,7 @@ namespace WPProcinal.Forms.User_Control
                                     Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
                                         $" <br> Error: {item.Respuesta}");
                                 });
-                                Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                                Utilities.ShowModal(string.Concat("No se pudieron reservar los puestos: ", item.Respuesta));
                                 ReloadWindow();
                                 break;
                             }

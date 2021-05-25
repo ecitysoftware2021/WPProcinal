@@ -147,9 +147,34 @@ namespace WPProcinal.Classes
             g.DrawString(string.Join(",", Seat), fBodyTiulos, sb, SpaceX, SpaceY);
             SpaceY += 20;
 
-            //g.DrawString("CashBack:", fBodyTiulos, sb, 10, SpaceY);
-            //g.DrawString(Puntos, fBodyTiulos, sb, SpaceX, SpaceY);
-            //SpaceY += 20;
+            //public int Cashback_Acu { get; set; }
+            //public int Cashback_Red { get; set; }
+            //public int Cashback_Total { get; set; }
+            //public int Cashback_Compra { get; set; }
+            //public string Cashback_Venci { get; set; }
+            //public int Visitas_ultima { get; set; }
+            if (DataService41._DataResolution != null && DataService41._DataResolution.DatosCliente.Cashback_Compra > 0)
+            {
+                g.DrawString("Saldo Acumulado:", fBodyTiulos, sb, 10, SpaceY);
+                g.DrawString(DataService41._DataResolution.DatosCliente.Cashback_Compra.ToString("C"), fBodyTiulos, sb, SpaceX + 50, SpaceY);
+                SpaceY += 20;
+                g.DrawString("Saldo Total:", fBodyTiulos, sb, 10, SpaceY);
+                g.DrawString(DataService41._DataResolution.DatosCliente.Cashback_Acu.ToString("C"), fBodyTiulos, sb, SpaceX + 50, SpaceY);
+                SpaceY += 20;
+                g.DrawString("Vencimiento Saldo:", fBodyTiulos, sb, 10, SpaceY);
+
+                DateTime dt;
+                DateTime.TryParseExact(DataService41._DataResolution.DatosCliente.Cashback_Venci.ToString(), "yyyyMMdd",
+                                          CultureInfo.InvariantCulture,
+                                          DateTimeStyles.None, out dt);
+
+                g.DrawString(dt.ToString("yyyy-MM-dd"), fBodyTiulos, sb, SpaceX + 50, SpaceY);
+                SpaceY += 20;
+                g.DrawString("Saldo Utilizado:", fBodyTiulos, sb, 10, SpaceY);
+                g.DrawString(Utilities.dataTransaction.PagoInterno.ToString("C"), fBodyTiulos, sb, SpaceX + 50, SpaceY);
+                SpaceY += 20;
+            }
+
 
             g.DrawString("Compra:", fBodyTiulos, sb, 10, SpaceY);
             g.DrawString(IDTransaccion, fBodyTiulos, sb, SpaceX, SpaceY);
@@ -247,33 +272,30 @@ namespace WPProcinal.Classes
                 g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
                 SpaceY += 20;
 
-                if (DataService41._DataResolution != null && DataService41._DataResolution.Count > 0)
+                if (DataService41._DataResolution != null)
                 {
-                    foreach (var data in DataService41._DataResolution)
-                    {
-                        g.DrawString("Factura ", fBodyTiulos, sb, 10, SpaceY);
-                        g.DrawString(data.Factura.ToString(), fBodyTiulos, sb, 140, SpaceY);
-                        SpaceY += 20;
-                        g.DrawString("Prefijo ", fBodyTiulos, sb, 10, SpaceY);
-                        g.DrawString(data.Prefijo.ToString(), fBodyTiulos, sb, 140, SpaceY);
-                        SpaceY += 20;
-                        g.DrawString("Resolución ", fBodyTiulos, sb, 10, SpaceY);
-                        g.DrawString(data.Resolucion.ToString(), fBodyTiulos, sb, 140, SpaceY);
-                        SpaceY += 20;
-                        g.DrawString("Inicio ", fBodyTiulos, sb, 10, SpaceY);
-                        g.DrawString(data.Inicio.ToString(), fBodyTiulos, sb, 140, SpaceY);
-                        SpaceY += 20;
-                        g.DrawString("Fin ", fBodyTiulos, sb, 10, SpaceY);
-                        g.DrawString(data.Fin.ToString(), fBodyTiulos, sb, 140, SpaceY);
-                        SpaceY += 20;
-                        g.DrawString("Vencimiento ", fBodyTiulos, sb, 10, SpaceY);
-                        g.DrawString(data.Vencimiento.ToString(), fBodyTiulos, sb, 140, SpaceY);
-                        SpaceY += 20;
+                    g.DrawString("Factura ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(DataService41._DataResolution.Factura.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                    g.DrawString("Prefijo ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(DataService41._DataResolution.Prefijo.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                    g.DrawString("Resolución ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(DataService41._DataResolution.Resolución.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                    g.DrawString("Inicio ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(DataService41._DataResolution.Inicio.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                    g.DrawString("Fin ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(DataService41._DataResolution.Fin.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
+                    g.DrawString("Vencimiento ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(DataService41._DataResolution.Vencimiento.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
 
-                        g.DrawString("Secuencia ", fBodyTiulos, sb, 10, SpaceY);
-                        g.DrawString(Secuencia, fBodyTiulos, sb, 140, SpaceY);
-                        SpaceY += 20;
-                    }
+                    g.DrawString("Secuencia ", fBodyTiulos, sb, 10, SpaceY);
+                    g.DrawString(Secuencia, fBodyTiulos, sb, 140, SpaceY);
+                    SpaceY += 20;
                 }
 
                 SpaceY += 20;

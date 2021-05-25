@@ -381,7 +381,7 @@ namespace WPProcinal.Service
         {
             try
             {
-                var client =new HttpClient();
+                var client = new HttpClient();
                 var response = client.GetAsync(image).Result;
                 //var client = new RestClient(image);
                 //var request = new RestRequest(Method.GET);
@@ -613,7 +613,7 @@ namespace WPProcinal.Service
         /// </summary>
         /// <returns></returns>
         #region "SCORES"
-        public static List<ResponseScores> ConsultResolution(SCORES data)
+        public static ResponseScores ConsultResolution(SCORES data)
         {
 
             string decryptData = string.Empty;
@@ -644,7 +644,7 @@ namespace WPProcinal.Service
 
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
                 LogService.SaveRequestResponse("Respuesta al consultar la resolución", decryptData, 1);
-                var est = JsonConvert.DeserializeObject<List<ResponseScores>>(decryptData);
+                var est = JsonConvert.DeserializeObject<ResponseScores>(decryptData);
                 return est;
 
             }
@@ -952,16 +952,61 @@ namespace WPProcinal.Service
         public int tercero { get; set; }
     }
 
+
+
+    public class Venta
+    {
+        public int Cantidad { get; set; }
+        public string Producto { get; set; }
+        public double Total { get; set; }
+    }
+
+    public class Bases
+    {
+        public double SinIva { get; set; }
+    }
+
+    public class Impuestos
+    {
+    }
+
+    public class DatosCliente
+    {
+        public decimal Cashback_Acu { get; set; }
+        public decimal Cashback_Red { get; set; }
+        public decimal Cashback_Total { get; set; }
+        public decimal Cashback_Compra { get; set; }
+        public string Cashback_Venci { get; set; }
+        public double Visitas_ultima { get; set; }
+    }
+
     public class ResponseScores
     {
-        public int Factura { get; set; }
+        public double Factura { get; set; }
         public string Prefijo { get; set; }
-
-        [JsonProperty("Resolución", NullValueHandling = NullValueHandling.Ignore)]
-        public double Resolucion { get; set; }
+        public double Resolución { get; set; }
         public double Inicio { get; set; }
         public double Fin { get; set; }
         public DateTime Vencimiento { get; set; }
+        public string NIT { get; set; }
+        public string Nombre { get; set; }
+        public string NomTeatro { get; set; }
+        public string Sucursal { get; set; }
+        public string FecDocum { get; set; }
+        public string Cliente { get; set; }
+
+        [JsonProperty("Ced/NIT")]
+        public string CedNIT { get; set; }
+        public string Telefono { get; set; }
+        public string Correo { get; set; }
+        public List<Venta> Ventas { get; set; }
+        public Bases Bases { get; set; }
+        public double SubTotal { get; set; }
+        public Impuestos Impuestos { get; set; }
+        public double Total { get; set; }
+        public string Caja { get; set; }
+        public DatosCliente DatosCliente { get; set; }
+        public string DescFinal { get; set; }
     }
     #endregion
 
@@ -1380,7 +1425,7 @@ namespace WPProcinal.Service
         /// <summary>
         /// Lista para recibir la informacion de la resolución de factura de score
         /// </summary>
-        public static List<ResponseScores> _DataResolution = new List<ResponseScores>();
+        public static ResponseScores _DataResolution = new ResponseScores();
         /// <summary>
         /// Lista global para registrar los productos que se seleccionen
         /// en la pantalla de confiteria

@@ -674,125 +674,115 @@ namespace WPProcinal.Forms.User_Control
                 }
                 frmLoading.Show();
 
-                if (Utilities.dataPaypad.PaypadConfiguration.iS_PRODUCTION)
+
+                List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
+                foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
                 {
-                    List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
-                    foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
+                    ubicaciones.Add(new UbicacioneSCOINT
                     {
-                        ubicaciones.Add(new UbicacioneSCOINT
-                        {
-                            Fila = item.RelativeRow,
-                            Columna = item.RelativeColumn,
-                            ColRelativa = int.Parse(item.Number),
-                            FilRelativa = item.Letter,
-                            Tarifa = int.Parse(item.CodTarifa.ToString())
-                        });
-                    }
-
-                    productos = new List<Producto>();
-
-                    foreach (var item in DataService41._Combos)
-                    {
-                        for (int i = 0; i < item.Quantity; i++)
-                        {
-
-                            var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
-                            if (combo.Receta != null)
-                            {
-                                foreach (var receta in combo.Receta)
-                                {
-                                    if (receta.RecetaReceta != null)
-                                    {
-                                        receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
-                                    }
-                                }
-                            }
-                            combo.Precio = Utilities.dataTransaction.dataUser.Tarjeta != null ? 2 : 1;
-                            productos.Add(combo);
-                        }
-                    }
-
-
-                    string year = DateTime.Now.Year.ToString();
-                    string mount = DateTime.Now.Month.ToString();
-                    string day = DateTime.Now.Day.ToString();
-                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
-                    {
-                        year = Utilities.dataTransaction.DataFunction.Date.Substring(0, 4);
-                        mount = Utilities.dataTransaction.DataFunction.Date.Substring(4, 2);
-                        day = Utilities.dataTransaction.DataFunction.Date.Substring(6, 2);
-                    }
-                    var dataClient = GetDataClient();
-
-                    var response41 = WCFServices41.PostBuy(new SCOINT
-                    {
-                        Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
-                        Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
-                        Apellido = dataClient.Apellido,
-                        ClienteFrecuente = long.Parse(dataClient.Tarjeta),
-                        CorreoCliente = dataClient.Login,
-                        Cortesia = string.Empty,
-                        Direccion = dataClient.Direccion,
-                        DocIdentidad = long.Parse(dataClient.Documento),
-                        Factura = Utilities.dataTransaction.DataFunction.Secuence,
-                        FechaFun = string.Concat(year, "-", mount, "-", day),
-                        Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
-                        InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
-                        Nombre = dataClient.Nombre,
-                        PagoCredito = 0,
-                        PagoEfectivo = Utilities.dataTransaction.PayVal,
-                        PagoInterno = Utilities.dataTransaction.PagoInterno,
-                        Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
-                        Productos = productos,
-                        PuntoVenta = Utilities.dataTransaction.DataFunction.PointOfSale,
-                        Sala = Utilities.dataTransaction.DataFunction.RoomId,
-                        teatro = Utilities.dataTransaction.DataFunction.CinemaId,
-                        Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
-                        tercero = 1,
-                        TipoBono = 0,
-                        TotalVenta = Utilities.dataTransaction.DataFunction.Total,
-                        Ubicaciones = ubicaciones,
-                        Membresia = false,
-                        Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
+                        Fila = item.RelativeRow,
+                        Columna = item.RelativeColumn,
+                        ColRelativa = int.Parse(item.Number),
+                        FilRelativa = item.Letter,
+                        Tarifa = int.Parse(item.CodTarifa.ToString())
                     });
-                    frmLoading.Close();
-                    foreach (var item in response41)
+                }
+
+                productos = new List<Producto>();
+
+                foreach (var item in DataService41._Combos)
+                {
+                    for (int i = 0; i < item.Quantity; i++)
                     {
-                        if (item.Respuesta != null)
+
+                        var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+                        if (combo.Receta != null)
                         {
-                            if (item.Respuesta.Contains("exitoso"))
+                            foreach (var receta in combo.Receta)
                             {
-                                if (Utilities.dataTransaction.dataUser.Tarjeta != null)
+                                if (receta.RecetaReceta != null)
                                 {
-                                    Utilities.dataTransaction.dataUser.Puntos =
-                                        Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
-                                        Utilities.dataTransaction.dataUser.Puntos;
+                                    receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
                                 }
-                                GetInvoice();
-                                payState = true;
-                                break;
                             }
-                            else
+                        }
+                        combo.Precio = Utilities.dataTransaction.dataUser.Tarjeta != null ? 2 : 1;
+                        productos.Add(combo);
+                    }
+                }
+
+
+                string year = DateTime.Now.Year.ToString();
+                string mount = DateTime.Now.Month.ToString();
+                string day = DateTime.Now.Day.ToString();
+                if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+                {
+                    year = Utilities.dataTransaction.DataFunction.Date.Substring(0, 4);
+                    mount = Utilities.dataTransaction.DataFunction.Date.Substring(4, 2);
+                    day = Utilities.dataTransaction.DataFunction.Date.Substring(6, 2);
+                }
+                var dataClient = GetDataClient();
+
+                var response41 = WCFServices41.PostBuy(new SCOINT
+                {
+                    Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
+                    Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
+                    Apellido = dataClient.Apellido,
+                    ClienteFrecuente = long.Parse(dataClient.Tarjeta),
+                    CorreoCliente = dataClient.Login,
+                    Cortesia = string.Empty,
+                    Direccion = dataClient.Direccion,
+                    DocIdentidad = long.Parse(dataClient.Documento),
+                    Factura = Utilities.dataTransaction.DataFunction.Secuence,
+                    FechaFun = string.Concat(year, "-", mount, "-", day),
+                    Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
+                    InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
+                    Nombre = dataClient.Nombre,
+                    PagoCredito = 0,
+                    PagoEfectivo = Utilities.dataTransaction.PayVal,
+                    PagoInterno = Utilities.dataTransaction.PagoInterno,
+                    Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
+                    Productos = productos,
+                    PuntoVenta = Utilities.dataTransaction.DataFunction.PointOfSale,
+                    Sala = Utilities.dataTransaction.DataFunction.RoomId,
+                    teatro = Utilities.dataTransaction.DataFunction.CinemaId,
+                    Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
+                    tercero = 1,
+                    TipoBono = 0,
+                    TotalVenta = Utilities.dataTransaction.DataFunction.Total,
+                    Ubicaciones = ubicaciones,
+                    Membresia = false,
+                    Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
+                });
+                frmLoading.Close();
+                foreach (var item in response41)
+                {
+                    if (item.Respuesta != null)
+                    {
+                        if (item.Respuesta.Contains("exitoso"))
+                        {
+                            if (Utilities.dataTransaction.dataUser.Tarjeta != null)
                             {
-                                payState = false;
+                                Utilities.dataTransaction.dataUser.Puntos =
+                                    Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
+                                    Utilities.dataTransaction.dataUser.Puntos;
                             }
+                            GetInvoice();
+                            payState = true;
+                            break;
                         }
                         else
                         {
                             payState = false;
                         }
-
                     }
+                    else
+                    {
+                        payState = false;
+                    }
+
                 }
-                else
-                {
-                    this.IsEnabled = false;
-                    frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
-                    frmLoading.Show();
-                    Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
-                    frmLoading.Close();
-                    this.IsEnabled = true;
-                }
+
 
                 SavePay(payState);
             }
