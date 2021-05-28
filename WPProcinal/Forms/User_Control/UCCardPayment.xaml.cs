@@ -182,16 +182,19 @@ namespace WPProcinal.Forms.User_Control
         /// Método encargado de actualizar la transacción a aprobada.
         /// Además inserta la información de la tarjeta
         /// </summary>
-        private void ApproveTrans()
+        private async void ApproveTrans()
         {
             try
             {
                 if (stateUpdate)
                 {
-                    Task.Run(() =>
-                    {
-                        Utilities.UpdateTransaction(Utilities.dataTransaction.PayVal, (int)ETransactionState.Aproved, 0);
-                    });
+
+                    await Utilities.UpdateTransaction(
+                         Utilities.dataTransaction.PayVal,
+                         (int)ETransactionState.Aproved,
+                         new List<DataModel.DenominationMoney>(),
+                         0);
+
                     SaveCardInformation(new RequestCardInformation
                     {
                         AUTORIZATION_CODE = _AutorizationCode,
@@ -264,7 +267,7 @@ namespace WPProcinal.Forms.User_Control
                     //});
                     //GC.Collect();
 
-                    Utilities.UpdateTransaction(0, 3, 0);
+                    Utilities.UpdateTransaction(0, 3, new List<DataModel.DenominationMoney>(), 0);
                     Utilities.GoToInicial();
                 }
                 else
@@ -1095,7 +1098,11 @@ namespace WPProcinal.Forms.User_Control
                 this.IsEnabled = false;
                 Task.Run(() =>
                 {
-                    Utilities.UpdateTransaction(0, (int)ETransactionState.Canceled, 0);
+                    Utilities.UpdateTransaction(
+                        0,
+                        (int)ETransactionState.Canceled,
+                        new List<DataModel.DenominationMoney>(),
+                        0);
                 });
 
                 Cancelled();

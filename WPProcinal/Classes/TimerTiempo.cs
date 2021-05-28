@@ -3,7 +3,7 @@ using System.Timers;
 
 namespace WPProcinal.Classes
 {
-    class TimerTiempo
+    public class TimerTiempo
     {
         public Action<string> CallBackTimer;
         public Action<int> CallBackClose;
@@ -30,7 +30,7 @@ namespace WPProcinal.Classes
             {
                 timer.Stop();
                 GC.Collect();
-               
+
             };
 
             if (Minutos >= 1)

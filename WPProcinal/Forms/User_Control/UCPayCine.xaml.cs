@@ -104,7 +104,7 @@ namespace WPProcinal.Forms.User_Control
                 payState = false;
                 if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
                 {
-                    Utilities.control.callbackValueIn = enterValue =>
+                    Utilities.control.callbackValueIn = (enterValue, code) =>
                     {
                         if (enterValue > 0)
                         {
@@ -119,13 +119,14 @@ namespace WPProcinal.Forms.User_Control
 
                                 });
                             }
-                            ProccesValue(new DataMoneyNotification
-                            {
-                                enterValue = enterValue,
-                                opt = 2,
-                                quantity = 1,
-                                idTransactionAPi = Utilities.IDTransactionDB
-                            });
+                            PaymentViewModel.RefreshListDenomination(int.Parse(enterValue.ToString()), 1, code);
+                            //ProccesValue(new DataMoneyNotification
+                            //{
+                            //    enterValue = enterValue,
+                            //    opt = 2,
+                            //    quantity = 1,
+                            //    idTransactionAPi = Utilities.IDTransactionDB
+                            //});
                         }
                     };
 
@@ -166,7 +167,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    Utilities.controlUnified.callbackValueIn = enterValue =>
+                    Utilities.controlUnified.callbackValueIn = (enterValue, code) =>
                     {
                         if (enterValue > 0)
                         {
@@ -181,13 +182,15 @@ namespace WPProcinal.Forms.User_Control
 
                                 });
                             }
-                            ProccesValue(new DataMoneyNotification
-                            {
-                                enterValue = enterValue,
-                                opt = 2,
-                                quantity = 1,
-                                idTransactionAPi = Utilities.IDTransactionDB
-                            });
+                            PaymentViewModel.RefreshListDenomination(int.Parse(enterValue.ToString()), 1, code);
+
+                            //ProccesValue(new DataMoneyNotification
+                            //{
+                            //    enterValue = enterValue,
+                            //    opt = 2,
+                            //    quantity = 1,
+                            //    idTransactionAPi = Utilities.IDTransactionDB
+                            //});
                         }
                     };
 
@@ -309,9 +312,10 @@ namespace WPProcinal.Forms.User_Control
                 totalReturn = false;
                 if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
                 {
-                    Utilities.control.callbackLog = log =>
+                    Utilities.control.callbackLog = (log, isBX) =>
                     {
-                        ProccesValue(log, Utilities.IDTransactionDB);
+                        //ProccesValue(log, Utilities.IDTransactionDB);
+                        PaymentViewModel.SplitDenomination(log, isBX);
                     };
 
                     Utilities.control.callbackTotalOut = totalOut =>
@@ -391,9 +395,10 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    Utilities.controlUnified.callbackLog = log =>
+                    Utilities.controlUnified.callbackLog = (log, isBX) =>
                     {
-                        ProccesValue(log, Utilities.IDTransactionDB);
+                        //ProccesValue(log, Utilities.IDTransactionDB);
+                        PaymentViewModel.SplitDenomination(log, isBX);
                     };
 
                     Utilities.controlUnified.callbackTotalOut = totalOut =>
@@ -542,16 +547,19 @@ namespace WPProcinal.Forms.User_Control
         /// <summary>
         /// Método encargado de actualizar la transacción a aprobada, se llama en finalizar pago En caso de fallo se reintenta dos veces más actualizar el estado de la transacción, si el error persiste se guarda en un log local y en el servidor, seguido de esto se continua con la transacción normal
         /// </summary>
-        private void ApproveTrans()
+        private async void ApproveTrans()
         {
             try
             {
                 if (stateUpdate)
                 {
-                    Task.Run(() =>
-                    {
-                        Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Aproved, Utilities.dataTransaction.ValueDelivery);
-                    });
+
+                    await Utilities.UpdateTransaction(
+                          PaymentViewModel.ValorIngresado,
+                          (int)ETransactionState.Aproved,
+                          PaymentViewModel.Denominations,
+                          Utilities.dataTransaction.ValueDelivery);
+
                 }
             }
             catch (Exception ex)
@@ -613,7 +621,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void Cancelled()
+        private async void Cancelled()
         {
             try
             {
@@ -640,11 +648,13 @@ namespace WPProcinal.Forms.User_Control
                 {
 
                 }
-                Task.Run(() =>
-                {
-                    Utilities.UpdateTransaction(PaymentViewModel.ValorIngresado, (int)ETransactionState.Canceled, Utilities.dataTransaction.ValueDelivery);
 
-                });
+                await Utilities.UpdateTransaction(
+                      PaymentViewModel.ValorIngresado,
+                      (int)ETransactionState.Canceled,
+                      new List<DataModel.DenominationMoney>(),
+                      Utilities.dataTransaction.ValueDelivery);
+
                 Dispatcher.Invoke(() =>
                 {
                     frmModal modal = new frmModal("Señor usuario, su compra fué cancelada.");

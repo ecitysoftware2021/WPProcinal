@@ -144,6 +144,7 @@
     <Compile Include="Classes\Switcher.cs" />
     <Compile Include="DataModel\ClasesUtiles.cs" />
     <Compile Include="Classes\Enumerables.cs" />
+    <Compile Include="DataModel\DenominationMoney.cs" />
     <Compile Include="DataModel\Log.cs" />
     <Compile Include="DataModel\PaymentViewModel.cs" />
     <Compile Include="DataModel\Response.cs" />

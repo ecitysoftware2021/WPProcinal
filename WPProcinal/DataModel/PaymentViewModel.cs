@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WPProcinal.DataModel;
 
 namespace WPProcinal.Classes
 {
@@ -30,6 +31,8 @@ namespace WPProcinal.Classes
         private string _imageReceipt;
 
         private string _imageEnterMoney;
+
+        private List<DenominationMoney> _denominations;
         #endregion
 
         #region Properties
@@ -144,6 +147,113 @@ namespace WPProcinal.Classes
             }
         }
 
+        public List<DenominationMoney> Denominations
+        {
+            get { return _denominations; }
+            set
+            {
+                _denominations = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Denominations)));
+            }
+        }
+
+        public void RefreshListDenomination(int denomination, int quantity, string code)
+        {
+            try
+            {
+                var itemDenomination = this.Denominations.Where(d => d.Denominacion == denomination && d.Code == code).FirstOrDefault();
+                if (itemDenomination == null)
+                {
+                    this.Denominations.Add(new DenominationMoney
+                    {
+                        Denominacion = denomination,
+                        Quantity = quantity,
+                        Total = denomination * quantity,
+                        Code = code,
+                        OperationType = DenominationDestiny.ACEPTAR,
+                        CurrencyID = (int)CurrencyDenomination.COP
+                    });
+                }
+                else
+                {
+                    itemDenomination.Quantity += quantity;
+                    itemDenomination.Total = denomination * itemDenomination.Quantity;
+                }
+            }
+            catch (Exception ex)
+            {
+                //Error.SaveLogError(MethodBase.GetCurrentMethod().Name, "PaymentViewModel", ex);
+            }
+        }
+
+        public void SplitDenomination(string data, bool isBX)
+        {
+            try
+            {
+                string[] values = data.Replace("!", "").Split(':')[1].Split(';');
+                foreach (var value in values)
+                {
+                    int denomination = int.Parse(value.Split('-')[0]);
+                    int quantity = int.Parse(value.Split('-')[1]);
+                    string code = denomination < 1000 ? "MD" : "DP";
+
+
+                    if (quantity > 0)
+                    {
+                        DenominationMoney denominationMoney = Denominations.Where(d => d.Denominacion == denomination && d.Code == code).FirstOrDefault();
+                        if (!isBX)
+                        {
+                            if (denominationMoney == null)
+                            {
+                                Denominations.Add(new DenominationMoney
+                                {
+                                    Denominacion = denomination,
+                                    Quantity = quantity,
+                                    Total = denomination * quantity,
+                                    Code = code,
+                                    OperationType = DenominationDestiny.DISPENSAR,
+                                    CurrencyID = (int)CurrencyDenomination.COP
+                                });
+                            }
+                        }
+                        else
+                        {
+                            if (denominationMoney != null)
+                            {
+                                if (quantity > denominationMoney.Quantity && denominationMoney.Code == "DP")
+                                {
+                                    Denominations.Add(new DenominationMoney
+                                    {
+                                        Denominacion = denomination,
+                                        Quantity = quantity - denominationMoney.Quantity,
+                                        Total = denomination * (quantity - denominationMoney.Quantity),
+                                        Code = code,
+                                        OperationType = DenominationDestiny.REJECT,
+                                        CurrencyID = (int)CurrencyDenomination.COP
+                                    });
+                                }
+                            }
+                            else
+                            {
+                                Denominations.Add(new DenominationMoney
+                                {
+                                    Denominacion = denomination,
+                                    Quantity = quantity,
+                                    Total = denomination * quantity,
+                                    Code = code,
+                                    OperationType = DenominationDestiny.REJECT,
+                                    CurrencyID = (int)CurrencyDenomination.COP
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Error.SaveLogError(MethodBase.GetCurrentMethod().Name, "PaymentViewModel", ex);
+            }
+        }
         #endregion
     }
 }

@@ -602,6 +602,7 @@ namespace WPProcinal.Classes
         /// <returns>Retorna un verdadero o un falso dependiendo el resultado del update</returns>
         public async static Task<bool> UpdateTransaction(decimal Enter,
             int state,
+            List<DataModel.DenominationMoney> denominations,
             decimal Return = 0)
         {
             try
@@ -614,7 +615,8 @@ namespace WPProcinal.Classes
                     INCOME_AMOUNT = Enter,
                     RETURN_AMOUNT = Return,
                     TRANSACTION_ID = IDTransactionDB,
-                    PAYMENT_TYPE_ID = (int)dataTransaction.MedioPago
+                    PAYMENT_TYPE_ID = (int)dataTransaction.MedioPago,
+                    TRANSACTION_DETAIL = denominations
                 };
 
                 var response = await api.GetResponse(new RequestApi

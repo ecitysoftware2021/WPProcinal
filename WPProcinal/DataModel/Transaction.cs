@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Media;
+using WPProcinal.DataModel;
 using WPProcinal.Models;
 using WPProcinal.Service;
 
@@ -23,6 +24,7 @@ namespace WPProcinal.Classes
         public int STATE_TRANSACTION_ID { get; set; }
         public PAYER payer { get; set; }
         public List<TRANSACTION_DESCRIPTION> TRANSACTION_DESCRIPTION = new List<TRANSACTION_DESCRIPTION>();
+        public List<DenominationMoney> TRANSACTION_DETAIL { get; set; }
     }
 
     public class TRANSACTION_DESCRIPTION
@@ -119,7 +121,7 @@ namespace WPProcinal.Classes
         /// Poster de la peícula seleccionada, se usa para mostrar en la pantalla de los horarios
         /// </summary>
         public ImageSource ImageSelected;
-        
+
         /// <summary>
         /// Variable global para conocer la fecha en la que el usuario quiere ver la pelicula
         /// </summary>
