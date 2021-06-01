@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using WPProcinal.Classes;
 
 namespace WPProcinal.Classes
@@ -137,6 +138,8 @@ namespace WPProcinal.Classes
                 string response = _serialPortBills.ReadLine();
                 CallBackSaveRequestResponse?.Invoke("Respuesta de los billeteros", response, 1);
 
+                Console.WriteLine(response);
+
                 if (!string.IsNullOrEmpty(response))
                 {
                     ProcessResponseBills(response);
@@ -221,8 +224,10 @@ namespace WPProcinal.Classes
                     enterValue += decimal.Parse(response[2]);
                     callbackValueIn?.Invoke(Convert.ToDecimal(response[2]), response[1]);
                 }
-
-                ValidateEnterValue();
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    ValidateEnterValue();
+                }));
             }
             catch (Exception ex)
             {
@@ -339,7 +344,10 @@ namespace WPProcinal.Classes
                 }
 
             }
-            catch { }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         /// <summary>
@@ -713,28 +721,20 @@ namespace WPProcinal.Classes
         {
             try
             {
-                if (response[1] == "DP")
+                if (response[1] == "AP")
                 {
-                    deliveryValue += decimal.Parse(response[2]) * thousand;
+                    enterValue += decimal.Parse(response[2]) * thousand;
+                    callbackValueIn?.Invoke(Convert.ToDecimal(response[2]) * thousand, response[1]);
                 }
-                else if (response[1] == "MD")
+                else if (response[1] == "MA")
                 {
-                    deliveryValue += decimal.Parse(response[2]) * hundred;
+                    enterValue += decimal.Parse(response[2]);
+                    callbackValueIn?.Invoke(Convert.ToDecimal(response[2]), response[1]);
                 }
-                else
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
-                    if (response[1] == "AP")
-                    {
-                        enterValue += decimal.Parse(response[2]) * thousand;
-                        callbackValueIn?.Invoke(Convert.ToDecimal(response[2]) * thousand, response[1]);
-                    }
-                    else if (response[1] == "MA")
-                    {
-                        enterValue += decimal.Parse(response[2]);
-                        callbackValueIn?.Invoke(Convert.ToDecimal(response[2]), response[1]);
-                    }
                     ValidateEnterValue();
-                }
+                }));
             }
             catch (Exception ex)
             {
@@ -1125,7 +1125,10 @@ public class GenericDataPeripherals
                     if (WaitForCoins <= 0)
                     {
                         SetCallBacksNull();
-                        callbackTotalOut?.Invoke(deliveryVal);
+                        Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                        {
+                            callbackTotalOut?.Invoke(deliveryVal);
+                        }));
                     }
                 }
             }

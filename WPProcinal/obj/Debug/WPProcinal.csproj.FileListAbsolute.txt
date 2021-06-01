@@ -620,7 +620,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
 C:\Users\David.Cordoba\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 E:\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe.config
 E:\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe
 E:\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.pdb
@@ -697,3 +696,8 @@ E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CoreCompileInputs.ca
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.dll
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Dapper.dll
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.xml
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Dapper.xml
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache

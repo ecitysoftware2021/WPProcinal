@@ -534,7 +534,8 @@ namespace WPProcinal.Forms.User_Control
                     PayValue = Utilities.dataTransaction.PayVal,
                     ValorFaltante = Utilities.dataTransaction.PayVal,
                     ValorSobrante = 0,
-                    ValorIngresado = 0
+                    ValorIngresado = 0,
+                    Denominations = new List<DataModel.DenominationMoney>()
                 };
                 this.DataContext = PaymentViewModel;
             }

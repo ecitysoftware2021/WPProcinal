@@ -153,7 +153,7 @@ namespace WPProcinal.Classes
             //public int Cashback_Compra { get; set; }
             //public string Cashback_Venci { get; set; }
             //public int Visitas_ultima { get; set; }
-            if (DataService41._DataResolution != null && DataService41._DataResolution.DatosCliente.Cashback_Compra > 0)
+            if (DataService41._DataResolution != null && DataService41._DataResolution.DatosCliente != null && DataService41._DataResolution.DatosCliente.Cashback_Compra > 0)
             {
                 g.DrawString("Saldo Acumulado:", fBodyTiulos, sb, 10, SpaceY);
                 g.DrawString(DataService41._DataResolution.DatosCliente.Cashback_Compra.ToString("C"), fBodyTiulos, sb, SpaceX + 50, SpaceY);
