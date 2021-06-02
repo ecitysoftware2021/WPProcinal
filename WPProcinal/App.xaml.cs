@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
-using WPProcinal.Classes;
 
 namespace WPProcinal
 {
@@ -16,7 +11,11 @@ namespace WPProcinal
     {
         public App()
         {
-
+            var ProcessApp = Process.GetProcessesByName(Assembly.GetExecutingAssembly().GetName().Name);
+            if (ProcessApp.Length > 1)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }

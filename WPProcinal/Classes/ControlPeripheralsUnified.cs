@@ -1020,28 +1020,31 @@ public class GenericDataPeripherals
     {
         try
         {
-            string responseFull;
-            if (response[1] == "OK")
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
             {
-                responseFull = string.Concat(response[2], ":", response[3]);
-                if (response[2] == "DP")
+                string responseFull;
+                if (response[1] == "OK")
                 {
-                    ConfigDataDispenser(responseFull, 1);
-                }
+                    responseFull = string.Concat(response[2], ":", response[3]);
+                    if (response[2] == "DP")
+                    {
+                        ConfigDataDispenser(responseFull, 1);
+                    }
 
-                if (response[2] == "MD")
-                {
-                    ConfigDataDispenser(responseFull);
+                    if (response[2] == "MD")
+                    {
+                        ConfigDataDispenser(responseFull);
+                    }
                 }
-            }
-            else
-            {
-                responseFull = string.Concat(response[2], ":", response[3]);
-                if (response[2] == "DP")
+                else
                 {
-                    ConfigDataDispenser(responseFull, 2);
+                    responseFull = string.Concat(response[2], ":", response[3]);
+                    if (response[2] == "DP")
+                    {
+                        ConfigDataDispenser(responseFull, 2);
+                    }
                 }
-            }
+            }));
         }
         catch (Exception ex)
         {
@@ -1125,10 +1128,7 @@ public class GenericDataPeripherals
                     if (WaitForCoins <= 0)
                     {
                         SetCallBacksNull();
-                        Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
-                        {
-                            callbackTotalOut?.Invoke(deliveryVal);
-                        }));
+                        callbackTotalOut?.Invoke(deliveryVal);
                     }
                 }
             }
@@ -1145,9 +1145,7 @@ public class GenericDataPeripherals
         {
             callbackError?.Invoke(ex.Message, "ConfigDataDispenser en ControlPeripherals", EError.Aplication, ELevelError.Medium);
         }
-
     }
-
 
     #endregion
 
@@ -1158,11 +1156,14 @@ public class GenericDataPeripherals
         try
         {
             timer = new TimerTiempo(Utilities.dataPaypad.PaypadConfiguration.inactivitY_TIMER);
-            timer.CallBackClose = response => Application.Current.Dispatcher.BeginInvoke((Action)delegate
+            timer.CallBackClose = response =>
             {
-                SetCallBacksNull();
-                callbackOut?.Invoke(deliveryVal);
-            });
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    SetCallBacksNull();
+                    callbackOut?.Invoke(deliveryVal);
+                }));
+            };
         }
         catch { }
     }

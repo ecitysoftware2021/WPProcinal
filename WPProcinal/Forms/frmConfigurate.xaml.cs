@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using WPProcinal.Classes;
 using WPProcinal.Forms.User_Control;
-using WPProcinal.Models.ApiLocal;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms
@@ -23,11 +20,12 @@ namespace WPProcinal.Forms
         Utilities util;
         public frmConfigurate()
         {
-            var ProcessApp = Process.GetProcessesByName("WPProcinal");
-            if (ProcessApp.Length > 1)
-            {
-                this.Close();
-            }
+            //TODO: mirar en el App.xaml.cs si no funciona y descomentar aqui
+            //var ProcessApp = Process.GetProcessesByName("WPProcinal");
+            //if (ProcessApp.Length > 1)
+            //{
+            //    this.Close();
+            //}
 
             InitializeComponent();
 
@@ -82,7 +80,6 @@ namespace WPProcinal.Forms
             if (api != null)
             {
                 GetToken();
-
             }
         }
 
@@ -187,7 +184,10 @@ namespace WPProcinal.Forms
                         File.Delete(item);
                     }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    //TODO: guardar el error en base de datos
+                }
             }
             else
             {
@@ -278,7 +278,7 @@ namespace WPProcinal.Forms
                         });
                     };
                 }
-                
+
 
             }
             else
@@ -302,7 +302,10 @@ namespace WPProcinal.Forms
                     Utilities.controlUnified.callbackError = null;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                //TODO: guardar el error en base de datos
+            }
         }
 
         private void CheckPeripheralsAndContinue()
