@@ -122,15 +122,15 @@ namespace WPProcinal.Forms
                         if (item.Tarjeta != "0")
                         {
                             Utilities.dataTransaction.dataUser = item;
-                            frmLoading = new FrmLoading("¡Consultando Puntos Cine Fans...!");
-                            frmLoading.Show();
-                            Utilities.dataTransaction.dataUser.Puntos = WCFServices41.ConsultPoints(new SCOMOV
-                            {
-                                Correo = Utilities.dataTransaction.dataUser.Login,
-                                Clave = Utilities.dataTransaction.dataUser.Clave,
-                                tercero = 1
-                            });
-                            frmLoading.Close();
+                            //frmLoading = new FrmLoading("¡Consultando Puntos Cine Fans...!");
+                            //frmLoading.Show();
+                            //Utilities.dataTransaction.dataUser.Puntos = WCFServices41.ConsultPoints(new SCOMOV
+                            //{
+                            //    Correo = Utilities.dataTransaction.dataUser.Login,
+                            //    Clave = Utilities.dataTransaction.dataUser.Clave,
+                            //    tercero = 1
+                            //});
+                            //frmLoading.Close();
                             isCineFan = true;
 
                             break;
@@ -252,12 +252,12 @@ namespace WPProcinal.Forms
                         {
                             if (item.Respuesta.Contains("exitoso"))
                             {
-                                if (Utilities.dataTransaction.dataUser.Tarjeta != null)
-                                {
-                                    Utilities.dataTransaction.dataUser.Puntos =
-                                        Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
-                                        Utilities.dataTransaction.dataUser.Puntos;
-                                }
+                                //if (Utilities.dataTransaction.dataUser.Tarjeta != null)
+                                //{
+                                //    Utilities.dataTransaction.dataUser.Puntos =
+                                //        Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
+                                //        Utilities.dataTransaction.dataUser.Puntos;
+                                //}
                                 Utilities.controlScanner.callbackDocument = null;
                                 Utilities.controlScanner.ClosePortScanner();
                                 DialogResult = true;

@@ -28,24 +28,12 @@ namespace WPProcinal.Forms.User_Control
         private string TramaCancelar;
 
         private string TramaInicial;
-
         private string MensajeDebito { get; set; }
-
-
-
         private string ValorTotal { get; set; }
-
         private string ValorIVA { get { return "0"; } }
-
-
-
         private string NumeroTransaccion { get; set; }
-
         private string ValorPropina { get { return "0"; } }
-
-
         private string ValorIAC { get { return "0"; } }
-
 
         string _Franchise;
         string _LastNumbers;
@@ -105,8 +93,8 @@ namespace WPProcinal.Forms.User_Control
             {
                 if (Utilities.dataTransaction.PayVal == 0)
                 {
-                    //    this.IsEnabled = false;
-                    //    Buytickets();
+                    this.IsEnabled = false;
+                    Buytickets();
                 }
                 else
                 {
@@ -158,10 +146,6 @@ namespace WPProcinal.Forms.User_Control
             {
             }
         }
-
-
-
-
 
         /// <summary>
         /// Activa el callback que procesa todas las respuestas del datáfono
@@ -267,22 +251,11 @@ namespace WPProcinal.Forms.User_Control
                     //});
                     //GC.Collect();
 
-                    Utilities.UpdateTransaction(0, 3, new List<DataModel.DenominationMoney>(), 0);
+                    Utilities.UpdateTransaction(0, (int)ETransactionState.Canceled, new List<DataModel.DenominationMoney>(), 0);
                     Utilities.GoToInicial();
                 }
                 else
                 {
-                    //try
-                    //{
-                    //    if (Utilities.dataTransaction.dataUser.Tarjeta != null)
-                    //    {
-                    //        Utilities.dataTransaction.dataUser.Puntos =
-                    //            Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) + Utilities.dataTransaction.dataUser.Puntos;
-                    //    }
-                    //}
-                    //catch
-                    //{
-                    //}
                     FrmLoading frmLoading = new FrmLoading("Imprimiendo tickets...");
                     frmLoading.Show();
                     Utilities.PrintTicket("Aprobada", Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
@@ -460,12 +433,6 @@ namespace WPProcinal.Forms.User_Control
                     {
                         if (item.Respuesta.Contains("exitoso"))
                         {
-                            if (Utilities.dataTransaction.dataUser.Tarjeta != null)
-                            {
-                                Utilities.dataTransaction.dataUser.Puntos =
-                                    Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
-                                    Utilities.dataTransaction.dataUser.Puntos;
-                            }
                             payState = true;
                             GetInvoice();
                             break;

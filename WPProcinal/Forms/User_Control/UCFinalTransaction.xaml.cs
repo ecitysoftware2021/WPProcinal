@@ -17,11 +17,11 @@ namespace WPProcinal.Forms.User_Control
             Utilities.dataTransaction = new DataTransaction();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
             {
-                AdminPaypad.UpdatePeripherals();
+                await AdminPaypad.UpdatePeripherals();
                 Thread.Sleep(2000);
                 Utilities.GoToInicial();
             }

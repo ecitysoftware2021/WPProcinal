@@ -329,12 +329,7 @@ namespace WPProcinal.Classes
             }
         }
 
-        //public static void DoEvents()
-        //{
-        //    Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-        //        new Action(delegate { }));
-        //}
-
+       
         /// <summary>
         /// Metodo que invoca el audio
         /// </summary>

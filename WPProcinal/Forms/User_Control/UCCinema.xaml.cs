@@ -143,43 +143,5 @@ namespace WPProcinal.Forms.User_Control
                 AdminPaypad.SaveErrorControl(ex.Message, "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
             }
         }
-
-
-        private bool ValidatePayPad()
-        {
-            if (Utilities.dataPaypad.StateUpdate)
-            {
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    frmModal modal = new frmModal("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
-                    modal.Show();
-                    Utilities.UpdateApp();
-                });
-                return false;
-            }
-            if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
-            {
-                if (!Utilities.dataPaypad.State)
-                {
-                    frmModal modal = new frmModal("Perdí la conexión, intenta en un momento por favor!", false);
-                    modal.ShowDialog();
-                    return false;
-                }
-                else if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser && string.IsNullOrEmpty(Utilities.dataPaypad.Message))
-                {
-                    return true;
-                }
-                else
-                {
-                    frmModal modal = new frmModal(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeSinDinero);
-                    modal.ShowDialog();
-                    return false;
-                }
-            }
-            else
-            {
-                return true;
-            }
-        }
     }
 }

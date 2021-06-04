@@ -120,13 +120,6 @@ namespace WPProcinal.Forms.User_Control
                                 });
                             }
                             PaymentViewModel.RefreshListDenomination(int.Parse(enterValue.ToString()), 1, code);
-                            //ProccesValue(new DataMoneyNotification
-                            //{
-                            //    enterValue = enterValue,
-                            //    opt = 2,
-                            //    quantity = 1,
-                            //    idTransactionAPi = Utilities.IDTransactionDB
-                            //});
                         }
                     };
 
@@ -237,66 +230,6 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        public void ProccesValue(DataMoneyNotification data)
-        {
-            try
-            {
-                if (data.opt == 2)
-                {
-                    if (data.enterValue >= 1000)
-                    {
-                        data.code = "AP";
-                    }
-                    else
-                    {
-                        data.code = "MA";
-                    }
-                }
-                else
-                {
-                    if (data.enterValue > 1000)
-                    {
-                        data.code = "DP";
-                    }
-                    else
-                    {
-                        data.code = "MD";
-                    }
-                }
-
-                InsertLocalDBMoney(new RequestTransactionDetails
-                {
-                    Code = data.code,
-                    Denomination = Convert.ToInt32(data.enterValue),
-                    Operation = data.opt,
-                    Quantity = data.quantity,
-                    TransactionId = data.idTransactionAPi,
-                    Date = DateTime.Now
-                });
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        private static void InsertLocalDBMoney(RequestTransactionDetails detail)
-        {
-            try
-            {
-                SQLConnection.SaveBackMoneyAcepted(new AceptedMoneyModel
-                {
-                    CODE = detail.Code,
-                    DENOMINATION = detail.Denomination,
-                    DESCRIPTION = detail.Description,
-                    OPERATION = detail.Operation,
-                    QUANTITY = detail.Quantity,
-                    TRANSACTION_ID = detail.TransactionId,
-                    DATE = detail.Date.ToString()
-                });
-            }
-            catch { }
-        }
 
         /// <summary>
         /// Método que se encarga de devolver el dinero ya sea por que se canceló la transacción o por que hay valor sobrante
@@ -487,38 +420,6 @@ namespace WPProcinal.Forms.User_Control
                     EError.Aplication,
                     ELevelError.Medium);
             }
-        }
-
-
-        public void ProccesValue(string messaje, int idTransactionAPi)
-        {
-            try
-            {
-                InsertLocalDBMoneyDispenser(new RequestTransactionDetails
-                {
-                    Description = messaje,
-                    TransactionId = idTransactionAPi,
-                    Date = DateTime.Now
-                });
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        private static void InsertLocalDBMoneyDispenser(RequestTransactionDetails detail)
-        {
-            try
-            {
-                SQLConnection.SaveBackMoneyDispensed(new MoneyModel
-                {
-                    DATA = detail.Description,
-                    TRANSACTION_ID = detail.TransactionId,
-                    DATE = detail.Date.ToString()
-                });
-            }
-            catch { }
         }
 
         /// <summary>
@@ -772,12 +673,6 @@ namespace WPProcinal.Forms.User_Control
                     {
                         if (item.Respuesta.Contains("exitoso"))
                         {
-                            if (Utilities.dataTransaction.dataUser.Tarjeta != null)
-                            {
-                                Utilities.dataTransaction.dataUser.Puntos =
-                                    Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
-                                    Utilities.dataTransaction.dataUser.Puntos;
-                            }
                             GetInvoice();
                             payState = true;
                             break;
@@ -929,8 +824,11 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                timer.CallBackClose = null;
-                timer.CallBackTimer = null;
+                if (timer != null)
+                {
+                    timer.CallBackClose = null;
+                    timer.CallBackTimer = null;
+                }
             }
             catch { }
         }

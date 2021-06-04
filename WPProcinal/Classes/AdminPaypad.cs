@@ -45,8 +45,6 @@ namespace WPProcinal.Classes
             {
                 Task.Run(() =>
                 {
-                    object result = "false";
-
                     if (log != null)
                     {
                         if (type == ELogType.General)
@@ -67,6 +65,8 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+               //GRAVE ERROR, Por último debe de guardar el log en el eventviewer
+              // at: jmora
             }
         }
 
@@ -100,6 +100,8 @@ namespace WPProcinal.Classes
             }
             catch
             {
+                //GRAVE ERROR, Por último debe de guardar el log en el eventviewer
+                // att: jmora
             }
         }
     }

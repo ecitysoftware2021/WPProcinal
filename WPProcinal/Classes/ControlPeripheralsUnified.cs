@@ -889,76 +889,76 @@ namespace WPProcinal.Classes
 
         #endregion
     }
-}
-
-public class GenericDataPeripherals
-{
-
-    #region SerialPorts
-
-    public SerialPort _serialPortBills;//Puerto billeteros
-    public SerialPort _BarcodeReader;//Puerto Scanner
 
 
-    #endregion
+    public class GenericDataPeripherals
+    {
 
-    #region CommandsPorts
+        #region SerialPorts
 
-    public string _StartBills = "OR:START";//Iniciar los billeteros
-
-    public string _AceptanceBillOn = "OR:ON:AP";//Operar billetero Aceptance
-
-    public string _DispenserBillOn = "OR:ON:DP";//Operar billetero Dispenser
-
-    public string _AceptanceBillOFF = "OR:OFF:AP";//Cerrar billetero Aceptance
-
-    #endregion
-
-    #region Callbacks
-
-    public Action<decimal, string> callbackValueIn;//Calback para cuando ingresan un billete
-
-    public Action<decimal> callbackTotalIn;//Calback para cuando se ingresa la totalidad del dinero
-
-    public Action<decimal> callbackTotalOut;//Calback para cuando sale la totalidad del dinero
-
-    public Action<decimal> callbackOut;//Calback para cuando sale cieerta cantidad del dinero
-
-    public Action<string, string, EError, ELevelError> callbackError;//Calback de error
-
-    public Action<string, bool> callbackLog;//Calback de devolucion
-
-    public Action<string> callbackMessage;//Calback de mensaje
-
-    public Action<bool> callbackToken;//Calback de mensaje
-
-    public Action<string, string, int> CallBackSaveRequestResponse;
+        public SerialPort _serialPortBills;//Puerto billeteros
+        public SerialPort _BarcodeReader;//Puerto Scanner
 
 
-    #endregion
+        #endregion
+
+        #region CommandsPorts
+
+        public string _StartBills = "OR:START";//Iniciar los billeteros
+
+        public string _AceptanceBillOn = "OR:ON:AP";//Operar billetero Aceptance
+
+        public string _DispenserBillOn = "OR:ON:DP";//Operar billetero Dispenser
+
+        public string _AceptanceBillOFF = "OR:OFF:AP";//Cerrar billetero Aceptance
+
+        #endregion
+
+        #region Callbacks
+
+        public Action<decimal, string> callbackValueIn;//Calback para cuando ingresan un billete
+
+        public Action<decimal> callbackTotalIn;//Calback para cuando se ingresa la totalidad del dinero
+
+        public Action<decimal> callbackTotalOut;//Calback para cuando sale la totalidad del dinero
+
+        public Action<decimal> callbackOut;//Calback para cuando sale cieerta cantidad del dinero
+
+        public Action<string, string, EError, ELevelError> callbackError;//Calback de error
+
+        public Action<string, bool> callbackLog;//Calback de devolucion
+
+        public Action<string> callbackMessage;//Calback de mensaje
+
+        public Action<bool> callbackToken;//Calback de mensaje
+
+        public Action<string, string, int> CallBackSaveRequestResponse;
 
 
-    #region Variables
-    public decimal deliveryVal;
+        #endregion
 
-    public decimal payValue;//Valor a pagar
 
-    public decimal enterValue;//Valor ingresado
+        #region Variables
+        public decimal deliveryVal;
 
-    public decimal deliveryValue;//Valor entregado
+        public decimal payValue;//Valor a pagar
 
-    public decimal dispenserValue;//Valor a dispensar
+        public decimal enterValue;//Valor ingresado
 
-    public bool stateError;
+        public decimal deliveryValue;//Valor entregado
 
-    public static string TOKEN;//Llabe que retorna el dispenser
+        public decimal dispenserValue;//Valor a dispensar
 
-    public TimerTiempo timer;
+        public bool stateError;
 
-    public int WaitForCoins = 0;
+        public static string TOKEN;//Llabe que retorna el dispenser
 
-    public static string[] ErrorVector = new string[]
-   {
+        public TimerTiempo timer;
+
+        public int WaitForCoins = 0;
+
+        public static string[] ErrorVector = new string[]
+       {
             "STACKER_OPEN",
             "JAM_IN_ACCEPTOR",
             "PAUSE",
@@ -967,215 +967,217 @@ public class GenericDataPeripherals
             "Scan",
             "FATAL",
             "Printer"
-   };
-    #endregion
+       };
+        #endregion
 
 
-    public void StartValues()
-    {
-        deliveryValue = 0;
-        enterValue = 0;
-        deliveryVal = 0;
-        this.callbackTotalIn = null;
-        this.callbackTotalOut = null;
-        this.callbackValueIn = null;
-        this.callbackOut = null;
-    }
-
-    /// <summary>
-    /// Respuesta para el caso de Recepción de un mensaje enviado
-    /// </summary>
-    /// <param name="response">respuesta</param>
-    public void ProcessRC(string[] response)
-    {
-        try
+        public void StartValues()
         {
-            if (response[1] == "OK")
-            {
-                switch (response[2])
-                {
-                    case "DP":
-                        if (response[3] == "HD" && !string.IsNullOrEmpty(response[4]))
-                        {
-                            TOKEN = response[4].Replace("\r", string.Empty);
-                            callbackToken?.Invoke(true);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
+            deliveryValue = 0;
+            enterValue = 0;
+            deliveryVal = 0;
+            this.callbackTotalIn = null;
+            this.callbackTotalOut = null;
+            this.callbackValueIn = null;
+            this.callbackOut = null;
         }
-        catch (Exception ex)
-        {
-            callbackError?.Invoke(ex.Message, "ProccessRC", EError.Aplication, ELevelError.Medium);
-        }
-    }
 
-    /// <summary>
-    /// Respuesta para el caso de total cuando responde el billetero/monedero dispenser
-    /// </summary>
-    /// <param name="response">respuesta</param>
-    public void ProcessTO(string[] response)
-    {
-        try
+        /// <summary>
+        /// Respuesta para el caso de Recepción de un mensaje enviado
+        /// </summary>
+        /// <param name="response">respuesta</param>
+        public void ProcessRC(string[] response)
         {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+            try
             {
-                string responseFull;
                 if (response[1] == "OK")
                 {
-                    responseFull = string.Concat(response[2], ":", response[3]);
-                    if (response[2] == "DP")
+                    switch (response[2])
                     {
-                        ConfigDataDispenser(responseFull, 1);
+                        case "DP":
+                            if (response[3] == "HD" && !string.IsNullOrEmpty(response[4]))
+                            {
+                                TOKEN = response[4].Replace("\r", string.Empty);
+                                callbackToken?.Invoke(true);
+                            }
+                            break;
+                        default:
+                            break;
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                callbackError?.Invoke(ex.Message, "ProccessRC", EError.Aplication, ELevelError.Medium);
+            }
+        }
 
-                    if (response[2] == "MD")
+        /// <summary>
+        /// Respuesta para el caso de total cuando responde el billetero/monedero dispenser
+        /// </summary>
+        /// <param name="response">respuesta</param>
+        public void ProcessTO(string[] response)
+        {
+            try
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    string responseFull;
+                    if (response[1] == "OK")
                     {
-                        ConfigDataDispenser(responseFull);
+                        responseFull = string.Concat(response[2], ":", response[3]);
+                        if (response[2] == "DP")
+                        {
+                            ConfigDataDispenser(responseFull, 1);
+                        }
+
+                        if (response[2] == "MD")
+                        {
+                            ConfigDataDispenser(responseFull);
+                        }
+                    }
+                    else
+                    {
+                        responseFull = string.Concat(response[2], ":", response[3]);
+                        if (response[2] == "DP")
+                        {
+                            ConfigDataDispenser(responseFull, 2);
+                        }
+                    }
+                }));
+            }
+            catch (Exception ex)
+            {
+                callbackError?.Invoke(ex.Message, "ProcessTO en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        /// <summary>
+        /// Respuesta para el caso de error
+        /// </summary>
+        /// <param name="response">respuesta</param>
+        public void ProcessER(string[] response)
+        {
+            try
+            {
+                if (response[1] == "MD")
+                {
+                    stateError = true;
+                }
+                if (response[1] == "DP")
+                {
+                    stateError = true;
+                }
+
+                if (response[1] == "AP")
+                {
+
+                }
+                else if (response[1] == "FATAL")
+                {
+                    //Utilities.RestartApp();
+                }
+            }
+            catch (Exception ex)
+            {
+                callbackError?.Invoke(ex.Message, "ProcessER en ControlPeripherals", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        #region Responses
+
+        /// <summary>
+        /// Procesa la respuesta de los dispenser M y B
+        /// </summary>
+        /// <param name="data">respuesta</param>
+        /// <param name="isRj">si se fue o no al reject</param>
+        public void ConfigDataDispenser(string data, int isBX = 0)
+        {
+            try
+            {
+                string[] values = data.Split(':')[1].Split(';');
+                if (isBX < 2)
+                {
+                    foreach (var value in values)
+                    {
+                        int denominacion = int.Parse(value.Split('-')[0]);
+                        int cantidad = int.Parse(value.Split('-')[1]);
+                        deliveryVal += denominacion * cantidad;
+                    }
+                }
+
+                switch (isBX)
+                {
+                    case 0:
+                        callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"), false);
+                        WaitForCoins--;
+                        break;
+                    case 1:
+                        callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"), false);
+                        break;
+                    case 2:
+                        callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"), true);
+                        WaitForCoins--;
+                        break;
+                }
+
+                if (!stateError)
+                {
+                    if (dispenserValue <= deliveryVal)
+                    {
+                        if (WaitForCoins <= 0)
+                        {
+                            SetCallBacksNull();
+                            callbackTotalOut?.Invoke(deliveryVal);
+                        }
                     }
                 }
                 else
                 {
-                    responseFull = string.Concat(response[2], ":", response[3]);
-                    if (response[2] == "DP")
-                    {
-                        ConfigDataDispenser(responseFull, 2);
-                    }
-                }
-            }));
-        }
-        catch (Exception ex)
-        {
-            callbackError?.Invoke(ex.Message, "ProcessTO en ControlPeripherals", EError.Aplication, ELevelError.Medium);
-        }
-    }
-
-    /// <summary>
-    /// Respuesta para el caso de error
-    /// </summary>
-    /// <param name="response">respuesta</param>
-    public void ProcessER(string[] response)
-    {
-        try
-        {
-            if (response[1] == "MD")
-            {
-                stateError = true;
-            }
-            if (response[1] == "DP")
-            {
-                stateError = true;
-            }
-
-            if (response[1] == "AP")
-            {
-
-            }
-            else if (response[1] == "FATAL")
-            {
-                //Utilities.RestartApp();
-            }
-        }
-        catch (Exception ex)
-        {
-            callbackError?.Invoke(ex.Message, "ProcessER en ControlPeripherals", EError.Aplication, ELevelError.Medium);
-        }
-    }
-
-    #region Responses
-
-    /// <summary>
-    /// Procesa la respuesta de los dispenser M y B
-    /// </summary>
-    /// <param name="data">respuesta</param>
-    /// <param name="isRj">si se fue o no al reject</param>
-    public void ConfigDataDispenser(string data, int isBX = 0)
-    {
-        try
-        {
-            string[] values = data.Split(':')[1].Split(';');
-            if (isBX < 2)
-            {
-                foreach (var value in values)
-                {
-                    int denominacion = int.Parse(value.Split('-')[0]);
-                    int cantidad = int.Parse(value.Split('-')[1]);
-                    deliveryVal += denominacion * cantidad;
-                }
-            }
-
-            switch (isBX)
-            {
-                case 0:
-                    callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"), false);
-                    WaitForCoins--;
-                    break;
-                case 1:
-                    callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"), false);
-                    break;
-                case 2:
-                    callbackLog?.Invoke(string.Concat(data.Replace("\r", string.Empty), "!"), true);
-                    WaitForCoins--;
-                    break;
-            }
-
-            if (!stateError)
-            {
-                if (dispenserValue <= deliveryVal)
-                {
                     if (WaitForCoins <= 0)
                     {
                         SetCallBacksNull();
-                        callbackTotalOut?.Invoke(deliveryVal);
+                        callbackOut?.Invoke(deliveryVal);
                     }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                if (WaitForCoins <= 0)
-                {
-                    SetCallBacksNull();
-                    callbackOut?.Invoke(deliveryVal);
-                }
+                callbackError?.Invoke(ex.Message, "ConfigDataDispenser en ControlPeripherals", EError.Aplication, ELevelError.Medium);
             }
         }
-        catch (Exception ex)
+
+        #endregion
+
+
+        #region Timer Inactividad
+        public void ActivateTimer()
         {
-            callbackError?.Invoke(ex.Message, "ConfigDataDispenser en ControlPeripherals", EError.Aplication, ELevelError.Medium);
-        }
-    }
-
-    #endregion
-
-
-    #region Timer Inactividad
-    public void ActivateTimer()
-    {
-        try
-        {
-            timer = new TimerTiempo(Utilities.dataPaypad.PaypadConfiguration.inactivitY_TIMER);
-            timer.CallBackClose = response =>
+            try
             {
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                timer = new TimerTiempo(Utilities.dataPaypad.PaypadConfiguration.inactivitY_TIMER);
+                timer.CallBackClose = response =>
                 {
-                    SetCallBacksNull();
-                    callbackOut?.Invoke(deliveryVal);
-                }));
-            };
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                    {
+                        SetCallBacksNull();
+                        callbackOut?.Invoke(deliveryVal);
+                    }));
+                };
+            }
+            catch { }
         }
-        catch { }
-    }
-    public void SetCallBacksNull()
-    {
-        if (timer != null)
+        public void SetCallBacksNull()
         {
-            timer.CallBackStop?.Invoke(1);
-            timer.CallBackClose = null;
-            timer.CallBackTimer = null;
+            if (timer != null)
+            {
+                timer.CallBackStop?.Invoke(1);
+                timer.CallBackClose = null;
+                timer.CallBackTimer = null;
+            }
         }
-    }
-    #endregion
+        #endregion
 
+    }
 }
+

@@ -1339,7 +1339,6 @@ namespace WPProcinal.Service
         public string Clave { get; set; }
         public string Telefono { get; set; }
         public string Fecha_Nacimiento { get; set; }
-        public double Puntos { get; set; }
         public Nullable<decimal> SaldoFavor { get; set; }
 
     }

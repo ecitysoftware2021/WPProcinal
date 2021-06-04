@@ -431,8 +431,11 @@ namespace WPProcinal.Forms.User_Control
 
         void SetCallBacksNull()
         {
-            timer.CallBackClose = null;
-            timer.CallBackTimer = null;
+            if (timer != null)
+            {
+                timer.CallBackClose = null;
+                timer.CallBackTimer = null;
+            }
         }
         #endregion
 

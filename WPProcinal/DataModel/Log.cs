@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WPProcinal.DataModel;
 
 namespace WPProcinal.Classes
 {
@@ -66,10 +61,13 @@ namespace WPProcinal.Classes
                 {
                     Description = mensaje,
                     Reference = Dictionaries.Cinemas[Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()] + " - " + operacion,
-                    STATE = state
+                    STATE = state,
                 }, ELogType.General);
             }
-            catch { }
+            catch
+            {
+
+            }
         }
 
         public static void CreateLogsPeticion(string operacion, string mensaje)
@@ -100,7 +98,11 @@ namespace WPProcinal.Classes
                     sw.WriteLine(json);
                 }
             }
-            catch { }
+            catch
+            {
+
+
+            }
         }
     }
 }

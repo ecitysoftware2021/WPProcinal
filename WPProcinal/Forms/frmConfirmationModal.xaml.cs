@@ -15,8 +15,6 @@ namespace WPProcinal.Forms
     public partial class frmConfirmationModal : Window
     {
         #region Variables Locales
-        bool _visibleCombo = false;
-
         decimal totalModal = 0;
         decimal totalPago = 0;
 
@@ -26,7 +24,6 @@ namespace WPProcinal.Forms
         public frmConfirmationModal(bool visibleCombo = false)
         {
             InitializeComponent();
-            _visibleCombo = visibleCombo;
             _View = new List<Combos>();
             ConfigureView();
         }
