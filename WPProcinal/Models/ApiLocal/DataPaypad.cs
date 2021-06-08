@@ -75,7 +75,7 @@ namespace WPProcinal.Models.ApiLocal
         public PRODUCCION produccion { get; set; }
  
         public AMBIENTE AMBIENTE { get; set; }
-    
+        public int MaxSillas { get; set; }
 
         public void DefinirAmbiente(bool iS_PRODUCTION)
         {
