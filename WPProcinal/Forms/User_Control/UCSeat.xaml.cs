@@ -254,40 +254,40 @@ namespace WPProcinal.Forms.User_Control
                 }
             }
 
-            int position = letters.ToList().IndexOf(filas.filRel);
+            //int position = letters.ToList().IndexOf(filas.filRel);
 
-            if (position - 1 >= 0)
-            {
-                var downLetter = listLockedSeats.Where(lv =>
-                lv.letter == letters[position - 1]
-                &&
-                (lv.number == item.Columna
-                || lv.number == item.Columna
-                || lv.number == item.Columna)
-                && item.TipoSilla != "pasillo"
-                && item.EstadoSilla != "B"
-                && item.EstadoSilla != "O").FirstOrDefault();
-                if (downLetter != null)
-                {
-                    imageSource = GetImage("CO");
-                    item.TipoSilla = "Discapacitado";
-                }
-            }
+            //if (position - 1 >= 0)
+            //{
+            //    var downLetter = listLockedSeats.Where(lv =>
+            //    lv.letter == letters[position - 1]
+            //    &&
+            //    (lv.number == item.Columna
+            //    || lv.number == item.Columna
+            //    || lv.number == item.Columna)
+            //    && item.TipoSilla != "pasillo"
+            //    && item.EstadoSilla != "B"
+            //    && item.EstadoSilla != "O").FirstOrDefault();
+            //    if (downLetter != null)
+            //    {
+            //        imageSource = GetImage("CO");
+            //        item.TipoSilla = "Discapacitado";
+            //    }
+            //}
 
-            var upLetter = listLockedSeats.Where(lv =>
-            lv.letter == letters[position + 1]
-            &&
-            (lv.number == item.Columna
-            || lv.number == item.Columna
-            || lv.number == item.Columna)
-            && item.TipoSilla != "pasillo"
-            && item.EstadoSilla != "B"
-            && item.EstadoSilla != "O").FirstOrDefault();
-            if (upLetter != null)
-            {
-                imageSource = GetImage("CO");
-                item.TipoSilla = "Discapacitado";
-            }
+            //var upLetter = listLockedSeats.Where(lv =>
+            //lv.letter == letters[position + 1]
+            //&&
+            //(lv.number == item.Columna
+            //|| lv.number == item.Columna
+            //|| lv.number == item.Columna)
+            //&& item.TipoSilla != "pasillo"
+            //&& item.EstadoSilla != "B"
+            //&& item.EstadoSilla != "O").FirstOrDefault();
+            //if (upLetter != null)
+            //{
+            //    imageSource = GetImage("CO");
+            //    item.TipoSilla = "Discapacitado";
+            //}
 
             return imageSource;
         }
@@ -701,7 +701,7 @@ namespace WPProcinal.Forms.User_Control
                 var seatcurrent = Utilities.dataTransaction.SelectedTypeSeats.Where(s => s.Name == item.Name).FirstOrDefault();
                 if (seatcurrent == null)
                 {
-                    if (Utilities.dataTransaction.SelectedTypeSeats.Count < 10)
+                    if (Utilities.dataTransaction.SelectedTypeSeats.Count < Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MaxSillas)
                     {
                         item.Quantity = 1;
                         Utilities.dataTransaction.SelectedTypeSeats.Add(item);
