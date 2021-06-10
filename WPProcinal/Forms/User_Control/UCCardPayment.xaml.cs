@@ -77,9 +77,9 @@ namespace WPProcinal.Forms.User_Control
                 {
                     payState = true;
                     Utilities.Speack("Estableciendo conexión con el datáfono, espera por favor.");
-                    //TPV = new TPVOperation();
-                    //Activar();
-                    Buytickets();
+                    TPV = new TPVOperation();
+                    Activar();
+                    //Buytickets();
                 }
             }
             catch (Exception ex)
