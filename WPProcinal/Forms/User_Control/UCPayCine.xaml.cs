@@ -24,6 +24,7 @@ namespace WPProcinal.Forms.User_Control
         private bool state;
         TimerTiempo timer;
         private bool totalReturn = false;
+        private bool BtnCancellPressed = false;
         List<Producto> productos;
         public UCPayCine()
         {
@@ -176,14 +177,6 @@ namespace WPProcinal.Forms.User_Control
                                 });
                             }
                             PaymentViewModel.RefreshListDenomination(int.Parse(enterValue.ToString()), 1, code);
-
-                            //ProccesValue(new DataMoneyNotification
-                            //{
-                            //    enterValue = enterValue,
-                            //    opt = 2,
-                            //    quantity = 1,
-                            //    idTransactionAPi = Utilities.IDTransactionDB
-                            //});
                         }
                     };
 
@@ -192,20 +185,20 @@ namespace WPProcinal.Forms.User_Control
 
 
                         Utilities.controlUnified.callbackTotalIn = null;
-
-                        if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
+                        if (!BtnCancellPressed)
                         {
-                            ActivateTimer(true);
-
-                            ReturnMoney(PaymentViewModel.ValorSobrante, true);
-
-                        }
-                        else
-                        {
-                            if (state)
+                            if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                             {
-                                state = false;
-                                Buytickets();
+                                ActivateTimer(true);
+                                ReturnMoney(PaymentViewModel.ValorSobrante, true);
+                            }
+                            else
+                            {
+                                if (state)
+                                {
+                                    state = false;
+                                    Buytickets();
+                                }
                             }
                         }
                     };
@@ -838,8 +831,9 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
+                this.BtnCancellPressed = true;
                 this.IsEnabled = false;
-                FrmLoading frmLoading = new FrmLoading("Apagando bilelteros...");
+                FrmLoading frmLoading = new FrmLoading("Apagando billeteros...");
                 frmLoading.Show();
                 if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
                 {
@@ -855,6 +849,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     ActivateTimer(false);
                     ReturnMoney(PaymentViewModel.ValorIngresado, false);
+                    LogService.SaveRequestResponse("Boton Cancelar", "Se presionó el botón cancelar", 1);
                 }
                 else
                 {
