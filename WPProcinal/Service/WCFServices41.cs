@@ -116,6 +116,10 @@ namespace WPProcinal.Service
                     LogService.SaveRequestResponse("Respuesta consulta sala", decryptData, 1);
                     return null;
                 }
+                else if (est.Count < 10)
+                {
+                    LogService.SaveRequestResponse("Respuesta consulta sala", decryptData, 1);
+                }
                 return est;
 
             }
