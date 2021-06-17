@@ -456,8 +456,8 @@ namespace WPProcinal.Forms.User_Control
                 frmLoading.Close();
                 payState = false;
                 SavePay(payState);
-                LogService.SaveRequestResponse("Confirmando la compra en efectivo", ex.Message, 2);
-                AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
+                LogService.SaveRequestResponse("Confirmando la compra en tarjeta", ex.Message, 2);
+                AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en UCCardPayment", EError.Aplication, ELevelError.Medium);
             }
         }
         private void GetInvoice()

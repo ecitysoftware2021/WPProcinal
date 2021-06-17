@@ -433,7 +433,7 @@ namespace WPProcinal.Classes
                 printCombo.Secuencia = dataTransaction.Secuencia;
 
 
-                if (dipMap != null)
+                if (dipMap.Category != null)
                 {
                     foreach (var seat in Seats)
                     {
@@ -470,7 +470,7 @@ namespace WPProcinal.Classes
                 {
                     printCombo.Puntos = "$ 0.00";
                 }
-                if (dipMap != null)
+                if (dipMap.Category != null)
                 {
                     printCombo.PrintTickets();
                 }
