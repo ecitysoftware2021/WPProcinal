@@ -329,7 +329,7 @@ namespace WPProcinal.Classes
             }
         }
 
-       
+
         /// <summary>
         /// Metodo que invoca el audio
         /// </summary>
@@ -432,31 +432,34 @@ namespace WPProcinal.Classes
                 printCombo.Placa = dataTransaction.PLACA;
                 printCombo.Secuencia = dataTransaction.Secuencia;
 
-                foreach (var seat in Seats)
+
+                if (dipMap != null)
                 {
-                    printCombo.Seat.Add(seat.Name);
+                    foreach (var seat in Seats)
+                    {
+                        printCombo.Seat.Add(seat.Name);
+                    }
+
+                    printCombo.Movie = dipMap.MovieName.ToLower();
+                    printCombo.Time = dipMap.HourFunction;
+                    printCombo.Hora = dipMap.HourFormat;
+                    printCombo.Room = dipMap.RoomName;
+                    printCombo.Date = dipMap.Day; //Fecha
+                    printCombo.DateFormat = dipMap.Date; //Fecha
+                    printCombo.Funcion = dipMap.IDFuncion;
+                    printCombo.Category = dipMap.Category;
+                    printCombo.Formato = Utilities.dataTransaction.MovieFormat;
+                    printCombo.TipoSala = Utilities.dataTransaction.TipoSala;
+                    foreach (var item in Seats)
+                    {
+                        printCombo.Valor += item.Price;
+                    }
                 }
-
-
-                printCombo.Movie = dipMap.MovieName.ToLower();
-                printCombo.Time = dipMap.HourFunction;
-                printCombo.Hora = dipMap.HourFormat;
-                printCombo.Room = dipMap.RoomName;
-                printCombo.Date = dipMap.Day; //Fecha
-                printCombo.DateFormat = dipMap.Date; //Fecha
-                printCombo.Funcion = dipMap.IDFuncion;
                 //printCombo.Seat = seat.Name;
                 //printCombo.Fila = seat.Letter;
                 //printCombo.Columna = int.Parse(seat.Number);
                 printCombo.FechaPago = DateTime.Now;
-                foreach (var item in Seats)
-                {
-                    printCombo.Valor += item.Price;
-                }
-                printCombo.Category = dipMap.Category;
 
-                printCombo.Formato = Utilities.dataTransaction.MovieFormat;
-                printCombo.TipoSala = Utilities.dataTransaction.TipoSala;
                 printCombo.IDTransaccion = IDTransactionDB.ToString();
 
                 if (dataTransaction.dataUser.Tarjeta != null && dataTransaction.dataUser.SaldoFavor.Value > 0)
@@ -467,9 +470,10 @@ namespace WPProcinal.Classes
                 {
                     printCombo.Puntos = "$ 0.00";
                 }
-
-                printCombo.PrintTickets();
-
+                if (dipMap != null)
+                {
+                    printCombo.PrintTickets();
+                }
 
                 if (DataService41._Combos.Count > 0)
                 {

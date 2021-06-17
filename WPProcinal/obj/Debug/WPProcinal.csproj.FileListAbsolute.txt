@@ -700,3 +700,4 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Dapper.dll
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\System.Data.SQLite.xml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\Dapper.xml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
