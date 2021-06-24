@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
@@ -134,11 +135,7 @@ namespace WPProcinal.Classes
         {
             try
             {
-                Thread.Sleep(500);
                 string response = _serialPortBills.ReadLine();
-                CallBackSaveRequestResponse?.Invoke("Respuesta de los billeteros", response, 1);
-
-                Console.WriteLine(response);
 
                 if (!string.IsNullOrEmpty(response))
                 {
@@ -171,16 +168,6 @@ namespace WPProcinal.Classes
                         ProcessRC(response);
                         break;
                     case "ER":
-
-                        foreach (var item in ErrorVector)
-                        {
-                            if (message.ToLower().Contains(item.ToLower()))
-                            {
-                                CallBackSaveRequestResponse?.Invoke("Respuesta de los billeteros: ", message, 2);
-                                callbackError?.Invoke(message, "Respuesta de los billeteros", EError.Device, ELevelError.Strong);
-                            }
-                        }
-
                         if (!message.ToLower().Contains("abnormal near"))
                         {
                             ProcessER(response);
@@ -218,11 +205,13 @@ namespace WPProcinal.Classes
                 {
                     enterValue += decimal.Parse(response[2]);
                     callbackValueIn?.Invoke(Convert.ToDecimal(response[2]), response[1]);
+                    CallBackSaveRequestResponse?.Invoke("Denominación Ingresada: ", response[2], 1);
                 }
                 else if (response[1] == "MA")
                 {
                     enterValue += decimal.Parse(response[2]);
                     callbackValueIn?.Invoke(Convert.ToDecimal(response[2]), response[1]);
+                    CallBackSaveRequestResponse?.Invoke("Denominación Ingresada: ", response[2], 1);
                 }
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
@@ -575,11 +564,9 @@ namespace WPProcinal.Classes
         /// <param name="e"></param>
         private void _serialPortBillsDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-
             try
             {
                 string response = _serialPortBills.ReadLine();
-                CallBackSaveRequestResponse?.Invoke("Respuesta de los monederos", response, 2);
                 if (!string.IsNullOrEmpty(response))
                 {
                     ProcessResponseBills(response);
@@ -602,7 +589,7 @@ namespace WPProcinal.Classes
             try
             {
                 string response = _serialPortCoins.ReadLine();
-                CallBackSaveRequestResponse?.Invoke("Respuesta de los monederos", response, 2);
+                CallBackSaveRequestResponse?.Invoke("Respuesta de los monederos", response, 1);
 
                 if (!string.IsNullOrEmpty(response))
                 {
@@ -636,15 +623,6 @@ namespace WPProcinal.Classes
                         ProcessRC(response);
                         break;
                     case "ER":
-                        foreach (var item in ErrorVector)
-                        {
-                            if (message.ToLower().Contains(item.ToLower()))
-                            {
-                                CallBackSaveRequestResponse?.Invoke("Respuesta de los billeteros", message, 2);
-                                callbackError?.Invoke(message, "Respuesta de los billeteros", EError.Device, ELevelError.Strong);
-                            }
-                        }
-
                         if (!message.ToLower().Contains("abnormal"))
                         {
                             ProcessER(response);
@@ -1067,6 +1045,8 @@ namespace WPProcinal.Classes
                 if (response[1] == "DP")
                 {
                     stateError = true;
+                    CallBackSaveRequestResponse?.Invoke("Respuesta de los billeteros: ", JsonConvert.SerializeObject(response), 2);
+                    callbackError?.Invoke(JsonConvert.SerializeObject(response), "Respuesta de los billeteros", EError.Device, ELevelError.Strong);
                 }
 
                 if (response[1] == "AP")

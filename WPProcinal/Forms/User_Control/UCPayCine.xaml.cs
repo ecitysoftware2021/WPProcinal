@@ -463,7 +463,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private async void SavePay(bool task)
+        private  void SavePay(bool task)
         {
             try
             {
@@ -478,7 +478,7 @@ namespace WPProcinal.Forms.User_Control
                         frmLoading.Close();
                         this.IsEnabled = true;
 
-                        await Dispatcher.BeginInvoke((Action)delegate
+                         Dispatcher.BeginInvoke((Action)delegate
                         {
                             frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.dataTransaction.PayVal.ToString("#,##0"));
                             modal.ShowDialog();
@@ -497,16 +497,16 @@ namespace WPProcinal.Forms.User_Control
 
                     ApproveTrans();
 
-                    await Dispatcher.BeginInvoke((Action)delegate
+                     Dispatcher.BeginInvoke((Action)delegate
                     {
-                        if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PayVal > 0)
-                        {
-                            Switcher.Navigate(new UCPoints());
-                        }
-                        else
-                        {
-                            Switcher.Navigate(new UCFinalTransaction());
-                        }
+                        //if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PayVal > 0)
+                        //{
+                        //    Switcher.Navigate(new UCPoints());
+                        //}
+                        //else
+                        //{
+                        Switcher.Navigate(new UCFinalTransaction());
+                        //}
                     });
                 }
             }

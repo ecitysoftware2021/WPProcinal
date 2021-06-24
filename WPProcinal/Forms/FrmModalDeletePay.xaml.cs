@@ -23,7 +23,13 @@ namespace WPProcinal.Forms
             DialogResult = true;
         }
 
-        private async void BtIngresar_TouchDown(object sender, TouchEventArgs e)
+        private void BtIngresar_TouchDown(object sender, TouchEventArgs e)
+        {
+            txtMs.Text = string.Empty;
+            DeletePay();
+        }
+
+        private void DeletePay()
         {
             try
             {
@@ -31,7 +37,7 @@ namespace WPProcinal.Forms
 
                 var response = WCFServices41.CancelSale(new SCORET
                 {
-                    Punto =Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
+                    Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                     Pedido = secuencia,
                     teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString(),
                     tercero = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.tercero
@@ -59,6 +65,14 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+            }
+        }
+
+        private void txtSecuencia_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                DeletePay();
             }
         }
     }

@@ -262,14 +262,14 @@ namespace WPProcinal.Forms.User_Control
                     frmLoading.Close();
                     ApproveTrans();
 
-                    if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PayVal > 0)
-                    {
-                        Switcher.Navigate(new UCPoints());
-                    }
-                    else
-                    {
-                        Switcher.Navigate(new UCFinalTransaction());
-                    }
+                    //if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PayVal > 0)
+                    //{
+                    //    Switcher.Navigate(new UCPoints());
+                    //}
+                    //else
+                    //{
+                    Switcher.Navigate(new UCFinalTransaction());
+                    //}
                 }
             }
             catch (Exception ex)

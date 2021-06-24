@@ -39,6 +39,7 @@
                  md:HintAssist.FloatingScale="0.5"
                  HorizontalContentAlignment="Left"
                  MaxLength="30"
+                 KeyUp="txtSecuencia_KeyUp"
                  Name="txtSecuencia"/>
         <TextBlock 
                 Name="txtMs"
