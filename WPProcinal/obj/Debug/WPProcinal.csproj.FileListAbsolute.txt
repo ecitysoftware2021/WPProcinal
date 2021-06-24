@@ -577,7 +577,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Contro
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCFinalTransaction.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCMovies.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.g.cs
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPoints.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.g.cs
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSchedule.g.cs
@@ -604,7 +603,6 @@ C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Contro
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCFinalTransaction.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCMovies.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.baml
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPoints.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.baml
 C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSchedule.baml
@@ -694,3 +692,4 @@ E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache

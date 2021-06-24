@@ -1,4 +1,5 @@
 ﻿using Grabador.Transaccion;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -72,6 +73,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCProducts>InitView", JsonConvert.SerializeObject(ex), 1);
             }
         }
         #endregion
@@ -113,35 +115,49 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCProducts>IncrementDecrementProducts", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
         private void BtnCombos_TouchDown(object sender, TouchEventArgs e)
         {
             SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
-            Switcher.Navigate(new UCProductsCombos());
+            try
+            {
+                Switcher.Navigate(new UCProductsCombos());
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCProducts>BtnCombos_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
+
         }
 
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
         {
 
             SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
-            this.IsEnabled = false;
-            var frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
-            Utilities.Loading(frmLoading, true, this);
-            Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
-            Utilities.Loading(frmLoading, false, this);
-            this.IsEnabled = true;
-            Switcher.Navigate(new UCCinema());
+            try
+            {
+
+                this.IsEnabled = false;
+                var frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                Utilities.Loading(frmLoading, true, this);
+                Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
+                Utilities.Loading(frmLoading, false, this);
+                this.IsEnabled = true;
+                Switcher.Navigate(new UCCinema());
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCProducts>BtnSalir_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         private void BtnComprar_TouchDown(object sender, TouchEventArgs e)
         {
             this.IsEnabled = false;
             SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
             ChangePrices();
             ShowDetailModal();
         }
@@ -150,160 +166,187 @@ namespace WPProcinal.Forms.User_Control
         #region "Métodos"
         private void ShowDetailModal()
         {
-            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
-            this.Opacity = 0.3;
-            _frmConfirmationModal.ShowDialog();
-            if (_frmConfirmationModal.DialogResult.HasValue &&
-                _frmConfirmationModal.DialogResult.Value)
+            try
             {
-                GoToPay();
+                frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
+                this.Opacity = 0.3;
+                _frmConfirmationModal.ShowDialog();
+                if (_frmConfirmationModal.DialogResult.HasValue &&
+                    _frmConfirmationModal.DialogResult.Value)
+                {
+                    GoToPay();
+                }
+                else
+                {
+                    ActivateTimer();
+                    this.IsEnabled = true;
+                    this.Opacity = 1;
+                    PaintDataCombo();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ActivateTimer();
-                this.IsEnabled = true;
-                this.Opacity = 1;
-                PaintDataCombo();
+                LogService.SaveRequestResponse("UCProducts>ShowDetailModal", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
         private void ChangeImageBuy()
         {
-            if (DataService41._Combos.Count > 0)
+            try
             {
-                BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/continuar.png", UriKind.Relative));
+                if (DataService41._Combos.Count > 0)
+                {
+                    BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/continuar.png", UriKind.Relative));
+                }
+                else
+                {
+                    BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/omitir.png", UriKind.Relative));
+                }
             }
-            else
+            catch (Exception ex)
             {
-                BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/omitir.png", UriKind.Relative));
+                LogService.SaveRequestResponse("UCProducts>ChangeImageBuy", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
         private void PaintDataCombo()
         {
-            List<long> codesOk = new List<long>();
-
-            foreach (var item in DataService41._Combos)
+            try
             {
-                if (!item.isCombo)
+                List<long> codesOk = new List<long>();
+
+                foreach (var item in DataService41._Combos)
                 {
-                    foreach (var list in lstPager)
+                    if (!item.isCombo)
                     {
-                        if (item.Code == list.Codigo)
+                        foreach (var list in lstPager)
                         {
-                            list.Value = item.Quantity;
-                            lv_Products.Items.Refresh();
-                            codesOk.Add(list.Codigo);
+                            if (item.Code == list.Codigo)
+                            {
+                                list.Value = item.Quantity;
+                                lv_Products.Items.Refresh();
+                                codesOk.Add(list.Codigo);
+                            }
                         }
                     }
                 }
-            }
-            foreach (var item in lstPager)
-            {
-                if (codesOk.IndexOf(item.Codigo) < 0)
+                foreach (var item in lstPager)
                 {
-                    item.Value = 0;
+                    if (codesOk.IndexOf(item.Codigo) < 0)
+                    {
+                        item.Value = 0;
+                    }
                 }
+                ChangeImageBuy();
             }
-            ChangeImageBuy();
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCProducts>PaintDataCombo", JsonConvert.SerializeObject(ex), 1);
+            }
         }
         public void ChangePrices()
         {
-            List<Producto> productos = new List<Producto>();
-            //Utilities.dataUser = new SCOLOGResponse();
-            decimal precio = 0;
-            foreach (var item in DataService41._Combos)
+            try
             {
-                precio = 0;
-                for (int i = 0; i < item.Quantity; i++)
+                List<Producto> productos = new List<Producto>();
+                decimal precio = 0;
+                foreach (var item in DataService41._Combos)
                 {
-                    var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
-                    if (combo.Receta != null)
+                    precio = 0;
+                    for (int i = 0; i < item.Quantity; i++)
                     {
-                        foreach (var receta in combo.Receta)
+                        var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+                        if (combo.Receta != null)
                         {
-                            if (receta.Precios != null)
+                            foreach (var receta in combo.Receta)
                             {
-                                decimal otroPago = decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
-                                if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
+                                if (receta.Precios != null)
                                 {
-                                    precio += otroPago * receta.Cantidad;
+                                    decimal otroPago = decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                    if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
+                                    {
+                                        precio += otroPago * receta.Cantidad;
+                                        Utilities.dataTransaction.PrecioCinefans = true;
+                                    }
+                                    else
+                                    {
+                                        precio += decimal.Parse(receta.Precios.FirstOrDefault().General.Split('.')[0]) * receta.Cantidad;
+                                    }
+                                }
+                                if (receta.RecetaReceta != null)
+                                {
+                                    List<Receta> recetaAux = new List<Receta>();
+                                    for (int e = 0; e < int.Parse(receta.Cantidad.ToString()); e++)
+                                    {
+
+                                        var responseRecetaBebida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("gaseosa")).FirstOrDefault();
+                                        Receta responseRecetaComida = null;
+                                        //Si el combo es el combo 4, solo tomamos por defecto las gaseosas, las comidas se dejan tal cual
+                                        if (item.Code != Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.Code4)
+                                        {
+                                            responseRecetaComida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("perro")).FirstOrDefault();
+                                        }
+                                        if (responseRecetaBebida != null)
+                                        {
+                                            recetaAux.Add(responseRecetaBebida);
+                                        }
+                                        else if (responseRecetaComida != null)
+                                        {
+                                            recetaAux.Add(responseRecetaComida);
+                                        }
+
+                                    }
+                                    if (recetaAux.Count != 0)
+                                    {
+                                        receta.RecetaReceta = recetaAux;
+                                    }
+                                    else
+                                    {
+                                        receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                                    }
+                                    foreach (var preciosReceta in receta.RecetaReceta)
+                                    {
+                                        if (preciosReceta.Precios != null)
+                                        {
+                                            decimal otroPago = decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                            if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
+                                            {
+                                                precio += otroPago;
+                                                Utilities.dataTransaction.PrecioCinefans = true;
+                                            }
+                                            else
+                                            {
+                                                precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().General.Split('.')[0]);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            foreach (var preciosReceta in combo.Precios)
+                            {
+                                if (Utilities.dataTransaction.dataUser.Tarjeta != null && preciosReceta.auxOtroPago > 0)
+                                {
+                                    precio = preciosReceta.auxOtroPago * item.Quantity;
                                     Utilities.dataTransaction.PrecioCinefans = true;
                                 }
                                 else
                                 {
-                                    precio += decimal.Parse(receta.Precios.FirstOrDefault().General.Split('.')[0]) * receta.Cantidad;
-                                }
-                            }
-                            if (receta.RecetaReceta != null)
-                            {
-                                List<Receta> recetaAux = new List<Receta>();
-                                for (int e = 0; e < int.Parse(receta.Cantidad.ToString()); e++)
-                                {
-
-                                    var responseRecetaBebida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("gaseosa")).FirstOrDefault();
-                                    Receta responseRecetaComida = null;
-                                    //Si el combo es el combo 4, solo tomamos por defecto las gaseosas, las comidas se dejan tal cual
-                                    if (item.Code != Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.Code4)
-                                    {
-                                        responseRecetaComida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("perro")).FirstOrDefault();
-                                    }
-                                    if (responseRecetaBebida != null)
-                                    {
-                                        recetaAux.Add(responseRecetaBebida);
-                                    }
-                                    else if (responseRecetaComida != null)
-                                    {
-                                        recetaAux.Add(responseRecetaComida);
-                                    }
-
-                                }
-                                if (recetaAux.Count != 0)
-                                {
-                                    receta.RecetaReceta = recetaAux;
-                                }
-                                else
-                                {
-                                    receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
-                                }
-                                foreach (var preciosReceta in receta.RecetaReceta)
-                                {
-                                    if (preciosReceta.Precios != null)
-                                    {
-                                        decimal otroPago = decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
-                                        if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
-                                        {
-                                            precio += otroPago;
-                                            Utilities.dataTransaction.PrecioCinefans = true;
-                                        }
-                                        else
-                                        {
-                                            precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().General.Split('.')[0]);
-                                        }
-                                    }
+                                    precio = preciosReceta.auxGeneral * item.Quantity;
                                 }
                             }
                         }
-
+                        productos.Add(combo);
                     }
-                    else
-                    {
-                        foreach (var preciosReceta in combo.Precios)
-                        {
-                            if (Utilities.dataTransaction.dataUser.Tarjeta != null && preciosReceta.auxOtroPago > 0)
-                            {
-                                precio = preciosReceta.auxOtroPago * item.Quantity;
-                                Utilities.dataTransaction.PrecioCinefans = true;
-                            }
-                            else
-                            {
-                                precio = preciosReceta.auxGeneral * item.Quantity;
-                            }
-                        }
-                    }
-                    productos.Add(combo);
+                    item.Price = precio;
                 }
-                item.Price = precio;
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCProducts>ChangePrices", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -428,6 +471,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 timer.CallBackClose = null;
                 timer.CallBackTimer = null;
+                timer.CallBackStop?.Invoke(1);
             }
         }
         #endregion

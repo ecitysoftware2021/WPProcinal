@@ -58,6 +58,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon_procinal.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EncryptAndDecryptDLL">
       <HintPath>..\..\Score41\WPProcinal\WPProcinal\bin\Debug\EncryptAndDecryptDLL.dll</HintPath>
@@ -398,14 +401,6 @@
     <Resource Include="Images\Gif\confetti.gif" />
     <Resource Include="Images\Seats\s-preferencial.png" />
     <Resource Include="Images\Backgrounds\modalCineFan.png" />
-    <Resource Include="Images\Confectionery\temporada3.jpg" />
-    <Resource Include="Images\Confectionery\temporada2.jpg" />
-    <Resource Include="Images\Confectionery\Combo1_Confiteria.png" />
-    <Resource Include="Images\Confectionery\Combo2_Confiteria.png" />
-    <Resource Include="Images\Confectionery\Combo3_Confiteria.png" />
-    <Resource Include="Images\Confectionery\Combo4_Confiteria.png" />
-    <Resource Include="Images\Confectionery\Combo5_Confiteria.png" />
-    <Resource Include="Images\Confectionery\ComboHamburguesa.png" />
     <Resource Include="Images\Backgrounds\fondoConfiteria.jpg" />
     <Resource Include="Images\Buttons\omitir.png" />
     <Resource Include="Images\Buttons\verHorarios.png" />
@@ -418,7 +413,6 @@
     <Resource Include="Images\Buttons\+.png" />
     <Resource Include="Images\Buttons\-.png" />
     <Resource Include="Images\Backgrounds\p-fondo-eat.jpg" />
-    <Resource Include="Images\Confectionery\temporada.jpg" />
     <Resource Include="Images\Buttons\backspace.png" />
     <Resource Include="Images\Buttons\x.png" />
     <Resource Include="Images\Backgrounds\f-data.png" />
@@ -522,6 +516,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Seats\preferencial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon_procinal.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.111.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.111.0\build\net46\System.Data.SQLite.Core.targets')" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -51,6 +52,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("Window_Loaded>Window_Loaded", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -70,12 +72,12 @@ namespace WPProcinal.Forms
 
         private void Image_TouchDown(object sender, TouchEventArgs e)
         {
-            DialogResult = false;
+            DialogResult = true;
         }
         #endregion
 
         #region "Métodos"
-        private async void Validate()
+        private void Validate()
         {
             try
             {
@@ -96,6 +98,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                txtError.Text = "No se reconoció la cédula, intente de nuevo.";
             }
         }
 
@@ -103,8 +106,6 @@ namespace WPProcinal.Forms
         {
             try
             {
-                cedula = long.Parse(cedula).ToString();
-
                 frmLoading = new FrmLoading("¡Consultando Cine Fans...!");
                 frmLoading.Show();
                 responseClient = WCFServices41.GetClientData(new SCOCED
@@ -122,15 +123,6 @@ namespace WPProcinal.Forms
                         if (item.Tarjeta != "0")
                         {
                             Utilities.dataTransaction.dataUser = item;
-                            //frmLoading = new FrmLoading("¡Consultando Puntos Cine Fans...!");
-                            //frmLoading.Show();
-                            //Utilities.dataTransaction.dataUser.Puntos = WCFServices41.ConsultPoints(new SCOMOV
-                            //{
-                            //    Correo = Utilities.dataTransaction.dataUser.Login,
-                            //    Clave = Utilities.dataTransaction.dataUser.Clave,
-                            //    tercero = 1
-                            //});
-                            //frmLoading.Close();
                             isCineFan = true;
 
                             break;
@@ -174,7 +166,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.SaveRequestResponse("Validando el cine fans", ex.Message, 1);
+                LogService.SaveRequestResponse("Validando el cine fans", JsonConvert.SerializeObject(ex), 1);
                 txtError.Text = "No se pudo validar la información, intenta de nuevo.";
                 if (frmLoading != null)
                 {
@@ -252,12 +244,6 @@ namespace WPProcinal.Forms
                         {
                             if (item.Respuesta.Contains("exitoso"))
                             {
-                                //if (Utilities.dataTransaction.dataUser.Tarjeta != null)
-                                //{
-                                //    Utilities.dataTransaction.dataUser.Puntos =
-                                //        Convert.ToDouble(Math.Floor(Utilities.dataTransaction.PayVal / 1000)) +
-                                //        Utilities.dataTransaction.dataUser.Puntos;
-                                //}
                                 Utilities.controlScanner.callbackDocument = null;
                                 Utilities.controlScanner.ClosePortScanner();
                                 DialogResult = true;
@@ -285,7 +271,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.SaveRequestResponse("Activando membresía", ex.Message, 1);
+                LogService.SaveRequestResponse("Activando membresía", JsonConvert.SerializeObject(ex), 1);
                 txtError.Text = "No se pudo activar la membresía.";
                 if (frmLoading != null)
                 {
