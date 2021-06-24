@@ -228,6 +228,7 @@ namespace WPProcinal.Forms.User_Control
                                 if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
                                 {
                                     precio += otroPago * receta.Cantidad;
+                                    Utilities.dataTransaction.PrecioCinefans = true;
                                 }
                                 else
                                 {
@@ -273,6 +274,7 @@ namespace WPProcinal.Forms.User_Control
                                         if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
                                         {
                                             precio += otroPago;
+                                            Utilities.dataTransaction.PrecioCinefans = true;
                                         }
                                         else
                                         {
@@ -291,6 +293,7 @@ namespace WPProcinal.Forms.User_Control
                             if (Utilities.dataTransaction.dataUser.Tarjeta != null && preciosReceta.auxOtroPago > 0)
                             {
                                 precio = preciosReceta.auxOtroPago * item.Quantity;
+                                Utilities.dataTransaction.PrecioCinefans = true;
                             }
                             else
                             {

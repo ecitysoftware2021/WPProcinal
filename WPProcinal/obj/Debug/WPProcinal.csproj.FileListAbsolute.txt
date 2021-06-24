@@ -653,7 +653,6 @@ E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCinema.g.cs
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCFinalTransaction.g.cs
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCMovies.g.cs
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.g.cs
-E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPoints.g.cs
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.g.cs
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.g.cs
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSchedule.g.cs
@@ -680,7 +679,6 @@ E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCCinema.baml
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCFinalTransaction.baml
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCMovies.baml
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPayCine.baml
-E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCPoints.baml
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProducts.baml
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCProductsCombos.baml
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\Forms\User_Control\UCSchedule.baml

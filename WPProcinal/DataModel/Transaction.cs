@@ -91,6 +91,7 @@ namespace WPProcinal.Classes
             TIPOAUTO = string.Empty;
             Secuencia = string.Empty;
             ValueDelivery = 0;
+            PrecioCinefans = false;
         }
         /// <summary>
         /// Objeto para almacenar la información de la transacción para ecity
@@ -162,5 +163,10 @@ namespace WPProcinal.Classes
         /// Valor devuelto al usuario
         /// </summary>
         public long ValueDelivery;
+
+        /// <summary>
+        /// Bandera para saber si se toma el precio para cinefans o no
+        /// </summary>
+        public bool PrecioCinefans;
     }
 }

@@ -241,16 +241,10 @@ namespace WPProcinal.Forms.User_Control
                     Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
                     frmLoading.Close();
 
-                    //Dispatcher.BeginInvoke((Action)delegate
-                    //{
                     Opacity = 0.3;
                     frmModal modal = new frmModal("No se pudo realizar la compra, por favor contacta a un administrador para anular el pago.");
                     modal.ShowDialog();
                     Opacity = 1;
-
-                    //});
-                    //GC.Collect();
-
                     Utilities.UpdateTransaction(0, (int)ETransactionState.Canceled, new List<DataModel.DenominationMoney>(), 0);
                     Utilities.GoToInicial();
                 }
@@ -262,14 +256,7 @@ namespace WPProcinal.Forms.User_Control
                     frmLoading.Close();
                     ApproveTrans();
 
-                    //if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PayVal > 0)
-                    //{
-                    //    Switcher.Navigate(new UCPoints());
-                    //}
-                    //else
-                    //{
                     Switcher.Navigate(new UCFinalTransaction());
-                    //}
                 }
             }
             catch (Exception ex)
@@ -374,7 +361,14 @@ namespace WPProcinal.Forms.User_Control
                                 }
                             }
                         }
-                        combo.Precio = Utilities.dataTransaction.dataUser.Tarjeta != null ? 2 : 1;
+                        if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PrecioCinefans)
+                        {
+                            combo.Precio = 2;
+                        }
+                        else
+                        {
+                            combo.Precio = 1;
+                        }
                         productos.Add(combo);
                     }
                 }

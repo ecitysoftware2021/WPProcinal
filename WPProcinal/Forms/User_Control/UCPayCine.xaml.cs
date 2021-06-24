@@ -463,7 +463,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private  void SavePay(bool task)
+        private void SavePay(bool task)
         {
             try
             {
@@ -478,11 +478,11 @@ namespace WPProcinal.Forms.User_Control
                         frmLoading.Close();
                         this.IsEnabled = true;
 
-                         Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.dataTransaction.PayVal.ToString("#,##0"));
-                            modal.ShowDialog();
-                        });
+                        Dispatcher.BeginInvoke((Action)delegate
+                       {
+                           frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.dataTransaction.PayVal.ToString("#,##0"));
+                           modal.ShowDialog();
+                       });
                         GC.Collect();
                     }
                     catch { frmLoading.Close(); }
@@ -497,17 +497,10 @@ namespace WPProcinal.Forms.User_Control
 
                     ApproveTrans();
 
-                     Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        //if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PayVal > 0)
-                        //{
-                        //    Switcher.Navigate(new UCPoints());
-                        //}
-                        //else
-                        //{
-                        Switcher.Navigate(new UCFinalTransaction());
-                        //}
-                    });
+                    Dispatcher.BeginInvoke((Action)delegate
+                   {
+                       Switcher.Navigate(new UCFinalTransaction());
+                   });
                 }
             }
             catch (Exception ex)
@@ -611,7 +604,14 @@ namespace WPProcinal.Forms.User_Control
                                 }
                             }
                         }
-                        combo.Precio = Utilities.dataTransaction.dataUser.Tarjeta != null ? 2 : 1;
+                        if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PrecioCinefans)
+                        {
+                            combo.Precio = 2;
+                        }
+                        else
+                        {
+                            combo.Precio = 1;
+                        }
                         productos.Add(combo);
                     }
                 }
