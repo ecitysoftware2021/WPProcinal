@@ -293,58 +293,55 @@ namespace WPProcinal.Forms.User_Control
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Task.Run(() =>
+
+            this.Opacity = 0.3;
+            frmModalCineFan modalCineFan = new frmModalCineFan();
+            modalCineFan.ShowDialog();
+            if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
             {
-                Dispatcher.BeginInvoke((Action)delegate
+                Utilities.Speack("Selecciona una película para continuar.");
+
+                this.Opacity = 1;
+                ActivateTimer();
+
+                if (modalCineFan.DialogResult.HasValue &&
+                modalCineFan.DialogResult.Value)
                 {
-
-                    this.Opacity = 0.3;
-                    frmModalCineFan modalCineFan = new frmModalCineFan();
-                    modalCineFan.ShowDialog();
-                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+                    try
                     {
-                        Utilities.Speack("Selecciona una película para continuar.");
-
-                        this.Opacity = 1;
-                        ActivateTimer();
-
-                        if (modalCineFan.DialogResult.HasValue &&
-                        modalCineFan.DialogResult.Value)
+                        if (Utilities.dataTransaction != null && Utilities.dataTransaction.dataUser != null)
                         {
-                            try
+                            if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataUser.Nombre))
                             {
-                                if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataUser.Nombre))
-                                {
-                                    txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataUser.Nombre.ToUpperInvariant();
-                                    txtNameUser.Visibility = Visibility.Visible;
-                                }
-                                else if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataDocument.FirstName))
-                                {
-                                    txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataDocument.FirstName.ToUpperInvariant();
-                                    txtNameUser.Visibility = Visibility.Visible;
-                                }
+                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataUser.Nombre.ToUpperInvariant();
+                                txtNameUser.Visibility = Visibility.Visible;
                             }
-                            catch (Exception ex)
+                            else if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataDocument.FirstName))
                             {
-                                LogService.SaveRequestResponse("UCMovies>UserControl_Loaded", JsonConvert.SerializeObject(ex), 1);
+                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataDocument.FirstName.ToUpperInvariant();
+                                txtNameUser.Visibility = Visibility.Visible;
                             }
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        if (GetCombo())
-                        {
-                            Switcher.Navigate(new UCProductsCombos());
-                        }
-                        else
-                        {
-                            frmModal modal = new frmModal("No se pudo descargar la confiteria, intenta de nuevo por favor!", false);
-                            modal.ShowDialog();
-                            Switcher.Navigate(new UCCinema());
-                        }
+                        LogService.SaveRequestResponse("UCMovies>UserControl_Loaded", JsonConvert.SerializeObject(ex), 1);
                     }
-                });
-            });
+                }
+            }
+            else
+            {
+                if (GetCombo())
+                {
+                    Switcher.Navigate(new UCProductsCombos());
+                }
+                else
+                {
+                    frmModal modal = new frmModal("No se pudo descargar la confiteria, intenta de nuevo por favor!", false);
+                    modal.ShowDialog();
+                    Switcher.Navigate(new UCCinema());
+                }
+            }
         }
         private bool GetCombo()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO.Ports;
 using System.Threading;
 using WPProcinal.Models;
@@ -163,6 +164,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("ControlScanner>ClosePortScanner", JsonConvert.SerializeObject(ex), 1);
             }
         }
         #endregion

@@ -81,20 +81,19 @@ namespace WPProcinal.Forms
         {
             try
             {
-                Task.Run(() => Dispatcher.BeginInvoke((Action)delegate
+                if (ValidateCineFan(Utilities.dataTransaction.dataDocument.Document))
                 {
-                    if (ValidateCineFan(Utilities.dataTransaction.dataDocument.Document))
+                    if (Utilities.controlScanner != null)
                     {
                         Utilities.controlScanner.callbackDocument = null;
                         Utilities.controlScanner.ClosePortScanner();
-                        DialogResult = true;
                     }
-                    else
-                    {
-                        Utilities.controlScanner.num = 0;
-                    }
-                }));
-
+                    DialogResult = true;
+                }
+                else
+                {
+                    Utilities.controlScanner.num = 0;
+                }
             }
             catch (Exception ex)
             {
