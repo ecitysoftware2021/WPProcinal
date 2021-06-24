@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using WPProcinal.Classes;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms
@@ -60,6 +62,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("frmModalLogin>Loguear", JsonConvert.SerializeObject(ex), 1);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -48,12 +49,19 @@ namespace WPProcinal.Forms.User_Control
         public UCSchedule(Pelicula Movie)
         {
             InitializeComponent();
-            this.Movie = Movie;
-            DataService41.Movie = Movie;
-
-            foreach (var peli in DataService41.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
+            try
             {
-                ListFechas(peli.DiasDisponiblesTodosCinemas);
+                this.Movie = Movie;
+                DataService41.Movie = Movie;
+
+                foreach (var peli in DataService41.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
+                {
+                    ListFechas(peli.DiasDisponiblesTodosCinemas);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCSchedule>UCSchedule", JsonConvert.SerializeObject(ex), 1);
             }
             InitView2();
             Utilities.Speack("Selecciona la fecha y el horario para continuar.");
@@ -61,58 +69,72 @@ namespace WPProcinal.Forms.User_Control
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            imgBackground.ImageSource = Utilities.dataTransaction.ImageSelected;
-            MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
-            TxtTitle.Text = MovieName;
-            tbDiaActual.Text = "Fecha Actual: " + DateTime.Now.ToLongDateString();
-            var time = TimeSpan.FromMinutes(double.Parse(Movie.Data.Duracion));
-            TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
-            //TxtGender.Text = string.Concat("Género: ", Movie.Data.Genero);
-            DateTime fechaActual = Utilities.dataTransaction.FechaSeleccionada;
+            try
+            {
+                imgBackground.ImageSource = Utilities.dataTransaction.ImageSelected;
+                MovieName = Utilities.CapitalizeFirstLetter(Movie.Data.TituloOriginal);
+                TxtTitle.Text = MovieName;
+                tbDiaActual.Text = "Fecha Actual: " + DateTime.Now.ToLongDateString();
+                var time = TimeSpan.FromMinutes(double.Parse(Movie.Data.Duracion));
+                TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
 
-            //TxtDay.Text = string.Format("{0} {1}, {2}", fechaActual.ToString("dddd"), fechaActual.Day, fechaActual.ToString("MMM"));
-
-            if (Movie.Data.TituloOriginal.Length <= 15)
-            {
-                FontS = 55;
+                if (Movie.Data.TituloOriginal.Length <= 15)
+                {
+                    FontS = 55;
+                }
+                else
+                {
+                    FontS = 35;
+                }
+                GenerateFunctions();
+                if (DataService41.Movie.Data.Censura.Contains("15") || DataService41.Movie.Data.Censura.Contains("18"))
+                {
+                    frmModal modal = new frmModal(string.Format(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeCensura, DataService41.Movie.Data.Censura));
+                    modal.ShowDialog();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                FontS = 35;
-            }
-            GenerateFunctions();
-            if (DataService41.Movie.Data.Censura.Contains("15") || DataService41.Movie.Data.Censura.Contains("18"))
-            {
-                frmModal modal = new frmModal(string.Format(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeCensura, DataService41.Movie.Data.Censura));
-                modal.ShowDialog();
+                LogService.SaveRequestResponse("UCSchedule>UserControl_Loaded", JsonConvert.SerializeObject(ex), 1);
             }
             ActivateTimer();
         }
         void ActivateTimer()
         {
-            tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
-            timer = new TimerTiempo(tbTimer.Text);
-            timer.CallBackClose = response =>
+            try
             {
-                Dispatcher.BeginInvoke((Action)delegate
+                tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
+                timer = new TimerTiempo(tbTimer.Text);
+                timer.CallBackClose = response =>
                 {
-                    Switcher.Navigate(new UCCinema());
-                });
-            };
-            timer.CallBackTimer = response =>
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        Switcher.Navigate(new UCCinema());
+                    });
+                };
+                timer.CallBackTimer = response =>
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        tbTimer.Text = "Tiempo de transacción: " + response;
+                        tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("hh:mm:ss");
+                    });
+                };
+            }
+            catch (Exception ex)
             {
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    tbTimer.Text = "Tiempo de transacción: " + response;
-                    tbHoraActual.Text = "Hora actual: " + DateTime.Now.ToString("hh:mm:ss");
-                });
-            };
+                LogService.SaveRequestResponse("UCSchedule>ActivateTimer", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         void SetCallBacksNull()
         {
-            timer.CallBackClose = null;
-            timer.CallBackTimer = null;
+            if (timer != null)
+            {
+                timer.CallBackClose = null;
+                timer.CallBackTimer = null;
+                timer.CallBackStop?.Invoke(1);
+            }
         }
 
 
@@ -278,7 +300,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "GenerateFunctions en frmSchudele", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "GenerateFunctions en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -330,56 +352,80 @@ namespace WPProcinal.Forms.User_Control
 
         private DateTime GetDateCorrectly(string univDate)
         {
-            char[] Date = univDate.ToCharArray();
-            string year = univDate.Substring(0, 4);
-            string month = string.Concat(Date[4], Date[5]);
-            string day = string.Concat(Date[6], Date[7]);
-            var dateTime = Convert.ToDateTime(string.Format("{0}/{1}/{2}", year, month, day));
-            return dateTime;
+            try
+            {
+                char[] Date = univDate.ToCharArray();
+                string year = univDate.Substring(0, 4);
+                string month = string.Concat(Date[4], Date[5]);
+                string day = string.Concat(Date[6], Date[7]);
+                var dateTime = Convert.ToDateTime(string.Format("{0}/{1}/{2}", year, month, day));
+                return dateTime;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         private string InvertDate(string univDate)
         {
-            char[] Date = univDate.ToCharArray();
-            string year = univDate.Substring(0, 4);
-            string month = string.Concat(Date[4], Date[5]);
-            string day = string.Concat(Date[6], Date[7]);
-            string DateInvert = string.Concat(day, month, year);
+            try
+            {
+                char[] Date = univDate.ToCharArray();
+                string year = univDate.Substring(0, 4);
+                string month = string.Concat(Date[4], Date[5]);
+                string day = string.Concat(Date[6], Date[7]);
+                string DateInvert = string.Concat(day, month, year);
 
-            return DateInvert;
+                return DateInvert;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         private FunctionInformation SetProperties(Schedule schedule)
         {
-            int Hour = Convert.ToInt32(schedule.MilitarHour.ToString().Substring(0, 2));
-            string DateFormat = InvertDate(schedule.UnivDate);
-            FunctionInformation map = new FunctionInformation
+            try
             {
-                MovieName = schedule.Title,
-                Language = schedule.Language,
-                Gener = schedule.Gener,
-                Duration = schedule.Duration,
-                HourFunction = schedule.Hour,
-                RoomName = schedule.Room,
-                Category = schedule.Category,
-                Day = schedule.Date,
-                Date = schedule.UnivDate,
-                DateFormat = DateFormat,
-                CinemaId = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
-                RoomId = schedule.RoomId,
-                Hour = Hour,
-                HourFormat = schedule.MilitarHour,
-                MovieId = schedule.MovieId,
-                Letter = "A",
-                IsCard = "S",
-                Group = 1,
-                Login = "ecitysoftware@gmail.com",
-                PointOfSale = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
-                TypeZona = schedule.TypeZona,
-                IDFuncion = schedule.IdFuncion,
-                Validaciones = schedule.Validaciones
-            };
-            return map;
+                int Hour = Convert.ToInt32(schedule.MilitarHour.ToString().Substring(0, 2));
+                string DateFormat = InvertDate(schedule.UnivDate);
+                FunctionInformation map = new FunctionInformation
+                {
+                    MovieName = schedule.Title,
+                    Language = schedule.Language,
+                    Gener = schedule.Gener,
+                    Duration = schedule.Duration,
+                    HourFunction = schedule.Hour,
+                    RoomName = schedule.Room,
+                    Category = schedule.Category,
+                    Day = schedule.Date,
+                    Date = schedule.UnivDate,
+                    DateFormat = DateFormat,
+                    CinemaId = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
+                    RoomId = schedule.RoomId,
+                    Hour = Hour,
+                    HourFormat = schedule.MilitarHour,
+                    MovieId = schedule.MovieId,
+                    Letter = "A",
+                    IsCard = "S",
+                    Group = 1,
+                    Login = "ecitysoftware@gmail.com",
+                    PointOfSale = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
+                    TypeZona = schedule.TypeZona,
+                    IDFuncion = schedule.IdFuncion,
+                    Validaciones = schedule.Validaciones
+                };
+                return map;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         #endregion
 
@@ -427,7 +473,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "ListFechas en frmSchudele", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "ListFechas en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -443,7 +489,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                return DateTime.Today.ToString();
+                throw ex;
             }
         }
 
@@ -470,7 +516,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "InitView2 en frmSchudele", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "InitView2 en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -491,7 +537,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "CreatePages2 en frmSchudele", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "CreatePages2 en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -515,7 +561,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "View_Filter2 en frmSchudele", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "View_Filter2 en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -540,7 +586,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "Grid_PreviewStylus en frmSchudele", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "Grid_PreviewStylus en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -553,7 +599,10 @@ namespace WPProcinal.Forms.User_Control
                     item.Background = Brushes.White;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCSchedule>ClearHoursList", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         #endregion
@@ -572,7 +621,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "lv_Datename_previewstylusDown en frmSchudele", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "lv_Datename_previewstylusDown en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -595,7 +644,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "Grid_PreviewStylus en frmSchudele", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "Grid_PreviewStylus en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -620,7 +669,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "btnPrev2 en frmSchudele", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "btnPrev2 en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -644,19 +693,15 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "btnNext en frmSchudele", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "btnNext en frmSchudele", EError.Aplication, ELevelError.Medium);
             }
         }
 
         private void BtnAtras_TouchDown(object sender, TouchEventArgs e)
         {
-            try
-            {
-                this.IsEnabled = false;
-                SetCallBacksNull();
-                timer.CallBackStop?.Invoke(1);
-            }
-            catch { }
+
+            this.IsEnabled = false;
+            SetCallBacksNull();
 
             Switcher.Navigate(new UCMovies());
         }
@@ -706,14 +751,10 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "Seleccionando el horario",
-                    EError.Aplication,
-                    ELevelError.Medium);
-                }
-                catch { }
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
+                "Seleccionando el horario",
+                EError.Aplication,
+                ELevelError.Medium);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     frmModal modal = new frmModal("Lo sentimos, no se pudo seleccionar el horario, intente de nuevo por favor.");

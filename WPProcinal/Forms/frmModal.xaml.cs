@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -41,14 +42,21 @@ namespace WPProcinal.Forms
         #region "Timer"
         private void ActivateTimer()
         {
-            timer = new TimerTiempo(Utilities.dataPaypad.PaypadConfiguration != null ? Utilities.dataPaypad.PaypadConfiguration.modaL_TIMER : "00:59");
-            timer.CallBackClose = response =>
+            try
             {
-                Dispatcher.BeginInvoke((Action)delegate
+                timer = new TimerTiempo(Utilities.dataPaypad.PaypadConfiguration != null ? Utilities.dataPaypad.PaypadConfiguration.modaL_TIMER : "00:59");
+                timer.CallBackClose = response =>
                 {
-                    DialogResult = true;
-                });
-            };
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        DialogResult = true;
+                    });
+                };
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("frmModal>ActivateTimer", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         #endregion

@@ -1,2 +1,0 @@
-usuario:hdsharepoint;password:Pun3$/*
-usuario:Ecity.Software;password:EcitySoftware2019#;tipo:1

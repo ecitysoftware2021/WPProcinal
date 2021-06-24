@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -84,6 +85,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCardPayment>UCCardPayment", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -144,6 +146,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCardPayment>UserControl_Loaded", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -194,6 +197,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCardPayment>ApproveTrans", JsonConvert.SerializeObject(ex), 1);
                 stateUpdate = false;
             }
         }
@@ -222,6 +226,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCardPayment>SaveCardInformation", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -261,7 +266,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                LogService.SaveRequestResponse("Guardando el pago en Efectivo", ex.Message, 1);
+                LogService.SaveRequestResponse("UCCardPayment>SavePay", JsonConvert.SerializeObject(ex), 1);
                 Utilities.GoToInicial();
             }
         }
@@ -290,6 +295,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCardPayment>Cancelled", JsonConvert.SerializeObject(ex), 1);
                 frmLoading.Close();
             }
             Utilities.GoToInicial();
@@ -310,6 +316,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCardPayment>CancelWithoutTPV", JsonConvert.SerializeObject(ex), 1);
                 frmLoading.Close();
             }
             Utilities.GoToInicial();
@@ -450,8 +457,7 @@ namespace WPProcinal.Forms.User_Control
                 frmLoading.Close();
                 payState = false;
                 SavePay(payState);
-                LogService.SaveRequestResponse("Confirmando la compra en tarjeta", ex.Message, 2);
-                AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en UCCardPayment", EError.Aplication, ELevelError.Medium);
+                LogService.SaveRequestResponse("UCCardPayment>Buytickets", JsonConvert.SerializeObject(ex), 1);
             }
         }
         private void GetInvoice()
@@ -472,6 +478,7 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 frmLoading.Close();
+                LogService.SaveRequestResponse("UCCardPayment>GetInvoice", JsonConvert.SerializeObject(ex), 1);
             }
         }
         SCOLOGResponse GetDataClient()
@@ -515,22 +522,13 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                try
-                {
-                    LogService.SaveRequestResponse("Respuesta del datáfono", responseTPV, 1);
-                }
-                catch { }
+                LogService.SaveRequestResponse("Respuesta del datáfono", responseTPV, 1);
 
                 //Todas las respuestas correctas tienen mas de 4 caracteres
 
                 if (responseTPV.Length < 4)
                 {
                     SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
-                    Task.Run(() =>
-                    {
-                        Utilities.SendMailErrores($"Se perdió la conexión del datáfono en la transacción {Utilities.IDTransactionDB}," +
-                            "Por favor reiniciar el datáfono o contactar con Credibanco para la respectiva validación.");
-                    });
                 }
                 else
                 {
@@ -595,11 +593,6 @@ namespace WPProcinal.Forms.User_Control
                     {
                         this.IsEnabled = true;
                         SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
-                        Task.Run(() =>
-                        {
-                            Utilities.SendMailErrores($"Se perdió la conexión del datáfono en la transacción {Utilities.IDTransactionDB}," +
-                                "Por favor reiniciar el datáfono o contactar con Credibanco para la respectiva validación.");
-                        });
                     }
                 }
             }
@@ -676,7 +669,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-
+                LogService.SaveRequestResponse("UCCardPayment>ProcessOperation", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -788,6 +781,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCardPayment>ProccessPositiveResponse", JsonConvert.SerializeObject(ex), 1);
 
             }
         }
@@ -833,6 +827,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCardPayment>ProcesarFinal", JsonConvert.SerializeObject(ex), 1);
 
             }
         }
@@ -867,6 +862,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCardPayment>SetMessageAndPutVisibility", JsonConvert.SerializeObject(ex), 1);
 
             }
         }
@@ -959,6 +955,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCardPayment>OptionsSelect", JsonConvert.SerializeObject(ex), 1);
 
             }
         }

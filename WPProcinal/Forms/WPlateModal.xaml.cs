@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -33,52 +35,66 @@ namespace WPProcinal.Forms
                 cb_TypeAuto.SelectedValuePath = "Value";
                 cb_TypeAuto.SelectedIndex = 0;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-
+                LogService.SaveRequestResponse("WPlateModal>LoadTypeAuto", JsonConvert.SerializeObject(ex), 1);
             }
 
         }
 
         private void BtnContinue_TouchDown(object sender, TouchEventArgs e)
         {
-            Utilities.dataTransaction.PLACA = txPlaca.Text.Trim();
-            Utilities.dataTransaction.TIPOAUTO = cb_TypeAuto.SelectedValue.ToString();
-
-            if (Utilities.PlateObligatory)
+            try
             {
-                if (!string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) && Utilities.dataTransaction.PLACA.Length > 5)
+                Utilities.dataTransaction.PLACA = txPlaca.Text.Trim();
+                Utilities.dataTransaction.TIPOAUTO = cb_TypeAuto.SelectedValue.ToString();
+
+                if (Utilities.PlateObligatory)
                 {
-                    DialogResult = true;
+                    if (!string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) && Utilities.dataTransaction.PLACA.Length > 5)
+                    {
+                        DialogResult = true;
+                    }
+                    else
+                    {
+                        lblInformation.Text = "INGRESE UNA PLACA VÁLIDA";
+                    }
                 }
                 else
                 {
-                    lblInformation.Text = "INGRESE UNA PLACA VÁLIDA";
+                    DialogResult = true;
                 }
-            }
-            else
-            {
-                DialogResult = true;
-            }
 
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("WPlateModal>BtnContinue_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         private void Label_TouchDown(object sender, TouchEventArgs e)
         {
-            var text = (sender as Label).Tag.ToString();
-            if (text != ".")
+            try
             {
-                if (txPlaca.Text.Length < 6)
+                var text = (sender as Label).Tag.ToString();
+                if (text != ".")
                 {
-                    txPlaca.Text += text;
+                    if (txPlaca.Text.Length < 6)
+                    {
+                        txPlaca.Text += text;
+                    }
+                }
+                else
+                {
+                    if (txPlaca.Text.Length > 0)
+                    {
+                        txPlaca.Text = txPlaca.Text.Substring(0, txPlaca.Text.Length - 1);
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                if (txPlaca.Text.Length > 0)
-                {
-                    txPlaca.Text = txPlaca.Text.Substring(0, txPlaca.Text.Length - 1);
-                }
+                LogService.SaveRequestResponse("WPlateModal>Label_TouchDown", JsonConvert.SerializeObject(ex), 1);
             }
         }
     }

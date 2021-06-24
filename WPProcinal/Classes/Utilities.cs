@@ -165,6 +165,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("Utilities>Loading", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -210,47 +211,14 @@ namespace WPProcinal.Classes
         {
             try
             {
-                bool sendMail = false;
-                string message = string.Empty;
-                string infoUbicaciones = string.Empty;
                 foreach (var typeSeat in typeSeatsCurrent)
                 {
                     var response = WCFServices41.PostDesAssingreserva(typeSeat, dipMapCurrent);
-
-                    if (response != null)
-                    {
-                        if (!response[0].Respuesta.ToLower().Contains("exitoso"))
-                        {
-                            sendMail = true;
-                            message = response[0].Respuesta;
-                            foreach (var item in typeSeatsCurrent)
-                            {
-                                infoUbicaciones += $"Película: {dipMapCurrent.MovieName}, Horario: {dipMapCurrent.HourFunction}, Ubicacion: {item.Name} <br>";
-                            }
-                        }
-                    }
-                    else
-                    {
-                        sendMail = true;
-                        foreach (var item in typeSeatsCurrent)
-                        {
-                            infoUbicaciones += $"Película: {dipMapCurrent.MovieName}, Horario: {dipMapCurrent.HourFunction}, Ubicacion: {item.Name} <br>";
-                        }
-                    }
-                }
-
-                if (sendMail)
-                {
-                    Task.Run(() =>
-                    {
-                        Utilities.SendMailErrores($"No se pudo eliminar las preventas de la transacción {IDTransactionDB} para las siguientes ubicaciones:<br>{infoUbicaciones}" +
-                            $"<br>Error: {message}");
-                    });
                 }
             }
             catch (Exception ex)
             {
-                //TODO:
+                LogService.SaveRequestResponse("Utilities>CancelAssing", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -259,13 +227,6 @@ namespace WPProcinal.Classes
         /// </summary>
         public static void GoToInicial()
         {
-
-            try
-            {
-                CLSGrabador grabador = new CLSGrabador();
-                grabador.FinalizarGrabacion();
-            }
-            catch { }
             try
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
@@ -300,7 +261,10 @@ namespace WPProcinal.Classes
                     pc.Kill();
                 }));
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("Utilities>RestartApp", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         /// <summary>
@@ -326,6 +290,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("Utilities>UpdateApp", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -351,6 +316,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("Utilities>Speack", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -455,9 +421,6 @@ namespace WPProcinal.Classes
                         printCombo.Valor += item.Price;
                     }
                 }
-                //printCombo.Seat = seat.Name;
-                //printCombo.Fila = seat.Letter;
-                //printCombo.Columna = int.Parse(seat.Number);
                 printCombo.FechaPago = DateTime.Now;
 
                 printCombo.IDTransaccion = IDTransactionDB.ToString();
@@ -478,23 +441,12 @@ namespace WPProcinal.Classes
                 if (DataService41._Combos.Count > 0)
                 {
                     printCombo.ImprimirComprobante(0);
-
-                    //var ComboTemporada = DataService41._Combos.Where(x => x.Name == GetConfiguration("0NAME")).FirstOrDefault();
-
-                    //if (ComboTemporada != null && GetConfiguration("0Cupon").Equals("1"))
-                    //{
-                    //    printCombo.ImprimirComprobante(1);
-                    //}
                 }
 
             }
             catch (Exception ex)
             {
-                LogService.SaveRequestResponse("Imprimiendo las boletas", ex.Message, 2);
-                AdminPaypad.SaveErrorControl(ex.Message,
-                        "Error imprimiendo boletas",
-                        EError.Device,
-                        ELevelError.Strong);
+                LogService.SaveRequestResponse("Utilities>PrintTicket", JsonConvert.SerializeObject(ex), 2);
             }
         }
 
@@ -588,6 +540,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("Utilities>CreateTransaction", JsonConvert.SerializeObject(ex), 1);
                 return false;
             }
         }
@@ -643,14 +596,10 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
-                          "Error Actualizando la transacción",
-                          EError.Customer,
-                          ELevelError.Mild);
-                }
-                catch { }
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
+                      "Error Actualizando la transacción",
+                      EError.Customer,
+                      ELevelError.Mild);
                 return false;
             }
         }
@@ -674,95 +623,9 @@ namespace WPProcinal.Classes
                     });
                 }));
             }
-            catch { }
-        }
-
-        /// <summary>
-        /// Procesa la data recibida de la cedula y la convierte en informacion legible
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static DataDocument ProccesDocument(string data)
-        {
-
-            DataDocument documentDataReturn = new DataDocument();
-
-            try
-            {
-                if (!string.IsNullOrEmpty(data))
-                {
-                    data = data.Remove(0, data.IndexOf("PubDSK_1") + 6);
-
-                    string date = string.Empty;
-                    string documentData = string.Empty;
-                    string gender = string.Empty;
-                    string name = string.Empty;
-                    string document = string.Empty;
-
-                    if (data.IndexOf("00M") > 0)
-                    {
-                        gender = "M";
-                        date = data.Substring(data.IndexOf("00M") + 2, 8);
-                        documentData = data.Substring(0, data.IndexOf("00M"));
-                    }
-                    else if (data.IndexOf("00F") > 0)
-                    {
-                        documentData = data.Substring(0, data.IndexOf("00F"));
-                        date = data.Substring(data.IndexOf("00F") + 2, 8);
-                        gender = "F";
-                    }
-                    else if (data.IndexOf("0M") > 0)
-                    {
-                        gender = "M";
-                        date = data.Substring(data.IndexOf("0M") + 2, 8);
-                        documentData = data.Substring(0, data.IndexOf("0M"));
-                    }
-                    else
-                    {
-                        documentData = data.Substring(0, data.IndexOf("0F"));
-                        date = data.Substring(data.IndexOf("0F") + 2, 8);
-                        gender = "F";
-                    }
-
-                    char[] cedulaNombreChar = documentData.ToCharArray();
-
-                    foreach (var item in cedulaNombreChar)
-                    {
-
-                        if (char.IsLetter(item) || char.IsWhiteSpace(item) || item.Equals('\0'))
-                        {
-                            name += item;
-                            name = name.Replace("\0", " ");
-                        }
-                        else
-                        {
-                            document += item;
-                        }
-                    }
-                    name = name.TrimStart();
-                    name = name.TrimEnd();
-
-                    var nuevaCedula = document.Replace("\0", string.Empty).Replace(" ", string.Empty);
-                    document = nuevaCedula.Substring(nuevaCedula.Length - 10, 10);
-
-                    documentDataReturn.Date = date;
-                    documentDataReturn.Document = document;
-                    documentDataReturn.Gender = gender;
-                    var fullName = FormatName(name);
-                    documentDataReturn.FirstName = fullName[2];
-                    if (fullName.Count() > 3)
-                    {
-                        documentDataReturn.SecondName = fullName[3];
-                    }
-                    documentDataReturn.LastName = fullName[0];
-                    documentDataReturn.SecondLastName = fullName[1];
-                }
-
-                return documentDataReturn;
-            }
             catch (Exception ex)
             {
-                return null;
+                LogService.SaveRequestResponse("Utilities>BackUpEcity", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -786,6 +649,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("Utilities>FormatName", JsonConvert.SerializeObject(ex), 1);
                 return null;
             }
         }
@@ -815,7 +679,7 @@ namespace WPProcinal.Classes
             }
             catch (System.Exception ex)
             {
-                //AdminPaypad.SaveErrorControl(ex.Message, "LoadData en frmCinema", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "LoadData en Utilities", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -858,6 +722,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("Utilities>AddImageList", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -869,18 +734,25 @@ namespace WPProcinal.Classes
         /// <param name="dataProduct"></param>
         public static void DeleteCombo(string comboName, decimal comboPrice, Producto dataProduct)
         {
-            int cantActual = dataProduct.Value;
-            dataProduct.Value = cantActual != 0 ? (cantActual - 1) : 0;
-            var existsCombo = DataService41._Combos.Where(cb => cb.Name == comboName).FirstOrDefault();
-            if (existsCombo != null)
+            try
             {
-
-                existsCombo.Quantity--;
-                existsCombo.Price -= comboPrice;
-                if (existsCombo.Quantity == 0)
+                int cantActual = dataProduct.Value;
+                dataProduct.Value = cantActual != 0 ? (cantActual - 1) : 0;
+                var existsCombo = DataService41._Combos.Where(cb => cb.Name == comboName).FirstOrDefault();
+                if (existsCombo != null)
                 {
-                    DataService41._Combos.Remove(existsCombo);
+
+                    existsCombo.Quantity--;
+                    existsCombo.Price -= comboPrice;
+                    if (existsCombo.Quantity == 0)
+                    {
+                        DataService41._Combos.Remove(existsCombo);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("Utilities>DeleteCombo", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -890,59 +762,73 @@ namespace WPProcinal.Classes
         /// <param name="data"></param>
         public static void AddCombo(Combos data)
         {
-            int cantActual = data.dataProduct.Value;
-            cantActual++;
-            if (cantActual <= 9)
+            try
             {
-                data.dataProduct.Value = cantActual;
-                var existsCombo = DataService41._Combos.Where(cb => cb.Name == data.Name).FirstOrDefault();
-
-                if (existsCombo != null)
+                int cantActual = data.dataProduct.Value;
+                cantActual++;
+                if (cantActual <= 9)
                 {
-                    existsCombo.Quantity++;
-                    existsCombo.Price += data.Price;
+                    data.dataProduct.Value = cantActual;
+                    var existsCombo = DataService41._Combos.Where(cb => cb.Name == data.Name).FirstOrDefault();
 
-                }
-                else
-                {
-                    DataService41._Combos.Add(new Combos
+                    if (existsCombo != null)
                     {
-                        Name = data.Name,
-                        Quantity = 1,
-                        Price = data.Price,
-                        Code = data.Code,
-                        dataProduct = data.dataProduct,
-                        isCombo = data.isCombo
-                    });
+                        existsCombo.Quantity++;
+                        existsCombo.Price += data.Price;
+
+                    }
+                    else
+                    {
+                        DataService41._Combos.Add(new Combos
+                        {
+                            Name = data.Name,
+                            Quantity = 1,
+                            Price = data.Price,
+                            Code = data.Code,
+                            dataProduct = data.dataProduct,
+                            isCombo = data.isCombo
+                        });
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("Utilities>AddCombo", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
         public static void ValidateUserBalance()
         {
-            decimal valorPagoConSaldoFavor = 0;
-            if (dataTransaction.dataUser.SaldoFavor != null)
+            try
             {
-                if (dataTransaction.dataUser.SaldoFavor.Value > 0)
+                decimal valorPagoConSaldoFavor = 0;
+                if (dataTransaction.dataUser.SaldoFavor != null)
                 {
-                    dataTransaction.dataUser.SaldoFavor = (dataTransaction.dataUser.SaldoFavor.Value - (dataTransaction.dataUser.SaldoFavor.Value % 100));
-                    frmModal Modal = new frmModal($"Tienes un saldo a favor de {dataTransaction.dataUser.SaldoFavor.Value.ToString("C")} ¿deseas utilizarlo en esta compra?", balance: true);
-                    Modal.ShowDialog();
-                    if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
+                    if (dataTransaction.dataUser.SaldoFavor.Value > 0)
                     {
-                        valorPagoConSaldoFavor = dataTransaction.DataFunction.Total - dataTransaction.dataUser.SaldoFavor.Value;
-                        if (valorPagoConSaldoFavor <= 0)
+                        dataTransaction.dataUser.SaldoFavor = (dataTransaction.dataUser.SaldoFavor.Value - (dataTransaction.dataUser.SaldoFavor.Value % 100));
+                        frmModal Modal = new frmModal($"Tienes un saldo a favor de {dataTransaction.dataUser.SaldoFavor.Value.ToString("C")} ¿deseas utilizarlo en esta compra?", balance: true);
+                        Modal.ShowDialog();
+                        if (Modal.DialogResult.HasValue && Modal.DialogResult.Value)
                         {
-                            dataTransaction.PayVal = 0;
-                            dataTransaction.PagoInterno = dataTransaction.DataFunction.Total;
-                        }
-                        else
-                        {
-                            dataTransaction.PayVal = dataTransaction.DataFunction.Total - dataTransaction.dataUser.SaldoFavor.Value;
-                            dataTransaction.PagoInterno = dataTransaction.dataUser.SaldoFavor.Value;
+                            valorPagoConSaldoFavor = dataTransaction.DataFunction.Total - dataTransaction.dataUser.SaldoFavor.Value;
+                            if (valorPagoConSaldoFavor <= 0)
+                            {
+                                dataTransaction.PayVal = 0;
+                                dataTransaction.PagoInterno = dataTransaction.DataFunction.Total;
+                            }
+                            else
+                            {
+                                dataTransaction.PayVal = dataTransaction.DataFunction.Total - dataTransaction.dataUser.SaldoFavor.Value;
+                                dataTransaction.PagoInterno = dataTransaction.dataUser.SaldoFavor.Value;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("Utilities>ValidateUserBalance", JsonConvert.SerializeObject(ex), 1);
             }
         }
     }

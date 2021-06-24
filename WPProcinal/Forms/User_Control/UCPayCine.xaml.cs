@@ -9,6 +9,7 @@ using System.Windows.Input;
 using WPProcinal.Classes;
 using WPProcinal.Service;
 using SQLite.Connection.Ecity;
+using Newtonsoft.Json;
 
 namespace WPProcinal.Forms.User_Control
 {
@@ -63,7 +64,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "ActivateWallet en frmPayCine", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "ActivateWallet en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -89,7 +90,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "Window_Loaded en frmPayCine", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "Window_Loaded en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -126,8 +127,6 @@ namespace WPProcinal.Forms.User_Control
 
                     Utilities.control.callbackTotalIn = enterTotal =>
                     {
-
-
                         Utilities.control.callbackTotalIn = null;
 
                         if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
@@ -219,7 +218,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "ActivateWallet en frmPayCine", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "ActivateWallet en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -240,7 +239,6 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Utilities.control.callbackLog = (log, isBX) =>
                     {
-                        //ProccesValue(log, Utilities.IDTransactionDB);
                         PaymentViewModel.SplitDenomination(log, isBX);
                     };
 
@@ -323,7 +321,6 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Utilities.controlUnified.callbackLog = (log, isBX) =>
                     {
-                        //ProccesValue(log, Utilities.IDTransactionDB);
                         PaymentViewModel.SplitDenomination(log, isBX);
                     };
 
@@ -366,12 +363,8 @@ namespace WPProcinal.Forms.User_Control
                         {
                             Utilities.dataTransaction.ValueDelivery = (long)delivery;
 
-                            try
-                            {
-                                timer.CallBackStop?.Invoke(1);
-                                SetCallBacksNull();
-                            }
-                            catch { }
+
+                            SetCallBacksNull();
                             if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal && state)
                             {
                                 if (delivery != returnValue)
@@ -408,7 +401,7 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 frmLoading.Close();
-                AdminPaypad.SaveErrorControl(ex.Message,
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
                     "ReturnMoney en frmPayCine",
                     EError.Aplication,
                     ELevelError.Medium);
@@ -435,7 +428,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "OrganizeValue en frmPayCine", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "OrganizeValue en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -459,84 +452,70 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCPayCine>ApproveTrans", JsonConvert.SerializeObject(ex), 1);
                 stateUpdate = false;
             }
         }
 
         private void SavePay(bool task)
         {
-            try
+
+            if (!task)
             {
-                if (!task)
+                this.IsEnabled = false;
+                FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                try
                 {
-                    this.IsEnabled = false;
-                    FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
-                    try
-                    {
-                        frmLoading.Show();
-                        Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
-                        frmLoading.Close();
-                        this.IsEnabled = true;
-
-                        Dispatcher.BeginInvoke((Action)delegate
-                       {
-                           frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.dataTransaction.PayVal.ToString("#,##0"));
-                           modal.ShowDialog();
-                       });
-                        GC.Collect();
-                    }
-                    catch { frmLoading.Close(); }
-
-                    ActivateTimer(false);
-                    ReturnMoney(Utilities.dataTransaction.PayVal, false);
-
-                }
-                else
-                {
-                    Utilities.PrintTicket("Aprobada", Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
-
-                    ApproveTrans();
+                    frmLoading.Show();
+                    Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
+                    frmLoading.Close();
+                    this.IsEnabled = true;
 
                     Dispatcher.BeginInvoke((Action)delegate
                    {
-                       Switcher.Navigate(new UCFinalTransaction());
+                       frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.dataTransaction.PayVal.ToString("#,##0"));
+                       modal.ShowDialog();
                    });
+                    GC.Collect();
                 }
+                catch (Exception ex)
+                {
+                    LogService.SaveRequestResponse("UCPayCine>SavePay", JsonConvert.SerializeObject(ex), 1);
+                    frmLoading.Close();
+                }
+
+                ActivateTimer(false);
+                ReturnMoney(Utilities.dataTransaction.PayVal, false);
+
             }
-            catch (Exception ex)
+            else
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "SavePay en frmPayCine", EError.Aplication, ELevelError.Medium);
+                Utilities.PrintTicket("Aprobada", Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
+
+                ApproveTrans();
+
+                Dispatcher.BeginInvoke((Action)delegate
+               {
+                   Switcher.Navigate(new UCFinalTransaction());
+               });
             }
+
         }
 
         private async void Cancelled()
         {
+            SetCallBacksNull();
             try
             {
-                SetCallBacksNull();
-                timer.CallBackStop?.Invoke(1);
-            }
-            catch { }
-            try
-            {
-
-                try
+                Dispatcher.Invoke(() =>
                 {
-                    Dispatcher.Invoke(() =>
-                    {
-                        FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
-                        this.IsEnabled = false;
-                        frmLoading.Show();
-                        Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
-                        frmLoading.Close();
-                        this.IsEnabled = true;
-                    });
-                }
-                catch (Exception ex)
-                {
-
-                }
-
+                    FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                    this.IsEnabled = false;
+                    frmLoading.Show();
+                    Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
+                    frmLoading.Close();
+                    this.IsEnabled = true;
+                });
                 await Utilities.UpdateTransaction(
                       PaymentViewModel.ValorIngresado,
                       (int)ETransactionState.Canceled,
@@ -552,7 +531,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
             Utilities.GoToInicial();
 
@@ -694,7 +673,7 @@ namespace WPProcinal.Forms.User_Control
                 });
                 payState = false;
                 SavePay(payState);
-                AdminPaypad.SaveErrorControl(ex.Message, "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -717,6 +696,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 catch (Exception ex)
                 {
+                    LogService.SaveRequestResponse("UCPayCine>GetInvoice", JsonConvert.SerializeObject(ex), 1);
                     frmLoading.Close();
                 }
             }
@@ -765,22 +745,17 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
-                        try
+
+                        if (timer != null)
                         {
                             timer.CallBackClose = null;
                         }
-                        catch { }
                         if (controlInactividad == 0)
                         {
                             if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal)
                             {
                                 controlInactividad = 1;
-                                try
-                                {
-                                    timer.CallBackStop?.Invoke(1);
-                                    SetCallBacksNull();
-                                }
-                                catch { }
+                                SetCallBacksNull();
                                 if (state)
                                 {
                                     Buytickets();
@@ -795,12 +770,7 @@ namespace WPProcinal.Forms.User_Control
                             }
                             else
                             {
-                                try
-                                {
-                                    timer.CallBackStop?.Invoke(1);
-                                    SetCallBacksNull();
-                                }
-                                catch { }
+                                SetCallBacksNull();
                                 frmModal modal = new frmModal("Estimado usuario, ha ocurrido un error, contacte a un administrador. Gracias");
                                 modal.ShowDialog();
                                 Cancelled();
@@ -810,20 +780,20 @@ namespace WPProcinal.Forms.User_Control
                     GC.Collect();
                 };
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCPayCine>ActivateTimer", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         void SetCallBacksNull()
         {
-            try
+            if (timer != null)
             {
-                if (timer != null)
-                {
-                    timer.CallBackClose = null;
-                    timer.CallBackTimer = null;
-                }
+                timer.CallBackClose = null;
+                timer.CallBackTimer = null;
+                timer.CallBackStop?.Invoke(1);
             }
-            catch { }
         }
         #endregion
 
@@ -858,7 +828,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "ActivateWallet en frmPayCine", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "ActivateWallet en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
 

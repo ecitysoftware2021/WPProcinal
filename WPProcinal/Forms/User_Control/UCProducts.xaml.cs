@@ -357,7 +357,6 @@ namespace WPProcinal.Forms.User_Control
             Utilities.ValidateUserBalance();
             var response = Utilities.CreateTransaction("Cine ").Result;
             frmLoading.Close();
-            bool validateCombo = false;
 
             if (Utilities.eTypeBuy == ETypeBuy.JustConfectionery)
             {
@@ -428,11 +427,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                Task.Run(() =>
-                {
-                    Utilities.SendMailErrores($"No se pudo obtener la secuencia de compra en la transaccion: {Utilities.IDTransactionDB}" +
-                        $"");
-                });
+                LogService.SaveRequestResponse("UCProducts>GetSecuence", JsonConvert.SerializeObject(ex), 1);
                 Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
                 return false;
             }
@@ -462,7 +457,10 @@ namespace WPProcinal.Forms.User_Control
                     });
                 };
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCProducts>ActivateTimer", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         void SetCallBacksNull()

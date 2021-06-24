@@ -1,4 +1,5 @@
 ﻿using Grabador.Transaccion;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -61,8 +62,9 @@ namespace WPProcinal.Forms.User_Control
                 view.Source = lstPager;
                 lv_Products.DataContext = view;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCProductsCombos>InitView", JsonConvert.SerializeObject(ex), 1);
             }
 
         }
@@ -105,13 +107,13 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCProductsCombos>IncrementDecrementProducts", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
         private void BtnCombos_TouchDown(object sender, TouchEventArgs e)
         {
             SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
             Switcher.Navigate(new UCProducts());
         }
 
@@ -119,7 +121,6 @@ namespace WPProcinal.Forms.User_Control
         {
 
             SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
             this.IsEnabled = false;
             var frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
             Utilities.Loading(frmLoading, true, this);
@@ -133,7 +134,6 @@ namespace WPProcinal.Forms.User_Control
         {
             this.IsEnabled = false;
             SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
             ChangePrices();
             ShowDetailModal();
         }
@@ -142,20 +142,27 @@ namespace WPProcinal.Forms.User_Control
         #region "Métodos"
         private void ShowDetailModal()
         {
-            frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
-            this.Opacity = 0.3;
-            _frmConfirmationModal.ShowDialog();
-            if (_frmConfirmationModal.DialogResult.HasValue &&
-                _frmConfirmationModal.DialogResult.Value)
+            try
             {
-                GoToPay();
+                frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
+                this.Opacity = 0.3;
+                _frmConfirmationModal.ShowDialog();
+                if (_frmConfirmationModal.DialogResult.HasValue &&
+                    _frmConfirmationModal.DialogResult.Value)
+                {
+                    GoToPay();
+                }
+                else
+                {
+                    ActivateTimer();
+                    this.IsEnabled = true;
+                    this.Opacity = 1;
+                    PaintDataCombo();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ActivateTimer();
-                this.IsEnabled = true;
-                this.Opacity = 1;
-                PaintDataCombo();
+                LogService.SaveRequestResponse("UCProductsCombos>ShowDetailModal", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -203,105 +210,112 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCProductsCombos>PaintDataCombo", JsonConvert.SerializeObject(ex), 1);
             }
         }
         public void ChangePrices()
         {
-            List<Producto> productos = new List<Producto>();
-            //Utilities.dataUser = new SCOLOGResponse();
-            decimal precio = 0;
-            foreach (var item in DataService41._Combos)
+            try
             {
-                precio = 0;
-                for (int i = 0; i < item.Quantity; i++)
+                List<Producto> productos = new List<Producto>();
+                decimal precio = 0;
+                foreach (var item in DataService41._Combos)
                 {
-                    var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
-                    if (combo.Receta != null)
+                    precio = 0;
+                    for (int i = 0; i < item.Quantity; i++)
                     {
-                        foreach (var receta in combo.Receta)
+                        var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+                        if (combo.Receta != null)
                         {
-                            if (receta.Precios != null)
+                            foreach (var receta in combo.Receta)
                             {
-                                decimal otroPago = decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
-                                if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
+                                if (receta.Precios != null)
                                 {
-                                    precio += otroPago * receta.Cantidad;
+                                    decimal otroPago = decimal.Parse(receta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                    if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
+                                    {
+                                        precio += otroPago * receta.Cantidad;
+                                        Utilities.dataTransaction.PrecioCinefans = true;
+                                    }
+                                    else
+                                    {
+                                        precio += decimal.Parse(receta.Precios.FirstOrDefault().General.Split('.')[0]) * receta.Cantidad;
+                                    }
+                                }
+                                if (receta.RecetaReceta != null)
+                                {
+                                    List<Receta> recetaAux = new List<Receta>();
+                                    for (int e = 0; e < int.Parse(receta.Cantidad.ToString()); e++)
+                                    {
+
+                                        var responseRecetaBebida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("gaseosa")).FirstOrDefault();
+                                        Receta responseRecetaComida = null;
+                                        //Si el combo es el combo 4, solo tomamos por defecto las gaseosas, las comidas se dejan tal cual
+                                        if (item.Code != Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.Code4)
+                                        {
+                                            responseRecetaComida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("perro")).FirstOrDefault();
+                                        }
+                                        if (responseRecetaBebida != null)
+                                        {
+                                            recetaAux.Add(responseRecetaBebida);
+                                        }
+                                        else if (responseRecetaComida != null)
+                                        {
+                                            recetaAux.Add(responseRecetaComida);
+                                        }
+
+                                    }
+                                    if (recetaAux.Count != 0)
+                                    {
+                                        receta.RecetaReceta = recetaAux;
+                                    }
+                                    else
+                                    {
+                                        receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+                                    }
+                                    foreach (var preciosReceta in receta.RecetaReceta)
+                                    {
+                                        if (preciosReceta.Precios != null)
+                                        {
+                                            decimal otroPago = decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                            if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
+                                            {
+                                                precio += otroPago;
+                                                Utilities.dataTransaction.PrecioCinefans = true;
+                                            }
+                                            else
+                                            {
+                                                precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().General.Split('.')[0]);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            foreach (var preciosReceta in combo.Precios)
+                            {
+                                if (Utilities.dataTransaction.dataUser.Tarjeta != null && preciosReceta.auxOtroPago > 0)
+                                {
+                                    precio = preciosReceta.auxOtroPago;
                                     Utilities.dataTransaction.PrecioCinefans = true;
                                 }
                                 else
                                 {
-                                    precio += decimal.Parse(receta.Precios.FirstOrDefault().General.Split('.')[0]) * receta.Cantidad;
-                                }
-                            }
-                            if (receta.RecetaReceta != null)
-                            {
-                                List<Receta> recetaAux = new List<Receta>();
-                                for (int e = 0; e < int.Parse(receta.Cantidad.ToString()); e++)
-                                {
-
-                                    var responseRecetaBebida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("gaseosa")).FirstOrDefault();
-                                    Receta responseRecetaComida = null;
-                                    //Si el combo es el combo 4, solo tomamos por defecto las gaseosas, las comidas se dejan tal cual
-                                    if (item.Code != Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.Code4)
-                                    {
-                                        responseRecetaComida = receta.RecetaReceta.Where(rc => rc.Descripcion.ToLower().Contains("perro")).FirstOrDefault();
-                                    }
-                                    if (responseRecetaBebida != null)
-                                    {
-                                        recetaAux.Add(responseRecetaBebida);
-                                    }
-                                    else if (responseRecetaComida != null)
-                                    {
-                                        recetaAux.Add(responseRecetaComida);
-                                    }
-
-                                }
-                                if (recetaAux.Count != 0)
-                                {
-                                    receta.RecetaReceta = recetaAux;
-                                }
-                                else
-                                {
-                                    receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
-                                }
-                                foreach (var preciosReceta in receta.RecetaReceta)
-                                {
-                                    if (preciosReceta.Precios != null)
-                                    {
-                                        decimal otroPago = decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
-                                        if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
-                                        {
-                                            precio += otroPago;
-                                            Utilities.dataTransaction.PrecioCinefans = true;
-                                        }
-                                        else
-                                        {
-                                            precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().General.Split('.')[0]);
-                                        }
-                                    }
+                                    precio = preciosReceta.auxGeneral;
                                 }
                             }
                         }
-
+                        productos.Add(combo);
                     }
-                    else
-                    {
-                        foreach (var preciosReceta in combo.Precios)
-                        {
-                            if (Utilities.dataTransaction.dataUser.Tarjeta != null && preciosReceta.auxOtroPago > 0)
-                            {
-                                precio = preciosReceta.auxOtroPago;
-                                Utilities.dataTransaction.PrecioCinefans = true;
-                            }
-                            else
-                            {
-                                precio = preciosReceta.auxGeneral;
-                            }
-                        }
-                    }
-                    productos.Add(combo);
+                    item.Price = precio;
                 }
-                item.Price = precio;
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCProductsCombos>ChangePrices", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -312,9 +326,6 @@ namespace WPProcinal.Forms.User_Control
             Utilities.ValidateUserBalance();
             var response = await Utilities.CreateTransaction("Cine ");
             frmLoading.Close();
-
-            bool validateCombo = false;
-
             if (Utilities.eTypeBuy == ETypeBuy.JustConfectionery)
             {
                 if (!GetSecuence())
@@ -338,15 +349,6 @@ namespace WPProcinal.Forms.User_Control
             }
             else
             {
-                try
-                {
-                    Task.Run(() =>
-                    {
-                        //grabador.Grabar(Utilities.IDTransactionDB, 0);
-                    });
-                }
-                catch { }
-
                 if (Utilities.dataTransaction.MedioPago == EPaymentType.Cash)
                 {
                     Switcher.Navigate(new UCPayCine());
@@ -395,11 +397,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                Task.Run(() =>
-                {
-                    Utilities.SendMailErrores($"No se pudo obtener la secuencia de compra en la transaccion: {Utilities.IDTransactionDB}" +
-                        $"");
-                });
+                LogService.SaveRequestResponse("UCProductsCombos>GetSecuence", JsonConvert.SerializeObject(ex), 1);
                 Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
                 return false;
             }
@@ -429,7 +427,10 @@ namespace WPProcinal.Forms.User_Control
                     });
                 };
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCProductsCombos>ActivateTimer", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         void SetCallBacksNull()
@@ -438,6 +439,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 timer.CallBackClose = null;
                 timer.CallBackTimer = null;
+                timer.CallBackStop?.Invoke(1);
             }
         }
         #endregion

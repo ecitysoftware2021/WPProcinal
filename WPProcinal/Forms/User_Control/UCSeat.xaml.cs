@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,7 +55,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "UCSeat en frmSeat", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "UCSeat>frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -68,7 +69,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "UserControl_Loaded en frmSeat", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "UserControl_Loaded>frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -94,7 +95,10 @@ namespace WPProcinal.Forms.User_Control
                     });
                 };
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCSeat>ActivateTimer", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         void SetCallBacksNull()
@@ -103,6 +107,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 timer.CallBackClose = null;
                 timer.CallBackTimer = null;
+                timer.CallBackStop?.Invoke(1);
             }
 
         }
@@ -122,7 +127,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "HideImages en frmSeat", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "HideImages en frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -230,7 +235,7 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 frmLoading.Close();
-                AdminPaypad.SaveErrorControl(ex.Message, "LoadSeats en frmSeat", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "LoadSeats en frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -318,6 +323,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCSeat>GetLockedSeats", JsonConvert.SerializeObject(ex), 1);
 
             }
         }
@@ -430,14 +436,10 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "OrganizePositionOfSeats",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
+                "OrganizePositionOfSeats",
+                EError.Aplication,
+                ELevelError.Mild);
             }
         }
 
@@ -552,14 +554,10 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "OrganizePositionOfSeatsInverted",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
+                "OrganizePositionOfSeatsInverted",
+                EError.Aplication,
+                ELevelError.Mild);
             }
         }
 
@@ -676,14 +674,10 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "OrganizePositionOfSeatsInverted",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
+                "OrganizePositionOfSeatsInverted",
+                EError.Aplication,
+                ELevelError.Mild);
             }
         }
 
@@ -718,14 +712,10 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                try
-                {
-                    AdminPaypad.SaveErrorControl(ex.Message,
-                    "SelectedSeatsMethod",
-                    EError.Aplication,
-                    ELevelError.Mild);
-                }
-                catch { }
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
+                "SelectedSeatsMethod",
+                EError.Aplication,
+                ELevelError.Mild);
             }
         }
 
@@ -873,7 +863,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "SendData en frmSeat", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "SendData en frmSeat", EError.Aplication, ELevelError.Medium);
 
                 Utilities.ShowModal("Lo sentimos, no fué posible consultar las tarifas, por favor intente de nuevo.");
                 ReloadWindow();
@@ -882,47 +872,54 @@ namespace WPProcinal.Forms.User_Control
 
         private void GoToPay()
         {
-            List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
-            var sec = GetSecuence();
-            if (sec)
+            try
             {
-                List<ResponseScogru> responseReserve = Reserve(ubicacione);
-                if (responseReserve != null)
+                List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
+                var sec = GetSecuence();
+                if (sec)
                 {
-                    foreach (var item in responseReserve)
+                    List<ResponseScogru> responseReserve = Reserve(ubicacione);
+                    if (responseReserve != null)
                     {
-                        if (item.Respuesta.Contains("exitoso"))
+                        foreach (var item in responseReserve)
                         {
-                            ShowPay();
-                            break;
-                        }
-                        else
-                        {
-                            Task.Run(() =>
+                            if (item.Respuesta.Contains("exitoso"))
                             {
-                                Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
-                                    $" <br> Error: {item.Respuesta}");
-                            });
-                            Utilities.ShowModal(string.Concat("No se pudieron reservar los puestos: ", item.Respuesta));
-                            ReloadWindow();
-                            break;
+                                ShowPay();
+                                break;
+                            }
+                            else
+                            {
+                                Task.Run(() =>
+                                {
+                                    Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
+                                        $" <br> Error: {item.Respuesta}");
+                                });
+                                Utilities.ShowModal(string.Concat("No se pudieron reservar los puestos: ", item.Respuesta));
+                                ReloadWindow();
+                                break;
+                            }
                         }
+                    }
+                    else
+                    {
+                        Task.Run(() =>
+                        {
+                            Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB} <br> no hubo respuesta del servicio");
+                        });
+                        Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                        ReloadWindow();
+                        return;
                     }
                 }
                 else
                 {
-                    Task.Run(() =>
-                    {
-                        Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB} <br> no hubo respuesta del servicio");
-                    });
-                    Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
                     ReloadWindow();
-                    return;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                ReloadWindow();
+                LogService.SaveRequestResponse("UCSeat>GoToPay", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -957,6 +954,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCSeat>GetCombo", JsonConvert.SerializeObject(ex), 1);
                 frmLoading.Close();
                 return false;
             }
@@ -1055,6 +1053,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCSeat>GetPrices", JsonConvert.SerializeObject(ex), 1);
                 frmLoading.Close();
                 return false;
             }
@@ -1078,20 +1077,15 @@ namespace WPProcinal.Forms.User_Control
         private void SecuenceAndReserveToConfectionery()
         {
             SetCallBacksNull();
-            timer.CallBackStop?.Invoke(1);
 
             this.IsEnabled = false;
             activePay = true;
             try
             {
-
-
                 var sec = GetSecuence();
                 if (sec)
                 {
                     List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
-
-
                     List<ResponseScogru> response41 = Reserve(ubicacione);
                     if (response41 != null)
                     {
@@ -1136,7 +1130,7 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 this.IsEnabled = true;
-                AdminPaypad.SaveErrorControl(ex.Message, "SecueceAndReserve en frmSeat", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "SecueceAndReserve en frmSeat", EError.Aplication, ELevelError.Medium);
 
                 Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
                 ReloadWindow();
@@ -1161,29 +1155,36 @@ namespace WPProcinal.Forms.User_Control
 
         private List<ResponseScogru> Reserve(List<Ubicacione> ubicacione)
         {
-            var dataClient = GetDataClient();
-            FrmLoading frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
-            frmLoading.Show();
-
-            var response41 = WCFServices41.PostPreventa(new SCOGRU
+            try
             {
-                Apellido = dataClient.Apellido,
-                Descripcion = Utilities.dataTransaction.DataFunction.MovieName,
-                FechaFuncion = Utilities.dataTransaction.DataFunction.Date,
-                HoraFuncion = Utilities.dataTransaction.DataFunction.Hour,
-                InicioFuncion = Utilities.dataTransaction.DataFunction.HourFormat,
-                Nombre = dataClient.Nombre,
-                Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
-                PuntoVenta = Utilities.dataTransaction.DataFunction.PointOfSale,
-                Sala = Utilities.dataTransaction.DataFunction.RoomId,
-                Secuencia = Utilities.dataTransaction.DataFunction.Secuence,
-                teatro = Utilities.dataTransaction.DataFunction.CinemaId,
-                Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
-                tercero = 1,
-                Ubicaciones = ubicacione
-            });
-            frmLoading.Close();
-            return response41;
+                var dataClient = GetDataClient();
+                FrmLoading frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
+                frmLoading.Show();
+
+                var response41 = WCFServices41.PostPreventa(new SCOGRU
+                {
+                    Apellido = dataClient.Apellido,
+                    Descripcion = Utilities.dataTransaction.DataFunction.MovieName,
+                    FechaFuncion = Utilities.dataTransaction.DataFunction.Date,
+                    HoraFuncion = Utilities.dataTransaction.DataFunction.Hour,
+                    InicioFuncion = Utilities.dataTransaction.DataFunction.HourFormat,
+                    Nombre = dataClient.Nombre,
+                    Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
+                    PuntoVenta = Utilities.dataTransaction.DataFunction.PointOfSale,
+                    Sala = Utilities.dataTransaction.DataFunction.RoomId,
+                    Secuencia = Utilities.dataTransaction.DataFunction.Secuence,
+                    teatro = Utilities.dataTransaction.DataFunction.CinemaId,
+                    Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
+                    tercero = 1,
+                    Ubicaciones = ubicacione
+                });
+                frmLoading.Close();
+                return response41;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private bool GetSecuence()
@@ -1221,12 +1222,8 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCSeat>GetSecuence", JsonConvert.SerializeObject(ex), 1);
                 frmLoading.Close();
-                Task.Run(() =>
-                {
-                    Utilities.SendMailErrores($"No se pudo obtener la secuencia de compra en la transaccion: {Utilities.IDTransactionDB}" +
-                        $"");
-                });
                 Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
                 return false;
             }
@@ -1307,15 +1304,6 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    //try
-                    //{
-                    //    Task.Run(() =>
-                    //    {
-                    //        grabador.Grabar(Utilities.IDTransactionDB, 0);
-                    //    });
-                    //}
-                    //catch { }
-
                     if (Utilities.dataTransaction.MedioPago == EPaymentType.Cash)
                     {
                         Switcher.Navigate(new UCPayCine());
@@ -1328,34 +1316,36 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "ShowPay en frmSeat", EError.Aplication, ELevelError.Medium);
             }
         }
 
         private void BtnAtras_TouchDown(object sender, TouchEventArgs e)
         {
-            this.IsEnabled = false;
-            if (activePay)
-            {
-                List<ChairsInformation> lista = new List<ChairsInformation>();
-                foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
-                {
-                    lista.Add(item);
-                }
-                this.IsEnabled = false;
-                FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
-                frmLoading.Show();
-                Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
-                frmLoading.Close();
-                this.IsEnabled = true;
-            }
             try
             {
+                this.IsEnabled = false;
+                if (activePay)
+                {
+                    List<ChairsInformation> lista = new List<ChairsInformation>();
+                    foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
+                    {
+                        lista.Add(item);
+                    }
+                    this.IsEnabled = false;
+                    FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                    frmLoading.Show();
+                    Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
+                    frmLoading.Close();
+                    this.IsEnabled = true;
+                }
                 SetCallBacksNull();
-                timer.CallBackStop?.Invoke(1);
+                Switcher.Navigate(new UCSchedule(DataService41.Movie));
             }
-            catch { }
-            Switcher.Navigate(new UCSchedule(DataService41.Movie));
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCSeat>BtnAtras_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         private void Pay_TouchDown(object sender, TouchEventArgs e)

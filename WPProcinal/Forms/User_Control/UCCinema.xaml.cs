@@ -1,4 +1,5 @@
 ﻿using Grabador.Transaccion;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -29,11 +30,6 @@ namespace WPProcinal.Forms.User_Control
             timerStatePay.Interval = 10000;
             timerStatePay.Elapsed += new System.Timers.ElapsedEventHandler(TimerStatePay_Tick);
 
-            try
-            {
-                grabador.FinalizarGrabacion();
-            }
-            catch { }
             if (Utilities.LossConnection)
             {
                 Utilities.RestartApp();
@@ -44,7 +40,10 @@ namespace WPProcinal.Forms.User_Control
                 var pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Renotificar", "RenotifyConsole.exe");
                 Process.Start(pat);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCCinema>UCCinema", JsonConvert.SerializeObject(ex), 1);
+            }
             frmLoading = new FrmLoading("¡Descargando información...!");
 
 
@@ -77,7 +76,7 @@ namespace WPProcinal.Forms.User_Control
 
         }
 
-        private async void ConfiguratePublish()
+        private void ConfiguratePublish()
         {
             try
             {
@@ -97,6 +96,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCCinema>ConfiguratePublish", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -118,7 +118,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (System.Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -140,7 +140,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (System.Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
             }
         }
     }

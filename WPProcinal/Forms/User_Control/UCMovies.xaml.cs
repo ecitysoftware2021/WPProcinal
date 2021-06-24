@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -71,11 +72,11 @@ namespace WPProcinal.Forms.User_Control
                     DownloadData(DataService41.Peliculas);
                     frmLoading.Close();
                 }));
-                //Utilities.DoEvents();
 
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCMovies>UCMovies", JsonConvert.SerializeObject(ex), 1);
                 Utilities.ShowModal(ex.Message);
             }
         }
@@ -107,6 +108,7 @@ namespace WPProcinal.Forms.User_Control
                     }
                     catch (Exception ex)
                     {
+                        LogService.SaveRequestResponse("UCMovies>DownloadData", JsonConvert.SerializeObject(ex), 1);
                     }
                 }
                 this.IsEnabled = true;
@@ -142,46 +144,13 @@ namespace WPProcinal.Forms.User_Control
                             });
                         }
                     }
-
-                    if (BadImages.Count > 0)
-                    {
-                        SendMailImages();
-                    }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    LogService.SaveRequestResponse("UCMovies>ValidateImages", JsonConvert.SerializeObject(ex), 1);
 
                 }
                 ImgValidatorFlag = true;
-            }
-        }
-
-        private void SendMailImages()
-        {
-            try
-            {
-                ApiLocal api = new ApiLocal();
-                Email mail;
-                string data = string.Empty;
-
-                foreach (var item in BadImages)
-                {
-                    data += $"Película: {item.Pelicula}, Imágen: {item.Url} <br>";
-                }
-
-                mail = new Email
-                {
-                    Body = $"No fué posible descargar las siguientes imágenes:<br> {data} <br>" +
-                            $"Por favor revisar el repositorio de imagenes Url: {Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.UrlImages} <br>" +
-                            "Nota: revisar que el nombre de la imágen este bien escrito o que la imágen si exista.",
-                    Subject = "Alerta Información Pay+",
-                    paypad_id = Utilities.CorrespondentId
-                };
-
-                var response = api.GetResponse(mail, "SendEmail");
-            }
-            catch (Exception ex)
-            {
             }
         }
 
@@ -205,7 +174,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "LoadMovies en frmMovies", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "LoadMovies en frmMovies", EError.Aplication, ELevelError.Medium);
             }
         }
 
@@ -225,17 +194,13 @@ namespace WPProcinal.Forms.User_Control
 
                 Thread.Sleep(1000);
                 view.Source = LstMoviesModel;
-                //view.Filter += new FilterEventHandler(View_Filter);
                 this.DataContext = view;
-                //ShowCurrentPageIndex();
                 tbTotalPage.Text = totalPage.ToString();
-
                 GifLoadder.Visibility = Visibility.Hidden;
-                //ValidateImage();
             }
             catch (Exception ex)
             {
-                AdminPaypad.SaveErrorControl(ex.Message, "CreatePages en frmMovies", EError.Aplication, ELevelError.Medium);
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "CreatePages en frmMovies", EError.Aplication, ELevelError.Medium);
             }
 
         }
@@ -283,7 +248,10 @@ namespace WPProcinal.Forms.User_Control
                     });
                 };
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCMovies>ActivateTimer", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         void SetCallBacksNull()
@@ -292,36 +260,34 @@ namespace WPProcinal.Forms.User_Control
             {
                 timer.CallBackClose = null;
                 timer.CallBackTimer = null;
+                timer.CallBackStop?.Invoke(1);
+
             }
         }
 
 
         private void btnAtras_TouchDown(object sender, TouchEventArgs e)
         {
-            try
-            {
-                this.IsEnabled = false;
-                SetCallBacksNull();
-                timer.CallBackStop?.Invoke(1);
-            }
-            catch { }
+            this.IsEnabled = false;
+            SetCallBacksNull();
             Switcher.Navigate(new UCCinema());
         }
 
         private void TouchImage_TouchDown(object sender, TouchEventArgs e)
         {
+            SetCallBacksNull();
             try
             {
-                SetCallBacksNull();
-                timer.CallBackStop?.Invoke(1);
+                Image TocuhImage = (Image)sender;
+                var movie = DataService41.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
+                string image = movie.Data.Imagen;
+                Utilities.dataTransaction.ImageSelected = Utilities.LoadImage(image, true);
+                Switcher.Navigate(new UCSchedule(movie));
             }
-            catch { }
-
-            Image TocuhImage = (Image)sender;
-            var movie = DataService41.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
-            string image = movie.Data.Imagen;
-            Utilities.dataTransaction.ImageSelected = Utilities.LoadImage(image, true);
-            Switcher.Navigate(new UCSchedule(movie));
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCMovies>TouchImage_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
 
         }
 
@@ -345,20 +311,23 @@ namespace WPProcinal.Forms.User_Control
                         if (modalCineFan.DialogResult.HasValue &&
                         modalCineFan.DialogResult.Value)
                         {
-                            if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataUser.Nombre))
+                            try
                             {
-                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataUser.Nombre.ToUpperInvariant();
-                                txtNameUser.Visibility = Visibility.Visible;
+                                if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataUser.Nombre))
+                                {
+                                    txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataUser.Nombre.ToUpperInvariant();
+                                    txtNameUser.Visibility = Visibility.Visible;
+                                }
+                                else if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataDocument.FirstName))
+                                {
+                                    txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataDocument.FirstName.ToUpperInvariant();
+                                    txtNameUser.Visibility = Visibility.Visible;
+                                }
                             }
-                            else if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataDocument.FirstName))
+                            catch (Exception ex)
                             {
-                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataDocument.FirstName.ToUpperInvariant();
-                                txtNameUser.Visibility = Visibility.Visible;
+                                LogService.SaveRequestResponse("UCMovies>UserControl_Loaded", JsonConvert.SerializeObject(ex), 1);
                             }
-                        }
-                        else
-                        {
-                            //Utilities.GoToInicial();
                         }
                     }
                     else
@@ -403,9 +372,6 @@ namespace WPProcinal.Forms.User_Control
             {
                 return false;
             }
-
-
-
         }
 
         private void BtnLogin_TouchDown(object sender, TouchEventArgs e)
@@ -417,7 +383,6 @@ namespace WPProcinal.Forms.User_Control
                 if (login == 5)
                 {
                     SetCallBacksNull();
-                    timer.CallBackStop?.Invoke(1);
 
                     this.Opacity = 0.3;
                     frmModalLogin modalLogin = new frmModalLogin();
@@ -436,6 +401,7 @@ namespace WPProcinal.Forms.User_Control
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("UCMovies>BtnLogin_TouchDown", JsonConvert.SerializeObject(ex), 1);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -21,7 +22,7 @@ namespace WPProcinal.Forms
         List<Combos> _View;
         #endregion
 
-        public frmConfirmationModal(bool visibleCombo = false)
+        public frmConfirmationModal()
         {
             InitializeComponent();
             _View = new List<Combos>();
@@ -31,56 +32,70 @@ namespace WPProcinal.Forms
         private void ConfigureView()
         {
             HideOrShowButtons();
-            if (DataService41._Combos != null)
+            try
             {
-                foreach (var item in DataService41._Combos)
+                if (DataService41._Combos != null)
+                {
+                    foreach (var item in DataService41._Combos)
+                    {
+                        _View.Add(new Combos
+                        {
+                            Name = item.Name,
+                            Price = item.Price,
+                            Quantity = item.Quantity,
+                            Code = item.Code,
+                            Visible = "Visible"
+                        });
+                    }
+                }
+
+                foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
                 {
                     _View.Add(new Combos
                     {
                         Name = item.Name,
                         Price = item.Price,
                         Quantity = item.Quantity,
-                        Code = item.Code,
-                        Visible = "Visible"
+                        Visible = "Hidden"
                     });
                 }
+                OrganizeValues();
+                Utilities.Speack("Elige el modo como deseas realizar el pago.");
             }
-
-            foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
+            catch (Exception ex)
             {
-                _View.Add(new Combos
-                {
-                    Name = item.Name,
-                    Price = item.Price,
-                    Quantity = item.Quantity,
-                    Visible = "Hidden"
-                });
+                LogService.SaveRequestResponse("frmConfirmationModal>ConfigureView", JsonConvert.SerializeObject(ex), 1);
             }
-            OrganizeValues();
-            Utilities.Speack("Elige el modo como deseas realizar el pago.");
         }
 
         private void OrganizeValues()
         {
 
-            totalPago = 0;
-            totalModal = 0;
-            foreach (var item in _View)
+            try
             {
-                totalPago += item.Price;
-                item.Price = RoundValue(item.Price);
-                totalModal += item.Price;
+                totalPago = 0;
+                totalModal = 0;
+                foreach (var item in _View)
+                {
+                    totalPago += item.Price;
+                    item.Price = RoundValue(item.Price);
+                    totalModal += item.Price;
+                }
+
+                SetTextView();
+
+                lvListSeats.ItemsSource = _View.OrderBy(s => s.Name);
+                Utilities.dataTransaction.DataFunction.Total = totalPago;
+                Utilities.dataTransaction.PayVal = totalModal;
+                if (Utilities.dataTransaction.PayVal <= 0)
+                {
+                    BtnCash.Visibility = Visibility.Hidden;
+                    BtnCard.Visibility = Visibility.Hidden;
+                }
             }
-
-            SetTextView();
-
-            lvListSeats.ItemsSource = _View.OrderBy(s => s.Name);
-            Utilities.dataTransaction.DataFunction.Total = totalPago;
-            Utilities.dataTransaction.PayVal = totalModal;
-            if (Utilities.dataTransaction.PayVal <= 0)
+            catch (Exception ex)
             {
-                BtnCash.Visibility = Visibility.Hidden;
-                BtnCard.Visibility = Visibility.Hidden;
+                LogService.SaveRequestResponse("frmConfirmationModal>OrganizeValues", JsonConvert.SerializeObject(ex), 1);
             }
         }
         /// <summary>
@@ -88,10 +103,17 @@ namespace WPProcinal.Forms
         /// </summary>
         private void SetTextView()
         {
-            TxtTitle.Text = Utilities.CapitalizeFirstLetter(Utilities.dataTransaction.DataFunction.MovieName);
-            TxtRoom.Text = Utilities.dataTransaction.DataFunction.RoomName;
-            TxtDate.Text = string.Format("{0} {1}", Utilities.dataTransaction.DataFunction.Day, Utilities.dataTransaction.DataFunction.HourFunction);
-            TxtTotal.Text = string.Format("{0:C0}", totalModal);
+            try
+            {
+                TxtTitle.Text = Utilities.CapitalizeFirstLetter(Utilities.dataTransaction.DataFunction.MovieName);
+                TxtRoom.Text = Utilities.dataTransaction.DataFunction.RoomName;
+                TxtDate.Text = string.Format("{0} {1}", Utilities.dataTransaction.DataFunction.Day, Utilities.dataTransaction.DataFunction.HourFunction);
+                TxtTotal.Text = string.Format("{0:C0}", totalModal);
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("frmConfirmationModal>SetTextView", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         /// <summary>
@@ -99,8 +121,15 @@ namespace WPProcinal.Forms
         /// </summary>
         private void HideOrShowButtons()
         {
-            BtnCard.Visibility = Utilities.dataPaypad.PaypadConfiguration.enablE_CARD ? Visibility.Visible : Visibility.Hidden;
-            BtnCash.Visibility = Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS ? Visibility.Visible : Visibility.Hidden;
+            try
+            {
+                BtnCard.Visibility = Utilities.dataPaypad.PaypadConfiguration.enablE_CARD ? Visibility.Visible : Visibility.Hidden;
+                BtnCash.Visibility = Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS ? Visibility.Visible : Visibility.Hidden;
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("frmConfirmationModal>HideOrShowButtons", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
 
@@ -139,8 +168,9 @@ namespace WPProcinal.Forms
                 });
 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
+                LogService.SaveRequestResponse("frmConfirmationModal>BtnDelete_TouchDown", JsonConvert.SerializeObject(ex), 1);
             }
         }
         private void DeleteCombo(Combos combo)
@@ -153,8 +183,9 @@ namespace WPProcinal.Forms
                     DataService41._Combos.Remove(dataToDelete);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogService.SaveRequestResponse("frmConfirmationModal>DeleteCombo", JsonConvert.SerializeObject(ex), 1);
 
             }
         }

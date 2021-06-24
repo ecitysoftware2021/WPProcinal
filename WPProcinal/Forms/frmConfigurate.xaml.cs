@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,49 +21,48 @@ namespace WPProcinal.Forms
         Utilities util;
         public frmConfigurate()
         {
-            //TODO: mirar en el App.xaml.cs si no funciona y descomentar aqui
-            //var ProcessApp = Process.GetProcessesByName("WPProcinal");
-            //if (ProcessApp.Length > 1)
-            //{
-            //    this.Close();
-            //}
-
             InitializeComponent();
 
-
-
-            Switcher.Navigator = this;
             try
             {
+                Switcher.Navigator = this;
                 api = new ApiLocal();
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("frmConfigurate>frmConfigurate", JsonConvert.SerializeObject(ex), 1);
                 ShowModalError(ex.Message);
             }
         }
 
         private void SetVisibility()
         {
-            if (!Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
+            try
             {
-                okAceptadorBilletes.Visibility = Visibility.Hidden;
-                badAceptadorBilletes.Visibility = Visibility.Hidden;
-                lblBillAceptance.Visibility = Visibility.Hidden;
+                if (!Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
+                {
+                    okAceptadorBilletes.Visibility = Visibility.Hidden;
+                    badAceptadorBilletes.Visibility = Visibility.Hidden;
+                    lblBillAceptance.Visibility = Visibility.Hidden;
 
-                okMonederos.Visibility = Visibility.Hidden;
-                badMonederos.Visibility = Visibility.Hidden;
-                lblCoins.Visibility = Visibility.Hidden;
+                    okMonederos.Visibility = Visibility.Hidden;
+                    badMonederos.Visibility = Visibility.Hidden;
+                    lblCoins.Visibility = Visibility.Hidden;
 
 
-                okDispensadorBilletes.Visibility = Visibility.Hidden;
-                badDispensadorBilletes.Visibility = Visibility.Hidden;
-                lblBillDispenser.Visibility = Visibility.Hidden;
+                    okDispensadorBilletes.Visibility = Visibility.Hidden;
+                    badDispensadorBilletes.Visibility = Visibility.Hidden;
+                    lblBillDispenser.Visibility = Visibility.Hidden;
 
-                Grid.SetRow(lblPrinter, 2);
-                Grid.SetRow(okImpresora, 2);
-                Grid.SetRow(badImpresora, 2);
+                    Grid.SetRow(lblPrinter, 2);
+                    Grid.SetRow(okImpresora, 2);
+                    Grid.SetRow(badImpresora, 2);
 
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("frmConfigurate>SetVisibility", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -168,122 +168,128 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("frmConfigurate>GetToken", JsonConvert.SerializeObject(ex), 1);
                 ShowModalError(ex.Message);
             }
         }
 
         private void ConfigurePublicity()
         {
-            var slides = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.PublicityRoute;
-            if (Directory.Exists(slides))
+            try
             {
-                try
+                var slides = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.PublicityRoute;
+                if (Directory.Exists(slides))
                 {
                     foreach (var item in Directory.GetFiles(slides))
                     {
                         File.Delete(item);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    //TODO: guardar el error en base de datos
+                    Directory.CreateDirectory(slides);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Directory.CreateDirectory(slides);
+                LogService.SaveRequestResponse("frmConfigurate>ConfigurePublicity", JsonConvert.SerializeObject(ex), 1);
             }
         }
         private void ChangeStatusPeripherals()
         {
-
-
-            if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
+            try
             {
-                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
+                if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
                 {
-                    Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
+                    if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
                     {
-                        Utilities.control.callbackError = null;
-                        Dispatcher.BeginInvoke((Action)delegate
+                        Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
                         {
                             Utilities.control.callbackError = null;
-                        });
-                        AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                        ShowModalError(error);
-                    };
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                Utilities.control.callbackError = null;
+                            });
+                            AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                            ShowModalError(error);
+                        };
 
-                    Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
-                    {
-                        LogService.SaveRequestResponse(Title, Message, State);
-                    };
-
-
-                    Utilities.control.callbackToken = isSucces =>
-                    {
-                        Dispatcher.BeginInvoke((Action)delegate
+                        Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
                         {
-                            Utilities.control.callbackToken = null;
-                            okAceptadorBilletes.Visibility = Visibility.Visible;
-                            badAceptadorBilletes.Visibility = Visibility.Hidden;
+                            LogService.SaveRequestResponse(Title, Message, State);
+                        };
 
-                            okMonederos.Visibility = Visibility.Visible;
-                            badMonederos.Visibility = Visibility.Hidden;
 
-                            okDispensadorBilletes.Visibility = Visibility.Visible;
-                            badDispensadorBilletes.Visibility = Visibility.Hidden;
+                        Utilities.control.callbackToken = isSucces =>
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                Utilities.control.callbackToken = null;
+                                okAceptadorBilletes.Visibility = Visibility.Visible;
+                                badAceptadorBilletes.Visibility = Visibility.Hidden;
 
-                            okImpresora.Visibility = Visibility.Visible;
-                            badImpresora.Visibility = Visibility.Hidden;
-                            CheckPeripheralsAndContinue();
-                        });
-                    };
+                                okMonederos.Visibility = Visibility.Visible;
+                                badMonederos.Visibility = Visibility.Hidden;
+
+                                okDispensadorBilletes.Visibility = Visibility.Visible;
+                                badDispensadorBilletes.Visibility = Visibility.Hidden;
+
+                                okImpresora.Visibility = Visibility.Visible;
+                                badImpresora.Visibility = Visibility.Hidden;
+                                CheckPeripheralsAndContinue();
+                            });
+                        };
+                    }
+                    else
+                    {
+                        Utilities.controlUnified.callbackError = (error, description, EError, ELEvelError) =>
+                        {
+                            Utilities.controlUnified.callbackError = null;
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                Utilities.controlUnified.callbackError = null;
+                            });
+                            AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                            ShowModalError(error);
+                        };
+
+                        Utilities.controlUnified.CallBackSaveRequestResponse = (Title, Message, State) =>
+                        {
+                            LogService.SaveRequestResponse(Title, Message, State);
+                        };
+
+
+                        Utilities.controlUnified.callbackToken = isSucces =>
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                Utilities.controlUnified.callbackToken = null;
+                                okAceptadorBilletes.Visibility = Visibility.Visible;
+                                badAceptadorBilletes.Visibility = Visibility.Hidden;
+
+                                okMonederos.Visibility = Visibility.Visible;
+                                badMonederos.Visibility = Visibility.Hidden;
+
+                                okDispensadorBilletes.Visibility = Visibility.Visible;
+                                badDispensadorBilletes.Visibility = Visibility.Hidden;
+
+                                okImpresora.Visibility = Visibility.Visible;
+                                badImpresora.Visibility = Visibility.Hidden;
+                                CheckPeripheralsAndContinue();
+                            });
+                        };
+                    }
+
+
                 }
                 else
                 {
-                    Utilities.controlUnified.callbackError = (error, description, EError, ELEvelError) =>
-                    {
-                        Utilities.controlUnified.callbackError = null;
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            Utilities.controlUnified.callbackError = null;
-                        });
-                        AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                        ShowModalError(error);
-                    };
-
-                    Utilities.controlUnified.CallBackSaveRequestResponse = (Title, Message, State) =>
-                    {
-                        LogService.SaveRequestResponse(Title, Message, State);
-                    };
-
-
-                    Utilities.controlUnified.callbackToken = isSucces =>
-                    {
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            Utilities.controlUnified.callbackToken = null;
-                            okAceptadorBilletes.Visibility = Visibility.Visible;
-                            badAceptadorBilletes.Visibility = Visibility.Hidden;
-
-                            okMonederos.Visibility = Visibility.Visible;
-                            badMonederos.Visibility = Visibility.Hidden;
-
-                            okDispensadorBilletes.Visibility = Visibility.Visible;
-                            badDispensadorBilletes.Visibility = Visibility.Hidden;
-
-                            okImpresora.Visibility = Visibility.Visible;
-                            badImpresora.Visibility = Visibility.Hidden;
-                            CheckPeripheralsAndContinue();
-                        });
-                    };
+                    CheckPeripheralsAndContinue();
                 }
-
-
             }
-            else
+            catch (Exception ex)
             {
-                CheckPeripheralsAndContinue();
+                LogService.SaveRequestResponse("frmConfigurate>ChangeStatusPeripherals", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -304,7 +310,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                //TODO: guardar el error en base de datos
+                LogService.SaveRequestResponse("frmConfigurate>SetCallbackNull", JsonConvert.SerializeObject(ex), 1);
             }
         }
 

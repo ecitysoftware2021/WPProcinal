@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,21 +35,28 @@ namespace WPProcinal.Forms
             {
                 Task.Run(() =>
                 {
-                    if (_peticion != null)
+                    try
                     {
-                        LogService.SaveRequestResponse("Petición al datáfono", _peticion, 1);
-                        var respuestaPeticion = TPV.EnviarPeticion(_peticion);
-                        TPVOperation.CallBackRespuesta?.Invoke(respuestaPeticion);
+                        if (_peticion != null)
+                        {
+                            LogService.SaveRequestResponse("Petición al datáfono", _peticion, 1);
+                            var respuestaPeticion = TPV.EnviarPeticion(_peticion);
+                            TPVOperation.CallBackRespuesta?.Invoke(respuestaPeticion);
+                        }
+                        else
+                        {
+                            var respuestaPeticion = TPV.EnviarPeticionEspera();
+                            TPVOperation.CallBackRespuesta?.Invoke(respuestaPeticion);
+                        }
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            Close();
+                        });
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        var respuestaPeticion = TPV.EnviarPeticionEspera();
-                        TPVOperation.CallBackRespuesta?.Invoke(respuestaPeticion);
+                        LogService.SaveRequestResponse("Opciones>Window_Loaded", JsonConvert.SerializeObject(ex), 1);
                     }
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        Close();
-                    });
                 });
 
             }
@@ -61,60 +69,74 @@ namespace WPProcinal.Forms
 
         private void NumbersButtons(object sender)
         {
-            var boton = sender as TextBlock;
-            if (boton.Tag.Equals("<"))
+            try
             {
-                if (txtultimosDigitos.Text.Length > 0)
+                var boton = sender as TextBlock;
+                if (boton.Tag.Equals("<"))
                 {
-                    txtultimosDigitos.Tag = txtultimosDigitos.Tag.ToString().Remove(txtultimosDigitos.Tag.ToString().Length - 1, 1);
-                    txtultimosDigitos.Text = txtultimosDigitos.Text.Remove(txtultimosDigitos.Text.Length - 1, 1);
+                    if (txtultimosDigitos.Text.Length > 0)
+                    {
+                        txtultimosDigitos.Tag = txtultimosDigitos.Tag.ToString().Remove(txtultimosDigitos.Tag.ToString().Length - 1, 1);
+                        txtultimosDigitos.Text = txtultimosDigitos.Text.Remove(txtultimosDigitos.Text.Length - 1, 1);
+                    }
                 }
-            }
-            else
-            {
-                if (txtultimosDigitos.Text.Length < txtultimosDigitos.MaxLength)
+                else
                 {
-                    txtultimosDigitos.Tag += boton.Tag.ToString();
-                    txtultimosDigitos.Text = "*".PadRight(txtultimosDigitos.Tag.ToString().Length, '*');
+                    if (txtultimosDigitos.Text.Length < txtultimosDigitos.MaxLength)
+                    {
+                        txtultimosDigitos.Tag += boton.Tag.ToString();
+                        txtultimosDigitos.Text = "*".PadRight(txtultimosDigitos.Tag.ToString().Length, '*');
+                    }
                 }
-            }
 
-            if (txtultimosDigitos.Text.Length != txtultimosDigitos.MaxLength
-                && txtultimosDigitos.Text.Length < txtultimosDigitos.MinLines)
-            {
-                botonAceptar.Visibility = Visibility.Hidden;
+                if (txtultimosDigitos.Text.Length != txtultimosDigitos.MaxLength
+                    && txtultimosDigitos.Text.Length < txtultimosDigitos.MinLines)
+                {
+                    botonAceptar.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    botonAceptar.Visibility = Visibility.Visible;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                botonAceptar.Visibility = Visibility.Visible;
+                LogService.SaveRequestResponse("Opciones>NumbersButtons", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
         private void AcceptButton()
         {
 
-            if (!txtultimosDigitos.Text.Equals("0"))
+            try
             {
-                FrmLoading frmLoading = new FrmLoading("Esperando confirmación del pago...");
-                string data = ValidateDataMasc();
-                if (txtultimosDigitos.Text.Length <= 2)
+                if (!txtultimosDigitos.Text.Equals("0"))
                 {
-                    this.Hide();
-                    frmLoading.Show();
-                    TPVOperation.Quotas = int.Parse(data);
+                    FrmLoading frmLoading = new FrmLoading("Esperando confirmación del pago...");
+                    string data = ValidateDataMasc();
+                    if (txtultimosDigitos.Text.Length <= 2)
+                    {
+                        this.Hide();
+                        frmLoading.Show();
+                        TPVOperation.Quotas = int.Parse(data);
+                    }
+
+                    string peticion = TPV.CalculateLRC(string.Concat(_peticion, data, "]"));
+
+                    LogService.SaveRequestResponse("Petición al datáfono", peticion, 1);
+                    var respuestaPeticion = TPV.EnviarPeticion(peticion);
+                    TPVOperation.CallBackRespuesta?.Invoke(respuestaPeticion);
+                    frmLoading.Close();
+                    Close();
                 }
-
-                string peticion = TPV.CalculateLRC(string.Concat(_peticion, data, "]"));
-
-                LogService.SaveRequestResponse("Petición al datáfono", peticion, 1);
-                var respuestaPeticion = TPV.EnviarPeticion(peticion);
-                TPVOperation.CallBackRespuesta?.Invoke(respuestaPeticion);
-                frmLoading.Close();
-                Close();
+                else
+                {
+                    txtultimosDigitos.Foreground = new SolidColorBrush(Colors.Red);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                txtultimosDigitos.Foreground = new SolidColorBrush(Colors.Red);
+                LogService.SaveRequestResponse("Opciones>AcceptButton", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -173,7 +195,10 @@ namespace WPProcinal.Forms
                     ShowHide.Source = GetImage("yes");
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("Opciones>ShowHide_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
         }
 
         private void TextBlock_TouchDown(object sender, TouchEventArgs e)
@@ -183,15 +208,22 @@ namespace WPProcinal.Forms
 
         private void BotonAceptar_TouchDown(object sender, TouchEventArgs e)
         {
-            string data = ValidateDataMasc();
-            if (txtultimosDigitos.Text.Length <= 2 && int.Parse(data) == 0)
+            try
             {
-                _dataCard.mensaje = "El número de cuotas debe ser mayor que 0.";
-                return;
+                string data = ValidateDataMasc();
+                if (txtultimosDigitos.Text.Length <= 2 && int.Parse(data) == 0)
+                {
+                    _dataCard.mensaje = "El número de cuotas debe ser mayor que 0.";
+                    return;
+                }
+                _dataCard.mensaje = "Esperando datáfono...";
+                _dataCard.visible = "Hidden";
+                AcceptButton();
             }
-            _dataCard.mensaje = "Esperando datáfono...";
-            _dataCard.visible = "Hidden";
-            AcceptButton();
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("Opciones>TextBlock_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
         }
     }
 }

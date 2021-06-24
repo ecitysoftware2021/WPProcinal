@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -65,6 +66,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("FrmModalDeletePay>DeletePay", JsonConvert.SerializeObject(ex), 1);
             }
         }
 

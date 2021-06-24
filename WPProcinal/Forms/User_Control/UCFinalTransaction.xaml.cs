@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using Newtonsoft.Json;
+using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using WPProcinal.Classes;
@@ -19,15 +21,23 @@ namespace WPProcinal.Forms.User_Control
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
+            try
             {
-                await AdminPaypad.UpdatePeripherals();
-                Thread.Sleep(2000);
-                Utilities.GoToInicial();
+                if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
+                {
+                    await AdminPaypad.UpdatePeripherals();
+                    Thread.Sleep(2000);
+                    Utilities.GoToInicial();
+                }
+                else
+                {
+                    Thread.Sleep(2000);
+                    Utilities.GoToInicial();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Thread.Sleep(2000);
+                LogService.SaveRequestResponse("UCFinalTransaction>UserControl_Loaded", JsonConvert.SerializeObject(ex), 1);
                 Utilities.GoToInicial();
             }
         }

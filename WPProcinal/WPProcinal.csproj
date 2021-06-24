@@ -494,7 +494,6 @@
     <Resource Include="Images\Tags\estrenos.png" />
     <Resource Include="Images\Tags\pre-ventas.png" />
     <Resource Include="Images\Tags\Ted.jpg" />
-    <Resource Include="AppData\Keys.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

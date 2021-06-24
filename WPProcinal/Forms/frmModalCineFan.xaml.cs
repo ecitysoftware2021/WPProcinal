@@ -52,7 +52,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.SaveRequestResponse("Window_Loaded>Window_Loaded", JsonConvert.SerializeObject(ex), 1);
+                LogService.SaveRequestResponse("frmModalCineFan>Window_Loaded", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -98,6 +98,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
+                LogService.SaveRequestResponse("frmModalCineFan>Validate", JsonConvert.SerializeObject(ex), 1);
                 txtError.Text = "No se reconoció la cédula, intente de nuevo.";
             }
         }
@@ -166,7 +167,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.SaveRequestResponse("Validando el cine fans", JsonConvert.SerializeObject(ex), 1);
+                LogService.SaveRequestResponse("ValidateCineFan>Validate", JsonConvert.SerializeObject(ex), 1);
                 txtError.Text = "No se pudo validar la información, intenta de nuevo.";
                 if (frmLoading != null)
                 {
@@ -271,7 +272,7 @@ namespace WPProcinal.Forms
             }
             catch (Exception ex)
             {
-                LogService.SaveRequestResponse("Activando membresía", JsonConvert.SerializeObject(ex), 1);
+                LogService.SaveRequestResponse("ActivarMembresia>Validate", JsonConvert.SerializeObject(ex), 1);
                 txtError.Text = "No se pudo activar la membresía.";
                 if (frmLoading != null)
                 {
