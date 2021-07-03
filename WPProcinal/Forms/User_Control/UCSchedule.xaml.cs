@@ -176,6 +176,7 @@ namespace WPProcinal.Forms.User_Control
 
                                     foreach (var item in schedules)
                                     {
+                                        available = false;
                                         string tipoZona = string.Empty;
                                         if (item.TipoZona.Count > 1)
                                         {
@@ -199,6 +200,7 @@ namespace WPProcinal.Forms.User_Control
                                                     TipoZona = tipoZona,
                                                     Validaciones = item.Validaciones
                                                 });
+                                                available = true;
                                             }
                                             //se permite ingreso hasta 40 minutos despues de iniciada la pelicula
                                             else if (int.Parse(item.Militar) >= int.Parse(DateTime.Now.AddMinutes(-40).ToString("HHmm")))
@@ -215,21 +217,21 @@ namespace WPProcinal.Forms.User_Control
                                                     TipoZona = tipoZona,
                                                     Validaciones = item.Validaciones
                                                 });
-
+                                                available = true;
                                             }
-                                            else
-                                            {
-                                                countAvailable++;
-                                            }
-                                            if (countAvailable == schedules.Count())
-                                            {
-                                                available = false;
-                                            }
+                                            //else
+                                            //{
+                                            //    countAvailable++;
+                                            //}
+                                            //if (countAvailable == schedules.Count())
+                                            //{
+                                            //    available = false;
+                                            //}
                                         }
-                                        else
-                                        {
-                                            available = false;
-                                        }
+                                        //else
+                                        //{
+                                        //    available = false;
+                                        //}
                                     }
 
 

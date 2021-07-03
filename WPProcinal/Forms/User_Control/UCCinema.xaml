@@ -29,8 +29,8 @@
                     Visibility="Visible"
                     Height="300" 
                     Grid.Column="0"
-               TouchDown="ConfigBoletas_TouchDown"/>
-        <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/ANIMACION-PROCINAL.gif" 
+               MouseDown="GifLoad2_MouseDown"/>
+        <!--<Image gif:ImageBehavior.AnimatedSource="/Images/Gif/ANIMACION-PROCINAL.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 
                     Stretch="Fill"
@@ -41,7 +41,7 @@
                     Visibility="Visible"
                     Height="300" 
                     Grid.Column="1"
-               TouchDown="Config_TouchDown"/>
+               TouchDown="Config_TouchDown"/>-->
 
     </Grid>
 </UserControl>

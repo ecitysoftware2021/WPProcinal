@@ -275,102 +275,63 @@ namespace WPProcinal.Forms.User_Control
 
         private void TouchImage_TouchDown(object sender, TouchEventArgs e)
         {
-            SetCallBacksNull();
-            try
-            {
-                Image TocuhImage = (Image)sender;
-                var movie = DataService41.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
-                string image = movie.Data.Imagen;
-                Utilities.dataTransaction.ImageSelected = Utilities.LoadImage(image, true);
-                Switcher.Navigate(new UCSchedule(movie));
-            }
-            catch (Exception ex)
-            {
-                LogService.SaveRequestResponse("UCMovies>TouchImage_TouchDown", JsonConvert.SerializeObject(ex), 1);
-            }
+            
 
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
-            this.Opacity = 0.3;
-            frmModalCineFan modalCineFan = new frmModalCineFan();
-            modalCineFan.ShowDialog();
-            if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
-            {
-                Utilities.Speack("Selecciona una película para continuar.");
+            //this.Opacity = 0.3;
+            //frmModalCineFan modalCineFan = new frmModalCineFan();
+            //modalCineFan.ShowDialog();
+            //if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+            //{
+            //    Utilities.Speack("Selecciona una película para continuar.");
 
-                this.Opacity = 1;
-                ActivateTimer();
+            //    this.Opacity = 1;
+            //    ActivateTimer();
 
-                if (modalCineFan.DialogResult.HasValue &&
-                modalCineFan.DialogResult.Value)
-                {
-                    try
-                    {
-                        if (Utilities.dataTransaction != null && Utilities.dataTransaction.dataUser != null)
-                        {
-                            if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataUser.Nombre))
-                            {
-                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataUser.Nombre.ToUpperInvariant();
-                                txtNameUser.Visibility = Visibility.Visible;
-                            }
-                            else if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataDocument.FirstName))
-                            {
-                                txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataDocument.FirstName.ToUpperInvariant();
-                                txtNameUser.Visibility = Visibility.Visible;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogService.SaveRequestResponse("UCMovies>UserControl_Loaded", JsonConvert.SerializeObject(ex), 1);
-                    }
-                }
-            }
-            else
-            {
-                if (GetCombo())
-                {
-                    Switcher.Navigate(new UCProductsCombos());
-                }
-                else
-                {
-                    frmModal modal = new frmModal("No se pudo descargar la confiteria, intenta de nuevo por favor!", false);
-                    modal.ShowDialog();
-                    Switcher.Navigate(new UCCinema());
-                }
-            }
+            //    if (modalCineFan.DialogResult.HasValue &&
+            //    modalCineFan.DialogResult.Value)
+            //    {
+            //        try
+            //        {
+            //            if (Utilities.dataTransaction != null && Utilities.dataTransaction.dataUser != null)
+            //            {
+            //                if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataUser.Nombre))
+            //                {
+            //                    txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataUser.Nombre.ToUpperInvariant();
+            //                    txtNameUser.Visibility = Visibility.Visible;
+            //                }
+            //                else if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataDocument.FirstName))
+            //                {
+            //                    txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataDocument.FirstName.ToUpperInvariant();
+            //                    txtNameUser.Visibility = Visibility.Visible;
+            //                }
+            //            }
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            LogService.SaveRequestResponse("UCMovies>UserControl_Loaded", JsonConvert.SerializeObject(ex), 1);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    if (GetCombo())
+            //    {
+            //        Switcher.Navigate(new UCProductsCombos());
+            //    }
+            //    else
+            //    {
+            //        frmModal modal = new frmModal("No se pudo descargar la confiteria, intenta de nuevo por favor!", false);
+            //        modal.ShowDialog();
+            //        Switcher.Navigate(new UCCinema());
+            //    }
+            //}
         }
-        private bool GetCombo()
-        {
-            FrmLoading frmLoading = new FrmLoading("¡Descargando la confitería...!");
-            frmLoading.Show();
-            var combos = WCFServices41.GetConfectionery(new SCOPRE
-            {
-                teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString(),
-                tercero = "1"
-            });
-            frmLoading.Close();
-            if (combos != null)
-            {
-                if (combos.ListaProductos.Count > 0)
-                {
-                    DataService41._Productos = combos.ListaProductos;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+       
         private void BtnLogin_TouchDown(object sender, TouchEventArgs e)
         {
             try
@@ -399,6 +360,28 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 LogService.SaveRequestResponse("UCMovies>BtnLogin_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
+        }
+
+        private void Image_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+            
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SetCallBacksNull();
+            try
+            {
+                Image TocuhImage = (Image)sender;
+                var movie = DataService41.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
+                string image = movie.Data.Imagen;
+                Utilities.dataTransaction.ImageSelected = Utilities.LoadImage(image, true);
+                Switcher.Navigate(new UCSchedule(movie));
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCMovies>TouchImage_TouchDown", JsonConvert.SerializeObject(ex), 1);
             }
         }
     }

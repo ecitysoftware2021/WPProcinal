@@ -124,6 +124,16 @@ namespace WPProcinal.Forms.User_Control
 
         private void Config_TouchDown(object sender, TouchEventArgs e)
         {
+            
+        }
+
+        private void GifLoad2_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
+           
+        }
+
+        private void GifLoad2_MouseDown(object sender, MouseButtonEventArgs e)
+        {
             try
             {
                 timerStatePay.Stop();
