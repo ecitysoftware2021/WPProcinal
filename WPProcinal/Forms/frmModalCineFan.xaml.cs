@@ -108,59 +108,73 @@ namespace WPProcinal.Forms
             {
                 frmLoading = new FrmLoading("¡Consultando Cine Fans...!");
                 frmLoading.Show();
-                responseClient = WCFServices41.GetClientData(new SCOCED
-                {
-                    Documento = cedula,
-                    tercero = "1"
-                });
-                frmLoading.Close();
-                bool isCineFan = false;
-                string error = string.Empty;
-                if (responseClient != null)
-                {
-                    foreach (var item in responseClient)
-                    {
-                        if (item.Tarjeta != "0")
-                        {
-                            Utilities.dataTransaction.dataUser = item;
-                            isCineFan = true;
 
-                            break;
+                long docuemnt;
+
+                if (long.TryParse(cedula, out docuemnt))
+                {
+                    responseClient = WCFServices41.GetClientData(new SCOCED
+                    {
+                        Documento = docuemnt.ToString(),
+                        tercero = "1"
+                    });
+                    frmLoading.Close();
+                    bool isCineFan = false;
+                    string error = string.Empty;
+                    if (responseClient != null)
+                    {
+                        foreach (var item in responseClient)
+                        {
+                            if (item.Tarjeta != "0")
+                            {
+                                Utilities.dataTransaction.dataUser = item;
+                                isCineFan = true;
+
+                                break;
+                            }
+                            else
+                            {
+                                error = item.Estado != null ? item.Estado : "Usuario no registrado en el sistema.";
+                            }
+                        }
+                        if (isCineFan)
+                        {
+                            frmLoading = new FrmLoading("¡Consultando Saldo Cine Fans...!");
+                            frmLoading.Show();
+                            var saldo = WCFServices41.GetPersonBalance(new SCOSDO
+                            {
+                                Correo = Utilities.dataTransaction.dataUser.Login,
+                                tercero = "1"
+                            });
+                            frmLoading.Close();
+                            if (saldo != null)
+                            {
+                                if (saldo.Saldo_Disponible != null)
+                                {
+                                    Utilities.dataTransaction.dataUser.SaldoFavor = saldo.Saldo_Disponible;
+                                }
+                            }
+                            return true;
                         }
                         else
                         {
-                            error = item.Estado != null ? item.Estado : "Usuario no registrado en el sistema.";
+                            txtError.Text = error;
+                            txtActivar.Visibility = Visibility.Visible;
+                            return false;
                         }
-                    }
-                    if (isCineFan)
-                    {
-                        frmLoading = new FrmLoading("¡Consultando Saldo Cine Fans...!");
-                        frmLoading.Show();
-                        var saldo = WCFServices41.GetPersonBalance(new SCOSDO
-                        {
-                            Correo = Utilities.dataTransaction.dataUser.Login,
-                            tercero = "1"
-                        });
-                        frmLoading.Close();
-                        if (saldo != null)
-                        {
-                            if (saldo.Saldo_Disponible != null)
-                            {
-                                Utilities.dataTransaction.dataUser.SaldoFavor = saldo.Saldo_Disponible;
-                            }
-                        }
-                        return true;
                     }
                     else
                     {
-                        txtError.Text = error;
-                        txtActivar.Visibility = Visibility.Visible;
+                        txtError.Text = "No se pudo validar la información, intenta de nuevo.";
                         return false;
                     }
                 }
                 else
                 {
-                    txtError.Text = "No se pudo validar la información, intenta de nuevo.";
+                    if (frmLoading != null)
+                    {
+                        frmLoading.Close();
+                    }
                     return false;
                 }
             }
