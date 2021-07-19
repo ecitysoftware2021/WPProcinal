@@ -104,6 +104,7 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 payState = false;
+
                 if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
                 {
                     Utilities.control.callbackValueIn = (enterValue, code) =>
@@ -128,20 +129,26 @@ namespace WPProcinal.Forms.User_Control
                     Utilities.control.callbackTotalIn = enterTotal =>
                     {
                         Utilities.control.callbackTotalIn = null;
-
-                        if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
+                        if (!BtnCancellPressed)
                         {
-                            ActivateTimer(true);
-
-                            ReturnMoney(PaymentViewModel.ValorSobrante, true);
-
-                        }
-                        else
-                        {
-                            if (state)
+                            if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                             {
-                                state = false;
-                                Buytickets();
+                                if (!BtnCancellPressed)
+                                {
+                                    ActivateTimer(true);
+                                    ReturnMoney(PaymentViewModel.ValorSobrante, true); 
+                                }
+                            }
+                            else
+                            {
+                                if (state)
+                                {
+                                    if (!BtnCancellPressed)
+                                    {
+                                        state = false;
+                                        Buytickets(); 
+                                    }
+                                }
                             }
                         }
                     };
