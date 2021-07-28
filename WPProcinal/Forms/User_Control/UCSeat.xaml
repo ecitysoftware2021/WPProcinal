@@ -46,15 +46,11 @@
                Source="/Images/Seats/NoDisponible.png"
                VerticalAlignment="Top"
                    Grid.Column="1"/>
-            <Image           
-                   Name="ImgSeleccionada"
-               Source="/Images/Seats/seleccionada.png"
-               VerticalAlignment="Top"
-                   Grid.Column="2"/>
+            
             <Image Name="ImgVibroSound"               
                    Source="/Images/Seats/vibrosound.png"
                VerticalAlignment="Top"
-               Grid.Column="3"/>
+               Grid.Column="2"/>
             <Image Name="ImgPreferencial"               
                    Source="/Images/Seats/preferencial.png"
                VerticalAlignment="Top"

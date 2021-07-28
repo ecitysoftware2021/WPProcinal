@@ -691,7 +691,6 @@ E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CoreCompileInputs.ca
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.CopyComplete
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 E:\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
 C:\Users\Jhon.Zapata.LJHPCECITY\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe.config
 C:\Users\Jhon.Zapata.LJHPCECITY\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.exe

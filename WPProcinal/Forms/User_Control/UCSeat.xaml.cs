@@ -120,7 +120,6 @@ namespace WPProcinal.Forms.User_Control
                 ImgDisponible.Visibility = Visibility.Visible;
                 ImgNoDisponible.Visibility = Visibility.Visible;
                 ImgBlack.Visibility = Visibility.Hidden;
-                ImgSeleccionada.Visibility = Visibility.Visible;
                 ImgVibroSound.Visibility = Visibility.Hidden;
 
                 VisibilityImages();

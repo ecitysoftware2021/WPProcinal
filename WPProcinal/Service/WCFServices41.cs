@@ -95,12 +95,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scoest/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -111,14 +105,10 @@ namespace WPProcinal.Service
                 decryptData = dataEncrypt.Decrypt(dataResponse[0].request, DataService41.SCOREKEY);
 
                 var est = JsonConvert.DeserializeObject<List<EstadoSala41>>(decryptData);
-                if (est.Count < 2)
+                if (est.Count < 5)
                 {
                     LogService.SaveRequestResponse("Respuesta consulta sala", decryptData, 1);
                     return null;
-                }
-                else if (est.Count < 10)
-                {
-                    LogService.SaveRequestResponse("Respuesta consulta sala", decryptData, 1);
                 }
                 return est;
 
@@ -152,12 +142,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scopla/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -203,12 +187,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scokio/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "score.procinal.com.co");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -255,12 +233,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scosec/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -308,12 +280,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scogru/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -356,12 +322,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scoint/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -387,9 +347,6 @@ namespace WPProcinal.Service
             {
                 var client = new HttpClient();
                 var response = client.GetAsync(image).Result;
-                //var client = new RestClient(image);
-                //var request = new RestRequest(Method.GET);
-                //IRestResponse response = client.Execute(request);
                 if (response.IsSuccessStatusCode)
                 {
                     return true;
@@ -441,12 +398,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scosil/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -489,11 +440,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scopre/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -542,11 +488,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scoced/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -590,11 +531,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scoced/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -633,12 +569,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scores/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -679,12 +609,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scomov/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -726,12 +650,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scoret/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -775,12 +693,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scotdc/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -825,12 +737,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scocya/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
@@ -875,12 +781,6 @@ namespace WPProcinal.Service
                 var client = new RestClient(DataService41.APISCORE + "/scosdo/");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "scorecoorp.procinal.com");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
