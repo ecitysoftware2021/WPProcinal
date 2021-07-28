@@ -59,13 +59,7 @@
                         Stretch="UniformToFill"/>
                 </Border.Background>
             </Border>
-            <Image Source="/Images/buttons/b-atras.png" 
-                   Margin="50,50,0,0"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Left"
-                   Height="130"
-                   Name="btnAtras"
-                  TouchDown="BtnAtras_TouchDown"/>
+          
 
            
             <TextBlock x:Name="TxtTitle"
@@ -200,30 +194,8 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Image
-                        Grid.Column="0"
-                
-                        HorizontalAlignment="Left" 
-                        Name="btnPrev2" 
-                        VerticalAlignment="Top"
-                        Margin="5,80,0,35"
-                        Height="40"
-                        Visibility="Hidden"
-                        Source="/Images/anterior.png"
-                    TouchDown="BtnPrev2_TouchDown"
-                    />
-            <Image  Grid.Column="1"
-                   
-                        Margin="5,80,0,35"
-                        HorizontalAlignment="Right"
-                        Name="btnNext2" 
-                        VerticalAlignment="Top"
-                        Height="40" 
-                        
-                        Visibility="Visible"
-                        Source="/Images/siguiente.png"
-                        TouchDown="BtnNext2_TouchDown"
-                        />
+            
+      
         </Grid>
 
 
@@ -291,8 +263,8 @@
                                         >
                                         <ListView.ItemContainerStyle>
                                             <Style TargetType="{x:Type ListViewItem}" >
-                                                <EventSetter Event="TouchDown"
-                                                    Handler="ListViewItem_TouchDown_1" />
+                                                <EventSetter Event="MouseEnter"
+                                                    Handler="ListViewItem_MouseEnter" />
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="ListViewItem">

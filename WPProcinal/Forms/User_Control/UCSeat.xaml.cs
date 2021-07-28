@@ -116,12 +116,6 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                ImgDiscapacitados.Visibility = Visibility.Hidden;
-                ImgDisponible.Visibility = Visibility.Visible;
-                ImgNoDisponible.Visibility = Visibility.Visible;
-                ImgBlack.Visibility = Visibility.Hidden;
-                ImgSeleccionada.Visibility = Visibility.Visible;
-                ImgVibroSound.Visibility = Visibility.Hidden;
 
                 VisibilityImages();
             }
@@ -135,31 +129,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                ImgDisponible.Visibility = Visibility.Visible;
-                if (Utilities.dataTransaction.DataFunction.TypeZona == "General")
-                {
-                    ImgVibroSound.Visibility = Visibility.Hidden;
-                    ImgPreferencial.Visibility = Visibility.Hidden;
-                }
-                else if (Utilities.dataTransaction.DataFunction.TypeZona == "Vibrasound")
-                {
-                    ImgVibroSound.Visibility = Visibility.Visible;
-                    ImgPreferencial.Visibility = Visibility.Hidden;
-                    vibraAvailable = true;
-                }
-                else if (Utilities.dataTransaction.DataFunction.TypeZona == "V")
-                {
-                    ImgDisponible.Visibility = Visibility.Visible;
-                }
-                else if (Utilities.dataTransaction.DataFunction.TypeZona == "Preferencial")
-                {
-                    ImgPreferencial.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    ImgVibroSound.Visibility = Visibility.Visible;
-                    vibraAvailable = true;
-                }
+               
 
 
             }
@@ -408,7 +378,7 @@ namespace WPProcinal.Forms.User_Control
 
                         if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
                         {
-                            image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
+                            image.MouseEnter += new MouseEventHandler((s, eh) => MSelectedsetas(s, typeSeat));
                         }
 
                         if (item.TipoSilla != "pasillo")
@@ -522,7 +492,7 @@ namespace WPProcinal.Forms.User_Control
 
                         if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
                         {
-                            image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
+                            image.PreviewStylusDown += new StylusDownEventHandler((s, eh) => MSelectedsetas(s, typeSeat));
                         }
 
                         if (item.TipoSilla != "pasillo")
@@ -642,7 +612,7 @@ namespace WPProcinal.Forms.User_Control
 
                         if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
                         {
-                            image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
+                            image.PreviewStylusDown += new StylusDownEventHandler((s, eh) => MSelectedsetas(s, typeSeat));
                         }
 
                         if (item.TipoSilla != "pasillo")
@@ -682,7 +652,7 @@ namespace WPProcinal.Forms.User_Control
         }
 
 
-        private void MSelectedsetas(object sender, TouchEventArgs eh, ChairsInformation item)
+        private void MSelectedsetas(object sender, ChairsInformation item)
         {
             SelectedSeatsMethod(sender, item);
         }
@@ -729,12 +699,10 @@ namespace WPProcinal.Forms.User_Control
             else if (ckeck == "B" || ckeck == "O")
             {
                 icon = !Utilities.PlateObligatory ? "s-bloqueada" : "s-bloqueada-car";
-                ImgNoDisponible.Visibility = Visibility.Visible;
             }
             else if (ckeck == "Discapacitado")
             {
                 icon = "discapacitado";
-                ImgDiscapacitados.Visibility = Visibility.Visible;
             }
             else if (ckeck == "F")
             {
@@ -755,7 +723,6 @@ namespace WPProcinal.Forms.User_Control
             else if (ckeck == "Black Star")
             {
                 icon = "s-black";
-                ImgBlack.Visibility = Visibility.Visible;
             }
             else if (ckeck == "pasillo")
             {
@@ -1350,9 +1317,12 @@ namespace WPProcinal.Forms.User_Control
 
         private void Pay_TouchDown(object sender, TouchEventArgs e)
         {
-            SendData();
+            
         }
 
-
+        private void Pay_MouseEnter(object sender, MouseEventArgs e)
+        {
+            SendData();
+        }
     }
 }

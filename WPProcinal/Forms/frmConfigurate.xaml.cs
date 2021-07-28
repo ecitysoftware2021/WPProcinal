@@ -35,36 +35,7 @@ namespace WPProcinal.Forms
             }
         }
 
-        private void SetVisibility()
-        {
-            try
-            {
-                if (!Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
-                {
-                    okAceptadorBilletes.Visibility = Visibility.Hidden;
-                    badAceptadorBilletes.Visibility = Visibility.Hidden;
-                    lblBillAceptance.Visibility = Visibility.Hidden;
 
-                    okMonederos.Visibility = Visibility.Hidden;
-                    badMonederos.Visibility = Visibility.Hidden;
-                    lblCoins.Visibility = Visibility.Hidden;
-
-
-                    okDispensadorBilletes.Visibility = Visibility.Hidden;
-                    badDispensadorBilletes.Visibility = Visibility.Hidden;
-                    lblBillDispenser.Visibility = Visibility.Hidden;
-
-                    Grid.SetRow(lblPrinter, 2);
-                    Grid.SetRow(okImpresora, 2);
-                    Grid.SetRow(badImpresora, 2);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                LogService.SaveRequestResponse("frmConfigurate>SetVisibility", JsonConvert.SerializeObject(ex), 1);
-            }
-        }
 
         /// <summary>
         /// Método que asigna esta ventana (Windows) como la principal para los usercontrol
@@ -96,70 +67,22 @@ namespace WPProcinal.Forms
                 {
                     await AdminPaypad.UpdatePeripherals();
 
-                    if (Utilities.dataPaypad.State)
+                  
+                    if (Utilities.dataPaypad.StateUpdate)
                     {
-                        ConfigurePublicity();
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            okServidor.Visibility = Visibility.Visible;
-                            badServidor.Visibility = Visibility.Hidden;
-                        });
-
-                        SetVisibility();
-                        if (Utilities.dataPaypad.StateUpdate)
-                        {
-                            ShowModalError("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
-                            return;
-                        }
-
-                        if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
-                        {
-                            if (Utilities.dataPaypad.StateAceptance && Utilities.dataPaypad.StateDispenser)
-                            {
-                                if (util == null)
-                                {
-                                    util = new Utilities();
-                                }
-
-                                ChangeStatusPeripherals();
-                                Task.Run(() =>
-                                {
-                                    if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
-                                    {
-                                        Utilities.control.OpenSerialPorts(
-                                            Utilities.dataPaypad.PaypadConfiguration.bilL_PORT,
-                                            Utilities.dataPaypad.PaypadConfiguration.coiN_PORT);
-                                        Utilities.control.Start();
-                                        Utilities.control.StartCoinAcceptorDispenser();
-                                    }
-                                    else
-                                    {
-                                        Utilities.controlUnified.OpenSerialPorts(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT);
-                                        Utilities.controlUnified.Start();
-                                    }
-                                });
-                            }
-                            else
-                            {
-                                LogService.SaveRequestResponse("Sin dinero", Utilities.dataPaypad.Message, 6);
-                                ShowModalError(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeSinDineroInitial);
-                            }
-                        }
-                        else
-                        {
-                            if (util == null)
-                            {
-                                util = new Utilities();
-                            }
-
-                            ChangeStatusPeripherals();
-                        }
-
+                        ShowModalError("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
+                        return;
                     }
-                    else
+
+
+
+                    if (util == null)
                     {
-                        ShowModalError("No se pudo iniciar el Dispositivo");
+                        util = new Utilities();
                     }
+
+                    ChangeStatusPeripherals();
+
                 }
                 else
                 {
@@ -199,93 +122,8 @@ namespace WPProcinal.Forms
         {
             try
             {
-                if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
-                {
-                    if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
-                    {
-                        Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
-                        {
-                            Utilities.control.callbackError = null;
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                Utilities.control.callbackError = null;
-                            });
-                            AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                            ShowModalError(error);
-                        };
 
-                        Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
-                        {
-                            LogService.SaveRequestResponse(Title, Message, State);
-                        };
-
-
-                        Utilities.control.callbackToken = isSucces =>
-                        {
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                Utilities.control.callbackToken = null;
-                                okAceptadorBilletes.Visibility = Visibility.Visible;
-                                badAceptadorBilletes.Visibility = Visibility.Hidden;
-
-                                okMonederos.Visibility = Visibility.Visible;
-                                badMonederos.Visibility = Visibility.Hidden;
-
-                                okDispensadorBilletes.Visibility = Visibility.Visible;
-                                badDispensadorBilletes.Visibility = Visibility.Hidden;
-
-                                okImpresora.Visibility = Visibility.Visible;
-                                badImpresora.Visibility = Visibility.Hidden;
-                                CheckPeripheralsAndContinue();
-                            });
-                        };
-                    }
-                    else
-                    {
-                        Utilities.controlUnified.callbackError = (error, description, EError, ELEvelError) =>
-                        {
-                            Utilities.controlUnified.callbackError = null;
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                Utilities.controlUnified.callbackError = null;
-                            });
-                            AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                            ShowModalError(error);
-                        };
-
-                        Utilities.controlUnified.CallBackSaveRequestResponse = (Title, Message, State) =>
-                        {
-                            LogService.SaveRequestResponse(Title, Message, State);
-                        };
-
-
-                        Utilities.controlUnified.callbackToken = isSucces =>
-                        {
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                Utilities.controlUnified.callbackToken = null;
-                                okAceptadorBilletes.Visibility = Visibility.Visible;
-                                badAceptadorBilletes.Visibility = Visibility.Hidden;
-
-                                okMonederos.Visibility = Visibility.Visible;
-                                badMonederos.Visibility = Visibility.Hidden;
-
-                                okDispensadorBilletes.Visibility = Visibility.Visible;
-                                badDispensadorBilletes.Visibility = Visibility.Hidden;
-
-                                okImpresora.Visibility = Visibility.Visible;
-                                badImpresora.Visibility = Visibility.Hidden;
-                                CheckPeripheralsAndContinue();
-                            });
-                        };
-                    }
-
-
-                }
-                else
-                {
-                    CheckPeripheralsAndContinue();
-                }
+                CheckPeripheralsAndContinue();
             }
             catch (Exception ex)
             {

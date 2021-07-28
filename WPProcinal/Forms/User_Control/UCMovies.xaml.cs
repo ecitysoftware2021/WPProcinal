@@ -282,56 +282,38 @@ namespace WPProcinal.Forms.User_Control
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
-            //this.Opacity = 0.3;
-            //frmModalCineFan modalCineFan = new frmModalCineFan();
-            //modalCineFan.ShowDialog();
-            //if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+            //if (GetCombo())
             //{
-            //    Utilities.Speack("Selecciona una película para continuar.");
-
-            //    this.Opacity = 1;
-            //    ActivateTimer();
-
-            //    if (modalCineFan.DialogResult.HasValue &&
-            //    modalCineFan.DialogResult.Value)
-            //    {
-            //        try
-            //        {
-            //            if (Utilities.dataTransaction != null && Utilities.dataTransaction.dataUser != null)
-            //            {
-            //                if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataUser.Nombre))
-            //                {
-            //                    txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataUser.Nombre.ToUpperInvariant();
-            //                    txtNameUser.Visibility = Visibility.Visible;
-            //                }
-            //                else if (!string.IsNullOrEmpty(Utilities.dataTransaction.dataDocument.FirstName))
-            //                {
-            //                    txtNameUser.Text = "Bienvenid@ " + Utilities.dataTransaction.dataDocument.FirstName.ToUpperInvariant();
-            //                    txtNameUser.Visibility = Visibility.Visible;
-            //                }
-            //            }
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            LogService.SaveRequestResponse("UCMovies>UserControl_Loaded", JsonConvert.SerializeObject(ex), 1);
-            //        }
-            //    }
+            //    Switcher.Navigate(new UCProductsCombos());
             //}
-            //else
-            //{
-            //    if (GetCombo())
-            //    {
-            //        Switcher.Navigate(new UCProductsCombos());
-            //    }
-            //    else
-            //    {
-            //        frmModal modal = new frmModal("No se pudo descargar la confiteria, intenta de nuevo por favor!", false);
-            //        modal.ShowDialog();
-            //        Switcher.Navigate(new UCCinema());
-            //    }
-            //}
+
         }
-       
+        private bool GetCombo()
+        {
+          
+            var combos = WCFServices41.GetConfectionery(new SCOPRE
+            {
+                teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString(),
+                tercero = "1"
+            });
+            if (combos != null)
+            {
+                if (combos.ListaProductos.Count > 0)
+                {
+                    DataService41._Productos = combos.ListaProductos;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private void BtnLogin_TouchDown(object sender, TouchEventArgs e)
         {
             try

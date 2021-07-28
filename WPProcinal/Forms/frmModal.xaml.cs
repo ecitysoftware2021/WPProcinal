@@ -74,6 +74,11 @@ namespace WPProcinal.Forms
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
         {
 
+          
+        }
+
+        private void BtnSalir_PreviewStylusDown(object sender, StylusDownEventArgs e)
+        {
             BtnSalir.IsEnabled = false;
             DialogResult = true;
         }

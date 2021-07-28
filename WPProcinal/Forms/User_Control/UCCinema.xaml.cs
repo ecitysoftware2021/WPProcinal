@@ -60,44 +60,11 @@ namespace WPProcinal.Forms.User_Control
 
         private void TimerStatePay_Tick(object sender, ElapsedEventArgs e)
         {
-            Task.Run(() =>
-            {
-                AdminPaypad.UpdatePeripherals();
-                if (Utilities.dataPaypad.StateUpdate)
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        frmModal modal = new frmModal("Hay una nueva versión de la aplicación, por favor no manipule ni apague el dispositivo mientras se actualiza.", true);
-                        modal.Show();
-                        Utilities.UpdateApp();
-                    });
-                }
-            });
-
         }
 
         private void ConfiguratePublish()
         {
-            try
-            {
-                if (_imageSleader == null)
-                {
-                    _imageSleader = new ImageSleader(Utilities.PublicityPath);
-
-                    this.DataContext = _imageSleader.imageModel;
-
-                    _imageSleader.time = Utilities.dataPaypad.PaypadConfiguration.publicitY_TIMER;
-
-                    _imageSleader.isRotate = true;
-
-                    _imageSleader.Start();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                LogService.SaveRequestResponse("UCCinema>ConfiguratePublish", JsonConvert.SerializeObject(ex), 1);
-            }
+            
         }
 
 
@@ -108,7 +75,7 @@ namespace WPProcinal.Forms.User_Control
                 timerStatePay.Stop();
                 gridPrincipal.IsEnabled = false;
                 _imageSleader.Stop();
-                Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
+                Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
                 if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
                 {
                     ModalBioseguridad modal = new ModalBioseguridad();
@@ -137,15 +104,10 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 timerStatePay.Stop();
-                gridPrincipal.IsEnabled = false;
-                _imageSleader.Stop();
+               
                 Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
                 Utilities.PlateObligatory = false;
-                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
-                {
-                    ModalBioseguridad modal = new ModalBioseguridad();
-                    modal.ShowDialog();
-                }
+               
                 Switcher.Navigate(new UCMovies());
             }
             catch (System.Exception ex)

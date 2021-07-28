@@ -38,38 +38,16 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Image Name="ImgDisponible"
-               Source="/Images/Seats/disponible.png"
+            <Image HorizontalAlignment="Center" 
+               Height="200"                
+               Grid.Row="3" 
+               Grid.Column="1"
+               Name="Pay"
+                   MouseEnter="Pay_MouseEnter"
+               Source="/Images/pay.png"
                VerticalAlignment="Top"
-                   Grid.Column="0"/>
-            <Image Name="ImgNoDisponible"
-               Source="/Images/Seats/NoDisponible.png"
-               VerticalAlignment="Top"
-                   Grid.Column="1"/>
-            <Image           
-                   Name="ImgSeleccionada"
-               Source="/Images/Seats/seleccionada.png"
-               VerticalAlignment="Top"
-                   Grid.Column="2"/>
-            <Image Name="ImgVibroSound"               
-                   Source="/Images/Seats/vibrosound.png"
-               VerticalAlignment="Top"
-               Grid.Column="3"/>
-            <Image Name="ImgPreferencial"               
-                   Source="/Images/Seats/preferencial.png"
-               VerticalAlignment="Top"
-               Grid.Column="3"/>
-            <Image  Name="ImgBlack"
-               Source="/Images/Seats/Black-Star.png"
-               VerticalAlignment="Top"
-               Grid.Column="4"/>
-            <Image Name="ImgDiscapacitados"
-               Source="/Images/Seats/discapacitados.png"
-               VerticalAlignment="Top"
-               Grid.Column="5"
-                   HorizontalAlignment="Left"
-                   Width="155"
-                   Margin="-20,0,0,0"/>
+        />
+           
             
         </Grid>
         <Grid x:Name="grdImage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" >
@@ -225,16 +203,7 @@
                Foreground="#FFF"
                VerticalAlignment="Top" 
                />
-        <Image HorizontalAlignment="Center" 
-               Height="200"                
-               Grid.Row="3" 
-               Grid.Column="1"
-               Name="Pay"
-               TouchDown="Pay_TouchDown"
-               Margin="0,110,0,0"
-               Source="/Images/pay.png"
-               VerticalAlignment="Top"
-        />
+        
 
     </Grid>
 </UserControl>

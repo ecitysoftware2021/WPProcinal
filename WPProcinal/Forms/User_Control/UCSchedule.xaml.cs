@@ -661,13 +661,6 @@ namespace WPProcinal.Forms.User_Control
                     currentPageIndex2--;
                     view2.View.Refresh();
                 }
-
-                if (currentPageIndex2 == 0)
-                {
-                    btnPrev2.Visibility = Visibility.Hidden;
-                }
-
-                btnNext2.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
@@ -686,12 +679,6 @@ namespace WPProcinal.Forms.User_Control
                     currentPageIndex2++;
                     view2.View.Refresh();
                 }
-                if (currentPageIndex2 == totalPage2 - 1)
-                {
-                    btnNext2.Visibility = Visibility.Hidden;
-                }
-
-                btnPrev2.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
@@ -708,7 +695,14 @@ namespace WPProcinal.Forms.User_Control
             Switcher.Navigate(new UCMovies());
         }
 
-        private void ListViewItem_TouchDown_1(object sender, TouchEventArgs e)
+        
+
+        private void ListViewItem_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
             try
             {
@@ -764,7 +758,5 @@ namespace WPProcinal.Forms.User_Control
                 });
             }
         }
-
-
     }
 }

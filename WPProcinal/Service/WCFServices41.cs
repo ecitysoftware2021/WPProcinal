@@ -193,6 +193,8 @@ namespace WPProcinal.Service
             string decryptData = string.Empty;
             try
             {
+                ServerCertificateValidationCallback();
+
                 //Data convertida a formato json
                 var seria = JsonConvert.SerializeObject(data);
                 LogService.SaveRequestResponse("Peticion tarifas sillas", seria, 1);
@@ -202,13 +204,6 @@ namespace WPProcinal.Service
 
                 var client = new RestClient(DataService41.APISCORE + "/scokio/");
                 var request = new RestRequest(Method.POST);
-                request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Connection", "keep-alive");
-                request.AddHeader("Content-Length", "66");
-                request.AddHeader("Accept-Encoding", "gzip, deflate");
-                request.AddHeader("Host", "score.procinal.com.co");
-                request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Accept", "*/*");
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("undefined", $"\"{encryptData}\"", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
