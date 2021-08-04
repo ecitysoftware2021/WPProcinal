@@ -73,7 +73,7 @@
                        Margin="0,0,0,0"
                        Stretch="Uniform"
                        Source="../Images/salir2.png"
-                           PreviewStylusDown="BtnSalir_PreviewStylusDown"
+                         MouseEnter="BtnSalir_MouseEnter"
                        />
                     <Image HorizontalAlignment="Left"
                        Name="BtnNo"

@@ -14,34 +14,17 @@
                 <ImageBrush ImageSource="/Images/backgrounds/p-fondo-cartelera.jpg" 
                         Stretch="UniformToFill"/>
             </Grid.Background>
-
-
-
-            <Grid Grid.Row="0">
-                <TextBlock x:Name="tbTimer"
-                           Text="00:05"
-                       FontSize="35"
+            <TextBlock x:Name="lblCinema1"
+                       FontSize="50"
+                       FontFamily="Gotham"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"
-                       Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
-            />
-                <Image Source="/Images/buttons/b-atras.png" 
-                       Height="110"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       Margin="20,70,0,0"
-                       Name="btnAtras"
-                       TouchDown="btnAtras_TouchDown"/>
+                       Margin="0,0,0,0"/>
 
-                <Image Source="/Images/buttons/b-atras.png" 
-                       Height="110"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Top"
-                       Margin="0,0,0,0"
-                       Opacity="0"
-                       Name="btnLogin"
-                       TouchDown="BtnLogin_TouchDown"/>
-            </Grid>
             <materialDesign:TransitioningContent  
             OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
             Name="btnMapSeats" Grid.Row="1">
@@ -55,10 +38,10 @@
                   VerticalAlignment="Center"
                               Height="1050"
                     ItemsSource="{Binding}"
-                  Margin="0,0,0,100">
+                  Margin="0,0,0,0">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="3"
+                                <UniformGrid Columns="4"
                                  HorizontalAlignment="Center"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
@@ -70,35 +53,18 @@
                                     <Grid 
                                 HorizontalAlignment="Center"
                                    VerticalAlignment="Top"
-                                   Margin="0,10,10,0"
-                                   Width="125"
-                                   Height="100"
+                                   Width="225"
+                                   Height="200"
                                         >
                                         <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="70" />
-                                            </Grid.RowDefinitions>
                                             <Grid Grid.Row="0">
                                                 <Grid.Background>
                                                     <ImageBrush 
                                                         ImageSource="{Binding ImageData}"
                                                         Stretch="Uniform" />
                                                 </Grid.Background>
-                                                <Image Source="{Binding ImageMovieType}" 
-                                                       HorizontalAlignment="Left"
-                                                       VerticalAlignment="Top"
-                                                       Margin="5,0,10,0"
-                                                       Width="50"
-                                                       Height="50"
-                                                       Stretch="Uniform"/>
-                                                <Image Source="{Binding ImageTag}" 
-                                                       HorizontalAlignment="Left"
-                                                       VerticalAlignment="Top"
-                                                       Margin="0,15,10,0"
-                                                       Width="50"
-                                                       Height="50"
-                                                       Stretch="Uniform"/>
+                                               
+                                               
                                                 <Image Source="/Images/Buttons/verHorarios.png" 
                                                        HorizontalAlignment="Left"
                                                        VerticalAlignment="Bottom"
@@ -127,17 +93,7 @@
                     </ListView>
                 </Grid>
             </materialDesign:TransitioningContent>
-            <TextBlock x:Name="lblCinema1"
-                       FontSize="100"
-                       Text="Puerta del Norte" 
-                       FontFamily="Gotham"
-                       FontWeight="Bold"
-                       Foreground="White"
-                       TextWrapping="Wrap"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Margin="0,170,0,0"/>
+            
             <TextBlock
                        Name="txtNameUser"
                        FontSize="50"
@@ -151,18 +107,7 @@
                        VerticalAlignment="Center"
                        Margin="0,480,0,0"
             />
-            <TextBlock
-                       FontSize="50"
-                       Text="Selecciona una película" 
-                       FontWeight="Bold"
-                       FontFamily="Gotham"
-                       Foreground="White"
-                       TextWrapping="Wrap"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Margin="0,600,0,0"
-            />
+            
         </Grid>
         <Grid>
             <Image gif:ImageBehavior.AnimatedSource="/Images/cargando.gif" 

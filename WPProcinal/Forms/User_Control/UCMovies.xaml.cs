@@ -229,29 +229,7 @@ namespace WPProcinal.Forms.User_Control
 
         void ActivateTimer()
         {
-            try
-            {
-                tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
-                timer = new TimerTiempo(tbTimer.Text);
-                timer.CallBackClose = response =>
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        Switcher.Navigate(new UCCinema());
-                    });
-                };
-                timer.CallBackTimer = response =>
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        tbTimer.Text = response;
-                    });
-                };
-            }
-            catch (Exception ex)
-            {
-                LogService.SaveRequestResponse("UCMovies>ActivateTimer", JsonConvert.SerializeObject(ex), 1);
-            }
+            
         }
 
         void SetCallBacksNull()
