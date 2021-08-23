@@ -23,6 +23,7 @@ using WPProcinal.Service;
 using static WPProcinal.Models.ApiLocal.Uptake;
 using SQLite.Connection.Ecity;
 using System.Threading;
+using WPProcinal.Classes.Peripherals;
 
 namespace WPProcinal.Classes
 {
@@ -37,17 +38,6 @@ namespace WPProcinal.Classes
         {
             try
             {
-                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
-                {
-                    control = new ControlPeripherals();
-                    control.StopAceptance();
-                }
-                else
-                {
-                    controlUnified = new ControlPeripheralsUnified();
-                    controlUnified.StopAceptance();
-                }
-
                 controlScanner = new ControlScanner();
                 dataTransaction = new DataTransaction();
             }
@@ -55,6 +45,7 @@ namespace WPProcinal.Classes
             {
             }
         }
+
 
         public static DataTransaction dataTransaction;
 

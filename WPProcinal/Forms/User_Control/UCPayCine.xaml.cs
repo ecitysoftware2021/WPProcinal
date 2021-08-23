@@ -34,6 +34,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 OrganizeValues();
                 state = true;
+
                 if (Utilities.dataTransaction.SelectedTypeSeats.Count > 0)
                 {
                     TxtTitle.Text = Utilities.CapitalizeFirstLetter(Utilities.dataTransaction.DataFunction.MovieName);
@@ -47,14 +48,8 @@ namespace WPProcinal.Forms.User_Control
 
                 }
                 stateUpdate = true;
-                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
-                {
-                    Utilities.control.StartValues();
-                }
-                else
-                {
-                    Utilities.controlUnified.StartValues();
-                }
+
+                Utilities.controlUnified.StartValues();
 
                 if (Utilities.dataTransaction.PayVal > 0)
                 {
@@ -105,123 +100,59 @@ namespace WPProcinal.Forms.User_Control
             {
                 payState = false;
 
-                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
+                Utilities.controlUnified.callbackValueIn = (enterValue, code) =>
                 {
-                    Utilities.control.callbackValueIn = (enterValue, code) =>
+                    if (enterValue > 0)
                     {
-                        if (enterValue > 0)
+                        PaymentViewModel.ValorIngresado += enterValue;
+                        if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal)
                         {
-                            PaymentViewModel.ValorIngresado += enterValue;
-                            if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal)
+                            Dispatcher.BeginInvoke((Action)delegate
                             {
-                                Dispatcher.BeginInvoke((Action)delegate
-                                {
-                                    btnCancelar.IsEnabled = false;
-                                    btnCancelar.Visibility = Visibility.Hidden;
-                                    Utilities.control.callbackValueIn = null;
+                                btnCancelar.IsEnabled = false;
+                                btnCancelar.Visibility = Visibility.Hidden;
+                                Utilities.controlUnified.callbackValueIn = null;
 
-                                });
-                            }
-                            PaymentViewModel.RefreshListDenomination(int.Parse(enterValue.ToString()), 1, code);
+                            });
                         }
-                    };
+                        PaymentViewModel.RefreshListDenomination(int.Parse(enterValue.ToString()), 1, code);
+                    }
+                };
 
-                    Utilities.control.callbackTotalIn = enterTotal =>
-                    {
-                        Utilities.control.callbackTotalIn = null;
-                        if (!BtnCancellPressed)
-                        {
-                            if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
-                            {
-                                if (!BtnCancellPressed)
-                                {
-                                    ActivateTimer(true);
-                                    ReturnMoney(PaymentViewModel.ValorSobrante, true); 
-                                }
-                            }
-                            else
-                            {
-                                if (state)
-                                {
-                                    if (!BtnCancellPressed)
-                                    {
-                                        state = false;
-                                        Buytickets(); 
-                                    }
-                                }
-                            }
-                        }
-                    };
-
-                    Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
-                    {
-                        AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                    };
-
-                    Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
-                    {
-                        LogService.SaveRequestResponse(Title, Message, State);
-                    };
-
-                    Utilities.control.StartAceptance(PaymentViewModel.PayValue);
-                }
-                else
+                Utilities.controlUnified.callbackTotalIn = enterTotal =>
                 {
-                    Utilities.controlUnified.callbackValueIn = (enterValue, code) =>
-                    {
-                        if (enterValue > 0)
-                        {
-                            PaymentViewModel.ValorIngresado += enterValue;
-                            if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal)
-                            {
-                                Dispatcher.BeginInvoke((Action)delegate
-                                {
-                                    btnCancelar.IsEnabled = false;
-                                    btnCancelar.Visibility = Visibility.Hidden;
-                                    Utilities.controlUnified.callbackValueIn = null;
 
-                                });
-                            }
-                            PaymentViewModel.RefreshListDenomination(int.Parse(enterValue.ToString()), 1, code);
+
+                    Utilities.controlUnified.callbackTotalIn = null;
+                    if (!BtnCancellPressed)
+                    {
+                        if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
+                        {
+                            ActivateTimer(true);
+                            ReturnMoney(PaymentViewModel.ValorSobrante, true);
                         }
-                    };
-
-                    Utilities.controlUnified.callbackTotalIn = enterTotal =>
-                    {
-
-
-                        Utilities.controlUnified.callbackTotalIn = null;
-                        if (!BtnCancellPressed)
+                        else
                         {
-                            if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
+                            if (state)
                             {
-                                ActivateTimer(true);
-                                ReturnMoney(PaymentViewModel.ValorSobrante, true);
-                            }
-                            else
-                            {
-                                if (state)
-                                {
-                                    state = false;
-                                    Buytickets();
-                                }
+                                state = false;
+                                Buytickets();
                             }
                         }
-                    };
+                    }
+                };
 
-                    Utilities.controlUnified.callbackError = (error, description, EError, ELEvelError) =>
-                    {
-                        AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                    };
+                Utilities.controlUnified.callbackError = (error, description, EError, ELEvelError) =>
+                {
+                    AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                };
 
-                    Utilities.controlUnified.CallBackSaveRequestResponse = (Title, Message, State) =>
-                    {
-                        LogService.SaveRequestResponse(Title, Message, State);
-                    };
+                Utilities.controlUnified.CallBackSaveRequestResponse = (Title, Message, State) =>
+                {
+                    LogService.SaveRequestResponse(Title, Message, State);
+                };
 
-                    Utilities.controlUnified.StartAceptance(PaymentViewModel.PayValue);
-                }
-
+                Utilities.control.StartAceptance(PaymentViewModel.PayValue);
             }
             catch (Exception ex)
             {
@@ -244,10 +175,11 @@ namespace WPProcinal.Forms.User_Control
                 totalReturn = false;
                 if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
                 {
-                    Utilities.control.callbackLog = (log, isBX) =>
-                    {
-                        PaymentViewModel.SplitDenomination(log, isBX);
-                    };
+                    //TODO:aqui
+                    //Utilities.control.callbackLog = (log, isBX) =>
+                    //{
+                    //    PaymentViewModel.SplitDenomination(log, isBX);
+                    //};
 
                     Utilities.control.callbackTotalOut = totalOut =>
                     {
@@ -270,9 +202,9 @@ namespace WPProcinal.Forms.User_Control
                         }
                     };
 
-                    Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
+                    Utilities.control.callbackError = error =>
                     {
-                        AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                        AdminPaypad.SaveErrorControl(error, "", EError.Device, ELevelError.Medium);
                     };
 
                     Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
@@ -322,7 +254,7 @@ namespace WPProcinal.Forms.User_Control
                         }
                     };
 
-                    Utilities.control.StartDispenser(returnValue, Utilities.dataPaypad.PaypadConfiguration.dispenseR_CONFIGURATION.Split('-'));
+                    Utilities.control.StartDispenser(returnValue);
                 }
                 else
                 {

@@ -353,7 +353,7 @@ namespace WPProcinal.Classes
     /// <summary>
     /// Clase de periféricos no inificados
     /// </summary>
-    public class ControlPeripherals : GenericDataPeripherals
+    public class ControlPeripherals2 : GenericDataPeripherals
     {
 
         #region SerialPorts
@@ -389,7 +389,7 @@ namespace WPProcinal.Classes
         /// <summary>
         /// Constructor de la clase
         /// </summary>
-        public ControlPeripherals()
+        public ControlPeripherals2()
         {
             try
             {

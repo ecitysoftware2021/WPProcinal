@@ -85,6 +85,10 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="MPOST, Version=3.0.5.0, Culture=neutral, PublicKeyToken=c3d0ba8d3881c2f7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\MPOST.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -143,6 +147,8 @@
     <Compile Include="Classes\ControlScanner.cs" />
     <Compile Include="Classes\ImagesSleader.cs" />
     <Compile Include="Classes\Login.cs" />
+    <Compile Include="Classes\Peripherals\ControlPeripherals.cs" />
+    <Compile Include="Classes\Peripherals\MEIAcceptorControl.cs" />
     <Compile Include="Classes\Print.cs" />
     <Compile Include="Classes\Switcher.cs" />
     <Compile Include="DataModel\ClasesUtiles.cs" />
