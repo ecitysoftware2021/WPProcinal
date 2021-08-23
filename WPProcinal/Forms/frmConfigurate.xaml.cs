@@ -131,9 +131,6 @@ namespace WPProcinal.Forms
 
                                     ChangeStatusPeripherals();
 
-                                    Utilities.control.StopAceptance();
-
-
                                     Utilities.control.Start();
 
                                 });

@@ -10,8 +10,8 @@ namespace WPProcinal.Classes.Peripherals
     public class MEIAcceptorControl
     {
         private Acceptor meiAcceptor;
-        public Action<EMEIMEssages> callbackMeiMessages;
-        public Action<double> callbackBillAccepted;
+        public  Action<EMEIMEssages> callbackMeiMessages;
+        public  Action<double> callbackBillAccepted;
 
         public Dictionary<string, string> MeiMessagesHomologate = new Dictionary<string, string>
         {
