@@ -172,12 +172,17 @@ namespace WPProcinal.Classes.Peripherals
 
                 CallBackSaveRequestResponse?.Invoke("Respuesta del billetero AP-MS", responseAPMS.ToString(), 1);
 
-                var a = "Aceptador Conectado";
-
-                if (token)
+                if (responseAPMS.Contains("Aceptador Conectado"))
                 {
-                    token = false;
-                    callbackToken?.Invoke(true);
+                    if (token)
+                    {
+                        token = false;
+                        callbackToken?.Invoke(true);
+                    }
+                }
+                else
+                {
+                    callbackError?.Invoke(responseAPMS);
                 }
 
             };
@@ -323,7 +328,7 @@ namespace WPProcinal.Classes.Peripherals
 
                             token = true;
 
-                            AcceptorControl.OpenAcceptor("COM12");
+                            AcceptorControl.OpenAcceptor("COM10");
                         }
                         break;
                     case "MD":

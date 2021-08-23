@@ -19,6 +19,7 @@ namespace WPProcinal.Forms
     {
         ApiLocal api;
         bool state;
+        bool status = true;
         Utilities util;
         public frmConfigurate()
         {
@@ -123,17 +124,15 @@ namespace WPProcinal.Forms
                                     util = new Utilities();
                                 }
 
-                                ChangeStatusPeripherals();
-
                                 Task.Run(() =>
                                 {
-                                    if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
-                                    {
-                                        Utilities.control = new ControlPeripherals(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT,
-                                            Utilities.dataPaypad.PaypadConfiguration.dispenseR_CONFIGURATION);
+                                    Utilities.control = new ControlPeripherals(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT,
+                                        Utilities.dataPaypad.PaypadConfiguration.dispenseR_CONFIGURATION);
 
-                                        Utilities.control.StopAceptance();
-                                    }
+                                    ChangeStatusPeripherals();
+
+                                    Utilities.control.StopAceptance();
+
 
                                     Utilities.control.Start();
 
@@ -207,8 +206,10 @@ namespace WPProcinal.Forms
                         Utilities.control.callbackError = null;
                         Dispatcher.BeginInvoke((Action)delegate
                         {
+                            status = false;
                             Utilities.control.callbackError = null;
                         });
+
                         AdminPaypad.SaveErrorControl(error, "", Classes.EError.Device, ELevelError.Medium);
                         ShowModalError(error);
                     };
@@ -220,9 +221,14 @@ namespace WPProcinal.Forms
 
                     Utilities.control.callbackToken = isSucces =>
                     {
+                        //Utilities.control.callbackError = null;
+
                         Dispatcher.BeginInvoke((Action)delegate
                         {
+                            status = true;
                             Utilities.control.callbackToken = null;
+                            //Utilities.control.callbackError = null;
+
                             okAceptadorBilletes.Visibility = Visibility.Visible;
                             badAceptadorBilletes.Visibility = Visibility.Hidden;
 
@@ -274,10 +280,14 @@ namespace WPProcinal.Forms
         {
             Task.Run(() =>
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(3000);
+
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    Switcher.Navigate(new UCCinema());
+                    if (status)
+                    {
+                        Switcher.Navigate(new UCCinema());
+                    }
                 });
             });
         }
@@ -293,7 +303,8 @@ namespace WPProcinal.Forms
                 {
                     modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description), stop);
                     modal.ShowDialog();
-                    GetToken();
+                    //GetToken();
+                    Utilities.RestartApp();
                 }
                 else
                 {
