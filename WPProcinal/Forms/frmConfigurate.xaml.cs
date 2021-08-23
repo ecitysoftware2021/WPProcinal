@@ -264,11 +264,6 @@ namespace WPProcinal.Forms
                     Utilities.control.callbackToken = null;
                     Utilities.control.callbackError = null;
                 }
-                else if (Utilities.controlUnified != null)
-                {
-                    Utilities.controlUnified.callbackToken = null;
-                    Utilities.controlUnified.callbackError = null;
-                }
             }
             catch (Exception ex)
             {

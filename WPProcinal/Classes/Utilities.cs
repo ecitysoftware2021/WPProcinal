@@ -33,7 +33,7 @@ namespace WPProcinal.Classes
         /// Objeto global para el control de los periféricos
         /// </summary>
         public static ControlPeripherals control;
-        public static ControlPeripheralsUnified controlUnified;
+
         public Utilities()
         {
             try

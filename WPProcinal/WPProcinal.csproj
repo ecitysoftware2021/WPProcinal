@@ -143,7 +143,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\AdminPaypad.cs" />
-    <Compile Include="Classes\ControlPeripheralsUnified.cs" />
     <Compile Include="Classes\ControlScanner.cs" />
     <Compile Include="Classes\ImagesSleader.cs" />
     <Compile Include="Classes\Login.cs" />
@@ -155,7 +154,6 @@
     <Compile Include="Classes\Enumerables.cs" />
     <Compile Include="DataModel\DenominationMoney.cs" />
     <Compile Include="DataModel\Log.cs" />
-    <Compile Include="DataModel\PaymentViewModel.cs" />
     <Compile Include="DataModel\Response.cs" />
     <Compile Include="DataModel\Email.cs" />
     <Compile Include="Classes\TimerTiempo.cs" />
@@ -239,6 +237,8 @@
     <Compile Include="Service\ApiLocal.cs" />
     <Compile Include="Service\Uptake.cs" />
     <Compile Include="Service\WCFServices41.cs" />
+    <Compile Include="ViewModel\DetailViewModel.cs" />
+    <Compile Include="ViewModel\PaymentViewModel.cs" />
     <Page Include="Forms\frmConfigurate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

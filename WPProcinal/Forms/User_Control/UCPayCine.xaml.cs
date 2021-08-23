@@ -8,8 +8,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using WPProcinal.Classes;
 using WPProcinal.Service;
-using SQLite.Connection.Ecity;
 using Newtonsoft.Json;
+using WPProcinal.ViewModel;
+using System.Windows.Data;
+using WPProcinal.DataModel;
 
 namespace WPProcinal.Forms.User_Control
 {
@@ -27,6 +29,7 @@ namespace WPProcinal.Forms.User_Control
         private bool totalReturn = false;
         private bool BtnCancellPressed = false;
         List<Producto> productos;
+
         public UCPayCine()
         {
             InitializeComponent();
@@ -49,7 +52,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 stateUpdate = true;
 
-                Utilities.controlUnified.StartValues();
+                Utilities.control.ClearValues();
 
                 if (Utilities.dataTransaction.PayVal > 0)
                 {
@@ -89,7 +92,6 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-
         #region Methods
         /// <summary>
         /// Método encargado de activar el billetero aceptance, seguido de esto crea un callback esperando a que este le indique que puede finalizar la transacción
@@ -100,32 +102,31 @@ namespace WPProcinal.Forms.User_Control
             {
                 payState = false;
 
-                Utilities.controlUnified.callbackValueIn = (enterValue, code) =>
+                Utilities.control.callbackValueIn = enterValue =>
                 {
-                    if (enterValue > 0)
+                    if (enterValue.Item1 > 0)
                     {
-                        PaymentViewModel.ValorIngresado += enterValue;
-                        if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal)
+                        if (!this.PaymentViewModel.StatePay)
                         {
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                btnCancelar.IsEnabled = false;
-                                btnCancelar.Visibility = Visibility.Hidden;
-                                Utilities.controlUnified.callbackValueIn = null;
+                            PaymentViewModel.ValorIngresado += enterValue.Item1;
 
-                            });
+                            PaymentViewModel.RefreshListDenomination(int.Parse(enterValue.Item1.ToString()), 1, enterValue.Item2);
+
+                            LoadView();
                         }
-                        PaymentViewModel.RefreshListDenomination(int.Parse(enterValue.ToString()), 1, code);
                     }
                 };
 
-                Utilities.controlUnified.callbackTotalIn = enterTotal =>
+                Utilities.control.callbackTotalIn = enterTotal =>
                 {
+                    Utilities.control.callbackTotalIn = null;
 
-
-                    Utilities.controlUnified.callbackTotalIn = null;
                     if (!BtnCancellPressed)
                     {
+                        this.PaymentViewModel.ImgCancel = Visibility.Hidden;
+
+                        Utilities.control.StopAceptance();
+
                         if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                         {
                             ActivateTimer(true);
@@ -142,12 +143,12 @@ namespace WPProcinal.Forms.User_Control
                     }
                 };
 
-                Utilities.controlUnified.callbackError = (error, description, EError, ELEvelError) =>
+                Utilities.control.callbackError = error =>
                 {
-                    AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
+                    AdminPaypad.SaveErrorControl(error, "", EError.Device, ELevelError.Medium);
                 };
 
-                Utilities.controlUnified.CallBackSaveRequestResponse = (Title, Message, State) =>
+                Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
                 {
                     LogService.SaveRequestResponse(Title, Message, State);
                 };
@@ -160,7 +161,6 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-
         /// <summary>
         /// Método que se encarga de devolver el dinero ya sea por que se canceló la transacción o por que hay valor sobrante
         /// </summary>
@@ -168,172 +168,89 @@ namespace WPProcinal.Forms.User_Control
         private void ReturnMoney(decimal returnValue, bool state)
         {
             FrmLoading frmLoading = new FrmLoading("Devolviendo dinero...");
+
             try
             {
                 Utilities.Speack("Estamos contando el dinero, espera un momento por favor.");
                 frmLoading.Show();
+
                 totalReturn = false;
-                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
+
+                Utilities.control.callbackLog = log =>
                 {
-                    //TODO:aqui
-                    //Utilities.control.callbackLog = (log, isBX) =>
-                    //{
-                    //    PaymentViewModel.SplitDenomination(log, isBX);
-                    //};
+                    PaymentViewModel.SplitDenomination(log);
+                };
 
-                    Utilities.control.callbackTotalOut = totalOut =>
-                    {
-                        Utilities.control.callbackTotalOut = null;
-                        Utilities.dataTransaction.ValueDelivery = (long)totalOut;
-                        totalReturn = true;
-                        if (state)
-                        {
-                            try
-                            {
-                                SetCallBacksNull();
-                                timer.CallBackStop?.Invoke(1);
-                            }
-                            catch { }
-                            Buytickets();
-                        }
-                        else
-                        {
-                            Cancelled();
-                        }
-                    };
-
-                    Utilities.control.callbackError = error =>
-                    {
-                        AdminPaypad.SaveErrorControl(error, "", EError.Device, ELevelError.Medium);
-                    };
-
-                    Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
-                    {
-                        LogService.SaveRequestResponse(Title, Message, State);
-                    };
-
-                    Utilities.control.callbackOut = delivery =>
-                    {
-
-                        Utilities.control.callbackOut = null;
-                        if (!totalReturn)
-                        {
-                            Utilities.dataTransaction.ValueDelivery = (long)delivery;
-
-                            try
-                            {
-                                timer.CallBackStop?.Invoke(1);
-                                SetCallBacksNull();
-                            }
-                            catch { }
-                            if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal && state)
-                            {
-                                if (delivery != returnValue)
-                                {
-                                    Dispatcher.BeginInvoke((Action)delegate
-                                    {
-                                        frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
-                                        modal.ShowDialog();
-                                        Buytickets();
-                                    });
-                                }
-                                else
-                                {
-                                    Buytickets();
-                                }
-                            }
-                            else
-                            {
-                                Dispatcher.BeginInvoke((Action)delegate
-                                {
-                                    frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0"));
-                                    modal.ShowDialog();
-                                    Cancelled();
-                                });
-                            }
-                        }
-                    };
-
-                    Utilities.control.StartDispenser(returnValue);
-                }
-                else
+                Utilities.control.callbackTotalOut = totalOut =>
                 {
-                    Utilities.controlUnified.callbackLog = (log, isBX) =>
+                    Utilities.control.callbackTotalOut = null;
+                    Utilities.dataTransaction.ValueDelivery = (long)totalOut;
+                    totalReturn = true;
+                    if (state)
                     {
-                        PaymentViewModel.SplitDenomination(log, isBX);
-                    };
-
-                    Utilities.controlUnified.callbackTotalOut = totalOut =>
-                    {
-                        Utilities.controlUnified.callbackTotalOut = null;
-                        Utilities.dataTransaction.ValueDelivery = (long)totalOut;
-                        totalReturn = true;
-                        if (state)
+                        try
                         {
-                            try
-                            {
-                                SetCallBacksNull();
-                                timer.CallBackStop?.Invoke(1);
-                            }
-                            catch { }
-                            Buytickets();
-                        }
-                        else
-                        {
-                            Cancelled();
-                        }
-                    };
-
-                    Utilities.controlUnified.callbackError = (error, description, EError, ELEvelError) =>
-                    {
-                        AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                    };
-
-                    Utilities.controlUnified.CallBackSaveRequestResponse = (Title, Message, State) =>
-                    {
-                        LogService.SaveRequestResponse(Title, Message, State);
-                    };
-
-                    Utilities.controlUnified.callbackOut = delivery =>
-                    {
-
-                        Utilities.controlUnified.callbackOut = null;
-                        if (!totalReturn)
-                        {
-                            Utilities.dataTransaction.ValueDelivery = (long)delivery;
-
-
                             SetCallBacksNull();
-                            if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal && state)
-                            {
-                                if (delivery != returnValue)
-                                {
-                                    Dispatcher.BeginInvoke((Action)delegate
-                                    {
-                                        frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
-                                        modal.ShowDialog();
-                                        Buytickets();
-                                    });
-                                }
-                                else
-                                {
-                                    Buytickets();
-                                }
-                            }
-                            else
+                            timer.CallBackStop?.Invoke(1);
+                        }
+                        catch { }
+                        Buytickets();
+                    }
+                    else
+                    {
+                        Cancelled();
+                    }
+                };
+
+                Utilities.control.callbackError = error =>
+                {
+                    AdminPaypad.SaveErrorControl(error, "", EError.Device, ELevelError.Medium);
+                };
+
+                Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
+                {
+                    LogService.SaveRequestResponse(Title, Message, State);
+                };
+
+                Utilities.control.callbackOut = delivery =>
+                {
+                    Utilities.control.callbackOut = null;
+
+                    if (!totalReturn)
+                    {
+                        Utilities.dataTransaction.ValueDelivery = (long)delivery;
+
+                        SetCallBacksNull();
+
+                        if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal && state)
+                        {
+                            if (delivery != returnValue)
                             {
                                 Dispatcher.BeginInvoke((Action)delegate
                                 {
-                                    frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0"));
+                                    frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
                                     modal.ShowDialog();
-                                    Cancelled();
+                                    Buytickets();
                                 });
                             }
+                            else
+                            {
+                                Buytickets();
+                            }
                         }
-                    };
+                        else
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0"));
+                                modal.ShowDialog();
+                                Cancelled();
+                            });
+                        }
+                    }
+                };
 
-                    Utilities.controlUnified.StartDispenser(returnValue);
-                }
+                Utilities.control.StartDispenser(returnValue);
 
                 frmLoading.Close();
             }
@@ -354,20 +271,43 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                lblValorPagar.Content = string.Format("{0:C0}", Utilities.dataTransaction.PayVal);
                 PaymentViewModel = new PaymentViewModel
                 {
                     PayValue = Utilities.dataTransaction.PayVal,
                     ValorFaltante = Utilities.dataTransaction.PayVal,
+                    ImgContinue = Visibility.Hidden,
+                    ImgCancel = Visibility.Visible,
+                    ImgCambio = Visibility.Hidden,
                     ValorSobrante = 0,
                     ValorIngresado = 0,
-                    Denominations = new List<DataModel.DenominationMoney>()
+                    viewList = new CollectionViewSource(),
+                    Denominations = new List<DenominationMoney>(),
+                    ValorDispensado = 0
                 };
+
                 this.DataContext = PaymentViewModel;
             }
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "OrganizeValue en frmPayCine", EError.Aplication, ELevelError.Medium);
+            }
+        }
+
+        private void LoadView()
+        {
+            try
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    PaymentViewModel.viewList.Source = PaymentViewModel.Denominations;
+                    lv_denominations.DataContext = PaymentViewModel.viewList;
+                    lv_denominations.Items.Refresh();
+                });
+                GC.Collect();
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCPayCine>LoadView", JsonConvert.SerializeObject(ex), 1);
             }
         }
 
@@ -736,22 +676,21 @@ namespace WPProcinal.Forms.User_Control
         }
         #endregion
 
-        private void BtnCancelar_TouchDown(object sender, TouchEventArgs e)
+        private void BtnCancell_TouchDown(object sender, TouchEventArgs e)
         {
             try
             {
+                this.PaymentViewModel.ImgCancel = Visibility.Hidden;
+                Utilities.control.callbackLog = null;
+
                 this.BtnCancellPressed = true;
                 this.IsEnabled = false;
+
                 FrmLoading frmLoading = new FrmLoading("Apagando billeteros...");
                 frmLoading.Show();
-                if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
-                {
-                    Utilities.control.StopAceptance();
-                }
-                else
-                {
-                    Utilities.controlUnified.StopAceptance();
-                }
+
+                Utilities.control.StopAceptance();
+
                 Thread.Sleep(1000);
                 frmLoading.Close();
                 if (PaymentViewModel.ValorIngresado > 0)
@@ -770,7 +709,5 @@ namespace WPProcinal.Forms.User_Control
                 AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "ActivateWallet en frmPayCine", EError.Aplication, ELevelError.Medium);
             }
         }
-
-
     }
 }
