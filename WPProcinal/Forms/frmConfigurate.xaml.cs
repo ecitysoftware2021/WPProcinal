@@ -21,6 +21,7 @@ namespace WPProcinal.Forms
         bool state;
         bool status = true;
         Utilities util;
+
         public frmConfigurate()
         {
             InitializeComponent();
@@ -260,6 +261,7 @@ namespace WPProcinal.Forms
                 {
                     Utilities.control.callbackToken = null;
                     Utilities.control.callbackError = null;
+                    Utilities.control.CloseCallbackAP();
                 }
             }
             catch (Exception ex)
@@ -278,6 +280,7 @@ namespace WPProcinal.Forms
                 {
                     if (status)
                     {
+                        SetCallbackNull();
                         Switcher.Navigate(new UCCinema());
                     }
                 });

@@ -125,17 +125,18 @@ namespace WPProcinal.Forms.User_Control
                     {
                         this.PaymentViewModel.ImgCancel = Visibility.Hidden;
 
-                        Utilities.control.CloseCallbackAP();
-                        Utilities.control.StopAceptance();
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            Utilities.control.CloseCallbackAP();
+                            Utilities.control.StopAceptance();
+                        });
+                        GC.Collect();
 
                         if (enterTotal > 0 && PaymentViewModel.ValorSobrante > 0)
                         {
                             ActivateTimer(true);
 
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                ReturnMoney(PaymentViewModel.ValorSobrante, true);
-                            });
+                            ReturnMoney(PaymentViewModel.ValorSobrante, true);
                         }
                         else
                         {
@@ -172,102 +173,110 @@ namespace WPProcinal.Forms.User_Control
         /// <param name="returnValue">valor a devolver</param>
         private void ReturnMoney(decimal returnValue, bool state)
         {
-            FrmLoading frmLoading = new FrmLoading("Devolviendo dinero...");
-
-            try
-
+            Dispatcher.BeginInvoke((Action)delegate
             {
-                Utilities.Speack("Estamos contando el dinero, espera un momento por favor.");
-                frmLoading.Show();
+                FrmLoading frmLoading = new FrmLoading("Devolviendo dinero...");
 
-                totalReturn = false;
-
-                Utilities.control.callbackLog = log =>
+                try
                 {
-                    PaymentViewModel.SplitDenomination(log);
-                };
+                    Utilities.Speack("Estamos contando el dinero, espera un momento por favor.");
+                    frmLoading.Show();
 
-                Utilities.control.callbackTotalOut = totalOut =>
-                {
-                    Utilities.control.callbackTotalOut = null;
-                    Utilities.dataTransaction.ValueDelivery = (long)totalOut;
-                    totalReturn = true;
-                    if (state)
+                    totalReturn = false;
+
+                    Utilities.control.callbackLog = log =>
                     {
-                        try
+                        PaymentViewModel.SplitDenomination(log);
+                    };
+
+                    Utilities.control.callbackTotalOut = totalOut =>
+                    {
+                        Utilities.control.callbackTotalOut = null;
+                        Utilities.dataTransaction.ValueDelivery = (long)totalOut;
+                        totalReturn = true;
+                        if (state)
                         {
-                            SetCallBacksNull();
-                            timer.CallBackStop?.Invoke(1);
-                        }
-                        catch { }
-                        Buytickets();
-                    }
-                    else
-                    {
-                        Cancelled();
-                    }
-                };
-
-                Utilities.control.callbackError = error =>
-                {
-                    AdminPaypad.SaveErrorControl(error, "", EError.Device, ELevelError.Medium);
-                };
-
-                Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
-                {
-                    LogService.SaveRequestResponse(Title, Message, State);
-                };
-
-                Utilities.control.callbackOut = delivery =>
-                {
-                    Utilities.control.callbackOut = null;
-
-                    if (!totalReturn)
-                    {
-                        Utilities.dataTransaction.ValueDelivery = (long)delivery;
-
-                        SetCallBacksNull();
-
-                        if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal && state)
-                        {
-                            if (delivery != returnValue)
+                            try
                             {
                                 Dispatcher.BeginInvoke((Action)delegate
                                 {
-                                    frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
-                                    modal.ShowDialog();
-                                    Buytickets();
+                                    SetCallBacksNull();
+                                    timer.CallBackStop?.Invoke(1);
                                 });
+                                GC.Collect();
                             }
-                            else
-                            {
-                                Buytickets();
-                            }
+                            catch { }
+
+                            Buytickets();
                         }
                         else
                         {
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0"));
-                                modal.ShowDialog();
-                                Cancelled();
-                            });
+                            Cancelled();
                         }
-                    }
-                };
+                    };
 
-                Utilities.control.StartDispenser(returnValue);
+                    Utilities.control.callbackError = error =>
+                    {
+                        AdminPaypad.SaveErrorControl(error, "", EError.Device, ELevelError.Medium);
+                    };
 
-                frmLoading.Close();
-            }
-            catch (Exception ex)
-            {
-                frmLoading.Close();
-                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
-                    "ReturnMoney en frmPayCine",
-                    EError.Aplication,
-                    ELevelError.Medium);
-            }
+                    Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
+                    {
+                        LogService.SaveRequestResponse(Title, Message, State);
+                    };
+
+                    Utilities.control.callbackOut = delivery =>
+                    {
+                        Utilities.control.callbackOut = null;
+
+                        if (!totalReturn)
+                        {
+                            Utilities.dataTransaction.ValueDelivery = (long)delivery;
+
+                            SetCallBacksNull();
+
+                            if (PaymentViewModel.ValorIngresado >= Utilities.dataTransaction.PayVal && state)
+                            {
+                                if (delivery != returnValue)
+                                {
+                                    Dispatcher.BeginInvoke((Action)delegate
+                                    {
+                                        frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0") + ", presiona Salir para tomar tus boletas. Gracias");
+                                        modal.ShowDialog();
+                                        Buytickets();
+                                    });
+                                }
+                                else
+                                {
+                                    Buytickets();
+                                }
+                            }
+                            else
+                            {
+                                Dispatcher.BeginInvoke((Action)delegate
+                                {
+                                    frmModal modal = new frmModal("Lo sentimos, no fué posible devolver todo el dinero, tienes un faltante de: " + (returnValue - delivery).ToString("#,##0"));
+                                    modal.ShowDialog();
+                                    Cancelled();
+                                });
+                            }
+                        }
+                    };
+
+                    Utilities.control.StartDispenser(returnValue);
+
+                    frmLoading.Close();
+                }
+                catch (Exception ex)
+                {
+                    frmLoading.Close();
+                    AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex),
+                        "ReturnMoney en frmPayCine",
+                        EError.Aplication,
+                        ELevelError.Medium);
+                }
+            });
+            GC.Collect();
         }
 
         /// <summary>
@@ -344,47 +353,57 @@ namespace WPProcinal.Forms.User_Control
 
         private void SavePay(bool task)
         {
-
-            if (!task)
+            try
             {
-                this.IsEnabled = false;
-                FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
-                try
-                {
-                    frmLoading.Show();
-                    Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
-                    frmLoading.Close();
-                    this.IsEnabled = true;
-
-                    Dispatcher.BeginInvoke((Action)delegate
-                   {
-                       frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.dataTransaction.PayVal.ToString("#,##0"));
-                       modal.ShowDialog();
-                   });
-                    GC.Collect();
-                }
-                catch (Exception ex)
-                {
-                    LogService.SaveRequestResponse("UCPayCine>SavePay", JsonConvert.SerializeObject(ex), 1);
-                    frmLoading.Close();
-                }
-
-                ActivateTimer(false);
-                ReturnMoney(Utilities.dataTransaction.PayVal, false);
-
-            }
-            else
-            {
-                Utilities.PrintTicket("Aprobada", Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
-
-                ApproveTrans();
-
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    Switcher.Navigate(new UCFinalTransaction());
-                });
-            }
+                    if (!task)
+                    {
+                        this.IsEnabled = false;
+                        FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
 
+                        try
+                        {
+                            frmLoading.Show();
+                            Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
+                            frmLoading.Close();
+                            this.IsEnabled = true;
+
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                frmModal modal = new frmModal("No se pudo realizar la compra, se devolverá el dinero: " + Utilities.dataTransaction.PayVal.ToString("#,##0"));
+                                modal.ShowDialog();
+                            });
+                            GC.Collect();
+                        }
+                        catch (Exception ex)
+                        {
+                            LogService.SaveRequestResponse("UCPayCine>SavePay", JsonConvert.SerializeObject(ex), 1);
+                            frmLoading.Close();
+                        }
+
+                        ActivateTimer(false);
+                        ReturnMoney(Utilities.dataTransaction.PayVal, false);
+
+                    }
+                    else
+                    {
+                        Utilities.PrintTicket("Aprobada", Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
+
+                        ApproveTrans();
+
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            Switcher.Navigate(new UCFinalTransaction());
+                        });
+                    }
+                });
+                GC.Collect();
+            }
+            catch (Exception ex)
+            {
+                AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "Cancelled en frmPayCine", EError.Aplication, ELevelError.Medium);
+            }
         }
 
         private async void Cancelled()
@@ -424,167 +443,177 @@ namespace WPProcinal.Forms.User_Control
 
         private void Buytickets()
         {
-            FrmLoading frmLoading = new FrmLoading("Procesando compra...");
+            Cancelled();
 
-            //try
+            //Dispatcher.BeginInvoke((Action)delegate
             //{
+            //    FrmLoading frmLoading = new FrmLoading("Procesando compra...");
 
-            //    if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalPlate && Utilities.PlateObligatory)
+            //    try
             //    {
-            //        WPlateModal wPlate = new WPlateModal();
-            //        wPlate.ShowDialog();
-            //    }
-            //    frmLoading.Show();
-
-
-            //    List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
-            //    foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
-            //    {
-            //        ubicaciones.Add(new UbicacioneSCOINT
+            //        if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalPlate && Utilities.PlateObligatory)
             //        {
-            //            Fila = item.RelativeRow,
-            //            Columna = item.RelativeColumn,
-            //            ColRelativa = int.Parse(item.Number),
-            //            FilRelativa = item.Letter,
-            //            Tarifa = int.Parse(item.CodTarifa.ToString())
-            //        });
-            //    }
+            //            WPlateModal wPlate = new WPlateModal();
+            //            wPlate.ShowDialog();
+            //        }
 
-            //    productos = new List<Producto>();
+            //        frmLoading.Show();
 
-            //    foreach (var item in DataService41._Combos)
-            //    {
-            //        for (int i = 0; i < item.Quantity; i++)
+            //        List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
+
+            //        foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
             //        {
-
-            //            var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
-            //            if (combo.Receta != null)
+            //            ubicaciones.Add(new UbicacioneSCOINT
             //            {
-            //                foreach (var receta in combo.Receta)
+            //                Fila = item.RelativeRow,
+            //                Columna = item.RelativeColumn,
+            //                ColRelativa = int.Parse(item.Number),
+            //                FilRelativa = item.Letter,
+            //                Tarifa = int.Parse(item.CodTarifa.ToString())
+            //            });
+            //        }
+
+            //        productos = new List<Producto>();
+
+            //        foreach (var item in DataService41._Combos)
+            //        {
+            //            for (int i = 0; i < item.Quantity; i++)
+            //            {
+
+            //                var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+            //                if (combo.Receta != null)
             //                {
-            //                    if (receta.RecetaReceta != null)
+            //                    foreach (var receta in combo.Receta)
             //                    {
-            //                        receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+            //                        if (receta.RecetaReceta != null)
+            //                        {
+            //                            receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+            //                        }
             //                    }
             //                }
+            //                if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PrecioCinefans)
+            //                {
+            //                    combo.Precio = 2;
+            //                }
+            //                else
+            //                {
+            //                    combo.Precio = 1;
+            //                }
+            //                productos.Add(combo);
             //            }
-            //            if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PrecioCinefans)
-            //            {
-            //                combo.Precio = 2;
-            //            }
-            //            else
-            //            {
-            //                combo.Precio = 1;
-            //            }
-            //            productos.Add(combo);
             //        }
-            //    }
 
+            //        string year = DateTime.Now.Year.ToString();
+            //        string mount = DateTime.Now.Month.ToString();
+            //        string day = DateTime.Now.Day.ToString();
 
-            //    string year = DateTime.Now.Year.ToString();
-            //    string mount = DateTime.Now.Month.ToString();
-            //    string day = DateTime.Now.Day.ToString();
-            //    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
-            //    {
-            //        year = Utilities.dataTransaction.DataFunction.Date.Substring(0, 4);
-            //        mount = Utilities.dataTransaction.DataFunction.Date.Substring(4, 2);
-            //        day = Utilities.dataTransaction.DataFunction.Date.Substring(6, 2);
-            //    }
-            //    var dataClient = GetDataClient();
-
-            //    var response41 = WCFServices41.PostBuy(new SCOINT
-            //    {
-            //        Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
-            //        Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
-            //        Apellido = dataClient.Apellido,
-            //        ClienteFrecuente = long.Parse(dataClient.Tarjeta),
-            //        CorreoCliente = dataClient.Login,
-            //        Cortesia = string.Empty,
-            //        Direccion = dataClient.Direccion,
-            //        DocIdentidad = long.Parse(dataClient.Documento),
-            //        Factura = int.Parse(Utilities.dataTransaction.Secuencia),
-            //        FechaFun = string.Concat(year, "-", mount, "-", day),
-            //        Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
-            //        InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
-            //        Nombre = dataClient.Nombre,
-            //        PagoCredito = 0,
-            //        PagoEfectivo = Utilities.dataTransaction.PayVal,
-            //        PagoInterno = Utilities.dataTransaction.PagoInterno,
-            //        Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
-            //        Productos = productos,
-            //        PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
-            //        Sala = Utilities.dataTransaction.DataFunction.RoomId,
-            //        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
-            //        Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
-            //        tercero = 1,
-            //        TipoBono = 0,
-            //        TotalVenta = Utilities.dataTransaction.DataFunction.Total,
-            //        Ubicaciones = ubicaciones,
-            //        Membresia = false,
-            //        Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
-            //    });
-            //    frmLoading.Close();
-            //    foreach (var item in response41)
-            //    {
-            //        if (item.Respuesta != null)
+            //        if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
             //        {
-            //            if (item.Respuesta.Contains("exitoso"))
+            //            year = Utilities.dataTransaction.DataFunction.Date.Substring(0, 4);
+            //            mount = Utilities.dataTransaction.DataFunction.Date.Substring(4, 2);
+            //            day = Utilities.dataTransaction.DataFunction.Date.Substring(6, 2);
+            //        }
+
+            //        var dataClient = GetDataClient();
+
+            //        var response41 = WCFServices41.PostBuy(new SCOINT
+            //        {
+            //            Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
+            //            Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
+            //            Apellido = dataClient.Apellido,
+            //            ClienteFrecuente = long.Parse(dataClient.Tarjeta),
+            //            CorreoCliente = dataClient.Login,
+            //            Cortesia = string.Empty,
+            //            Direccion = dataClient.Direccion,
+            //            DocIdentidad = long.Parse(dataClient.Documento),
+            //            Factura = int.Parse(Utilities.dataTransaction.Secuencia),
+            //            FechaFun = string.Concat(year, "-", mount, "-", day),
+            //            Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
+            //            InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
+            //            Nombre = dataClient.Nombre,
+            //            PagoCredito = 0,
+            //            PagoEfectivo = Utilities.dataTransaction.PayVal,
+            //            PagoInterno = Utilities.dataTransaction.PagoInterno,
+            //            Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
+            //            Productos = productos,
+            //            PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
+            //            Sala = Utilities.dataTransaction.DataFunction.RoomId,
+            //            teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
+            //            Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
+            //            tercero = 1,
+            //            TipoBono = 0,
+            //            TotalVenta = Utilities.dataTransaction.DataFunction.Total,
+            //            Ubicaciones = ubicaciones,
+            //            Membresia = false,
+            //            Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
+            //        });
+
+            //        frmLoading.Close();
+
+            //        foreach (var item in response41)
+            //        {
+            //            if (item.Respuesta != null)
             //            {
-            //                GetInvoice();
-            //                payState = true;
-            //                break;
+            //                if (item.Respuesta.Contains("exitoso"))
+            //                {
+            //                    GetInvoice();
+            //                    payState = true;
+            //                    break;
+            //                }
+            //                else
+            //                {
+            //                    payState = false;
+            //                }
             //            }
             //            else
             //            {
             //                payState = false;
             //            }
-            //        }
-            //        else
-            //        {
-            //            payState = false;
+
             //        }
 
+            //        SavePay(payState);
             //    }
-
-
-            //    SavePay(payState);
-            //}
-            //catch (Exception ex)
-            //{
-            //    frmLoading.Close();
-            //    Dispatcher.BeginInvoke((Action)delegate
+            //    catch (Exception ex)
             //    {
             //        frmLoading.Close();
-            //    });
-            //    payState = false;
-            //    SavePay(payState);
-            //    AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
-            //}
+            //        Dispatcher.BeginInvoke((Action)delegate
+            //        {
+            //            frmLoading.Close();
+            //        });
+            //        payState = false;
+            //        SavePay(payState);
+            //        AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
+            //    }
+            //});
         }
 
         private void GetInvoice()
         {
-            if (DataService41._Combos.Count > 0)
+            Dispatcher.BeginInvoke((Action)delegate
             {
-                FrmLoading frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
-                try
+                if (DataService41._Combos.Count > 0)
                 {
-                    frmLoading.Show();
-                    DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                    FrmLoading frmLoading = new FrmLoading("¡Consultando resolución de factura...!");
+                    try
                     {
-                        Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
-                        Secuencial = Convert.ToInt32(Utilities.dataTransaction.Secuencia),
-                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
-                        tercero = 1
-                    });
-                    frmLoading.Close();
+                        frmLoading.Show();
+                        DataService41._DataResolution = WCFServices41.ConsultResolution(new SCORES
+                        {
+                            Punto = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
+                            Secuencial = Convert.ToInt32(Utilities.dataTransaction.Secuencia),
+                            teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
+                            tercero = 1
+                        });
+                        frmLoading.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        LogService.SaveRequestResponse("UCPayCine>GetInvoice", JsonConvert.SerializeObject(ex), 1);
+                        frmLoading.Close();
+                    }
                 }
-                catch (Exception ex)
-                {
-                    LogService.SaveRequestResponse("UCPayCine>GetInvoice", JsonConvert.SerializeObject(ex), 1);
-                    frmLoading.Close();
-                }
-            }
+            });
         }
 
         SCOLOGResponse GetDataClient()
@@ -697,8 +726,9 @@ namespace WPProcinal.Forms.User_Control
 
                 Utilities.control.StopAceptance();
 
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 frmLoading.Close();
+
                 if (PaymentViewModel.ValorIngresado > 0)
                 {
                     ActivateTimer(false);

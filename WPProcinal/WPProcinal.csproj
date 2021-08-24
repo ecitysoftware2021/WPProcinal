@@ -147,7 +147,7 @@
     <Compile Include="Classes\ImagesSleader.cs" />
     <Compile Include="Classes\Login.cs" />
     <Compile Include="Classes\Peripherals\ControlPeripherals.cs" />
-    <Compile Include="Classes\Peripherals\MEIAcceptorControl2.cs" />
+    <Compile Include="Classes\Peripherals\MEIAcceptorControl.cs" />
     <Compile Include="Classes\Print.cs" />
     <Compile Include="Classes\Switcher.cs" />
     <Compile Include="DataModel\ClasesUtiles.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WPProcinal.Classes.Peripherals
 {
-    public class MEIAcceptorControl2
+    public class MEIAcceptorControl
     {
         private Acceptor meiAcceptor;
         public  Action<EMEIMEssages> callbackMeiMessages;
@@ -36,7 +36,7 @@ namespace WPProcinal.Classes.Peripherals
             {"MeiStallResolved","Aceptación Reactivada" }
         };
 
-        public MEIAcceptorControl2()
+        public MEIAcceptorControl()
         {
             try
             {
@@ -300,12 +300,17 @@ namespace WPProcinal.Classes.Peripherals
                 {
                     meiAcceptor.Open(acceptorPort);
                 }
+                else
+                {
+                    AdminPaypad.SaveErrorControl("Error: El puerto del aceptador ya esta ocupado", "La clase OpenAcceptor", EError.Device, ELevelError.Medium);
+                }
             }
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(ex.Message, "La clase OpenAcceptor", EError.Device, ELevelError.Medium);
             }
         }
+
         public void InitAcceptance()
         {
             try
@@ -316,7 +321,7 @@ namespace WPProcinal.Classes.Peripherals
                 }
                 else
                 {
-
+                    AdminPaypad.SaveErrorControl("Error: El aceptador esta desconectado", "La clase InitAcceptance", EError.Device, ELevelError.Medium);
                 }
             }
             catch (Exception ex)
@@ -335,7 +340,7 @@ namespace WPProcinal.Classes.Peripherals
                 }
                 else
                 {
-
+                    AdminPaypad.SaveErrorControl("Error: El aceptador esta desconectado", "La clase StopAcceptance", EError.Device, ELevelError.Medium);
                 }
             }
             catch (Exception ex)
