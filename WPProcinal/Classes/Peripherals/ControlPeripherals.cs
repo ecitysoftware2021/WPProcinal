@@ -115,7 +115,6 @@ namespace WPProcinal.Classes.Peripherals
                 if (AcceptorControl == null)
                 {
                     AcceptorControl = new MEIAcceptorControl();
-                    ListenerAceptance();
                 }
 
                 if (!string.IsNullOrEmpty(denominatios))
@@ -139,6 +138,8 @@ namespace WPProcinal.Classes.Peripherals
         {
             try
             {
+                ListenerAceptance();
+
                 if (!SendMessageBills(_StartPeripherals))
                 {
                     callbackError?.Invoke(string.Concat("Error (Start), Iniciando los perifericos", "No se pudo iniciar"));
@@ -152,41 +153,62 @@ namespace WPProcinal.Classes.Peripherals
 
         private void ListenerAceptance()
         {
-            AcceptorControl.callbackBillAccepted = Value =>
+            try
             {
-                var responseAP = Convert.ToDecimal(Value);
-
-                CallBackSaveRequestResponse?.Invoke("Respuesta del billetero AP", responseAP.ToString(), 1);
-
-                if (responseAP > 0)
+                AcceptorControl.callbackBillAccepted = Value =>
                 {
-                    enterValue += responseAP * _dividerBills;
-                    callbackValueIn?.Invoke(Tuple.Create(responseAP * _dividerBills, "AP"));
-                }
+                    var responseAP = Convert.ToDecimal(Value);
 
-                ValidateEnterValue();
-            };
+                    CallBackSaveRequestResponse?.Invoke("Respuesta del billetero AP", responseAP.ToString(), 1);
 
-            AcceptorControl.callbackMeiMessages = EMessage =>
-            {
-                var responseAPMS = AcceptorControl.MeiMessagesHomologate[EMessage.ToString()] + Environment.NewLine;
-
-                CallBackSaveRequestResponse?.Invoke("Respuesta del billetero AP-MS", responseAPMS.ToString(), 1);
-
-                if (responseAPMS.Contains("Aceptador Conectado"))
-                {
-                    if (token)
+                    if (responseAP > 0)
                     {
-                        token = false;
-                        callbackToken?.Invoke(true);
+                        enterValue += responseAP * _dividerBills;
+                        callbackValueIn?.Invoke(Tuple.Create(responseAP * _dividerBills, "AP"));
                     }
-                }
-                else
-                {
-                    callbackError?.Invoke(responseAPMS);
-                }
 
-            };
+                    ValidateEnterValue();
+                };
+
+                AcceptorControl.callbackMeiMessages = EMessage =>
+                {
+                    var responseAPMS = AcceptorControl.MeiMessagesHomologate[EMessage.ToString()] + Environment.NewLine;
+
+                    CallBackSaveRequestResponse?.Invoke("Respuesta del billetero AP-MS", responseAPMS.ToString(), 1);
+
+                    if (responseAPMS.Contains("Aceptador Conectado"))
+                    {
+                        if (token)
+                        {
+                            token = false;
+                            CloseCallbackAP();
+                            callbackToken?.Invoke(true);
+                            ClearValues();
+                        }
+                    }
+                    else
+                    {
+                        callbackError?.Invoke(responseAPMS);
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                callbackError?.Invoke(string.Concat("Error (ListenerAceptance) ", ex));
+            }
+        }
+
+        public void CloseCallbackAP()
+        {
+            try
+            {
+                AcceptorControl.callbackBillAccepted = null;
+                AcceptorControl.callbackMeiMessages = null;
+            }
+            catch (Exception ex)
+            {
+                callbackError?.Invoke(string.Concat("Error (CloseCallbackAP) ", ex));
+            }
         }
 
         /// <summary>
@@ -575,6 +597,7 @@ namespace WPProcinal.Classes.Peripherals
         {
             try
             {
+                ListenerAceptance();
                 this.payValue = payValue;
                 AcceptorControl.InitAcceptance();
             }
