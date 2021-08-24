@@ -12,9 +12,9 @@ DEBUG;TRACE
 E:\GitHub\WPProcinal\WPProcinal\App.xaml
 221465113562
 
-64-342472008
+64-1913035068
 38-950789205
 Forms\frmConfigurate.xaml;Forms\frmConfirmationModal.xaml;Forms\FrmLoading.xaml;Forms\frmModal.xaml;Forms\frmModalCineFan.xaml;Forms\FrmModalDeletePay.xaml;Forms\frmModalLogin.xaml;Forms\frmRegister.xaml;Forms\ModalBioseguridad.xaml;Forms\Opciones.xaml;Forms\User_Control\UCCardPayment.xaml;Forms\User_Control\UCCinema.xaml;Forms\User_Control\UCFinalTransaction.xaml;Forms\User_Control\UCMovies.xaml;Forms\User_Control\UCPayCine.xaml;Forms\User_Control\UCProducts.xaml;Forms\User_Control\UCProductsCombos.xaml;Forms\User_Control\UCSchedule.xaml;Forms\User_Control\UCSeat.xaml;Forms\WModal.xaml;Forms\WPlateModal.xaml;Forms\WTCModal.xaml;
 
-False
+True
 
