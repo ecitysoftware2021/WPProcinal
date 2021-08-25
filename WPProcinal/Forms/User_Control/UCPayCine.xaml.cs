@@ -123,10 +123,9 @@ namespace WPProcinal.Forms.User_Control
 
                     if (!BtnCancellPressed)
                     {
-                        this.PaymentViewModel.ImgCancel = Visibility.Hidden;
-
                         Dispatcher.BeginInvoke((Action)delegate
                         {
+                            this.PaymentViewModel.ImgCancel = Visibility.Hidden;
                             Utilities.control.CloseCallbackAP();
                             Utilities.control.StopAceptance();
                         });
