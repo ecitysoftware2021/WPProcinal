@@ -19,7 +19,7 @@ namespace WPProcinal.Classes.Peripherals
             {"MeiBillEscrow","Billete Ingresado" },
             {"MeiBillStacked","Billete Contabilizado" },
             {"MeiBillRejected","No acepto Billetes falso" },
-            {"MeiCashBoxRemoved","Baúl Retirado" },
+            {"MeiCashBoxRemoved","El baúl del billetero aceptador está retirado" },
             {"MeiCashBoxAttached","Baúl Reincorporado" },
             {"MeiJamDetected","Aceptador Atascado" },
             {"MeiJamResolved","Aceptador Desatascado" },

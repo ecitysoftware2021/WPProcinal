@@ -349,7 +349,7 @@ namespace WPProcinal.Classes.Peripherals
 
                             token = true;
 
-                            AcceptorControl.OpenAcceptor("COM10");
+                            AcceptorControl.OpenAcceptor(Utilities.GetConfiguration("PortAP"));
                         }
                         break;
                     case "MD":
