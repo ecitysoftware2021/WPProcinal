@@ -598,6 +598,7 @@ namespace WPProcinal.Classes.Peripherals
                 ListenerAceptance();
                 this.payValue = payValue;
                 AcceptorControl.InitAcceptance();
+                SendMessageBills(_AceptanceBillOn);
             }
             catch (Exception ex)
             {
@@ -625,6 +626,7 @@ namespace WPProcinal.Classes.Peripherals
         public void StopAceptance()
         {
             AcceptorControl.StopAcceptance();
+            SendMessageBills(_AceptanceBillOFF);
         }
         #endregion
 
