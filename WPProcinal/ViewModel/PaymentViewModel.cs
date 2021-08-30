@@ -217,7 +217,9 @@ namespace WPProcinal.ViewModel
                         Denominacion = denomination,
                         Quantity = quantity,
                         Total = denomination * quantity,
-                        Code = code
+                        Code = code,
+                        OperationType = DenominationDestiny.ACEPTAR,
+                        CurrencyID = (int)CurrencyDenomination.COP
                     });
                 }
                 else
@@ -250,7 +252,9 @@ namespace WPProcinal.ViewModel
                             Denominacion = denomination,
                             Quantity = quantity,
                             Total = denomination * quantity,
-                            Code = code
+                            Code = code,
+                            OperationType = DenominationDestiny.DISPENSAR,
+                            CurrencyID = (int)CurrencyDenomination.COP
                         });
                     }
                 }

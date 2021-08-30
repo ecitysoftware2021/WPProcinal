@@ -422,7 +422,7 @@ namespace WPProcinal.Forms.User_Control
                 await Utilities.UpdateTransaction(
                       PaymentViewModel.ValorIngresado,
                       (int)ETransactionState.Canceled,
-                      new List<DataModel.DenominationMoney>(),
+                      PaymentViewModel.Denominations,
                       Utilities.dataTransaction.ValueDelivery);
 
                 Dispatcher.Invoke(() =>
@@ -442,147 +442,150 @@ namespace WPProcinal.Forms.User_Control
 
         private void Buytickets()
         {
-            Dispatcher.BeginInvoke((Action)delegate
-            {
-                FrmLoading frmLoading = new FrmLoading("Procesando compra...");
+            //ApproveTrans();
+            Cancelled();
 
-                try
-                {
-                    if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalPlate && Utilities.PlateObligatory)
-                    {
-                        WPlateModal wPlate = new WPlateModal();
-                        wPlate.ShowDialog();
-                    }
+            //Dispatcher.BeginInvoke((Action)delegate
+            //{
+            //    FrmLoading frmLoading = new FrmLoading("Procesando compra...");
 
-                    frmLoading.Show();
+            //    try
+            //    {
+            //        if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalPlate && Utilities.PlateObligatory)
+            //        {
+            //            WPlateModal wPlate = new WPlateModal();
+            //            wPlate.ShowDialog();
+            //        }
 
-                    List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
+            //        frmLoading.Show();
 
-                    foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
-                    {
-                        ubicaciones.Add(new UbicacioneSCOINT
-                        {
-                            Fila = item.RelativeRow,
-                            Columna = item.RelativeColumn,
-                            ColRelativa = int.Parse(item.Number),
-                            FilRelativa = item.Letter,
-                            Tarifa = int.Parse(item.CodTarifa.ToString())
-                        });
-                    }
+            //        List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
 
-                    productos = new List<Producto>();
+            //        foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
+            //        {
+            //            ubicaciones.Add(new UbicacioneSCOINT
+            //            {
+            //                Fila = item.RelativeRow,
+            //                Columna = item.RelativeColumn,
+            //                ColRelativa = int.Parse(item.Number),
+            //                FilRelativa = item.Letter,
+            //                Tarifa = int.Parse(item.CodTarifa.ToString())
+            //            });
+            //        }
 
-                    foreach (var item in DataService41._Combos)
-                    {
-                        for (int i = 0; i < item.Quantity; i++)
-                        {
+            //        productos = new List<Producto>();
 
-                            var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
-                            if (combo.Receta != null)
-                            {
-                                foreach (var receta in combo.Receta)
-                                {
-                                    if (receta.RecetaReceta != null)
-                                    {
-                                        receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
-                                    }
-                                }
-                            }
-                            if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PrecioCinefans)
-                            {
-                                combo.Precio = 2;
-                            }
-                            else
-                            {
-                                combo.Precio = 1;
-                            }
-                            productos.Add(combo);
-                        }
-                    }
+            //        foreach (var item in DataService41._Combos)
+            //        {
+            //            for (int i = 0; i < item.Quantity; i++)
+            //            {
 
-                    string year = DateTime.Now.Year.ToString();
-                    string mount = DateTime.Now.Month.ToString();
-                    string day = DateTime.Now.Day.ToString();
+            //                var combo = DataService41._Productos.Where(pr => pr.Codigo == item.Code).FirstOrDefault();
+            //                if (combo.Receta != null)
+            //                {
+            //                    foreach (var receta in combo.Receta)
+            //                    {
+            //                        if (receta.RecetaReceta != null)
+            //                        {
+            //                            receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
+            //                        }
+            //                    }
+            //                }
+            //                if (Utilities.dataTransaction.dataUser.Tarjeta != null && Utilities.dataTransaction.PrecioCinefans)
+            //                {
+            //                    combo.Precio = 2;
+            //                }
+            //                else
+            //                {
+            //                    combo.Precio = 1;
+            //                }
+            //                productos.Add(combo);
+            //            }
+            //        }
 
-                    if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
-                    {
-                        year = Utilities.dataTransaction.DataFunction.Date.Substring(0, 4);
-                        mount = Utilities.dataTransaction.DataFunction.Date.Substring(4, 2);
-                        day = Utilities.dataTransaction.DataFunction.Date.Substring(6, 2);
-                    }
+            //        string year = DateTime.Now.Year.ToString();
+            //        string mount = DateTime.Now.Month.ToString();
+            //        string day = DateTime.Now.Day.ToString();
 
-                    var dataClient = GetDataClient();
+            //        if (Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema)
+            //        {
+            //            year = Utilities.dataTransaction.DataFunction.Date.Substring(0, 4);
+            //            mount = Utilities.dataTransaction.DataFunction.Date.Substring(4, 2);
+            //            day = Utilities.dataTransaction.DataFunction.Date.Substring(6, 2);
+            //        }
 
-                    var response41 = WCFServices41.PostBuy(new SCOINT
-                    {
-                        Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
-                        Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
-                        Apellido = dataClient.Apellido,
-                        ClienteFrecuente = long.Parse(dataClient.Tarjeta),
-                        CorreoCliente = dataClient.Login,
-                        Cortesia = string.Empty,
-                        Direccion = dataClient.Direccion,
-                        DocIdentidad = long.Parse(dataClient.Documento),
-                        Factura = int.Parse(Utilities.dataTransaction.Secuencia),
-                        FechaFun = string.Concat(year, "-", mount, "-", day),
-                        Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
-                        InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
-                        Nombre = dataClient.Nombre,
-                        PagoCredito = 0,
-                        PagoEfectivo = Utilities.dataTransaction.PayVal,
-                        PagoInterno = Utilities.dataTransaction.PagoInterno,
-                        Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
-                        Productos = productos,
-                        PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
-                        Sala = Utilities.dataTransaction.DataFunction.RoomId,
-                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
-                        Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
-                        tercero = 1,
-                        TipoBono = 0,
-                        TotalVenta = Utilities.dataTransaction.DataFunction.Total,
-                        Ubicaciones = ubicaciones,
-                        Membresia = false,
-                        Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
-                    });
+            //        var dataClient = GetDataClient();
 
-                    frmLoading.Close();
+            //        var response41 = WCFServices41.PostBuy(new SCOINT
+            //        {
+            //            Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
+            //            Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
+            //            Apellido = dataClient.Apellido,
+            //            ClienteFrecuente = long.Parse(dataClient.Tarjeta),
+            //            CorreoCliente = dataClient.Login,
+            //            Cortesia = string.Empty,
+            //            Direccion = dataClient.Direccion,
+            //            DocIdentidad = long.Parse(dataClient.Documento),
+            //            Factura = int.Parse(Utilities.dataTransaction.Secuencia),
+            //            FechaFun = string.Concat(year, "-", mount, "-", day),
+            //            Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
+            //            InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
+            //            Nombre = dataClient.Nombre,
+            //            PagoCredito = 0,
+            //            PagoEfectivo = Utilities.dataTransaction.PayVal,
+            //            PagoInterno = Utilities.dataTransaction.PagoInterno,
+            //            Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
+            //            Productos = productos,
+            //            PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
+            //            Sala = Utilities.dataTransaction.DataFunction.RoomId,
+            //            teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
+            //            Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
+            //            tercero = 1,
+            //            TipoBono = 0,
+            //            TotalVenta = Utilities.dataTransaction.DataFunction.Total,
+            //            Ubicaciones = ubicaciones,
+            //            Membresia = false,
+            //            Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
+            //        });
 
-                    foreach (var item in response41)
-                    {
-                        if (item.Respuesta != null)
-                        {
-                            if (item.Respuesta.Contains("exitoso"))
-                            {
-                                GetInvoice();
-                                payState = true;
-                                break;
-                            }
-                            else
-                            {
-                                payState = false;
-                            }
-                        }
-                        else
-                        {
-                            payState = false;
-                        }
+            //        frmLoading.Close();
 
-                    }
+            //        foreach (var item in response41)
+            //        {
+            //            if (item.Respuesta != null)
+            //            {
+            //                if (item.Respuesta.Contains("exitoso"))
+            //                {
+            //                    GetInvoice();
+            //                    payState = true;
+            //                    break;
+            //                }
+            //                else
+            //                {
+            //                    payState = false;
+            //                }
+            //            }
+            //            else
+            //            {
+            //                payState = false;
+            //            }
 
-                    SavePay(payState);
-                }
-                catch (Exception ex)
-                {
-                    frmLoading.Close();
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        frmLoading.Close();
-                    });
-                    payState = false;
-                    SavePay(payState);
-                    AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
-                }
-            });
+            //        }
+
+            //        SavePay(payState);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        frmLoading.Close();
+            //        Dispatcher.BeginInvoke((Action)delegate
+            //        {
+            //            frmLoading.Close();
+            //        });
+            //        payState = false;
+            //        SavePay(payState);
+            //        AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BuyTicket en frmPayCine", EError.Aplication, ELevelError.Medium);
+            //    }
+            //});
         }
 
         private void GetInvoice()
