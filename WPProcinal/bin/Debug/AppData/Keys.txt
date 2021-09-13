@@ -1,2 +1,2 @@
-usuario:usrapli;password:1Cero12019$/*
-usuario:Pay+ Procinal Plaza del Rio;password:ProcinalApartado2020*;tipo:1
+usuario:hdsharepoint;password:Pun3$/*
+usuario:Ecity.Software;password:EcitySoftware2019#;tipo:1

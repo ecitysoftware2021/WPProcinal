@@ -86,25 +86,28 @@ namespace WPProcinal.Forms.User_Control
             if (data != null)
             {
                 this.IsEnabled = false;
-                foreach (var pelicula in data.Pelicula)
+                foreach (var pelicula in data.Pelicula.Where(x=>x.Cinemas != null))
                 {
                     try
                     {
-                        if (pelicula.Cinemas != null)
-                        {
-                            foreach (var Cinema in pelicula.Cinemas.Cinema)
+                        //comentarie michael
+                        //if (pelicula.Cinemas != null)
+                        //{
+                            foreach (var Cinema in pelicula.Cinemas.Cinema.Where( p => 
+                                p.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()
+                            ))
                             {
-                                if (Cinema.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString())
-                                {
+                                //if (Cinema.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString())
+                                //{
                                     var peliculaExistente = DataService41.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
                                     if (peliculaExistente == 0)
                                     {
                                         DataService41.Movies.Add(pelicula);
                                         LoadMovies(pelicula);
                                     }
-                                }
+                                //}
                             }
-                        }
+                        //}
                     }
                     catch (Exception ex)
                     {
@@ -399,6 +402,40 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 LogService.SaveRequestResponse("UCMovies>BtnLogin_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
+        }
+
+        private void Grid_TouchDown(object sender, TouchEventArgs e)
+        {
+            SetCallBacksNull();
+            try
+            {
+                Image TocuhImage = (Image)sender;
+                var movie = DataService41.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
+                string image = movie.Data.Imagen;
+                Utilities.dataTransaction.ImageSelected = Utilities.LoadImage(image, true);
+                Switcher.Navigate(new UCSchedule(movie));
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCMovies>TouchImage_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
+        }
+
+        private void lvMovies_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SetCallBacksNull();
+            try
+            {
+                Image TocuhImage = (Image)sender;
+                var movie = DataService41.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
+                string image = movie.Data.Imagen;
+                Utilities.dataTransaction.ImageSelected = Utilities.LoadImage(image, true);
+                Switcher.Navigate(new UCSchedule(movie));
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCMovies>TouchImage_TouchDown", JsonConvert.SerializeObject(ex), 1);
             }
         }
     }

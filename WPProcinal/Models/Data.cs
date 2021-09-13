@@ -6,7 +6,7 @@ namespace WPProcinal.Models
 	[XmlRoot(ElementName = "data")]
 	public class Data
 	{
-		[XmlAttribute(AttributeName = "TituloOriginal")]
+		[XmlAttribute(AttributeName = "Titulo")]
 		public string TituloOriginal { get; set; }
 		[XmlAttribute(AttributeName = "Imagen")]
 		public string Imagen { get; set; }
@@ -137,8 +137,26 @@ namespace WPProcinal.Models
 		public string CortoNacional { get; set; }
 		[XmlAttribute(AttributeName = "capacidad")]
 		public string Capacidad { get; set; }
-		[XmlAttribute(AttributeName = "disponibilidad")]
+		//[XmlAttribute(AttributeName = "disponibilidad")]
+		[XmlAttribute(AttributeName = "porcentajeOcupacion")]
 		public string Disponibilidad { get; set; }
+		[XmlAttribute(AttributeName = "kioscoVentas")]
+		public string kioscoVentas { get; set; }
+		[XmlAttribute(AttributeName = "posMovilVentas")]
+		public string posMovilVentas { get; set; }
+		[XmlAttribute(AttributeName = "posVentas")]
+		public string posVentas { get; set; }
+		[XmlAttribute(AttributeName = "posReservas")]
+		public string posReservas { get; set; }
+		[XmlAttribute(AttributeName = "webserviceReservas")]
+		public string webserviceReservas { get; set; }
+		[XmlAttribute(AttributeName = "kioskoReservas")]
+		public string kioscoReservas { get; set; }
+		[XmlAttribute(AttributeName = "posMovilReservas")]
+		public string posMovilReservas { get; set; }
+		[XmlAttribute(AttributeName = "webserviceVentas")]
+		public string webserviceVentas { get; set; }
+
 	}
 
 	[XmlRoot(ElementName = "Fecha")]
@@ -161,6 +179,7 @@ namespace WPProcinal.Models
 		public string NumeroSala { get; set; }
 		[XmlAttribute(AttributeName = "tipoSala")]
 		public string TipoSala { get; set; }
+	
 	}
 
 	[XmlRoot(ElementName = "salas")]

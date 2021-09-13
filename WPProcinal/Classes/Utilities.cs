@@ -196,6 +196,9 @@ namespace WPProcinal.Classes
         {
             if (type)
             {
+                //var bitdt = new BitmapImage(new Uri(filename));
+                //var state = bitdt.IsSealed;
+
                 return new BitmapImage(new Uri(filename));
             }
 
