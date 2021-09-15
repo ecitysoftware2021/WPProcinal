@@ -1,5 +1,28 @@
 ﻿namespace WPProcinal.Classes
 {
+    public enum EMEIMEssages
+    {
+        MeiConnected,
+        MeiBillEscrow,
+        MeiBillStacked,
+        MeiBillRejected,
+        MeiCashBoxRemoved,
+        MeiCashBoxAttached,
+        MeiJamDetected,
+        MeiJamResolved,
+        MeiCheated,
+        MeiDisconnected,
+        MeiPauseDetected,
+        MeiPauseResolved,
+        MeiPowerUp,
+        MeiPowerUpComplete,
+        MeiBillInScrowOnPowerUp,
+        MeiStackerFull,
+        MeiStackerFullResolved,
+        MeiStallDetected,
+        MeiStallResolved
+    }
+
     public enum ELogType
     {
         General = 0,
