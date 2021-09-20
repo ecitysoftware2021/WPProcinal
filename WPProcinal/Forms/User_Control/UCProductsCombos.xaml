@@ -39,7 +39,7 @@ d:DesignHeight="2064.095" d:DesignWidth="1250.599">
         <Grid Grid.Row="1">
             <ListView 
                 x:Name="lv_Products" 
-                Margin="0,0,0,0"
+                Margin="0"
                 Background="Transparent"
                 BorderBrush="Transparent"
                 HorizontalAlignment="Center" 
@@ -68,11 +68,12 @@ d:DesignHeight="2064.095" d:DesignWidth="1250.599">
                             <Image
                                 Source="{Binding Imagen}"
                                 HorizontalAlignment="Center" 
-                                VerticalAlignment="Top" 
+                                VerticalAlignment="Top"
                                 Height="250" 
-                                Margin="0,0,0,0"
+                                Margin="0"
                                 Stretch="Uniform"
                             />
+                            
                             <TextBlock
                                 Text="{Binding Descripcion}"
                                 HorizontalAlignment="Center" 
@@ -84,6 +85,7 @@ d:DesignHeight="2064.095" d:DesignWidth="1250.599">
                                 TextAlignment="Center"
                                 TextWrapping="Wrap"
                             />
+                            
                             <Image 
                                 Name="btnPlus"
                                 HorizontalAlignment="Center"
@@ -114,12 +116,13 @@ d:DesignHeight="2064.095" d:DesignWidth="1250.599">
                                 Stretch="Uniform"
                                 Tag="{Binding Codigo}"
                                 Source="/Images/Buttons/-.png"
-                             TouchDown="BtnLess_TouchDown" />
+                                TouchDown="BtnLess_TouchDown" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
+        
         <Grid Grid.Row="2">
             <Image 
                 HorizontalAlignment="Left"
@@ -142,5 +145,6 @@ d:DesignHeight="2064.095" d:DesignWidth="1250.599">
                 TouchDown="BtnComprar_TouchDown"
             />
         </Grid>
+        
     </Grid>
 </UserControl>

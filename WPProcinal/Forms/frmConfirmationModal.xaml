@@ -244,10 +244,11 @@
                         <ColumnDefinition Width="572*"/>
                         <ColumnDefinition Width="177*"/>
                     </Grid.ColumnDefinitions>
-                    <Image x:Name="BtnCash"                        
-                           
-                           Margin="50,-26,0,0"
-                           TouchDown="BtnCash_TouchDown"
+                    <Image 
+                        x:Name="BtnCash"                        
+                         
+                        Margin="50,-26,0,0"
+                        TouchDown="BtnCash_TouchDown"
                        Width="200"
                        HorizontalAlignment="Left"
                        Height="200"
@@ -261,6 +262,7 @@
                        Height="200"
                            Grid.ColumnSpan="2"
                        Source="/Images/Buttons/b-tarjeta.png"/>
+           
 
                     <Image x:Name="BtnNo"
                        HorizontalAlignment="Center"

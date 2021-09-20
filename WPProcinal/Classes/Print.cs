@@ -278,7 +278,9 @@ namespace WPProcinal.Classes
                     g.DrawString(DataService41._DataResolution.Factura.ToString(), fBodyTiulos, sb, 140, SpaceY);
                     SpaceY += 20;
                     g.DrawString("Prefijo ", fBodyTiulos, sb, 10, SpaceY);
-                    g.DrawString(DataService41._DataResolution.Prefijo.ToString(), fBodyTiulos, sb, 140, SpaceY);
+                    //g.DrawString(DataService41._DataResolution.Prefijo.ToString(),
+                    g.DrawString(0.ToString(),
+                        fBodyTiulos, sb, 140, SpaceY);
                     SpaceY += 20;
                     g.DrawString("Resolución ", fBodyTiulos, sb, 10, SpaceY);
                     g.DrawString(DataService41._DataResolution.Resolución.ToString(), fBodyTiulos, sb, 140, SpaceY);
@@ -338,9 +340,9 @@ namespace WPProcinal.Classes
                 SpaceY += 20;
                 g.DrawString("Valor Total:", fBodyTiulos, sb, 40, SpaceY);
                 g.DrawString((baseIMP + IMP).ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
-                SpaceY += 20;
-                g.DrawString("Vehículo:", fBodyTiulos, sb, 40, SpaceY);
-                g.DrawString(Placa, fBodyTiulos, sb, 200, SpaceY);
+                //SpaceY += 20;
+                //g.DrawString("Vehículo:", fBodyTiulos, sb, 40, SpaceY);
+                //g.DrawString(Placa, fBodyTiulos, sb, 200, SpaceY);
                 SpaceY += 20;
                 g.DrawString("RECLAMA TU COMBO EN LA CONFITERÍA", fBodySala, sb, 0, SpaceY);
                 SpaceY += 20;
@@ -350,6 +352,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+
             }
         }
 

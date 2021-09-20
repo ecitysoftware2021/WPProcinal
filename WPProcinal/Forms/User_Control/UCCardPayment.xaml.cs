@@ -82,6 +82,7 @@ namespace WPProcinal.Forms.User_Control
                     Activar();
                     //Buytickets();
                 }
+
             }
             catch (Exception ex)
             {
@@ -525,7 +526,6 @@ namespace WPProcinal.Forms.User_Control
                 LogService.SaveRequestResponse("Respuesta del datáfono", responseTPV, 1);
 
                 //Todas las respuestas correctas tienen mas de 4 caracteres
-
                 if (responseTPV.Length < 4)
                 {
                     SetMessageAndPutVisibility("Datáfono sin conexión, intente de nuevo.");
@@ -561,6 +561,7 @@ namespace WPProcinal.Forms.User_Control
                                 ProccessPositiveResponse(dataResponse);
                             }
                         }
+                        
                         else if (dataResponse[2].ToLower().Equals("error"))
                         {
                             //Procesa  todas las tramas con error del datáfono
@@ -576,12 +577,14 @@ namespace WPProcinal.Forms.User_Control
                                 ProcesarFinalError(dataResponse[3]);
                             }
                         }
+
                         else
                         {
                             //Procesa todas las tramas operacionales del datafono
                             ProcessOperation(dataResponse);
                         }
                     }
+                    
                     else if (dataResponse[0].Equals("F"))
                     {
                         /**
@@ -589,6 +592,7 @@ namespace WPProcinal.Forms.User_Control
                          */
                         ProcesarFinal(dataResponse);
                     }
+
                     else
                     {
                         this.IsEnabled = true;
@@ -644,6 +648,7 @@ namespace WPProcinal.Forms.User_Control
                         FrmOciones = new Opciones(dataCard);
                         FrmOciones.ShowDialog();
                     }
+
                     else if (response[3].Contains("Cuotas"))//Si contiene Cuotas entonces se trata de la solicitud del número de cueotas para la compra al usuario
                     {
                         Utilities.Speack("Escribe el numero de cuotas para el pago.");
@@ -828,7 +833,6 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 LogService.SaveRequestResponse("UCCardPayment>ProcesarFinal", JsonConvert.SerializeObject(ex), 1);
-
             }
         }
 

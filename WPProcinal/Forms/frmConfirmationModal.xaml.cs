@@ -98,6 +98,7 @@ namespace WPProcinal.Forms
                 LogService.SaveRequestResponse("frmConfirmationModal>OrganizeValues", JsonConvert.SerializeObject(ex), 1);
             }
         }
+
         /// <summary>
         /// Asigno los textos a cada variable de la vista
         /// </summary>
@@ -140,9 +141,12 @@ namespace WPProcinal.Forms
 
         private void BtnCard_TouchDown(object sender, TouchEventArgs e)
         {
-            this.IsEnabled = false;
-            Utilities.dataTransaction.MedioPago = EPaymentType.Card;
-            DialogResult = true;
+            Utilities.PrintTicket("Aprobada", Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
+
+
+            //this.IsEnabled = false;
+            //Utilities.dataTransaction.MedioPago = EPaymentType.Card;
+            //DialogResult = true;
         }
 
         private void BtnCash_TouchDown(object sender, TouchEventArgs e)

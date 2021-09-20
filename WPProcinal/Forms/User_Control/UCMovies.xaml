@@ -22,22 +22,20 @@
 
 
             <Grid Grid.Row="0">
-                <TextBlock
-                    x:Name="tbTimer"
-                    Text="00:05"
-                    FontSize="35"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
-                    />
-                <Image
-                    Source="/Images/buttons/b-atras.png" 
-                    Height="110"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Margin="20,70,0,0"
-                    Name="btnAtras"
-                    TouchDown="btnAtras_TouchDown"/>
+                <TextBlock x:Name="tbTimer"
+                           Text="00:05"
+                       FontSize="35"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
+            />
+                <Image Source="/Images/buttons/b-atras.png" 
+                       Height="110"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="20,70,0,0"
+                       Name="btnAtras"
+                       TouchDown="btnAtras_TouchDown"/>
 
                 <Image Source="/Images/buttons/b-atras.png" 
                        Height="110"
@@ -48,88 +46,90 @@
                        Name="btnLogin"
                        TouchDown="BtnLogin_TouchDown"/>
             </Grid>
-            
             <materialDesign:TransitioningContent  
-                OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
-                Name="btnMapSeats" Grid.Row="1">
+            OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:1.2}" 
+            Name="btnMapSeats" Grid.Row="1">
                 <materialDesign:TransitioningContent.OpeningEffects>
                     <materialDesign:TransitionEffect Kind="SlideInFromBottom"  Duration="0:0:1.9"/>
                 </materialDesign:TransitioningContent.OpeningEffects>
-                <ListView 
-                    x:Name="lvMovies" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Height="1050"
+                <Grid>
+                   
+                    <ListView x:Name="lvMovies" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Center"
+                              Height="1050"
                     ItemsSource="{Binding}"
-                    Margin="0,50,0,0"
-                    SelectionMode="Single">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="3"
+                  Margin="0,50,0,0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3"
                                  HorizontalAlignment="Center"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid 
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" 
+                                VerticalAlignment="Stretch" 
+                                HorizontalAlignment="Stretch">
+                                    <Grid 
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Margin="0,10,10,0"
-                                Width="325"
-                                Height="500">
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="70" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Grid.Background>
-                                        <ImageBrush 
-                                            ImageSource="{Binding ImageData}"
-                                            Stretch="Uniform"
-                                            />
-                                    </Grid.Background>
-                                    <Image
-                                        Source="{Binding ImageMovieType}" 
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Margin="5,0,10,0"
-                                        Width="100"
-                                        Height="100"
-                                        Stretch="Uniform"/>
-                                    <Image 
-                                        Source="{Binding ImageTag}" 
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Margin="0,15,10,0"
-                                        Width="100"
-                                        Height="100"
-                                        Stretch="Uniform"/>
-                                    <Image 
-                                        Source="/Images/Buttons/verHorarios.png" 
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Bottom"
-                                        Margin="50,0,0,0"
-                                        Width="200"
-                                        Height="100"
-                                        Stretch="Uniform"
-                                        Tag="{Binding Tag}"
-                                        TouchDown="TouchImage_TouchDown"/>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <TextBlock
-                                        Text="{Binding Nombre}"
-                                        FontSize="20"
-                                        TextWrapping="Wrap"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Margin="0,0,0,0"
-                                        />
-                                </Grid>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                   VerticalAlignment="Top"
+                                   Margin="0,10,10,0"
+                                   Width="325"
+                                   Height="500"
+                                        >
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="70" />
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <Grid.Background>
+                                                    <ImageBrush 
+                                                        ImageSource="{Binding ImageData}"
+                                                        Stretch="Uniform" />
+                                                </Grid.Background>
+                                                <Image Source="{Binding ImageMovieType}" 
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Top"
+                                                       Margin="5,0,10,0"
+                                                       Width="100"
+                                                       Height="100"
+                                                       Stretch="Uniform"/>
+                                                <Image Source="{Binding ImageTag}" 
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Top"
+                                                       Margin="0,15,10,0"
+                                                       Width="100"
+                                                       Height="100"
+                                                       Stretch="Uniform"/>
+                                                <Image Source="/Images/Buttons/verHorarios.png" 
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Bottom"
+                                                       Margin="50,0,0,0"
+                                                       Width="200"
+                                                       Height="100"
+                                                       Stretch="Uniform"
+                                                       Tag="{Binding Tag}"
+                                                       TouchDown="TouchImage_TouchDown"/>
+                                            </Grid>
+                                            <Grid Grid.Row="1">
+                                                <TextBlock
+                                                    Text="{Binding Nombre}"
+                                                    FontSize="20"
+                                                    TextWrapping="Wrap"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0,0,0,0"
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
             </materialDesign:TransitioningContent>
             <TextBlock x:Name="lblCinema1"
                        FontSize="100"
@@ -156,65 +156,65 @@
                        Margin="0,480,0,0"
             />
             <TextBlock
-                FontSize="50"
-                Text="Selecciona una película" 
-                FontWeight="Bold"
-                FontFamily="Gotham"
-                Foreground="White"
-                TextWrapping="Wrap"
-                TextAlignment="Center"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Margin="0,600,0,0"
+                       FontSize="50"
+                       Text="Selecciona una película" 
+                       FontWeight="Bold"
+                       FontFamily="Gotham"
+                       Foreground="White"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0,600,0,0"
             />
         </Grid>
         <Grid>
             <Image gif:ImageBehavior.AnimatedSource="/Images/cargando.gif" 
-                x:Name="GifLoadder" 
+            x:Name="GifLoadder" 
                Margin="0,0,0,0" 
                VerticalAlignment="Center" 
                HorizontalAlignment="Center" 
                Width="256" 
                Height="256"/>
         </Grid>
-        <Border 
-            Background="#CC0000" 
+        <Border Background="#CC0000" 
             BorderBrush="#fff" 
-            Height="70" 
-            Width="135"
-            Visibility="Hidden"
+                Height="70" 
+                Width="135"
+                Visibility="Hidden"
             BorderThickness="2,2,2,2"
             CornerRadius="30,30,30,30"
-            VerticalAlignment="Bottom"
-            Margin="0,0,100,150" 
-            HorizontalAlignment="Right">
+              VerticalAlignment="Bottom"
+              Margin="0,0,100,150" 
+              HorizontalAlignment="Right">
             <Grid>
 
                 <TextBlock                    
-                   Name="tbCurrentPage"                     
+                    Name="tbCurrentPage"                     
                    Text="1"
-                   Margin="0,0,70,0" 
-                   Foreground="White"
+                    Margin="0,0,70,0" 
+                    Foreground="White"
                    FontSize="50"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center" />
+                       VerticalAlignment="Center" />
 
                 <TextBlock
-                    HorizontalAlignment="Center"                        
-                    Name="textBlock3" 
+                       HorizontalAlignment="Center"                        
+                       Name="textBlock3" 
                     Foreground="White"
                     Margin="0,0,0,0"
-                    VerticalAlignment="Center"                        
-                    Text="/"
-                    FontSize="50"/>
+                       VerticalAlignment="Center"                        
+                        
+                       Text="/"
+                   FontSize="50"/>
                 <TextBlock
-                    HorizontalAlignment="Center" 
-                    Foreground="White"
-                    Name="tbTotalPage" 
-                    VerticalAlignment="Center"      
-                    Text="3"
-                    Margin="70,0,0,0" 
-                    FontSize="50" />
+                       HorizontalAlignment="Center" 
+                       Foreground="White"
+                       Name="tbTotalPage" 
+                       VerticalAlignment="Center"      
+                Text="3"
+                Margin="70,0,0,0" 
+                   FontSize="50" />
             </Grid>
         </Border>
     </Grid>

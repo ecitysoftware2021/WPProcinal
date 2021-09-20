@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WPProcinal.Classes;
+using WPProcinal.Classes.Peripherals;
 using WPProcinal.Forms.User_Control;
 using WPProcinal.Service;
 
@@ -18,7 +19,9 @@ namespace WPProcinal.Forms
     {
         ApiLocal api;
         bool state;
+        bool status = true;
         Utilities util;
+
         public frmConfigurate()
         {
             InitializeComponent();
@@ -75,6 +78,7 @@ namespace WPProcinal.Forms
             this.Content = null;
             this.Content = newPage;
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (api != null)
@@ -121,22 +125,15 @@ namespace WPProcinal.Forms
                                     util = new Utilities();
                                 }
 
-                                ChangeStatusPeripherals();
                                 Task.Run(() =>
                                 {
-                                    if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
-                                    {
-                                        Utilities.control.OpenSerialPorts(
-                                            Utilities.dataPaypad.PaypadConfiguration.bilL_PORT,
-                                            Utilities.dataPaypad.PaypadConfiguration.coiN_PORT);
-                                        Utilities.control.Start();
-                                        Utilities.control.StartCoinAcceptorDispenser();
-                                    }
-                                    else
-                                    {
-                                        Utilities.controlUnified.OpenSerialPorts(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT);
-                                        Utilities.controlUnified.Start();
-                                    }
+                                    Utilities.control = new ControlPeripherals(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT,
+                                        Utilities.dataPaypad.PaypadConfiguration.dispenseR_CONFIGURATION);
+
+                                    ChangeStatusPeripherals();
+
+                                    Utilities.control.Start();
+
                                 });
                             }
                             else
@@ -195,92 +192,55 @@ namespace WPProcinal.Forms
                 LogService.SaveRequestResponse("frmConfigurate>ConfigurePublicity", JsonConvert.SerializeObject(ex), 1);
             }
         }
+
         private void ChangeStatusPeripherals()
         {
             try
             {
                 if (Utilities.dataPaypad.PaypadConfiguration.enablE_VALIDATE_PERIPHERALS)
                 {
-                    if (string.IsNullOrEmpty(Utilities.dataPaypad.PaypadConfiguration.unifieD_PORT))
+                    Utilities.control.callbackError = error =>
                     {
-                        Utilities.control.callbackError = (error, description, EError, ELEvelError) =>
+                        Utilities.control.callbackError = null;
+                        Dispatcher.BeginInvoke((Action)delegate
                         {
+                            status = false;
                             Utilities.control.callbackError = null;
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                Utilities.control.callbackError = null;
-                            });
-                            AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                            ShowModalError(error);
-                        };
+                        });
 
-                        Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
-                        {
-                            LogService.SaveRequestResponse(Title, Message, State);
-                        };
+                        AdminPaypad.SaveErrorControl(error, "", Classes.EError.Device, ELevelError.Medium);
+                        ShowModalError(error);
+                    };
 
-
-                        Utilities.control.callbackToken = isSucces =>
-                        {
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                Utilities.control.callbackToken = null;
-                                okAceptadorBilletes.Visibility = Visibility.Visible;
-                                badAceptadorBilletes.Visibility = Visibility.Hidden;
-
-                                okMonederos.Visibility = Visibility.Visible;
-                                badMonederos.Visibility = Visibility.Hidden;
-
-                                okDispensadorBilletes.Visibility = Visibility.Visible;
-                                badDispensadorBilletes.Visibility = Visibility.Hidden;
-
-                                okImpresora.Visibility = Visibility.Visible;
-                                badImpresora.Visibility = Visibility.Hidden;
-                                CheckPeripheralsAndContinue();
-                            });
-                        };
-                    }
-                    else
+                    Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
                     {
-                        Utilities.controlUnified.callbackError = (error, description, EError, ELEvelError) =>
+                        LogService.SaveRequestResponse(Title, Message, State);
+                    };
+
+                    Utilities.control.callbackToken = isSucces =>
+                    {
+                        //Utilities.control.callbackError = null;
+
+                        Dispatcher.BeginInvoke((Action)delegate
                         {
-                            Utilities.controlUnified.callbackError = null;
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                Utilities.controlUnified.callbackError = null;
-                            });
-                            AdminPaypad.SaveErrorControl(error, description, (EError)EError, (ELevelError)ELEvelError);
-                            ShowModalError(error);
-                        };
+                            status = true;
+                            Utilities.control.callbackToken = null;
+                            //Utilities.control.callbackError = null;
 
-                        Utilities.controlUnified.CallBackSaveRequestResponse = (Title, Message, State) =>
-                        {
-                            LogService.SaveRequestResponse(Title, Message, State);
-                        };
+                            okAceptadorBilletes.Visibility = Visibility.Visible;
+                            badAceptadorBilletes.Visibility = Visibility.Hidden;
 
+                            okMonederos.Visibility = Visibility.Visible;
+                            badMonederos.Visibility = Visibility.Hidden;
 
-                        Utilities.controlUnified.callbackToken = isSucces =>
-                        {
-                            Dispatcher.BeginInvoke((Action)delegate
-                            {
-                                Utilities.controlUnified.callbackToken = null;
-                                okAceptadorBilletes.Visibility = Visibility.Visible;
-                                badAceptadorBilletes.Visibility = Visibility.Hidden;
+                            okDispensadorBilletes.Visibility = Visibility.Visible;
+                            badDispensadorBilletes.Visibility = Visibility.Hidden;
 
-                                okMonederos.Visibility = Visibility.Visible;
-                                badMonederos.Visibility = Visibility.Hidden;
-
-                                okDispensadorBilletes.Visibility = Visibility.Visible;
-                                badDispensadorBilletes.Visibility = Visibility.Hidden;
-
-                                okImpresora.Visibility = Visibility.Visible;
-                                badImpresora.Visibility = Visibility.Hidden;
-                                CheckPeripheralsAndContinue();
-                            });
-                        };
-                    }
-
-
+                            okImpresora.Visibility = Visibility.Visible;
+                            badImpresora.Visibility = Visibility.Hidden;
+                            CheckPeripheralsAndContinue();
+                        });
+                    };
                 }
                 else
                 {
@@ -301,11 +261,7 @@ namespace WPProcinal.Forms
                 {
                     Utilities.control.callbackToken = null;
                     Utilities.control.callbackError = null;
-                }
-                else if (Utilities.controlUnified != null)
-                {
-                    Utilities.controlUnified.callbackToken = null;
-                    Utilities.controlUnified.callbackError = null;
+                    Utilities.control.CloseCallbackAP();
                 }
             }
             catch (Exception ex)
@@ -318,10 +274,15 @@ namespace WPProcinal.Forms
         {
             Task.Run(() =>
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(3000);
+
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    Switcher.Navigate(new UCCinema());
+                    if (status)
+                    {
+                        SetCallbackNull();
+                        Switcher.Navigate(new UCCinema());
+                    }
                 });
             });
         }
@@ -337,7 +298,8 @@ namespace WPProcinal.Forms
                 {
                     modal = new frmModal(string.Concat("Lo sentimos,", Environment.NewLine, "el dispositivo no se encuentra disponible.\nMensaje: ", description), stop);
                     modal.ShowDialog();
-                    GetToken();
+                    //GetToken();
+                    Utilities.RestartApp();
                 }
                 else
                 {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -59,6 +60,7 @@ namespace WPProcinal.Forms.User_Control
 
             var frmLoading = new FrmLoading("¡Cargando peliculas...!");
             frmLoading.Show();
+
             try
             {
                 DataService41.Movies = new List<Pelicula>();
@@ -86,26 +88,23 @@ namespace WPProcinal.Forms.User_Control
             if (data != null)
             {
                 this.IsEnabled = false;
-                foreach (var pelicula in data.Pelicula.Where(x=>x.Cinemas != null))
+                foreach (var pelicula in data.Pelicula.Where(c=>c.Cinemas !=null))
                 {
                     try
                     {
-                        //comentarie michael
                         //if (pelicula.Cinemas != null)
                         //{
-                            foreach (var Cinema in pelicula.Cinemas.Cinema.Where( p => 
-                                p.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()
-                            ))
+                            foreach (var Cinema in pelicula.Cinemas.Cinema.Where(c=>c.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()))
                             {
-                                //if (Cinema.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString())
-                                //{
+                                if (Cinema.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString())
+                                {
                                     var peliculaExistente = DataService41.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
                                     if (peliculaExistente == 0)
                                     {
                                         DataService41.Movies.Add(pelicula);
                                         LoadMovies(pelicula);
                                     }
-                                //}
+                                }
                             }
                         //}
                     }
@@ -115,12 +114,12 @@ namespace WPProcinal.Forms.User_Control
                     }
                 }
                 this.IsEnabled = true;
-                Task.Run(() =>
-                {
-                    ValidateImages();
-                });
+                
+                //Task.Run(() =>
+                //{
+                //    ValidateImages();
+                //});
             }
-
         }
 
         private void ValidateImages()
@@ -148,10 +147,10 @@ namespace WPProcinal.Forms.User_Control
                         }
                     }
                 }
+                
                 catch (Exception ex)
                 {
                     LogService.SaveRequestResponse("UCMovies>ValidateImages", JsonConvert.SerializeObject(ex), 1);
-
                 }
                 ImgValidatorFlag = true;
             }
@@ -165,10 +164,25 @@ namespace WPProcinal.Forms.User_Control
                 var movieType = GetTypeImage(pelicula.Tipo);
 
                 string image = pelicula.Data.Imagen;
+                
+                if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                    Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png")))
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        client.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                         Assembly.GetEntryAssembly().Location),
+                         "Imagesmovies", pelicula.Data.TituloOriginal.Trim() + ".png"));
+                    }
+                }
 
                 LstMoviesModel.Add(new MoviesViewModel
                 {
-                    ImageData = Utilities.LoadImage(image, true),
+                    ImageData =
+                    Utilities.LoadImage(Path.Combine(Path.GetDirectoryName(
+                         Assembly.GetEntryAssembly().Location),
+                         "Imagesmovies", pelicula.Data.TituloOriginal + ".png"), true),
+                    //Utilities.LoadImage(image, true),
                     Tag = pelicula.Id,
                     Id = pelicula.Id,
                     ImageMovieType = movieType,
@@ -402,40 +416,6 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 LogService.SaveRequestResponse("UCMovies>BtnLogin_TouchDown", JsonConvert.SerializeObject(ex), 1);
-            }
-        }
-
-        private void Grid_TouchDown(object sender, TouchEventArgs e)
-        {
-            SetCallBacksNull();
-            try
-            {
-                Image TocuhImage = (Image)sender;
-                var movie = DataService41.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
-                string image = movie.Data.Imagen;
-                Utilities.dataTransaction.ImageSelected = Utilities.LoadImage(image, true);
-                Switcher.Navigate(new UCSchedule(movie));
-            }
-            catch (Exception ex)
-            {
-                LogService.SaveRequestResponse("UCMovies>TouchImage_TouchDown", JsonConvert.SerializeObject(ex), 1);
-            }
-        }
-
-        private void lvMovies_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SetCallBacksNull();
-            try
-            {
-                Image TocuhImage = (Image)sender;
-                var movie = DataService41.Movies.Where(m => m.Id == TocuhImage.Tag.ToString()).FirstOrDefault();
-                string image = movie.Data.Imagen;
-                Utilities.dataTransaction.ImageSelected = Utilities.LoadImage(image, true);
-                Switcher.Navigate(new UCSchedule(movie));
-            }
-            catch (Exception ex)
-            {
-                LogService.SaveRequestResponse("UCMovies>TouchImage_TouchDown", JsonConvert.SerializeObject(ex), 1);
             }
         }
     }

@@ -3,7 +3,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -46,6 +50,8 @@ namespace WPProcinal.Forms.User_Control
         #region "ListView"
         private void InitView()
         {
+            string urlimg =
+                Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL;
 
             try
             {
@@ -54,7 +60,23 @@ namespace WPProcinal.Forms.User_Control
 
                     if (product.Tipo.ToUpper() == "C")
                     {
-                        product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+
+                        if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                            Assembly.GetEntryAssembly().Location), "ImagesCombos", product.Codigo + ".png")))
+                        {
+                            using (WebClient client = new WebClient())
+                            {
+                                client.DownloadFile(new Uri(urlimg+product.Codigo+".png"), Path.Combine(Path.GetDirectoryName(
+                                Assembly.GetEntryAssembly().Location),
+                                 "ImagesCombos",product.Codigo+".png"));
+                            }
+                        }
+
+                        product.Imagen =
+                            Path.Combine(Path.GetDirectoryName(
+                         Assembly.GetEntryAssembly().Location),
+                         "ImagesCombos", product.Codigo + ".png");
+                            //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
                         lstPager.Add(product);
                     }
                 }
