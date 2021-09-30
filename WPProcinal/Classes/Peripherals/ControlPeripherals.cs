@@ -163,8 +163,9 @@ namespace WPProcinal.Classes.Peripherals
 
                     if (responseAP > 0)
                     {
-                        enterValue += responseAP * _dividerBills;
-                        callbackValueIn?.Invoke(Tuple.Create(responseAP * _dividerBills, "AP"));
+                        enterValue += responseAP;//* this._dividerBills;
+                        //callbackValueIn?.Invoke(Tuple.Create(responseAP * _dividerBills, "AP"));
+                        callbackValueIn?.Invoke(Tuple.Create(responseAP, "AP"));
                     }
 
                     ValidateEnterValue();
@@ -398,20 +399,23 @@ namespace WPProcinal.Classes.Peripherals
         {
             if (response[1] == "DP")
             {
-                deliveryValue += decimal.Parse(response[2]) * _dividerBills;
-                callbackValueOut?.Invoke(Tuple.Create(decimal.Parse(response[2]) * _dividerBills, response[1]));
+                deliveryValue += decimal.Parse(response[2]);// * _dividerBills;
+                //callbackValueOut?.Invoke(Tuple.Create(decimal.Parse(response[2]) * _dividerBills, response[1]));
+                callbackValueOut?.Invoke(Tuple.Create(decimal.Parse(response[2]), response[1]));
             }
             else if (response[1] == "MD")
             {
-                deliveryValue += decimal.Parse(response[2]) * _dividerCoins;
-                callbackValueOut?.Invoke(Tuple.Create(decimal.Parse(response[2]) * _dividerCoins, response[1]));
+                deliveryValue += decimal.Parse(response[2]);// * _dividerCoins;
+                //callbackValueOut?.Invoke(Tuple.Create(decimal.Parse(response[2]) * _dividerCoins, response[1]));
+                callbackValueOut?.Invoke(Tuple.Create(decimal.Parse(response[2]), response[1]));
             }
             else
             {
                 if (response[1] == "AP")
                 {
-                    enterValue += decimal.Parse(response[2]) * _dividerBills;
-                    callbackValueIn?.Invoke(Tuple.Create(decimal.Parse(response[2]) * _dividerBills, response[1]));
+                    enterValue += decimal.Parse(response[2]);// * _dividerBills;
+                    //callbackValueIn?.Invoke(Tuple.Create(decimal.Parse(response[2]) * _dividerBills, response[1]));
+                    callbackValueIn?.Invoke(Tuple.Create(decimal.Parse(response[2]), response[1]));
                 }
                 else if (response[1] == "MA")
                 {
