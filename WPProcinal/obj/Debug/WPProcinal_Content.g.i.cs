@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("favicon_procinal.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/nofound.png")]
 
 

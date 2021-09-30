@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -115,10 +116,10 @@ namespace WPProcinal.Forms.User_Control
                     }
                 }
                 this.IsEnabled = true;
-                Task.Run(() =>
-                {
-                    ValidateImages();
-                });
+                //Task.Run(() =>
+                //{
+                //    ValidateImages();
+                //});
             }
 
         }
@@ -157,23 +158,115 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        public void LoadMovies(Pelicula pelicula)
+        public  void LoadMovies(Pelicula pelicula)
         {
             try
             {
                 string TagPath = string.Empty;
                 var movieType = GetTypeImage(pelicula.Tipo);
-
                 string image = pelicula.Data.Imagen;
+                string imgAsignada = "nofound";
+                bool exists = false;
+
+
+                bool isValidURL = true;
+
+                string data = string.Empty;
+                using (WebClient client = new WebClient())
+                {
+                    try
+                    {
+                        data = client.DownloadString(image);
+
+
+                        if (data!=null && data.Length > 3)
+                        {
+                            if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                                Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png")))
+                            {
+
+                                using (WebClient client2 = new WebClient())
+                                {
+
+                                    client2.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                                       Assembly.GetEntryAssembly().Location),
+                                       "Imagesmovies", pelicula.Data.TituloOriginal.Trim() + ".png"));
+
+                                }
+                            }
+                            else 
+                            {
+                                imgAsignada = pelicula.Data.TituloOriginal.Trim();
+                            }
+                        }
+                       
+                    }
+                    catch (WebException weX)
+                    {
+                        isValidURL = !isValidURL;
+                        data = weX.Message;
+                    }
+                }
+
+
+                //HttpWebResponse response = null;
+
+                //var request = (HttpWebRequest)WebRequest.Create(image);
+                //request.Method = "HEAD";
+                //request.Timeout = 10000; // milliseconds
+                //request.AllowAutoRedirect = false;
+
+                //try
+                //{
+                //    response = (HttpWebResponse)request.GetResponse();
+                //    if (response != null && response.StatusCode == HttpStatusCode.OK)
+                //    {
+                //        imgAsignada = pelicula.Data.TituloOriginal.Trim();
+                //        if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                //            Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png")))
+                //        {
+
+                //            using (WebClient client = new WebClient())
+                //            {
+                         
+                //                 client.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                //                    Assembly.GetEntryAssembly().Location),
+                //                    "Imagesmovies", pelicula.Data.TituloOriginal.Trim() + ".png"));
+                             
+                //            }
+                //        }
+                //    }
+                //    else {
+                //        imgAsignada = "nofound";
+                //    }
+                //}
+
+                //catch (Exception ex)
+                //{
+                //    imgAsignada = "nofound";
+                //    exists = false;
+                //}
+                //finally
+                //{
+                //    if (response != null)
+                //        response.Dispose();
+                //        //response.Close();
+                //}
+
 
                 LstMoviesModel.Add(new MoviesViewModel
                 {
-                    ImageData = Utilities.LoadImage(image, true),
+                    ImageData =
+                    Utilities.LoadImage(Path.Combine(Path.GetDirectoryName(
+                         Assembly.GetEntryAssembly().Location),
+                         "Imagesmovies", imgAsignada + ".png"), true),
+                    //Utilities.LoadImage(image, true),
                     Tag = pelicula.Id,
                     Id = pelicula.Id,
                     ImageMovieType = movieType,
                     Nombre = pelicula.Data.TituloOriginal
                 });
+
             }
             catch (Exception ex)
             {
