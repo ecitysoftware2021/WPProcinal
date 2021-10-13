@@ -1261,7 +1261,7 @@ namespace WPProcinal.Forms.User_Control
         private void NavigateToConfectionery()
         {
             this.IsEnabled = false;
-            Switcher.Navigate(new UCProductsCombos());
+            Switcher.Navigate(new UCSelectProducts());
         }
 
         /// <summary>

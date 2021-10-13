@@ -114,7 +114,6 @@ namespace WPProcinal.Forms.User_Control
         private void BtnCombos_TouchDown(object sender, TouchEventArgs e)
         {
             SetCallBacksNull();
-            Switcher.Navigate(new UCProducts());
         }
 
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
@@ -213,6 +212,7 @@ namespace WPProcinal.Forms.User_Control
                 LogService.SaveRequestResponse("UCProductsCombos>PaintDataCombo", JsonConvert.SerializeObject(ex), 1);
             }
         }
+
         public void ChangePrices()
         {
             try

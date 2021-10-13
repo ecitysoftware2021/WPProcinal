@@ -26,12 +26,14 @@ namespace WPProcinal.Forms.User_Control
         private ObservableCollection<Producto> lstPager;
         ApiLocal api;
         CLSGrabador grabador;
+        string Type;
         #endregion
 
         #region "Constructor"
-        public UCProducts()
+        public UCProducts(string Type)
         {
             InitializeComponent();
+            this.Type = Type;
             api = new ApiLocal();
             grabador = new CLSGrabador();
             this.view = new CollectionViewSource();
@@ -50,7 +52,7 @@ namespace WPProcinal.Forms.User_Control
                 foreach (var product in DataService41._Productos)
                 {
 
-                    if (product.Tipo.ToUpper() == "P")
+                    if (product.Tipo.ToUpper() == Type)
                     {
                         if (product.Precios.Count() > 0)
                         {
@@ -124,7 +126,7 @@ namespace WPProcinal.Forms.User_Control
             SetCallBacksNull();
             try
             {
-                Switcher.Navigate(new UCProductsCombos());
+                Switcher.Navigate(new UCSelectProducts());
             }
             catch (Exception ex)
             {

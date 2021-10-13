@@ -429,7 +429,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 if (GetCombo())
                 {
-                    Switcher.Navigate(new UCProductsCombos());
+                    Switcher.Navigate(new UCSelectProducts());
                 }
                 else
                 {
