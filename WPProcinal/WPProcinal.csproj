@@ -217,6 +217,9 @@
     <Compile Include="Forms\User_Control\UCSeat.xaml.cs">
       <DependentUpon>UCSeat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\User_Control\UCSelectProducts.xaml.cs">
+      <DependentUpon>UCSelectProducts.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WModal.xaml.cs">
       <DependentUpon>WModal.xaml</DependentUpon>
     </Compile>
@@ -322,6 +325,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\User_Control\UCSeat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\User_Control\UCSelectProducts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
