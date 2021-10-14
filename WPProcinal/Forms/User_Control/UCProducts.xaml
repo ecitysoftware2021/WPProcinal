@@ -20,23 +20,13 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBlock 
-                    x:Name="tbTimer"
-                    Text="00:05"
-                    FontSize="35"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
-                />
-            <Image 
-                Name="BtnCombos"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Margin="20,0,0,0"
-                Height="70"
-                Stretch="Uniform"
-                Source="/Images/Buttons/verCombos.png"
-                TouchDown="BtnCombos_TouchDown"
-                />
+                x:Name="tbTimer"
+                Text="00:05"
+                FontSize="35"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
+            />
         </Grid>
         <Grid Grid.Row="1">
             <ListView 
@@ -151,7 +141,7 @@
                 Name="BtnSalir"
                 VerticalAlignment="Center"
                 Width="300"
-                Margin="200,0,0,0"
+                Margin="150,0,0,0"
                 Stretch="Uniform"
                 Source="/Images/salir2.png"
                 TouchDown="BtnSalir_TouchDown"
@@ -161,9 +151,9 @@
                 Name="BtnComprar"
                 VerticalAlignment="Center"
                 Width="300"
-                Margin="0,0,200,0"
+                Margin="0,0,150,0"
                 Stretch="Uniform"
-                Source="/Images/buttons/omitir.png"
+                Source="/Images/anterior.png"
                 TouchDown="BtnComprar_TouchDown"
             />
         </Grid>

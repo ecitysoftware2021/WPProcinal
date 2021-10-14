@@ -136,7 +136,8 @@ namespace WPProcinal.Forms.User_Control
                     ModalBioseguridad modal = new ModalBioseguridad();
                     modal.ShowDialog();
                 }
-                Switcher.Navigate(new UCMovies());
+                //Switcher.Navigate(new UCMovies());
+                Switcher.Navigate(new UCSelectProducts());
             }
             catch (System.Exception ex)
             {

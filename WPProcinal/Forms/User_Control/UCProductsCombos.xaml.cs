@@ -111,11 +111,6 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void BtnCombos_TouchDown(object sender, TouchEventArgs e)
-        {
-            SetCallBacksNull();
-        }
-
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
         {
 

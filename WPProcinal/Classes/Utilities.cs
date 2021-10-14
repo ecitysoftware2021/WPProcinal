@@ -171,7 +171,7 @@ namespace WPProcinal.Classes
             {
                 return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return value;
             }

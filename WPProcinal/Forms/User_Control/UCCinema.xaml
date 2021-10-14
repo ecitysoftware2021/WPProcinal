@@ -30,6 +30,7 @@
                     Height="300" 
                     Grid.Column="0"
                TouchDown="ConfigBoletas_TouchDown"/>
+        
         <Image gif:ImageBehavior.AnimatedSource="/Images/Gif/ANIMACION-PROCINAL.gif" 
                    gif:ImageBehavior.AnimateInDesignMode="True"
                    gif:ImageBehavior.AutoStart="True" 

@@ -320,23 +320,23 @@ namespace WPProcinal.Forms.User_Control
                 var data = (sender as Border).Tag;
                 switch (data)
                 {
-                    case 1:
+                    case "1":
                         TypeProduct = "C";
                         Switcher.Navigate(new UCProducts(TypeProduct));
                         break;
 
-                    case 2:
+                    case "2":
                         TypeProduct = "P";
                         Switcher.Navigate(new UCProducts(TypeProduct));
                         break;
 
-                    case 3:
-                        TypeProduct = "P";
+                    case "3":
+                        TypeProduct = "B";
                         Switcher.Navigate(new UCProducts(TypeProduct));
                         break;
 
-                    case 4:
-                        TypeProduct = "P";
+                    case "4":
+                        TypeProduct = "O";
                         Switcher.Navigate(new UCProducts(TypeProduct));
                         break;
                 }

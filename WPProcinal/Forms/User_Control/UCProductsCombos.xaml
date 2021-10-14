@@ -25,16 +25,7 @@ d:DesignHeight="2064.095" d:DesignWidth="1250.599">
                     VerticalAlignment="Top"
                     Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
                 />
-            <Image 
-                Name="BtnCombos"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Margin="20,0,0,0"
-                Height="70"
-                Stretch="Uniform"
-                Source="/Images/Buttons/verProductos.png"
-                TouchDown="BtnCombos_TouchDown"
-                />
+
         </Grid>
         <Grid Grid.Row="1">
             <ListView 

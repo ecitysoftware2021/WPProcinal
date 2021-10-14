@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPProcinal.Classes;
+using WPProcinal.Forms.User_Control;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms
@@ -18,14 +19,17 @@ namespace WPProcinal.Forms
         #region Variables Locales
         decimal totalModal = 0;
         decimal totalPago = 0;
-
+        UCProducts uCProducts;
+        List<Producto> _Productos;
         List<Combos> _View;
         #endregion
 
-        public frmConfirmationModal()
+        public frmConfirmationModal(UCProducts uCProducts = null)
         {
             InitializeComponent();
+            this.uCProducts = uCProducts;
             _View = new List<Combos>();
+            _Productos = new List<Producto>();
             ConfigureView();
         }
 
@@ -135,7 +139,32 @@ namespace WPProcinal.Forms
 
         private void BtnNo_TouchDown(object sender, TouchEventArgs e)
         {
-            DialogResult = false;
+            try
+            {
+                DialogResult = false;
+
+                //Dispatcher.BeginInvoke((Action)delegate
+                //{
+                //List<Combos> dataToDelete = DataService41._Combos;
+                //if (dataToDelete != null)
+                //{
+                //    foreach (var item in dataToDelete)
+                //    {
+                //        DataService41._Combos.Remove(item);
+                //        _View.Remove(item);
+                //    }
+                //    Dispatcher.BeginInvoke((Action)delegate
+                //    {
+                //        lvListSeats.ItemsSource = _View;
+                //        lvListSeats.Items.Refresh();
+                //        OrganizeValues();
+                //    });
+                //}
+                //});
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private void BtnCard_TouchDown(object sender, TouchEventArgs e)
@@ -156,8 +185,21 @@ namespace WPProcinal.Forms
         {
             try
             {
-                var combo = ((sender as Image).DataContext as Combos);
+                if (uCProducts != null)
+                {
+                    var data = ((sender as Image).DataContext as Combos);
+                    _Productos.Add(new Producto
+                    {
+                        Descripcion = data.Name,
+                        Codigo = data.Code,
+                        Precio = Convert.ToInt32(data.Price),
+                        Tipo = "C",
+                        Value = data.Quantity,
+                    });
+                    uCProducts.IncrementDecrementProducts(_Productos, false, true);
+                }
 
+                var combo = ((sender as Image).DataContext as Combos);
                 DeleteCombo(combo);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
@@ -166,7 +208,6 @@ namespace WPProcinal.Forms
                     lvListSeats.Items.Refresh();
                     OrganizeValues();
                 });
-
             }
             catch (Exception ex)
             {

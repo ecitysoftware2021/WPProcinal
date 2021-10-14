@@ -27,6 +27,7 @@ namespace WPProcinal.Forms.User_Control
         ApiLocal api;
         CLSGrabador grabador;
         string Type;
+        bool BtnPay;
         #endregion
 
         #region "Constructor"
@@ -34,11 +35,14 @@ namespace WPProcinal.Forms.User_Control
         {
             InitializeComponent();
             this.Type = Type;
+            BtnPay = false;
             api = new ApiLocal();
             grabador = new CLSGrabador();
             this.view = new CollectionViewSource();
             this.lstPager = new ObservableCollection<Producto>();
             ActivateTimer();
+            loadProductos();
+
             InitView();
             PaintDataCombo();
         }
@@ -49,27 +53,75 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                foreach (var product in DataService41._Productos)
+                switch (Type.ToUpper())
                 {
-
-                    if (product.Tipo.ToUpper() == Type)
-                    {
-                        if (product.Precios.Count() > 0)
+                    case "C":
+                        foreach (var product in DataService41._Productos.Where(P => P.Tipo.ToUpper() == Type.ToUpper()).ToList())
                         {
-                            decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
-                            decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
                             product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-                            if (General > 0)
-                            {
-                                product.Precios[0].auxGeneral = General;
-                                product.Precios[0].auxOtroPago = OtroPago;
+                            lstPager.Add(product);
+                        }
+                        break;
 
-                                lstPager.Add(product);
+                    case "P":
+                        foreach (var product in DataService41._Productos.Where(P => P.Tipo.ToUpper() == Type.ToUpper()).ToList())
+                        {
+                            if (product.Precios.Count() > 0)
+                            {
+                                decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
+                                decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
+                                product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+                                if (General > 0)
+                                {
+                                    product.Precios[0].auxGeneral = General;
+                                    product.Precios[0].auxOtroPago = OtroPago;
+
+                                    lstPager.Add(product);
+                                }
                             }
                         }
-                    }
-                }
+                        break;
 
+                    case "B":
+                        foreach (var product in DataService41._Productos.Where(P => P.Descripcion.ToLower().Contains("gas") || P.Descripcion.ToLower().Contains("agua") || P.Descripcion.ToLower().Contains("icee")).ToList())
+                        {
+                            if (product.Precios.Count() > 0)
+                            {
+                                decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
+                                decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
+                                product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+                                if (General > 0)
+                                {
+                                    product.Precios[0].auxGeneral = General;
+                                    product.Precios[0].auxOtroPago = OtroPago;
+
+                                    lstPager.Add(product);
+                                }
+                            }
+                        }
+                        break;
+                    case "O":
+                        foreach (var product in DataService41._Productos.Where(P => P.Descripcion.ToLower().Contains("gaf") || P.Descripcion.ToLower().Contains("adic")).ToList())
+                        {
+                            if (product.Precios.Count() > 0)
+                            {
+                                decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
+                                decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
+                                product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+                                if (General > 0)
+                                {
+                                    product.Precios[0].auxGeneral = General;
+                                    product.Precios[0].auxOtroPago = OtroPago;
+
+                                    lstPager.Add(product);
+                                }
+                            }
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
                 view.Source = lstPager;
                 lv_Products.DataContext = view;
             }
@@ -78,6 +130,35 @@ namespace WPProcinal.Forms.User_Control
                 LogService.SaveRequestResponse("UCProducts>InitView", JsonConvert.SerializeObject(ex), 1);
             }
         }
+
+        private bool loadProductos()
+        {
+            FrmLoading frmLoading = new FrmLoading("¡Descargando la confitería...!");
+            frmLoading.Show();
+            var combos = WCFServices41.GetConfectionery(new SCOPRE
+            {
+                teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString(),
+                tercero = "1"
+            });
+            frmLoading.Close();
+            if (combos != null)
+            {
+                if (combos.ListaProductos.Count > 0)
+                {
+                    DataService41._Productos = combos.ListaProductos;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region "Eventos"
@@ -90,49 +171,76 @@ namespace WPProcinal.Forms.User_Control
             IncrementDecrementProducts(sender, false);
         }
 
-        private void IncrementDecrementProducts(object sender, bool Operation)
+        public void IncrementDecrementProducts(object sender, bool Operation, bool OtherProcess = false)
         {
             try
             {
-                var data = ((sender as Image).DataContext as Producto);
-
-                if (Operation)
+                if (!OtherProcess)
                 {
-                    Utilities.AddCombo(new Combos
-                    {
-                        Name = data.Descripcion,
-                        Code = Convert.ToInt32(data.Codigo),
-                        Price = Utilities.dataTransaction.dataUser.Tarjeta != null ? data.Precios[0].auxOtroPago : data.Precios[0].auxGeneral,
-                        dataProduct = data,
-                        isCombo = false,
+                    var data = ((sender as Image).DataContext as Producto);
 
-                    });
+                    switch (data.Tipo)
+                    {
+                        case "C":
+                            if (Operation)
+                            {
+                                Utilities.AddCombo(new Combos
+                                {
+                                    Name = data.Descripcion,
+                                    Code = Convert.ToInt32(data.Codigo),
+                                    Price = 0,
+                                    dataProduct = data,
+                                    isCombo = true,
+                                });
+                            }
+                            else
+                            {
+                                Utilities.DeleteCombo(comboName: data.Descripcion, comboPrice: 0, dataProduct: data);
+                            }
+                            break;
+                        case "P":
+                            if (Operation)
+                            {
+
+                                Utilities.AddCombo(new Combos
+                                {
+                                    Name = data.Descripcion,
+                                    Code = Convert.ToInt32(data.Codigo),
+                                    Price = Utilities.dataTransaction.dataUser.Tarjeta != null ? data.Precios[0].auxOtroPago : data.Precios[0].auxGeneral,
+                                    dataProduct = data,
+                                    isCombo = false,
+                                });
+                            }
+                            else
+                            {
+                                Utilities.DeleteCombo(comboName: data.Descripcion, comboPrice: data.Precios[0].auxOtroPago, dataProduct: data);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    ChangeImageBuy();
                 }
                 else
                 {
-                    Utilities.DeleteCombo(comboName: data.Descripcion, comboPrice: data.Precios[0].auxOtroPago, dataProduct: data);
+                    var data = (sender as List<Producto>)[0];
+                    switch (data.Tipo)
+                    {
+                        case "C":
+                            Utilities.DeleteCombo(comboName: data.Descripcion, comboPrice: 0, dataProduct: data);
+                            break;
+                        case "P":
+                            Utilities.DeleteCombo(comboName: data.Descripcion, comboPrice: data.Precios[0].auxOtroPago, dataProduct: data);
+                            break;
+                        default:
+                            break;
+                    }
                 }
-
-                ChangeImageBuy();
             }
             catch (Exception ex)
             {
                 LogService.SaveRequestResponse("UCProducts>IncrementDecrementProducts", JsonConvert.SerializeObject(ex), 1);
             }
-        }
-
-        private void BtnCombos_TouchDown(object sender, TouchEventArgs e)
-        {
-            SetCallBacksNull();
-            try
-            {
-                Switcher.Navigate(new UCSelectProducts());
-            }
-            catch (Exception ex)
-            {
-                LogService.SaveRequestResponse("UCProducts>BtnCombos_TouchDown", JsonConvert.SerializeObject(ex), 1);
-            }
-
         }
 
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
@@ -158,10 +266,18 @@ namespace WPProcinal.Forms.User_Control
 
         private void BtnComprar_TouchDown(object sender, TouchEventArgs e)
         {
-            this.IsEnabled = false;
-            SetCallBacksNull();
-            ChangePrices();
-            ShowDetailModal();
+            if (BtnPay)
+            {
+                this.IsEnabled = false;
+                SetCallBacksNull();
+                ChangePrices();
+                ShowDetailModal();
+            }
+            else
+            {
+                SetCallBacksNull();
+                Switcher.Navigate(new UCSelectProducts());
+            }
         }
         #endregion
 
@@ -170,7 +286,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
+                frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(this);
                 this.Opacity = 0.3;
                 _frmConfirmationModal.ShowDialog();
                 if (_frmConfirmationModal.DialogResult.HasValue &&
@@ -183,7 +299,29 @@ namespace WPProcinal.Forms.User_Control
                     ActivateTimer();
                     this.IsEnabled = true;
                     this.Opacity = 1;
-                    PaintDataCombo();
+                    if (DataService41._Combos != null && DataService41._Combos.Count() > 0)
+                    {
+                        _frmConfirmationModal.Close();
+                        PaintDataCombo();
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            foreach (var ListV in lstPager)
+                            {
+                                foreach (var Combos in DataService41._Combos)
+                                {
+                                    if (ListV.Descripcion == Combos.Name)
+                                    {
+                                        ListV.Value = Combos.Quantity;
+                                        lv_Products.Items.Refresh();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else
+                    {
+                        PaintDataCombo();
+                    }
                 }
             }
             catch (Exception ex)
@@ -199,10 +337,12 @@ namespace WPProcinal.Forms.User_Control
                 if (DataService41._Combos.Count > 0)
                 {
                     BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/continuar.png", UriKind.Relative));
+                    BtnPay = true;
                 }
                 else
                 {
-                    BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/omitir.png", UriKind.Relative));
+                    BtnComprar.Source = new BitmapImage(new Uri(@"/Images/anterior.png", UriKind.Relative));
+                    BtnPay = false;
                 }
             }
             catch (Exception ex)
@@ -246,6 +386,7 @@ namespace WPProcinal.Forms.User_Control
                 LogService.SaveRequestResponse("UCProducts>PaintDataCombo", JsonConvert.SerializeObject(ex), 1);
             }
         }
+
         public void ChangePrices()
         {
             try
