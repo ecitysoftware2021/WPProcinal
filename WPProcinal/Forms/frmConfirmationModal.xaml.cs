@@ -236,5 +236,12 @@ namespace WPProcinal.Forms
 
             return roundVal;
         }
+
+        private void BtnQR_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.IsEnabled = false;
+            Utilities.dataTransaction.MedioPago = EPaymentType.Card;
+            DialogResult = true;
+        }
     }
 }

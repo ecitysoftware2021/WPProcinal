@@ -18,7 +18,6 @@ namespace WPProcinal.Classes
         {
             try
             {
-
                 var response = await api.GetResponse(new RequestApi(), "InitPaypad");
                 if (response.CodeError == 200)
                 {
@@ -86,16 +85,15 @@ namespace WPProcinal.Classes
                         new PAYPAD_CONSOLE_ERROR
                         {
                             PAYPAD_ID = Utilities.CorrespondentId,
-                        DATE = DateTime.Now,
-                        STATE = 1,
-                        DESCRIPTION = desciption,
-                        OBSERVATION = observation,
-                        ERROR_ID = (int)error,
-                        ERROR_LEVEL_ID = (int)level
+                            DATE = DateTime.Now,
+                            STATE = 1,
+                            DESCRIPTION = desciption,
+                            OBSERVATION = observation,
+                            ERROR_ID = (int)error,
+                            ERROR_LEVEL_ID = (int)level
                         }
                     };
                     api.CallApi("SaveErrorConsole", consoleError);
-
                 });
             }
             catch

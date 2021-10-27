@@ -24,6 +24,7 @@ using static WPProcinal.Models.ApiLocal.Uptake;
 using SQLite.Connection.Ecity;
 using System.Threading;
 using WPProcinal.Classes.Peripherals;
+using Zen.Barcode;
 
 namespace WPProcinal.Classes
 {
@@ -825,7 +826,24 @@ namespace WPProcinal.Classes
                 LogService.SaveRequestResponse("Utilities>ValidateUserBalance", JsonConvert.SerializeObject(ex), 1);
             }
         }
+
+        public static System.Drawing.Image GenerateCodeQr(string code, int size)
+        {
+            try
+            {
+                CodeQrBarcodeDraw qrcode = BarcodeDrawFactory.CodeQr;
+                
+                
+                return qrcode.Draw(code, 1, size);
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("Utilities>GenerateCodeQR", JsonConvert.SerializeObject(ex), 1);
+                return null;
+            }
+        }
     }
+
     public class DataMoneyNotification
     {
         public decimal enterValue { get; set; }

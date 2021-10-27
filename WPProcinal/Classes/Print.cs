@@ -77,10 +77,9 @@ namespace WPProcinal.Classes
 
         private void PrintPage(object sender, PrintPageEventArgs e)
         {
-
             Graphics g = e.Graphics;
             SpaceY = 100;
-            SpaceX = 70;
+            SpaceX = 70;    
             var pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Salas_Formatos", "logo.png");
             string RutaIMG = pat;
             g.DrawImage(Image.FromFile(RutaIMG), 40, 0);
@@ -240,6 +239,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                string DataQr = "cnv" + Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta.ToString() + " " + Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema + " " + Secuencia + "-" + Utilities.dataTransaction.FechaSeleccionada.Date.ToString("yyyy-MM-dd").Replace("-", String.Empty);
                 Graphics g = e.Graphics;
                 SpaceY = 100;
                 SpaceX = 70;
@@ -338,12 +338,14 @@ namespace WPProcinal.Classes
                 SpaceY += 20;
                 g.DrawString("Valor Total:", fBodyTiulos, sb, 40, SpaceY);
                 g.DrawString((baseIMP + IMP).ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
-                SpaceY += 20;
-                g.DrawString("Vehículo:", fBodyTiulos, sb, 40, SpaceY);
-                g.DrawString(Placa, fBodyTiulos, sb, 200, SpaceY);
+                //SpaceY += 20;
+                //g.DrawString("Vehículo:", fBodyTiulos, sb, 40, SpaceY);
+                //g.DrawString(Placa, fBodyTiulos, sb, 200, SpaceY);
                 SpaceY += 20;
                 g.DrawString("RECLAMA TU COMBO EN LA CONFITERÍA", fBodySala, sb, 0, SpaceY);
                 SpaceY += 20;
+                g.DrawImage(Utilities.GenerateCodeQr(DataQr, 2), 90, SpaceY);
+                SpaceY += 100;
                 g.DrawString("Venta realizada en el Kiosko Digital", fBodyTiulos, sb, 50, SpaceY);
                 SpaceY += 15;
                 g.DrawString("Por E-city software.", fBodyTiulos, sb, 90, SpaceY);
@@ -358,6 +360,7 @@ namespace WPProcinal.Classes
         {
             try
             {
+                string DataQr = "cnv" + Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta.ToString() + " " + Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema + " " + Secuencia + "-" + Utilities.dataTransaction.FechaSeleccionada.Date.ToString("yyyy-MM-dd").Replace("-", String.Empty);
                 Graphics g = e.Graphics;
                 SpaceY = 100;
                 SpaceX = 70;
@@ -426,6 +429,8 @@ namespace WPProcinal.Classes
                 SpaceY += 20;
                 g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
                 SpaceY += 20;
+                g.DrawImage(Utilities.GenerateCodeQr(DataQr, 2), 90, SpaceY);
+                SpaceY += 100;
                 g.DrawString("Venta realizada en el Kiosko Digital", fBodyTiulos, sb, 50, SpaceY);
                 SpaceY += 15;
                 g.DrawString("Por E-city software.", fBodyTiulos, sb, 90, SpaceY);

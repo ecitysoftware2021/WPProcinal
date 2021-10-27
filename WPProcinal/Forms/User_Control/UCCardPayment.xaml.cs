@@ -218,7 +218,7 @@ namespace WPProcinal.Forms.User_Control
                 {
                     if (response.CodeError == 200)
                     {
-                        //TODO:
+                        //TODO: response 200 vacio
                     }
 
                 }
@@ -428,26 +428,29 @@ namespace WPProcinal.Forms.User_Control
                 });
 
                 frmLoading.Close();
-                foreach (var item in response41)
+
+                if (response41 != null)
                 {
-                    if (item.Respuesta != null)
+                    foreach (var item in response41)
                     {
-                        if (item.Respuesta.Contains("exitoso"))
+                        if (item.Respuesta != null)
                         {
-                            payState = true;
-                            GetInvoice();
-                            break;
+                            if (item.Respuesta.Contains("exitoso"))
+                            {
+                                payState = true;
+                                GetInvoice();
+                                break;
+                            }
+                            else
+                            {
+                                payState = false;
+                            }
                         }
                         else
                         {
                             payState = false;
                         }
                     }
-                    else
-                    {
-                        payState = false;
-                    }
-
                 }
 
                 SavePay(payState);

@@ -442,8 +442,8 @@ namespace WPProcinal.Forms.User_Control
 
         private void Buytickets()
         {
-            //TODO: VERIFICAR
-            ApproveTrans();
+            //TODO: VERIFICAR ApproveTrans 2 veces
+            //ApproveTrans();
             //Cancelled();
 
             Dispatcher.BeginInvoke((Action)delegate
