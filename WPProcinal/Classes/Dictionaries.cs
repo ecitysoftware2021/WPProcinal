@@ -20,7 +20,8 @@ namespace WPProcinal.Classes
             {"321","La Ceja"},
             {"323","Guacarí"},
             {"325","La Central"},
-            {"327","Carnaval"}
+            {"327","Carnaval"},
+            {"328","Fabricato"}
         };
         public enum ECinemas
         {
@@ -37,7 +38,8 @@ namespace WPProcinal.Classes
             LaCeja = 321,
             Guacari = 323,
             LaCentral = 325,
-            Carnaval = 327
+            Carnaval = 327,
+            Fabricato = 328
         }
     }
 }

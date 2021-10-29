@@ -269,16 +269,6 @@
                            TouchDown="BtnNo_TouchDown"
                        Margin="230,0,48,0" 
                        Source="/Images/salir2.png"/>
-
-                    <Image
-                        Width="200" 
-                        x:Name="BtnQR"
-                        Margin="230,50,48,0" 
-                        Source="/Images/tc.jpg"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Center"
-                        TouchDown="BtnQR_TouchDown"
-                    />
                 </Grid>
             </Border>
         </Grid>
