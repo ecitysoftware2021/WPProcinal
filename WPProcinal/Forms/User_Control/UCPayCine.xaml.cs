@@ -514,65 +514,68 @@ namespace WPProcinal.Forms.User_Control
                         mount = Utilities.dataTransaction.DataFunction.Date.Substring(4, 2);
                         day = Utilities.dataTransaction.DataFunction.Date.Substring(6, 2);
                     }
-
+                    
                     var dataClient = GetDataClient();
 
-                    var response41 = WCFServices41.PostBuy(new SCOINT
+                    if (dataClient != null)
                     {
-                        Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
-                        Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
-                        Apellido = string.IsNullOrEmpty(dataClient.Apellido) ? "null" : dataClient.Apellido,
-                        //ClienteFrecuente = long.Parse(string.IsNullOrEmpty(dataClient.Tarjeta) ? "0" : dataClient.Tarjeta),
-                        ClienteFrecuente = !string.IsNullOrEmpty(dataClient.Tarjeta) ? long.Parse(dataClient.Tarjeta) : 0,
-                        CorreoCliente = string.IsNullOrEmpty(dataClient.Login) ? "null" : dataClient.Login,
-                        Cortesia = string.Empty,
-                        Direccion = string.IsNullOrEmpty(dataClient.Direccion) ? "null" : dataClient.Direccion,
-                        //DocIdentidad = long.Parse(string.IsNullOrEmpty(dataClient.Documento) ? "0" : dataClient.Documento),
-                        DocIdentidad = !string.IsNullOrEmpty(dataClient.Documento) ? long.Parse(dataClient.Documento) : 0,
-                        Factura = int.Parse(Utilities.dataTransaction.Secuencia),
-                        FechaFun = string.Concat(year, "-", mount, "-", day),
-                        Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
-                        InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
-                        Nombre = string.IsNullOrEmpty(dataClient.Nombre) ? "null" : dataClient.Nombre,
-                        PagoCredito = 0,
-                        PagoEfectivo = Utilities.dataTransaction.PayVal,
-                        PagoInterno = Utilities.dataTransaction.PagoInterno,
-                        Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
-                        Productos = productos,
-                        PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
-                        Sala = Utilities.dataTransaction.DataFunction.RoomId,
-                        teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
-                        Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
-                        tercero = 1,
-                        TipoBono = 0,
-                        TotalVenta = Utilities.dataTransaction.DataFunction.Total,
-                        Ubicaciones = ubicaciones,
-                        Membresia = false,
-                        Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
-                    });
-
-                    frmLoading.Close();
-
-                    foreach (var item in response41)
-                    {
-                        if (item.Respuesta != null)
+                        var response41 = WCFServices41.PostBuy(new SCOINT
                         {
-                            if (item.Respuesta.Contains("exitoso"))
+                            Accion = Utilities.eTypeBuy == ETypeBuy.ConfectioneryAndCinema ? "V" : "C",
+                            Placa = string.IsNullOrEmpty(Utilities.dataTransaction.PLACA) ? "0" : Utilities.dataTransaction.PLACA,
+                            Apellido = string.IsNullOrEmpty(dataClient.Apellido) ? "null" : dataClient.Apellido,
+                            //ClienteFrecuente = long.Parse(string.IsNullOrEmpty(dataClient.Tarjeta) ? "0" : dataClient.Tarjeta),
+                            ClienteFrecuente = !string.IsNullOrEmpty(dataClient.Tarjeta) ? long.Parse(dataClient.Tarjeta) : 0,
+                            CorreoCliente = string.IsNullOrEmpty(dataClient.Login) ? "null" : dataClient.Login,
+                            Cortesia = string.Empty,
+                            Direccion = string.IsNullOrEmpty(dataClient.Direccion) ? "null" : dataClient.Direccion,
+                            //DocIdentidad = long.Parse(string.IsNullOrEmpty(dataClient.Documento) ? "0" : dataClient.Documento),
+                            DocIdentidad = !string.IsNullOrEmpty(dataClient.Documento) ? long.Parse(dataClient.Documento) : 0,
+                            Factura = int.Parse(Utilities.dataTransaction.Secuencia),
+                            FechaFun = string.Concat(year, "-", mount, "-", day),
+                            Funcion = Utilities.dataTransaction.DataFunction.IDFuncion,
+                            InicioFun = Utilities.dataTransaction.DataFunction.HourFormat,
+                            Nombre = string.IsNullOrEmpty(dataClient.Nombre) ? "null" : dataClient.Nombre,
+                            PagoCredito = 0,
+                            PagoEfectivo = Utilities.dataTransaction.PayVal,
+                            PagoInterno = Utilities.dataTransaction.PagoInterno,
+                            Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
+                            Productos = productos,
+                            PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
+                            Sala = Utilities.dataTransaction.DataFunction.RoomId,
+                            teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
+                            Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
+                            tercero = 1,
+                            TipoBono = 0,
+                            TotalVenta = Utilities.dataTransaction.DataFunction.Total,
+                            Ubicaciones = ubicaciones,
+                            Membresia = false,
+                            Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
+                        });
+
+                        frmLoading.Close();
+
+                        foreach (var item in response41)
+                        {
+                            if (item.Respuesta != null)
                             {
-                                GetInvoice();
-                                payState = true;
-                                break;
+                                if (item.Respuesta.Contains("exitoso"))
+                                {
+                                    GetInvoice();
+                                    payState = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    payState = false;
+                                }
                             }
                             else
                             {
                                 payState = false;
                             }
-                        }
-                        else
-                        {
-                            payState = false;
-                        }
 
+                        }
                     }
 
                     SavePay(payState);

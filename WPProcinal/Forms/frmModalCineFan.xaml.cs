@@ -125,7 +125,7 @@ namespace WPProcinal.Forms
                     {
                         foreach (var item in responseClient)
                         {
-                            if (item.Tarjeta != "0")
+                            if (item.Tarjeta != null && item.Tarjeta.Length > 0)
                             {
                                 Utilities.dataTransaction.dataUser = item;
                                 isCineFan = true;

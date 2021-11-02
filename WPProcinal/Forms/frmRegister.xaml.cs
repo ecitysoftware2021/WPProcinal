@@ -249,13 +249,16 @@ namespace WPProcinal.Forms
                     Utilities.dataTransaction.dataDocument.Key = pxPassword.Password;
                     Utilities.dataTransaction.dataDocument.Email = txMail.Text;
                     int edad = 18;
-                    try
-                    {
-                        edad = DateTime.Now.Year - int.Parse(Utilities.dataTransaction.dataDocument.Date.Substring(0, 4));
-                    }
-                    catch
-                    {
-                    }
+                    //try
+                    //{
+                        var wasaa = int.Parse(Utilities.dataTransaction.dataDocument.Date.Substring(4, 4));
+                        edad = DateTime.Now.Year - wasaa; 
+                            //int.Parse(Utilities.dataTransaction.dataDocument.Date.Substring(0, 4));
+                    //}
+                    //catch
+                    //{
+                    //}
+
                     FrmLoading frmLoading = new FrmLoading("¡Realizando registro...!");
                     frmLoading.Show();
                     Task.Run(() =>
