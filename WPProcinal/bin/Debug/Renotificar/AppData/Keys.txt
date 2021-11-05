@@ -1,2 +1,2 @@
-usuario:usrapli;password:1Cero12019$/*
-usuario:Pay+ Procinal Plaza del Rio;password:ProcinalApartado2020*;tipo:1
+u:usrapli;p:1Cero12019$/*
+u:Pay+ Procinal Fabricato 1;p:ProcinalFabricato2021$;t:1

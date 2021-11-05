@@ -30,7 +30,6 @@ namespace WPProcinal.Classes
             {
                 timer.Stop();
                 GC.Collect();
-
             };
 
             if (Minutos >= 1)

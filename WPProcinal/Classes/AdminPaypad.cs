@@ -13,7 +13,6 @@ namespace WPProcinal.Classes
     {
         static ApiLocal api = new ApiLocal();
 
-
         public static async Task UpdatePeripherals()
         {
             try

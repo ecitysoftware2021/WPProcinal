@@ -768,21 +768,39 @@ namespace WPProcinal.Classes
 
                     if (existsCombo != null)
                     {
+
+
                         existsCombo.Quantity++;
-                        existsCombo.Price += data.Price;
+                        existsCombo.Price += data.Price == 0 ? data.dataProduct.Precios[0].auxGeneral : data.Price;
 
                     }
                     else
                     {
-                        DataService41._Combos.Add(new Combos
+                        if (data.Name.Contains("Combo"))
                         {
-                            Name = data.Name,
-                            Quantity = 1,
-                            Price = data.Price,
-                            Code = data.Code,
-                            dataProduct = data.dataProduct,
-                            isCombo = data.isCombo
-                        });
+                            DataService41._Combos.Add(new Combos
+                            {
+                                Name = data.Name,
+                                Quantity = 1,
+                                //Price = data.Price,
+                                Price = data.Price,// == 0 ? data.dataProduct.Precios[0].auxGeneral  : data.Price,
+                                Code = data.Code,
+                                dataProduct = data.dataProduct,
+                                isCombo = data.isCombo
+                            });
+                        }
+                        else {
+                            DataService41._Combos.Add(new Combos
+                            {
+                                Name = data.Name,
+                                Quantity = 1,
+                                //Price = data.Price,
+                                Price = data.Price == 0 ? data.dataProduct.Precios[0].auxGeneral  : data.Price,
+                                Code = data.Code,
+                                dataProduct = data.dataProduct,
+                                isCombo = data.isCombo
+                            });
+                        }
                     }
                 }
             }

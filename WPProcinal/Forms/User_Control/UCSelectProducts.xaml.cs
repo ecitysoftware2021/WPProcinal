@@ -27,7 +27,8 @@ namespace WPProcinal.Forms.User_Control
     {
         #region "References"
 
-        private TimerTiempo timer;
+        TimerTiempo timer;
+      
         ApiLocal api;
         CLSGrabador grabador;
         private CollectionViewSource view;
@@ -43,6 +44,7 @@ namespace WPProcinal.Forms.User_Control
             grabador = new CLSGrabador();
             this.view = new CollectionViewSource();
             this.lstPager = new ObservableCollection<Producto>();
+            //SetCallBacksNull();
             ActivateTimer();
         }
 
@@ -53,21 +55,25 @@ namespace WPProcinal.Forms.User_Control
 
         private void BrdCombos_TouchDown(object sender, TouchEventArgs e)
         {
+            //SetCallBacksNull();
             DistributeProducts(sender);
         }
 
         private void BrdDrinks_TouchDown(object sender, TouchEventArgs e)
         {
+            //SetCallBacksNull();
             DistributeProducts(sender);
         }
 
         private void BrdPackages_TouchDown(object sender, TouchEventArgs e)
         {
+            //SetCallBacksNull();
             DistributeProducts(sender);
         }
 
         private void BrdOthers_TouchDown(object sender, TouchEventArgs e)
         {
+            //SetCallBacksNull();
             DistributeProducts(sender);
         }
 
@@ -316,30 +322,32 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 SetCallBacksNull();
-                string TypeProduct;
+                var TypeProduct = string.Empty;
                 var data = (sender as Border).Tag;
                 switch (data)
                 {
                     case "1":
                         TypeProduct = "C";
-                        Switcher.Navigate(new UCProducts(TypeProduct));
+                        //Switcher.Navigate(new UCProducts(TypeProduct));
                         break;
 
                     case "2":
                         TypeProduct = "P";
-                        Switcher.Navigate(new UCProducts(TypeProduct));
+                        //Switcher.Navigate(new UCProducts(TypeProduct));
                         break;
 
                     case "3":
                         TypeProduct = "B";
-                        Switcher.Navigate(new UCProducts(TypeProduct));
+                        //Switcher.Navigate(new UCProducts(TypeProduct));
                         break;
 
                     case "4":
                         TypeProduct = "O";
-                        Switcher.Navigate(new UCProducts(TypeProduct));
+                        //Switcher.Navigate(new UCProducts(TypeProduct));
                         break;
                 }
+                Switcher.Navigate(new UCProducts(TypeProduct));
+
             }
             catch (Exception ex)
             {
@@ -355,20 +363,23 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
-                timer = new TimerTiempo(tbTimer.Text);
-                timer.CallBackClose = response =>
+                this.tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
+                this.timer = new TimerTiempo(this.tbTimer.Text);
+                this.timer.CallBackClose = response =>
                 {
-                    Dispatcher.BeginInvoke((Action)delegate
+                    if (response == 1)
                     {
-                        Switcher.Navigate(new UCCinema());
-                    });
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            Switcher.Navigate(new UCCinema());
+                        });
+                    }
                 };
-                timer.CallBackTimer = response =>
+                this.timer.CallBackTimer = response =>
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
-                        tbTimer.Text = response;
+                        this.tbTimer.Text = response;
                     });
                 };
             }
@@ -380,11 +391,11 @@ namespace WPProcinal.Forms.User_Control
 
         void SetCallBacksNull()
         {
-            if (timer != null)
+            if (this.timer != null)
             {
-                timer.CallBackClose = null;
-                timer.CallBackTimer = null;
-                timer.CallBackStop?.Invoke(1);
+                this.timer.CallBackClose = null;
+                this.timer.CallBackTimer = null;
+                this.timer.CallBackStop?.Invoke(1);
             }
         }
 

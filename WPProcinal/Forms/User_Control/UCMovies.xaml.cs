@@ -208,7 +208,6 @@ namespace WPProcinal.Forms.User_Control
                     }
                 }
 
-
                 //HttpWebResponse response = null;
 
                 //var request = (HttpWebRequest)WebRequest.Create(image);

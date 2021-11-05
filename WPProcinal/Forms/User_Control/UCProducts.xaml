@@ -156,6 +156,17 @@
                 Source="/Images/anterior.png"
                 TouchDown="BtnComprar_TouchDown"
             />
+            <Image 
+                HorizontalAlignment="Right"
+                Name="BtnMore"
+                VerticalAlignment="Center"
+                Width="300"
+                Margin="0,0,150,200"
+                Stretch="Uniform"
+                Visibility="Hidden"
+                Source="/Images/anterior.png"
+                TouchDown="BtnMore_TouchDown"
+            />
         </Grid>
     </Grid>
 </UserControl>

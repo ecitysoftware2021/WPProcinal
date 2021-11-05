@@ -349,7 +349,6 @@ namespace WPProcinal.Forms.User_Control
                         Tarifa = int.Parse(item.CodTarifa.ToString())
                     });
                 }
-
                 productos = new List<Producto>();
 
                 foreach (var item in DataService41._Combos)

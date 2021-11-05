@@ -131,6 +131,7 @@ namespace WPProcinal.Forms.User_Control
                 _imageSleader.Stop();
                 Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
                 Utilities.PlateObligatory = false;
+
                 if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
                 {
                     ModalBioseguridad modal = new ModalBioseguridad();
