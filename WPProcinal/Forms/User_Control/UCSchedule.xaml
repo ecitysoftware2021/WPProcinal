@@ -111,8 +111,7 @@
                       >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}" >
-                        <EventSetter Event="TouchDown"
-                                            
+                        <EventSetter Event="TouchDown"                 
                          Handler="ListViewItem_TouchDown" />
                         <Setter Property="Template">
                             <Setter.Value>
@@ -139,14 +138,16 @@
                             <Grid x:Name="gridFechas" HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Margin="0,0,0,0"
-                                      TouchDown="GridFechas_TouchDown">
+                                  TouchDown="GridFechas_TouchDown"
+                                  >
+                                
                                 <Border 
-                                        BorderBrush="White"
-                                        Width="260"
-                                        Background="White"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="10,10,10,10"
-                                        >
+                                    BorderBrush="Transparent"
+                                    Width="260"
+                                    Background="{Binding BackColor,Mode=TwoWay}"
+                                    BorderThickness="1,1,1,1"
+                                    CornerRadius="10,10,10,10"
+                                     >
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>

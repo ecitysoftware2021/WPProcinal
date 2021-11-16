@@ -768,11 +768,8 @@ namespace WPProcinal.Classes
 
                     if (existsCombo != null)
                     {
-
-
-                        existsCombo.Quantity++;
-                        existsCombo.Price += data.Price == 0 ? data.dataProduct.Precios[0].auxGeneral : data.Price;
-
+                       existsCombo.Quantity++;
+                       //existsCombo.Price += data.Price == 0 ? data.dataProduct.Precios[0].auxGeneral : data.Price;
                     }
                     else
                     {
@@ -795,7 +792,7 @@ namespace WPProcinal.Classes
                                 Name = data.Name,
                                 Quantity = 1,
                                 //Price = data.Price,
-                                Price = data.Price == 0 ? data.dataProduct.Precios[0].auxGeneral  : data.Price,
+                                Price = data.Price,// == 0 ? data.dataProduct.Precios[0].auxGeneral  : data.Price,
                                 Code = data.Code,
                                 dataProduct = data.dataProduct,
                                 isCombo = data.isCombo

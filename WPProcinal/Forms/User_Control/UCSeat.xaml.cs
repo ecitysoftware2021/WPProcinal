@@ -244,12 +244,17 @@ namespace WPProcinal.Forms.User_Control
 
             foreach (var valida in seatsToValidate)
             {
-                if (
-                    (valida.number - 1 == item.Columna
-                    || valida.number - 2 == item.Columna
-                    || valida.number + 1 == item.Columna
-                    || valida.number + 2 == item.Columna)
-                    && item.TipoSilla != "pasillo"
+                //if ((valida.number - 1 == item.Columna
+                //|| valida.number - 2 == item.Columna
+                //|| valida.number + 1 == item.Columna
+                //|| valida.number + 2 == item.Columna)
+                //&& item.TipoSilla != "pasillo"
+                //&& item.EstadoSilla != "B"
+                //&& item.EstadoSilla != "O")
+
+
+                    if (
+                    item.TipoSilla == "pasillo"
                     && item.EstadoSilla != "B"
                     && item.EstadoSilla != "O")
                 {
@@ -795,6 +800,7 @@ namespace WPProcinal.Forms.User_Control
 
                     if (Utilities.dataTransaction.FechaSeleccionada.ToString("dd/MM/yyyy") != DateTime.Now.ToString("dd/MM/yyyy") || Utilities.PlateObligatory)
                     {
+
                         frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
                         this.Opacity = 0.3;
                         _frmConfirmationModal.ShowDialog();

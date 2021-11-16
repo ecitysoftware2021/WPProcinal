@@ -29,6 +29,7 @@ namespace WPProcinal.Forms.User_Control
         int itemPerPage = 20;
         int totalPage = 0;
         int login = 0;
+        int Validate = 0;
 
         /// <summary>
         /// Variable de control, para evitar validar varias veces la misma imagen,
@@ -87,27 +88,27 @@ namespace WPProcinal.Forms.User_Control
             if (data != null)
             {
                 this.IsEnabled = false;
-                foreach (var pelicula in data.Pelicula.Where(x=>x.Cinemas != null))
+                foreach (var pelicula in data.Pelicula.Where(x => x.Cinemas != null))
                 {
                     try
                     {
                         //comentarie michael
                         //if (pelicula.Cinemas != null)
                         //{
-                            foreach (var Cinema in pelicula.Cinemas.Cinema.Where( p => 
-                                p.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()
-                            ))
+                        foreach (var Cinema in pelicula.Cinemas.Cinema.Where(p =>
+                           p.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()
+                        ))
+                        {
+                            //if (Cinema.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString())
+                            //{
+                            var peliculaExistente = DataService41.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
+                            if (peliculaExistente == 0)
                             {
-                                //if (Cinema.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString())
-                                //{
-                                    var peliculaExistente = DataService41.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
-                                    if (peliculaExistente == 0)
-                                    {
-                                        DataService41.Movies.Add(pelicula);
-                                        LoadMovies(pelicula);
-                                    }
-                                //}
+                                DataService41.Movies.Add(pelicula);
+                                LoadMovies(pelicula);
                             }
+                            //}
+                        }
                         //}
                     }
                     catch (Exception ex)
@@ -158,7 +159,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        public  void LoadMovies(Pelicula pelicula)
+        public void LoadMovies(Pelicula pelicula)
         {
             try
             {
@@ -179,7 +180,7 @@ namespace WPProcinal.Forms.User_Control
                         data = client.DownloadString(image);
 
 
-                        if (data!=null && data.Length > 3)
+                        if (data != null && data.Length > 3)
                         {
                             if (!File.Exists(Path.Combine(Path.GetDirectoryName(
                                 Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png")))
@@ -194,12 +195,12 @@ namespace WPProcinal.Forms.User_Control
 
                                 }
                             }
-                            else 
+                            else
                             {
                                 imgAsignada = pelicula.Data.TituloOriginal.Trim();
                             }
                         }
-                       
+
                     }
                     catch (WebException weX)
                     {
@@ -227,11 +228,11 @@ namespace WPProcinal.Forms.User_Control
 
                 //            using (WebClient client = new WebClient())
                 //            {
-                         
+
                 //                 client.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
                 //                    Assembly.GetEntryAssembly().Location),
                 //                    "Imagesmovies", pelicula.Data.TituloOriginal.Trim() + ".png"));
-                             
+
                 //            }
                 //        }
                 //    }
@@ -528,6 +529,30 @@ namespace WPProcinal.Forms.User_Control
             catch (Exception ex)
             {
                 LogService.SaveRequestResponse("UCMovies>TouchImage_TouchDown", JsonConvert.SerializeObject(ex), 1);
+            }
+        }
+
+        private void GrdValidate_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            login += 1;
+
+            if (login == 5)
+            {
+                SetCallBacksNull();
+
+                this.Opacity = 0.3;
+                frmModalLogin modalLogin = new frmModalLogin();
+                modalLogin.ShowDialog();
+
+                if (modalLogin.DialogResult.HasValue && modalLogin.DialogResult.Value)
+                {
+                    frmDispenser dispenser = new frmDispenser();
+                    dispenser.ShowDialog();
+                    login = 0;
+                }
+
+                this.Opacity = 1;
+                ActivateTimer();
             }
         }
     }

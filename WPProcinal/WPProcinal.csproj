@@ -165,6 +165,9 @@
     <Compile Include="Forms\frmConfigurate.xaml.cs">
       <DependentUpon>frmConfigurate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmDispenser.xaml.cs">
+      <DependentUpon>frmDispenser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmLoading.xaml.cs">
       <DependentUpon>FrmLoading.xaml</DependentUpon>
     </Compile>
@@ -186,6 +189,9 @@
     </Compile>
     <Compile Include="Forms\ModalBioseguridad.xaml.cs">
       <DependentUpon>ModalBioseguridad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ModalCovid.xaml.cs">
+      <DependentUpon>ModalCovid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Opciones.xaml.cs">
       <DependentUpon>Opciones.xaml</DependentUpon>
@@ -250,6 +256,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\frmDispenser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\FrmLoading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -285,6 +295,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ModalBioseguridad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ModalCovid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

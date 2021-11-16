@@ -22,10 +22,14 @@ namespace WPProcinal.Forms.User_Control
         private FrmLoading frmLoading;
         private ImageSleader _imageSleader;
         System.Timers.Timer timerStatePay = new System.Timers.Timer();
+        ModalCovid Covid = new ModalCovid();
 
         public UCCinema()
         {
             InitializeComponent();
+            
+
+
             DataService41._Combos = new System.Collections.Generic.List<Combos>();
             timerStatePay.Interval = 10000;
             timerStatePay.Elapsed += new System.Timers.ElapsedEventHandler(TimerStatePay_Tick);
@@ -105,16 +109,23 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                timerStatePay.Stop();
-                gridPrincipal.IsEnabled = false;
-                _imageSleader.Stop();
-                Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
-                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
+             
+                Covid.ShowDialog();
+
+                if (Covid.DialogResult == true)
                 {
-                    ModalBioseguridad modal = new ModalBioseguridad();
-                    modal.ShowDialog();
+
+                    timerStatePay.Stop();
+                    gridPrincipal.IsEnabled = false;
+                    _imageSleader.Stop();
+                    Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
+                    if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
+                    {
+                        ModalBioseguridad modal = new ModalBioseguridad();
+                        modal.ShowDialog();
+                    }
+                    Switcher.Navigate(new UCMovies());
                 }
-                Switcher.Navigate(new UCMovies());
             }
             catch (System.Exception ex)
             {
@@ -126,24 +137,34 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                timerStatePay.Stop();
-                gridPrincipal.IsEnabled = false;
-                _imageSleader.Stop();
-                Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
-                Utilities.PlateObligatory = false;
+                Covid.ShowDialog();
 
-                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
+                if (Covid.DialogResult == true)
                 {
-                    ModalBioseguridad modal = new ModalBioseguridad();
-                    modal.ShowDialog();
+                    timerStatePay.Stop();
+                    gridPrincipal.IsEnabled = false;
+                    _imageSleader.Stop();
+                    Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
+                    Utilities.PlateObligatory = false;
+
+                    if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
+                    {
+                        ModalBioseguridad modal = new ModalBioseguridad();
+                        modal.ShowDialog();
+                    }
+                    //Switcher.Navigate(new UCMovies());
+                    Switcher.Navigate(new UCSelectProducts());
                 }
-                //Switcher.Navigate(new UCMovies());
-                Switcher.Navigate(new UCSelectProducts());
             }
             catch (System.Exception ex)
             {
                 AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
             }
+        }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+       
         }
     }
 }

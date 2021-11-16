@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WPProcinal.Forms.User_Control"
              mc:Ignorable="d" 
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
-             d:DesignHeight="2064.095" d:DesignWidth="1250.599">
+             d:DesignHeight="2064.095" d:DesignWidth="1250.599" Loaded="UserControl_Loaded">
     <Grid  Name="gridPrincipal">
         
             <Grid.Background>

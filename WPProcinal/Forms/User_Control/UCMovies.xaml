@@ -217,5 +217,15 @@
                     FontSize="50" />
             </Grid>
         </Border>
+        <Grid
+            Panel.ZIndex="1000"
+            Background="Transparent"
+            Name="GrdValidate"
+            Height="100"
+            Width="80"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left"
+            MouseDown="GrdValidate_MouseDown"
+        />
     </Grid>
 </UserControl>

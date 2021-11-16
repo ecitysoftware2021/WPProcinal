@@ -497,19 +497,35 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
+                string color = string.Empty;
                 if (dateName.Count() > 0)
                 {
+                    int count = 1;
                     foreach (var item in dateName)
                     {
+
+                        if (count == 1) 
+                        {
+                            color = "#FFF89126";
+                        } 
+                        else
+                        {
+                            color = "#FFFFFF";
+                        }
+                        
                         lstPager2.Add(new DateName
                         {
                             Mes = item.Mes,
                             NombreDia = item.NombreDia,
                             FechaOrigin = item.FechaOrigin,
                             TextColor = "Black",
-                            DiaNumero = item.DiaNumero
+                            DiaNumero = item.DiaNumero,
+                            BackColor = color
                         });
+                        count++;
+                        
                     }
+
 
                     CreatePages2(dateName.Count());
                 }
@@ -629,18 +645,35 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                var childs = (sender as Grid).Children;
-                foreach (var item in childs)
+                var selected = (DateName)(sender as Grid).DataContext;
+                var lstDayold = lstPager2.Where(x => x.BackColor!=selected.BackColor).FirstOrDefault();
+                var lstselected = lstPager2.Where(x => x.DiaNumero == selected.DiaNumero).FirstOrDefault();
+                if (lstDayold != null)
                 {
-                    if (item is Border)
-                    {
-                        ClearHoursList();
-                        var border = item as Border;
-                        Color color2 = (Color)ColorConverter.ConvertFromString("#FFF89126");
-                        border.Background = new SolidColorBrush(color2);
-                        borders.Add(border);
-                    }
+                    lstDayold.BackColor = "#FFFFFF";
+                    lstselected.BackColor = "#FFF89126";
                 }
+
+                //else
+                //{
+                //    //Color color2 = (Color)ColorConverter.ConvertFromString("#FFF89126");
+                //    //Toy nulo mi so
+                //}
+
+                //ClearHoursList();
+
+                //var childs = (sender as Grid).Children;
+                //foreach (var item in childs)
+                //{
+                //    if (item is Border)
+                //    {
+                //        ClearHoursList();
+                //        var border = item as Border;
+                //        Color color2 = (Color)ColorConverter.ConvertFromString("#FFF89126");
+                //        border.Background = new SolidColorBrush(color2);
+                //        borders.Add(border);
+                //    }
+                //}
             }
             catch (Exception ex)
             {

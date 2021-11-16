@@ -45,6 +45,12 @@ namespace WPProcinal.Forms.User_Control
             this.view = new CollectionViewSource();
             this.lstPager = new ObservableCollection<Producto>();
             //SetCallBacksNull();
+
+            if (DataService41._Combos != null && DataService41._Combos.Count() > 0)
+            {
+                BtnOmitir.Source = new BitmapImage(new Uri(@"/Images/siguiente.png", UriKind.Relative));
+            }
+
             ActivateTimer();
         }
 
@@ -89,12 +95,21 @@ namespace WPProcinal.Forms.User_Control
             Switcher.Navigate(new UCCinema());
         }
 
+
         private void BtnOmitir_TouchDown(object sender, TouchEventArgs e)
         {
             this.IsEnabled = false;
             SetCallBacksNull();
-            ChangePrices();
-            ShowDetailModal();
+            var dt = (sender as Image).Source;
+            if (dt.ToString().Contains("siguiente"))
+            {
+                ShowDetailModal();
+            }
+            else
+            {
+                ChangePrices();
+                ShowDetailModal();
+            }
         }
 
         #endregion
