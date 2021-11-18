@@ -352,6 +352,7 @@ namespace WPProcinal.Classes
             }
             catch (Exception ex)
             {
+
             }
         }
 
@@ -390,8 +391,10 @@ namespace WPProcinal.Classes
                     g.DrawString(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.Nit, fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
                 }
                 SpaceY += 20;
+                
                 g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
                 SpaceY += 10;
+               
                 g.DrawString("COMPROBANTE DE SOLICITUD DE DATOS", fBodyTiulos, sb, 15, SpaceY - 10);
                 SpaceY += 20;
 

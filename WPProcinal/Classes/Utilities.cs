@@ -847,8 +847,6 @@ namespace WPProcinal.Classes
             try
             {
                 CodeQrBarcodeDraw qrcode = BarcodeDrawFactory.CodeQr;
-                
-                
                 return qrcode.Draw(code, 1, size);
             }
             catch (Exception ex)

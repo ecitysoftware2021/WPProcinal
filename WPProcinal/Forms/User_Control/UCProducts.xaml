@@ -10,8 +10,9 @@
     d:DesignWidth="1250.599">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/backgrounds/fondoConfiteria.jpg" 
-                        Stretch="UniformToFill"/>
+            <ImageBrush 
+                ImageSource="/Images/backgrounds/fondoConfiteria.jpg" 
+                Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
