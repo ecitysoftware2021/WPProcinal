@@ -109,7 +109,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         if (payState)
                         {
-                            ValorTotal = "1";//Utilities.dataTransaction.PayVal.ToString().Split(',')[0];
+                            ValorTotal = Utilities.dataTransaction.PayVal.ToString().Split(',')[0];
                             NumeroTransaccion = Utilities.IDTransactionDB.ToString();
                             string Delimitador = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.Delimitador;
                             TramaInicial = string.Concat(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DataDatafono.IdentificadorInicio, Delimitador,
