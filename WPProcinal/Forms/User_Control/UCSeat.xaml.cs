@@ -252,11 +252,10 @@ namespace WPProcinal.Forms.User_Control
                 //&& item.EstadoSilla != "B"
                 //&& item.EstadoSilla != "O")
 
-
-                    if (
-                    item.TipoSilla == "pasillo"
-                    && item.EstadoSilla != "B"
-                    && item.EstadoSilla != "O")
+                if (
+                item.TipoSilla == "pasillo"
+                && item.EstadoSilla != "B"
+                && item.EstadoSilla != "O")
                 {
                     imageSource = GetImage("CO");
                     item.TipoSilla = "Discapacitado";
