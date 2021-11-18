@@ -23,6 +23,7 @@ using WPProcinal.Service;
 using static WPProcinal.Models.ApiLocal.Uptake;
 using SQLite.Connection.Ecity;
 using System.Threading;
+using Zen.Barcode;
 
 namespace WPProcinal.Classes
 {
@@ -450,6 +451,20 @@ namespace WPProcinal.Classes
             catch (Exception ex)
             {
                 LogService.SaveRequestResponse("Utilities>PrintTicket", JsonConvert.SerializeObject(ex), 2);
+            }
+        }
+
+        public static System.Drawing.Image GenerateCodeQr(string code, int size)
+        {
+            try
+            {
+                CodeQrBarcodeDraw qrcode = BarcodeDrawFactory.CodeQr;
+                return qrcode.Draw(code, 1, size);
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("Utilities>GenerateCodeQR", JsonConvert.SerializeObject(ex), 1);
+                return null;
             }
         }
 

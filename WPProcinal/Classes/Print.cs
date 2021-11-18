@@ -235,11 +235,129 @@ namespace WPProcinal.Classes
             }
         }
 
+        //TODO: PRINT OLD
+        //private void PrintPageCombos(object sender, PrintPageEventArgs e)
+        //{
+        //    try
+        //    {
+        //        Graphics g = e.Graphics;
+        //        SpaceY = 100;
+        //        SpaceX = 70;
+        //        string pat = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Salas_Formatos", "logo.png");
+        //        string RutaIMG = pat;
+        //        g.DrawImage(Image.FromFile(RutaIMG), 40, 0);
+
+        //        g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, 80);
+        //        SpaceY += 10;
+
+
+        //        if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema == 304
+        //            || Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema == 302)
+        //        {
+        //            g.DrawString(Cinema, fBodySala, sb, 90, SpaceY);
+        //            SpaceY += 30;
+        //            g.DrawString("Promotora Nacional de Cines S.A.S", fBodyTiulos, sb, 50, SpaceY - 10);
+        //            SpaceY += 15;
+        //            g.DrawString(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.NitPromotora, fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+        //        }
+        //        else
+        //        {
+        //            g.DrawString(Cinema, fBodySala, sb, 90, SpaceY);
+        //            SpaceY += 30;
+        //            g.DrawString("Colombia de Cines S.A", fBodyTiulos, sb, 80, SpaceY - 10);
+        //            SpaceY += 15;
+        //            g.DrawString(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.Nit, fBodyTiulos, sb, SpaceX + 40, SpaceY - 10);
+        //        }
+        //        SpaceY += 20;
+        //        g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
+        //        SpaceY += 20;
+
+        //        if (DataService41._DataResolution != null)
+        //        {
+        //            g.DrawString("Factura ", fBodyTiulos, sb, 10, SpaceY);
+        //            g.DrawString(DataService41._DataResolution.Factura.ToString(), fBodyTiulos, sb, 140, SpaceY);
+        //            SpaceY += 20;
+        //            g.DrawString("Prefijo ", fBodyTiulos, sb, 10, SpaceY);
+        //            g.DrawString(DataService41._DataResolution.Prefijo.ToString(), fBodyTiulos, sb, 140, SpaceY);
+        //            SpaceY += 20;
+        //            g.DrawString("Resolución ", fBodyTiulos, sb, 10, SpaceY);
+        //            g.DrawString(DataService41._DataResolution.Resolución.ToString(), fBodyTiulos, sb, 140, SpaceY);
+        //            SpaceY += 20;
+        //            g.DrawString("Inicio ", fBodyTiulos, sb, 10, SpaceY);
+        //            g.DrawString(DataService41._DataResolution.Inicio.ToString(), fBodyTiulos, sb, 140, SpaceY);
+        //            SpaceY += 20;
+        //            g.DrawString("Fin ", fBodyTiulos, sb, 10, SpaceY);
+        //            g.DrawString(DataService41._DataResolution.Fin.ToString(), fBodyTiulos, sb, 140, SpaceY);
+        //            SpaceY += 20;
+        //            g.DrawString("Vencimiento ", fBodyTiulos, sb, 10, SpaceY);
+        //            g.DrawString(DataService41._DataResolution.Vencimiento.ToString(), fBodyTiulos, sb, 140, SpaceY);
+        //            SpaceY += 20;
+
+        //            g.DrawString("Secuencia ", fBodyTiulos, sb, 10, SpaceY);
+        //            g.DrawString(Secuencia, fBodyTiulos, sb, 140, SpaceY);
+        //            SpaceY += 20;
+        //        }
+
+        //        SpaceY += 20;
+        //        g.DrawString("-".PadRight(50, '-'), fBodySala, sb, 10, SpaceY - 15);
+        //        SpaceY += 20;
+        //        g.DrawString("Factura de Compra", fBodyTiulos, sb, 90, SpaceY);
+        //        SpaceY += 35;
+        //        g.DrawString("Producto ", fBodyTiulos, sb, 10, SpaceY);
+        //        g.DrawString("Valor ", fBodyTiulos, sb, 140, SpaceY);
+        //        g.DrawString("Cantidad ", fBodyTiulos, sb, 220, SpaceY);
+        //        SpaceY += 15;
+        //        g.DrawString("========================================", fBodyTiulos, sb, 10, SpaceY);
+        //        SpaceY += 15;
+
+        //        foreach (var item in DataService41._Combos)
+        //        {
+        //            g.DrawString(item.Name, fBodyTiulos, sb, 10, SpaceY);
+        //            g.DrawString(item.Price.ToString("$ #,#00"), fBodyTiulos, sb, 140, SpaceY);
+        //            g.DrawString(item.Quantity.ToString(), fBodyTiulos, sb, 220, SpaceY);
+        //            Valor += item.Price;
+        //            SpaceY += 15;
+        //        }
+
+        //        g.DrawString("========================================", fBodyTiulos, sb, 10, SpaceY);
+
+        //        SpaceY += 20;
+        //        g.DrawString("Base IMP al Consumo 8%", fBodyTiulos, sb, 40, SpaceY);
+        //        var baseIMP = double.Parse(Valor.ToString()) / 1.08;
+        //        g.DrawString(baseIMP.ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
+
+        //        SpaceY += 20;
+        //        g.DrawString("Subtotal", fBodyTiulos, sb, 40, SpaceY);
+        //        g.DrawString(baseIMP.ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
+        //        SpaceY += 20;
+        //        var IMP = double.Parse(baseIMP.ToString()) * 0.08;
+        //        g.DrawString("IMP al Consumo 8%", fBodyTiulos, sb, 40, SpaceY);
+        //        g.DrawString(IMP.ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
+
+
+        //        SpaceY += 20;
+        //        g.DrawString("Valor Total:", fBodyTiulos, sb, 40, SpaceY);
+        //        g.DrawString((baseIMP + IMP).ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
+        //        SpaceY += 20;
+        //        g.DrawString("Vehículo:", fBodyTiulos, sb, 40, SpaceY);
+        //        g.DrawString(Placa, fBodyTiulos, sb, 200, SpaceY);
+        //        SpaceY += 20;
+        //        g.DrawString("RECLAMA TU COMBO EN LA CONFITERÍA", fBodySala, sb, 0, SpaceY);
+        //        SpaceY += 20;
+        //        g.DrawString("Venta realizada en el Kiosko Digital", fBodyTiulos, sb, 50, SpaceY);
+        //        SpaceY += 15;
+        //        g.DrawString("Por E-city software.", fBodyTiulos, sb, 90, SpaceY);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
         private void PrintPageCombos(object sender, PrintPageEventArgs e)
         {
             try
             {
+                string DataQr = "cnv" + Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta.ToString() + " " + Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema + " " + Secuencia + "-" + Utilities.dataTransaction.FechaSeleccionada.Date.ToString("yyyy-MM-dd").Replace("-", String.Empty);
                 Graphics g = e.Graphics;
                 SpaceY = 100;
                 SpaceX = 70;
@@ -338,18 +456,21 @@ namespace WPProcinal.Classes
                 SpaceY += 20;
                 g.DrawString("Valor Total:", fBodyTiulos, sb, 40, SpaceY);
                 g.DrawString((baseIMP + IMP).ToString("$ #,#00"), fBodyTiulos, sb, 200, SpaceY);
-                SpaceY += 20;
-                g.DrawString("Vehículo:", fBodyTiulos, sb, 40, SpaceY);
-                g.DrawString(Placa, fBodyTiulos, sb, 200, SpaceY);
+                //SpaceY += 20;
+                //g.DrawString("Vehículo:", fBodyTiulos, sb, 40, SpaceY);
+                //g.DrawString(Placa, fBodyTiulos, sb, 200, SpaceY);
                 SpaceY += 20;
                 g.DrawString("RECLAMA TU COMBO EN LA CONFITERÍA", fBodySala, sb, 0, SpaceY);
                 SpaceY += 20;
+                g.DrawImage(Utilities.GenerateCodeQr(DataQr, 2), 90, SpaceY);
+                SpaceY += 100;
                 g.DrawString("Venta realizada en el Kiosko Digital", fBodyTiulos, sb, 50, SpaceY);
                 SpaceY += 15;
                 g.DrawString("Por E-city software.", fBodyTiulos, sb, 90, SpaceY);
             }
             catch (Exception ex)
             {
+
             }
         }
 

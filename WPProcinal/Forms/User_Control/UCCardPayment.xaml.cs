@@ -103,8 +103,10 @@ namespace WPProcinal.Forms.User_Control
                     Opacity = 0.3;
                     frmModal Modal = new frmModal(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeDatafono);
                     Modal.ShowDialog();
+
                     Opacity = 1;
                     FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
+                    
                     Task.Run(() =>
                     {
                         if (payState)
@@ -128,12 +130,14 @@ namespace WPProcinal.Forms.User_Control
                             var LCRPeticion = TPV.CalculateLRC(TramaInicial);
                             LogService.SaveRequestResponse("Petición al datáfono", LCRPeticion, 1);
                             //Envío la trama que intentará activar el datáfono
+                            
                             Dispatcher.BeginInvoke((Action)delegate
                             {
                                 frmLoading.Show();
                             });
 
                             var datos = TPV.EnviarPeticion(LCRPeticion);
+                            
                             Dispatcher.BeginInvoke((Action)delegate
                             {
                                 frmLoading.Close();

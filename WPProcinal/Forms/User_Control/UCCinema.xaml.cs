@@ -22,7 +22,7 @@ namespace WPProcinal.Forms.User_Control
         private FrmLoading frmLoading;
         private ImageSleader _imageSleader;
         System.Timers.Timer timerStatePay = new System.Timers.Timer();
-
+        ModalCovid Covid = new ModalCovid();
         public UCCinema()
         {
             InitializeComponent();
@@ -105,43 +105,101 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                timerStatePay.Stop();
-                gridPrincipal.IsEnabled = false;
-                _imageSleader.Stop();
-                Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
-                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
+
+                Covid.ShowDialog();
+
+                if (Covid.DialogResult == true)
                 {
-                    ModalBioseguridad modal = new ModalBioseguridad();
-                    modal.ShowDialog();
+
+                    timerStatePay.Stop();
+                    gridPrincipal.IsEnabled = false;
+                    _imageSleader.Stop();
+                    Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
+                    if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
+                    {
+                        ModalBioseguridad modal = new ModalBioseguridad();
+                        modal.ShowDialog();
+                    }
+                    Switcher.Navigate(new UCMovies());
                 }
-                Switcher.Navigate(new UCMovies());
             }
             catch (System.Exception ex)
             {
                 AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
             }
+
+            //try
+            //{
+            //    timerStatePay.Stop();
+            //    gridPrincipal.IsEnabled = false;
+            //    _imageSleader.Stop();
+            //    Utilities.eTypeBuy = ETypeBuy.ConfectioneryAndCinema;
+            //    if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
+            //    {
+            //        ModalBioseguridad modal = new ModalBioseguridad();
+            //        modal.ShowDialog();
+            //    }
+            //    Switcher.Navigate(new UCMovies());
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
+            //}
         }
 
         private void Config_TouchDown(object sender, TouchEventArgs e)
         {
+
             try
             {
-                timerStatePay.Stop();
-                gridPrincipal.IsEnabled = false;
-                _imageSleader.Stop();
-                Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
-                Utilities.PlateObligatory = false;
-                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
+                Covid.ShowDialog();
+
+                if (Covid.DialogResult == true)
                 {
-                    ModalBioseguridad modal = new ModalBioseguridad();
-                    modal.ShowDialog();
+                    timerStatePay.Stop();
+                    gridPrincipal.IsEnabled = false;
+                    _imageSleader.Stop();
+                    Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
+                    Utilities.PlateObligatory = false;
+
+                    if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
+                    {
+                        ModalBioseguridad modal = new ModalBioseguridad();
+                        modal.ShowDialog();
+                    }
+                    //Switcher.Navigate(new UCMovies());
+
+                    if(Utilities.dataTransaction.SelectedTypeSeats != null && Utilities.dataTransaction.SelectedTypeSeats.Count > 0)
+                    {
+                        Utilities.dataTransaction.SelectedTypeSeats.Clear();
+                    }
+
+                    Switcher.Navigate(new UCSelectProducts());
                 }
-                Switcher.Navigate(new UCMovies());
             }
             catch (System.Exception ex)
             {
                 AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
             }
+
+            //try
+            //{
+            //    timerStatePay.Stop();
+            //    gridPrincipal.IsEnabled = false;
+            //    _imageSleader.Stop();
+            //    Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
+            //    Utilities.PlateObligatory = false;
+            //    if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
+            //    {
+            //        ModalBioseguridad modal = new ModalBioseguridad();
+            //        modal.ShowDialog();
+            //    }
+            //    Switcher.Navigate(new UCMovies());
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "BtnConsult en frmCinema", EError.Aplication, ELevelError.Medium);
+            //}
         }
     }
 }

@@ -1,0 +1,73 @@
+﻿<Window x:Class="WPProcinal.Forms.ModalCovid"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPProcinal.Forms"
+        mc:Ignorable="d"
+        Title="ModalCovid"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        ShowInTaskbar="False" 
+        Topmost="True"
+        Height="450" 
+        Width="600"
+        >
+    <Border 
+            BorderBrush="Black" 
+            BorderThickness="3,3,3,3"
+            CornerRadius="20,20,20,20">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/Backgrounds/p-fondo-general.jpg"
+                        Stretch="Fill"/>
+        </Border.Background>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                HorizontalAlignment="Center"
+                Grid.Row="0"
+                VerticalAlignment="Top"
+                Margin="0,0,0,0"
+                Padding="20"
+                FontWeight="Bold"
+                Foreground="White"
+                FontSize="45"
+                Text="Importante"
+                />
+            <TextBlock 
+                x:Name="LblMessage" 
+                HorizontalAlignment="Center"
+                FontFamily="Gotham"
+                Grid.Row="1" 
+                Margin="34,0,32,50"
+                FontSize="25"
+                TextAlignment="Center"
+                TextWrapping="Wrap"
+                Text="Según el decreto 1048 emitido por el Gobierno Nacional, a partir del 16 de noviembre de 2021 sera obligatorio, para mayores de 18 años, presentar el carnet de vacunación de manera física o virtual, al menos con una dosis, para ingreso a nuestros Cinemas Procinal  "   
+                VerticalAlignment="Center" 
+                Foreground="white" />
+
+
+            <Image 
+                HorizontalAlignment="Center"
+                Name="BtnEnd"
+                VerticalAlignment="Bottom"
+                Width="200"
+                   Grid.Row="2"
+                       Margin="0,0,0,0"
+                       Stretch="Uniform"
+                       Source="../Images/Buttons/aceptar.png"
+                           TouchDown="BtnEnd_TouchDown"
+                       />
+        </Grid>
+    </Border>
+</Window>
+   
+    

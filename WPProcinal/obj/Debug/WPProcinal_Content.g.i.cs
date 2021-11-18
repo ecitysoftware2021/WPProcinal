@@ -8,6 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("favicon_procinal.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/others/3d_glasses.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/others/bebidas.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/others/combos.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/others/icee-bebidas.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/others/products.png")]
 
 

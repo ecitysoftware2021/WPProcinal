@@ -34,6 +34,7 @@
                 Stretch="Uniform"
                 Source="/Images/Buttons/verCombos.png"
                 TouchDown="BtnCombos_TouchDown"
+                Visibility="Hidden"
                 />
         </Grid>
         <Grid Grid.Row="1">
@@ -163,6 +164,18 @@
                 Stretch="Uniform"
                 Source="/Images/buttons/omitir.png"
                 TouchDown="BtnComprar_TouchDown"
+            />
+            
+            <Image 
+                HorizontalAlignment="Right"
+                Name="BtnMore"
+                VerticalAlignment="Center"
+                Width="300"
+                Margin="0,0,150,200"
+                Stretch="Uniform"
+        
+                Source="/Images/anterior.png"
+                TouchDown="BtnMore_TouchDown"
             />
         </Grid>
     </Grid>

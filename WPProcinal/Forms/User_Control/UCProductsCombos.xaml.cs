@@ -114,7 +114,7 @@ namespace WPProcinal.Forms.User_Control
         private void BtnCombos_TouchDown(object sender, TouchEventArgs e)
         {
             SetCallBacksNull();
-            Switcher.Navigate(new UCProducts());
+            //Switcher.Navigate(new UCProducts());
         }
 
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
