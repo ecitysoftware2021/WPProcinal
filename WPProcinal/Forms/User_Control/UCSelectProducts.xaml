@@ -1,0 +1,211 @@
+﻿<UserControl 
+    x:Class="WPProcinal.Forms.User_Control.UCSelectProducts"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:WPProcinal.Forms.User_Control"
+    mc:Ignorable="d" 
+    d:DesignHeight="1900"
+    d:DesignWidth="1080"
+    >
+    <Grid>
+        <Grid.Background>
+            <ImageBrush 
+                ImageSource="/Images/backgrounds/fondoConfiteria.jpg" 
+                Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="400"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock 
+                x:Name="tbTimer"
+                Text="00:00"
+                FontSize="35"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
+            />
+        </Grid>
+        <Grid Grid.Row="1" Margin="5,0,5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Border
+                    Name="BrdCombos"
+                    Height="450"
+                    Width="450"
+                    Background="WhiteSmoke"
+                    CornerRadius="100"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="20,70,0,0"
+                    TouchDown="BrdCombos_TouchDown"
+                    Tag="1"
+                >
+                    <Grid>
+                        <Image
+                            Source="/Images/Others/Combos.png"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Height="220"
+                            Margin="0,0,0,100"
+                        />
+                        <TextBlock
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center"
+                            Text="Combos"
+                            FontWeight="SemiBold"
+                            FontSize="50"
+                            Margin="0,0,0,30"
+                            Foreground="Red"
+                        />
+                    </Grid>
+                    <Border.BitmapEffect>
+                        <DropShadowBitmapEffect ShadowDepth="4" Softness="1"/>
+                    </Border.BitmapEffect>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Border
+                    Name="BrdDrinks"
+                    Height="450"
+                    Width="450"
+                    Background="WhiteSmoke"
+                    CornerRadius="100"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="20,0,0,70"
+                    TouchDown="BrdDrinks_TouchDown"
+                    Tag="3"
+                >
+                    <Grid>
+                        <Image
+                            Source="/Images/Others/ICEE-Bebidas.jpg"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Height="350"
+                            Margin="0,0,0,80"
+                        />
+                        <TextBlock
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center"
+                            Text="Bebidas"
+                            FontWeight="SemiBold"
+                            FontSize="50"
+                            Margin="0,0,0,30"
+                            Foreground="Red"
+                        />
+                    </Grid>
+                    <Border.BitmapEffect>
+                        <DropShadowBitmapEffect ShadowDepth="4" Softness="1"/>
+                    </Border.BitmapEffect>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Border
+                    Name="BrdPackages"
+                    Height="450"
+                    Width="450"
+                    Background="WhiteSmoke"
+                    CornerRadius="100"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="0,70,20,0"
+                    TouchDown="BrdPackages_TouchDown"
+                    Tag="2"
+                >
+                    <Grid>
+                        <Image
+                            Source="/Images/Others/Products.png"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Height="220"
+                            Margin="0,0,0,100"
+                        />
+                        <TextBlock
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center"
+                            Text="Paquetes"
+                            FontWeight="SemiBold"
+                            FontSize="50"
+                            Margin="0,0,0,30"
+                            Foreground="Red"
+                        />
+                    </Grid>
+                    <Border.BitmapEffect>
+                        <DropShadowBitmapEffect ShadowDepth="4" Softness="1"/>
+                    </Border.BitmapEffect>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Border
+                    x:Name="BrdOthers"
+                    Height="450"
+                    Width="450"
+                    Background="WhiteSmoke"
+                    CornerRadius="100"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,20,70"
+                    TouchDown="BrdOthers_TouchDown"
+                    Tag="4"
+                >
+                    <Grid>
+                        <Image
+                            Source="/Images/Others/3D_Glasses.png"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Height="150"
+                            Margin="0,0,0,100"
+                        />
+                        <TextBlock
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center"
+                            Text="Otros"
+                            FontWeight="SemiBold"
+                            FontSize="50"
+                            Margin="0,0,0,30"
+                            Foreground="Red"
+                        />
+                    </Grid>
+                    <Border.BitmapEffect>
+                        <DropShadowBitmapEffect ShadowDepth="4" Softness="1"/>
+                    </Border.BitmapEffect>
+                </Border>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Image 
+                HorizontalAlignment="Left"
+                Name="BtnSalir"
+                VerticalAlignment="Center"
+                Width="300"
+                Margin="150,0,0,100"
+                Stretch="Uniform"
+                Source="/Images/salir2.png"
+                TouchDown="BtnSalir_TouchDown"
+            />
+            <Image 
+                HorizontalAlignment="Right"
+                Name="BtnOmitir"
+                VerticalAlignment="Center"
+                Width="300"
+                Margin="0,0,150,100"
+                Stretch="Uniform"
+                Source="/Images/buttons/omitir.png"
+                TouchDown="BtnOmitir_TouchDown"
+            />
+        </Grid>
+    </Grid>
+</UserControl>
+

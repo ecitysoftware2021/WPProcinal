@@ -43,14 +43,14 @@ namespace WPProcinal.Forms.User_Control
             this.Type = Type;
             //ActivateTimer();
             loadProductos();
-            InitView();
+            InitViewAsync();
             PaintDataCombo();
 
         }
         #endregion
 
         #region "ListView"
-        private void InitView()
+        private async Task InitViewAsync()
         {
             try
             {
@@ -278,7 +278,7 @@ namespace WPProcinal.Forms.User_Control
                                             {
                                                 using (WebClient client2 = new WebClient())
                                                 {
-                                                    client2.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                                                    await client2.DownloadFileTaskAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
                                                        Assembly.GetEntryAssembly().Location),
                                                        "ImagesConfiteria", product.Codigo + ".png"));
                                                 }

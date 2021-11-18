@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -86,27 +87,27 @@ namespace WPProcinal.Forms.User_Control
             if (data != null)
             {
                 this.IsEnabled = false;
-                foreach (var pelicula in data.Pelicula.Where(x=>x.Cinemas != null))
+                foreach (var pelicula in data.Pelicula.Where(x => x.Cinemas != null))
                 {
                     try
                     {
                         //comentarie michael
                         //if (pelicula.Cinemas != null)
                         //{
-                            foreach (var Cinema in pelicula.Cinemas.Cinema.Where( p => 
-                                p.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()
-                            ))
+                        foreach (var Cinema in pelicula.Cinemas.Cinema.Where(p =>
+                           p.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()
+                        ))
+                        {
+                            //if (Cinema.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString())
+                            //{
+                            var peliculaExistente = DataService41.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
+                            if (peliculaExistente == 0)
                             {
-                                //if (Cinema.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString())
-                                //{
-                                    var peliculaExistente = DataService41.Movies.Where(pe => pe.Data.TituloOriginal == pelicula.Data.TituloOriginal).Count();
-                                    if (peliculaExistente == 0)
-                                    {
-                                        DataService41.Movies.Add(pelicula);
-                                        LoadMovies(pelicula);
-                                    }
-                                //}
+                                DataService41.Movies.Add(pelicula);
+                                LoadMoviesAsync(pelicula);
                             }
+                            //}
+                        }
                         //}
                     }
                     catch (Exception ex)
@@ -157,28 +158,98 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        public void LoadMovies(Pelicula pelicula)
+        public async Task LoadMoviesAsync(Pelicula pelicula)
         {
             try
             {
                 string TagPath = string.Empty;
                 var movieType = GetTypeImage(pelicula.Tipo);
-
                 string image = pelicula.Data.Imagen;
+                string imgAsignada = "nofound";
+
+
+                bool isValidURL = true;
+
+                string data = string.Empty;
+           
+                try
+                {
+                    if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                                Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png")))
+                    {
+                        using (WebClient client = new WebClient())
+                        {
+                            data = client.DownloadString(image);
+
+                            if (data != null && data.Length > 3)
+                            {
+                                using (WebClient client2 = new WebClient())
+                                {
+
+                                    await client2.DownloadFileTaskAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                                        Assembly.GetEntryAssembly().Location),
+                                        "Imagesmovies", pelicula.Data.TituloOriginal.Trim() + ".png"));
+                                    
+                                    imgAsignada = pelicula.Data.TituloOriginal.Trim();
+                                }
+                            }
+                        }
+
+                    }
+                    else
+
+                    {
+                        imgAsignada = pelicula.Data.TituloOriginal.Trim();
+                    }
+                }
+                catch (WebException weX)
+                {
+                    isValidURL = !isValidURL;
+                    data = weX.Message;
+                }
+            
 
                 LstMoviesModel.Add(new MoviesViewModel
                 {
-                    ImageData = Utilities.LoadImage(image, true),
+                    ImageData =
+                    Utilities.LoadImage(Path.Combine(Path.GetDirectoryName(
+                         Assembly.GetEntryAssembly().Location),
+                         "Imagesmovies", imgAsignada + ".png"), true),
+                    //Utilities.LoadImage(image, true),
                     Tag = pelicula.Id,
                     Id = pelicula.Id,
                     ImageMovieType = movieType,
                     Nombre = pelicula.Data.TituloOriginal
                 });
+
             }
             catch (Exception ex)
             {
                 AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "LoadMovies en frmMovies", EError.Aplication, ELevelError.Medium);
             }
+
+
+
+            //try
+            //{
+            //    string TagPath = string.Empty;
+            //    var movieType = GetTypeImage(pelicula.Tipo);
+
+            //    string image = pelicula.Data.Imagen;
+
+            //    LstMoviesModel.Add(new MoviesViewModel
+            //    {
+            //        ImageData = Utilities.LoadImage(image, true),
+            //        Tag = pelicula.Id,
+            //        Id = pelicula.Id,
+            //        ImageMovieType = movieType,
+            //        Nombre = pelicula.Data.TituloOriginal
+            //    });
+            //}
+            //catch (Exception ex)
+            //{
+            //    AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "LoadMovies en frmMovies", EError.Aplication, ELevelError.Medium);
+            //}
         }
 
         private void CreatePages()
