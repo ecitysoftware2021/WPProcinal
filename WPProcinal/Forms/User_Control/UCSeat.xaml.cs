@@ -245,11 +245,11 @@ namespace WPProcinal.Forms.User_Control
             foreach (var valida in seatsToValidate)
             {
                 if (
-                    (valida.number - 1 == item.Columna
-                    || valida.number - 2 == item.Columna
-                    || valida.number + 1 == item.Columna
-                    || valida.number + 2 == item.Columna)
-                    && item.TipoSilla != "pasillo"
+                    //valida.number - 1 == item.Columna
+                    //|| valida.number - 2 == item.Columna
+                    //|| valida.number + 1 == item.Columna
+                    //|| valida.number + 2 == item.Columna
+                    item.TipoSilla != "pasillo"
                     && item.EstadoSilla != "B"
                     && item.EstadoSilla != "O")
                 {
