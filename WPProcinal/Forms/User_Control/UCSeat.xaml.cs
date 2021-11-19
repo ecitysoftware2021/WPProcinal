@@ -159,8 +159,6 @@ namespace WPProcinal.Forms.User_Control
                     ImgVibroSound.Visibility = Visibility.Visible;
                     vibraAvailable = true;
                 }
-
-
             }
             catch (Exception ex)
             {

@@ -105,7 +105,7 @@ namespace WPProcinal.Forms.User_Control
                             if (peliculaExistente == 0)
                             {
                                 DataService41.Movies.Add(pelicula);
-                                LoadMovies(pelicula);
+                                LoadMoviesAsync(pelicula);
                             }
                             //}
                         }
@@ -159,7 +159,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        public void LoadMovies(Pelicula pelicula)
+        public async Task LoadMoviesAsync(Pelicula pelicula)
         {
             try
             {
@@ -167,106 +167,56 @@ namespace WPProcinal.Forms.User_Control
                 var movieType = GetTypeImage(pelicula.Tipo);
                 string image = pelicula.Data.Imagen;
                 string imgAsignada = "nofound";
-                bool exists = false;
-
+  
 
                 bool isValidURL = true;
 
-                string data = string.Empty;
-                using (WebClient client = new WebClient())
+                if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                    Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png")))
                 {
-                    try
+                    string data = string.Empty;
+                    using (WebClient client = new WebClient())
                     {
-                        data = client.DownloadString(image);
-
-
-                        if (data != null && data.Length > 3)
+                        try
                         {
-                            if (!File.Exists(Path.Combine(Path.GetDirectoryName(
-                                Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png")))
+                            data = client.DownloadString(image);
+                            if (data != null && data.Length > 3)
                             {
-
                                 using (WebClient client2 = new WebClient())
                                 {
-
-                                    client2.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                                    await client2.DownloadFileTaskAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
                                        Assembly.GetEntryAssembly().Location),
                                        "Imagesmovies", pelicula.Data.TituloOriginal.Trim() + ".png"));
 
+                                    imgAsignada = pelicula.Data.TituloOriginal.Trim();
                                 }
                             }
-                            else
-                            {
-                                imgAsignada = pelicula.Data.TituloOriginal.Trim();
-                            }
                         }
-
-                    }
-                    catch (WebException weX)
-                    {
-                        isValidURL = !isValidURL;
-                        data = weX.Message;
+                        catch (WebException weX)
+                        {
+                            isValidURL = !isValidURL;
+                            data = weX.Message;
+                        }
                     }
                 }
 
-                //HttpWebResponse response = null;
-
-                //var request = (HttpWebRequest)WebRequest.Create(image);
-                //request.Method = "HEAD";
-                //request.Timeout = 10000; // milliseconds
-                //request.AllowAutoRedirect = false;
-
-                //try
-                //{
-                //    response = (HttpWebResponse)request.GetResponse();
-                //    if (response != null && response.StatusCode == HttpStatusCode.OK)
-                //    {
-                //        imgAsignada = pelicula.Data.TituloOriginal.Trim();
-                //        if (!File.Exists(Path.Combine(Path.GetDirectoryName(
-                //            Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png")))
-                //        {
-
-                //            using (WebClient client = new WebClient())
-                //            {
-
-                //                 client.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
-                //                    Assembly.GetEntryAssembly().Location),
-                //                    "Imagesmovies", pelicula.Data.TituloOriginal.Trim() + ".png"));
-
-                //            }
-                //        }
-                //    }
-                //    else {
-                //        imgAsignada = "nofound";
-                //    }
-                //}
-
-                //catch (Exception ex)
-                //{
-                //    imgAsignada = "nofound";
-                //    exists = false;
-                //}
-                //finally
-                //{
-                //    if (response != null)
-                //        response.Dispose();
-                //        //response.Close();
-                //}
-
+                else
+                {
+                    imgAsignada = pelicula.Data.TituloOriginal.Trim();
+                }
 
                 LstMoviesModel.Add(new MoviesViewModel
                 {
                     ImageData =
-                    Utilities.LoadImage(Path.Combine(Path.GetDirectoryName(
-                         Assembly.GetEntryAssembly().Location),
-                         "Imagesmovies", imgAsignada + ".png"), true),
+                        Utilities.LoadImage(Path.Combine(Path.GetDirectoryName(
+                             Assembly.GetEntryAssembly().Location),
+                             "Imagesmovies", imgAsignada + ".png"), true),
                     //Utilities.LoadImage(image, true),
                     Tag = pelicula.Id,
                     Id = pelicula.Id,
                     ImageMovieType = movieType,
                     Nombre = pelicula.Data.TituloOriginal
                 });
-
             }
             catch (Exception ex)
             {
