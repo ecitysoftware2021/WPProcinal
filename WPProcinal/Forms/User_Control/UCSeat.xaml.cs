@@ -168,6 +168,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
+
         private void LoadSeats()
         {
 
@@ -760,10 +761,10 @@ namespace WPProcinal.Forms.User_Control
             {
                 icon = "";
             }
-            else if (ckeck == "CO")
-            {
-                icon = "s-reservada";
-            }
+            //else if (ckeck == "CO")
+            //{
+            //    icon = "s-reservada";
+            //}
             else if (ckeck == "Preferencial")
             {
                 icon = "s-preferencial";
