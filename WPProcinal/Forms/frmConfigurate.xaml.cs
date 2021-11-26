@@ -209,7 +209,8 @@ namespace WPProcinal.Forms
                         });
 
                         AdminPaypad.SaveErrorControl(error, "", Classes.EError.Device, ELevelError.Medium);
-                        ShowModalError(error);
+                        ShowModalError(SetMessageError(error));
+                        //ShowModalError(error);
                     };
 
                     Utilities.control.CallBackSaveRequestResponse = (Title, Message, State) =>
@@ -252,6 +253,108 @@ namespace WPProcinal.Forms
                 LogService.SaveRequestResponse("frmConfigurate>ChangeStatusPeripherals", JsonConvert.SerializeObject(ex), 1);
             }
         }
+
+        private string SetMessageError(string mesagge)
+        {
+            string msgError = string.Empty;
+
+            try
+            {
+                switch (mesagge)
+                {
+                    case var s when mesagge.Contains("Empty or jam in 1 cassette"):
+                        msgError = "casete 1 vacio o atascado";
+                        break;
+                    case var s when mesagge.Contains("Empty or jam in 2 cassette"):
+                        msgError = "casete 2 vacio o atascado";
+                        break;
+                    case var s when mesagge.Contains("Empty or jam in 3 cassette"):
+                        msgError = "casete 3 vacio o atascado";
+                        break;
+                    case var s when mesagge.Contains("Empty or jam in 4 cassette"):
+                        msgError = "casete 4 vacio o atascado";
+                        break;
+                    case var s when mesagge.Contains("Empty or jam in 5 cassette"):
+                        msgError = "casete 5 vacio o atascado";
+                        break;
+                    case var s when mesagge.Contains("sensor"):
+                        msgError = "Error de atasco, revisar billete atascado";
+                        break;
+                    case var s when mesagge.Contains("Und"):
+                        msgError = "Error Indefinido, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("notes reject error"):
+                        msgError = "Error de rechazo continuo de varios billetes, revisar el estado de los billetes";
+                        break;
+                    case var s when mesagge.Contains("Dispense retry-over error"):
+                        msgError = "Error al reintentar dispensar, comuniquese con soporte tecnico";
+                        break;
+                    case var s when mesagge.Contains("Reject box switch error"):
+                        msgError = "Error del interruptor de la caja de rechazo, no esta puesta la caja de rechazo";
+                        break;
+                    case var s when mesagge.Contains("CIS open switch error"):
+                        msgError = "Error de interruptor abierto CIS, verifique la parte movil trasera del billetero";
+                        break;
+                    case var s when mesagge.Contains("Solenoid EXIT direction error"):
+                        msgError = "Error de dirección de SALIDA del solenoide, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Solenoid Reject direction error"):
+                        msgError = "Error de dirección de rechazo de solenoide, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Jam at main feed motor"):
+                        msgError = "Atasco en el motor de alimentación principal, revisar billete atascado.";
+                        break;
+                    case var s when mesagge.Contains("Validator setting error"):
+                        msgError = "Error de configuración del validador, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("No reponse from validator"):
+                        msgError = "Sin respuesta del validador, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Validator response order error"):
+                        msgError = "Error de orden de respuesta del validador, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Validator response error (BCC inconsistency)"):
+                        msgError = "Error de respuesta del validador (inconsistencia de BCC), comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Validator CIS calibration error"):
+                        msgError = "Error de calibración CIS del validador, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Validator F/W assign error"):
+                        msgError = "Error de asignación de F / W del validador, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Validator result reception timeout error"):
+                        msgError = "Error de tiempo de espera de recepción del resultado del validador, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Validator image reception order error"):
+                        msgError = "Error de orden de recepción de la imagen del validador, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Dispense speed input error"):
+                        msgError = "Error de entrada de velocidad de dispensación, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Number of cassettes input error"):
+                        msgError = "Error de entrada de número de casetes, verifique que este bien ingresado el caset";
+                        break;
+                    case var s when mesagge.Contains("F/W download"):
+                        msgError = "Error de descarga de F / W, comuniquese con soporte tecnico.";
+                        break;
+                    case var s when mesagge.Contains("Dispense direcction timeout error"):
+                        msgError = "Error de tiempo de espera de dirección de dispensación";
+                        break;
+                    case var s when mesagge.Contains("Sub-register command and response"):
+                        msgError = "Comando y respuesta de subregistro, comuniquese con soporte tecnico.";
+                        break;
+                    default:
+                        msgError = mesagge;
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("frmConfigurate>SetMessageError", JsonConvert.SerializeObject(ex), 1);
+            }
+            return msgError;
+        }
+
 
         void SetCallbackNull()
         {

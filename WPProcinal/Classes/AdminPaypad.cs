@@ -18,18 +18,20 @@ namespace WPProcinal.Classes
         {
             try
             {
-
-                var response = await api.GetResponse(new RequestApi(), "InitPaypad");
-                if (response.CodeError == 200)
+                if (!Utilities.dataPaypad.State  && Utilities.dataPaypad.PaypadConfiguration == null)
                 {
-                    Utilities.dataPaypad = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
-                    Utilities.dataPaypad.PaypadConfiguration.DeserializarExtraData();
-                    Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DefinirAmbiente(Utilities.dataPaypad.PaypadConfiguration.iS_PRODUCTION);
-                }
-                else
-                {
-                    Utilities.dataPaypad = new DataPaypad();
-                    Utilities.dataPaypad.State = false;
+                    var response = await api.GetResponse(new RequestApi(), "InitPaypad");
+                    if (response.CodeError == 200)
+                    {
+                        Utilities.dataPaypad = JsonConvert.DeserializeObject<DataPaypad>(response.Data.ToString());
+                        Utilities.dataPaypad.PaypadConfiguration.DeserializarExtraData();
+                        Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.DefinirAmbiente(Utilities.dataPaypad.PaypadConfiguration.iS_PRODUCTION);
+                    }
+                    else
+                    {
+                        Utilities.dataPaypad = new DataPaypad();
+                        Utilities.dataPaypad.State = false;
+                    }
                 }
             }
             catch (Exception ex)

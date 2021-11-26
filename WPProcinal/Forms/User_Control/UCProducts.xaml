@@ -1,15 +1,18 @@
-﻿<UserControl x:Class="WPProcinal.Forms.User_Control.UCProducts"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WPProcinal.Forms.User_Control"
-             mc:Ignorable="d" 
-             d:DesignHeight="2064.095" d:DesignWidth="1250.599">
+﻿<UserControl 
+    x:Class="WPProcinal.Forms.User_Control.UCProducts"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:WPProcinal.Forms.User_Control"
+    mc:Ignorable="d" 
+    d:DesignHeight="2064.095" 
+    d:DesignWidth="1250.599">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/backgrounds/fondoConfiteria.jpg" 
-                        Stretch="UniformToFill"/>
+            <ImageBrush 
+                ImageSource="/Images/backgrounds/fondoConfiteria.jpg" 
+                Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
@@ -18,23 +21,13 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBlock 
-                    x:Name="tbTimer"
-                    Text="00:05"
-                    FontSize="35"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
-                />
-            <Image 
-                Name="BtnCombos"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Margin="20,0,0,0"
-                Height="70"
-                Stretch="Uniform"
-                Source="/Images/Buttons/verCombos.png"
-                TouchDown="BtnCombos_TouchDown"
-                />
+                x:Name="tbTimer"
+                Text="00:05"
+                FontSize="35"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
+            />
         </Grid>
         <Grid Grid.Row="1">
             <ListView 
@@ -149,7 +142,7 @@
                 Name="BtnSalir"
                 VerticalAlignment="Center"
                 Width="300"
-                Margin="200,0,0,0"
+                Margin="150,0,0,0"
                 Stretch="Uniform"
                 Source="/Images/salir2.png"
                 TouchDown="BtnSalir_TouchDown"
@@ -159,10 +152,21 @@
                 Name="BtnComprar"
                 VerticalAlignment="Center"
                 Width="300"
-                Margin="0,0,200,0"
+                Margin="0,0,150,0"
                 Stretch="Uniform"
-                Source="/Images/buttons/omitir.png"
+                Source="/Images/anterior.png"
                 TouchDown="BtnComprar_TouchDown"
+            />
+            <Image 
+                HorizontalAlignment="Right"
+                Name="BtnMore"
+                VerticalAlignment="Center"
+                Width="300"
+                Margin="0,0,150,200"
+                Stretch="Uniform"
+                Visibility="Hidden"
+                Source="/Images/anterior.png"
+                TouchDown="BtnMore_TouchDown"
             />
         </Grid>
     </Grid>
