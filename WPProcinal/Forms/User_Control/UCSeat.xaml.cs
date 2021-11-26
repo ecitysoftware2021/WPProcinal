@@ -334,7 +334,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 int Height = est.Count();
                 int Width = int.Parse(est[0].maxCol.ToString());
-                GetLockedSeats(est);
+                //GetLockedSeats(est);
                 for (int i = 0; i <= Height; i++)
                 {
                     gridSillas.RowDefinitions.Add(new RowDefinition());
@@ -760,10 +760,10 @@ namespace WPProcinal.Forms.User_Control
             {
                 icon = "";
             }
-            else if (ckeck == "CO")
-            {
-                icon = "s-reservada";
-            }
+            //else if (ckeck == "CO")
+            //{
+            //    icon = "s-reservada";
+            //}
             else if (ckeck == "Preferencial")
             {
                 icon = "s-preferencial";
