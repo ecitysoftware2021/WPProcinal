@@ -311,11 +311,11 @@ namespace WPProcinal.Forms.User_Control
                             if (item.EstadoSilla == "B" || item.EstadoSilla == "O")
                             {
                                 imageSource = GetImage(item.EstadoSilla);
-                                listLockedSeats.Add(new ValidationSeats
-                                {
-                                    letter = filas.filRel,
-                                    number = item.Columna
-                                });
+                                //listLockedSeats.Add(new ValidationSeats
+                                //{
+                                //    letter = filas.filRel,
+                                //    number = item.Columna
+                                //});
                             }
                         }
                     }
@@ -335,7 +335,9 @@ namespace WPProcinal.Forms.User_Control
             {
                 int Height = est.Count();
                 int Width = int.Parse(est[0].maxCol.ToString());
-                GetLockedSeats(est);
+                
+                //GetLockedSeats(est);
+                
                 for (int i = 0; i <= Height; i++)
                 {
                     gridSillas.RowDefinitions.Add(new RowDefinition());
@@ -362,13 +364,14 @@ namespace WPProcinal.Forms.User_Control
                         else if (item.TipoSilla == "pasillo")
                         {
                             imageSource = GetImage(item.TipoSilla);
-
                         }
                         else
                         {
                             imageSource = ((item.EstadoSilla == "B") || (item.EstadoSilla == "O")) ? GetImage(item.EstadoSilla) : GetImage(item.TipoSilla);
                         }
+                        
                         imageSource = ValidateSeatsAndLock(filas, item, imageSource);
+                        
                         Image image = new Image
                         {
                             Source = imageSource,
@@ -520,6 +523,7 @@ namespace WPProcinal.Forms.User_Control
                         labelSeat.Margin = new Thickness(0, 10, 0, 0);
                         labelSeat.Height = 25;
 
+                        //if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
                         if (item.EstadoSilla == "S" && item.TipoSilla != "Discapacitado" && item.TipoSilla != "pasillo")
                         {
                             image.TouchDown += new EventHandler<TouchEventArgs>((s, eh) => MSelectedsetas(s, eh, typeSeat));
@@ -568,7 +572,9 @@ namespace WPProcinal.Forms.User_Control
                 int Height = est.Count();
                 int Width = int.Parse(est[0].maxCol.ToString());
                 //est.Reverse();
+                
                 GetLockedSeats(est);
+
                 for (int i = 0; i <= Height; i++)
                 {
                     gridSillas.RowDefinitions.Add(new RowDefinition());
@@ -680,7 +686,6 @@ namespace WPProcinal.Forms.User_Control
                 ELevelError.Mild);
             }
         }
-
 
         private void MSelectedsetas(object sender, TouchEventArgs eh, ChairsInformation item)
         {

@@ -537,7 +537,6 @@
     <Resource Include="Images\Others\3D_Glasses.png" />
     <Resource Include="Images\Others\Bebidas.png" />
     <Resource Include="Images\Others\Combos.png" />
-    <Resource Include="Images\Others\ICEE-Bebidas.jpg" />
     <Resource Include="Images\Others\Products.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
