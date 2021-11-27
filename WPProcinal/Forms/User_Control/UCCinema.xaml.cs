@@ -137,6 +137,7 @@ namespace WPProcinal.Forms.User_Control
 
                 if (modalCovid.DialogResult == true)
                 {
+                 
                     timerStatePay.Stop();
                     gridPrincipal.IsEnabled = false;
                     _imageSleader.Stop();

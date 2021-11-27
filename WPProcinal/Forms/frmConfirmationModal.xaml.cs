@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPProcinal.Classes;
+using WPProcinal.Forms.User_Control;
 using WPProcinal.Service;
 
 namespace WPProcinal.Forms
@@ -22,7 +23,7 @@ namespace WPProcinal.Forms
         List<Combos> _View;
         #endregion
 
-        public frmConfirmationModal()
+        public frmConfirmationModal(UCProducts uCProducts = null)
         {
             InitializeComponent();
             _View = new List<Combos>();

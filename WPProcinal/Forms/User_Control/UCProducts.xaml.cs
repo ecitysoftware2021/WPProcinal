@@ -117,13 +117,16 @@ namespace WPProcinal.Forms.User_Control
 
                     case "P":
                         //no mostrar 165,168 toxineta y queso
-                        foreach (var product in DataService41._Productos.Where(P => P.Tipo.ToUpper() == Type.ToUpper()).ToList())
+                        foreach (var product in DataService41._Productos.Where(P => P.Tipo.ToUpper() == Type.ToUpper() && 
+                                    !P.Descripcion.ToLower().Contains("gas") && 
+                                    !P.Descripcion.ToLower().Contains("agua") && 
+                                    !P.Descripcion.ToLower().Contains("gaf") && 
+                                    !P.Descripcion.ToLower().Contains("adi") && 
+                                    !P.Descripcion.ToLower().Contains("icee")).ToList())
                         {
                             if (product.Precios.Count() > 0)
                             {
 
-                                if (product.Codigo != 165 && product.Codigo != 168 && product.Codigo != 168)
-                                {
 
                                     decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
                                     decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
@@ -183,7 +186,7 @@ namespace WPProcinal.Forms.User_Control
 
                                         lstPager.Add(product);
                                     }
-                                }
+                                
 
                             }
                         }
@@ -257,7 +260,7 @@ namespace WPProcinal.Forms.User_Control
                         }
                         break;
                     case "O":
-                        foreach (var product in DataService41._Productos.Where(P => P.Descripcion.ToLower().Contains("adic")).ToList())
+                        foreach (var product in DataService41._Productos.Where(P => P.Descripcion.ToLower().Contains("adic") || P.Descripcion.ToLower().Contains("gaf")).ToList())
                         {
                             if (product.Precios.Count() > 0)
                             {
@@ -554,7 +557,9 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
+
                     BtnComprar.Source = new BitmapImage(new Uri(@"/Images/anterior.png", UriKind.Relative));
+                    BtnMore.Visibility = System.Windows.Visibility.Hidden;
                     BtnPay = false;
                 }
             }

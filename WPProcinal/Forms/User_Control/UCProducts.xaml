@@ -50,88 +50,125 @@
                 </ItemsControl.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Name="gridData"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top" 
-                            Background="Transparent"
-                            Margin="0,0,0,0"
-                            Width="400"
-                            Height="450"
-                            >
-                            <Image
-                                Source="{Binding Imagen}"
-                                HorizontalAlignment="Center" 
+                        <Border
+                            CornerRadius="25"
+                            BorderThickness="1"
+                            BorderBrush="Silver">
+
+                            <Border.Background>
+                                <ImageBrush
+                                    ImageSource="{Binding Imagen}"
+                                    Stretch="Fill">
+                                </ImageBrush>
+                            </Border.Background>
+                            <Grid Name="gridData"
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Top" 
-                                Height="250" 
+                                Background="Transparent"
                                 Margin="0,0,0,0"
-                                Stretch="Uniform"
-                            />
-                            <TextBlock
-                                Text="{Binding Descripcion}"
-                                HorizontalAlignment="Center" 
-                                VerticalAlignment="Center" 
-                                Margin="0,100,0,0"
-                                FontWeight="Bold"
-                                FontSize="28"
                                 Width="400"
-                                TextAlignment="Center"
-                                TextWrapping="Wrap"
-                            />
-                            <Grid 
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Bottom"
-                            Margin="0,0,0,70"
-                            DataContext="{Binding Precios}" >
-                                <TextBlock 
-                                    FontWeight="Bold"
-                                    FontSize="18"
-                                    TextAlignment="Center"
-                                    VerticalAlignment="Bottom">
-                                    <Run Foreground="Gray" Text="General"/>
-                                    <Run Foreground="Black" Text="{Binding auxGeneral, StringFormat={}{0:C0}}"/>
-                                </TextBlock>
-                                <TextBlock 
-                                    FontWeight="Bold"
-                                    FontSize="18"
-                                    TextAlignment="Center"
-                                    Margin="0,0,0,30"
-                                    VerticalAlignment="Bottom">
-                                    <Run Foreground="Gray" Text="Otro Pago"/>
-                                    <Run Foreground="Black" Text="{Binding auxOtroPago, StringFormat={}{0:C0}}"/>
-                                </TextBlock>
+                                Height="410">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+    
+                                <!--<Image
+                                    Source="{Binding Imagen}"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Top" 
+                                    Margin="0,0,0,0"
+                                    Stretch="Fill"
+                                    Grid.Column="0"
+                                />-->
+                                <Border
+                                    CornerRadius="20"
+                                    Background="White"
+                                    BorderThickness="2"
+                                    BorderBrush="WhiteSmoke">
+                                    <TextBlock
+                                        Text="{Binding Descripcion}"
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Top" 
+                                        Margin="25,0,25,0"
+                                        FontWeight="Bold"
+                                        FontSize="28"
+                                        Width="400"
+                                        Background="White"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap"
+                                    />
+                                </Border>
+
+                                <!--<StackPanel Grid.Row="1">
+                                    <TextBlock 
+                                        FontWeight="Bold"
+                                        FontSize="18"
+                                        TextAlignment="Center"
+                                        >
+                                        <Run Foreground="Gray" Text="General"/>
+                                        <Run Foreground="Black" Text="{Binding auxGeneral, StringFormat={}{0:C0}}"/>
+                                    </TextBlock>
+                                    <TextBlock 
+                                        FontWeight="Bold"
+                                        FontSize="18"
+                                        TextAlignment="Center"
+                                        Margin="0,0,0,30">
+                                        <Run Foreground="Gray" Text="Otro Pago"/>
+                                        <Run Foreground="Black" Text="{Binding auxOtroPago, StringFormat={}{0:C0}}"/>
+                                    </TextBlock>
+                                </StackPanel>-->
+                                
+                                <Border Grid.Row="2"
+                                        Background="White"
+                                        BorderThickness="2"
+                                        CornerRadius="18"
+                                        VerticalAlignment="Bottom"
+                                        Padding="0"
+                                        Margin="-1,0,-1,0">
+                                    <Grid
+                                        Margin="25,0,25,0"
+                                        >
+                                        <Image 
+                                            Name="btnPlus"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Margin="120,0,0,10"
+                                            Width="40"
+                                            Stretch="Uniform"
+                                            Tag="{Binding Codigo}"
+                                            Source="/Images/Buttons/+.png"
+                                            TouchDown="BtnPlus_TouchDown"
+                                            
+                                        />
+                                        <TextBlock
+                                            Name="idCount"
+                                            FontSize="40"
+                                            Text="{Binding Value}" 
+                                            Tag="{Binding Codigo}"
+                                            FontWeight="Bold"
+                                            Foreground="Black"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Margin="0,0,0,10"
+                                            
+                                        />
+                                        <Image x:Name="btnLess"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Bottom"
+                                            Margin="0,0,120,10"
+                                            Width="40"
+                                            Stretch="Uniform"
+                                            Tag="{Binding Codigo}"
+                                            Source="/Images/Buttons/-.png"
+                                            TouchDown="BtnLess_TouchDown"
+                                            />
+                                    </Grid>
+                                </Border>
+
                             </Grid>
-                            <Image 
-                                Name="btnPlus"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="120,0,0,10"
-                                Width="40"
-                                Stretch="Uniform"
-                                Tag="{Binding Codigo}"
-                                Source="/Images/Buttons/+.png"
-                                TouchDown="BtnPlus_TouchDown"
-                            />
-                            <TextBlock
-                                Name="idCount"
-                                FontSize="40"
-                                Text="{Binding Value}" 
-                                Tag="{Binding Codigo}"
-                                FontWeight="Bold"
-                                Foreground="Black"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,10"
-                            />
-                            <Image x:Name="btnLess"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,120,10"
-                                Width="40"
-                                Stretch="Uniform"
-                                Tag="{Binding Codigo}"
-                                Source="/Images/Buttons/-.png"
-                             TouchDown="BtnLess_TouchDown" />
-                        </Grid>
+                        </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
