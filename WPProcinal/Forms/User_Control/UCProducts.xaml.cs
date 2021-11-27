@@ -557,6 +557,7 @@ namespace WPProcinal.Forms.User_Control
                 else
                 {
                     BtnComprar.Source = new BitmapImage(new Uri(@"/Images/anterior.png", UriKind.Relative));
+                    BtnMore.Visibility = System.Windows.Visibility.Hidden;
                     BtnPay = false;
                 }
             }
