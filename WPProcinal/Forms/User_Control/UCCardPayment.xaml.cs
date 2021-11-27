@@ -105,6 +105,7 @@ namespace WPProcinal.Forms.User_Control
                     Modal.ShowDialog();
                     Opacity = 1;
                     FrmLoading frmLoading = new FrmLoading("Conectándose con el datáfono, espere por favor...");
+                    
                     Task.Run(() =>
                     {
                         if (payState)
@@ -142,6 +143,7 @@ namespace WPProcinal.Forms.User_Control
                             TPVOperation.CallBackRespuesta?.Invoke(datos);
                         }
                     });
+
                 }
             }
             catch (Exception ex)
