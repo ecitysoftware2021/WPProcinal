@@ -46,14 +46,14 @@ namespace WPProcinal.Forms.User_Control
             this.lstPager = new ObservableCollection<Producto>();
             //SetCallBacksNull();
             loadProductos();
-            InitViewAsync();
-            PaintDataCombo();
+            InitView();
+            //PaintDataCombo();
             ActivateTimer();
         }
         #endregion
 
         #region "ListView"
-        private async Task InitViewAsync()
+        private void InitView()
         {
             try
             {
@@ -67,27 +67,103 @@ namespace WPProcinal.Forms.User_Control
                         {
                             string imgAsignada = "nofound";
                             string data = string.Empty;
-
-                            string image =
-                            $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-
-                            if (!File.Exists(Path.Combine(Path.GetDirectoryName(
-                                Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
+                            using (WebClient client = new WebClient())
                             {
-                                using (WebClient client = new WebClient())
+                                try
                                 {
-                                    try
+                                    string image =
+                                    $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+
+                                    if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                                        Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
                                     {
                                         data = client.DownloadString(image);
                                         if (data != null && data.Length > 3)
                                         {
                                             using (WebClient client2 = new WebClient())
                                             {
-                                                await client2.DownloadFileTaskAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
-                                                    Assembly.GetEntryAssembly().Location),
-                                                    "ImagesConfiteria", product.Codigo + ".png"));
+                                                client2.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                                                   Assembly.GetEntryAssembly().Location),
+                                                   "ImagesConfiteria", product.Codigo + ".png"));
                                             }
 
+                                            imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                             Assembly.GetEntryAssembly().Location),
+                                             "ImagesConfiteria", product.Codigo + ".png");
+                                        }
+                                        else
+                                        {
+                                            imgAsignada = "nofound.png";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                         Assembly.GetEntryAssembly().Location),
+                                         "ImagesConfiteria", product.Codigo + ".png");
+                                    }
+                                }
+                                catch (WebException weX)
+                                {
+                                    isValidURL = !isValidURL;
+                                    data = weX.Message;
+                                }
+                            }
+                            product.Imagen = imgAsignada;
+                            //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+                            lstPager.Add(product);
+                        }
+                        break;
+
+                    case "P":
+                        //no mostrar 165,168 toxineta y queso
+                        foreach (var product in DataService41._Productos.Where(P => P.Tipo.ToUpper() == Type.ToUpper() &&
+                                    !P.Descripcion.ToLower().Contains("gas") &&
+                                    !P.Descripcion.ToLower().Contains("agua") &&
+                                    !P.Descripcion.ToLower().Contains("gaf") &&
+                                    !P.Descripcion.ToLower().Contains("adi") &&
+                                    !P.Descripcion.ToLower().Contains("icee")).ToList())
+                        {
+                            if (product.Precios.Count() > 0)
+                            {
+
+
+                                decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
+                                decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
+
+                                string imgAsignada = "nofound";
+                                string data = string.Empty;
+                                using (WebClient client = new WebClient())
+                                {
+                                    try
+                                    {
+                                        string image =
+                                        $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+
+                                        if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                                            Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
+                                        {
+                                            data = client.DownloadString(image);
+                                            if (data != null && data.Length > 3)
+                                            {
+                                                using (WebClient client2 = new WebClient())
+                                                {
+                                                    client2.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                                                       Assembly.GetEntryAssembly().Location),
+                                                       "ImagesConfiteria", product.Codigo + ".png"));
+                                                }
+
+                                                imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                                 Assembly.GetEntryAssembly().Location),
+                                                 "ImagesConfiteria", product.Codigo + ".png");
+                                            }
+                                            else
+                                            {
+                                                imgAsignada = "nofound.png";
+                                            }
+                                        }
+                                        else
+                                        {
                                             imgAsignada = Path.Combine(Path.GetDirectoryName(
                                              Assembly.GetEntryAssembly().Location),
                                              "ImagesConfiteria", product.Codigo + ".png");
@@ -99,90 +175,18 @@ namespace WPProcinal.Forms.User_Control
                                         data = weX.Message;
                                     }
                                 }
-                            }
-                            else
-                            {
-                                imgAsignada = Path.Combine(Path.GetDirectoryName(
-                                 Assembly.GetEntryAssembly().Location),
-                                 "ImagesConfiteria", product.Codigo + ".png");
-                            }
 
-                            product.Imagen = imgAsignada;
-                            //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-                            lstPager.Add(product);
-                        }
-                        break;
+                                product.Imagen = imgAsignada;
+                                //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
 
-                    case "P":
-                        //no mostrar 165,168 toxineta y queso
-                        foreach (var product in DataService41._Productos.Where(P => P.Tipo.ToUpper() == Type.ToUpper()).ToList())
-                        {
-                            if (product.Precios.Count() > 0)
-                            {
-
-                                if (product.Codigo != 165 && product.Codigo != 168 && product.Codigo != 168)
+                                if (General > 0)
                                 {
+                                    product.Precios[0].auxGeneral = General;
+                                    product.Precios[0].auxOtroPago = OtroPago;
 
-                                    decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
-                                    decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
-
-                                    string imgAsignada = "nofound";
-                                    string data = string.Empty;
-
-                                    string image =
-                                    $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-
-                                    if (!File.Exists(Path.Combine(Path.GetDirectoryName(
-                                        Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
-                                    {
-                                        using (WebClient client = new WebClient())
-                                        {
-                                            try
-                                            {
-                                                data = client.DownloadString(image);
-                                                if (data != null && data.Length > 3)
-                                                {
-                                                    using (WebClient client2 = new WebClient())
-                                                    {
-                                                        await client2.DownloadFileTaskAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
-                                                            Assembly.GetEntryAssembly().Location),
-                                                            "ImagesConfiteria", product.Codigo + ".png"));
-                                                    }
-
-                                                    imgAsignada = Path.Combine(Path.GetDirectoryName(
-                                                     Assembly.GetEntryAssembly().Location),
-                                                     "ImagesConfiteria", product.Codigo + ".png");
-                                                }
-                                            }
-                                            catch (WebException weX)
-                                            {
-                                                isValidURL = !isValidURL;
-                                                data = weX.Message;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        imgAsignada = Path.Combine(Path.GetDirectoryName(
-                                         Assembly.GetEntryAssembly().Location),
-                                         "ImagesConfiteria", product.Codigo + ".png");
-                                    }
-
-                                    //product.Imagen = imgAsignada;
-                                    //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-                                    //lstPager.Add(product);
-
-                                    product.Imagen = imgAsignada;
-                                    //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-
-                                    if (General > 0)
-                                    {
-                                        product.Precios[0].auxGeneral = General;
-                                        product.Precios[0].auxOtroPago = OtroPago;
-
-                                        lstPager.Add(product);
-                                    }
+                                    lstPager.Add(product);
                                 }
+
 
                             }
                         }
@@ -199,49 +203,48 @@ namespace WPProcinal.Forms.User_Control
 
                                 string imgAsignada = "nofound";
                                 string data = string.Empty;
-
-                                string image =
-                                $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-
-                                if (!File.Exists(Path.Combine(Path.GetDirectoryName(
-                                    Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
+                                using (WebClient client = new WebClient())
                                 {
-                                    using (WebClient client = new WebClient())
+                                    try
                                     {
-                                        try
+                                        string image =
+                                        $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+
+                                        if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                                            Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
                                         {
                                             data = client.DownloadString(image);
                                             if (data != null && data.Length > 3)
                                             {
                                                 using (WebClient client2 = new WebClient())
                                                 {
-                                                    await client2.DownloadFileTaskAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
-                                                        Assembly.GetEntryAssembly().Location),
-                                                        "ImagesConfiteria", product.Codigo + ".png"));
+                                                    client2.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                                                       Assembly.GetEntryAssembly().Location),
+                                                       "ImagesConfiteria", product.Codigo + ".png"));
                                                 }
 
                                                 imgAsignada = Path.Combine(Path.GetDirectoryName(
                                                  Assembly.GetEntryAssembly().Location),
                                                  "ImagesConfiteria", product.Codigo + ".png");
                                             }
+                                            else
+                                            {
+                                                imgAsignada = "nofound.png";
+                                            }
                                         }
-                                        catch (WebException weX)
+                                        else
                                         {
-                                            isValidURL = !isValidURL;
-                                            data = weX.Message;
+                                            imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                             Assembly.GetEntryAssembly().Location),
+                                             "ImagesConfiteria", product.Codigo + ".png");
                                         }
                                     }
+                                    catch (WebException weX)
+                                    {
+                                        isValidURL = !isValidURL;
+                                        data = weX.Message;
+                                    }
                                 }
-                                else
-                                {
-                                    imgAsignada = Path.Combine(Path.GetDirectoryName(
-                                     Assembly.GetEntryAssembly().Location),
-                                     "ImagesConfiteria", product.Codigo + ".png");
-                                }
-
-                                //product.Imagen = imgAsignada;
-                                //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-                                //lstPager.Add(product);
 
                                 product.Imagen = imgAsignada;
                                 //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
@@ -257,7 +260,7 @@ namespace WPProcinal.Forms.User_Control
                         }
                         break;
                     case "O":
-                        foreach (var product in DataService41._Productos.Where(P => P.Descripcion.ToLower().Contains("adic")).ToList())
+                        foreach (var product in DataService41._Productos.Where(P => P.Descripcion.ToLower().Contains("adic") || P.Descripcion.ToLower().Contains("gaf")).ToList())
                         {
                             if (product.Precios.Count() > 0)
                             {
@@ -266,57 +269,59 @@ namespace WPProcinal.Forms.User_Control
 
                                 string imgAsignada = "nofound";
                                 string data = string.Empty;
-
-                                string image =
-                                $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-
-                                if (!File.Exists(Path.Combine(Path.GetDirectoryName(
-                                    Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
+                                using (WebClient client = new WebClient())
                                 {
-                                    using (WebClient client = new WebClient())
+                                    try
                                     {
-                                        try
+                                        string image =
+                                        $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+
+                                        if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                                            Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
                                         {
                                             data = client.DownloadString(image);
                                             if (data != null && data.Length > 3)
                                             {
                                                 using (WebClient client2 = new WebClient())
                                                 {
-                                                    await client2.DownloadFileTaskAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
-                                                        Assembly.GetEntryAssembly().Location),
-                                                        "ImagesConfiteria", product.Codigo + ".png"));
+                                                    client2.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                                                       Assembly.GetEntryAssembly().Location),
+                                                       "ImagesConfiteria", product.Codigo + ".png"));
                                                 }
 
                                                 imgAsignada = Path.Combine(Path.GetDirectoryName(
                                                  Assembly.GetEntryAssembly().Location),
                                                  "ImagesConfiteria", product.Codigo + ".png");
                                             }
+                                            else
+                                            {
+                                                imgAsignada = "nofound.png";
+                                            }
                                         }
-                                        catch (WebException weX)
+                                        else
                                         {
-                                            isValidURL = !isValidURL;
-                                            data = weX.Message;
+                                            imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                             Assembly.GetEntryAssembly().Location),
+                                             "ImagesConfiteria", product.Codigo + ".png");
                                         }
                                     }
+                                    catch (WebException weX)
+                                    {
+                                        isValidURL = !isValidURL;
+                                        data = weX.Message;
+                                    }
                                 }
-                                else
-                                {
-                                    imgAsignada = Path.Combine(Path.GetDirectoryName(
-                                     Assembly.GetEntryAssembly().Location),
-                                     "ImagesConfiteria", product.Codigo + ".png");
-                                }
-
-                                //product.Imagen = imgAsignada;
-                                //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-                                //lstPager.Add(product);
 
                                 product.Imagen = imgAsignada;
                                 //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-
                                 if (General > 0)
+
                                 {
                                     product.Precios[0].auxGeneral = General;
                                     product.Precios[0].auxOtroPago = OtroPago;
+                                    product.Precio = (int)General;
+
+
 
                                     lstPager.Add(product);
                                 }
@@ -327,6 +332,7 @@ namespace WPProcinal.Forms.User_Control
                     default:
                         break;
                 }
+
                 frmLoading.Close();
                 view.Source = lstPager;
                 lv_Products.DataContext = view;
@@ -500,7 +506,7 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal(this);
+                frmConfirmationModal _frmConfirmationModal = new frmConfirmationModal();
                 this.Opacity = 0.3;
                 _frmConfirmationModal.ShowDialog();
                 if (_frmConfirmationModal.DialogResult.HasValue &&
@@ -556,6 +562,7 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
+
                     BtnComprar.Source = new BitmapImage(new Uri(@"/Images/anterior.png", UriKind.Relative));
                     BtnMore.Visibility = System.Windows.Visibility.Hidden;
                     BtnPay = false;
@@ -818,6 +825,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 this.tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
                 this.timer = new TimerTiempo(this.tbTimer.Text);
+                
                 this.timer.CallBackClose = response =>
                 {
                     if (response == 1)
@@ -828,6 +836,7 @@ namespace WPProcinal.Forms.User_Control
                         });
                     }
                 };
+
                 this.timer.CallBackTimer = response =>
                 {
                     Dispatcher.BeginInvoke((Action)delegate
@@ -860,4 +869,6 @@ namespace WPProcinal.Forms.User_Control
             Switcher.Navigate(new UCSelectProducts());
         }
     }
+
+
 }
