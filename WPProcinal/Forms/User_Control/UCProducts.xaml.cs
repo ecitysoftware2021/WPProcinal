@@ -47,7 +47,7 @@ namespace WPProcinal.Forms.User_Control
             //SetCallBacksNull();
             loadProductos();
             InitView();
-            PaintDataCombo();
+            //PaintDataCombo();
             ActivateTimer();
         }
         #endregion
@@ -315,9 +315,13 @@ namespace WPProcinal.Forms.User_Control
                                 product.Imagen = imgAsignada;
                                 //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
                                 if (General > 0)
+                                
                                 {
                                     product.Precios[0].auxGeneral = General;
                                     product.Precios[0].auxOtroPago = OtroPago;
+                                    product.Precio = (int)General;
+
+
 
                                     lstPager.Add(product);
                                 }
@@ -328,6 +332,7 @@ namespace WPProcinal.Forms.User_Control
                     default:
                         break;
                 }
+
                 frmLoading.Close();
                 view.Source = lstPager;
                 lv_Products.DataContext = view;

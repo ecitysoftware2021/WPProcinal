@@ -138,14 +138,17 @@ namespace WPProcinal.Forms.User_Control
                 if (modalCovid.DialogResult == true)
                 {
                  
+                    if (Utilities.dataTransaction.SelectedTypeSeats.Count > 0)
+                    {
+                        Utilities.dataTransaction.SelectedTypeSeats.Clear();
+                    }
+
                     timerStatePay.Stop();
                     gridPrincipal.IsEnabled = false;
                     _imageSleader.Stop();
                     Utilities.eTypeBuy = ETypeBuy.JustConfectionery;
                     Utilities.PlateObligatory = false;
-                    
-
-
+                   
                     //if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalBioseguridad)
                     //{
                     //    ModalBioseguridad modal = new ModalBioseguridad();
