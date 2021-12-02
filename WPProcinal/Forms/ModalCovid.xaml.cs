@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPProcinal.Classes;
 
 namespace WPProcinal.Forms
 {
@@ -22,6 +23,9 @@ namespace WPProcinal.Forms
         public ModalCovid()
         {
             InitializeComponent();
+            mesajeCovid.Text = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeCovid;
+
+   
         }
 
         private void BtnEnd_TouchDown(object sender, TouchEventArgs e)

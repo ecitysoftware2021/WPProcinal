@@ -42,7 +42,7 @@
                 Text="Importante"
                 />
             <TextBlock 
-                x:Name="LblMessage" 
+                x:Name="mesajeCovid" 
                 HorizontalAlignment="Center"
                 FontFamily="Gotham"
                 Grid.Row="1" 
@@ -50,11 +50,8 @@
                 FontSize="25"
                 TextAlignment="Center"
                 TextWrapping="Wrap"
-                Text="Según el decreto 1048 emitido por el Gobierno Nacional, a partir del 16 de noviembre de 2021 sera obligatorio, para mayores de 18 años, presentar el carnet de vacunación de manera física o virtual, al menos con una dosis, para ingreso a nuestros Cinemas Procinal  "   
                 VerticalAlignment="Center" 
                 Foreground="white" />
-
-
             <Image 
                 HorizontalAlignment="Center"
                 Name="BtnEnd"

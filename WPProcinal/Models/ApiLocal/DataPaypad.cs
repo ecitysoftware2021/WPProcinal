@@ -54,10 +54,12 @@ namespace WPProcinal.Models.ApiLocal
         public string NitPromotora { get; set; }
         public string Nit { get; set; }
         public string PublicityRoute { get; set; }
+        
         public string MensajeSinDineroInitial { get; set; }
         public bool ModalBioseguridad { get; set; }
         public string MensajeSinDinero { get; set; }
         public string UrlImages { get; set; }
+        public string MensajeCovid { get; set; }
         public string RecorderRoute { get; set; }
         public bool Speack { get; set; }
         public string ProductsURL { get; set; }
