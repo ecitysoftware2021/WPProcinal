@@ -333,6 +333,7 @@ namespace WPProcinal.Forms.User_Control
         }
 
         private void DistributeProducts(object sender)
+
         {
             try
             {
@@ -416,7 +417,4 @@ namespace WPProcinal.Forms.User_Control
 
         #endregion
     }
-
 }
-
-

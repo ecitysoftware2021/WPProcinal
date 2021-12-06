@@ -24,38 +24,44 @@ namespace WPProcinal.Forms.User_Control
     public partial class UCProducts : UserControl
     {
         #region "Referencias"
-        private TimerTiempo timer;
+        TimerTiempo timer;
+
         private CollectionViewSource view;
         private ObservableCollection<Producto> lstPager;
         ApiLocal api;
         CLSGrabador grabador;
-        #endregion
         string Type;
+        bool BtnPay;
+        #endregion
+
         #region "Constructor"
         public UCProducts(string Type)
         {
-
             InitializeComponent();
+            this.Type = Type;
+            BtnPay = false;
             api = new ApiLocal();
             grabador = new CLSGrabador();
             this.view = new CollectionViewSource();
             this.lstPager = new ObservableCollection<Producto>();
-            this.Type = Type;
-            //ActivateTimer();
+            //SetCallBacksNull();
             loadProductos();
-            InitViewAsync();
-            PaintDataCombo();
-
+            InitView();
+            //PaintDataCombo();
+            ActivateTimer();
         }
         #endregion
 
         #region "ListView"
-        private async Task InitViewAsync()
+        private void InitView()
         {
             try
             {
                 FrmLoading frmLoading = new FrmLoading("¡Cargando imagenes...!");
                 frmLoading.Show();
+
+
+
                 bool isValidURL = true;
                 switch (Type.ToUpper())
                 {
@@ -74,7 +80,7 @@ namespace WPProcinal.Forms.User_Control
                                     if (!File.Exists(Path.Combine(Path.GetDirectoryName(
                                         Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
                                     {
-                                        data = await client.DownloadStringTaskAsync(image);
+                                        data = client.DownloadString(image);
                                         if (data != null && data.Length > 3)
                                         {
                                             using (WebClient client2 = new WebClient())
@@ -84,16 +90,20 @@ namespace WPProcinal.Forms.User_Control
                                                    "ImagesConfiteria", product.Codigo + ".png"));
                                             }
 
-                                            imgAsignada = product.Codigo.ToString();
+                                            imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                             Assembly.GetEntryAssembly().Location),
+                                             "ImagesConfiteria", product.Codigo + ".png");
                                         }
                                         else
                                         {
-                                            imgAsignada =  "nofound.png";
+                                            imgAsignada = "nofound.png";
                                         }
                                     }
                                     else
                                     {
-                                        imgAsignada = product.Codigo.ToString();
+                                        imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                         Assembly.GetEntryAssembly().Location),
+                                         "ImagesConfiteria", product.Codigo + ".png");
                                     }
                                 }
                                 catch (WebException weX)
@@ -102,10 +112,7 @@ namespace WPProcinal.Forms.User_Control
                                     data = weX.Message;
                                 }
                             }
-                            product.Imagen = Path.Combine(Path.GetDirectoryName(
-                                             Assembly.GetEntryAssembly().Location),
-                                             "ImagesConfiteria", imgAsignada + ".png");
-                            
+                            product.Imagen = imgAsignada;
                             //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
                             lstPager.Add(product);
                         }
@@ -113,72 +120,76 @@ namespace WPProcinal.Forms.User_Control
 
                     case "P":
                         //no mostrar 165,168 toxineta y queso
-                        foreach (var product in DataService41._Productos.Where(P => P.Tipo.ToUpper() == Type.ToUpper()).ToList())
+                        foreach (var product in DataService41._Productos.Where(P => P.Tipo.ToUpper() == Type.ToUpper() &&
+                                    !P.Descripcion.ToLower().Contains("gas") &&
+                                    !P.Descripcion.ToLower().Contains("agua") &&
+                                    !P.Descripcion.ToLower().Contains("gaf") &&
+                                    !P.Descripcion.ToLower().Contains("adi") &&
+                                    !P.Descripcion.ToLower().Contains("icee")).ToList())
                         {
                             if (product.Precios.Count() > 0)
                             {
 
-                                if (product.Codigo != 165 && product.Codigo != 168 && product.Codigo != 168)
+
+                                decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
+                                decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
+
+                                string imgAsignada = "nofound";
+                                string data = string.Empty;
+                                using (WebClient client = new WebClient())
                                 {
-
-                                    decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
-                                    decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
-
-                                    string imgAsignada = "nofound";
-                                    string data = string.Empty;
-                                    using (WebClient client = new WebClient())
+                                    try
                                     {
-                                        try
+                                        string image =
+                                        $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+
+                                        if (!File.Exists(Path.Combine(Path.GetDirectoryName(
+                                            Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
                                         {
-                                            string image =
-                                            $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-
-                                            if (!File.Exists(Path.Combine(Path.GetDirectoryName(
-                                                Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
+                                            data = client.DownloadString(image);
+                                            if (data != null && data.Length > 3)
                                             {
-                                                data = await client.DownloadStringTaskAsync(image);
-                                                if (data != null && data.Length > 3)
+                                                using (WebClient client2 = new WebClient())
                                                 {
-                                                    using (WebClient client2 = new WebClient())
-                                                    {
-                                                        client2.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
-                                                           Assembly.GetEntryAssembly().Location),
-                                                           "ImagesConfiteria", product.Codigo + ".png"));
-                                                    }
+                                                    client2.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                                                       Assembly.GetEntryAssembly().Location),
+                                                       "ImagesConfiteria", product.Codigo + ".png"));
+                                                }
 
-                                                    imgAsignada = product.Codigo.ToString();
-                                                }
-                                                else
-                                                {
-                                                    imgAsignada = "nofound.png";
-                                                }
+                                                imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                                 Assembly.GetEntryAssembly().Location),
+                                                 "ImagesConfiteria", product.Codigo + ".png");
                                             }
                                             else
                                             {
-                                                imgAsignada = product.Codigo.ToString();
+                                                imgAsignada = "nofound.png";
                                             }
                                         }
-                                        catch (WebException weX)
+                                        else
                                         {
-                                            isValidURL = !isValidURL;
-                                            data = weX.Message;
+                                            imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                             Assembly.GetEntryAssembly().Location),
+                                             "ImagesConfiteria", product.Codigo + ".png");
                                         }
                                     }
-
-                                    
-                                    product.Imagen = Path.Combine(Path.GetDirectoryName(
-                                             Assembly.GetEntryAssembly().Location),
-                                             "ImagesConfiteria", imgAsignada + ".png");
-                                    //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-
-                                    if (General > 0)
+                                    catch (WebException weX)
                                     {
-                                        product.Precios[0].auxGeneral = General;
-                                        product.Precios[0].auxOtroPago = OtroPago;
-
-                                        lstPager.Add(product);
+                                        isValidURL = !isValidURL;
+                                        data = weX.Message;
                                     }
                                 }
+
+                                product.Imagen = imgAsignada;
+                                //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+
+                                if (General > 0)
+                                {
+                                    product.Precios[0].auxGeneral = General;
+                                    product.Precios[0].auxOtroPago = OtroPago;
+
+                                    lstPager.Add(product);
+                                }
+
 
                             }
                         }
@@ -205,7 +216,7 @@ namespace WPProcinal.Forms.User_Control
                                         if (!File.Exists(Path.Combine(Path.GetDirectoryName(
                                             Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
                                         {
-                                            data = await client.DownloadStringTaskAsync(image);
+                                            data = client.DownloadString(image);
                                             if (data != null && data.Length > 3)
                                             {
                                                 using (WebClient client2 = new WebClient())
@@ -215,7 +226,9 @@ namespace WPProcinal.Forms.User_Control
                                                        "ImagesConfiteria", product.Codigo + ".png"));
                                                 }
 
-                                                imgAsignada = product.Codigo.ToString();
+                                                imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                                 Assembly.GetEntryAssembly().Location),
+                                                 "ImagesConfiteria", product.Codigo + ".png");
                                             }
                                             else
                                             {
@@ -224,7 +237,9 @@ namespace WPProcinal.Forms.User_Control
                                         }
                                         else
                                         {
-                                            imgAsignada =  product.Codigo.ToString();
+                                            imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                             Assembly.GetEntryAssembly().Location),
+                                             "ImagesConfiteria", product.Codigo + ".png");
                                         }
                                     }
                                     catch (WebException weX)
@@ -234,10 +249,7 @@ namespace WPProcinal.Forms.User_Control
                                     }
                                 }
 
-                                //product.Imagen = imgAsignada;
-                                product.Imagen = Path.Combine(Path.GetDirectoryName(
-                                             Assembly.GetEntryAssembly().Location),
-                                             "ImagesConfiteria", imgAsignada + ".png");
+                                product.Imagen = imgAsignada;
                                 //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
 
                                 if (General > 0)
@@ -251,7 +263,7 @@ namespace WPProcinal.Forms.User_Control
                         }
                         break;
                     case "O":
-                        foreach (var product in DataService41._Productos.Where(P => P.Descripcion.ToLower().Contains("adic")).ToList())
+                        foreach (var product in DataService41._Productos.Where(P => P.Descripcion.ToLower().Contains("adic") || P.Descripcion.ToLower().Contains("gaf")).ToList())
                         {
                             if (product.Precios.Count() > 0)
                             {
@@ -270,17 +282,19 @@ namespace WPProcinal.Forms.User_Control
                                         if (!File.Exists(Path.Combine(Path.GetDirectoryName(
                                             Assembly.GetEntryAssembly().Location), "ImagesConfiteria", product.Codigo + ".png")))
                                         {
-                                            data = await client.DownloadStringTaskAsync(image);
+                                            data = client.DownloadString(image);
                                             if (data != null && data.Length > 3)
                                             {
                                                 using (WebClient client2 = new WebClient())
                                                 {
-                                                    await client2.DownloadFileTaskAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
+                                                    client2.DownloadFileAsync(new Uri(image), Path.Combine(Path.GetDirectoryName(
                                                        Assembly.GetEntryAssembly().Location),
                                                        "ImagesConfiteria", product.Codigo + ".png"));
                                                 }
 
-                                                imgAsignada = product.Codigo.ToString();
+                                                imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                                 Assembly.GetEntryAssembly().Location),
+                                                 "ImagesConfiteria", product.Codigo + ".png");
                                             }
                                             else
                                             {
@@ -289,7 +303,9 @@ namespace WPProcinal.Forms.User_Control
                                         }
                                         else
                                         {
-                                            imgAsignada = product.Codigo.ToString();
+                                            imgAsignada = Path.Combine(Path.GetDirectoryName(
+                                             Assembly.GetEntryAssembly().Location),
+                                             "ImagesConfiteria", product.Codigo + ".png");
                                         }
                                     }
                                     catch (WebException weX)
@@ -299,14 +315,16 @@ namespace WPProcinal.Forms.User_Control
                                     }
                                 }
 
-                                product.Imagen = Path.Combine(Path.GetDirectoryName(
-                                             Assembly.GetEntryAssembly().Location),
-                                             "ImagesConfiteria", imgAsignada + ".png");
+                                product.Imagen = imgAsignada;
                                 //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
                                 if (General > 0)
+
                                 {
                                     product.Precios[0].auxGeneral = General;
                                     product.Precios[0].auxOtroPago = OtroPago;
+                                    product.Precio = (int)General;
+
+
 
                                     lstPager.Add(product);
                                 }
@@ -317,8 +335,8 @@ namespace WPProcinal.Forms.User_Control
                     default:
                         break;
                 }
+
                 frmLoading.Close();
-                ActivateTimer();
                 view.Source = lstPager;
                 lv_Products.DataContext = view;
             }
@@ -326,39 +344,12 @@ namespace WPProcinal.Forms.User_Control
             {
                 LogService.SaveRequestResponse("UCProducts>InitView", JsonConvert.SerializeObject(ex), 1);
             }
-
-
-            //try
-            //{
-            //    foreach (var product in DataService41._Productos)
-            //    {
-
-            //        if (product.Tipo.ToUpper() == "P")
-            //        {
-            //            if (product.Precios.Count() > 0)
-            //            {
-            //                decimal General = Convert.ToDecimal(product.Precios[0].General.Split('.')[0]);
-            //                decimal OtroPago = Convert.ToDecimal(product.Precios[0].OtroPago.Split('.')[0]);
-            //                product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
-            //                if (General > 0)
-            //                {
-            //                    product.Precios[0].auxGeneral = General;
-            //                    product.Precios[0].auxOtroPago = OtroPago;
-
-            //                    lstPager.Add(product);
-            //                }
-            //            }
-            //        }
-            //    }
-
-            //    view.Source = lstPager;
-            //    lv_Products.DataContext = view;
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogService.SaveRequestResponse("UCProducts>InitView", JsonConvert.SerializeObject(ex), 1);
-            //}
         }
+
+        //public static bool In<T>(this T source, params T[] list)
+        //{
+        //    return list.Contains(source);
+        //}
 
         private bool loadProductos()
         {
@@ -388,6 +379,7 @@ namespace WPProcinal.Forms.User_Control
                 return false;
             }
         }
+
         #endregion
 
         #region "Eventos"
@@ -400,11 +392,10 @@ namespace WPProcinal.Forms.User_Control
             IncrementDecrementProducts(sender, false);
         }
 
-        private void IncrementDecrementProducts(object sender, bool Operation, bool OtherProcess = false)
+        public void IncrementDecrementProducts(object sender, bool Operation, bool OtherProcess = false)
         {
             try
             {
-                //var data = ((sender as Image).DataContext as Producto);
                 if (!OtherProcess)
                 {
                     var data = ((sender as Image).DataContext as Producto);
@@ -473,44 +464,6 @@ namespace WPProcinal.Forms.User_Control
             {
                 LogService.SaveRequestResponse("UCProducts>IncrementDecrementProducts", JsonConvert.SerializeObject(ex), 1);
             }
-
-            //if (Operation)
-            //    {
-            //        Utilities.AddCombo(new Combos
-            //        {
-            //            Name = data.Descripcion,
-            //            Code = Convert.ToInt32(data.Codigo),
-            //            Price = Utilities.dataTransaction.dataUser.Tarjeta != null ? data.Precios[0].auxOtroPago : data.Precios[0].auxGeneral,
-            //            dataProduct = data,
-            //            isCombo = false,
-
-            //        });
-            //    }
-            //    else
-            //    {
-            //        Utilities.DeleteCombo(comboName: data.Descripcion, comboPrice: data.Precios[0].auxOtroPago, dataProduct: data);
-            //    }
-
-            //    ChangeImageBuy();
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogService.SaveRequestResponse("UCProducts>IncrementDecrementProducts", JsonConvert.SerializeObject(ex), 1);
-            //}
-        }
-
-        private void BtnCombos_TouchDown(object sender, TouchEventArgs e)
-        {
-            SetCallBacksNull();
-            try
-            {
-                Switcher.Navigate(new UCProductsCombos());
-            }
-            catch (Exception ex)
-            {
-                LogService.SaveRequestResponse("UCProducts>BtnCombos_TouchDown", JsonConvert.SerializeObject(ex), 1);
-            }
-
         }
 
         private void BtnSalir_TouchDown(object sender, TouchEventArgs e)
@@ -536,17 +489,18 @@ namespace WPProcinal.Forms.User_Control
 
         private void BtnComprar_TouchDown(object sender, TouchEventArgs e)
         {
-            this.IsEnabled = false;
             SetCallBacksNull();
-            ChangePrices();
-            ShowDetailModal();
-        }
-
-        private void BtnMore_TouchDown(object sender, TouchEventArgs e)
-        {
-            SetCallBacksNull();
-            ChangePrices();
-            Switcher.Navigate(new UCSelectProducts());
+            if (BtnPay)
+            {
+                this.IsEnabled = false;
+                ChangePrices();
+                ShowDetailModal();
+            }
+            else
+            {
+                //SetCallBacksNull();
+                Switcher.Navigate(new UCSelectProducts());
+            }
         }
         #endregion
 
@@ -565,10 +519,32 @@ namespace WPProcinal.Forms.User_Control
                 }
                 else
                 {
-                    ActivateTimer();
+                    //ActivateTimer();
                     this.IsEnabled = true;
                     this.Opacity = 1;
-                    PaintDataCombo();
+                    if (DataService41._Combos != null && DataService41._Combos.Count() > 0)
+                    {
+                        _frmConfirmationModal.Close();
+                        PaintDataCombo();
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            foreach (var ListV in lstPager)
+                            {
+                                foreach (var Combos in DataService41._Combos)
+                                {
+                                    if (ListV.Descripcion == Combos.Name)
+                                    {
+                                        ListV.Value = Combos.Quantity;
+                                        lv_Products.Items.Refresh();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else
+                    {
+                        PaintDataCombo();
+                    }
                 }
             }
             catch (Exception ex)
@@ -584,12 +560,15 @@ namespace WPProcinal.Forms.User_Control
                 if (DataService41._Combos.Count > 0)
                 {
                     BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/continuar.png", UriKind.Relative));
-                    //BtnPay = true;
+                    BtnPay = true;
                     BtnMore.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
-                    BtnComprar.Source = new BitmapImage(new Uri(@"/Images/buttons/omitir.png", UriKind.Relative));
+
+                    BtnComprar.Source = new BitmapImage(new Uri(@"/Images/anterior.png", UriKind.Relative));
+                    BtnMore.Visibility = System.Windows.Visibility.Hidden;
+                    BtnPay = false;
                 }
             }
             catch (Exception ex)
@@ -618,6 +597,19 @@ namespace WPProcinal.Forms.User_Control
                             }
                         }
                     }
+                    else
+                    {
+                        foreach (var list in lstPager)
+                        {
+                            if (item.Code == list.Codigo)
+                            {
+                                list.Value = item.Quantity;
+                                lv_Products.Items.Refresh();
+                                codesOk.Add(list.Codigo);
+                            }
+                        }
+                    }
+
                 }
                 foreach (var item in lstPager)
                 {
@@ -633,12 +625,14 @@ namespace WPProcinal.Forms.User_Control
                 LogService.SaveRequestResponse("UCProducts>PaintDataCombo", JsonConvert.SerializeObject(ex), 1);
             }
         }
+
         public void ChangePrices()
         {
             try
             {
                 List<Producto> productos = new List<Producto>();
                 decimal precio = 0;
+
                 foreach (var item in DataService41._Combos)
                 {
                     precio = 0;
@@ -711,6 +705,7 @@ namespace WPProcinal.Forms.User_Control
                                     }
                                 }
                             }
+
                         }
                         else
                         {
@@ -729,19 +724,6 @@ namespace WPProcinal.Forms.User_Control
                                     precio = (item.Price > 0 ? vlr : preciosReceta.auxGeneral) * item.Quantity;
                                 }
                             }
-
-                            //foreach (var preciosReceta in combo.Precios)
-                            //{
-                            //    if (Utilities.dataTransaction.dataUser.Tarjeta != null && preciosReceta.auxOtroPago > 0)
-                            //    {
-                            //        precio = preciosReceta.auxOtroPago * item.Quantity;
-                            //        Utilities.dataTransaction.PrecioCinefans = true;
-                            //    }
-                            //    else
-                            //    {
-                            //        precio = preciosReceta.auxGeneral * item.Quantity;
-                            //    }
-                            //}
                         }
                         productos.Add(combo);
                     }
@@ -844,20 +826,23 @@ namespace WPProcinal.Forms.User_Control
         {
             try
             {
-                tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
-                timer = new TimerTiempo(tbTimer.Text);
-                timer.CallBackClose = response =>
+                this.tbTimer.Text = Utilities.dataPaypad.PaypadConfiguration.generiC_TIMER;
+                this.timer = new TimerTiempo(this.tbTimer.Text);
+                this.timer.CallBackClose = response =>
                 {
-                    Dispatcher.BeginInvoke((Action)delegate
+                    if (response == 1)
                     {
-                        Switcher.Navigate(new UCCinema());
-                    });
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            Switcher.Navigate(new UCCinema());
+                        });
+                    }
                 };
-                timer.CallBackTimer = response =>
+                this.timer.CallBackTimer = response =>
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
-                        tbTimer.Text = response;
+                        this.tbTimer.Text = response;
                     });
                 };
             }
@@ -869,13 +854,22 @@ namespace WPProcinal.Forms.User_Control
 
         void SetCallBacksNull()
         {
-            if (timer != null)
+            if (this.timer != null)
             {
-                timer.CallBackClose = null;
-                timer.CallBackTimer = null;
-                timer.CallBackStop?.Invoke(1);
+                this.timer.CallBackClose = null;
+                this.timer.CallBackTimer = null;
+                this.timer.CallBackStop?.Invoke(1);
             }
         }
         #endregion
+
+        private void BtnMore_TouchDown(object sender, TouchEventArgs e)
+        {
+            SetCallBacksNull();
+            ChangePrices();
+            Switcher.Navigate(new UCSelectProducts());
+        }
     }
+
+
 }
