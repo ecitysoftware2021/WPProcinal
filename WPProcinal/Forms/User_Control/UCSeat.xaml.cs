@@ -23,6 +23,7 @@ namespace WPProcinal.Forms.User_Control
         TimerTiempo timer;
         bool activePay = false;
         public List<ValidationSeats> listLockedSeats;
+        public List<Ubicacione> lstsillavalidar;
         public string[] letters = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
         ApiLocal api;
@@ -45,13 +46,11 @@ namespace WPProcinal.Forms.User_Control
 
                 var time = TimeSpan.FromMinutes(double.Parse(Utilities.dataTransaction.DataFunction.Duration.Split(' ')[0]));
                 TxtDuracion.Text = string.Format("Duración: {0:00}h : {1:00}m", (int)time.TotalHours, time.Minutes);
-
                 LblNumSeats.Content = Utilities.dataTransaction.SelectedTypeSeats.Count.ToString();
                 HideImages();
                 ActivateTimer();
-
+                Utilities.dataTransaction.DataFunction.Secuence = 0;
                 Utilities.Speack("Elige tus ubicaciones y presiona comprar.");
-
             }
             catch (Exception ex)
             {
@@ -195,6 +194,7 @@ namespace WPProcinal.Forms.User_Control
                     Switcher.Navigate(new UCCinema());
                     return;
                 }
+
                 if (Utilities.dataTransaction.DataFunction.CinemaId == (int)Dictionaries.ECinemas.Monterrey)
                 {
                     if (Utilities.dataTransaction.DataFunction.RoomId == 4 || Utilities.dataTransaction.DataFunction.RoomId == 5)
@@ -206,6 +206,7 @@ namespace WPProcinal.Forms.User_Control
                         OrganizePositionOfSeatsInverted(response41);
                     }
                 }
+                
                 else if (Utilities.dataTransaction.DataFunction.CinemaId == (int)Dictionaries.ECinemas.Mayorca)
                 {
                     if (Utilities.dataTransaction.DataFunction.RoomId == 10)
@@ -223,6 +224,7 @@ namespace WPProcinal.Forms.User_Control
                         OrganizePositionOfSeats(response41);
                     }
                 }
+
                 else
                 {
                     OrganizePositionOfSeats(response41);
@@ -467,8 +469,6 @@ namespace WPProcinal.Forms.User_Control
                 {
                     foreach (var item in filas.DescripcionSilla)
                     {
-
-
                         ImageSource imageSource = null;
                         if (item.TipoSilla == "General")
                         {
@@ -477,7 +477,6 @@ namespace WPProcinal.Forms.User_Control
                         else if (item.TipoSilla == "pasillo")
                         {
                             imageSource = GetImage(item.TipoSilla);
-
                         }
                         else
                         {
@@ -688,23 +687,77 @@ namespace WPProcinal.Forms.User_Control
             SelectedSeatsMethod(sender, item);
         }
 
-        private void SelectedSeatsMethod(object sender, ChairsInformation item)
+        private async void SelectedSeatsMethod(object sender, ChairsInformation item)
         {
             try
             {
                 Image image = (Image)sender;
+
+
                 var seatcurrent = Utilities.dataTransaction.SelectedTypeSeats.Where(s => s.Name == item.Name).FirstOrDefault();
                 if (seatcurrent == null)
                 {
                     if (Utilities.dataTransaction.SelectedTypeSeats.Count < Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MaxSillas)
                     {
-                        item.Quantity = 1;
                         Utilities.dataTransaction.SelectedTypeSeats.Add(item);
-                        image.Source = GetImage("R");
+                        
+                         
+                        if (Utilities.dataTransaction.DataFunction.Secuence == 0)
+                         
+                        {
+                            var sec = GetSecuenceValidacion();
+                        }
+
+                        var rs = await Validaestadosilla();
+                        List<Ubicacione> ubicacion = OrganizeSeatsTuReserve();
+                        lstsillavalidar = new List<Ubicacione>();
+                        
+                        lstsillavalidar.Add(new Ubicacione {
+                            Columna = item.RelativeColumn,
+                            Fila = item.RelativeRow,
+                            Tarifa = int.Parse(item.CodTarifa)
+                        });
+                        List<ResponseScogru> response41 = Reserve(lstsillavalidar);
+
+                        if (response41 != null)
+                        {
+                            foreach (var rsult in response41)
+                            {
+                                if (rsult.Respuesta.Contains("exitoso"))
+                                {
+                                    //ShowPay();
+                                    item.Quantity = 1;
+                                    image.Source = GetImage("R");
+                                    break;
+                                }
+                                else
+                                {
+                                    Task.Run(() =>
+                                    {
+                                        Utilities.SendMailErrores($"La silla seleccionada ya no se encuentra disponible: {Utilities.IDTransactionDB}" +
+                                            $" <br> Error: {rsult.Respuesta}");
+                                    });
+
+                                    Utilities.ShowModal(string.Concat("La silla seleccionada ya no se encuentra disponible: ", rsult.Respuesta));
+                                    //ReloadWindow();
+                                    image.Source = GetImage("B");
+                                    Utilities.dataTransaction.SelectedTypeSeats.Remove(item);
+                                    break;
+                                }
+                            }
+                        }
+                        //item.Quantity = 1;
+                        //Utilities.dataTransaction.SelectedTypeSeats.Add(item);
+                        //image.Source = GetImage("R");
                     }
                 }
                 else
                 {
+
+                    Utilities.CancelAssing(new List<ChairsInformation>()
+                    {
+                       item
+                    }, Utilities.dataTransaction.DataFunction);
                     Utilities.dataTransaction.SelectedTypeSeats.Remove(item);
                     image.Source = GetImage(image.Tag.ToString());
                 }
@@ -874,49 +927,61 @@ namespace WPProcinal.Forms.User_Control
 
         private void GoToPay()
         {
+            //TODO:acaaa
+
             try
             {
-                List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
-                var sec = GetSecuence();
-                if (sec)
+                if (Utilities.dataTransaction.DataFunction.Secuence > 0 &&
+                    !string.IsNullOrWhiteSpace(Utilities.dataTransaction.Secuencia)
+                    )
                 {
-                    List<ResponseScogru> responseReserve = Reserve(ubicacione);
-                    if (responseReserve != null)
+                    ShowPay();
+                }
+                else
+                {
+                    List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
+                    var sec = GetSecuence();
+                    if (sec)
                     {
-                        foreach (var item in responseReserve)
+                    
+                        List<ResponseScogru> responseReserve = Reserve(ubicacione);
+                        if (responseReserve != null)
                         {
-                            if (item.Respuesta.Contains("exitoso"))
+                            foreach (var item in responseReserve)
                             {
-                                ShowPay();
-                                break;
-                            }
-                            else
-                            {
-                                Task.Run(() =>
+                                if (item.Respuesta.Contains("exitoso"))
                                 {
-                                    Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
-                                        $" <br> Error: {item.Respuesta}");
-                                });
-                                Utilities.ShowModal(string.Concat("No se pudieron reservar los puestos: ", item.Respuesta));
-                                ReloadWindow();
-                                break;
+                                    ShowPay();
+                                    break;
+                                }
+                                else
+                                {
+                                    Task.Run(() =>
+                                    {
+                                        Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
+                                            $" <br> Error: {item.Respuesta}");
+                                    });
+                                    Utilities.ShowModal(string.Concat("No se pudieron reservar los puestos: ", item.Respuesta));
+                                    ReloadWindow();
+                                    break;
+                                }
                             }
+                        }
+                        else
+                        {
+                            Task.Run(() =>
+                            {
+                                Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB} <br> no hubo respuesta del servicio");
+                            });
+                            Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
+                            ReloadWindow();
+                            return;
                         }
                     }
                     else
                     {
-                        Task.Run(() =>
-                        {
-                            Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB} <br> no hubo respuesta del servicio");
-                        });
-                        Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
                         ReloadWindow();
-                        return;
                     }
-                }
-                else
-                {
-                    ReloadWindow();
                 }
             }
             catch (Exception ex)
@@ -981,6 +1046,7 @@ namespace WPProcinal.Forms.User_Control
                     teatro = Utilities.dataTransaction.DataFunction.CinemaId,
                     tercero = "1"
                 });
+
                 this.IsEnabled = true;
                 frmLoading.Close();
                 if (response41 == null)
@@ -1061,6 +1127,74 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
+        public async Task<List<ResponseTarifa>> Validaestadosilla()
+        {
+            var response41 = await Task.Run(()=> WCFServices41.GetPricesKio(new SCOPLA
+            {
+                FechaFuncion = Utilities.dataTransaction.DataFunction.Date,
+                InicioFuncion = Utilities.dataTransaction.DataFunction.HourFormat,
+                Pelicula = Utilities.dataTransaction.DataFunction.MovieId,
+                Sala = Utilities.dataTransaction.DataFunction.RoomId,
+                teatro = Utilities.dataTransaction.DataFunction.CinemaId,
+                tercero = "1"
+            }));
+
+            this.IsEnabled = true;
+            //frmLoading.Close();
+            if (response41 == null)
+            {
+                Utilities.ShowModal("Lo sentimos, no fué posible consultar las tarifas, por favor intente de nuevo.");
+                
+            }
+            List<string> sinTarifa = new List<string>();
+            foreach (var selectedTypeSeat in Utilities.dataTransaction.SelectedTypeSeats)
+            {
+                var tarifa = new ResponseTarifa();
+                if (Utilities.dataTransaction.dataUser.Tarjeta != null)
+                {
+                    if (Utilities.dataTransaction.DataFunction.Validaciones.ToLower().Equals("no"))
+                    {
+                        tarifa = response41.Where(t => t.silla.ToLower() == "general" && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                    }
+                    else
+                    {
+                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type && t.ClienteFrecuente.ToLower() == "habilitado").FirstOrDefault();
+                    }
+                }
+                else
+                {
+                    if (Utilities.dataTransaction.DataFunction.Validaciones.ToLower().Equals("no"))
+                    {
+                        tarifa = response41.Where(t => t.silla.ToLower() == "general").FirstOrDefault();
+                    }
+                    else
+                    {
+                        tarifa = response41.Where(t => t.silla == selectedTypeSeat.Type).FirstOrDefault();
+                    }
+                }
+
+                if (tarifa != null)
+                {
+                    if (tarifa.silla != null)
+                    {
+                        selectedTypeSeat.Price = Convert.ToDecimal(tarifa.valor);
+                        selectedTypeSeat.CodTarifa = tarifa.codigo.ToString();
+                    }
+                    else
+                    {
+                        sinTarifa.Add(selectedTypeSeat.Name);
+                    }
+                }
+                else
+                {
+                    sinTarifa.Add(selectedTypeSeat.Name);
+                }
+            }
+
+            return response41;
+           
+        }
+
         /// <summary>
         /// Vuelve a cargar la vista si hay error en las sillas
         /// </summary>
@@ -1084,32 +1218,43 @@ namespace WPProcinal.Forms.User_Control
             activePay = true;
             try
             {
-                var sec = GetSecuence();
-                if (sec)
+                //TODO:TENGO QUE VALIDAR ACA
+                //var sec = GetSecuence();
+                //if (sec)
+                if (Utilities.dataTransaction.DataFunction.Secuence > 0)
                 {
                     List<Ubicacione> ubicacione = OrganizeSeatsTuReserve();
-                    List<ResponseScogru> response41 = Reserve(ubicacione);
-                    if (response41 != null)
+                    //List<ResponseScogru> response41 = Reserve(ubicacione);
+                    
+                    //if (response41 != null)
+                    if (Utilities.dataTransaction.DataFunction.Secuence > 0 &&
+                    !string.IsNullOrWhiteSpace(Utilities.dataTransaction.Secuencia)
+                    )
                     {
-                        foreach (var item in response41)
-                        {
-                            if (item.Respuesta.Contains("exitoso"))
-                            {
-                                NavigateToConfectionery();
-                                break;
-                            }
-                            else
-                            {
-                                Task.Run(() =>
-                                {
-                                    Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
-                                        $" <br> Error: {item.Respuesta}");
-                                });
-                                Utilities.ShowModal(string.Concat("No se pudieron reservar los puestos: ", item.Respuesta));
-                                ReloadWindow();
-                                break;
-                            }
-                        }
+                        NavigateToConfectionery();
+
+                        //TODO: comentarie ya que es un reproceso
+
+                        //foreach (var item in response41)
+                        //{
+                        //    if (item.Respuesta.Contains("exitoso"))
+                        //    {
+                        //        NavigateToConfectionery();
+                        //        break;
+                        //    }
+                        //    else
+                        //    {
+                        //        Task.Run(() =>
+                        //        {
+                        //            Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
+                        //                $"<br> Error: {item.Respuesta}");
+                        //        });
+                                
+                        //        Utilities.ShowModal(string.Concat("En este momento no se ", item.Respuesta));
+                        //        ReloadWindow();
+                        //        break;
+                        //    }
+                        //}
                     }
                     else
                     {
@@ -1118,6 +1263,7 @@ namespace WPProcinal.Forms.User_Control
                             Utilities.SendMailErrores($"No fúe posible realizar la reserva en la transaccion: {Utilities.IDTransactionDB}" +
                                 $"");
                         });
+
                         Utilities.ShowModal("Lo sentimos, no se pudieron reservar los puestos, por favor intente de nuevo.");
                         ReloadWindow();
                         return;
@@ -1127,8 +1273,8 @@ namespace WPProcinal.Forms.User_Control
                 {
                     ReloadWindow();
                 }
-
             }
+
             catch (Exception ex)
             {
                 this.IsEnabled = true;
@@ -1148,12 +1294,13 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Columna = item.RelativeColumn,
                     Fila = item.RelativeRow,
-                    Tarifa = int.Parse(item.CodTarifa)
+                    Tarifa = int.Parse((item.CodTarifa == null ? "0" : item.CodTarifa))
                 });
             }
-
             return ubicacione;
         }
+
+
 
         private List<ResponseScogru> Reserve(List<Ubicacione> ubicacione)
         {
@@ -1180,6 +1327,7 @@ namespace WPProcinal.Forms.User_Control
                     tercero = 1,
                     Ubicaciones = ubicacione
                 });
+
                 frmLoading.Close();
                 return response41;
             }
@@ -1221,6 +1369,52 @@ namespace WPProcinal.Forms.User_Control
                     Utilities.dataTransaction.Secuencia = item.Secuencia.ToString();
                 }
                 return true;
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("UCSeat>GetSecuence", JsonConvert.SerializeObject(ex), 1);
+                frmLoading.Close();
+                Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
+                return false;
+            }
+        }
+
+        private bool GetSecuenceValidacion()
+        {
+            FrmLoading frmLoading = new FrmLoading("¡Generando secuencia de compra!");
+            try
+            {
+                if (Utilities.dataTransaction.DataFunction.Secuence == 0)
+                {
+                    frmLoading.Show();
+                    var responseSec41 = WCFServices41.GetSecuence(new SCOSEC
+                    {
+                        Punto = Utilities.dataTransaction.DataFunction.PointOfSale,
+                        teatro = Utilities.dataTransaction.DataFunction.CinemaId,
+                        tercero = "1"
+                    });
+
+                    frmLoading.Close();
+                    if (responseSec41 == null)
+                    {
+                        Task.Run(() =>
+                        {
+                            Utilities.SendMailErrores($"No se pudo obtener la secuencia de compra en la transaccion: {Utilities.IDTransactionDB}" +
+                                $"");
+                        });
+                        Utilities.ShowModal("Lo sentimos, no se pudo obtener la secuencia de compra, por favor intente de nuevo.");
+
+                        return false;
+                    }
+
+                    foreach (var item in responseSec41)
+                    {
+                        Utilities.dataTransaction.DataFunction.Secuence = int.Parse(item.Secuencia.ToString());
+                        Utilities.dataTransaction.Secuencia = item.Secuencia.ToString();
+                    }
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {

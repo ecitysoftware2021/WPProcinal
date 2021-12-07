@@ -28,8 +28,6 @@ namespace WPProcinal.Forms.User_Control
         {
             InitializeComponent();
             
-
-
             DataService41._Combos = new System.Collections.Generic.List<Combos>();
             timerStatePay.Interval = 10000;
             timerStatePay.Elapsed += new System.Timers.ElapsedEventHandler(TimerStatePay_Tick);
@@ -77,7 +75,6 @@ namespace WPProcinal.Forms.User_Control
                     });
                 }
             });
-
         }
 
         private void ConfiguratePublish()
@@ -86,7 +83,8 @@ namespace WPProcinal.Forms.User_Control
             {
                 if (_imageSleader == null)
                 {
-                    _imageSleader = new ImageSleader(Utilities.PublicityPath);
+                    //_imageSleader = new ImageSleader(Utilities.PublicityPath);
+                    _imageSleader = new ImageSleader(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.PublicityRoute);
 
                     this.DataContext = _imageSleader.imageModel;
 

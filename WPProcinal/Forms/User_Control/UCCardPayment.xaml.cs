@@ -331,6 +331,7 @@ namespace WPProcinal.Forms.User_Control
         {
             FrmLoading frmLoading = new FrmLoading("Procesando la compra...");
             frmLoading.Show();
+
             try
             {
                 if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ModalPlate && Utilities.PlateObligatory)
@@ -340,6 +341,7 @@ namespace WPProcinal.Forms.User_Control
                 }
 
                 List<UbicacioneSCOINT> ubicaciones = new List<UbicacioneSCOINT>();
+
                 foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
                 {
                     ubicaciones.Add(new UbicacioneSCOINT
@@ -419,6 +421,7 @@ namespace WPProcinal.Forms.User_Control
                         Productos = productos,
                         PuntoVenta = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.AMBIENTE.puntoVenta,
                         Sala = Utilities.dataTransaction.DataFunction.RoomId,
+
                         teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema,
                         //Telefono = long.Parse(dataClient.Telefono),
                         Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
@@ -430,6 +433,9 @@ namespace WPProcinal.Forms.User_Control
                         Membresia = false,
                         Obs1 = string.IsNullOrEmpty(Utilities.dataTransaction.TIPOAUTO) ? "" : Utilities.dataTransaction.TIPOAUTO
                     });
+
+                    var jsonubicaciones = JsonConvert.SerializeObject(ubicaciones);
+
 
                     frmLoading.Close();
 

@@ -54,7 +54,8 @@ namespace WPProcinal.Forms.User_Control
                 this.Movie = Movie;
                 DataService41.Movie = Movie;
 
-                foreach (var peli in DataService41.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
+                foreach (var peli in DataService41.Peliculas.Pelicula.Where(pe => pe.Id == this.Movie.Id)
+                )
                 {
                     ListFechas(peli.DiasDisponiblesTodosCinemas);
                 }
@@ -86,7 +87,9 @@ namespace WPProcinal.Forms.User_Control
                 {
                     FontS = 35;
                 }
+                
                 GenerateFunctions();
+
                 if (DataService41.Movie.Data.Censura.Contains("15") || DataService41.Movie.Data.Censura.Contains("18"))
                 {
                     frmModal modal = new frmModal(string.Format(Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.MensajeCensura, DataService41.Movie.Data.Censura));
@@ -151,7 +154,6 @@ namespace WPProcinal.Forms.User_Control
 
                 foreach (var peli in DataService41.Peliculas.Pelicula.Where(pe => pe.Data.TituloOriginal == Movie.Data.TituloOriginal))
                 {
-
                     //ListFechas(peli.DiasDisponiblesTodosCinemas);
                     foreach (var Cinema in peli.Cinemas.Cinema.Where(cine => cine.Id == Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()))
                     {

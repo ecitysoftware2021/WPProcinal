@@ -102,7 +102,9 @@ namespace WPProcinal.Forms
 
                     if (Utilities.dataPaypad.State)
                     {
+                        //TODO: comentarie ya que borra los sliders
                         ConfigurePublicity();
+
                         Dispatcher.BeginInvoke((Action)delegate
                         {
                             okServidor.Visibility = Visibility.Visible;
