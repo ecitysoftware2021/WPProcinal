@@ -78,6 +78,8 @@ namespace WPProcinal.Models.ApiLocal
         public AMBIENTE AMBIENTE { get; set; }
         public int MaxSillas { get; set; }
 
+        public bool reloadImages { get; set; }
+
         public void DefinirAmbiente(bool iS_PRODUCTION)
         {
             if (iS_PRODUCTION)

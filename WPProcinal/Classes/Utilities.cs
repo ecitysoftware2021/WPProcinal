@@ -48,6 +48,11 @@ namespace WPProcinal.Classes
         }
 
 
+        /// <summary>
+        /// Variable para poner obligatoria o no la placa
+        /// </summary>
+        public static bool updateImages; 
+
         public static DataTransaction dataTransaction;
 
         /// <summary>
@@ -195,6 +200,19 @@ namespace WPProcinal.Classes
             }
 
             return new BitmapImage(new Uri(string.Concat(filename), UriKind.Relative));
+        }
+
+         public static BitmapImage LoadImageFromFile(Uri path)
+        {
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = path;
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            bitmap.DecodePixelWidth = 900;
+            bitmap.EndInit();
+            bitmap.Freeze(); //This is the magic line that releases/unlocks the file.
+            return bitmap;
         }
 
         /// <summary>

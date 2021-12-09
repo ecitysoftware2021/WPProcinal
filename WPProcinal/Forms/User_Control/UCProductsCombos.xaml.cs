@@ -54,7 +54,8 @@ namespace WPProcinal.Forms.User_Control
 
                     if (product.Tipo.ToUpper() == "C")
                     {
-                        product.Imagen = $"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
+                        //product.Imagen = "ww"; 
+                            //$"{Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.ProductsURL}{product.Codigo}.png";
                         lstPager.Add(product);
                     }
                 }

@@ -67,6 +67,8 @@ namespace WPProcinal.Forms.User_Control
                 Utilities.dataTransaction = new DataTransaction();
                 LstMoviesModel = new ObservableCollection<MoviesViewModel>();
                 lblCinema1.Text = Dictionaries.Cinemas[Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString()];
+                
+                
 
                 this.Dispatcher.Invoke(new ThreadStart(() =>
                 {
@@ -83,11 +85,12 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void DownloadData(Peliculas data)
+        private async void DownloadData(Peliculas data)
         {
             if (data != null)
             {
                 this.IsEnabled = false;
+
                 foreach (var pelicula in data.Pelicula.Where(x => x.Cinemas != null))
                 {
                     try
@@ -168,12 +171,13 @@ namespace WPProcinal.Forms.User_Control
                 string image = pelicula.Data.Imagen;
                 string imgAsignada = "nofound";
   
-
                 bool isValidURL = true;
 
                 if (!File.Exists(Path.Combine(Path.GetDirectoryName(
-                    Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png")))
+                    Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png"))
+                    )
                 {
+
                     string data = string.Empty;
                     using (WebClient client = new WebClient())
                     {
@@ -205,13 +209,14 @@ namespace WPProcinal.Forms.User_Control
                     imgAsignada = pelicula.Data.TituloOriginal.Trim();
                 }
 
+                
+
                 LstMoviesModel.Add(new MoviesViewModel
                 {
                     ImageData =
-                        Utilities.LoadImage(Path.Combine(Path.GetDirectoryName(
-                             Assembly.GetEntryAssembly().Location),
-                             "Imagesmovies", imgAsignada + ".png"), true),
-                    //Utilities.LoadImage(image, true),
+                    Utilities.LoadImageFromFile(new Uri(Path.Combine(Path.GetDirectoryName(
+                    Assembly.GetEntryAssembly().Location),
+                    "Imagesmovies", imgAsignada + ".png"))),
                     Tag = pelicula.Id,
                     Id = pelicula.Id,
                     ImageMovieType = movieType,
@@ -224,10 +229,13 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void CreatePages()
+        private async void CreatePages()
         {
             try
             {
+                //GC.Collect();
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.reloadImages) await ConfigureImg();
+
                 int itemcount = DataService41.Movies.Count;
 
                 // Calculate the total pages
@@ -239,6 +247,7 @@ namespace WPProcinal.Forms.User_Control
 
 
                 Thread.Sleep(1000);
+                
                 view.Source = LstMoviesModel;
                 this.DataContext = view;
                 tbTotalPage.Text = totalPage.ToString();
@@ -249,6 +258,41 @@ namespace WPProcinal.Forms.User_Control
                 AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "CreatePages en frmMovies", EError.Aplication, ELevelError.Medium);
             }
 
+        }
+
+        private Task<bool> ConfigureImg()
+        {
+            try
+            {
+                var task = new Task(() =>
+                {
+                    var movies = Path.Combine(Path.GetDirectoryName(
+                                           Assembly.GetEntryAssembly().Location),
+                                           "Imagesmovies");
+
+                    if (Directory.Exists(movies))
+                    {
+                        foreach (var item in Directory.GetFiles(movies))
+                        {
+                            File.Delete(item);
+                        }
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(movies);
+                    }
+                });
+                task.Start();
+
+                if (!task.IsCompleted) { task.Wait();}
+                return Task.FromResult(task.IsCompleted);
+                
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("frmUcMovies", JsonConvert.SerializeObject(ex.Message), 1);
+                return Task.FromResult(false);
+            }
         }
 
         BitmapImage GetTypeImage(string type)
