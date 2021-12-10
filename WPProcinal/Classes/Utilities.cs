@@ -209,6 +209,25 @@ namespace WPProcinal.Classes
         }
 
         /// <summary>
+        /// Retorna el poster en formato bitmap michael
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static BitmapImage LoadImageFromFile(Uri path)
+        {
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = path;
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            bitmap.DecodePixelWidth = 900;
+            bitmap.EndInit();
+            bitmap.Freeze(); //This is the magic line that releases/unlocks the file.
+            return bitmap;
+        }
+
+        /// <summary>
         /// Metodo para cancelar las reservas en caso de cancelacion de la transaccion o error
         /// </summary>
         /// <param name="typeSeatsCurrent"></param>

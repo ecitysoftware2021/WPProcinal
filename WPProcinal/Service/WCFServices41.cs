@@ -4,12 +4,14 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 using WPProcinal.Classes;
 using WPProcinal.Models;
@@ -1118,7 +1120,7 @@ namespace WPProcinal.Service
     public class Producto : INotifyPropertyChanged
     {
         public long Codigo { get; set; }
-        public string Imagen { get; set; }
+        public BitmapImage Imagen { get; set; }
         public string Descripcion { get; set; }
 
         public string Tipo { get; set; }

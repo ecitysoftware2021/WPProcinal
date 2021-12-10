@@ -13,9 +13,10 @@
         AllowsTransparency="True"
         ShowInTaskbar="False" 
         Topmost="True"
-        Height="450" 
         Width="600"
-        >
+        MaxHeight="600"
+        VerticalAlignment="Center"
+        VerticalContentAlignment="Center">
     <Border 
             BorderBrush="Black" 
             BorderThickness="3,3,3,3"
@@ -41,32 +42,33 @@
                 FontSize="45"
                 Text="Importante"
                 />
-            <TextBlock 
-                x:Name="LblMessage" 
-                HorizontalAlignment="Center"
-                FontFamily="Gotham"
-                Grid.Row="1" 
-                Margin="34,0,32,50"
-                FontSize="25"
-                TextAlignment="Center"
-                TextWrapping="Wrap"
-                VerticalAlignment="Center" 
-                Foreground="white" />
+
+            <ScrollViewer 
+                VerticalScrollBarVisibility="Auto"
+                Grid.Row="1">
+                <TextBlock 
+                    x:Name="LblMessage" 
+                    HorizontalAlignment="Center"
+                    FontFamily="Gotham"
+                    Margin="34,0,32,0"
+                    FontSize="25"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Center" 
+                    Foreground="white" />
+            </ScrollViewer>
 
 
             <Image 
                 HorizontalAlignment="Center"
                 Name="BtnEnd"
-                VerticalAlignment="Bottom"
                 Width="200"
-                   Grid.Row="2"
-                       Margin="0,0,0,0"
-                       Stretch="Uniform"
-                       Source="../Images/Buttons/aceptar.png"
-                           TouchDown="BtnEnd_TouchDown"
-                       />
+                Grid.Row="2"
+                Margin="0,0,0,0"
+                Stretch="Uniform"
+                Source="../Images/Buttons/aceptar.png"
+                TouchDown="BtnEnd_TouchDown"
+                />
         </Grid>
     </Border>
 </Window>
-   
-    

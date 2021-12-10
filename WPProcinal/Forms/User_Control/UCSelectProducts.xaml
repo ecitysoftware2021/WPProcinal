@@ -60,6 +60,8 @@
                     Height="450"
                     Width="450"
                     Grid.Row="1"
+                     BorderThickness="2"
+                    BorderBrush="Silver"
                     CornerRadius="100"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
