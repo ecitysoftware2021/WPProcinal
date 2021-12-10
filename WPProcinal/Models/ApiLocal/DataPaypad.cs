@@ -56,6 +56,9 @@ namespace WPProcinal.Models.ApiLocal
         public string PublicityRoute { get; set; }
         public string MensajeSinDineroInitial { get; set; }
         public bool ModalBioseguridad { get; set; }
+
+        public bool reloadImages { get; set; }
+
         public string MensajeSinDinero { get; set; }
         public string MensajeCovid { get; set; }
         public string UrlImages { get; set; }

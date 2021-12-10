@@ -64,6 +64,8 @@ namespace WPProcinal.Classes
         /// </summary>
         public static bool PlateObligatory { get; set; }
 
+        public static bool updateImages { get; set; }
+
         /// <summary>
         /// Objeto para el sonido de la app
         /// </summary>

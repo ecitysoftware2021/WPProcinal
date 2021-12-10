@@ -28,6 +28,14 @@
                 VerticalAlignment="Top"
                 Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
             />
+            <TextBlock 
+                x:Name="typeSelected"
+                Text=""
+                FontSize="35"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,50,0,0" FontFamily="Arial" FontWeight="Bold"
+            />
         </Grid>
         <Grid Grid.Row="1">
             <ListView 
