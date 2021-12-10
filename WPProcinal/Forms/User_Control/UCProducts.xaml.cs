@@ -211,7 +211,6 @@ namespace WPProcinal.Forms.User_Control
                                     lstPager.Add(product);
                                 }
 
-
                             }
                         }
                         break;
@@ -338,9 +337,6 @@ namespace WPProcinal.Forms.User_Control
                                     product.Precios[0].auxGeneral = General;
                                     product.Precios[0].auxOtroPago = OtroPago;
                                     product.Precio = (int)General;
-
-
-
                                     lstPager.Add(product);
                                 }
                             }
@@ -352,6 +348,12 @@ namespace WPProcinal.Forms.User_Control
                 }
 
                 frmLoading.Close();
+
+                if (Type.ToUpper().Equals("C"))
+                {
+                    lstPager = await organizaProductos(lstPager);
+                }
+
                 view.Source = lstPager;
                 lv_Products.DataContext = view;
                 typeSelected.Text = selected;
@@ -360,6 +362,25 @@ namespace WPProcinal.Forms.User_Control
             {
                 LogService.SaveRequestResponse("UCProducts>InitView", JsonConvert.SerializeObject(ex), 1);
             }
+        }
+
+        public Task<ObservableCollection<Producto>> organizaProductos(ObservableCollection<Producto> productos) 
+        {
+            var json = JsonConvert.SerializeObject(productos);
+
+            var prductos = new ObservableCollection<Producto>(){
+               new Producto{ Codigo = Convert.ToInt32(1553), Descripcion = "Combo colombia magica", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 1553).FirstOrDefault().Imagen },
+               new Producto{ Codigo = Convert.ToInt32(1531), Descripcion = "Combo Quesudo", Tipo="C" , Imagen = lstPager.Where(x => x.Codigo == 1531).FirstOrDefault().Imagen },
+               new Producto{ Codigo = Convert.ToInt32(1532), Descripcion = "Combo Ranchero", Tipo="C" , Imagen = lstPager.Where(x => x.Codigo == 1532).FirstOrDefault().Imagen },
+               new Producto{ Codigo = Convert.ToInt32(1533), Descripcion = "Combo Tender", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 1533).FirstOrDefault().Imagen },
+               new Producto{ Codigo = Convert.ToInt32(1534), Descripcion = "Combo Salchiburguer", Tipo="C", Imagen = lstPager.Where(x => x.Codigo == 1534).FirstOrDefault().Imagen },
+               new Producto{ Codigo = Convert.ToInt32(1314), Descripcion = "Combo 5 AGR Nachos", Tipo="C", Imagen = lstPager.Where(x => x.Codigo == 1314).FirstOrDefault().Imagen },
+               new Producto{ Codigo = Convert.ToInt32(251), Descripcion = "Combo 1", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 251).FirstOrDefault().Imagen },
+               new Producto{ Codigo = Convert.ToInt32(252), Descripcion = "Combo 2", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 252).FirstOrDefault().Imagen },
+               new Producto{ Codigo = Convert.ToInt32(253), Descripcion = "Combo 3", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 253).FirstOrDefault().Imagen },
+               new Producto{ Codigo = Convert.ToInt32(254), Descripcion = "Combo 4", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 254).FirstOrDefault().Imagen }
+            };
+            return Task.FromResult(prductos);
         }
 
         private Task<bool> ConfigureImg()

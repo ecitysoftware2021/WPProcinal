@@ -7,8 +7,8 @@
     xmlns:local="clr-namespace:WPProcinal.Forms.User_Control"
     mc:Ignorable="d" 
     d:DesignHeight="1900"
-    d:DesignWidth="1080"
-    >
+    d:DesignWidth="1080">
+    
     <Grid>
         <Grid.Background>
             <ImageBrush 
@@ -62,13 +62,16 @@
                     Grid.Row="1"
                     CornerRadius="100"
                     VerticalAlignment="Center"
+                    BorderThickness="2"
+                    BorderBrush="Silver"
                     HorizontalAlignment="Center"
                     Margin="20,0,0,30"
                     TouchDown="BrdCombos_TouchDown"
                     Tag="1">
                     <Border.Background>
                         <ImageBrush
-                                ImageSource="/Images/Others/Combos.png">
+                                ImageSource="/Images/Others/Combos.png"
+                            Stretch="Fill">
                         </ImageBrush>
                     </Border.Background>
 

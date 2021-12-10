@@ -17,7 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="500" />
+            <RowDefinition Height="300" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBlock 
@@ -31,7 +31,7 @@
 
             <TextBlock 
                 x:Name="typeSelected"
-                Text="00:05"
+                Text=""
                 FontSize="35"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
