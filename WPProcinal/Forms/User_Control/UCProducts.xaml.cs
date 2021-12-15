@@ -368,7 +368,8 @@ namespace WPProcinal.Forms.User_Control
         {
             var json = JsonConvert.SerializeObject(productos);
 
-            var prductos = new ObservableCollection<Producto>(){
+            var prductos = new ObservableCollection<Producto>()
+            {
                new Producto{ Codigo = Convert.ToInt32(1553), Descripcion = "Combo colombia magica", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 1553).FirstOrDefault().Imagen },
                new Producto{ Codigo = Convert.ToInt32(1531), Descripcion = "Combo Quesudo", Tipo="C" , Imagen = lstPager.Where(x => x.Codigo == 1531).FirstOrDefault().Imagen },
                new Producto{ Codigo = Convert.ToInt32(1532), Descripcion = "Combo Ranchero", Tipo="C" , Imagen = lstPager.Where(x => x.Codigo == 1532).FirstOrDefault().Imagen },
