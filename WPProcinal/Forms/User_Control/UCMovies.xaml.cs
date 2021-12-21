@@ -82,10 +82,17 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void DownloadData(Peliculas data)
+        private async void DownloadData(Peliculas data)
         {
             if (data != null)
             {
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.reloadImages
+                    && Utilities.updateImages == false)
+                {
+                    Utilities.updateImages = true;
+                    await ConfigureImg();
+                }
+
                 this.IsEnabled = false;
                 foreach (var pelicula in data.Pelicula.Where(x => x.Cinemas != null))
                 {
@@ -174,6 +181,7 @@ namespace WPProcinal.Forms.User_Control
            
                 try
                 {
+          
                     if (!File.Exists(Path.Combine(Path.GetDirectoryName(
                                 Assembly.GetEntryAssembly().Location), "Imagesmovies", pelicula.Data.TituloOriginal + ".png")))
                     {
@@ -194,16 +202,15 @@ namespace WPProcinal.Forms.User_Control
                                 }
                             }
                         }
-
                     }
                     else
-
                     {
                         imgAsignada = pelicula.Data.TituloOriginal.Trim();
                     }
                 }
                 catch (WebException weX)
                 {
+                    imgAsignada = "nofound";
                     isValidURL = !isValidURL;
                     data = weX.Message;
                 }
@@ -250,6 +257,37 @@ namespace WPProcinal.Forms.User_Control
             //{
             //    AdminPaypad.SaveErrorControl(JsonConvert.SerializeObject(ex), "LoadMovies en frmMovies", EError.Aplication, ELevelError.Medium);
             //}
+        }
+
+        private Task<bool> ConfigureImg()
+        {
+            try
+            {
+                var task = new Task(() =>
+                {
+                    var ImagesConfiteria = Path.Combine(Path.GetDirectoryName(
+                                           Assembly.GetEntryAssembly().Location),
+                                           "Imagesmovies");
+
+                    if (Directory.Exists(ImagesConfiteria))
+                    {
+                        foreach (var item in Directory.GetFiles(ImagesConfiteria))
+                        {
+                            if (!item.Contains("nofound")) File.Delete(item);
+                        }
+                    }
+                });
+                task.Start();
+
+                if (!task.IsCompleted) { task.Wait(); }
+                return Task.FromResult(task.IsCompleted);
+
+            }
+            catch (Exception ex)
+            {
+                LogService.SaveRequestResponse("frmUcMovies", JsonConvert.SerializeObject(ex.Message), 1);
+                return Task.FromResult(false);
+            }
         }
 
         private void CreatePages()

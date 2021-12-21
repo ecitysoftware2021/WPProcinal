@@ -368,20 +368,36 @@ namespace WPProcinal.Forms.User_Control
         {
             var json = JsonConvert.SerializeObject(productos);
 
-            var prductos = new ObservableCollection<Producto>()
+            var rsreturn = new ObservableCollection<Producto>();
+
+            var pnews = productos.Where(x => x.Codigo.ToString().Length > 3).OrderByDescending(x => x.Codigo);
+            var polds = productos.Where(x => x.Codigo.ToString().Length <= 3).OrderBy(x => x.Codigo);
+
+            foreach (var item in pnews)
             {
-               new Producto{ Codigo = Convert.ToInt32(1553), Descripcion = "Combo colombia magica", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 1553).FirstOrDefault().Imagen },
-               new Producto{ Codigo = Convert.ToInt32(1531), Descripcion = "Combo Quesudo", Tipo="C" , Imagen = lstPager.Where(x => x.Codigo == 1531).FirstOrDefault().Imagen },
-               new Producto{ Codigo = Convert.ToInt32(1532), Descripcion = "Combo Ranchero", Tipo="C" , Imagen = lstPager.Where(x => x.Codigo == 1532).FirstOrDefault().Imagen },
-               new Producto{ Codigo = Convert.ToInt32(1533), Descripcion = "Combo Tender", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 1533).FirstOrDefault().Imagen },
-               new Producto{ Codigo = Convert.ToInt32(1534), Descripcion = "Combo Salchiburguer", Tipo="C", Imagen = lstPager.Where(x => x.Codigo == 1534).FirstOrDefault().Imagen },
-               new Producto{ Codigo = Convert.ToInt32(1314), Descripcion = "Combo 5 AGR Nachos", Tipo="C", Imagen = lstPager.Where(x => x.Codigo == 1314).FirstOrDefault().Imagen },
-               new Producto{ Codigo = Convert.ToInt32(251), Descripcion = "Combo 1", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 251).FirstOrDefault().Imagen },
-               new Producto{ Codigo = Convert.ToInt32(252), Descripcion = "Combo 2", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 252).FirstOrDefault().Imagen },
-               new Producto{ Codigo = Convert.ToInt32(253), Descripcion = "Combo 3", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 253).FirstOrDefault().Imagen },
-               new Producto{ Codigo = Convert.ToInt32(254), Descripcion = "Combo 4", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 254).FirstOrDefault().Imagen }
-            };
-            return Task.FromResult(prductos);
+                rsreturn.Add(item);
+            }
+
+            foreach (var item in polds)
+            {
+                rsreturn.Add(item);
+            }
+            
+
+            //var prductos = new ObservableCollection<Producto>()
+            //{
+            //   //new Producto{ Codigo = Convert.ToInt32(1553), Descripcion = "Combo colombia magica", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 1553).FirstOrDefault().Imagen },
+            //   new Producto{ Codigo = Convert.ToInt32(1531), Descripcion = "Combo Quesudo", Tipo="C" , Imagen = lstPager.Where(x => x.Codigo == 1531).FirstOrDefault().Imagen },
+            //   new Producto{ Codigo = Convert.ToInt32(1532), Descripcion = "Combo Ranchero", Tipo="C" , Imagen = lstPager.Where(x => x.Codigo == 1532).FirstOrDefault().Imagen },
+            //   new Producto{ Codigo = Convert.ToInt32(1533), Descripcion = "Combo Tender", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 1533).FirstOrDefault().Imagen },
+            //   new Producto{ Codigo = Convert.ToInt32(1534), Descripcion = "Combo Salchiburguer", Tipo="C", Imagen = lstPager.Where(x => x.Codigo == 1534).FirstOrDefault().Imagen },
+            //   new Producto{ Codigo = Convert.ToInt32(1314), Descripcion = "Combo 5 AGR Nachos", Tipo="C", Imagen = lstPager.Where(x => x.Codigo == 1314).FirstOrDefault().Imagen },
+            //   new Producto{ Codigo = Convert.ToInt32(251), Descripcion = "Combo 1", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 251).FirstOrDefault().Imagen },
+            //   new Producto{ Codigo = Convert.ToInt32(252), Descripcion = "Combo 2", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 252).FirstOrDefault().Imagen },
+            //   new Producto{ Codigo = Convert.ToInt32(253), Descripcion = "Combo 3", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 253).FirstOrDefault().Imagen },
+            //   new Producto{ Codigo = Convert.ToInt32(254), Descripcion = "Combo 4", Tipo="C" ,Imagen = lstPager.Where(x => x.Codigo == 254).FirstOrDefault().Imagen }
+            //};
+            return Task.FromResult(rsreturn);
         }
 
         private Task<bool> ConfigureImg()
