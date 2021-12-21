@@ -1521,7 +1521,8 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 this.IsEnabled = false;
-                if (activePay)
+                //if (activePay)
+                if (Utilities.dataTransaction != null && Utilities.dataTransaction.SelectedTypeSeats.Count()> 0 )
                 {
                     List<ChairsInformation> lista = new List<ChairsInformation>();
                     foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)

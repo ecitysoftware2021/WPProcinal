@@ -234,7 +234,12 @@ namespace WPProcinal.Forms.User_Control
             try
             {
                 //GC.Collect();
-                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.reloadImages) await ConfigureImg();
+                if (Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.reloadImages
+                      && Utilities.updateImages == false)
+                {
+                    Utilities.updateImages = true;
+                    await ConfigureImg();
+                }
 
                 int itemcount = DataService41.Movies.Count;
 
@@ -274,7 +279,7 @@ namespace WPProcinal.Forms.User_Control
                     {
                         foreach (var item in Directory.GetFiles(movies))
                         {
-                            File.Delete(item);
+                            if (!item.Contains("nofound"))File.Delete(item);
                         }
                     }
                     else
