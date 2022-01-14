@@ -19,6 +19,7 @@ namespace WPProcinal.Classes
 
         public Action<string> callbackError;
         public Action<DataDocument> callbackDocument;
+        public bool Isbusy { get; set; }
         #endregion
 
         public ControlScanner()
@@ -60,16 +61,25 @@ namespace WPProcinal.Classes
         {
             try
             {
-                Thread.Sleep(1000);
-                string response = _BarcodeReader.ReadExisting();
-                if (!string.IsNullOrEmpty(response))
+                if (Isbusy == false)
                 {
-                    ProcessResponseBarcode(response);
+                    Isbusy = true;
+                    //Thread.Sleep(1000);
+                    string response = _BarcodeReader.ReadExisting();
+                    if (!string.IsNullOrEmpty(response))
+                    {
+                        ProcessResponseBarcode(response);
+                    }
+                    else
+                    {
+                        Isbusy = false;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 callbackError?.Invoke(ex.ToString());
+                Isbusy = false;
             }
         }
 
@@ -94,56 +104,29 @@ namespace WPProcinal.Classes
                         string documentData = string.Empty;
                         string fullName = string.Empty;
 
+                        string fechacedula = dataDocument[6].ToString();
+                        var date = fechacedula.Substring(4, 4) + fechacedula.Substring(2, 2) + fechacedula.Substring(0, 2);
+
                         if (dataDocument[5].Contains("M"))
-                        //if (response.IndexOf("tM") > 0)
                         {
                             dataReader.Gender = "Masculino";
-                            //dataReader.Date = response.Substring(response.IndexOf("M") + 2, 8);
-                            dataReader.Date = dataDocument[6];
+                            
+                                                                                                                                                       
+                            dataReader.Date = date;
                             documentData = response.Substring(0, response.IndexOf("\tM"));
-                            //documentData = response;
                         }
                         else
                         {
                             documentData = response.Substring(0, response.IndexOf("F"));
-                            //dataReader.Date = response.Substring(response.IndexOf("F") + 2, 8);
-                            dataReader.Date = dataDocument[6];
+                            dataReader.Date = date;
                             dataReader.Gender = "Femenino";
                         }
 
-                        //foreach (var item in documentData.ToCharArray())
-                        //{
-                        //    if (char.IsLetter(item))
-                        //    {
-                        //        fullName += item;
-                        //    }
-                        //    else if (char.IsWhiteSpace(item) || item.Equals('\0'))
-                        //    {
-                        //        fullName += " ";
-                        //    }
-                        //    else if (char.IsNumber(item))
-                        //    {
-                        //        dataReader.Document += item;
-                        //    }
-                        //}
-                        //fullName = (fullName.TrimStart()).TrimEnd();
-
                         fullName = (fName.TrimStart()).TrimEnd();
-                        //dataReader.Document = dataReader.Document.Substring(dataReader.Document.Length - 10, 10);
                         dataReader.Document = document;
                         dataReader.FullName = fName;
 
-                        //foreach (var item in fullName.Split(' '))
-                        //{
-                        //    if (!string.IsNullOrEmpty(item) && item.Length > 1)
-                        //    {
-                        //        dataReader.FullName += string.Concat(item, " ");
-                        //    }
-                        //}
-
                         dataReader.FirstName = dataReader.FullName.Split(' ')[2] ?? string.Empty;
-                        //dataReader.FirstName = dataReader.FullName.Split(' ')[2] ?? string.Empty;
-                        //dataReader.SecondName = dataReader.FullName.Split(' ')[3] ?? string.Empty;
                         dataReader.SecondName = dataDocument[4] ?? string.Empty;
                         dataReader.LastName = dataReader.FullName.Split(' ')[0] ?? string.Empty;
                         dataReader.SecondLastName = dataReader.FullName.Split(' ')[1] ?? string.Empty;
@@ -151,10 +134,12 @@ namespace WPProcinal.Classes
                         if (!string.IsNullOrEmpty(dataReader.Document) && !string.IsNullOrEmpty(dataReader.FullName))
                         {
                             callbackDocument?.Invoke(dataReader);
+                         
                         }
                         else
                         {
                             callbackError?.Invoke("Datos de lectura imcompletos");
+                        
                         }
                     }
                     else
@@ -166,11 +151,15 @@ namespace WPProcinal.Classes
                 {
                     callbackError?.Invoke("no se logro realizar la lectura...");
                 }
+                
             }
             catch (Exception ex)
             {
+                Isbusy = false;
                 callbackError?.Invoke(ex.ToString());
             }
+            Isbusy = false;
+
         }
         #region "Scanner"
         public void ClosePortScanner()

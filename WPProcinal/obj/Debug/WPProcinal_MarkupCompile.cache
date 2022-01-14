@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\
+C:\Users\A320\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\
 WPProcinal
 none
 false
 DEBUG;TRACE
-C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\App.xaml
-251360153876
+C:\Users\A320\Documents\GitHub\WPProcinal\WPProcinal\App.xaml
+251350636139
 
-66-613423895
-381437961289
+661044578671
+38885575378
 Forms\frmConfigurate.xaml;Forms\frmConfirmationModal.xaml;Forms\frmDispenser.xaml;Forms\FrmLoading.xaml;Forms\frmModal.xaml;Forms\frmModalCineFan.xaml;Forms\FrmModalDeletePay.xaml;Forms\frmModalLogin.xaml;Forms\frmRegister.xaml;Forms\ModalBioseguridad.xaml;Forms\ModalCovid.xaml;Forms\Opciones.xaml;Forms\User_Control\UCCardPayment.xaml;Forms\User_Control\UCCinema.xaml;Forms\User_Control\UCFinalTransaction.xaml;Forms\User_Control\UCMovies.xaml;Forms\User_Control\UCPayCine.xaml;Forms\User_Control\UCProducts.xaml;Forms\User_Control\UCProductsCombos.xaml;Forms\User_Control\UCSchedule.xaml;Forms\User_Control\UCSeat.xaml;Forms\User_Control\UCSelectProducts.xaml;Forms\WModal.xaml;Forms\WPlateModal.xaml;Forms\WTCModal.xaml;
 
 False

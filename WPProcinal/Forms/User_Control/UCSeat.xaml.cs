@@ -684,13 +684,14 @@ namespace WPProcinal.Forms.User_Control
 
         private void MSelectedsetas(object sender, TouchEventArgs eh, ChairsInformation item)
         {
-            SelectedSeatsMethod(sender, item);
+            if (this.IsEnabled = true)SelectedSeatsMethod(sender, item);
         }
 
         private async void SelectedSeatsMethod(object sender, ChairsInformation item)
         {
             try
             {
+                this.IsEnabled = false;
                 Image image = (Image)sender;
 
 
@@ -771,6 +772,7 @@ namespace WPProcinal.Forms.User_Control
                 EError.Aplication,
                 ELevelError.Mild);
             }
+            this.IsEnabled = true;
         }
 
         private ImageSource GetImage(string ckeck)
@@ -1139,7 +1141,7 @@ namespace WPProcinal.Forms.User_Control
                 tercero = "1"
             }));
 
-            this.IsEnabled = true;
+            //this.IsEnabled = true;
             //frmLoading.Close();
             if (response41 == null)
             {
