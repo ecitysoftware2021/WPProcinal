@@ -96,9 +96,9 @@
 
         </Grid>
 
+
+
         <Grid x:Name="gridFechasPrincipal"  Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="Top" Margin="0,-170,0,0">
-
-
             <ListView x:Name="lv_DateName"
                       HorizontalAlignment="Center" 
                       VerticalAlignment="Top"
@@ -232,18 +232,30 @@
             Name="btnMapSeats" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <materialDesign:TransitioningContent.OpeningEffects>
                 <materialDesign:TransitionEffect Kind="SlideInFromLeft"  Duration="0:0:1.9"/>
-            </materialDesign:TransitioningContent.OpeningEffects>
+            </materialDesign:TransitioningContent.OpeningEffects
+                >
             <Grid >
-                <ListView x:Name="lvSchedule"
-                HorizontalAlignment="Center" 
-                      Width="1060"
-                VerticalAlignment="Top"
-                Margin="0,0,0,0"
-                ItemsSource="{Binding}">
+                <Label Content="Seleccione Horario deseado" Foreground="White"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Margin="0,-35,0,0"
+                       FontSize="24"
+                       FontWeight="DemiBold"/>
+
+                <ListView 
+                    x:Name="lvSchedule"
+                    HorizontalAlignment="Center" 
+                    Width="1060"
+                    VerticalAlignment="Top"
+                    Margin="0"
+                    ItemsSource="{Binding}"
+                    >
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel  Orientation="Vertical" >
-                                <Grid>
+                            <StackPanel Orientation="Vertical"
+                                        Focusable="False">
+                                <Grid
+                                    >
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>

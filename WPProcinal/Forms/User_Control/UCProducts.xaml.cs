@@ -52,7 +52,7 @@ namespace WPProcinal.Forms.User_Control
             loadProductos();
             InitView();
             //PaintDataCombo();
-            ActivateTimer();
+          
         }
         #endregion
 
@@ -78,10 +78,49 @@ namespace WPProcinal.Forms.User_Control
                 {
                     case "C":
                         selected = "Combos";
+
                         foreach (var product in DataService41._Productos.Where(P => P.Tipo.ToUpper() == Type.ToUpper()).ToList())
                         {
                             string imgAsignada = "nofound";
                             string data = string.Empty;
+                            product.Precios = new List<Precio>();
+                            var dt = new Precio();
+
+                            decimal precio = 0;
+
+
+                            if (product.Receta != null)
+                            {
+                                foreach (var receta in product.Receta)
+                                {
+                                    if (receta.Precios != null) precio += decimal.Parse(receta.Precios.FirstOrDefault().General.Split('.')[0]) * receta.Cantidad;
+
+                                    if (receta.RecetaReceta != null)
+                                    {
+                                        foreach (var preciosReceta in receta.RecetaReceta.Where(rc =>
+                                                                                                rc.Descripcion.ToLower().Contains("gaseosa") ||
+                                                                                                rc.Descripcion.ToLower().Contains("perro")))
+                                        {
+                                            if (preciosReceta.Precios != null)
+                                            {
+                                                decimal otroPago = decimal.Parse(preciosReceta.Precios.FirstOrDefault().OtroPago.Split('.')[0]);
+                                                if (Utilities.dataTransaction.dataUser.Tarjeta != null && otroPago > 0)
+                                                {
+                                                    precio += otroPago;
+                                                    Utilities.dataTransaction.PrecioCinefans = true;
+                                                }
+                                                else
+                                                {
+                                                    precio += decimal.Parse(preciosReceta.Precios.FirstOrDefault().General.Split('.')[0]) * receta.Cantidad;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    dt.auxGeneral = precio;
+                                    product.Precios.Add(dt);
+                                }
+
+                            }
 
                             try
                             {
@@ -357,6 +396,7 @@ namespace WPProcinal.Forms.User_Control
                 view.Source = lstPager;
                 lv_Products.DataContext = view;
                 typeSelected.Text = selected;
+                ActivateTimer();
             }
             catch (Exception ex)
             {
@@ -382,7 +422,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 rsreturn.Add(item);
             }
-            
+
 
             //var prductos = new ObservableCollection<Producto>()
             //{
@@ -445,6 +485,8 @@ namespace WPProcinal.Forms.User_Control
                 teatro = Utilities.dataPaypad.PaypadConfiguration.ExtrA_DATA.CodCinema.ToString(),
                 tercero = "1"
             });
+
+            var dtproductos = JsonConvert.SerializeObject(combos);
 
             frmLoading.Close();
             if (combos != null)
@@ -772,6 +814,7 @@ namespace WPProcinal.Forms.User_Control
                                     {
                                         receta.RecetaReceta = receta.RecetaReceta.Take(int.Parse(receta.Cantidad.ToString())).ToList();
                                     }
+
                                     foreach (var preciosReceta in receta.RecetaReceta)
                                     {
                                         if (preciosReceta.Precios != null)
@@ -957,6 +1000,4 @@ namespace WPProcinal.Forms.User_Control
             Switcher.Navigate(new UCSelectProducts());
         }
     }
-
-
 }

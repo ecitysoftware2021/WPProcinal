@@ -82,6 +82,20 @@ namespace WPProcinal.Forms.User_Control
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
+                        if (Utilities.dataTransaction != null && Utilities.dataTransaction.SelectedTypeSeats.Count() > 0)
+                        {
+                            List<ChairsInformation> lista = new List<ChairsInformation>();
+                            foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
+                            {
+                                lista.Add(item);
+                            }
+                            this.IsEnabled = false;
+                            FrmLoading frmLoading = new FrmLoading("Eliminando preventas, espere por favor...");
+                            frmLoading.Show();
+                            Utilities.CancelAssing(Utilities.dataTransaction.SelectedTypeSeats, Utilities.dataTransaction.DataFunction);
+                            frmLoading.Close();
+                            this.IsEnabled = true;
+                        }
                         Switcher.Navigate(new UCCinema());
                     });
                 };
@@ -684,16 +698,15 @@ namespace WPProcinal.Forms.User_Control
 
         private void MSelectedsetas(object sender, TouchEventArgs eh, ChairsInformation item)
         {
-            SelectedSeatsMethod(sender, item);
+            if (this.IsEnabled==true) SelectedSeatsMethod(sender, item);
         }
 
         private async void SelectedSeatsMethod(object sender, ChairsInformation item)
         {
             try
             {
+                this.IsEnabled = false;
                 Image image = (Image)sender;
-
-
                 var seatcurrent = Utilities.dataTransaction.SelectedTypeSeats.Where(s => s.Name == item.Name).FirstOrDefault();
                 if (seatcurrent == null)
                 {
@@ -703,12 +716,12 @@ namespace WPProcinal.Forms.User_Control
 
 
                         if (Utilities.dataTransaction.DataFunction.Secuence == 0)
-
                         {
                             var sec = GetSecuenceValidacion();
                         }
 
                         var rs = await Validaestadosilla();
+                        
                         List<Ubicacione> ubicacion = OrganizeSeatsTuReserve();
                         lstsillavalidar = new List<Ubicacione>();
 
@@ -718,8 +731,8 @@ namespace WPProcinal.Forms.User_Control
                             Fila = item.RelativeRow,
                             Tarifa = int.Parse(item.CodTarifa)
                         });
-                        List<ResponseScogru> response41 = Reserve(lstsillavalidar);
-
+                        
+                        var response41 = await Reserve(lstsillavalidar);
                         if (response41 != null)
                         {
                             foreach (var rsult in response41)
@@ -733,11 +746,11 @@ namespace WPProcinal.Forms.User_Control
                                 }
                                 else
                                 {
-                                    Task.Run(() =>
-                                    {
-                                        Utilities.SendMailErrores($"La silla seleccionada ya no se encuentra disponible: {Utilities.IDTransactionDB}" +
-                                            $" <br> Error: {rsult.Respuesta}");
-                                    });
+                                    //Task.Run(() =>
+                                    //{
+                                    //    Utilities.SendMailErrores($"La silla seleccionada ya no se encuentra disponible: {Utilities.IDTransactionDB}" +
+                                    //        $" <br> Error: {rsult.Respuesta}");
+                                    //});
 
                                     Utilities.ShowModal(string.Concat("La silla seleccionada ya no se encuentra disponible: ", rsult.Respuesta));
                                     //ReloadWindow();
@@ -747,9 +760,6 @@ namespace WPProcinal.Forms.User_Control
                                 }
                             }
                         }
-                        //item.Quantity = 1;
-                        //Utilities.dataTransaction.SelectedTypeSeats.Add(item);
-                        //image.Source = GetImage("R");
                     }
                 }
                 else
@@ -772,6 +782,7 @@ namespace WPProcinal.Forms.User_Control
                 EError.Aplication,
                 ELevelError.Mild);
             }
+            this.IsEnabled = true;
         }
 
         private ImageSource GetImage(string ckeck)
@@ -926,7 +937,7 @@ namespace WPProcinal.Forms.User_Control
             }
         }
 
-        private void GoToPay()
+        private async void GoToPay()
         {
             //TODO:acaaa
 
@@ -945,7 +956,7 @@ namespace WPProcinal.Forms.User_Control
                     if (sec)
                     {
 
-                        List<ResponseScogru> responseReserve = Reserve(ubicacione);
+                         var responseReserve = await Reserve(ubicacione);
                         if (responseReserve != null)
                         {
                             foreach (var item in responseReserve)
@@ -1140,7 +1151,7 @@ namespace WPProcinal.Forms.User_Control
                 tercero = "1"
             }));
 
-            this.IsEnabled = true;
+        
             //frmLoading.Close();
             if (response41 == null)
             {
@@ -1192,6 +1203,7 @@ namespace WPProcinal.Forms.User_Control
                 }
             }
 
+            //this.IsEnabled = true;
             return response41;
 
         }
@@ -1303,7 +1315,7 @@ namespace WPProcinal.Forms.User_Control
 
 
 
-        private List<ResponseScogru> Reserve(List<Ubicacione> ubicacione)
+        private async Task<List<ResponseScogru>> Reserve(List<Ubicacione> ubicacione)
         {
             try
             {
@@ -1311,7 +1323,7 @@ namespace WPProcinal.Forms.User_Control
                 FrmLoading frmLoading = new FrmLoading("¡Reservando los puestos seleccionados!");
                 frmLoading.Show();
 
-                var response41 = WCFServices41.PostPreventa(new SCOGRU
+                var response41 = await Task.Run(()=> WCFServices41.PostPreventa(new SCOGRU
                 {
                     Apellido = dataClient.Apellido,
                     Descripcion = Utilities.dataTransaction.DataFunction.MovieName,
@@ -1327,10 +1339,10 @@ namespace WPProcinal.Forms.User_Control
                     Telefono = !string.IsNullOrEmpty(dataClient.Telefono) ? long.Parse(dataClient.Telefono) : 0,
                     tercero = 1,
                     Ubicaciones = ubicacione
-                });
+                }));
 
                 frmLoading.Close();
-                return response41;
+                return  response41;
             }
             catch (Exception ex)
             {
@@ -1523,7 +1535,7 @@ namespace WPProcinal.Forms.User_Control
             {
                 this.IsEnabled = false;
                 //if (!activePay)
-                if (Utilities.dataTransaction!=null && Utilities.dataTransaction.SelectedTypeSeats.Count() > 0)
+                if (Utilities.dataTransaction !=null && Utilities.dataTransaction.SelectedTypeSeats.Count() > 0)
                 {
                     List<ChairsInformation> lista = new List<ChairsInformation>();
                     foreach (var item in Utilities.dataTransaction.SelectedTypeSeats)
