@@ -855,3 +855,4 @@ C:\Users\A320\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.exe
 C:\Users\A320\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.pdb
 C:\Users\A320\Documents\GitHub\WPProcinal\WPProcinal\bin\Debug\WPProcinal.pdb
 C:\Users\A320\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csproj.AssemblyReference.cache
+C:\Users\H-81\Documents\GitHub\WPProcinal\WPProcinal\obj\Debug\WPProcinal.csprojAssemblyReference.cache
